@@ -1,8 +1,8 @@
 ---
 title: "Introduction"
 description: "Nightingale is an open-source project focused on alerting. Similar to Grafana's data source integration approach, Nightingale also connects with various existing data sources. However, while Grafana focuses on visualization, Nightingale emphasizes alerting engines."
-date: 2020-10-06T08:48:57+00:00
-lastmod: 2020-10-06T08:48:57+00:00
+date: 2020-10-06T00:48:57+08:00
+lastmod: 2025-01-25T22:33:27+08:00
 draft: false
 images: []
 menu:
@@ -12,7 +12,7 @@ weight: 100
 toc: true
 ---
 
-Nightingale is an open-source project focused on alerting. Similar to Grafana's data source integration approach, Nightingale also connects with various existing data sources. However, while Grafana focuses on visualization, Nightingale focuses on alerting engines.
+Nightingale is an open-source project focused on alerting. Similar to Grafana's data source integration approach, Nightingale also connects with various existing data sources. However, while Grafana focuses on visualization, Nightingale focuses on alerting.
 
 ## Repo
 
@@ -23,36 +23,23 @@ Any issues or PRs are welcome!
 
 ## Architecture
 
-<img src="/images/intro/arch-simple.png" />
+<img src="/img/prologue/intro/product-arch.png" />
 <br />
 <br />
 
-The Nightingale project is very open and can interact with common collectors in the open source community, such as categraf, telegraf, datadog-agent, grafana-agent, as well as common time series databases in the open source community, such as Prometheus, VictoriaMetrics, Thanos, as well as logging stores, such as ElasticSearch, Loki, as well as common notification mediums, such as Slack, mm, Dingtalk, Wecom.
+Nightingale can integrate with various data sources such as Prometheus, VictoriaMetrics, Elasticsearch, and Loki. It queries metrics and logs based on the alert rules configured by users, makes alert determinations, and then generates alert events, which are pushed to various notification channels.
 
 ## Key Capabilities
 
-<img src="/images/intro/rule-config.png" />
+<img src="/img/prologue/intro/alert-rules.png" />
 <br />
 <br />
 
-Nightingle can be used as an alert engine to make anomaly judgment on data. It supports to configure different effective time for alert strategies, multiple judgment rules can be configured within the same alert strategy, and multiple rules can be inhibited according to the severity.
+Nightingale enables flexible alarm configuration. It supports both metric and log data sources. Users can configure aspects such as the active time periods of alarm rules, the clusters in which the rules are effective, and event relabeling.
 
-<img src="/images/intro/dashboard-black.png" />
+<img src="/img/prologue/intro/dashboard-host.png" />
 <br />
 <br />
 
-Nightingale can be used as a visualization tool, similar to Grafana, to view metrics and log data, and supports making dashboards, which support pie charts, line charts, and many other chart types.
-
-<img src="/images/intro/integrations.png" />
-<br />
-<br />
-
-Nightingale has built-in alerting rules and dashboards for different middleware and databases right out of the box.
-
-<img src="/images/intro/elasticsearch-index-patterns.png" />
-<br />
-<br />
-
-Nightingale supports Kibana-like query exploration, which allows you to filter logs by keywords and filters.
-
+Although Nightingale's visualization capabilities are not as strong as those of Grafana, it still supports common dashboard chart types. Moreover, it has built-in alarm rules and dashboards for various middleware and databases, making it ready-to-use. 
 
