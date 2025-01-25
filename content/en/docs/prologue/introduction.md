@@ -12,7 +12,7 @@ weight: 100
 toc: true
 ---
 
-Nightingale Monitoring, with the English name Nightingale, is an open-source project focused on alerting. Similar to Grafana's data source integration approach, Nightingale also connects with various existing data sources. However, while Grafana focuses on visualization, Nightingale emphasizes alerting engines. For instance, by integrating data sources such as Prometheus, VictoriaMetrics, Elasticsearch, etc., into Nightingale, you can configure alert rules within Nightingale for metric and log alerts. Of course, Nightingale does more than just alerting; it also provides ad-hoc querying, metric views, dashboards, and other visualization capabilities. However, in terms of visualization, it is not as advanced as Grafana.
+Nightingale is an open-source project focused on alerting. Similar to Grafana's data source integration approach, Nightingale also connects with various existing data sources. However, while Grafana focuses on visualization, Nightingale focuses alerting engines.
 
 ## Repo
 
