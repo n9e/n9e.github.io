@@ -21,44 +21,18 @@
         <div class="col-lg-5">
           <h2 class="h4">开箱即用</h2>
           <p>
-            支持 Docker、Helm Chart、Binary等多种部署方式；
-            支持 Categraf、Telegraf、Grafana-agent、Datadog-agent 等常见的采集器；
-            内置常见中间件和云服务的仪表盘模版、告警规则模版，导入即可快速使用；
-            一个工具解决数据采集、可视化、告警、通知等问题；
+            内置各类中间件、数据库的告警规则、指标说明、仪表盘等，开箱即用；可对接 Categraf、Telegraf、Datadog-agent、各类 Exporter 等常用采集器
           </p>
         </div>
         <div class="col-lg-5">
           <h2 class="h4">专业告警</h2>
           <p>
-            可视化的管理和配置告警，告警规则功能丰富，支持组合告警策略、多生效周期、告警屏蔽、告警订阅、告警回调，支持告警多种送达渠道，支持告警自愈、告警事件管理等。可以在一个平台上配置和管理多个Region的告警。
-          </p>
-        </div>
-        <div class="col-lg-5">
-          <h2 class="h4">云原生</h2>
-          <p>
-            支持 K8s 数据采集和监控；
-            支持 OpenTelemetry 协议和采集器；
-            兼容 Grafana 仪表盘；
-            可接入 Prometheus、VictoriaMetrics、M3DB、ElasticSearch、ClickHouse 等多种数据源；
-          </p>
-        </div>
-      </div>
-      <div class="row justify-content-center text-center">
-        <div class="col-lg-5">
-          <h2 class="h4">高性能、高可用</h2>
-          <p>
-            多数据源管理引擎、高性能时序库、水平扩展的架构、无单点的设计，决定了夜莺的高性能和高可用。夜莺可以满足数亿时间线的采集、存储、告警分析场景，节省大量成本，已在上千家企业部署落地，经受了严苛的生产实践检验。
-          </p>
-        </div>
-        <div class="col-lg-5">
-          <h2 class="h4">灵活扩展、中心化管理</h2>
-          <p>
-            夜莺监控，可部署在 1 核 1G 的云主机，可在上百台机器集群化部署，可运行在 K8s 中；也可将时序库、告警引擎等组件下沉到各Region，统一管理多个边缘节点，解决多Region监控数据割裂，缺乏统一视图的难题。
+            同时支持指标和日志的告警；支持告警规则的可视化配置和管理；支持一套规则生效到多个数据源；支持边缘机房部署单独的告警引擎提升告警可用性；支持告警抑制、屏蔽、订阅、多种通知媒介、事件 Relabel 等
           </p>
         </div>
         <div class="col-lg-5">
           <h2 class="h4">开放社区</h2>
-          <p>托管于<a target="_blank" href="https://www.ccf.org.cn/kyfzwyh/">中国计算机学会开源发展委员会</a>，有<a target="_blank" href="https://flashcat.cloud/">快猫星云</a>和众多公司的持续投入，和数千名社区用户的积极参与，以及夜莺监控项目清晰明确的定位，都保证了夜莺开源社区健康、长久的发展。活跃、专业的社区用户也在持续沉淀更多的最佳实践于产品中</p>
+          <p>托管于<a target="_blank" href="https://www.ccf.org.cn/kyfzwyh/">中国计算机学会开源发展委员会</a>，依托基金会运作，有数千名社区用户的积极参与，保证了夜莺开源社区健康、长久的发展</p>
         </div>
       </div>
     </div>
@@ -69,29 +43,15 @@
       <div class="row justify-content-center text-center">
         <div class="col-lg-5">
           <h2 class="h4">Out of the box</h2>
-          <p>Supports Docker, Helm Chart, cloud services and other deployment methods; integrates data collection, monitoring, and visualization; built-in monitoring dashboards, shortcut views, and alerting rule templates, which can be imported for quick use; dramatically reduces the cost of construction, learning, and use of cloud-native monitoring systems.</p>
+          <p>Nightingale has built-in alerting rules, metric descriptions, dashboards, etc. for various middleware and databases, allowing for out-of-box use. Additionally, it can integrate with popular collectors like Categraf, Telegraf, Datadog-agent, and various Exporters</p>
         </div>
         <div class="col-lg-5">
           <h2 class="h4">Professional alerting</h2>
-          <p>Visualized alerting configuration and management, support for rich alerting rules, provide muting rules, subscription rules configuration capabilities, support for multiple alarm delivery channels, support for alarm self-healing, alarm event management, etc.</p>
-        </div>
-        <div class="col-lg-5">
-          <h2 class="h4">Cloud-native</h2>
-          <p>Rapidly build an enterprise-grade cloud-native monitoring system in a turnkey manner, supporting multiple collectors such as Categraf, Telegraf, Grafana-agent, etc., multiple databases such as Prometheus, VictoriaMetrics, M3DB, ElasticSearch, etc., and compatibility with Grafana dashboards, for seamless integration into the cloud-native ecosystem.</p>
-        </div>
-      </div>
-      <div class="row justify-content-center text-center">
-        <div class="col-lg-5">
-          <h2 class="h4">High performance, high availability</h2>
-          <p>Thanks to Nightingale's multi-data source management engine, and Nightingale's excellent architectural design on the engine side, with the help of high-performance timing libraries, it can satisfy hundreds of millions of timeline collection, storage, alarm analysis scenarios, saving a lot of costs; Nightingale monitoring components can be horizontally scalable, with no single point, and have been deployed in thousands of enterprises, and have withstood the rigorous production practice test!</p>
-        </div>
-        <div class="col-lg-5">
-          <h2 class="h4">Flexible scaling, centralized management</h2>
-          <p>Nightingale can be deployed in a 1-core 1G cloud host, can be deployed in hundreds of machines clustered, can be run in K8s; can also be timing libraries, alarm engines and other components sunk to each machine room, each Region, taking into account the edge of the deployment and the centralized unified management, to solve the problem of fragmentation of the data, the lack of a unified view of the problem.</p>
+          <p>Nightingale supports alerting for both metrics and logs. A single set of rules can be applied to multiple data sources. Moreover, it supports features such as inhibit, mute, subscription, multiple notification mediums, and event relabeling.</p>
         </div>
         <div class="col-lg-5">
           <h2 class="h4">Open community</h2>
-          <p>Hosted by the Open Source Development Committee of the China Computer Federation, with the continuous investment of <a target="_blank" href="https://flashcat.cloud/">Flashcat</a> and many other companies, and the active participation of thousands of community users, as well as the clear positioning of the Nightingale monitoring project, have ensured that the Nightingale open source community is healthy and long-lasting development. The active and professional community users are also continuing to precipitate more and more best practices in the product.</p>
+          <p>Nightingale is hosted by the Open Source Development Committee of the China Computer Federation, has thousands of community users.</p>
         </div>
       </div>
     </div>
