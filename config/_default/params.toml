@@ -54,15 +54,15 @@ lqipWidth = "20x"
 smallLimit = "300"
 
 # Footer
-footer = "&copy; 2023 CCF·Nightingale, all rights reserved."
+footer = "&copy; 2025 CCF·Nightingale, all rights reserved."
 
 # Feed
-copyRight = "© 2023 CCF·Nightingale, all rights reserved."
+copyRight = "© 2025 CCF·Nightingale, all rights reserved."
 
 # Alert
 alert = false
 alertDismissable = true
-alertText = '''夜莺技术团队企业行：稳定性建设经验分享、技术交流、收集监控需求为下个版本做准备，<a class="alert-link" href="https://www.wjx.cn/vm/YhqWajx.aspx" target="_blank">点此报名</a>'''
+alertText = '''xxx'''
 
 # Edit Page
 # repoHost [Github | Gitea | GitLab | Bitbucket | BitbucketServer ] is used for building the edit link based on git hoster
