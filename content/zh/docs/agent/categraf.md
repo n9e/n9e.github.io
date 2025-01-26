@@ -1,8 +1,8 @@
 ---
 title: "Categraf"
-description: "Use Categraf as collector for Nightingale"
+description: "使用 Categraf 作为采集器，采集指标、日志等数据，和夜莺项目丝滑对接"
 lead: ""
-date: 2022-05-12T13:26:54+01:00
+date: 2025-01-26T10:55:54+08:00
 lastmod: 2025-01-26T10:55:54+08:00
 draft: false
 images: []
@@ -13,11 +13,11 @@ weight: 700
 toc: true
 ---
 
-[Categraf](https://github.com/flashcatcloud/categraf) is an agent which can collect metrics and logs. Categraf uses `prometheus remote write` as data push protocol, so it can push metrics to Nightingale.
+[Categraf](https://github.com/flashcatcloud/categraf) 是一个可以采集指标和日志的代理。Categraf 使用 `prometheus remote write` 作为数据推送协议，因此可以将指标推送到夜莺。
 
-## Configuration
+## 配置
 
-Configuration file of categraf: `conf/config.toml`
+Categraf 的配置文件: `conf/config.toml`
 
 ```toml
 [writer_opt]
@@ -64,4 +64,6 @@ dial_timeout = 2500
 max_idle_conns_per_host = 100
 ```
 
-We highly recommend that you use Categraf as collector for Nightingale.
+我们建议您使用 Categraf 采集机器的 CPU、内存等常规指标，因为 Categraf 和夜莺的对接最为丝滑。Categraf 会自动采集机器的元信息并且和夜莺对接提供告警自愈能力。
+
+至于 MySQL、Redis、Oracle、ElasticSearch、Kafka 等各类监控对象的数据采集，您也可以使用 Categraf，也可以使用您熟悉的其他采集器。

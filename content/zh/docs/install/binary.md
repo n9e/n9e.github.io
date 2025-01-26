@@ -3,7 +3,7 @@ title: "二进制部署"
 description: "使用二进制方式部署夜莺监控项目"
 lead: ""
 date: 2020-11-12T13:26:54+01:00
-lastmod: 2020-11-12T13:26:54+01:00
+lastmod: 2025-01-26T09:26:54+08:00
 draft: false
 images: []
 menu:

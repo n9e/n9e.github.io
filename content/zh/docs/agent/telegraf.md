@@ -1,6 +1,6 @@
 ---
 title: "Telegraf"
-description: "Use Telegraf as collector for Nightingale"
+description: "使用 Telegraf 作为 Nightingale 的采集器"
 lead: ""
 date: 2022-05-12T13:26:54+01:00
 lastmod: 2025-01-26T10:55:54+08:00
@@ -13,13 +13,13 @@ weight: 710
 toc: true
 ---
 
-## Introduction
+## 简介
 
-[Telegraf](https://github.com/influxdata/telegraf) is an agent for collecting, processing, aggregating, and writing metrics. Based on a plugin system to enable developers in the community to easily add support for additional metric collection.
+[Telegraf](https://github.com/influxdata/telegraf) 是一个用于收集、处理、聚合和写入指标的 agent，来自 InfluxData 公司。
 
-Telegraf supports multiple output plugins, we can use opentsdb or prometheusremotewrite plugin to send metrics to Nightingale. Below is an example configuration using opentsdb.
+Telegraf 支持多种输出插件，我们可以使用 opentsdb 或 prometheusremotewrite 插件将指标发送到夜莺。下面是以 opentsdb 为例的配置。
 
-## Install
+## 安装
 
 ```bash
 #!/bin/sh
