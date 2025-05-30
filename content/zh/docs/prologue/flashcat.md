@@ -21,4 +21,4 @@ toc: true
 
 FlashDuty 则是类似 PagerDuty 的一站式告警响应平台（即 On-call 中心），支持对接 Zabbix、Prometheus、夜莺、各云监控、Elastalert 等各类监控系统，收拢告警事件到一个平台，统一对告警做收敛降噪、排班、认领升级、响应、派发等。可以免费[注册试用](https://flashcat.cloud/product/flashduty/)。
 
-监控、可观测性领域的知识确实非常驳杂，如果您有预算需要乙方协助，可以考虑快猫的产品，多方共赢。
+监控、可观测性领域的知识确实非常驳杂，如果您有预算需要乙方协助，可以考虑快猫的产品，多方共赢 👉 [免费与快猫做产品思路交流](https://flashcat.cloud/contact/)。
