@@ -4,6 +4,7 @@
   weight = 10
   [en.params]
     languageISO = "EN"
+    EditThisPage = "Edit this page on"
 
 [zh]
   languageName = "Chinese"
@@ -11,6 +12,7 @@
   weight = 10
   [zh.params]
     languageISO = "ZH"
+    EditThisPage = "本文档也是开源的，觉得不合理的地方，直接提交 PR 修改即可："
 
 [de]
   languageName = "German"

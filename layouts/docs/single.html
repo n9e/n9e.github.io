@@ -32,6 +32,11 @@
 			</nav>
 			{{ end -}}
 			{{ .Content }}
+			{{ if eq .Site.Params.languageISO "ZH" }}
+			<div style="margin-top: 40px; color: #5d2f86;">
+			由于读者水平参差不齐，重口难调，社区小伙伴一直在持续更新优化文档内容，如果您觉得本页文档内容有误或不够完善，欢迎您参与到文档的编写中来，点击下方的 Edit this page on GitHub 即可编辑 👇
+			</div>
+			{{ end }}
 			<div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between">
 				{{ if .Site.Params.lastMod -}}
 					{{ partial "main/last-modified.html" . }}
