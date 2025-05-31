@@ -113,6 +113,17 @@ Enable = true
 
 - `Enable`：是否开启 Agent 的 API 接口，正常来讲必然是要开启的，所以这个配置项一般都是 `true`
 - `BasicAuth`：Agent 的 API 接口支持 BasicAuth，这里配置 BasicAuth 用户名和密码，一般内网通信的话，不需要配置 BasicAuth，如果是公网通信的话，建议配置 BasicAuth，而且，密码一定不要使用默认的，容易被攻击
+- 上例中 `user001` 是 BasicAuth 的用户名，`ccc26da7b9aba533cbb263a36c07dcc5` BasicAuth 的密码，如果想要配置多个用户，可以继续添加，比如：
+
+```toml
+[HTTP.APIForAgent.BasicAuth]
+user001 = "ccc26da7b9aba533cbb263a36c07dcc5"
+user002 = "d4f5e6a7b8c9d0e1f2g3h4i5j6k7l8m9"
+```
+
+注意：如果你配置了 BasicAuth，那么 Agent 端的 `n9e` 配置文件中也需要配置相应的用户名和密码，否则 Agent 端无法连接到中心 n9e。
+
+默认配置里 Enable 设置为 `true`，`HTTP.APIForAgent.BasicAuth` 为空，表示启用面向 Agent 的那些 API 接口，同时不启用 BasicAuth。
 
 ### HTTP.APIForService
 
@@ -125,6 +136,16 @@ user001 = "ccc26da7b9aba533cbb263a36c07dcc5"
 
 - `Enable`：是否开启 Service 的 API 接口，边缘告警引擎 n9e-edge 和中心 n9e 通信就依赖中心端的这部分接口，所以如果你用到了 n9e-edge，就需要启用，即设置为 `true`
 - `BasicAuth`：Service 的 API 接口支持 BasicAuth，这里配置 BasicAuth 用户名和密码，一般内网通信的话，不需要配置 BasicAuth，如果是公网通信的话，建议配置 BasicAuth，而且，密码一定一定不要使用默认的，容易被攻击
+- 上例中 `user001` 是 BasicAuth 的用户名，`ccc26da7b9aba533cbb263a36c07dcc5` BasicAuth 的密码，如果想要配置多个用户，可以继续添加，比如：
+
+```toml
+[HTTP.APIForService.BasicAuth]
+user001 = "ccc26da7b9aba533cbb263a36c07dcc5"
+user002 = "d4f5e6a7b8c9d0e1f2g3h4i5j6k7l8m9"
+```
+
+注意：如果你配置了 BasicAuth，那么边缘告警引擎 n9e-edge 的配置文件中也需要配置相应的用户名和密码，否则 n9e-edge 无法连接到中心 n9e。
+默认配置里 Enable 设置为 `false`，表示不启用面向其他 Service 的那些 API 接口，此时 n9e-edge 也无法连接到中心 n9e。
 
 ### HTTP.JWTAuth
 
@@ -161,7 +182,7 @@ DefaultRoles = ["Standard"]
 OpenRSA = false
 ```
 
-夜莺在登录的时候，用户密码的传说是明文的，如果夜莺站点是 HTTPS 的倒是还好，如果是 HTTP 的，就建议开启 RSA 加密，这样用户密码就不会明文传输了。
+夜莺在登录的时候，用户密码是明文传输的，如果夜莺站点是 HTTPS 的倒是还好，如果是 HTTP 的，就建议开启 RSA 加密，这样用户密码就不会明文传输了。
 
 ## DB
 
@@ -209,6 +230,8 @@ Address = "127.0.0.1:6379"
 ```
 
 Redis 除了用于存储 jwt 相关的登录认证信息，还用于存放机器的心跳上报的 metadata。夜莺中支持的机器失联告警规则，就是根据 Redis 中机器的心跳时间来判断的，如果很长时间没有心跳了，就认为机器失联了。
+
+> 如果 Redis 响应较慢，可能会导致失联告警的误判。即机器明明是存活的，但是 Redis 中的心跳信息没有及时更新，最终导致夜莺误判机器失联了。V8.beta11 版本开始，增加了 Redis 操作相关的监控指标，需要关注这些指标，及时发现 Redis 响应慢的问题。
 
 RedisType 支持 `standalone`、`cluster`、`sentinel`、`miniredis` 四种，从夜莺 v8 版本开始，夜莺默认使用 `miniredis`，这样方便用户快速体验，不需要安装 Redis。但是，生产环境中，还请使用其他模式。
 
@@ -287,24 +310,16 @@ __name__ = "cpu_usage_active"
 
 ```toml
 [Pushgw.WriterOpt]
-QueueMaxSize = 100000
-QueuePopSize = 3000
-AllQueueMaxSize = 5000000
-# fresh time, unit ms
-# AllQueueMaxSizeInterval = 200
+QueueMaxSize = 1000000
+QueuePopSize = 1000
+QueueNumber = 0
 ```
 
-这是一些流控配置，夜莺会在内存里创建很多队列，用于缓存接收到的监控数据，然后再批量写入到后端时序库。通常是每个机器一个队列，所以队列的数量就是机器的数量。
+这部分配置默认是注释的，因为正常来讲，用户是不需要关注的，如果夜莺接收到太多数据，在内存里拥塞了，最终丢了指标，此时需要考虑调整这里的配置。
 
-- `QueueMaxSize`：单个队列的最大长度。
-- `QueuePopSize`：单次从队列里取出的指标量，即每个请求写入到后端时序库的指标量。
-- `AllQueueMaxSize`：所有队列总长度限制，如果超出这个长度，说明队列堆积，就会拒绝接收监控数据。
-- `AllQueueMaxSizeInterval`：队列堆积检测的时间间隔，单位毫秒。维持默认即可。
+夜莺会在内存里创建 QueueNumber 个队列，默认配置是 0，表示不指定具体数量，按照 CPU 核数来创建队列。每个队列的最大容量是 QueueMaxSize，默认是 1000000，表示每个队列最多可以存储 100 万条数据。每次从队列中取出数据的数量是 QueuePopSize，默认是 1000，表示每次从队列中取出 1000 条数据。
 
-如果有些监控数据没有带上 agent_hostname 标签（即后来服务端 rename 之后的 ident 标签），那就没法归到某个机器队列了。这种情况下，夜莺会把数据归到指标名字对应的队列里。但是指标的数量很多，这样会在内存里建立太多队列，有两个解法：
-
-- 当前解法：取指标名字的前两个字符，作为队列的标识，这样就会把相同前两个字符的指标归到同一个队列里，这样队列数量就会减少很多。
-- 未来解法：会提前创建固定数量（可配）的队列，然后把指标名字的 hash 值对队列数量取模，计算对应关系。预计会从 v8.0.0-beta7 版本开始改成这种方式。
+每个队列对应一个 goroutine，夜莺会从这些队列中取出数据，然后写入到后端时序库。这样做的好处是可以充分利用多核 CPU 的性能。所以，QueueNumber 的数量，本质就等于并发写入后端时序库的并发量。
 
 ### Pushgw.Writers
 
@@ -342,7 +357,7 @@ Enable = true
 RPCListen = "0.0.0.0:20090"
 ```
 
-- `Enable`：是否开启 Ibex 功能
+- `Enable`：是否开启 Ibex 服务端功能
 - `RPCListen`：Ibex 的 RPC 服务监听地址
 
 ## n9e-edge 的配置

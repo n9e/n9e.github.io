@@ -1,9 +1,9 @@
 ---
 title: "Helm"
-description: "使用 Helm chart 安装夜莺"
+description: "使用 Helm chart 安装夜莺监控（Nightingale），将夜莺监控部署在 Kubernetes 中。"
 lead: ""
 date: 2020-11-12T13:26:54+01:00
-lastmod: 2025-01-26T09:29:54+08:00
+lastmod: 2025-05-31T11:11:47.328+08:00
 draft: false
 images: []
 menu:

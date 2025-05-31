@@ -31,8 +31,10 @@ MySQL 的关键配置样例：
 ```toml
 [DB]
 DBType = "mysql"
-DSN="root:YourPa55word@tcp(localhost:3306)/n9e_v6?charset=utf8mb4&parseTime=True&loc=Local"
+DSN = "root:YourPa55word@tcp(localhost:3306)/n9e_v6?charset=utf8mb4&parseTime=True&loc=Local"
 ```
+
+上面 `DSN`（连接字符串）的格式是 `用户名:密码@tcp(地址:端口)/数据库名?参数`，其中 `n9e_v6` 是夜莺的数据库名，从 V6 版本开始，就一直习惯使用这个名字了（即便现在是 V8+ 版本了），建表语句里也一直延用了这个名字。
 
 Redis 的关键配置样例：
 
