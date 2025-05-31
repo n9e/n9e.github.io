@@ -18,9 +18,9 @@ n9e 进程只依赖二进制同级目录的 etc 和 integrations 目录，不依
 在这种单机模式下，方便做快速测试，不过不建议用于生产环境。此种模式下，夜莺会把配置类数据（比如用户信息、告警规则、仪表盘等）存储在本地的 SQLite 数据库文件中，所以 n9e 进程启动之后，同级目录下会生成一个 n9e.db 的 SQLite 数据库文件。
 单节点生产模式 # 如果要上到生产环境，则需要依赖 MySQL 和 Redis。所以，需要在配置文件 etc/config.toml 中配置 MySQL 和 Redis 的连接信息。
 MySQL 的关键配置样例：
-[DB] DBType = &amp;quot;mysql&amp;quot; DSN=&amp;quot;root:YourPa55word@tcp(localhost:3306)/n9e_v6?charset=utf8mb4&amp;amp;parseTime=True&amp;amp;loc=Local&amp;quot; Redis 的关键配置样例：
-[Redis] Address = &amp;quot;127.0.0.1:6379&amp;quot; RedisType = &amp;quot;standalone&amp;quot; 上面只是给了最基础的配置样例，配置文件中还有很多其他配置项，具体可以参考配置文件中的注释，也可以参考这里的配置文件说明。
-夜莺集群 # 集群模式很简单，只需要搞多台机器，每台机器都部署 n9e 进程（进程要想正常工作依赖 etc 和 integrations 目录），多个 n9e 的配置文件确保完全一致，共享同一套 MySQL 和 Redis，即可。</description></item><item><title>夜莺商业版</title><link>https://n9e.github.io/zh/docs/prologue/flashcat/</link><pubDate>Fri, 30 May 2025 22:31:56 +0800</pubDate><guid>https://n9e.github.io/zh/docs/prologue/flashcat/</guid><description>夜莺监控（Nightingale）的主力开发人员是全职在做开源，如果没有收入养家糊口，项目也就无法持续了。所以他们创办了一家企业：北京快猫星云科技有限公司，简称“快猫”，推出了两款商业产品：
+[DB] DBType = &amp;quot;mysql&amp;quot; DSN = &amp;quot;root:YourPa55word@tcp(localhost:3306)/n9e_v6?charset=utf8mb4&amp;amp;parseTime=True&amp;amp;loc=Local&amp;quot; 上面 DSN（连接字符串）的格式是 用户名:密码@tcp(地址:端口)/数据库名?参数，其中 n9e_v6 是夜莺的数据库名，从 V6 版本开始，就一直习惯使用这个名字了（即便现在是 V8+ 版本了），建表语句里也一直延用了这个名字。
+Redis 的关键配置样例：
+[Redis] Address = &amp;quot;127.0.0.1:6379&amp;quot; RedisType = &amp;quot;standalone&amp;quot; 上面只是给了最基础的配置样例，配置文件中还有很多其他配置项，具体可以参考配置文件中的注释，也可以参考这里的配置文件说明。</description></item><item><title>夜莺商业版</title><link>https://n9e.github.io/zh/docs/prologue/flashcat/</link><pubDate>Fri, 30 May 2025 22:31:56 +0800</pubDate><guid>https://n9e.github.io/zh/docs/prologue/flashcat/</guid><description>夜莺监控（Nightingale）的主力开发人员是全职在做开源，如果没有收入养家糊口，项目也就无法持续了。所以他们创办了一家企业：北京快猫星云科技有限公司，简称“快猫”，推出了两款商业产品：
 一站式智能观测平台Flashcat 一站式告警响应平台Flashduty 其中 Flashcat 可以看做是夜莺的商业版，定位是统一的观测平台，开源版则只是侧重在指标监控，二者的区别可以参考这篇文章：《夜莺开源版和商业版的区别》。
 FlashDuty 则是类似 PagerDuty 的一站式告警响应平台（即 On-call 中心），支持对接 Zabbix、Prometheus、夜莺、各云监控、Elastalert 等各类监控系统，收拢告警事件到一个平台，统一对告警做收敛降噪、排班、认领升级、响应、派发等。可以免费注册试用。
 监控、可观测性领域的知识确实非常驳杂，如果您有预算需要乙方协助，可以考虑快猫的产品，多方共赢 👉 免费与快猫做产品思路交流。</description></item></channel></rss>
