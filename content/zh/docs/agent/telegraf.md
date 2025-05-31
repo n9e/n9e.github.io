@@ -1,9 +1,9 @@
 ---
 title: "Telegraf"
-description: "使用 Telegraf 作为 Nightingale 的采集器"
+description: "使用 Telegraf 作为夜莺监控（Nightingale）的采集器，Telegraf 来自 InfluxData 公司，是一个用于收集、处理、聚合和写入指标的 agent。Telegraf 支持多种输出插件，我们可以使用 opentsdb 或 prometheusremotewrite 插件将指标发送到夜莺。"
 lead: ""
 date: 2022-05-12T13:26:54+01:00
-lastmod: 2025-01-26T10:55:54+08:00
+lastmod: 2025-05-31T17:49:24.577+08:00
 draft: false
 images: []
 menu:
