@@ -8,6 +8,6 @@ draft: false
 images: []
 buttonText: "开始使用"
 metaText: "Apache-2.0 开源许可"
-startLink: "https://flashcat.cloud/docs/"
+startLink: "/zh/docs/prologue/introduction/"
 ---
 

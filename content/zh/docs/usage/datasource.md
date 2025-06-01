@@ -1,5 +1,5 @@
 ---
-title: "配置数据源"
+title: "数据源"
 description: "夜莺监控（Nightingale）支持对接各类数据源，包括 Prometheus、ElasticSearch 和 Grafana Loki 等。通过配置数据源，夜莺可以查询展示这些数据源中的监控数据，也可以对这些数据源中的数据进行告警。"
 date: 2025-01-26T11:15:54+08:00
 lastmod: 2025-05-31T17:50:57.530+08:00

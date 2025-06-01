@@ -75,3 +75,5 @@ toc: true
 - [对接钉钉告警，如何配置 at 人](https://flashcat.cloud/blog/n9e-v8-notify-dingtalk-ats/)
 - [对接钉钉、飞书、企微通知](https://flashcat.cloud/blog/n9e-v8-notify-practice/)
 - [对接阿里云短信](https://flashcat.cloud/docs/content/flashcat-monitor/nightingale-v7/usage/notification/ali-sms/)
+
+另外，在微信视频号：SRETALK 上也放置了一个视频教程，演示如何接入飞书告警，您可以自行搜索查看。

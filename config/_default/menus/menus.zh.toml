@@ -7,7 +7,7 @@
 [[main]]
   name = "文档"
   identifier = "docs"
-  url = "https://flashcat.cloud/docs/"
+  url = "/zh/docs/prologue/introduction/"
   weight = 10
 
 [[social]]
