@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>快速体验 on</title><link>https://n9e.github.io/zh/docs/usage/</link><description>Recent content in 快速体验 on</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Sun, 26 Jan 2025 11:15:54 +0800</lastBuildDate><atom:link href="https://n9e.github.io/zh/docs/usage/index.xml" rel="self" type="application/rss+xml"/><item><title>配置数据源</title><link>https://n9e.github.io/zh/docs/usage/datasource/</link><pubDate>Sun, 26 Jan 2025 11:15:54 +0800</pubDate><guid>https://n9e.github.io/zh/docs/usage/datasource/</guid><description>夜莺支持对接各类数据源，前期支持的数据源，比如 Prometheus、VictoriaMetrics、ElasticSearch 等，既支持查询看图，也支持告警。后面随着项目发展，夜莺定位为一个告警引擎，所以新对接的数据源，比如 ClickHouse、MySQL、Postgres 等，都是只支持告警，不支持查询看图。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>快速体验 on</title><link>https://n9e.github.io/zh/docs/usage/</link><description>Recent content in 快速体验 on</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Sun, 26 Jan 2025 11:15:54 +0800</lastBuildDate><atom:link href="https://n9e.github.io/zh/docs/usage/index.xml" rel="self" type="application/rss+xml"/><item><title>数据源</title><link>https://n9e.github.io/zh/docs/usage/datasource/</link><pubDate>Sun, 26 Jan 2025 11:15:54 +0800</pubDate><guid>https://n9e.github.io/zh/docs/usage/datasource/</guid><description>夜莺支持对接各类数据源，前期支持的数据源，比如 Prometheus、VictoriaMetrics、ElasticSearch 等，既支持查询看图，也支持告警。后面随着项目发展，夜莺定位为一个告警引擎，所以新对接的数据源，比如 ClickHouse、MySQL、Postgres 等，都是只支持告警，不支持查询看图。
 不管是要查看数据源里的数据，还是对数据源里的数据进行告警，都需要先配置数据源。在 集成中心-数据源 中添加数据源，选择对应的数据源类型，填写数据源的地址、用户名、密码等信息，点击保存即可。
 配置数据源时，除了要填写数据源的连接地址，另一个关键点是要选择关联的告警引擎，如果你的数据源是在边缘机房的，并且为边缘机房搭建了专属的 n9e-edge，那么就选择对应的 n9e-edge 作为关联的告警引擎。
 数据源配置中，表单各项基本都对应有 tooltip（就是各个 form 表单旁边的小问号 icon，鼠标放上去可以看到用法提示），这里就不再赘述了。
@@ -7,7 +7,7 @@
 是的。config.toml 中的 writer 地址，是用于数据转发链路，而页面上的数据源配置，是用于查询和告警的。两者是不同的概念。另外，writer 地址应该是一个 remote write 地址，而页面上的数据源配置通常是数据源的基准地址。另外，很多用户也没有使用夜莺转发监控指标，所以也就没有配置 config.toml 中的 writer 地址，仅配置了页面上的数据源。
 2. 我想采用边缘模式对边缘机房的时序库做告警，但是中心端的 n9e 无法连通边缘的时序库，这种情况还能用夜莺做统一告警吗？
 可以。这类边缘时序库，仍然需要在页面上添加，添加的时候选择「保存」而非选择「测试并保存」，这样一来，中心端的夜莺就不会校验连通性，可以直接保存成功。同时，数据源配置的时候，要配置上时序库内网地址，告警引擎选择和时序库能连通的 n9e-edge 告警引擎，届时 n9e-edge 会使用时序库内网地址进行查询和告警。
-这种情况的边缘时序库，仍然可以告警，但是在夜莺的页面上就没法查询其数据了。因为夜莺的页面查询数据是通过中心端的 n9e 进行的，而中心端的 n9e 无法连通边缘时序库，所以无法查询。</description></item><item><title>Ad-hoc 查询</title><link>https://n9e.github.io/zh/docs/usage/ad-hoc/</link><pubDate>Sun, 26 Jan 2025 11:23:54 +0800</pubDate><guid>https://n9e.github.io/zh/docs/usage/ad-hoc/</guid><description>夜莺支持 Ad-hoc 查询，可以在界面上直接查询数据源的数据。菜单入口在 数据查询 下面，选择 指标 可以查询指标数据，选择 日志 可以查询日志数据。
+这种情况的边缘时序库，仍然可以告警，但是在夜莺的页面上就没法查询其数据了。因为夜莺的页面查询数据是通过中心端的 n9e 进行的，而中心端的 n9e 无法连通边缘时序库，所以无法查询。</description></item><item><title>即时查询</title><link>https://n9e.github.io/zh/docs/usage/ad-hoc/</link><pubDate>Sun, 26 Jan 2025 11:23:54 +0800</pubDate><guid>https://n9e.github.io/zh/docs/usage/ad-hoc/</guid><description>夜莺支持 Ad-hoc 查询，可以在界面上直接查询数据源的数据。菜单入口在 数据查询 下面，选择 指标 可以查询指标数据，选择 日志 可以查询日志数据。
 指标查询 # 下面是一个指标查询样例：
 这个页面和 Prometheus 的 graph 页面类似，支持查询时序指标数据。当然也做了一些增强，增加了内置指标、历史记录等等一些能力。上图中是一个 range vector，且使用的 Table 视图，此时夜莺会多做一步，计算各个数据的时间差，就是最右侧那个 +15，方便我们排查是否有数据丢失的情况，比如大都是规律的时间差，和采集频率一致，但是突然发现有两个时间差比较大，是好几倍的采集频率，那就表示有数据采集或传输失败了。
 经常被新手询问的问题是，这个页面一进来为啥看不到任何数据。这是符合预期的，需要先输入 Promql 进行查询，然后才能看到数据。而非是说一进来这个页面就可以看到数据。Promql 是使用 Prometheus、Nightingale 的前置知识，建议先学习 Promql 的基础知识，资料参考：《Promql系列教程》
@@ -41,4 +41,17 @@ status:active 查询 status 字段包含 active 的记录 title:(quick OR brown)
 配置说明 # 通知规则可以支持不同的通知媒介，而且可以定义不同的媒介适用的范围，比如电话这个通知媒介，只适用于 Critical 的告警，而 Email 则适用于 Critical、Warning、Info 所有告警。下面是一个通知规则配置样例：
 对于通知媒介，我们会内置一些，方便大家开箱即用：
 打开通知媒介的配置，其中有个「变量配置」不太好理解。我说个场景：比如 DBA 团队和 BigData 团队都想使用企微这个通知媒介发告警，但是他们想使用不同的企微机器人，即 Webhook 地址基本相同，但是 URL 参数中的 Key 不同（不同的 Key 代表不同的机器人）。此时应该怎么做？
-在夜莺的设计里，不希望创建两个不同的通知媒介。还是希望只有企微一个通知媒介，但是这个通知媒介支持传参，DBA 同学在配置告警通知规则的时候，选择企微这个通知媒介的同时，要填写自己的机器人的 Key，BigData 同学也是一样，也是配置企微通知媒介 + BigData 的企微机器人 Key。这样一来，一个通知媒介就可以支持多个机器人了。</description></item></channel></rss>
+在夜莺的设计里，不希望创建两个不同的通知媒介。还是希望只有企微一个通知媒介，但是这个通知媒介支持传参，DBA 同学在配置告警通知规则的时候，选择企微这个通知媒介的同时，要填写自己的机器人的 Key，BigData 同学也是一样，也是配置企微通知媒介 + BigData 的企微机器人 Key。这样一来，一个通知媒介就可以支持多个机器人了。</description></item><item><title>仪表盘</title><link>https://n9e.github.io/zh/docs/usage/dashboard/</link><pubDate>Sun, 01 Jun 2025 19:03:43 +0800</pubDate><guid>https://n9e.github.io/zh/docs/usage/dashboard/</guid><description>夜莺监控虽然侧重点是告警，但是也支持仪表盘功能，虽然没有 Grafana 道行深，但是常见的图表类型都支持，可以满足日常使用。
+快速导入 # 之前整理过机器的仪表盘，您可以直接导入使用，快速看到效果。导入的方式：
+不同的采集器采集的监控指标名字和标签各异，所以需要分别制作仪表盘。如果你使用的是 Categraf，可以导入如下两个仪表盘：
+机器概览数据：categraf-overview.json 机器详细数据：categraf-detail.json 如果你使用的是 Node Exporter，可以导入如下仪表盘：
+Node 关键指标：exporter-detail.json 实际上，这几个仪表盘都可以在夜莺的菜单 集成中心-模板中心-搜索 Linux 找到：
+Categraf 概览页面的仪表盘样例：
+Categraf 机器详细数据的仪表盘样例：
+模板中心已经内置了很多组件的仪表盘，但是质量参差不齐，回头腾出手来我们会挨个再整理一遍，力求开箱即用。不过组件实在是太多，人手有限，欢迎广大社区用户一起参与整理贡献，将您整理好的仪表盘提交到 Github 夜莺仓库的 integrations 目录下面的各个组件下的 dashboards 目录下，通过 PR 提交即可。
+集成 Grafana # 你也可以继续使用 Grafana 看图，毕竟各有所长，组合使用更佳。也可以通过夜莺菜单 集成中心-系统集成，直接把 Grafana 通过 iframe 的方式嵌入夜莺，不过 Grafana 默认不支持被别的系统嵌入，需要修改一些配置，具体要修改的内容如下：
+1、启用 embedding
+在 Grafana 配置文件中找到 allow_embedding 的配置项，设置为 true。
+2、启用 anonymous
+找到 auth.anonymous 配置段，把 enabled 设置为 true，org_role 设置为 Viewer，org_name 根据你自己的环境配置即可。
+3、对于 HTTPS 的 Grafana</description></item></channel></rss>
