@@ -54,3 +54,9 @@ Categraf 把数据推给夜莺，夜莺不直接存储数据，而是转发给 T
 6、查看仪表盘的配置
 
 有些仪表盘是查看时序库里的所有数据，有些仪表盘是只能查看所属业务组下面的机器的监控数据（通过仪表盘变量控制的），如果是后者类型的仪表盘，就需要确保业务组下面有机器。
+
+**2. 我可否把监控数据写到 TDEngine 等其他时序库**
+
+首先，你需要了解 Prometheus remote write 协议（可以问问 Google 或 GPT）。Categraf 采集的数据是通过 Prometheus remote write 协议推送给夜莺的，夜莺也是通过 Prometheus remote write 协议把数据转发给时序库的。
+
+所以，如果某个时序库支持接收 Prometheus remote write 协议的数据，那么就可以接入 Categraf 或夜莺。这个信息从哪里得到？去看（或搜）时序库的文档，如果它支持接收 Prometheus remote write 协议的数据，那么它大概率会在文档里提及。如果它的文档里没有写，大概率就是不支持或支持的不好不推荐使用。
