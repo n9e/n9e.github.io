@@ -1,5 +1,14 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>实践 on</title><link>https://n9e.github.io/zh/docs/practice/</link><description>Recent content in 实践 on</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Sun, 01 Jun 2025 19:41:08 +0800</lastBuildDate><atom:link href="https://n9e.github.io/zh/docs/practice/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux OS</title><link>https://n9e.github.io/zh/docs/practice/linux/</link><pubDate>Sun, 01 Jun 2025 19:42:42 +0800</pubDate><guid>https://n9e.github.io/zh/docs/practice/linux/</guid><description> 对于监控系统，基础功能的强弱确实非常关键，但是如何在不同的场景落地实践，则更为关键。在《实践》章节，搜罗各类监控实践经验，会以不同的组件分门别类，您如果对某个组件有好的实践经验，欢迎提 PR，把您的文章链接附到对应的组件目录下。
-Linux 主机监控最佳实践 透过 Node-Exporter 彻底搞懂机器监控</description></item><item><title>进程监控</title><link>https://n9e.github.io/zh/docs/practice/proc/</link><pubDate>Tue, 03 Jun 2025 09:15:37 +0800</pubDate><guid>https://n9e.github.io/zh/docs/practice/proc/</guid><description>对于监控系统，基础功能的强弱确实非常关键，但是如何在不同的场景落地实践，则更为关键。在《实践》章节，搜罗各类监控实践经验，会以不同的组件分门别类，您如果对某个组件有好的实践经验，欢迎提 PR，把您的文章链接附到对应的组件目录下。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>实践 on</title><link>https://n9e.github.io/zh/docs/practice/</link><description>Recent content in 实践 on</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Sun, 01 Jun 2025 19:41:08 +0800</lastBuildDate><atom:link href="https://n9e.github.io/zh/docs/practice/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux OS</title><link>https://n9e.github.io/zh/docs/practice/linux/</link><pubDate>Sun, 01 Jun 2025 19:42:42 +0800</pubDate><guid>https://n9e.github.io/zh/docs/practice/linux/</guid><description>对于监控系统，基础功能的强弱确实非常关键，但是如何在不同的场景落地实践，则更为关键。在《实践》章节，搜罗各类监控实践经验，会以不同的组件分门别类，您如果对某个组件有好的实践经验，欢迎提 PR，把您的文章链接附到对应的组件目录下。
+Linux 主机监控最佳实践 透过 Node-Exporter 彻底搞懂机器监控 FAQ # 1. 我的机器列表里可以看到机器，也可以看到机器的CPU、内存等信息，但是仪表盘查不到数据
+这个问题从如下几个方面排查：
+1、看 Categraf 的日志
+作为 IT 从业人员，第一反应就是应该看相关组件的日志，Categraf 的日志默认打在 stdout，如果是 systemd 托管的 Categraf，则使用 journalctl 查看，比如 journalctl -u categraf.service。如果对 Linux 不太熟悉，直接在命令行里前台启动 Categraf，可以更方便查看日志，即：
+./categraf 如上就是直接把 Categraf 进程启动在前台，日志会直接输出到终端，方便查看。
+2、确认 Categraf 的配置
+机器列表里可以正常看到内容，说明 Categraf 的配置里的 heartbeat 部分配置是正常的。仪表盘看不到监控数据，可能是 writer 部分的配置有问题，writer 部分的 url 应该配置为夜莺的地址，urlpath 是 /prometheus/v1/write。
+3、确认夜莺的配置
+Categraf 把数据推给夜莺，夜莺不直接存储数据，而是转发给 TSDB，TSDB 可以是 Prometheus 或者 VictoriaMetrics 等，夜莺把数据发给哪些 TSDB？是由夜莺的配置文件 config.toml 中的 Pushgw.Writers 来决定的。
+需要确保 Pushgw.</description></item><item><title>进程监控</title><link>https://n9e.github.io/zh/docs/practice/proc/</link><pubDate>Tue, 03 Jun 2025 09:15:37 +0800</pubDate><guid>https://n9e.github.io/zh/docs/practice/proc/</guid><description>对于监控系统，基础功能的强弱确实非常关键，但是如何在不同的场景落地实践，则更为关键。在《实践》章节，搜罗各类监控实践经验，会以不同的组件分门别类，您如果对某个组件有好的实践经验，欢迎提 PR，把您的文章链接附到对应的组件目录下。
 进程监控分两部分，一部分是操作系统内整体进程数量统计，另一部分是单一进程指标采集。
 总体进程数量 # 以 Categraf 为例，Categraf 提供了 processes 插件用于统计机器上的进程数量，比如总进程数量多少、Running 状态的进程数量多少、Sleeping 状态的进程数量多少等。针对 processes 插件采集的数据，我们整理过专门的仪表盘：
 https://github.com/ccfos/nightingale/blob/main/integrations/Linux/dashboards/categraf-processes.json
