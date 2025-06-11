@@ -20,7 +20,7 @@ toc: true
 
 很多用户已经自行采集了指标、日志数据，此时就把存储库（VictoriaMetrics、ElasticSearch等）作为数据源接入夜莺，即可在夜莺里配置告警规则、通知规则，完成告警事件的生成和派发。
 
-<img src="/img/prologue/intro/product-arch.png" alt="夜莺架构图"/>
+<img src="/img/prologue/intro/product-arch.png" alt="夜莺产品架构图"/>
 
 夜莺项目本身不提供监控数据采集能力。推荐您使用 [Categraf](https://github.com/flashcatcloud/categraf) 作为采集器，可以和夜莺丝滑对接。
 
