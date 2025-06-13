@@ -1,6 +1,6 @@
 ---
 title: "Webhook(Callback)"
-description: ""
+description: "夜莺监控 Nightingale 使用 Webhook(Callback) 进行事件自动化处理和通知的能力。可以和第三方系统联动，自动化处理告警事件或进行事件通知。"
 date: 2025-06-06T10:54:48+08:00
 lastmod: 2025-06-06T10:54:48+08:00
 draft: false
@@ -8,7 +8,7 @@ images: []
 menu:
   docs:
     parent: "usecase"
-weight: 10000
+weight: 11000
 toc: true
 ---
 
