@@ -22,14 +22,16 @@ toc: true
 
 初期支持的数据源：Prometheus、VictoriaMetrics、ElasticSearch，既支持看图也支持告警，后面夜莺侧重在做告警引擎，所以后面新支持的数据源就只支持告警。
 
-## 数据流概述
-
 根据监控数据是否流经夜莺，可以分成两个模式：
 
-- 模式1：监控数据不流经夜莺，用户自己搞定数据采集的问题，仅把时序库配置到夜莺里，使用夜莺看图和配置告警。上面的架构图就是典型的这种模式。
-- 模式2：数据流经夜莺，Categraf 通过 remote write 协议把数据推给夜莺，夜莺不直接存储数据，而是把数据转存到时序库，转存到哪些时序库？由夜莺配置文件 config.toml 中的 `Pushgw.Writers` 来决定，模式2下的架构图如下：
+- **模式1**：监控数据不流经夜莺，用户自己搞定数据采集的问题，仅把时序库配置到夜莺里，使用夜莺看图和配置告警。上面的架构图就是典型的这种模式。
+- **模式2**：数据流经夜莺，Categraf 通过 remote write 协议把数据推给夜莺，夜莺不直接存储数据，而是把数据转存到时序库，转存到哪些时序库？由夜莺配置文件 config.toml 中的 `Pushgw.Writers` 来决定，模式2下的架构图如下：
 
 <img src="/img/prologue/arch/02.png" alt="夜莺数据流架构图"/>
+
+上图中，夜莺接到监控数据之后转发给了 VictoriaMetrics，当然，也可以转发给 Prometheus，如果要转发给 Prometheus，记得 Prometheus 启动的时候要打开 remote receiver 的功能（`./prometheus --help | grep receiver` 可以看到具体是要加哪个控制参数），即开启 Prometheus 的 `/api/v1/write` 接口。
+
+> 🟢 如果是新用户，建议直接使用 VictoriaMetrics，VictoriaMetrics 性能更好，且支持集群模式，而且，和 Prometheus 接口兼容。不过 VictoriaMetrics 的中文资料比 Prometheus 更少一些。
 
 ## 单节点测试模式
 
