@@ -15,12 +15,10 @@ Categraf 可以采集操作系统、网络设备、各类中间件、数据库�
 基础知识 # Linux 知识，比如进程相关、网络相关、systemd 相关的等，可参考书籍《鸟哥的Linux私房菜》、视频教程《面向研发工程师的Linux进阶知识》 提问的技巧，可以参考著名黑客 Raymond 的《提问的智慧》，在全球范围内传播甚广。Raymond 的文章很长，也可以参考这篇短文《学会这招，技术问题再也难不倒你》 监控知识 # 基础的一些监控概念，可以参考这个专栏《运维监控系统实战笔记》，尤其是前面几篇基础内容 Prometheus 的基础概念，可以参考 Prometheus 的官网文档，也可以参考这里的中文知识。 Promql，非常非常非常重要，这是使用 Prometheus 和 Nightingale 的前提，可以参考《Promql系列教程》</description></item><item><title>夜莺架构设计</title><link>https://n9e.github.io/zh/docs/prologue/architecture/</link><pubDate>Fri, 30 May 2025 22:31:56 +0800</pubDate><guid>https://n9e.github.io/zh/docs/prologue/architecture/</guid><description>夜莺的架构比较简单，如果只是测试功能，一个二进制就可以启动，如果要上到生产环境，则要依赖 MySQL 和 Redis。有些公司会有多个机房，有些边缘机房和中心机房的网络质量较差，夜莺也针对这种情况做了专门的设计。
 架构图 # 不考虑边缘模式的话，夜莺只有一个主进程，即 n9e 进程，依赖 MySQL 和 Redis 存储一些管理数据，可以接入多种数据源，技术架构图示意如下：
 初期支持的数据源：Prometheus、VictoriaMetrics、ElasticSearch，既支持看图也支持告警，后面夜莺侧重在做告警引擎，所以后面新支持的数据源就只支持告警。
-数据流概述 # 根据监控数据是否流经夜莺，可以分成两个模式：
-模式1：监控数据不流经夜莺，用户自己搞定数据采集的问题，仅把时序库配置到夜莺里，使用夜莺看图和配置告警。上面的架构图就是典型的这种模式。 模式2：数据流经夜莺，Categraf 通过 remote write 协议把数据推给夜莺，夜莺不直接存储数据，而是把数据转存到时序库，转存到哪些时序库？由夜莺配置文件 config.toml 中的 Pushgw.Writers 来决定，模式2下的架构图如下： 单节点测试模式 # 从夜莺的 github releases 下载发布包，解压之后里边有个 n9e 二进制文件，直接 ./n9e 就可以运行起来，默认端口是 17000，默认用户名是 root，密码是 root.2020。
-n9e 进程只依赖二进制同级目录的 etc 和 integrations 目录，不依赖其他任何服务。
-在这种单机模式下，方便做快速测试，不过不建议用于生产环境。此种模式下，夜莺会把配置类数据（比如用户信息、告警规则、仪表盘等）存储在本地的 SQLite 数据库文件中，所以 n9e 进程启动之后，同级目录下会生成一个 n9e.db 的 SQLite 数据库文件。
-单节点生产模式 # 如果要上到生产环境，则需要依赖 MySQL 和 Redis。所以，需要在配置文件 etc/config.toml 中配置 MySQL 和 Redis 的连接信息。
-MySQL 的关键配置样例：</description></item><item><title>夜莺商业版</title><link>https://n9e.github.io/zh/docs/prologue/flashcat/</link><pubDate>Fri, 30 May 2025 22:31:56 +0800</pubDate><guid>https://n9e.github.io/zh/docs/prologue/flashcat/</guid><description>夜莺监控（Nightingale）的主力开发人员是全职在做开源，如果没有收入养家糊口，项目也就无法持续了。所以他们创办了一家企业：北京快猫星云科技有限公司，简称“快猫”，推出了两款商业产品：
+根据监控数据是否流经夜莺，可以分成两个模式：
+模式1：监控数据不流经夜莺，用户自己搞定数据采集的问题，仅把时序库配置到夜莺里，使用夜莺看图和配置告警。上面的架构图就是典型的这种模式。 模式2：数据流经夜莺，Categraf 通过 remote write 协议把数据推给夜莺，夜莺不直接存储数据，而是把数据转存到时序库，转存到哪些时序库？由夜莺配置文件 config.toml 中的 Pushgw.Writers 来决定，模式2下的架构图如下： 上图中，夜莺接到监控数据之后转发给了 VictoriaMetrics，当然，也可以转发给 Prometheus，如果要转发给 Prometheus，记得 Prometheus 启动的时候要打开 remote receiver 的功能（./prometheus --help | grep receiver 可以看到具体是要加哪个控制参数），即开启 Prometheus 的 /api/v1/write 接口。
+🟢 如果是新用户，建议直接使用 VictoriaMetrics，VictoriaMetrics 性能更好，且支持集群模式，而且，和 Prometheus 接口兼容。不过 VictoriaMetrics 的中文资料比 Prometheus 更少一些。
+单节点测试模式 # 从夜莺的 github releases 下载发布包，解压之后里边有个 n9e 二进制文件，直接 ./n9e 就可以运行起来，默认端口是 17000，默认用户名是 root，密码是 root.2020。</description></item><item><title>夜莺商业版</title><link>https://n9e.github.io/zh/docs/prologue/flashcat/</link><pubDate>Fri, 30 May 2025 22:31:56 +0800</pubDate><guid>https://n9e.github.io/zh/docs/prologue/flashcat/</guid><description>夜莺监控（Nightingale）的主力开发人员是全职在做开源，如果没有收入养家糊口，项目也就无法持续了。所以他们创办了一家企业：北京快猫星云科技有限公司，简称“快猫”，推出了两款商业产品：
 一站式智能观测平台Flashcat 一站式告警响应平台Flashduty 其中 Flashcat 可以看做是夜莺的商业版，定位是统一的观测平台，开源版则只是侧重在指标监控，二者的区别可以参考这篇文章：《夜莺开源版和商业版的区别》。
 FlashDuty 则是类似 PagerDuty 的一站式告警响应平台（即 On-call 中心），支持对接 Zabbix、Prometheus、夜莺、各云监控、Elastalert 等各类监控系统，收拢告警事件到一个平台，统一对告警做收敛降噪、排班、认领升级、响应、派发等。可以免费注册试用。
 监控、可观测性领域的知识确实非常驳杂，如果您有预算需要乙方协助，可以考虑快猫的产品，多方共赢 👉 免费与快猫做产品思路交流。</description></item></channel></rss>
