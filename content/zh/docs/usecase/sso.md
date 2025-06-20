@@ -144,6 +144,10 @@ Email = 'email'
 
 > 上面的 `n9e.com` 需要替换为您自己的夜莺地址，需要公网可达，除非您的飞书也是私有化内网部署的。
 
+### 对接 Keycloak 演示
+
+之前有网友写过一篇文章，讲解 Grafana 和夜莺一起对接 Keycloak，大家可以参考：[Grafana 和夜莺通过 Keycloak 深度对接整合](https://mp.weixin.qq.com/s/Bo386PKDULMLYuIPV1EkiA)。
+
 ## 配置 OAuth2
 
 如果您的 SSO 既支持 OIDC 又支持 OAuth2，建议使用 OIDC，实在没办法再使用 OAuth2，OAuth2 坑多。
