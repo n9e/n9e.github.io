@@ -12,7 +12,20 @@ DBA ├── MySQL └── Postgres K8S ├── 集群A └── 集群B �
 🟢 推荐使用 / 作为分隔符。
 问题 # 在夜莺里，业务组是全局共享的，既可以把规则挂到业务组上，也可以把机器挂到业务组上，这有个好处，就是方便复用业务组，即业务组创建一次之后，在多个地方都可以使用。
 但是这样做也有一个问题，那就是不同的东西，其分组的颗粒度是不同的。比如我们对机器分组的话，可能会分的比较细，比如：
-DBA/MySQL/Proxy/RegionA DBA/MySQL/Proxy/RegionB 但当我们对告警规则、仪表盘这些东西分组的时候，可能就不会分的那么细了，比如 DBA 所有的仪表盘，可能全部放在 DBA 下面就好了。</description></item><item><title>单点登录（SSO）</title><link>https://n9e.github.io/zh/docs/usecase/sso/</link><pubDate>Fri, 20 Jun 2025 08:16:11 +0800</pubDate><guid>https://n9e.github.io/zh/docs/usecase/sso/</guid><description>夜莺监控（Nightingale）支持单点登录（SSO）功能，支持 LDAP、CAS、OAuth2、OIDC 等多种协议。SSO 功能可以让用户通过统一的身份认证系统登录夜莺监控，简化用户管理和登录流程，也降低了安全风险。
+DBA/MySQL/Proxy/RegionA DBA/MySQL/Proxy/RegionB 但当我们对告警规则、仪表盘这些东西分组的时候，可能就不会分的那么细了，比如 DBA 所有的仪表盘，可能全部放在 DBA 下面就好了。</description></item><item><title>屏蔽规则</title><link>https://n9e.github.io/zh/docs/usecase/mute/</link><pubDate>Mon, 23 Jun 2025 16:50:43 +0800</pubDate><guid>https://n9e.github.io/zh/docs/usecase/mute/</guid><description>夜莺监控（Nightingale）中的屏蔽规则通常用于下面的场景：
+提前屏蔽掉预期内的告警，典型的就是做一些维护动作，比如某个机器要重启，提前屏蔽这个机器相关的告警 有些问题急忙修复不了，已经知悉，持续告警通知也没意义，就先临时屏蔽掉 原理 # 告警事件经由告警引擎产生后，在持久化到 DB 之前，会先经过屏蔽规则的判断，如果匹配了屏蔽规则，就不会持久化到 DB，更无法通知用户。工作时机如下图：
+屏蔽规则，本质上就是配置了一堆过滤条件，用于过滤想要屏蔽的告警事件。如何过滤呢，显然，就是根据告警事件的属性和标签来过滤。比如：
+事件是哪个数据源产生的 事件的级别 事件的标签 比如下面的例子：
+数据源类型：Prometheus，只有数据源类型是 Prometheus 的告警事件，才会被屏蔽 数据源：没配，表示不做限制 事件等级：三个级别都勾选了，表示所有级别的告警事件都要被屏蔽 事件标签：配置了两个标签，相当于：ident in (&amp;quot;10,1.2.3&amp;quot;, &amp;quot;10.1.2.4&amp;quot;) and rulename =~ &amp;quot;宕机&amp;quot; 上面所有的过滤条件，整体是and 的关系，即所有的条件都命中了某个事件，那个事件才会被屏蔽。
+FAQ # 1. 我已经配置了屏蔽规则，相关告警事件为啥还是可以看到？
+通常是因为：事件先产生了，才去配置的屏蔽规则。屏蔽规则是事后补救的，不能对已经产生的事件起作用。
+2. 事件标签里的多个条件也是 and 关系，但是用户没有理解
+如下图，用户在事件标签过滤那里，配置了两个条目，标签 key 都是 ident：
+用户的本意是 10.1.2.113 和 10.1.2.114 这俩机器任意一台都要被屏蔽，但是事与愿违，这里是 and 的关系，相当于是：ident = &amp;quot;10.1.2.113&amp;quot; and ident = &amp;quot;10.1.2.114&amp;quot;，显然，这个条件永远不会命中任何事件。实际上，用户应该使用 in 操作符，如下所示：
+3. 屏蔽规则的生效范围，仅限当前业务组
+这个其实在页面上有提示。为了避免误操作，屏蔽规则的生效范围仅限当前业务组。也就是说，屏蔽规则只能屏蔽当前业务组下的告警事件，其他业务组下的告警事件不会受影响。
+即：屏蔽规则和告警规则如果在不同业务组下，屏蔽规则不会对其生效。
+如果屏蔽规则是全局生效的，就会比较危险，比如某个用户随便配置了一个告警规则，过滤条件可以匹配所有告警事件，那么公司所有的告警事件都会被屏蔽。</description></item><item><title>单点登录（SSO）</title><link>https://n9e.github.io/zh/docs/usecase/sso/</link><pubDate>Fri, 20 Jun 2025 08:16:11 +0800</pubDate><guid>https://n9e.github.io/zh/docs/usecase/sso/</guid><description>夜莺监控（Nightingale）支持单点登录（SSO）功能，支持 LDAP、CAS、OAuth2、OIDC 等多种协议。SSO 功能可以让用户通过统一的身份认证系统登录夜莺监控，简化用户管理和登录流程，也降低了安全风险。
 对于 CAS、OAuth2、OIDC 三种方式，用户通过 SSO 登录夜莺之后，夜莺会判断当前登录的用户是否存在于夜莺的用户表中，如果不存在，则会自动创建一个用户，如果存在，夜莺会用 SSO 中的用户信息覆盖夜莺中已有用户的信息（前提是配置项 CoverAttributes = true，后文会介绍），这样的好处是用户只需要在 SSO 那里维护手机号、邮箱即可，夜莺会在用户登录时自动同步（当然，仅是在登录时同步，所以用户至少要通过 SSO 登录过一次夜莺，否则夜莺中没有这个用户的信息）。
 配置 OIDC # 这是最推荐的方式，如果你的 SSO 同时支持 OIDC 和 OAuth2，建议使用 OIDC。
 配置项说明 # 下面是 OIDC 各个配置项的说明：
