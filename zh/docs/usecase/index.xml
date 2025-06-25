@@ -12,7 +12,7 @@ DBA ├── MySQL └── Postgres K8S ├── 集群A └── 集群B �
 🟢 推荐使用 / 作为分隔符。
 问题 # 在夜莺里，业务组是全局共享的，既可以把规则挂到业务组上，也可以把机器挂到业务组上，这有个好处，就是方便复用业务组，即业务组创建一次之后，在多个地方都可以使用。
 但是这样做也有一个问题，那就是不同的东西，其分组的颗粒度是不同的。比如我们对机器分组的话，可能会分的比较细，比如：
-DBA/MySQL/Proxy/RegionA DBA/MySQL/Proxy/RegionB 但当我们对告警规则、仪表盘这些东西分组的时候，可能就不会分的那么细了，比如 DBA 所有的仪表盘，可能全部放在 DBA 下面就好了。</description></item><item><title>屏蔽规则</title><link>https://n9e.github.io/zh/docs/usecase/mute/</link><pubDate>Mon, 23 Jun 2025 16:50:43 +0800</pubDate><guid>https://n9e.github.io/zh/docs/usecase/mute/</guid><description>夜莺监控（Nightingale）中的屏蔽规则通常用于下面的场景：
+DBA/MySQL/Proxy/RegionA DBA/MySQL/Proxy/RegionB 但当我们对告警规则、仪表盘这些东西分组的时候，可能就不会分的那么细了，比如 DBA 所有的仪表盘，可能全部放在 DBA 下面就好了。</description></item><item><title>屏蔽规则</title><link>https://n9e.github.io/zh/docs/usecase/mute/</link><pubDate>Mon, 23 Jun 2025 16:50:43 +0800</pubDate><guid>https://n9e.github.io/zh/docs/usecase/mute/</guid><description>夜莺监控（Nightingale）中的屏蔽规则（菜单入口：告警-规则管理-屏蔽规则TAB）通常用于下面的场景：
 提前屏蔽掉预期内的告警，典型的就是做一些维护动作，比如某个机器要重启，提前屏蔽这个机器相关的告警 有些问题急忙修复不了，已经知悉，持续告警通知也没意义，就先临时屏蔽掉 原理 # 告警事件经由告警引擎产生后，在持久化到 DB 之前，会先经过屏蔽规则的判断，如果匹配了屏蔽规则，就不会持久化到 DB，更无法通知用户。工作时机如下图：
 屏蔽规则，本质上就是配置了一堆过滤条件，用于过滤想要屏蔽的告警事件。如何过滤呢，显然，就是根据告警事件的属性和标签来过滤。比如：
 事件是哪个数据源产生的 事件的级别 事件的标签 比如下面的例子：
