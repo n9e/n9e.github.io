@@ -136,10 +136,22 @@ sudo systemctl start n9e
 
 ## 边缘模式
 
+边缘模式的说明请一定先阅读：[夜莺监控 - 边缘告警引擎架构详解](https://mp.weixin.qq.com/s/0zmABASg2jwYExo-zAyCTA)！！！
+
 边缘模式要用到 `n9e-edge` 这个二进制，可以在 `n9e-${version}-linux-amd64.tar.gz` 压缩包里找到。`n9e-edge` 需要和中心端的 `n9e` 通信，同步告警规则，所以 `n9e-edge` 的配置文件中需要给出中心端 `n9e` 的连接信息。
+
+### 边缘集群
 
 边缘机房的 `n9e-edge` 也可以部署多个实例组成集群，同一个集群内多个 `n9e-edge` 的配置文件也要保持一致，配置文件中的 EngineName 相同的实例，会被看做一套引擎集群的多个实例，取一个和中心端 `n9e` 不一样的名字。中心端的 `n9e` 的 EngineName 默认叫 `default`，边缘端 `n9e-edge` 的 EngineName 默认叫 `edge`。
 
 如果你有多个边缘机房，需要每个边缘机房的 `n9e-edge` 的 EngineName 都不一样，比如 `edge1`、`edge2` 等等。这样区分之后，才能做到不同的数据源指定不同的告警引擎。
 
-更多边缘模式的说明请参考：[夜莺监控 - 边缘告警引擎架构详解](https://mp.weixin.qq.com/s/0zmABASg2jwYExo-zAyCTA)。
+### n9e-edge 启动
+
+注意 n9e-edge 进程启动的时候要指定配置目录，而非指定配置文件，比如：
+
+```bash
+nohup ./n9e-edge --configs etc/edge &> edge.log &
+```
+
+上面的 `etc/edge` 就是配置目录。要是写成 `--configs etc/edge/edge.toml` 就不对喽。
