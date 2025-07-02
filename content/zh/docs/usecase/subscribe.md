@@ -1,6 +1,6 @@
 ---
 title: "订阅规则"
-description: ""
+description: "讲解夜莺监控（Nightingale）中的订阅规则，适用于一些特殊的告警事件通知场景，比如全局的回调、细颗粒度的通知控制等。"
 date: 2025-07-02T08:51:08.970+08:00
 lastmod: 2025-07-02T08:51:08.970+08:00
 draft: false
