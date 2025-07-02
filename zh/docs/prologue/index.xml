@@ -21,4 +21,5 @@ Categraf 可以采集操作系统、网络设备、各类中间件、数据库�
 单节点测试模式 # 从夜莺的 github releases 下载发布包，解压之后里边有个 n9e 二进制文件，直接 ./n9e 就可以运行起来，默认端口是 17000，默认用户名是 root，密码是 root.2020。</description></item><item><title>夜莺商业版</title><link>https://n9e.github.io/zh/docs/prologue/flashcat/</link><pubDate>Fri, 30 May 2025 22:31:56 +0800</pubDate><guid>https://n9e.github.io/zh/docs/prologue/flashcat/</guid><description>夜莺监控（Nightingale）的主力开发人员是全职在做开源，如果没有收入养家糊口，项目也就无法持续了。所以他们创办了一家企业：北京快猫星云科技有限公司，简称“快猫”，推出了两款商业产品：
 一站式智能观测平台Flashcat 一站式告警响应平台Flashduty 其中 Flashcat 可以看做是夜莺的商业版，定位是统一的观测平台，开源版则只是侧重在指标监控，二者的区别可以参考这篇文章：《夜莺开源版和商业版的区别》。
 FlashDuty 则是类似 PagerDuty 的一站式告警响应平台（即 On-call 中心），支持对接 Zabbix、Prometheus、夜莺、各云监控、Elastalert 等各类监控系统，收拢告警事件到一个平台，统一对告警做收敛降噪、排班、认领升级、响应、派发等。可以免费注册试用。
-监控、可观测性领域的知识确实非常驳杂，如果您有预算需要乙方协助，可以考虑快猫的产品，多方共赢 👉 免费与快猫做产品思路交流。</description></item></channel></rss>
+监控、可观测性领域的知识确实非常驳杂，如果您有预算需要乙方协助，可以考虑快猫的产品，多方共赢 👉 免费与快猫做产品思路交流。</description></item><item><title>入门视频教程</title><link>https://n9e.github.io/zh/docs/prologue/videos/</link><pubDate>Wed, 02 Jul 2025 15:02:21 +0800</pubDate><guid>https://n9e.github.io/zh/docs/prologue/videos/</guid><description>为了方便大家快速上手使用夜莺监控（Nightingale），我们制作了一系列入门视频教程，涵盖了从安装部署到基本使用的各个方面。以下是这些视频的列表（建议两倍速播放，快速浏览一遍）：
+夜莺项目介绍、资料地址等，必看 夜莺架构讲解 基础功能入门体验 安装 Categraf 对接夜莺 介绍 Categraf 常见插件 通知规则入门讲解</description></item></channel></rss>
