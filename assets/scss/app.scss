@@ -34,13 +34,18 @@
 @import "layouts/posts";
 @import "layouts/sidebar";
 
-// .homepage-banner{
-//     width: 100%;
-//     height: 1583px; // 这里根据图片的高度，设置
-//     background: url(/img/global/arch-bg.png) no-repeat center center;
-//     background-size: cover;
-// }
+.homepage-banner-light{
+    display: block
+}
 
-// [data-dark-mode] .homepage-banner{
-//     background: url(/img/global/arch-bg-dark.png) no-repeat center center;
-// }
+.homepage-banner-dark{
+    display: none;
+}
+
+[data-dark-mode] .homepage-banner-dark{
+    display: block;
+}
+
+[data-dark-mode] .homepage-banner-light{
+    display: none;
+}

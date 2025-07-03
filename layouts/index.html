@@ -9,9 +9,14 @@
       <a class="btn btn-primary btn-lg px-4 mb-2" href="{{ .Params.startLink }}" role="button">{{ .Params.buttonText }}</a>
       <p class="meta">{{ .Params.metaText | safeHTML }}</p>
     </div>
+
+    <div class="col-lg-12 text-center">
+      <img src="/img/global/arch-bg.png" alt="homepage-banner" class="homepage-banner-light">
+      <img src="/img/global/arch-bg-dark.png" alt="homepage-banner" class="homepage-banner-dark">
+    </div>
   </div>
 
-  <!-- <div class="homepage-banner"></div> -->
+  
 
 </section>
 {{ end }}
