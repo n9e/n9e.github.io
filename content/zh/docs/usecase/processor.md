@@ -1,5 +1,5 @@
 ---
-title: "事件处理器"
+title: "事件处理器 Pipeline"
 description: "夜莺监控 Nightingale 使用事件处理器（Event Processor）进行事件自动化处理。可以和第三方系统联动，自动化处理告警事件。"
 date: 2025-06-06T10:54:48+08:00
 lastmod: 2025-07-03T22:37:16+08:00
