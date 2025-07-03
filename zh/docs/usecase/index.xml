@@ -37,15 +37,23 @@ FAQ # 1. 我已经配置了屏蔽规则，相关告警事件为啥还是可以�
 对于 CAS、OAuth2、OIDC 三种方式，用户通过 SSO 登录夜莺之后，夜莺会判断当前登录的用户是否存在于夜莺的用户表中，如果不存在，则会自动创建一个用户，如果存在，夜莺会用 SSO 中的用户信息覆盖夜莺中已有用户的信息（前提是配置项 CoverAttributes = true，后文会介绍），这样的好处是用户只需要在 SSO 那里维护手机号、邮箱即可，夜莺会在用户登录时自动同步（当然，仅是在登录时同步，所以用户至少要通过 SSO 登录过一次夜莺，否则夜莺中没有这个用户的信息）。
 配置 OIDC # 这是最推荐的方式，如果你的 SSO 同时支持 OIDC 和 OAuth2，建议使用 OIDC。
 配置项说明 # 下面是 OIDC 各个配置项的说明：
-# 是否开启 OIDC 单点登录，夜莺可以同时开启多个 SSO 方式 Enable = false # 登录页面会展示 SSO 登录地址的超链接，DisplayName 用于配置超链接的文本内容 DisplayName = 'OIDC' # IDC 登录验证通过后，需要跳转到夜莺，下面是配置夜莺用于 OIDC 的回调地址 # 您需要把 n9e.com 替换为您的夜莺地址，/callback 是固定的路径 RedirectURL = 'http://n9e.com/callback' # OIDC SSO 服务器根地址，换成您的 OIDC 服务器地址 SsoAddr = 'http://sso.</description></item><item><title>Webhook(Callback)</title><link>https://n9e.github.io/zh/docs/usecase/webhook/</link><pubDate>Fri, 06 Jun 2025 10:54:48 +0800</pubDate><guid>https://n9e.github.io/zh/docs/usecase/webhook/</guid><description>本文讲解夜莺 v8.beta13 以上版本的 Webhook(Callback) 相关能力。Webhook 通常用在两个场景：
-与夜莺联动事件自动化处理： 事件触发后，夜莺可以通过 Webhook 通知外部系统，外部系统可以根据事件内容进行自动化处理。 事件触发后，夜莺可以通过 Webhook 通知外部系统，外部系统对事件做修改，然后把事件返回，继续在夜莺中处理。相当于外部系统充当了夜莺的事件处理器。 与夜莺联动事件通知： 事件触发后，夜莺可以通过 Webhook 通知外部系统，外部系统可以根据事件内容进行告警通知，即外部系统仅充当一个通知媒介。 下面我们分别对这两种场景进行讲解演示。
-与夜莺联动事件自动化处理 # 需要新建一个“通知规则” 在“通知规则”里，添加事件处理器，事件处理器需要提前创建好，使用 Callback 类型的处理器，创建处理器的页面举例如下。 这里的 http://10.99.1.107:8888/print 是我的一个测试程序，可以把接收到的 HTTP 请求打印出来，方便演示。这个程序也是一个开源小程序，地址在 github gohttpd。
-创建了处理器后，回到通知规则页面，添加事件处理器，选择刚才创建的处理器。
-接下来，就可以去配置“告警规则”做测试了，测试一下产生的告警能否被第三方程序接收到。
-为了尽快看到效果，可以创建一个肯定会触发阈值的告警规则，然后在通知规则那里，选择刚才创建的通知规则：
-稍等片刻，去观察 http://10.99.1.107:8888/print 这个程序是否收到回调的 HTTP 请求。我的环境里看到的结果如下：
-从上图可以看出，HTTP request 中包含了告警事件的信息，其内容如下：
-{ &amp;quot;id&amp;quot;: 1097371, &amp;quot;cate&amp;quot;: &amp;quot;prometheus&amp;quot;, &amp;quot;cluster&amp;quot;: &amp;quot;prom&amp;quot;, &amp;quot;datasource_id&amp;quot;: 1, &amp;quot;group_id&amp;quot;: 2, &amp;quot;group_name&amp;quot;: &amp;quot;DBA-Postgres&amp;quot;, &amp;quot;hash&amp;quot;: &amp;quot;54f5543591c6dc0e30139cae196a1eee&amp;quot;, &amp;quot;rule_id&amp;quot;: 54, &amp;quot;rule_name&amp;quot;: &amp;quot;测试事件回调&amp;quot;, &amp;quot;rule_note&amp;quot;: &amp;quot;&amp;quot;, &amp;quot;rule_prod&amp;quot;: &amp;quot;metric&amp;quot;, &amp;quot;rule_algo&amp;quot;: &amp;quot;&amp;quot;, &amp;quot;severity&amp;quot;: 2, &amp;quot;prom_for_duration&amp;quot;: 0, &amp;quot;prom_ql&amp;quot;: &amp;quot;cpu_usage_active{ident=\&amp;quot;ulric-flashcat.</description></item><item><title>API</title><link>https://n9e.github.io/zh/docs/usecase/api/</link><pubDate>Fri, 13 Jun 2025 17:52:38 +0800</pubDate><guid>https://n9e.github.io/zh/docs/usecase/api/</guid><description>本文介绍如何使用 API 调用夜莺监控（Nightingale）的接口，主要是两类接口，一类是页面操作类，就是使用 API 模仿用户在页面上的操作，另一类是数据推送类，比如自己的程序采集了监控数据，想要推送给夜莺。
+# 是否开启 OIDC 单点登录，夜莺可以同时开启多个 SSO 方式 Enable = false # 登录页面会展示 SSO 登录地址的超链接，DisplayName 用于配置超链接的文本内容 DisplayName = 'OIDC' # IDC 登录验证通过后，需要跳转到夜莺，下面是配置夜莺用于 OIDC 的回调地址 # 您需要把 n9e.com 替换为您的夜莺地址，/callback 是固定的路径 RedirectURL = 'http://n9e.com/callback' # OIDC SSO 服务器根地址，换成您的 OIDC 服务器地址 SsoAddr = 'http://sso.</description></item><item><title>事件处理器</title><link>https://n9e.github.io/zh/docs/usecase/callback/</link><pubDate>Fri, 06 Jun 2025 10:54:48 +0800</pubDate><guid>https://n9e.github.io/zh/docs/usecase/callback/</guid><description>事件处理器（Event Processor）是夜莺 v8 版本引入的一个概念，当告警事件产生之后，在发送通知之前，可以使用事件处理器对告警事件做额外的处理，开源版本支持 Relabel、Callback、Event Update、Event Drop、AI Summary 5 类处理器，不同的处理器可以组成一个 Pipeline，对告警事件做一系列灵活的处理。场景比如：
+跟内部的 CMDB 打通，附加一些更丰富的信息到告警事件上 调用 DeepSeek 的接口，对告警事件做一些智能分析，然后把分析结果附加到告警事件上 把所有告警事件发送到自己的系统，相当于镜像一份，做后续的分析处理 一些特定的告警事件可以 Drop 掉，比如一些恢复事件不想发送通知 这里涉及多个概念，通知规则、事件处理器（Processor）、事件处理管道（Pipeline），稍作解释：
+一个通知规则里可以配置多个事件处理管道（Pipeline），顺序执行 一个事件处理管道（Pipeline）里可以配置多个事件处理器（Processor），也是顺序执行 上面的截图可以看出，入口菜单在 通知-通知规则，通知规则可能会有很多，在新增或编辑某个具体的通知规则时，可以看到有个 事件处理 的配置区域，这里可以引用多个提前创建好的事件管道（Pipeline），那在哪里对事件管道（Pipeline）增删改呢？入口比较隐藏，在 事件处理 右侧那个小齿轮里，点击可以展开一个侧拉板，在侧拉板里对事件管道（Pipeline）增删改。
+创建、编辑事件管道（Pipeline）时，又会展开一个新的侧拉板，在这个新侧拉板里编辑 Pipeline，我们可以在 Pipeline 里配置多个事件处理器（Processor）：
+点击事件处理器类型字段旁边的 使用说明 可以查看事件处理器的使用说明文档。
+Relabel 处理器 # Relabel 处理器，类似 Prometheus 中对监控指标的 Relabel 操作，只不过夜莺这里，是对告警事件的 Relabel，告警事件里也有标签字段，也有需求对标签做一些加工处理，所以这里提供了 Relabel 处理器。
+Relabel 处理器的具体使用说明，在夜莺的页面上点击事件处理器类型字段旁边的 使用说明，即可查看。
+Callback 处理器 # 事件触发后，夜莺可以通过 Callback 通知外部系统，外部系统可以根据事件内容进行自动化处理。比如我见过有些公司自研了一套告警通知的系统，不用夜莺的通知机制，就直接把所有告警事件通过 Callback 处理器发送到自研的系统。
+下面做一个简单的演示：
+首先创建一个“通知规则”，因为 Callback 处理器属于某个 Pipeline，而 Pipeline 又属于某个通知规则。 在“通知规则”里，引用事件处理的 Pipeline，Pipeline 需要提前创建好（在通知规则编辑页面，点击处理器右侧的小齿轮打开侧拉板，在侧拉板里创建、编辑 Pipeline），下面截图是一个 Pipeline 的详情页面，里边有一个 Callback 处理器。 这里的 http://10.</description></item><item><title>自定义通知媒介</title><link>https://n9e.github.io/zh/docs/usecase/media/</link><pubDate>Thu, 03 Jul 2025 23:27:13 +0800</pubDate><guid>https://n9e.github.io/zh/docs/usecase/media/</guid><description>在阅读本节之前，请一定确保你已经阅读过《通知规则》章节的内容，而且《通知规则》章节中提到的那些外部链接资料，也都阅读过了。
+下面我来模拟一个场景。假设我想使用企微应用（和企微机器人不是一个东西）来做告警通知，我们来捋一下整个流程。
+基础配置 # 1、企微应用通知的时候，需要知道被通知的人的企微账号。夜莺里默认没有这个信息，我们可以自定义一个 wecomid 的联系方式的字段，然后各个用户自行配置一下。
+上图中，wecomid 是我自定义的字段名，点击那个“联系方式管理”（只有管理员有权限），可以创建新的联系方式，这里我创建了一个新的联系方式叫 wecomid，用于配置各个用户的企微 ID。
+2、创建一个自定义通知媒介，对应我自己的程序，当用户在夜莺里配置要发告警消息给这个通知媒介的时候，夜莺就会调用我的程序，我的程序就会去调用企微接口，使用企微应用的方式发送通知消息（当然，我这里不是实际发送，只是一个演示，仍然使用在 事件处理器 章节介绍的 gohttpd 小程序做演示）。
+上图通知媒介的几个关键字段解释如下：
+媒介类型：可以自定义，我这里随便取了个名字叫 wecomapp，通知媒介通常要和消息模板配合使用，只要消息模板的媒介类型也叫 wecomapp，媒介和消息模板就可以关联起来了。 联系方式：选择刚才创建的 wecomid 联系方式，这样夜莺在调用我的程序的时候，就会把告警接收人的企微ID传给我。 URL：我的程序的地址，夜莺会通过 HTTP POST 的方式调用这个地址，请求体的内容可以在下面定义。 请求体：用于定义回调的 HTTP request body 内容，可以引用几个变量，这个例子里我把三个关键变量都引用了 我的请求体：
+{ &amp;quot;events&amp;quot;: {{ jsonMarshal $events }}, &amp;quot;sendtos&amp;quot;: {{ jsonMarshal $sendtos }}, &amp;quot;tpl&amp;quot;: {{ jsonMarshal $tpl }} } $events 是要发送的告警事件列表，虽然是个列表，实际开源版永远都只会有一条事件 $sendtos 是要发送给哪些接收者，最终是一个企微ID的列表，如果联系方式那里配置的是 Phone，这个 $sendtos 就是手机号列表 $tpl 是消息模板的内容，下面马上介绍 消息模板 # 最终在调用企微的接口发告警消息的时候，显然不是要把整个事件 JSON 发出来，那用户没法看。我们需要把事件格式化展示（比如 markdown 的方式），就像其他的通知媒介，都有对应的消息模板，自定义的通知媒介也需要有消息模板。下面我们就创建一个消息模板：</description></item><item><title>API</title><link>https://n9e.github.io/zh/docs/usecase/api/</link><pubDate>Fri, 13 Jun 2025 17:52:38 +0800</pubDate><guid>https://n9e.github.io/zh/docs/usecase/api/</guid><description>本文介绍如何使用 API 调用夜莺监控（Nightingale）的接口，主要是两类接口，一类是页面操作类，就是使用 API 模仿用户在页面上的操作，另一类是数据推送类，比如自己的程序采集了监控数据，想要推送给夜莺。
 页面操作类 # 页面操作类的 API 主要是模拟用户在页面上的操作，比如创建告警规则、修改机器标签、修改机器备注、调整机器归属的业务组等。所有用户在页面上的操作，都可以使用 API 完成，您可以通过这些接口来实现自动化操作。
 显然，要调用 API 需要有两个前提：
 搞定认证 了解有哪些接口，各个接口有哪些参数 搞定认证 # 这里直接讲解 v8.0.0-beta.5 以上版本的认证方式，即个人中心 token 方式，这是最简单的方式。
