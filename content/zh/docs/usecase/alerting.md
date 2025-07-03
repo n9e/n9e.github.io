@@ -86,7 +86,8 @@ toc: true
 
 每个处理器，页面上都有一个文档说明链接，点击之后可以查看详细的文档说明。也可以参考下面两个链接的资料：
 
-- [使用 Webhook 接入自定义逻辑和自定义媒介](/zh/docs/usecase/webhook/)
+- [事件处理器说明](/zh/docs/usecase/processor/)
+- [自定义通知媒介](/zh/docs/usecase/media/)
 - [开源夜莺监控实现发版时告警静默](https://mp.weixin.qq.com/s/Of90imqi0T_fV1QGxAkR0Q)
 
 ### 通知配置
