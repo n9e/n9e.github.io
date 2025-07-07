@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>FAQ on</title><link>https://n9e.github.io/zh/docs/faq/</link><description>Recent content in FAQ on</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><lastBuildDate>Mon, 07 Jul 2025 10:30:30 +0800</lastBuildDate><atom:link href="https://n9e.github.io/zh/docs/faq/index.xml" rel="self" type="application/rss+xml"/><item><title>全局回调下线，那全局场景怎么处理？</title><link>https://n9e.github.io/zh/docs/faq/global-callback/</link><pubDate>Mon, 07 Jul 2025 10:31:38 +0800</pubDate><guid>https://n9e.github.io/zh/docs/faq/global-callback/</guid><description>后面计划在 V9 版本，下掉全局回调，如果你当前还在使用全局回调功能，需要尽快迁移到新的使用方式。那么，使用什么方式来替代全局回调呢？
+答案是：订阅规则（ 👈 点击查看使用说明）。
+订阅规则的菜单入口是：告警-规则管理-订阅规则TAB。下面是创建订阅规则的界面：
+我们可以创建一个订阅规则，然后订阅所有的告警事件，即不要加过滤条件，直接选中所有级别，这样任何告警事件都会匹配这个订阅规则，注意：
+上图是老版本，数据源类型还是必须要选的，所以准确来讲，上例的订阅规则其实不是针对所有告警事件，而是针对 Prometheus 类型的数据源的所有告警事件。 后面的版本会做优化，数据源类型会做成非必填项，即可以订阅所有数据源类型的告警事件。 然后，选择一个通知规则，这样一来，所有的告警事件都可以走这个通知规则了。和之前的全局回调相比，有两个典型好处：
+订阅规则这里，可以做一些过滤，比如只订阅某个数据源类型的告警事件，或者只订阅某个级别的告警事件。 所有告警事件走一个统一的通知规则，通知规则里可以有事件处理器 Pipeline，可以使用不同的通知媒介，不同的通知媒介还可以有细粒度的过滤配置，整体上比全局回调更灵活。</description></item></channel></rss>
