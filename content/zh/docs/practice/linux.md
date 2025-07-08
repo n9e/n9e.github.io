@@ -62,3 +62,19 @@ Categraf 把数据推给夜莺，夜莺不直接存储数据，而是转发给 T
 首先，你需要了解 Prometheus remote write 协议（可以问问 Google 或 GPT）。Categraf 采集的数据是通过 Prometheus remote write 协议推送给夜莺的，夜莺也是通过 Prometheus remote write 协议把数据转发给时序库的。
 
 所以，如果某个时序库支持接收 Prometheus remote write 协议的数据，那么就可以接入 Categraf 或夜莺。这个信息从哪里得到？去看（或搜）时序库的文档，如果它支持接收 Prometheus remote write 协议的数据，那么它大概率会在文档里提及。如果它的文档里没有写，大概率就是不支持或支持的不好不推荐使用。
+
+### 3. 机器失联监控怎么做？
+
+在 Prometheus 里，每台机器部署 Node-Exporter，Prometheus 主动去抓取 Node-Exporter 的数据，这种方式叫做**PULL**。这种方式的好处是，Prometheus 可以知道机器是否失联，因为如果机器失联，Prometheus 就无法抓取到数据。抓取成功的话，会有个 `up` 指标，值为 1；如果抓取失败，则 `up` 指标的值为 0。
+
+所以，在 Prometheus PULL 模式下，可以使用 `up` 指标来监控机器是否失联。
+
+夜莺默认使用 Categraf 采集机器的监控数据，Categraf 不暴露 `/metrics` 接口，而是通过 remote write 协议把数据推给夜莺，这种模式称为**PUSH**。在这种模式下，不会有 `up` 指标，那如何监控机器是否失联呢？
+
+夜莺的告警规则里，提供了一个 `Host` 类型的告警规则，可以配置失联告警：
+
+<img src="/img/practice/linux/01.png" alt="Host Alert Rule" />
+
+通常配置为对所有机器生效即可，如果你有一些特殊的机器，不想做失联告警，可以把这些机器放到特殊的业务组或者打上特殊的标签，然后在机器筛选这里，给过滤掉。
+
+或者使用 PING 监控对机器发起 PING 探测，然后对 PING 的探测结果配置告警规则，也是可以的。有很多监控工具都支持 PING 探测，比如 Telegraf、Categraf、Blackbox Exporter 等。
