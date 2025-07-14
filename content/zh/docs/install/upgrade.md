@@ -13,7 +13,7 @@ weight: 200
 toc: true
 ---
 
-V6、V7 等版本都可以平滑升级到 V8 版本。
+V6、V7、以及 V8 各个小版本之间的升级，方法相同。
 
 ## 升级步骤
 
@@ -23,5 +23,7 @@ V6、V7 等版本都可以平滑升级到 V8 版本。
 
 ## 关于 DB 表结构
 
-如果夜莺所用的 DB 账号是有建表、改表权限的话，您不需要手动去修改 DB 表结构，夜莺会在启动时自动检查表结构是否需要升级，如果需要升级，则会自动改表。如果夜莺所用的 DB 账号没有建表、改表权限，则需要手工调整，近期的改动可以参考 [migrate.sql](https://github.com/ccfos/nightingale/blob/main/docker/migratesql/migrate.sql)。
+如果夜莺所用的 DB 账号是有建表、改表权限的话，您不需要手动去修改 DB 表结构，夜莺会在启动时自动检查表结构是否需要升级，如果需要升级，则会自动改表。如果夜莺所用的 DB 账号没有建表、改表权限，则需要手工调整，近期的改动可以参考 [migrate.sql](https://github.com/ccfos/nightingale/blob/main/docker/migratesql/migrate.sql)。如果自动改表失败，请提 [issue](https://github.com/ccfos/nightingale/issues)，我们会尽快跟进。
+
+理论上数据库同时支持 MySQL 和 Postgres，不过社区缺少 Postgres 的长期贡献者，所以建议优先使用 MySQL。
 
