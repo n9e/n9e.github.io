@@ -1,4 +1,4 @@
-baseurl = "http://localhost:8080/"
+baseurl = "https://n9e.github.io/"
 canonifyURLs = false
 disableAliases = true
 disableHugoGeneratorInject = true
@@ -16,7 +16,7 @@ disableLanguages = ["de", "nl"]
 
 # add redirects/headers
 [outputs]
-home = ["HTML", "RSS", "REDIRECTS", "HEADERS"]
+home = ["HTML", "RSS", "REDIRECTS", "HEADERS", "JSON"]
 section = ["HTML", "RSS", "SITEMAP"]
 
 # remove .{ext} from text/netlify
