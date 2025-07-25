@@ -28,4 +28,8 @@ EXEC 插件使用文档 之前有些社区用户提供了一些插件脚本样�
 Categraf 采集 Redis 监控数据 使用 Cprobe 监控 MySQL、Redis、MongoDB、Oracle、Postgres 等 Redis 监控采集原理 # 不管使用 Categraf 还是 Redis-Exporter 采集 Redis 的监控数据，原理都是类似的，通过 Redis 连接地址、用户名密码等信息连到 Redis 上，执行 info 之类的命令获取监控数据。
 如何接入 Redis-Exporter # 有些用户用了 Categraf 采集机器指标、进程指标、自定义插件，但是没有使用 Categraf 采集 Redis 的监控数据，而是使用了 Redis-Exporter。然后就比较困惑：如何把 Redis-Exporter 采集的数据接入到夜莺中？
 有两个办法：
-直接在你的时序库里配置 Scrape 规则，抓取 Redis-Exporter 的数据 使用 Categraf 的 input.prometheus 插件，抓取 Redis-Exporter 的数据</description></item></channel></rss>
+直接在你的时序库里配置 Scrape 规则，抓取 Redis-Exporter 的数据 使用 Categraf 的 input.prometheus 插件，抓取 Redis-Exporter 的数据</description></item><item><title>Oracle</title><link>https://n9e.github.io/zh/docs/practice/oracle/</link><pubDate>Fri, 25 Jul 2025 17:41:46 +0800</pubDate><guid>https://n9e.github.io/zh/docs/practice/oracle/</guid><description>对于监控系统，基础功能的强弱确实非常关键，但是如何在不同的场景落地实践，则更为关键。在《监控实践》章节，搜罗各类监控实践经验，会以不同的组件分门别类，您如果对某个组件有好的实践经验，欢迎提 PR，把您的文章链接附到对应的组件目录下。
+Oracle 监控数据的采集有多种方式，可以使用 Categraf、Cprobe 等各类工具，其原理都是类似的，无非就是连到 Oracle 实例上，执行相关命令获取监控数据。本文以 Categraf 为例，介绍 Oracle 监控数据的采集配置方法。
+Oracle 插件配置概述 # Categraf 的所有插件配置，默认都在 conf 目录下，Oracle 的配置目录是 conf/input.oracle，该目录下有两个配置文件：
+oracle.toml：Oracle 插件的主配置文件，配置不同 Oracle 实例的连接、认证信息；Categraf 可以同时连接多个 Oracle 实例，配置文件中可以配置多个实例的连接信息，即不同的 [[instances]] 配置段。 metric.toml：Oracle 插件通过执行各类 SQL 采集 Oracle 监控数据，有些 SQL 是通用的，希望所有的 Oracle 实例都去执行采集，有些 SQL 是特定实例的，只有特定实例才去执行采集，通用的 SQL 都在 metric.toml 中配置，特定实例的 SQL 在 oracle.toml 中配置。 oracle.toml # oracle.toml 配置样例如下：
+# 默认的采集频率，下面配置的所有的 oracle 的实例默认都会使用这个采集频率 # 如果某个实例需要不同的采集频率，可以在实例配置中使用 interval_times 来调整 # 各个实例的最终采集频率 = interval * interval_times # 如果这里的 interval 也没有配置，那就使用 Categraf 全局配置中的 interval（默认是 15 秒） # 单位是秒，所以默认是 15 秒采集一次监控数据 interval = 15 # 这是第一个 Oracle 实例的配置，使用一大块 [[instances]] 来配置 # [[instances]] 使用双中括号包裹，双中括号在 TOML 中表示数组 # 即可以配置多个 [[instances]] 区块，也就是可以配置多个 Oracle 实例 [[instances]] address = &amp;quot;10.</description></item></channel></rss>
