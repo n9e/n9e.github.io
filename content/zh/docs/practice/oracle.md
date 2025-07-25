@@ -14,7 +14,7 @@ toc: true
 
 > 对于监控系统，基础功能的强弱确实非常关键，但是如何在不同的场景落地实践，则更为关键。在《监控实践》章节，搜罗各类监控实践经验，会以不同的组件分门别类，您如果对某个组件有好的实践经验，欢迎提 PR，把您的文章链接附到对应的组件目录下。
 
-Oracle 监控数据的采集有多种方式，可以使用 [Categraf](https://github.com/flashcatcloud/categraf)、[Cprobe](https://github.com/cprobe/cprobe) 等各类工具，其原理都是类似的，无非就是连到 Oracle 实例上，执行相关命令获取监控数据。本文以 Categraf 为例，介绍 Oracle 监控数据的采集配置方法。
+Oracle 监控数据的采集有多种方式，可以使用 [Categraf](https://github.com/flashcatcloud/categraf)、[Cprobe](https://github.com/cprobe/cprobe) 等各类工具，其原理都是类似的，无非就是连到 Oracle 实例上，执行相关命令获取监控数据。本文以 Categraf v0.4.15 以上版本为例，介绍 Oracle 监控数据的采集配置方法。
 
 ## Oracle 插件配置概述
 
@@ -79,12 +79,12 @@ labels = { region="local" }
 Oracle 监控数据采集原理：周期性执行 SQL，把返回的结果转换为 Prometheus 时序数据格式，发送到服务端。SQL 执行的结果是多行多列的二维表格，那我们就需要通过配置告诉 Categraf，哪些列作为时序数据的标签（label），哪些列作为时序数据的值（metric value）。
 
 - mesurement: 自定义的一个指标前缀
-- request: 查询监控数据的 sql 语句
-- label_fields: sql 查到的内容，会有多列，哪些列作为时序数据的 label
-- metric_fields: sql 查到的内容，会有多列，哪些列作为时序数据的值
+- request: 查询监控数据的 SQL 语句
+- label_fields: SQL 查到的内容，会有多列，哪些列作为时序数据的 label
+- metric_fields: SQL 查到的内容，会有多列，哪些列作为时序数据的值
 - field_to_append: 是否要把某列的内容附到监控指标名称里，作为指标的后缀
-- timeout: sql 执行的超时时间
-- ignore_zero_result: 是否忽略查询结果中值为 0 的行，如果不忽略（设置为 false）且没有查到数据，会打印一行错误日志，如果忽略了（设置为 true），则查不到数据的时候不会打印错误日志
+- timeout: SQL 执行的超时时间
+- ignore_zero_result: 是否忽略查询结果中值为 0 的行，如果不忽略（设置为 false）且没有查到数据的话会打印一行错误日志，如果忽略了（设置为 true），则查不到数据的时候不会打印错误日志
 
 ## metric.toml
 
