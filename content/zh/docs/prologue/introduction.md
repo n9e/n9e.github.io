@@ -16,6 +16,11 @@ toc: true
 
 夜莺监控项目，最初由滴滴开发和开源，并于 2022 年 5 月 11 日，捐赠予中国计算机学会开源发展委员会（CCF ODC），为 CCF ODC 成立后接受捐赠的第一个开源项目。
 
+## 代码仓库
+
+- 后端(主仓库)：[https://github.com/ccfos/nightingale](https://github.com/ccfos/nightingale)
+- 前端：[https://github.com/n9e/fe](https://github.com/n9e/fe)
+
 ## 夜莺的工作逻辑
 
 很多用户已经自行采集了指标、日志数据，此时就把存储库（VictoriaMetrics、ElasticSearch等）作为数据源接入夜莺，即可在夜莺里配置告警规则、通知规则，完成告警事件的生成和派发。
