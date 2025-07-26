@@ -362,4 +362,4 @@ RPCListen = "0.0.0.0:20090"
 
 ## n9e-edge configuration
 
-The configuration file for the edge alert engine n9e-edge is `etc/edge/edge.toml`, and most configurations are the same as those of the central n9e. For more information, you can refer to this article: 《[Nightingale Monitoring - Edge Alert Engine Architecture Detailed Explanation](https://flashcat.cloud/blog/n9e-edge-intro/)》.
+The configuration file for the edge alert engine n9e-edge is `etc/edge/edge.toml`, and most configurations are the same as those of the central n9e. For more information, you can refer to this article: 《[Nightingale Monitoring - Edge Alert Engine Architecture Detailed Explanation](/docs/prologue/architecture/#edge-mode)》.

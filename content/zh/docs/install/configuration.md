@@ -362,4 +362,4 @@ RPCListen = "0.0.0.0:20090"
 
 ## n9e-edge 的配置
 
-边缘告警引擎 n9e-edge 的配置文件是 `etc/edge/edge.toml`，大部分配置和中心 n9e 的配置相同。更多信息可以参考这篇文章：《[夜莺监控 - 边缘告警引擎架构详解](https://flashcat.cloud/blog/n9e-edge-intro/)》。
+边缘告警引擎 n9e-edge 的配置文件是 `etc/edge/edge.toml`，大部分配置和中心 n9e 的配置相同。更多信息可以参考这篇文章：《[夜莺监控 - 边缘告警引擎架构详解](/zh/docs/prologue/architecture/#边缘模式)》。
