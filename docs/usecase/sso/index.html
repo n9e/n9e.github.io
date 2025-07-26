@@ -1,0 +1,286 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="ie=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><link rel=preload as=font href=https://n9e.github.io/fonts/vendor/jost/jost-v4-latin-regular.woff2 type=font/woff2 crossorigin><link rel=preload as=font href=https://n9e.github.io/fonts/vendor/jost/jost-v4-latin-500.woff2 type=font/woff2 crossorigin><link rel=preload as=font href=https://n9e.github.io/fonts/vendor/jost/jost-v4-latin-700.woff2 type=font/woff2 crossorigin><script>(()=>{var t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,e=localStorage.getItem("theme");t&&e===null&&(localStorage.setItem("theme","dark"),document.documentElement.setAttribute("data-dark-mode","")),t&&e==="dark"&&document.documentElement.setAttribute("data-dark-mode",""),e==="dark"&&document.documentElement.setAttribute("data-dark-mode","")})()</script><link rel=stylesheet href=https://n9e.github.io/main.cd8e1024e051ed6a76fc4a6b6e6890dba55e59537023de74daea09e37c542f81d57d31a18fcfecef6dbfc7fcc9d9ce8a592529eada645b132cf00f8ec947d165.css integrity="sha512-zY4QJOBR7Wp2/EprbmiQ26VeWVNwI9502uoJ43xUL4HVfTGhj8/s722/x/zJ2c6KWSUp6tpkWxMs8A+OyUfRZQ==" crossorigin=anonymous><noscript><style>img.lazyload{display:none}</style></noscript><meta name=robots content="index, follow"><meta name=googlebot content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"><meta name=bingbot content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"><title>Single Sign-On (SSO) - Nightingale</title><meta name=description content="Nightingale monitoring supports Single Sign-On (SSO) functionality, allowing login to Nightingale monitoring via SSO. SSO supports multiple protocols such as OAuth2, OIDC, etc."><link rel=canonical href=https://n9e.github.io/docs/usecase/sso/><meta property="og:locale" content="en_US"><meta property="og:type" content="article"><meta property="og:title" content="Single Sign-On (SSO)"><meta property="og:description" content="Nightingale monitoring supports Single Sign-On (SSO) functionality, allowing login to Nightingale monitoring via SSO. SSO supports multiple protocols such as OAuth2, OIDC, etc."><meta property="og:url" content="https://n9e.github.io/docs/usecase/sso/"><meta property="og:site_name" content="Home"><meta property="article:published_time" content="2025-07-26T17:18:11+08:00"><meta property="article:modified_time" content="2025-07-26T17:19:04+08:00"><meta property="og:image" content="https://n9e.github.io/doks.png"><meta property="og:image:alt" content="Home"><meta name=twitter:card content="summary_large_image"><meta name=twitter:site content="@ulricqin"><meta name=twitter:creator content="@henkverlinde"><meta name=twitter:title content="Single Sign-On (SSO)"><meta name=twitter:description content="Nightingale monitoring supports Single Sign-On (SSO) functionality, allowing login to Nightingale monitoring via SSO. SSO supports multiple protocols such as OAuth2, OIDC, etc."><meta name=twitter:image content="https://n9e.github.io/doks.png"><meta name=twitter:image:alt content="Single Sign-On (SSO)"><script type=application/ld+json>{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://n9e.github.io/#/schema/organization/1","name":"Doks","url":"https://n9e.github.io/","sameAs":["https://twitter.com/ulricqin","https://github.com/ccfos/nightingale"],"logo":{"@type":"ImageObject","@id":"https://n9e.github.io/#/schema/image/1","url":"https://n9e.github.io/logo-doks.png","width":512,"height":512,"caption":"Doks"},"image":{"@id":"https://n9e.github.io/#/schema/image/1"}},{"@type":"WebSite","@id":"https://n9e.github.io/#/schema/website/1","url":"https://n9e.github.io/","name":"Home","description":"Nightingale is an open-source monitoring system that focuses on alerting.","publisher":{"@id":"https://n9e.github.io/#/schema/organization/1"}},{"@type":"WebPage","@id":"https://n9e.github.io/docs/usecase/sso/","url":"https://n9e.github.io/docs/usecase/sso/","name":"Single Sign-On (SSO)","description":"Nightingale monitoring supports Single Sign-On (SSO) functionality, allowing login to Nightingale monitoring via SSO. SSO supports multiple protocols such as OAuth2, OIDC, etc.","isPartOf":{"@id":"https://n9e.github.io/#/schema/website/1"},"about":{"@id":"https://n9e.github.io/#/schema/organization/1"},"datePublished":"2025-07-26T17:18:11CET","dateModified":"2025-07-26T17:19:04CET","breadcrumb":{"@id":"https://n9e.github.io/docs/usecase/sso/#/schema/breadcrumb/1"},"primaryImageOfPage":{"@id":"https://n9e.github.io/docs/usecase/sso/#/schema/image/2"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https://n9e.github.io/docs/usecase/sso/"]}]},{"@type":"BreadcrumbList","@id":"https://n9e.github.io/docs/usecase/sso/#/schema/breadcrumb/1","name":"Breadcrumbs","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"WebPage","@id":"https://n9e.github.io/","url":"https://n9e.github.io/","name":"Home"}},{"@type":"ListItem","position":2,"item":{"@type":"WebPage","@id":"https://n9e.github.io/docs/","url":"https://n9e.github.io/docs/","name":"Docs"}},{"@type":"ListItem","position":3,"item":{"@type":"WebPage","@id":"https://n9e.github.io/docs/usecase/","url":"https://n9e.github.io/docs/usecase/","name":"Usecase"}},{"@type":"ListItem","position":4,"item":{"@id":"https://n9e.github.io/docs/usecase/sso/"}}]},{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://n9e.github.io/#/schema/article/1","headline":"Single Sign-On (SSO)","description":"Nightingale monitoring supports Single Sign-On (SSO) functionality, allowing login to Nightingale monitoring via SSO. SSO supports multiple protocols such as OAuth2, OIDC, etc.","isPartOf":{"@id":"https://n9e.github.io/docs/usecase/sso/"},"mainEntityOfPage":{"@id":"https://n9e.github.io/docs/usecase/sso/"},"datePublished":"2025-07-26T17:18:11CET","dateModified":"2025-07-26T17:19:04CET","author":{"@id":"https://n9e.github.io/#/schema/person/2"},"publisher":{"@id":"https://n9e.github.io/#/schema/organization/1"},"image":{"@id":"https://n9e.github.io/docs/usecase/sso/#/schema/image/2"}}]},{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://n9e.github.io/#/schema/person/2","name":"Henk Verlinde","sameAs":["https://twitter.com/henkverlinde","https://www.linkedin.com/in/henkverlinde/","https://github.com/UlricQin"]}]},{"@context":"https://schema.org","@graph":[{"@type":"ImageObject","@id":"https://n9e.github.io/docs/usecase/sso/#/schema/image/2","url":"https://n9e.github.io/doks.png","contentUrl":"https://n9e.github.io/doks.png","caption":"Single Sign-On (SSO)"}]}]}</script><meta name=theme-color content="#fff"><link rel=apple-touch-icon sizes=180x180 href=https://n9e.github.io/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=https://n9e.github.io/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=https://n9e.github.io/favicon-16x16.png><link rel=manifest crossorigin=use-credentials href=https://n9e.github.io/site.webmanifest></head><body class="docs single"><div class=header-bar></div><header class="navbar navbar-expand-md navbar-light doks-navbar"><nav class="container-xxl flex-wrap flex-md-nowrap" aria-label="Main navigation"><a class="navbar-brand p-0 me-auto" href=/ aria-label=Home>Home</a>
+<button class="btn btn-menu d-block d-md-none order-5" type=button data-bs-toggle=offcanvas data-bs-target=#offcanvasDoks aria-controls=offcanvasDoks aria-label="Open main menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button><div class="offcanvas offcanvas-end border-0 py-md-1" tabindex=-1 id=offcanvasDoks data-bs-backdrop=true aria-labelledby=offcanvasDoksLabel><div class="header-bar d-md-none"></div><div class="offcanvas-header d-md-none"><h2 class="h5 offcanvas-title ps-2" id=offcanvasDoksLabel><a class=text-dark href=/>Home</a></h2><button type=button class="btn-close text-reset me-2" data-bs-dismiss=offcanvas aria-label="Close main menu"></button></div><div class="offcanvas-body px-4"><h3 class="h6 text-uppercase mb-3 d-md-none">Main</h3><ul class="nav flex-column flex-md-row ms-md-n3"><li class=nav-item><a class="nav-link ps-0 py-1 active" href=/docs/prologue/introduction/>Docs</a></li></ul><hr class="text-black-50 my-4 d-md-none"><h3 class="h6 text-uppercase mb-3 d-md-none">Socials</h3><ul class="nav flex-column flex-md-row ms-md-auto me-md-n5 pe-md-2"><li class=nav-item><a class="nav-link ps-0 py-1" href=https://github.com/ccfos/nightingale><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37.0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44.0 0020 4.77 5.07 5.07.0 0019.91 1S18.73.65 16 2.48a13.38 13.38.0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07.0 005 4.77 5.44 5.44.0 003.5 8.55c0 5.42 3.3 6.61 6.44 7A3.37 3.37.0 009 18.13V22"/></svg><small class="ms-2 d-md-none">GitHub</small></a></li></ul></div></div><button id=mode class="btn btn-link order-md-1" type=button aria-label="Toggle user interface mode">
+<span class=toggle-dark><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg></span><span class=toggle-light><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span></button><div class="dropdown order-md-2"><button class="btn btn-doks-light dropdown-toggle" id=doks-languages data-bs-toggle=dropdown aria-expanded=false data-bs-display=static>
+EN
+<span class=dropdown-caret><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"/></svg></span></button><ul class="dropdown-menu dropdown-menu-end shadow rounded border-0" aria-labelledby=doks-languages><li><a class="dropdown-item current" aria-current=true href=/docs/usecase/sso/>English</a></li><li><hr class=dropdown-divider></li><li><a class=dropdown-item rel=alternate href=/zh/docs/usecase/sso/ hreflang=zh lang=zh>Chinese</a></li></ul></div></nav></header><nav class="doks-subnavbar py-2 sticky-lg-top" aria-label="Secondary navigation"><div class="container-xxl d-flex align-items-md-center"><form class="doks-search position-relative flex-grow-1 me-auto"><input id=search class="form-control is-search" type=search placeholder="Search docs..." aria-label="Search docs..." autocomplete=off><div id=suggestions class="shadow bg-white rounded d-none"></div></form><button class="btn doks-sidebar-toggle d-lg-none ms-3 order-3 collapsed" type=button data-bs-toggle=collapse data-bs-target=#doks-docs-nav aria-controls=doks-docs-nav aria-expanded=false aria-label="Toggle documentation navigation"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="doks doks-expand" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Expand</title><polyline points="7 13 12 18 17 13"/><polyline points="7 6 12 11 17 6"/></svg><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="doks doks-collapse" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>Collapse</title><polyline points="17 11 12 6 7 11"/><polyline points="17 18 12 13 7 18"/></svg></button></div></nav><div class=container-xxl><aside class=doks-sidebar><nav id=doks-docs-nav class="collapse d-lg-none" aria-label="Tertiary navigation"><ul class="list-unstyled collapsible-sidebar"><li class=mb-1><button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle=collapse data-bs-target=#section-5f2cae171c6192fa410df4385f7218aa aria-expanded=false>
+Prologue</button><div class=collapse id=section-5f2cae171c6192fa410df4385f7218aa><ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><li><a class="docs-link rounded" href=https://n9e.github.io/docs/prologue/introduction/>Introduction</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/prologue/prometheus/>Nightingale vs Prometheus</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/prologue/pre-knowledge/>Prior knowledge</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/prologue/architecture/>Architecture</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/prologue/flashcat/>Enterprise Edition</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/prologue/videos/>Videos for Getting Started</a></li></ul></div></li><li class=mb-1><button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle=collapse data-bs-target=#section-7cd8fb6e31cc946c078d2740c76a9899 aria-expanded=false>
+Installation</button><div class=collapse id=section-7cd8fb6e31cc946c078d2740c76a9899><ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><li><a class="docs-link rounded" href=https://n9e.github.io/docs/install/pre-intro/>Pre-Introduction</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/install/upgrade/>Upgrade</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/install/binary/>Binary Deployment</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/install/compose/>Docker Compose</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/install/helm/>Helm</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/install/configuration/>Configuration</a></li></ul></div></li><li class=mb-1><button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle=collapse data-bs-target=#section-8fc330d76e990ab6964af08ea1e47d2e aria-expanded=false>
+Collector</button><div class=collapse id=section-8fc330d76e990ab6964af08ea1e47d2e><ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><li><a class="docs-link rounded" href=https://n9e.github.io/docs/agent/intro/>Pre explanation</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/agent/categraf/>Categraf</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/agent/telegraf/>Telegraf</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/agent/datadog-agent/>Datadog-Agent</a></li></ul></div></li><li class=mb-1><button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle=collapse data-bs-target=#section-411eaaaa405899304e54dce3363a2baf aria-expanded=false>
+Quick Start</button><div class=collapse id=section-411eaaaa405899304e54dce3363a2baf><ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usage/datasource/>Data Sources</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usage/ad-hoc/>Ad-hoc Query</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usage/metric-alerting/>Metric Alerting</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usage/logs-alerting/>Log Alerting</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usage/notify-rules/>Notification Rules</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usage/dashboard/>Dashboard</a></li></ul></div></li><li class=mb-1><button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle=collapse data-bs-target=#section-8c004d7e3b8a5a850ab2459c3afc2f57 aria-expanded=false>
+Practice</button><div class=collapse id=section-8c004d7e3b8a5a850ab2459c3afc2f57><ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><li><a class="docs-link rounded" href=https://n9e.github.io/docs/practice/linux/>Linux OS</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/practice/proc/>Process</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/practice/port/>Port</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/practice/exec/>Plugin Scripts</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/practice/mysql/>MySQL</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/practice/redis/>Redis</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/practice/oracle/>Oracle</a></li></ul></div></li><li class=mb-1><button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle=collapse data-bs-target=#section-4de8388d84a18a2e157114d9fecff0fe aria-expanded=true>
+Use Case</button><div class="collapse show" id=section-4de8388d84a18a2e157114d9fecff0fe><ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usecase/alerting/>Alerting Principles and Process Explanation</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usecase/bizgroup/>Business Groups</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usecase/mute/>Muting Rules</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usecase/subscribe/>Subscription Rules</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usecase/processor/>Event Processor</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usecase/media/>Custom Notification Media</a></li><li><a class="docs-link rounded active" href=https://n9e.github.io/docs/usecase/sso/>Single Sign-On (SSO)</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usecase/api/>API</a></li></ul></div></li><li class=mb-1><button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle=collapse data-bs-target=#section-1fe917b01f9a3f87fa2d7d3b7643fac1 aria-expanded=false>
+FAQ</button><div class=collapse id=section-1fe917b01f9a3f87fa2d7d3b7643fac1><ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><li><a class="docs-link rounded" href=https://n9e.github.io/docs/faq/global-callback/>Global Callback is Deprecated, How to Handle Global Scenarios?</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/faq/cpu-alerting/>Should 'High CPU Load' Trigger an Alert?</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/faq/biz-team-subscribe-infra-alarms/>Should upper-layer businesses receive alarms from underlying infrastructure?</a></li></ul></div></li></ul></nav></aside></div><div class="wrap container-xxl" role=document><div class=content><div class="row flex-xl-nowrap"><div class="col-lg-5 col-xl-4 docs-sidebar d-none d-lg-block"><nav class=docs-links aria-label="Main navigation"><ul class="list-unstyled collapsible-sidebar"><li class=mb-1><button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle=collapse data-bs-target=#section-5f2cae171c6192fa410df4385f7218aa aria-expanded=false>
+Prologue</button><div class=collapse id=section-5f2cae171c6192fa410df4385f7218aa><ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><li><a class="docs-link rounded" href=https://n9e.github.io/docs/prologue/introduction/>Introduction</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/prologue/prometheus/>Nightingale vs Prometheus</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/prologue/pre-knowledge/>Prior knowledge</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/prologue/architecture/>Architecture</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/prologue/flashcat/>Enterprise Edition</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/prologue/videos/>Videos for Getting Started</a></li></ul></div></li><li class=mb-1><button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle=collapse data-bs-target=#section-7cd8fb6e31cc946c078d2740c76a9899 aria-expanded=false>
+Installation</button><div class=collapse id=section-7cd8fb6e31cc946c078d2740c76a9899><ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><li><a class="docs-link rounded" href=https://n9e.github.io/docs/install/pre-intro/>Pre-Introduction</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/install/upgrade/>Upgrade</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/install/binary/>Binary Deployment</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/install/compose/>Docker Compose</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/install/helm/>Helm</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/install/configuration/>Configuration</a></li></ul></div></li><li class=mb-1><button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle=collapse data-bs-target=#section-8fc330d76e990ab6964af08ea1e47d2e aria-expanded=false>
+Collector</button><div class=collapse id=section-8fc330d76e990ab6964af08ea1e47d2e><ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><li><a class="docs-link rounded" href=https://n9e.github.io/docs/agent/intro/>Pre explanation</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/agent/categraf/>Categraf</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/agent/telegraf/>Telegraf</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/agent/datadog-agent/>Datadog-Agent</a></li></ul></div></li><li class=mb-1><button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle=collapse data-bs-target=#section-411eaaaa405899304e54dce3363a2baf aria-expanded=false>
+Quick Start</button><div class=collapse id=section-411eaaaa405899304e54dce3363a2baf><ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usage/datasource/>Data Sources</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usage/ad-hoc/>Ad-hoc Query</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usage/metric-alerting/>Metric Alerting</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usage/logs-alerting/>Log Alerting</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usage/notify-rules/>Notification Rules</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usage/dashboard/>Dashboard</a></li></ul></div></li><li class=mb-1><button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle=collapse data-bs-target=#section-8c004d7e3b8a5a850ab2459c3afc2f57 aria-expanded=false>
+Practice</button><div class=collapse id=section-8c004d7e3b8a5a850ab2459c3afc2f57><ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><li><a class="docs-link rounded" href=https://n9e.github.io/docs/practice/linux/>Linux OS</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/practice/proc/>Process</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/practice/port/>Port</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/practice/exec/>Plugin Scripts</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/practice/mysql/>MySQL</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/practice/redis/>Redis</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/practice/oracle/>Oracle</a></li></ul></div></li><li class=mb-1><button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle=collapse data-bs-target=#section-4de8388d84a18a2e157114d9fecff0fe aria-expanded=true>
+Use Case</button><div class="collapse show" id=section-4de8388d84a18a2e157114d9fecff0fe><ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usecase/alerting/>Alerting Principles and Process Explanation</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usecase/bizgroup/>Business Groups</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usecase/mute/>Muting Rules</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usecase/subscribe/>Subscription Rules</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usecase/processor/>Event Processor</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usecase/media/>Custom Notification Media</a></li><li><a class="docs-link rounded active" href=https://n9e.github.io/docs/usecase/sso/>Single Sign-On (SSO)</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/usecase/api/>API</a></li></ul></div></li><li class=mb-1><button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle=collapse data-bs-target=#section-1fe917b01f9a3f87fa2d7d3b7643fac1 aria-expanded=false>
+FAQ</button><div class=collapse id=section-1fe917b01f9a3f87fa2d7d3b7643fac1><ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small"><li><a class="docs-link rounded" href=https://n9e.github.io/docs/faq/global-callback/>Global Callback is Deprecated, How to Handle Global Scenarios?</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/faq/cpu-alerting/>Should 'High CPU Load' Trigger an Alert?</a></li><li><a class="docs-link rounded" href=https://n9e.github.io/docs/faq/biz-team-subscribe-infra-alarms/>Should upper-layer businesses receive alarms from underlying infrastructure?</a></li></ul></div></li></ul></nav></div><nav class="docs-toc d-none d-xl-block col-xl-3" aria-label="Secondary navigation"><div class=page-links><h3>On this page</h3><nav id=TableOfContents><ul><li><a href=#configuring-oidc>Configuring OIDC</a><ul><li><a href=#configuration-item-explanation>Configuration Item Explanation</a></li><li><a href=#configuration-item-faq>Configuration Item FAQ</a></li><li><a href=#authing-integration-demo>Authing Integration Demo</a></li><li><a href=#feishu-integration-demo>Feishu Integration Demo</a></li><li><a href=#keycloak-integration-demo>Keycloak Integration Demo</a></li></ul></li><li><a href=#configuring-oauth2>Configuring OAuth2</a><ul><li><a href=#configuration-item-explanation-1>Configuration Item Explanation</a></li><li><a href=#authing-integration-demo-1>Authing Integration Demo</a></li></ul></li><li><a href=#configuring-cas>Configuring CAS</a><ul><li><a href=#configuration-item-explanation-2>Configuration Item Explanation</a></li><li><a href=#authing-integration-demo-2>Authing Integration Demo</a></li></ul></li><li><a href=#configuring-ldap>Configuring LDAP</a><ul><li><a href=#configuration-item-explanation-3>Configuration Item Explanation</a></li></ul></li></ul></nav></div></nav><main class="docs-content col-lg-11 col-xl-9"><h1>Single Sign-On (SSO)</h1><p class=lead></p><nav class=d-xl-none aria-label="Quaternary navigation"><div class=page-links><h3>On this page</h3><nav id=TableOfContents><ul><li><a href=#configuring-oidc>Configuring OIDC</a><ul><li><a href=#configuration-item-explanation>Configuration Item Explanation</a></li><li><a href=#configuration-item-faq>Configuration Item FAQ</a></li><li><a href=#authing-integration-demo>Authing Integration Demo</a></li><li><a href=#feishu-integration-demo>Feishu Integration Demo</a></li><li><a href=#keycloak-integration-demo>Keycloak Integration Demo</a></li></ul></li><li><a href=#configuring-oauth2>Configuring OAuth2</a><ul><li><a href=#configuration-item-explanation-1>Configuration Item Explanation</a></li><li><a href=#authing-integration-demo-1>Authing Integration Demo</a></li></ul></li><li><a href=#configuring-cas>Configuring CAS</a><ul><li><a href=#configuration-item-explanation-2>Configuration Item Explanation</a></li><li><a href=#authing-integration-demo-2>Authing Integration Demo</a></li></ul></li><li><a href=#configuring-ldap>Configuring LDAP</a><ul><li><a href=#configuration-item-explanation-3>Configuration Item Explanation</a></li></ul></li></ul></nav></div></nav><p>Nightingale monitoring supports Single Sign-On (SSO) functionality, including multiple protocols such as LDAP, CAS, OAuth2, OIDC, etc. The SSO feature allows users to log in to Nightingale monitoring through a unified identity authentication system, simplifying user management and login processes while reducing security risks.</p><p>For CAS, OAuth2, and OIDC methods, after a user logs in to Nightingale via SSO, Nightingale will check if the currently logged-in user exists in Nightingale&rsquo;s user table. If not, a user will be automatically created. If the user exists, Nightingale will overwrite the existing user information in Nightingale with the user information from SSO (provided that the configuration item <code>CoverAttributes = true</code> is set, as described later). This ensures that users only need to maintain their phone numbers and emails in SSO, and Nightingale will automatically synchronize this information during login (note that synchronization only occurs during login, so users must log in to Nightingale via SSO at least once; otherwise, their information will not exist in Nightingale).</p><h2 id=configuring-oidc>Configuring OIDC <a href=#configuring-oidc class=anchor aria-hidden=true>#</a></h2><p>This is the most recommended method. If your SSO supports both OIDC and OAuth2, it is advisable to use OIDC.</p><h3 id=configuration-item-explanation>Configuration Item Explanation <a href=#configuration-item-explanation class=anchor aria-hidden=true>#</a></h3><p>Below is an explanation of each OIDC configuration item:</p><pre><code class=language-toml># Whether to enable OIDC single sign-on; Nightingale can enable multiple SSO methods simultaneously
+Enable = false
+
+# The login page will display a hyperlink to the SSO login address; DisplayName configures the text content of the hyperlink
+DisplayName = 'OIDC'
+
+# After OIDC login verification is passed, it needs to redirect to Nightingale. The following configures the callback address used by Nightingale for OIDC
+# You need to replace n9e.com with your Nightingale address; /callback is a fixed path
+RedirectURL = 'http://n9e.com/callback'
+
+# OIDC SSO server root address; replace with your OIDC server address
+SsoAddr = 'http://sso.example.org'
+
+# Logout address of the OIDC SSO server; when the user clicks logout in Nightingale, they will be redirected to this address to complete synchronous logout of Nightingale and SSO
+SsoLogoutAddr = 'http://sso.example.org/session/end'
+
+# ClientId and ClientSecret assigned to Nightingale by OIDC; must be configured, generally obtained when registering the application on the SSO server
+ClientId = ''
+ClientSecret = ''
+
+# When a user logs in to Nightingale via SSO and Nightingale finds that the user does not exist in Nightingale's user table, a user will be automatically created
+# When creating a user, the user needs to be assigned a role; the following configures the list of default roles
+DefaultRoles = ['Standard']
+
+# When a user logs in to Nightingale via SSO, Nightingale will request user information from the SSO server and write the user information into Nightingale's user table
+# If CoverAttributes = true, it will overwrite existing user information in Nightingale, such as phone number, email, etc. Usually, this should be set to true
+CoverAttributes = true
+
+# Scope is a concept in the OIDC protocol, representing the list of user information fields requested; usually the following fields
+Scopes = ['openid', 'profile', 'email', 'phone']
+
+# The user information fields in OIDC do not 100% correspond to those in Nightingale
+# Therefore, configure below: which fields in OIDC correspond to each field in Nightingale
+# Username, Nickname, Phone, Email are user information fields in Nightingale
+# The following sub, nickname, phone_number, email are user field names in OIDC
+# Adjust according to the user information fields of your OIDC server
+[Attributes]
+Username = 'sub'
+Nickname = 'nickname'
+Phone = 'phone_number'
+Email = 'email'
+</code></pre><h3 id=configuration-item-faq>Configuration Item FAQ <a href=#configuration-item-faq class=anchor aria-hidden=true>#</a></h3><p><strong>1. Users can log in successfully using OIDC, but username, phone number, etc., cannot be obtained</strong></p><p>You can adjust Nightingale&rsquo;s log level to DEBUG (adjust in config.toml), then restart Nightingale, filter the log keyword: <code>sso_exchange_user: oidc info</code>, and test the login again. You can check which user information is obtained from the single sign-on system, then adjust the field mapping in <code>Attributes</code> according to the actual situation.</p><h3 id=authing-integration-demo>Authing Integration Demo <a href=#authing-integration-demo class=anchor aria-hidden=true>#</a></h3><p>The following uses <a href=https://www.authing.com/>Authing</a> as the OIDC SSO server for demonstration. First, create an application on Authing to obtain ClientId and ClientSecret.</p><img src=/img/usecase/sso/authing-oidc.png alt="Authing OIDC"><p>Then configure OIDC-related information in Nightingale:</p><pre><code class=language-toml>Enable = true
+DisplayName = 'OIDC'
+RedirectURL = 'http://192.168.127.151:17000/callback'
+SsoAddr = 'https://n9e.authing.cn/oidc'
+SsoLoginOutAddr = 'https://n9e.authing.cn/oidc/session/end'
+ClientId = '65befb5b452d4854f9731b9b'
+ClientSecret = '0af4...'
+CoverAttributes = true
+DefaultRoles = ['Standard']
+Scopes = ['openid', 'profile', 'username', 'email', 'phone']
+
+[Attributes]
+Username = 'username'
+Nickname = 'nickname'
+Phone = 'phone_number'
+Email = 'email'
+</code></pre><p>The above <code>192.168.127.151:17000</code> is the Nightingale address of my test environment; you need to replace it with your own Nightingale address.</p><h3 id=feishu-integration-demo>Feishu Integration Demo <a href=#feishu-integration-demo class=anchor aria-hidden=true>#</a></h3><p>Feishu also supports the OIDC protocol, and we will explain this method. Refer to Feishu&rsquo;s official documentation to create an application: <a href=https://anycross.feishu.cn/documentation/platform/configure-sso>Configure Application Single Sign-On</a>. Related configurations:</p><ul><li>Authorization mode: You can select both authorization_code and refresh_token</li><li>Scope: You can select openid profile email phone offline_access</li><li>Callback address: Fill in <code>http://n9e.com/callback</code>, note to replace <code>n9e.com</code> with your Nightingale address, which needs to be publicly accessible unless your Feishu is also deployed on a private intranet</li></ul><p>After configuration, you can obtain the Issuer (i.e., SSO Server address), ClientId, and ClientSecret, and configure them in Nightingale. In addition, you can also obtain the SSO Logout address, which is similar to:</p><pre><code>https://anycross.feishu.cn/sso/....../oidc/revoke
+</code></pre><p>Configure this address in Nightingale&rsquo;s <code>SsoLogoutAddr</code>. Although this address is configured, simultaneous logout is not possible. The following is the <a href=https://anycross.feishu.cn/documentation/platform/configure-sso>official explanation</a> from Feishu&rsquo;s documentation:</p><blockquote><p>Since the login state of the SSO application is derived from the Feishu login state, single logout is not supported. That is, when logging out of the SSO application, Feishu cannot be logged out simultaneously. Although the platform provides a single logout address, this address is to prevent third-party systems from setting it as a required item, and the address itself does not take effect.</p></blockquote><p>The final configuration in Nightingale is as follows:</p><pre><code class=language-toml>Enable = true
+DisplayName = 'OIDC'
+RedirectURL = 'http://n9e.com/callback'
+SsoAddr = 'https://anycross.feishu.cn/sso/XXXXX'
+SsoLoginOutAddr = 'https://anycross.feishu.cn/sso/XXXXX/oidc/revoke'
+ClientId = 'xxx'
+ClientSecret = 'xxx'
+CoverAttributes = true
+DefaultRoles = ['Standard']
+Scopes = ['openid', 'profile', 'email', 'phone']
+
+[Attributes]
+Username = 'name'
+Nickname = 'name'
+Phone = 'phone_number'
+Email = 'email'
+</code></pre><blockquote><p>The above <code>n9e.com</code> needs to be replaced with your own Nightingale address, which must be publicly accessible unless your Feishu is also deployed on a private intranet.</p></blockquote><h3 id=keycloak-integration-demo>Keycloak Integration Demo <a href=#keycloak-integration-demo class=anchor aria-hidden=true>#</a></h3><p>A netizen previously wrote an article explaining how to integrate Grafana and Nightingale with Keycloak. You can refer to it: <a href=https://mp.weixin.qq.com/s/Bo386PKDULMLYuIPV1EkiA>Deep Integration of Grafana and Nightingale with Keycloak</a>.</p><h2 id=configuring-oauth2>Configuring OAuth2 <a href=#configuring-oauth2 class=anchor aria-hidden=true>#</a></h2><p>If your SSO supports both OIDC and OAuth2, it is recommended to use OIDC. Use OAuth2 only when necessary, as OAuth2 has more pitfalls.</p><h3 id=configuration-item-explanation-1>Configuration Item Explanation <a href=#configuration-item-explanation-1 class=anchor aria-hidden=true>#</a></h3><pre><code class=language-toml># Whether to enable OAuth2 single sign-on; Nightingale can enable multiple SSO methods simultaneously
+Enable = false
+
+# The login page will display a hyperlink to the SSO login address; DisplayName configures the text content of the hyperlink
+DisplayName = 'OAuth2'
+
+# After SSO login verification is passed, it needs to redirect to Nightingale. The following configures the callback address used by Nightingale for OAuth2
+# You need to replace n9e.com with your Nightingale address; /callback/oauth is a fixed path
+RedirectURL = 'http://n9e.com/callback/oauth'
+
+# OAuth2 SSO server root address; replace with your OAuth2 server address
+SsoAddr = 'https://sso.example.com/oauth2/authorize'
+
+# Logout address of the OAuth2 SSO server; when the user clicks logout in Nightingale, they will be redirected to this address to complete synchronous logout of Nightingale and SSO
+SsoLogoutAddr = 'https://sso.example.com/oauth2/authorize/session/end'
+
+# Address to obtain OAuth2 token
+TokenAddr = 'https://sso.example.com/oauth2/token'
+
+# User information address provided by OAuth2; Nightingale will obtain user information through this address
+UserInfoAddr = 'https://sso.example.com/api/v1/user/info'
+
+# When obtaining user information from OAuth2, the token obtained in the previous step needs to be placed in the request header
+# The token can be placed in the header, formdata, or querystring, depending on the requirements of your OAuth2 server
+TranTokenMethod = 'header'
+
+# ClientId and ClientSecret assigned to Nightingale by OAuth2; must be configured, generally obtained when registering the application on the SSO server
+ClientId = ''
+ClientSecret = ''
+
+# When a user logs in to Nightingale via SSO and Nightingale finds that the user does not exist in Nightingale's user table, a user will be automatically created
+# When creating a user, the user needs to be assigned a role; the following configures the list of default roles
+DefaultRoles = ['Standard']
+
+# When a user logs in to Nightingale via SSO, Nightingale will request user information from the SSO server and write the user information into Nightingale's user table
+# If CoverAttributes = true, it will overwrite existing user information in Nightingale, such as phone number, email, etc. Usually, this should be set to true
+CoverAttributes = true
+
+# Whether the JSON format data returned when obtaining user data from OAuth2 is an array, depending on the return format of your OAuth2 server
+# If it is an array, Nightingale will take the first element as user information
+UserinfoIsArray = false
+
+# Prefix for OAuth2 user information, usually 'data', meaning the returned JSON data contains a 'data' field with user information
+UserinfoPrefix = 'data'
+
+# Scope is a concept in the OAuth2 protocol, representing the list of user information fields requested; usually the following fields
+Scopes = ['profile', 'email', 'phone']
+
+# The user information fields in OAuth2 do not 100% correspond to those in Nightingale
+# Therefore, configure below: which fields in OAuth2 correspond to each field in Nightingale
+# Username, Nickname, Phone, Email are user information fields in Nightingale
+# The following sub, nickname, phone_number, email are user field names in OAuth2
+# Adjust according to the user information fields of your OAuth2 server
+[Attributes]
+Username = 'sub'
+Nickname = 'nickname'
+Phone = 'phone_number'
+Email = 'email'
+</code></pre><h3 id=authing-integration-demo-1>Authing Integration Demo <a href=#authing-integration-demo-1 class=anchor aria-hidden=true>#</a></h3><p>Use <a href=https://www.authing.com/>Authing</a> as the OAuth2 SSO server for demonstration. First, enable OAuth2 on Authing. A configuration example is as follows:</p><img src=/img/usecase/sso/authing-oauth2.png alt="Authing OAuth2"><p>Then configure OAuth2-related information in Nightingale:</p><pre><code class=language-toml>Enable = true
+DisplayName = 'OAuth2'
+RedirectURL = 'http://192.168.127.151:17000/callback/oauth'
+SsoAddr = 'https://n9e.authing.cn/oauth/auth'
+SsoLogoutAddr = 'https://n9e.authing.cn/oauth/session/end'
+TokenAddr = 'https://n9e.authing.cn/oauth/token'
+UserInfoAddr = 'https://n9e.authing.cn/oauth/me'
+TranTokenMethod = 'header'
+ClientId = '65befb5b452d4854f9731b9b'
+ClientSecret = '0af4...'
+CoverAttributes = true
+DefaultRoles = ['Standard']
+UserinfoIsArray = false
+UserinfoPrefix = ''
+Scopes = ['profile', 'username', 'email', 'phone']
+
+[Attributes]
+Username = 'username'
+Nickname = 'nickname'
+Phone = 'phone'
+Email = 'email'
+</code></pre><p>The above <code>192.168.127.151:17000</code> is the Nightingale address of my test environment; you need to replace it with your own Nightingale address.</p><h2 id=configuring-cas>Configuring CAS <a href=#configuring-cas class=anchor aria-hidden=true>#</a></h2><p>Nightingale monitoring also supports single sign-on via the CAS protocol. Compared to OIDC, it has more pitfalls, so use with caution.</p><h3 id=configuration-item-explanation-2>Configuration Item Explanation <a href=#configuration-item-explanation-2 class=anchor aria-hidden=true>#</a></h3><pre><code class=language-toml># Whether to enable CAS single sign-on; Nightingale can enable multiple SSO methods simultaneously
+Enable = false
+
+# The login page will display a hyperlink to the SSO login address; DisplayName configures the text content of the hyperlink
+DisplayName = 'CAS'
+
+# After CAS login verification is passed, it needs to redirect to Nightingale. The following configures the callback address used by Nightingale for CAS
+# You need to replace n9e.com with your Nightingale address; /callback/cas is a fixed path
+RedirectURL = 'http://n9e.com/callback/cas'
+
+# CAS SSO server root address; replace with your CAS server address
+SsoAddr = 'https://cas.example.com/cas'
+
+# Logout address of the CAS SSO server; when the user clicks logout in Nightingale, they will be redirected to this address to complete synchronous logout of Nightingale and SSO
+SsoLogoutAddr = 'https://cas.example.com/cas/session/end'
+
+# The LoginPath configuration item is to be compatible with different CAS versions, as login addresses may vary between versions
+# If you configure LoginPath, Nightingale will append LoginPath to SsoAddr as the login address
+# If you do not configure LoginPath, Nightingale's logic is:
+# 1. If SsoAddr contains the keyword p3, set LoginPath = '/login'
+# 2. If it does not contain the keyword p3, set LoginPath = '/cas/login'
+LoginPath = ''
+
+# When a user logs in to Nightingale via SSO and Nightingale finds that the user does not exist in Nightingale's user table, a user will be automatically created
+# When creating a user, the user needs to be assigned a role; the following configures the list of default roles
+DefaultRoles = ['Standard']
+
+# When a user logs in to Nightingale via SSO, Nightingale will request user information from the SSO server and write the user information into Nightingale's user table
+# If CoverAttributes = true, it will overwrite existing user information in Nightingale, such as phone number, email, etc. Usually, this should be set to true
+CoverAttributes = true
+
+# The user information fields in CAS do not 100% correspond to those in Nightingale
+# Therefore, configure below: which fields in CAS correspond to each field in Nightingale
+# Username, Nickname, Phone, Email are user information fields in Nightingale
+# The following sub, nickname, phone_number, email are user field names in CAS
+# Adjust according to the user information fields of your CAS server
+[Attributes]
+Username = 'sub'
+Nickname = 'nickname'
+Phone = 'phone_number'
+Email = 'email'
+</code></pre><h3 id=authing-integration-demo-2>Authing Integration Demo <a href=#authing-integration-demo-2 class=anchor aria-hidden=true>#</a></h3><p>Use <a href=https://www.authing.com/>Authing</a> as the CAS SSO server for demonstration. First, enable CAS on Authing. A configuration example is as follows:</p><img src=/img/usecase/sso/authing-cas.png alt="Authing CAS"><p>Then configure CAS-related information in Nightingale:</p><pre><code class=language-toml>Enable = true
+DisplayName = 'CAS'
+RedirectURL = 'http://192.168.127.151:17000/callback/cas'
+SsoAddr = 'https://n9e.authing.cn/cas-idp/65befb5b452d4854f9731b9b'
+SsoLogoutAddr = 'https://n9e.authing.cn/cas-idp/65befb5b452d4854f9731b9b/logout'
+LoginPath = '/login'
+CoverAttributes = true
+DefaultRoles = ['Standard']
+
+[Attributes]
+Username = 'username'
+Nickname = 'nickname'
+Phone = 'phone_number'
+Email = 'email'
+</code></pre><p>The above <code>192.168.127.151:17000</code> is the Nightingale address of my test environment; you need to replace it with your own Nightingale address.</p><h2 id=configuring-ldap>Configuring LDAP <a href=#configuring-ldap class=anchor aria-hidden=true>#</a></h2><p>Nightingale monitoring also supports authentication login via the LDAP protocol. LDAP is a lightweight directory access protocol, usually used for user authentication and authorization within enterprises. The previously mentioned SSO mechanisms (OIDC, OAuth2, CAS) cannot periodically synchronize all user information to Nightingale, but LDAP can achieve this.</p><p>LDAP does not have a separate login hyperlink entry on the page. When a user enters a username and password to log in to Nightingale, Nightingale first queries the user information in the database. If not found, it automatically checks if LDAP is enabled. If enabled, it directly uses LDAP for authentication login.</p><h3 id=configuration-item-explanation-3>Configuration Item Explanation <a href=#configuration-item-explanation-3 class=anchor aria-hidden=true>#</a></h3><pre><code class=language-toml># Whether to enable LDAP single sign-on; Nightingale can enable multiple SSO methods simultaneously
+Enable = false
+
+# LDAP server address and port, TLS, StartTLS, etc. configurations
+# Configure according to your own environment
+Host = 'ldap.example.org'
+Port = 389
+TLS = false
+StartTLS = true
+
+# Root DN of the LDAP server; you can Google or use GPT for more information
+BaseDn = 'dc=example,dc=org'
+
+# Administrator information; this account needs to have permission to query all user information
+BindUser = 'cn=manager,dc=example,dc=org'
+BindPass = '*******'
+
+# Whether to synchronize created users in LDAP to Nightingale
+SyncAddUsers = false
+
+# Whether to synchronize deleted user operations in LDAP to Nightingale
+SyncDelUsers = false
+
+# Synchronization frequency, unit: seconds
+SyncInterval = 86400
+
+# Filter conditions to check if the user exists in LDAP during login
+# OpenLDAP and AD usually have different filter formats
+# The format for OpenLDAP may be: (&amp;(uid=%s))
+# The format for AD may be (&amp;(sAMAccountName=%s))
+# Adjust according to your LDAP server type
+AuthFilter = '(&amp;(uid=%s))'
+
+# Filter conditions for querying all users in LDAP
+# Adjust according to your LDAP server type
+UserFilter = '(&amp;(uid=*))'
+
+# When a user logs in to Nightingale via LDAP and Nightingale finds that the user does not exist in Nightingale's user table, a user will be automatically created
+# When creating a user, the user needs to be assigned a role; the following configures the list of default roles
+DefaultRoles = ['Standard']
+
+# When a user logs in to Nightingale via LDAP, Nightingale will request user information from the LDAP server and write the user information into Nightingale's user table
+# If CoverAttributes = true, it will overwrite existing user information in Nightingale, such as phone number, email, etc. Usually, this should be set to true
+CoverAttributes = true
+
+# The user information fields in LDAP do not 100% correspond to those in Nightingale
+# Therefore, configure below: which fields in LDAP correspond to each field in Nightingale
+# Username, Nickname, Phone, Email are user information fields in Nightingale
+# The following uid, cn, mobile, mail are user field names in LDAP
+# Adjust according to the user information fields of your LDAP server
+[Attributes]
+Username = 'uid'
+Nickname = 'cn'
+Phone = 'mobile'
+Email = 'mail'
+</code></pre><p>If you are still unsure how to configure the above configuration information after reading the comments, you can consult your company&rsquo;s LDAP administrator, who is likely to be familiar with it.</p><div class="page-footer-meta d-flex flex-column flex-md-row justify-content-between"><div class=edit-page><a href=https://github.com/n9e/n9e.github.io/blob/master/content/en/docs/usecase/sso.md><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828.0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>Edit this page on GitHub</a></div></div><div class="docs-navigation d-flex justify-content-between"><a href=/docs/usecase/media/><div class="card my-1"><div class="card-body py-2">&larr; Custom Notification Media</div></div></a><a class=ms-auto href=/docs/usecase/api/><div class="card my-1"><div class="card-body py-2">API &rarr;</div></div></a></div></main></div></div></div><footer class="footer text-muted"><div class=container-xxl><div class=row><div class="col-lg-8 order-last order-lg-first"><ul class=list-inline><li class=list-inline-item>&copy; 2025 CCF·Nightingale, all rights reserved.</li></ul></div><div class="col-lg-8 order-first order-lg-last text-lg-end"><ul class=list-inline></ul></div></div></div></footer><script src=/js/bootstrap.min.0a0106334435d4110713bfaff4acaf02533b0c56d44412a74e9518db07672ddb7e099a9c7517bc9cb529e2ddd4ae2e438b40b720288900d5e74fb6d8928d9097.js integrity="sha512-CgEGM0Q11BEHE7+v9KyvAlM7DFbURBKnTpUY2wdnLdt+CZqcdRe8nLUp4t3Uri5Di0C3ICiJANXnT7bYko2Qlw==" crossorigin=anonymous defer></script>
+<script src=/js/highlight.min.0d31f7af12feb83ee633b6351b023ee643ea3412376fbaa09c5a26d1a5ef999939f1ad379a5b12e1199a2c7d72ae1b23f633060a679628dcbfb0e72378cd20be.js integrity="sha512-DTH3rxL+uD7mM7Y1GwI+5kPqNBI3b7qgnFom0aXvmZk58a03mlsS4RmaLH1yrhsj9jMGCmeWKNy/sOcjeM0gvg==" crossorigin=anonymous defer></script>
+<script src=/main.min.6afc4bf655f45ae3e63629ec95be8bd2e0e792084b5635a6fe70b169fa9d1491638b3a4e900ed59c2e017ca18768e5c392e110d0e1336509f49f7dc418d16eef.js integrity="sha512-avxL9lX0WuPmNinslb6L0uDnkghLVjWm/nCxafqdFJFjizpOkA7VnC4BfKGHaOXDkuEQ0OEzZQn0n33EGNFu7w==" crossorigin=anonymous defer></script>
+<script src=https://n9e.github.io/index.min.da360db418e417ae98e29714f321e339753db2d91374939e5a5eb03d28aeaacb022b7bae89a356afa70b73562b5a28f906a749693d0ea518973c7ba1d3615a1e.js integrity="sha512-2jYNtBjkF66Y4pcU8yHjOXU9stkTdJOeWl6wPSiuqssCK3uuiaNWr6cLc1YrWij5BqdJaT0OpRiXPHuh02FaHg==" crossorigin=anonymous defer></script>
+<script>var _hmt=_hmt||[];(function(){var e,t=document.createElement("script");t.src="https://hm.baidu.com/hm.js?9d7cc507a7aae60b28b5e04bb995492a",e=document.getElementsByTagName("script")[0],e.parentNode.insertBefore(t,e)})()</script></body></html>
