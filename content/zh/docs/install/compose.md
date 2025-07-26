@@ -58,4 +58,4 @@ Docker compose 启动了多个容器，分别是：
 
 ## 边缘模式
 
-边缘模式需要用到 `n9e-edge` 进程，不过社区并未提供 `n9e-edge` 的 Docker 镜像，所以边缘模式下还是需要使用[二进制方式](/zh/docs/install/binary/)部署 n9e-edge 进程。边缘模式的详细说明请参考：[夜莺监控 - 边缘告警引擎架构详解](https://mp.weixin.qq.com/s/0zmABASg2jwYExo-zAyCTA)。
+边缘模式需要用到 `n9e-edge` 进程，不过社区并未提供 `n9e-edge` 的 Docker 镜像，所以边缘模式下还是需要使用[二进制方式](/zh/docs/install/binary/)部署 n9e-edge 进程。边缘模式的详细说明请参考：[夜莺监控 - 边缘告警引擎架构详解](/zh/docs/prologue/architecture/#边缘模式)。

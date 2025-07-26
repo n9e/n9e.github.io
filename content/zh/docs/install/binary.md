@@ -91,7 +91,7 @@ ps -ef | grep n9e
 ss -tlnp | grep 17000
 ```
 
-nohup 可以快速启动验证，有问题查看 n9e.log 日志文件。
+`nohup` 可以快速启动验证，有问题查看 n9e.log 日志文件。
 
 ### 使用 systemd 管理
 
@@ -136,7 +136,7 @@ sudo systemctl start n9e
 
 ## 边缘模式
 
-边缘模式的说明请一定先阅读：[夜莺监控 - 边缘告警引擎架构详解](https://mp.weixin.qq.com/s/0zmABASg2jwYExo-zAyCTA)！！！
+边缘模式的说明请一定先阅读：[夜莺监控 - 边缘告警引擎架构详解](/zh/docs/prologue/architecture/#边缘模式)！！！
 
 边缘模式要用到 `n9e-edge` 这个二进制，可以在 `n9e-${version}-linux-amd64.tar.gz` 压缩包里找到。`n9e-edge` 需要和中心端的 `n9e` 通信，同步告警规则，所以 `n9e-edge` 的配置文件中需要给出中心端 `n9e` 的连接信息。
 
@@ -146,7 +146,7 @@ sudo systemctl start n9e
 
 如果你有多个边缘机房，需要每个边缘机房的 `n9e-edge` 的 EngineName 都不一样，比如 `edge1`、`edge2` 等等。这样区分之后，才能做到不同的数据源指定不同的告警引擎。
 
-### n9e-edge 启动
+### `n9e-edge` 启动
 
 注意 n9e-edge 进程启动的时候要指定配置目录，而非指定配置文件，比如：
 
