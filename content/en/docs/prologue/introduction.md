@@ -2,7 +2,7 @@
 title: "Introduction"
 description: "Nightingale is an open-source project focused on alerting. Similar to Grafana's data source integration approach, Nightingale also connects with various existing data sources. However, while Grafana focuses on visualization, Nightingale emphasizes alerting engines."
 date: 2020-10-06T00:48:57+08:00
-lastmod: 2025-01-25T22:33:27+08:00
+lastmod: 2025-07-26T13:07:03.716+08:00
 draft: false
 images: []
 menu:
