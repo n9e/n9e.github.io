@@ -12,7 +12,9 @@ weight: 100
 toc: true
 ---
 
-Nightingale is an open-source project focused on alerting. Similar to Grafana's data source integration approach, Nightingale also connects with various existing data sources. However, while Grafana focuses on visualization, Nightingale focuses on alerting.
+Nightingale is an open-source project focused on alerting. Similar to Grafana's data source integration approach, Nightingale also integrates with various existing data sources. While Grafana focuses on visualization, Nightingale focuses on alerting.
+
+Nightingale can query data from multiple data sources, generate alarm events, and then send alerts via various notification channels. In addition, we also have an event pipeline design, which can perform different processing on alarm events, such as filtering, relabeling, enriching, and so on.
 
 ## Repo
 
