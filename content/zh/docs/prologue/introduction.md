@@ -58,7 +58,7 @@ toc: true
 
 ## 关键特性简介
 
-<img src="/img/prologue/intro/feat1.png" alt="夜莺告警规则"/>
+<img class="mb20" src="/img/prologue/intro/feat1.png" alt="夜莺告警规则"/>
 
 - 夜莺支持告警规则、屏蔽规则、订阅规则、通知规则，内置支持 20 种通知媒介，支持消息模板自定义
 - 支持事件管道，对告警事件做 Pipeline 处理，方便和自有系统做自动化整合，比如给告警事件附加一些元信息，对事件做 relabel
@@ -66,12 +66,12 @@ toc: true
 - 很多数据库、中间件内置了告警规则，可以直接导入使用，也可以直接导入 Prometheus 的告警规则
 - 支持告警自愈，即告警之后自动触发一个脚本执行一些预定义的逻辑，比如清理一下磁盘、抓一下现场等
 
-<img src="/img/prologue/intro/feat2.png" alt="夜莺事件大盘"/>
+<img class="mb20" src="/img/prologue/intro/feat2.png" alt="夜莺事件大盘"/>
 
 - 夜莺存档了历史告警事件，支持多维度的查询和统计
 - 支持灵活的聚合分组，一目了然看到公司的告警事件分布情况
 
-<img src="/img/prologue/intro/feat3.png" alt="夜莺集成中心"/>
+<img class="mb20" src="/img/prologue/intro/feat3.png" alt="夜莺集成中心"/>
 
 - 夜莺内置常用操作系统、中间件、数据库的的指标说明、仪表盘、告警规则，不过都是社区贡献的，整体也是参差不齐
 - 夜莺直接接收 Remote Write、OpenTSDB、Datadog、Falcon 等多种协议的数据，故而可以和各类 Agent 对接
@@ -79,7 +79,7 @@ toc: true
 - 夜莺可以很方便内嵌企业内部系统，比如 Grafana、CMDB 等，甚至可以配置这些内嵌系统的菜单可见性
 
 
-<img src="/img/prologue/intro/feat4.png" alt="夜莺仪表盘"/>
+<img class="mb20" src="/img/prologue/intro/feat4.png" alt="夜莺仪表盘"/>
 
 - 夜莺支持仪表盘功能，支持常见的图表类型，也内置了一些仪表盘，上图是其中一个仪表盘的截图。
 - 如果你已经习惯了 Grafana，建议仍然使用 Grafana 看图。Grafana 在看图方面道行更深。

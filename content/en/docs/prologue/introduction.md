@@ -52,7 +52,7 @@ Then Nightingale may not be suitable. We recommend using **[FlashDuty](https://f
 
 ## Key Capabilities
 
-<img src="/img/prologue/intro/alert-rules.png" alt="Nightingale Alert Rules" />
+<img class="mb20" src="/img/prologue/intro/alert-rules.png" alt="Nightingale Alert Rules" />
 
 - Nightingale supports alert rules, muting rules, subscription rules, and notification rules. It natively integrates 20 notification channels and allows customization of message templates.
 - Nightingale supports event pipelines to process alert events and integrate with third-party systems. For example, it can perform operations like relabeling, filtering, and enriching on events.
@@ -60,19 +60,19 @@ Then Nightingale may not be suitable. We recommend using **[FlashDuty](https://f
 - Many databases and middleware have built-in alert rules that can be directly imported for use, and Prometheus alert rules can also be directly imported.
 - Nightingale supports alert self-healing, which means that after an alert is triggered, a script is automatically executed to perform some predefined logic, such as cleaning up the disk or capturing the on-site situation.
 
-<img src="/img/prologue/intro/feat2.png" alt="Nightingale Event Dashboard"/>
+<img class="mb20" src="/img/prologue/intro/feat2.png" alt="Nightingale Event Dashboard"/>
 
 - Nightingale archives historical alert events and supports multi-dimensional querying and statistics.
 - It allows flexible aggregation and grouping, making it easy to get a clear overview of the distribution of the company's alert events at a glance.
 
-<img src="/img/prologue/intro/feat3.png" alt="Nightingale Integration Center"/>
+<img class="mb20" src="/img/prologue/intro/feat3.png" alt="Nightingale Integration Center"/>
 
 - Nightingale has built-in metric explanations, dashboards, and alert rules for common operating systems, middleware, and databases. However, these are all contributed by the community, and their overall quality varies.
 - Nightingale directly receives data from multiple protocols such as Remote Write, OpenTSDB, Datadog, and Falcon, thus enabling integration with various types of agents.
 - Nightingale supports multiple data sources including Prometheus, ElasticSearch, Loki, and TDEngine, and can perform alerting based on the data from them.
 - Nightingale can be easily embedded into internal enterprise systems, such as Grafana and CMDB. It even allows configuring the menu visibility of these embedded systems.
 
-<img src="/img/prologue/intro/feat4.png" alt="Nightingale Dashboard"/>
+<img class="mb20" src="/img/prologue/intro/feat4.png" alt="Nightingale Dashboard"/>
 
 - Nightingale supports dashboard functionality, featuring common chart types and some built-in dashboards. The image above is a screenshot of one of these dashboards.
 - If you're already accustomed to Grafana, it's recommended to continue using Grafana for viewing charts, as Grafana has more profound expertise in this area.

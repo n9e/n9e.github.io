@@ -11,7 +11,7 @@
 
 .content img {
   max-width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
   border-radius: 8px;
 }
 
@@ -72,6 +72,10 @@ body.docs {
 .home h1 {
   /* font-size: calc(1.375rem + 1.5vw); */
   font-size: calc(1.875rem + 1.5vw);
+}
+
+.mb20 {
+  margin-bottom: 20px;
 }
 
 a:hover,
