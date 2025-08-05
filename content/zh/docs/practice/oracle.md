@@ -38,6 +38,7 @@ interval = 15
 # 这是第一个 Oracle 实例的配置，使用一大块 [[instances]] 来配置
 # [[instances]] 使用双中括号包裹，双中括号在 TOML 中表示数组
 # 即可以配置多个 [[instances]] 区块，也就是可以配置多个 Oracle 实例
+# 建议不要使用 sys 用户来进行采集，因为在 oracle 12c 及之后版本，go-ora 的 ping 方法在判断 oracle up 状态时，不准确
 [[instances]]
 address = "10.1.2.3:1521/orcl"
 username = "monitor"
@@ -85,6 +86,7 @@ Oracle 监控数据采集原理：周期性执行 SQL，把返回的结果转换
 - field_to_append: 是否要把某列的内容附到监控指标名称里，作为指标的后缀
 - timeout: SQL 执行的超时时间
 - ignore_zero_result: 是否忽略查询结果中值为 0 的行，如果不忽略（设置为 false）且没有查到数据的话会打印一行错误日志，如果忽略了（设置为 true），则查不到数据的时候不会打印错误日志
+
 
 ## metric.toml
 
