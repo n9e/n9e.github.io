@@ -86,7 +86,7 @@ Oracle 监控数据采集原理：周期性执行 SQL，把返回的结果转换
 - timeout: SQL 执行的超时时间
 - ignore_zero_result: 是否忽略查询结果中值为 0 的行，如果不忽略（设置为 false）且没有查到数据的话会打印一行错误日志，如果忽略了（设置为 true），则查不到数据的时候不会打印错误日志
 
-*注：建议不要使用sys用户来进行采集，因为在oracle 12c及之后版本，go-ora的ping方法在判断oracle up状态时，不准确*
+*注：建议不要使用sys用户来进行采集，因为在oracle 12c及之后版本，go-ora的ping方法在判断oracle up状态时，不准确。*
 
 ## metric.toml
 
