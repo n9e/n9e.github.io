@@ -33,6 +33,24 @@ toc: true
 
 > 🟢 如果是新用户，建议直接使用 VictoriaMetrics，VictoriaMetrics 性能更好，且支持集群模式，而且，和 Prometheus 接口兼容。不过 VictoriaMetrics 的中文资料比 Prometheus 更少一些。
 
+## 架构图
+这里是想有一个最基本的架构图，可以描述夜莺搭建都使用哪些组件，哪些端口，网络方向是什么样的，因为有时候可能并不是所有的组件都安装在一台机器上，有可能跨机器，会涉及网络策略，而目前没有一个较为清晰的总结，想有一个最基本的说明来直观的告诉使用夜莺的新老同学，作为参考
+
+- 首先是架构图，这里我画的是一个简版，希望是可以更加详细一些，都有什么端口、网络流向尽可能的写详细一些
+  ![image](https://github.com/user-attachments/assets/3d6719eb-db59-46b3-8be2-b4191ce65d57)
+
+- 然后此处描写图里具体有一些的内容，比如
+
+| 端口        | 被访问对象         | 访问源          |
+| --------- | ------------------   | ------------    | 
+| 17000     | WebUI & Metrics 接收 | 浏览器/Agent IP | 
+| 20090     | Ibex RPC 调度接口    | Agent IP        | 
+| 8428      | vmmetrics 端口       | n9e-server      | 
+| 3306      | MySQL 元数据存储     | n9e-server      | 
+| 6379      | Redis 缓存服务       | n9e-server      | 
+
+这样无论是新手还是老手都能一眼能看出都有哪些组件 哪些端口 访问路径是什么样的
+
 ## 单节点测试模式
 
 从夜莺的 [github releases](https://github.com/ccfos/nightingale/releases) 下载发布包，解压之后里边有个 `n9e` 二进制文件，直接 `./n9e` 就可以运行起来，默认端口是 17000，默认用户名是 `root`，密码是 `root.2020`。
