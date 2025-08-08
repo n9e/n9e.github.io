@@ -3,7 +3,7 @@ title: "Categraf"
 description: "使用 Categraf 作为夜莺监控的采集器，采集指标、日志等数据，和夜莺项目丝滑对接。Categraf 是一个开源的采集器，支持 Prometheus remote write 协议。通过 Prometheus remote write 协议，Categraf 可以将指标数据推送到夜莺监控。Categraf 还可以采集日志数据，并将其写入 Kafka。"
 lead: ""
 date: 2025-01-26T10:55:54+08:00
-lastmod: 2025-05-31T17:39:29.974+08:00
+lastmod: 2025-08-08T10:32:43.773+08:00
 draft: false
 images: []
 menu:
@@ -71,3 +71,57 @@ max_idle_conns_per_host = 100
 ## 边缘模式
 
 如果您采用了夜莺的边缘模式，即在某个边缘机房部署了 n9e-edge 组件，那边缘机房的 Categraf 就可以直接将数据推送到边缘机房的 n9e-edge 组件上，不需要推送到中心机房的夜莺。即：Categraf 配置文件中的 writer 和 heartbeat 的两个 url 都改为边缘机房的 n9e-edge 地址即可。
+
+## FAQ
+
+### 1.如何监控多个目标？
+
+比如有多个 MySQL 实例要监控，或者有多个进程要监控，应该如何配置？
+
+Categraf 大部分插件的样例配置里都有一个 `[[instances]]` 的配置段，但凡有这个配置段的插件，就可以通过增加 `[[instances]]` 来监控多个目标。Categraf 的配置文件是 toml 格式，双中括号表示数组。比如 MySQL 插件的配置样例：
+
+```toml
+[[instances]]
+address = "10.1.2.3:3306"
+username = "categraf"
+password = "XXXXXXXX"
+labels = { instance="n9e-mysql-01" }
+
+[[instances]]
+address = "10.1.2.4:3306"
+username = "categraf"
+password = "XXXXXXXX"
+labels = { instance="n9e-mysql-02" }
+```
+
+再比如进程监控插件 procstat 的配置样例：
+
+```toml
+[[instances]]
+search_exec_substring = "mysqld"
+gather_total = true
+gather_per_pid = true
+gather_more_metrics = [
+    "threads",
+    "fd",
+    "io",
+    "uptime",
+    "cpu",
+    "mem",
+    "limit",
+]
+
+[[instances]]
+search_exec_substring = "n9e-plus"
+gather_total = true
+gather_per_pid = true
+gather_more_metrics = [
+    "threads",
+    "fd",
+    "io",
+    "uptime",
+    "cpu",
+    "mem",
+    "limit",
+]
+```
