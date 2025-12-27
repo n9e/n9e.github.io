@@ -12,20 +12,24 @@ weight: 150
 toc: true
 ---
 
-夜莺监控（Nightingale）类似 Grafana，可以对接多种数据源，最常用的数据源就是 Prometheus（其他兼容 Prometheus 接口的数据源，比如 VictoriaMetrics、Thanos、M3DB，都可以看做是 Prometheus 类型），所以二者关系密切。
+夜莺监控（Nightingale）与 Grafana 类似，支持对接多种数据源。Prometheus 是最常用的数据源（其他兼容 Prometheus 接口的数据源，如 VictoriaMetrics、Thanos、M3DB 等，均可视为 Prometheus 类型数据源），因此夜莺与 Prometheus 关系密切。
 
-如果您有如下诉求，可以考虑夜莺：
+## 适用场景
 
-- 有多套时序库，比如 Prometheus、VictoriaMetrics 等，想要使用一套统一的平台来管理各类告警规则，并有权限管控
-- Prometheus 的告警引擎是单点的，担心单机挂掉导致告警引擎无法工作
-- 除了 Prometheus 的告警，还需要 ElasticSearch、Loki、ClickHouse 等其他数据源的告警
-- 需要更灵活的告警规则配置，比如控制生效时间、事件 Relabel、事件联动 CMDB、支持告警联动自愈脚本
+在以下场景中，建议考虑使用夜莺监控：
 
-夜莺监控也具备类似 Grafana 的可视化能力，不过没有 Grafana 道行深，以笔者观察来看，很多公司是一套组合方案（成年人的世界，没有非黑即白，都要）：
+- **多数据源统一管理**：存在多套时序数据库（如 Prometheus、VictoriaMetrics 等），需要统一的平台管理各类告警规则，并具备权限管控能力
+- **高可用告警引擎**：Prometheus 的告警引擎为单点架构，存在单机故障导致告警功能不可用的风险
+- **多数据源告警**：除 Prometheus 外，还需要支持 ElasticSearch、Loki、ClickHouse 等其他数据源的告警能力
+- **灵活的告警配置**：需要更灵活的告警规则配置，包括生效时间控制、事件 Relabel、与 CMDB 系统联动、告警联动自愈脚本等功能
 
-- 数据采集：组合使用了各种 agent 和 exporter，比如主要使用 Categraf（尤其是机器监控，和夜莺丝滑对接），辅以各类 Exporter
-- 存储：时序库主要使用 VictoriaMetrics，因为 VictoriaMetrics 兼容 Prometheus，而且性能更好且有集群版本，对大部分公司，单机版就足够用了
-- 告警引擎：使用夜莺，方便不同的团队管理协作，内置了一些规则开箱即用，告警规则的配置非常灵活，事件 Pipeline 机制方便和自己的 CMDB 等打通
-- 看图可视化：使用 Grafana，图表更为炫酷，社区非常庞大，从 Grafana 站点可以找到很多别人做好的仪表盘，较为省心
-- 告警事件 On-call 分发：使用 [FlashDuty](https://flashcat.cloud/product/flashduty/)，支持对接 Zabbix、Prometheus、夜莺、各云监控、Elastalert 等各类监控系统，收拢告警事件到一个平台，统一收敛降噪、排班、认领升级、响应、派发等。
+## 典型技术架构
+
+在实际生产环境中，企业通常采用组合技术方案，各组件发挥其优势：
+
+- **数据采集层**：采用多种 agent 和 exporter 组合方案，主要使用 Categraf（特别适用于机器监控场景，与夜莺无缝集成），同时辅以各类 Exporter
+- **数据存储层**：时序数据库主要采用 VictoriaMetrics。VictoriaMetrics 兼容 Prometheus 接口，性能更优且提供集群版本，对于大多数企业而言，单机版本即可满足需求
+- **告警引擎层**：使用夜莺作为告警引擎，支持多团队协作管理，内置开箱即用的告警规则模板，提供灵活的告警规则配置能力，通过事件 Pipeline 机制实现与 CMDB 等系统的集成
+- **可视化层**：使用 Grafana 进行数据可视化，提供丰富的图表类型和展示效果，社区资源丰富，可从 Grafana 官方站点获取大量现成的仪表盘模板
+- **告警事件管理**：使用 [FlashDuty](https://flashcat.cloud/product/flashduty/) 进行告警事件的 On-call 分发，支持对接 Zabbix、Prometheus、夜莺、各云监控平台、Elastalert 等各类监控系统，统一收敛降噪、排班、认领升级、响应、派发等告警处理流程
 
