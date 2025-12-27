@@ -66,4 +66,4 @@ PromQL（Prometheus Query Language）是使用 Prometheus 和夜莺监控的核�
 ### 提问方法
 
 - 《[提问的智慧](https://github.com/ryanhanwu/How-To-Ask-Questions-The-Smart-Way/blob/main/README-zh_CN.md)》：由著名开源软件专家 Eric S. Raymond 撰写，阐述了如何提出高质量的技术问题
-- 《[学会这招，技术问题再也难不倒你](https://mp.weixin.qq.com/s/eCoN4e8hoXfHtubNwbLMIQ)》：提供了更简洁的问题排查思路
+- 《[学会这招，技术问题再也难不倒你](https://mp.weixin.qq.com/s/eCoN4e8hoXfHtubNwbLMIQ)》：提供了更简洁的提问方法建议
