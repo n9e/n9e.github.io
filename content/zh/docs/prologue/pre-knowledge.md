@@ -27,6 +27,7 @@ toc: true
 ### 监控基础概念
 
 - **数据模型**：指标（Metric）、标签（Label）、时间序列（Time Series）
+- **数据类型**：Gauge、Counter、Histogram、Summary 必须要了解。数据外推、rate 函数原理、Counter 重置、Step 参数等知识也极为关键
 - **采集方式**：Pull 模式、Push 模式
 
 **推荐学习资源**：
