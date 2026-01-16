@@ -6,13 +6,15 @@ enableEmoji = true
 enableGitInfo = true
 enableRobotsTXT = true
 languageCode = "en-US"
-paginate = 7
 rssLimit = 10
 
 # Multilingual
 defaultContentLanguage = "en"
 disableLanguages = ["de", "nl"]
 # defaultContentLanguageInSubdir = true
+
+[pagination]
+pagerSize = 7
 
 # add redirects/headers
 [outputs]

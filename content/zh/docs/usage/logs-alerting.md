@@ -55,3 +55,11 @@ ElasticSearch 支持不同的查询语法，比如 DSL、KQL、Lucene、EQL、SQ
 
 注意，为了避免犯错，建议字段后面的冒号`:`前后都不要加空格。另外，不同的条件之间可以使用 AND、OR 连接，比如 `status:active AND age:>=10`。更多写法请参考 [ElasticSearch 的官方文档](https://www.elastic.co/docs/reference/query-languages/query-dsl/query-dsl-query-string-query)。
 
+## 告警事件中能否展示日志原文
+
+开源版本的夜莺没法在告警事件中展示日志原文。因为夜莺采用的是 ElasticSearch 的统计语法，通常是一个 count 之类的函数，ElasticSearch 最终返回的只是一个数字，不包含日志原文。
+
+如果对此需求非常迫切，也可以试试 Flashduty 告警功能，Flashduty 针对 ElasticSearch 的告警功能是免费的。
+
+- [Flashduty 注册体验地址](https://console.flashcat.cloud)
+- [Flashduty 日志监控如何获取日志原文](https://flashcat.cloud/blog/flashduty-logs-monitor-with-raw-records/)
