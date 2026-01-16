@@ -22,7 +22,7 @@ toc: true
 
 这个页面和 Prometheus 的 `graph` 页面类似，支持查询时序指标数据。当然也做了一些增强，增加了内置指标、历史记录等等一些能力。上图中是一个 range vector，且使用的 Table 视图，此时夜莺会多做一步，计算各个数据的时间差，就是最右侧那个 `+15`，方便我们排查是否有数据丢失的情况，比如大都是规律的时间差，和采集频率一致，但是突然发现有两个时间差比较大，是好几倍的采集频率，那就表示有数据采集或传输失败了。
 
-> 经常被新手询问的问题是，这个页面一进来为啥看不到任何数据。这是符合预期的，需要先输入 Promql 进行查询，然后才能看到数据。而非是说一进来这个页面就可以看到数据。Promql 是使用 Prometheus、Nightingale 的前置知识，建议先学习 Promql 的基础知识，资料参考：《[Promql系列教程](https://flashcat.cloud/tags/promql/)》
+> 🎯 常见问题：这个页面一进来为啥看不到任何数据。这是符合预期的，需要先输入 Promql 进行查询，然后才能看到数据。而非一进来这个页面就可以看到数据。Promql 是使用 Prometheus、Nightingale 的前置知识，建议先学习 Promql 的基础知识，资料参考：《[Promql系列教程](https://flashcat.cloud/tags/promql/)》
 
 如果使用的采集器是 Categraf，可以查询 `cpu_usage_active` 这个指标，如果能查到，说明数据源配置是 OK 的。如果使用的采集器是 Node-Exporter，那可以查询 `node_load1` 这个指标，如果能查到，说明数据源配置是 OK 的。
 
