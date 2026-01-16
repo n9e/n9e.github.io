@@ -1,5 +1,5 @@
 ---
-title: "Linux OS"
+title: "机器监控"
 description: "夜莺监控（Nightingale）支持对 Linux 主机的监控，可以通过 Categraf 或 Node Exporter 等采集器采集主机的各类指标数据，并在仪表盘中展示。并使用夜莺监控的告警能力进行告警配置。"
 date: 2025-06-01T19:42:42+08:00
 lastmod: 2025-06-01T19:42:42+08:00

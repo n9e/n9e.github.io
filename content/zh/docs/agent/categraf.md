@@ -125,3 +125,20 @@ gather_more_metrics = [
     "limit",
 ]
 ```
+
+### 2.配置了采集插件，但是页面上没有查到数据
+
+细化拆解，需要确认：
+
+- 数据采集环节
+- 数据传输环节
+
+以 `http_response` 插件为例，通过如下命令可以查看 categraf 是否采集到了数据：
+
+```shell
+./categraf --test --inputs http_response
+```
+
+如果正常输出 `http_response_` 打头的指标，且没有报错，则表示采集成功。
+
+数据传输链路是：`categraf -> nightingale -> tsdb`，所以要查看 categraf 的日志和 nightingale 的日志。参考 [这里](https://flashcat.cloud/docs/content/flashcat-monitor/nightingale-v6/faq/how-to-check-logs/) 的方法查看日志。
