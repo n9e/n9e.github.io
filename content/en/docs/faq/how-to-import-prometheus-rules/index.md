@@ -24,14 +24,14 @@ Please use Nightingale version 8.2.0 or later.
 
 ## Import Steps
 
-![Import Prometheus Alerting Rules](import.png)
+<img src="import.png" alt="Import Prometheus Alerting Rules">
 
 As shown in the screenshot above, go to the alerting rules page and select import to import Prometheus-format alerting rules. Note that the YAML-formatted rule content starts with `groups`, which contains multiple `group` entries. Each `group` has a `name` and `rules`, where `rules` is an array of specific alerting rules. Nightingale will ignore the `group`'s `name` during processing and directly import the content in `rules`.
 
 After the import is complete, you usually need to associate notification rules to enable alert notifications. The method is: select the alerting rules in batches, then click "More Operations" in the upper right corner to batch update the alerting rules:
 
-![Batch Update Alerting Rules](batch.png)
+<img src="batch.png" alt="Batch Update Alerting Rules">
 
 In the batch update pop-up, select "Notification rule" as the field, then choose the corresponding notification rule and click "Confirm". The screenshot is as follows:
 
-![Batch Update Notification Rules](notify-rules.png)
+<img src="notify-rules.png" alt="Batch Update Notification Rules">
