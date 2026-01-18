@@ -54,10 +54,10 @@ lqipWidth = "20x"
 smallLimit = "300"
 
 # Footer
-footer = "&copy; 2025 CCF·Nightingale, all rights reserved."
+footer = "&copy; 2026 CCF·Nightingale, all rights reserved."
 
 # Feed
-copyRight = "© 2025 CCF·Nightingale, all rights reserved."
+copyRight = "© 2026 CCF·Nightingale, all rights reserved."
 
 # Alert
 # 广告位开关和配置（具体内容在 i18n 目录下的语言文件中定义）
