@@ -1,2 +1,5 @@
 [get-started]
    other = "Aan de slag"
+
+[alert-text]
+   other = "📢 Waarschuwingsruis verminderen, wachtdiensten plannen, claimen en escalatiebeheer met <a href=\"https://console.flashcat.cloud/nl\" target=\"_blank\" class=\"alert-link\">Flashduty</a>"

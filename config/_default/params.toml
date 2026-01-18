@@ -60,9 +60,9 @@ footer = "&copy; 2025 CCF·Nightingale, all rights reserved."
 copyRight = "© 2025 CCF·Nightingale, all rights reserved."
 
 # Alert
-alert = false
-alertDismissable = true
-alertText = '''xxx'''
+# 广告位开关和配置（具体内容在 i18n 目录下的语言文件中定义）
+alert = true
+alertDismissable = false
 
 # Edit Page
 # repoHost [Github | Gitea | GitLab | Bitbucket | BitbucketServer ] is used for building the edit link based on git hoster
