@@ -27,7 +27,8 @@ Any issues or PRs are welcome!
 
 Many users have already collected metrics and log data themselves. In this case, they can integrate their storage repositories (like VictoriaMetrics, Elasticsearch, etc.) as data sources in Nightingale. Users can then configure alert rules and notification rules in Nightingale to generate and dispatch alert events.
 
-<img src="/img/prologue/intro/product-arch.png" alt="Nightingale Product Architecture" />
+<img src="/img/global/arch-bg.png" alt="Nightingale Product Architecture" class="homepage-banner-light">
+<img src="/img/global/arch-bg-dark.png" alt="Nightingale Product Architecture" class="homepage-banner-dark">
 
 Nightingale itself does not provide data collection capabilities. We recommend using [Categraf](https://github.com/flashcatcloud/categraf) as a collector, which can seamlessly integrate with Nightingale.
 
@@ -35,7 +36,8 @@ Nightingale itself does not provide data collection capabilities. We recommend u
 
 For specific edge data centers, where the network link to the central Nightingale server is poor, Nightingale also provides a design for edge data center alerting engine deployment. In this mode, even if the edge and central networks are disconnected, alerting functionality remains unaffected.
 
-<img src="/img/prologue/intro/edge-arch.png" alt="Nightingale Edge Architecture" />
+<img src="/img/prologue/intro/edge-light.png" alt="Nightingale Edge Architecture" class="homepage-banner-light">
+<img src="/img/prologue/intro/edge-dark.png" alt="Nightingale Edge Architecture" class="homepage-banner-dark">
 
 > In the above diagram, the network link between data center A and the central data center is good, so the alerting engine is handled by the central Nightingale process. For data center B, where the network link to the central data center is poor, we deploy `n9e-edge` as the alerting engine to handle data source alerting functionality locally.
 
