@@ -70,3 +70,10 @@ Grafana 默认不支持被别的系统嵌入，需要修改一些配置，具体
 在 `security` 配置段，把 `cookie_secure` 设置为 `true`, `cookie_samesite` 设置为 `none`。
 
 另外，不同版本的 Grafana 可能配置方式有差异，如果您发现文档有误，点击下面的 “Edit this page on GitHub” 可以直接编辑本页面，提交 PR 修改文档。
+
+## FAQ
+
+### 只查看自己业务组内的机器
+
+一般用户都是使用 [categraf-detail.json](https://github.com/ccfos/nightingale/blob/main/integrations/Linux/dashboards/categraf-detail.json) 作为机器详细数据的仪表盘。默认情况下，这个仪表盘会展示时序库中的所有机器数据，如果只想展示仪表盘所在业务组下面的机器，需要修改这个仪表盘的大盘变量，把 `ident` 那个变量的类型改为 `机器标识` 即可。
+
