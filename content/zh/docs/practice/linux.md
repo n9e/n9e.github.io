@@ -19,7 +19,7 @@ toc: true
 
 ## FAQ
 
-### 1. 我的机器列表里可以看到机器，也可以看到机器的CPU、内存等信息，但是仪表盘查不到数据
+### 我的机器列表里可以看到机器，也可以看到机器的CPU、内存等信息，为什么仪表盘查不到数据？
 
 > 💡 注意：机器列表里那些 CPU、内存等信息，不是存储在时序库的，而是存储在 Redis 中的，是 Categraf 调用夜莺的 heartbeat 接口时上报上来的，和 Remote write 走的是两个路径。
 
@@ -57,13 +57,13 @@ Categraf 把数据推给夜莺，夜莺不直接存储数据，而是转发给 T
 
 有些仪表盘是查看时序库里的所有数据，有些仪表盘是只能查看所属业务组下面的机器的监控数据（通过仪表盘变量控制的），如果是后者类型的仪表盘，就需要确保业务组下面有机器。
 
-### 2. 我可否把监控数据写到 TDEngine 等其他时序库
+### 可否把监控数据写到 TDEngine 等其他时序库？
 
 首先，你需要了解 Prometheus remote write 协议（可以问问 Google 或 GPT）。Categraf 采集的数据是通过 Prometheus remote write 协议推送给夜莺的，夜莺也是通过 Prometheus remote write 协议把数据转发给时序库的。
 
 所以，如果某个时序库支持接收 Prometheus remote write 协议的数据，那么就可以接入 Categraf 或夜莺。这个信息从哪里得到？去看（或搜）时序库的文档，如果它支持接收 Prometheus remote write 协议的数据，那么它大概率会在文档里提及。如果它的文档里没有写，大概率就是不支持或支持的不好不推荐使用。
 
-### 3. 机器失联监控怎么做？
+### 机器失联监控怎么做？
 
 在 Prometheus 里，每台机器部署 Node-Exporter，Prometheus 主动去抓取 Node-Exporter 的数据，这种方式叫做**PULL**。这种方式的好处是，Prometheus 可以知道机器是否失联，因为如果机器失联，Prometheus 就无法抓取到数据。抓取成功的话，会有个 `up` 指标，值为 1；如果抓取失败，则 `up` 指标的值为 0。
 

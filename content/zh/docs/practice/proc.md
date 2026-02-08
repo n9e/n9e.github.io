@@ -51,7 +51,7 @@ toc: true
 
 ## FAQ
 
-**1. procstat 插件监控多个进程怎么做？**
+### procstat 插件监控多个进程怎么做？
 
 配置样例如下：
 
@@ -85,7 +85,7 @@ gather_more_metrics = [
 ]
 ```
 
-**2. procstat 配置中的 gather_more_metrics 里边的 jvm 参数是干啥的**
+### procstat 配置中的 gather_more_metrics 里边的 jvm 参数是什么作用？
 
 如果 gather_more_metrics 包含 jvm 则会认为要采集的目标进程是个 Java 进程，会调用系统的 jstat 命令采集 JVM 的一些基础指标。jstat 是安装 JDK 时自带安装的一个工具，在 JDK 的 bin 目录下。这里经常会有一个坑，就是用户在 gather_more_metrics 配置了 jvm，机器上也有 jstat，使用如下命令测试采集的时候也可以采集到数据：
 
