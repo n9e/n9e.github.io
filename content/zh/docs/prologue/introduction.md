@@ -27,7 +27,8 @@ toc: true
 
 当用户已具备指标和日志数据采集能力时，可将现有存储系统（如 VictoriaMetrics、ElasticSearch 等）作为数据源接入夜莺，在夜莺中配置告警规则和通知规则，实现告警事件的生成和分发。**这种模式下，夜莺不采集数据、不存储数据，仅作为告警引擎**。
 
-<img src="/img/prologue/intro/product-arch.png" alt="夜莺产品架构图"/>
+<img src="/img/global/arch-bg.png" alt="夜莺产品架构图" class="homepage-banner-light">
+<img src="/img/global/arch-bg-dark.png" alt="夜莺产品架构图" class="homepage-banner-dark">
 
 如果您尚未采集监控数据，也可以使用 [Categraf](https://github.com/flashcatcloud/categraf) 作为采集器，Categraf 可以与夜莺丝滑对接。
 
@@ -35,7 +36,8 @@ Categraf 支持采集操作系统、网络设备、各类中间件和数据库�
 
 对于网络链路不稳定的边缘机房场景，为提升告警可用性，夜莺提供边缘机房告警引擎下沉部署模式。在此模式下，即使边缘机房与中心机房网络中断，告警功能仍可正常运行（具体可参考架构设计章节）。
 
-<img src="/img/prologue/intro/edge-arch.png" alt="夜莺边缘架构"/>
+<img src="/img/prologue/intro/edge-light.png" alt="夜莺边缘架构" class="homepage-banner-light">
+<img src="/img/prologue/intro/edge-dark.png" alt="夜莺边缘架构" class="homepage-banner-dark">
 
 上图中，机房 A 与中心机房网络链路稳定，因此直接由中心端的夜莺进程执行告警引擎功能；机房 B 与中心机房网络链路不稳定，因此在机房 B 部署 `n9e-edge` 作为告警引擎，对机房 B 的数据源进行告警判定。
 
