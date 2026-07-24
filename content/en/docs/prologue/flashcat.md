@@ -14,8 +14,8 @@ toc: true
 
 Nightingale's core development team is fully dedicated to open source. Without a sustainable income, the project cannot continue. Therefore, they founded a company: Beijing Flashcat Cloud Technology Co., Ltd., abbreviated as "Flashcat" and launched two commercial products:
 
-- [One-stop Intelligent Observation Platform Flashcat](https://mp.weixin.qq.com/s/t2SgWFGBeiyJtJqvaQAkzw)
-- [One-stop Alarm Response Platform Flashduty](https://mp.weixin.qq.com/s/ZYLboMRpV4HM4aKVvNZ59w)
+- [One-stop Intelligent Observation Platform Flashcat](https://flashcat.cloud/)
+- [One-stop Alarm Response Platform Flashduty](https://www.flashduty.com/en)
 
 Among them, Flashcat can be regarded as the commercial version of Nightingale, positioned as a unified observation platform, while the open-source version focuses only on metric monitoring. The differences between the two can be referenced in this article: 《[Differences Between Nightingale Open Source Version and Commercial Version](https://flashcat.cloud/blog/flashcat-vs-n9e/)》.
 

@@ -14,8 +14,8 @@ toc: true
 
 夜莺监控（Nightingale）的主力开发人员是全职在做开源，如果没有收入养家糊口，项目也就无法持续了。所以他们创办了一家企业：北京快猫星云科技有限公司，简称“快猫”，推出了两款商业产品：
 
-- [一站式智能观测平台Flashcat](https://mp.weixin.qq.com/s/t2SgWFGBeiyJtJqvaQAkzw)
-- [一站式告警响应平台Flashduty](https://mp.weixin.qq.com/s/ZYLboMRpV4HM4aKVvNZ59w)
+- [一站式智能观测平台Flashcat](https://flashcat.cloud/)
+- [一站式告警响应平台Flashduty](https://www.flashduty.com/zh)
 
 其中 Flashcat 可以看做是夜莺的商业版，定位是统一的观测平台，开源版则只是侧重在指标监控，二者的区别可以参考这篇文章：《[夜莺开源版和商业版的区别](https://flashcat.cloud/blog/flashcat-vs-n9e/)》。
 
