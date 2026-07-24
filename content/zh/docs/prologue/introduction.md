@@ -36,8 +36,7 @@ Categraf 支持采集操作系统、网络设备、各类中间件和数据库�
 
 对于网络链路不稳定的边缘机房场景，为提升告警可用性，夜莺提供边缘机房告警引擎下沉部署模式。在此模式下，即使边缘机房与中心机房网络中断，告警功能仍可正常运行（具体可参考架构设计章节）。
 
-<img src="/img/prologue/intro/edge-light.png" alt="夜莺边缘架构" class="homepage-banner-light">
-<img src="/img/prologue/intro/edge-dark.png" alt="夜莺边缘架构" class="homepage-banner-dark">
+<img src="/img/prologue/intro/edge-light.png" alt="夜莺边缘架构">
 
 上图中，机房 A 与中心机房网络链路稳定，因此直接由中心端的夜莺进程执行告警引擎功能；机房 B 与中心机房网络链路不稳定，因此在机房 B 部署 `n9e-edge` 作为告警引擎，对机房 B 的数据源进行告警判定。
 
