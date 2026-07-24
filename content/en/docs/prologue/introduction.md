@@ -36,8 +36,7 @@ Nightingale itself does not provide data collection capabilities. We recommend u
 
 For specific edge data centers, where the network link to the central Nightingale server is poor, Nightingale also provides a design for edge data center alerting engine deployment. In this mode, even if the edge and central networks are disconnected, alerting functionality remains unaffected.
 
-<img src="/img/prologue/intro/edge-light.png" alt="Nightingale Edge Architecture" class="homepage-banner-light">
-<img src="/img/prologue/intro/edge-dark.png" alt="Nightingale Edge Architecture" class="homepage-banner-dark">
+<img src="/img/prologue/intro/edge-light.png" alt="Nightingale Edge Architecture">
 
 > In the above diagram, the network link between data center A and the central data center is good, so the alerting engine is handled by the central Nightingale process. For data center B, where the network link to the central data center is poor, we deploy `n9e-edge` as the alerting engine to handle data source alerting functionality locally.
 
