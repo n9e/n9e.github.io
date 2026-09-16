@@ -61,7 +61,7 @@ copyRight = "© 2026 CCF·Nightingale, all rights reserved."
 
 # Alert
 # 广告位开关和配置（具体内容在 i18n 目录下的语言文件中定义）
-alert = true
+alert = false
 alertDismissable = false
 
 # Edit Page
