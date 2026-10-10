@@ -19,18 +19,21 @@ Either use a separate infrastructure cluster, or install on machines outside the
 ## The state of the chart
 
 The chart lives at [flashcatcloud/n9e-helm](https://github.com/flashcatcloud/n9e-helm), maintained
-separately from the main repository, and it **lags well behind v9**:
+separately from the main repository. From chart `0.4.0` on, its master branch tracks v9:
 
-- `Chart.yaml` says `appVersion: 8.5.0`, chart version `0.3.0`;
-- `values.yaml` defaults the image to `flashcatcloud/nightingale:8.5.0`;
-- the newest packaged release is `helm-chart-v8.0.0-beta12`, from 2025;
-- **there is no Helm repository to `helm repo add`** — clone the repo and install from the local
-  directory.
+- `Chart.yaml` says chart version `0.4.0`, `appVersion: 9.1.1`;
+- `values.yaml` defaults the image to `flashcatcloud/nightingale:9.1.1`;
+- the rendered `config.toml` is a v9 config: it has an `[EmbeddedTSDB]` section but keeps it
+  **off** — the chart ships Prometheus as the time-series store, and the embedded TSDB only suits a
+  single `n9e` replica. It also enables `[HTTP.TokenAuth]` (needed by `/mcp` and `/a2a`) and turns
+  off anonymous access to PromQL queries and alert details, matching upstream defaults.
 
-Running v9 means overriding `n9e.internal.image.tag` yourself. The `config.toml` the chart renders
-is v8-shaped (no `[EmbeddedTSDB]` section; metrics go straight to the in-cluster Prometheus), which
-is still valid on v9, and the schema is filled in by AutoMigrate when `n9e` starts. That
-combination is not officially verified, so **prove it on a test cluster before production**.
+**Packaged releases have not caught up yet.** The newest chart in the Helm repository at
+`https://flashcatcloud.github.io/n9e-helm` is still v8's `v8.0.0-beta12`, so `helm repo add` gets
+you v8. To install v9, install from a clone of master, as in the next section.
+
+Coming from an older chart, switch to the new one and run `helm upgrade`; `n9e` fills in the
+schema with AutoMigrate on startup. See [Upgrade](./upgrade.md) for what to check first.
 
 ## Install
 

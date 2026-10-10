@@ -745,7 +745,7 @@ export const zh: SiteCopy = {
         link: { label: '配置目录说明', href: '/docs/install/configuration' },
       },
       kubernetes: {
-        intro: '社区维护的 chart，带 MySQL、Redis、Prometheus 和 Categraf。没有 helm repo，clone 下来本地安装。',
+        intro: '社区维护的 chart，带 MySQL、Redis、Prometheus 和 Categraf。Helm 仓库里目前只有 v8 的包，装 v9 请 clone 下来本地安装。',
         lines: ['git clone https://github.com/flashcatcloud/n9e-helm.git', 'helm install nightingale ./n9e-helm -n n9e --create-namespace'],
         expected: 'kubectl get pod -n n9e 能看到 nginx、数据库、redis、prometheus、n9e、categraf 都是 Running。',
         note: '要接集群外的数据库，在 values 里设 database.external 和 redis.external。',

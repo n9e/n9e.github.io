@@ -796,7 +796,7 @@ export const en: SiteCopy = {
         link: { label: 'Configuration layout', href: '/docs/install/configuration' },
       },
       kubernetes: {
-        intro: 'A community-maintained chart with MySQL, Redis, Prometheus and Categraf. There is no Helm repository; clone and install from the checkout.',
+        intro: 'A community-maintained chart with MySQL, Redis, Prometheus and Categraf. The Helm repository only has v8 packages so far; to get v9, clone and install from the checkout.',
         lines: ['git clone https://github.com/flashcatcloud/n9e-helm.git', 'helm install nightingale ./n9e-helm -n n9e --create-namespace'],
         expected: 'kubectl get pod -n n9e shows the nginx, database, redis, prometheus, n9e and categraf pods Running.',
         note: 'Set database.external and redis.external in values to use databases outside the cluster.',

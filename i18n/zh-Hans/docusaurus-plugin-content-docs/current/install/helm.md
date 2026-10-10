@@ -17,18 +17,20 @@ Categraf 一起拉起来。装之前有两件事要先想清楚。
 
 ## chart 的版本状况
 
-chart 在 [flashcatcloud/n9e-helm](https://github.com/flashcatcloud/n9e-helm)，
-和夜莺主仓库是分开维护的，**版本明显落后于 v9**：
+chart 在 [flashcatcloud/n9e-helm](https://github.com/flashcatcloud/n9e-helm)，和夜莺主仓库分开维护。
+从 chart `0.4.0` 起，master 分支已经跟到 v9：
 
-- `Chart.yaml` 里 `appVersion: 8.5.0`，chart 版本 `0.3.0`；
-- `values.yaml` 里镜像默认 `flashcatcloud/nightingale:8.5.0`；
-- 最新一个打好包的 release 是 2025 年的 `helm-chart-v8.0.0-beta12`；
-- **没有 Helm 仓库可以 `helm repo add`**，只能 clone 仓库用本地目录装。
+- `Chart.yaml` 里 chart 版本 `0.4.0`，`appVersion: 9.1.1`；
+- `values.yaml` 里镜像默认 `flashcatcloud/nightingale:9.1.1`；
+- 渲染出来的 `config.toml` 是 v9 的：带 `[EmbeddedTSDB]` 段但**默认关闭**——chart 自带 Prometheus 当时序库，
+  而内置时序库只适合单副本的 `n9e`；同时打开了 `[HTTP.TokenAuth]`（`/mcp`、`/a2a` 要用），
+  匿名访问 PromQL 查询和告警详情默认关闭，和上游默认一致。
 
-想跑 v9 就得自己把 `n9e.internal.image.tag` 改成 v9 的 tag。chart 渲染出来的 `config.toml`
-是 v8 风格的（没有 `[EmbeddedTSDB]` 段，指标直接写集群里的 Prometheus），
-这份配置在 v9 上仍然是合法的，表结构由 `n9e` 启动时的 AutoMigrate 补齐。
-但这个组合没有经过官方验证，**上生产前请自己在测试集群里先跑一遍**。
+**打包发布还没跟上**：Helm 仓库 `https://flashcatcloud.github.io/n9e-helm` 里最新的仍是 v8 的
+`v8.0.0-beta12`，`helm repo add` 之后装到的是 v8。要装 v9，用 clone 下来的 master 目录装（见下一节）。
+
+从旧版 chart 升级上来的，换成新 chart 后 `helm upgrade` 即可，表结构由 `n9e` 启动时的 AutoMigrate 补齐。
+升级前的注意事项见[升级](./upgrade.md)。
 
 ## 装
 
