@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://n9e.github.io/sitemap.xml
