@@ -1,68 +1,79 @@
-# 写文档的口径
+# How to write the docs
 
-这份是给参与补齐 `docs/` 的人（和 agent）看的硬约束。信息架构已经定好了，
-每一页的标题和 description 就是提纲（见 `scripts/docs-tree.mjs`），不用重新设计目录。
+Hard rules for anyone (people and agents) filling in `docs/`. The information architecture is
+settled: each page's title and description are its outline (see `scripts/docs-tree.mjs`), so there
+is no need to redesign the table of contents.
 
-标杆是 `docs/get-started/quick-start.md`：短、直给、每段只说一件事。
+The benchmark is `docs/get-started/quick-start.md`: short, direct, one point per paragraph.
 
-## 一、一切可核对的东西必须溯源
+## 1. Everything checkable must be traced to a source
 
-| 要写的东西 | 去哪儿核对 |
+| What you are writing | Where to check it |
 |---|---|
-| 菜单名、页面标题、字段名 | `n9e/fe/src/components/SideMenu/locale/{zh_CN,en_US}.ts`，以及对应页面自己的 `locale/` |
-| 路由 / UI 路径 | 在 `http://localhost:8765` 上真的点一遍 |
-| 配置项、默认值 | `ccfos/nightingale/etc/config.toml` 及对应 conf 结构体 |
-| API 路径、参数 | `ccfos/nightingale/center/router/` |
-| 数据表、字段语义 | `ccfos/nightingale/models/` |
-| 旧站已有的中文正文 | `flashcatcloud/fc-site/content/chinese/docs/content/flashcat-monitor/nightingale-v9/`（stub 里的 `legacy:` URL 到本地文件是机械映射） |
+| Menu names, page titles, field names | `n9e/fe/src/components/SideMenu/locale/{zh_CN,en_US}.ts`, plus the `locale/` of the page itself |
+| Routes / UI paths | Actually click through them at `http://localhost:8765` |
+| Config keys, defaults | `ccfos/nightingale/etc/config.toml` and the matching config structs |
+| API paths, parameters | `ccfos/nightingale/center/router/` |
+| Tables, field meaning | `ccfos/nightingale/models/` |
+| Chinese text that already exists on the old site | `flashcatcloud/fc-site/content/chinese/docs/content/flashcat-monitor/nightingale-v9/` (the `legacy:` URL in a stub maps mechanically to the local file) |
 
-旧站的 `_en.md` 是 `hidden: true` 的半成品，**不要当英文底稿**。
+The old site's `_en.md` files are unfinished drafts marked `hidden: true`. **Do not use them as the
+English source.**
 
-## 二、写不实就不写
+## 2. If it cannot be written accurately, do not write it
 
-某页凭现有源码和环境落不到「读者照着做能成」的程度，就**保留 `planned: true`**，
-在批次报告里说明卡在哪。半成品且诚实，好过写满且是编的。
+If the current source code and environment cannot get a page to the point where "a reader who
+follows it succeeds", **keep `planned: true`** and say in the batch report where it is stuck. An
+honest half-page beats a full page that is made up.
 
-## 三、不写商业版功能
+## 3. No commercial-edition features
 
-`plus-only-menus.json` 里列的东西一律不进开源文档。判定方法见 `scripts/docs-env/README.md`。
-容易搞错的是 AI 配置——它是开源的，只是入口在 Nightingale AI 工作区里。
+Nothing listed in `plus-only-menus.json` goes into the open-source docs. How to tell is described
+in `scripts/docs-env/README.md`. The easy one to get wrong is AI configuration — it is open
+source, its entry point just lives inside the Nightingale AI workspace.
 
-## 四、文风
+## 4. Style
 
-- 一页 60–150 行是常态，超过 250 行说明啰嗦了；
-- 不写「整体三栏布局」这类结构描述，直接说每个区域干什么；
-- 开头一句说清「这页办完你会得到什么」，不要先介绍功能叫什么；
-- 结尾给「下一步」，链回旅途的下一环；
-- 命令、配置片段要完整可复制，版本明确，不含真实凭据；
-- 每个操作步骤都要有「预期结果」，让读者能判断自己做对没有。
+- 60–150 lines per page is normal; more than 250 means it is wordy;
+- No layout descriptions like "a three-column layout overall" — say what each area does;
+- The first sentence says what the reader will have when the page is done, not what the feature
+  is called;
+- End with "Next", linking to the next step of the journey;
+- Commands and config snippets are complete and copyable, with explicit versions and no real
+  credentials;
+- Every procedural step has an "Expected result" so readers can tell whether they got it right.
 
-## 五、中英两份
+## 5. Chinese and English
 
-中文先写（源材料是中文），英文同批产出，不是机翻——按英文读者的习惯重排，
-术语对齐 `en_US.ts`。
+Chinese is written first (the source material is Chinese) and English is produced in the same
+batch. It is not machine translation — restructure it the way English readers expect, and align
+terms with `en_US.ts`.
 
-**两份的标题结构必须一致**（数量、顺序、被链接到的锚点 slug）。两边标题一漂，
-跨页 `#锚点` 链接就会只在一个语言下断，而 `onBrokenAnchors: 'warn'` 只警告不报错，
-159 页的构建日志里没人会看见它。
+**Both versions must have the same heading structure** (count, order, and the anchor slugs that
+other pages link to). Once the headings drift, cross-page `#anchor` links break in only one
+language, and `onBrokenAnchors: 'warn'` only warns instead of failing — nobody will spot it in the
+build log of 159 pages.
 
-## 六、截图
+## 6. Screenshots
 
-只有「照着做」的页面配图；概念页、排障页、参考手册以文字和表格为主。
-要图就往 `scripts/docs-env/shot-manifest.mjs` 里加一条，然后
-`node scripts/docs-env/shoot-docs.mjs <section>`，不要手动截图往仓库里塞。
+Only "follow these steps" pages get screenshots; concept, troubleshooting and reference pages rely
+on text and tables. To add one, add an entry to `scripts/docs-env/shot-manifest.mjs` and run
+`node scripts/docs-env/shoot-docs.mjs <section>` — do not take screenshots by hand and drop them
+into the repo.
 
-引用路径写成 `/img/docs/<section>/<name>.png`。中文页引 `.zh.png` 那一份。
+Reference images as `/img/docs/<section>/<name>.png`. Chinese pages reference the `.zh.png`
+variant.
 
-## 七、写完一页要做的事
+## 7. When a page is done
 
-1. 删掉 front matter 里的注释块 + `planned: true` + `sidebar_class_name: planned` +
-   `legacy:`（如果有），保留 `title` / `sidebar_label` / `description`；
-2. 中英两棵树都要改：`docs/` 和 `i18n/zh-Hans/docusaurus-plugin-content-docs/current/`；
-3. 在 `scripts/docs-tree.mjs` 对应的 `doc(...)` 上加 `{ existing: true }`——
-   这是文件被误删后 scaffold 不会悄悄重建成空占位的唯一保险；
-4. 跑 `npm run scaffold`，确认 `sidebars.ts`、`src/data/docs-tabs.json`、
-   `src/css/docs-icons.css`、`i18n/en/docusaurus-plugin-content-docs/current.json`
-   这四个生成文件 `git diff` 为空。`{ existing: true }` 一旦误加到 `category(...)` 上
-   会悄悄改掉侧栏输出；
-5. `npm run build` 过（两个 locale，`onBrokenLinks: 'throw'` 是硬门禁）。
+1. Remove the comment block, `planned: true`, `sidebar_class_name: planned` and `legacy:` (if
+   present) from the front matter; keep `title` / `sidebar_label` / `description`;
+2. Change both trees: `docs/` and `i18n/zh-Hans/docusaurus-plugin-content-docs/current/`;
+3. Add `{ existing: true }` to the matching `doc(...)` in `scripts/docs-tree.mjs` — it is the only
+   safeguard that stops scaffold from silently recreating an accidentally deleted file as an empty
+   placeholder;
+4. Run `npm run scaffold` and confirm that `git diff` is empty for the four generated files:
+   `sidebars.ts`, `src/data/docs-tabs.json`, `src/css/docs-icons.css` and
+   `i18n/en/docusaurus-plugin-content-docs/current.json`. Putting `{ existing: true }` on a
+   `category(...)` by mistake silently changes the sidebar output;
+5. `npm run build` passes (both locales; `onBrokenLinks: 'throw'` is a hard gate).
