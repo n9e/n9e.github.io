@@ -8,12 +8,10 @@ After this page you will have seen, on a running instance, every stop an alert m
 Nightingale: the data source it reads, the rule that evaluates it, the event it produces and the
 rule that delivers it.
 
-<!-- Placeholder credentials. Replace demo / demo with the real public account. -->
-
 ## Sign in
 
-Open **[http://43.106.19.165/landing](http://43.106.19.165/landing)** and sign in as
-`demo` / `demo`.
+Open **[the live demo](http://43.106.19.165/api/n9e/auth/demo-login)**. The link signs you in
+as the shared demo account, so there is no username or password to type.
 
 Expected result: you land on **Home**, with a **Getting started** checklist at the top. The demo is
 the open-source edition, so every menu you see here is one you get from the
