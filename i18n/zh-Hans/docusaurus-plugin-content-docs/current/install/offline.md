@@ -21,9 +21,9 @@ description: "在没有外网的机器上安装：需要提前准备的包、镜
 用 Docker 的话，额外要提前拉镜像并 `docker save`：
 
 ```bash
-docker pull flashcatcloud/nightingale:v9.1.1
+docker pull flashcatcloud/nightingale:9.1.1
 docker pull flashcatcloud/categraf:latest
-docker save flashcatcloud/nightingale:v9.1.1 flashcatcloud/categraf:latest -o n9e-images.tar
+docker save flashcatcloud/nightingale:9.1.1 flashcatcloud/categraf:latest -o n9e-images.tar
 ```
 
 compose 编排还会用到 `mysql:8`、`redis:6.2`、`victoriametrics/victoria-metrics`，

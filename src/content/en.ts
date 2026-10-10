@@ -789,8 +789,8 @@ export const en: SiteCopy = {
       docker: {
         intro: 'The image runs the n9e process alone. Mount a config directory whose config.toml points at your database and Redis.',
         lines: [
-          'docker pull flashcatcloud/nightingale:{tag}',
-          'docker run -d --name nightingale -p 17000:17000 -p 20090:20090 -v /opt/n9e/etc:/app/etc flashcatcloud/nightingale:{tag}',
+          'docker pull flashcatcloud/nightingale:{version}',
+          'docker run -d --name nightingale -p 17000:17000 -p 20090:20090 -v /opt/n9e/etc:/app/etc flashcatcloud/nightingale:{version}',
         ],
         note: 'Port 17000 is the web UI and API, 20090 is the ibex RPC port for self-healing. The config layout is the same as the binary package.',
         link: { label: 'Configuration layout', href: '/docs/install/configuration' },
@@ -816,9 +816,9 @@ export const en: SiteCopy = {
         'The container images, if you deploy with Docker or Helm',
       ],
       lines: [
-        'docker pull flashcatcloud/nightingale:{tag}',
+        'docker pull flashcatcloud/nightingale:{version}',
         'docker pull flashcatcloud/categraf:latest',
-        'docker save flashcatcloud/nightingale:{tag} flashcatcloud/categraf:latest -o n9e-images.tar',
+        'docker save flashcatcloud/nightingale:{version} flashcatcloud/categraf:latest -o n9e-images.tar',
       ],
       link: { label: 'Offline deployment guide', href: '/docs/install/offline' },
     },

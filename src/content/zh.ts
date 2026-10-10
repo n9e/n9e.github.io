@@ -738,8 +738,8 @@ export const zh: SiteCopy = {
       docker: {
         intro: '镜像只跑 n9e 进程。挂一个配置目录进去，里面的 config.toml 指向你的数据库和 Redis。',
         lines: [
-          'docker pull flashcatcloud/nightingale:{tag}',
-          'docker run -d --name nightingale -p 17000:17000 -p 20090:20090 -v /opt/n9e/etc:/app/etc flashcatcloud/nightingale:{tag}',
+          'docker pull flashcatcloud/nightingale:{version}',
+          'docker run -d --name nightingale -p 17000:17000 -p 20090:20090 -v /opt/n9e/etc:/app/etc flashcatcloud/nightingale:{version}',
         ],
         note: '17000 是页面和 API，20090 是自愈用的 ibex RPC 端口。配置目录结构和二进制包一样。',
         link: { label: '配置目录说明', href: '/docs/install/configuration' },
@@ -762,9 +762,9 @@ export const zh: SiteCopy = {
       intro: '在能上网的机器上把这些取好再拷过去。Linux 包里已经带了集成模板、内置仪表盘和一份 Categraf。',
       items: ['对应架构的 Linux 包，从上面「上生产」那条路径下载', '容器镜像，如果你用 Docker 或 Helm 部署'],
       lines: [
-        'docker pull flashcatcloud/nightingale:{tag}',
+        'docker pull flashcatcloud/nightingale:{version}',
         'docker pull flashcatcloud/categraf:latest',
-        'docker save flashcatcloud/nightingale:{tag} flashcatcloud/categraf:latest -o n9e-images.tar',
+        'docker save flashcatcloud/nightingale:{version} flashcatcloud/categraf:latest -o n9e-images.tar',
       ],
       link: { label: '离线部署文档', href: '/docs/install/offline' },
     },

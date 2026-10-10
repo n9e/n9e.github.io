@@ -55,8 +55,9 @@ const EMBED_INLINE_SCRIPT = `(function () {
 const isEn = process.env.DOCUSAURUS_CURRENT_LOCALE === 'en';
 
 const config: Config = {
-  title: '夜莺 Nightingale',
-  tagline: '开源告警专家',
+  // 站点标题会进每一页的 <title> 后缀和 og:title，英文站不能带中文；英文 tagline 与首页 hero 标题一致
+  title: isEn ? 'Nightingale' : '夜莺 Nightingale',
+  tagline: isEn ? 'Open-Source Alerting for Your Existing Stack' : '开源告警专家',
   favicon: 'img/favicon.png',
 
   url: SITE_URL,

@@ -22,9 +22,9 @@ Download these on a machine with internet access, then copy them across:
 For Docker, pull and `docker save` the images too:
 
 ```bash
-docker pull flashcatcloud/nightingale:v9.1.1
+docker pull flashcatcloud/nightingale:9.1.1
 docker pull flashcatcloud/categraf:latest
-docker save flashcatcloud/nightingale:v9.1.1 flashcatcloud/categraf:latest -o n9e-images.tar
+docker save flashcatcloud/nightingale:9.1.1 flashcatcloud/categraf:latest -o n9e-images.tar
 ```
 
 The compose bundles also use `mysql:8`, `redis:6.2` and `victoriametrics/victoria-metrics` — pull
