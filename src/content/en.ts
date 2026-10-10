@@ -82,7 +82,7 @@ export const en: SiteCopy = {
         stage: 'config',
         title: 'Write the rule once',
         body: 'Metrics, logs and SQL-queried stores share one rule model, so there is nothing new to learn per data source. Rules are configured in the UI, scoped by business group, and graded S1 / S2 / S3. A library of common rules ships with the install, so you never start from an empty page.',
-        points: ['One rule can span several data sources', 'UI configuration with versioning — no YAML reload cycle'],
+        points: ['One rule can span several data sources', 'Edit rules in the UI or through the API — no YAML reload cycle'],
         shot: 'img/step-alert-en.png',
         shotAlt: 'Nightingale alert rule management',
       },
@@ -218,7 +218,7 @@ export const en: SiteCopy = {
     cards: [
       {
         title: 'Self-hosted',
-        body: 'Apache-2.0, fully featured, no paywall. One compose command brings it up; binaries and Helm are there too.',
+        body: 'Apache-2.0, fully featured. One compose command brings it up; binaries and Helm are there too.',
         code: 'docker compose up -d',
         link: { label: 'Download and install', href: '/download' },
       },

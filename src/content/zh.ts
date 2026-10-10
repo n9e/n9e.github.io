@@ -75,7 +75,7 @@ export const zh: SiteCopy = {
         stage: 'config',
         title: '统一告警规则',
         body: '指标、日志、SQL 类数据库用同一套规则体系，不必为每种数据源重学一遍配法。规则在页面上配、按业务组分权限，分 S1 / S2 / S3 三级。装完就带一批常用规则，不用从空白开始。',
-        points: ['一条规则可同时作用于多个数据源', '页面配置加版本化管理，不写 YAML 也能上线规则'],
+        points: ['一条规则可同时作用于多个数据源', '页面或 API 配置规则，不用改 YAML 再 reload'],
         shot: 'img/step-alert.png',
         shotAlt: '夜莺告警规则管理页面',
       },
@@ -207,7 +207,7 @@ export const zh: SiteCopy = {
     cards: [
       {
         title: '自建',
-        body: 'Apache-2.0 全功能开源，没有付费墙。一条 compose 命令拉起，也支持二进制与 Helm。',
+        body: 'Apache-2.0 全功能开源。一条 compose 命令拉起，也支持二进制与 Helm。',
         code: 'docker compose up -d',
         link: { label: '下载与安装', href: '/download' },
       },

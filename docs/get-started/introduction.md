@@ -29,6 +29,6 @@ is also an MCP server, so an AI client can drive all of it in plain language.
 - **86 built-in integrations** bundling collector config, dashboards and rules
 - **74 MCP tools** across 13 toolsets
 
-Apache-2.0, fully featured, no paywall.
+Apache-2.0, fully featured.
 
 Next: [Quick start](./quick-start.md).
