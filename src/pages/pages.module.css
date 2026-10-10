@@ -1,0 +1,201 @@
+/** 子页面（集成 / 下载 / Categraf）共用版式。对比页有自己的 comparisons.module.css。 */
+
+/* 紧跟页头的正文区，顶部留白比首页小节小一档 */
+.pageBody {
+  padding-block: clamp(2.5rem, 4vw, 3.5rem) clamp(4rem, 7vw, 6rem);
+}
+
+.pageHeader {
+  padding-block: var(--n9e-hero-pad-top) var(--n9e-hero-pad-bottom);
+  border-bottom: 1px solid var(--n9e-line);
+}
+
+.pageTitle {
+  max-width: 30ch;
+  font-size: var(--n9e-hero-title);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.032em;
+  margin: 0;
+}
+
+.pageLead {
+  max-width: 60ch;
+  margin: 1.2rem 0 0;
+  font-size: var(--n9e-hero-lead);
+  line-height: 1.7;
+  color: var(--n9e-ink-soft);
+}
+
+/* ---------------- 集成页 ---------------- */
+
+.countRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin-top: 1.75rem;
+}
+
+.countValue {
+  display: block;
+  font-family: var(--n9e-font-mono);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--n9e-ink);
+}
+
+.countLabel {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.82rem;
+  color: var(--n9e-ink-faint);
+}
+
+.noteGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.15rem;
+  margin-top: clamp(2rem, 3.5vw, 2.75rem);
+}
+
+.noteCard {
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  border: 1px solid var(--n9e-line);
+  border-radius: var(--n9e-radius-lg);
+  background: var(--n9e-paper-sunk);
+}
+
+.noteCard h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 0.6rem;
+}
+
+.noteCard p {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--n9e-ink-soft);
+}
+
+.noteCard a {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--n9e-violet);
+}
+
+/* ---------------- 下载页 ---------------- */
+
+.methods {
+  display: grid;
+  gap: 1.15rem;
+}
+
+.method {
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  border: 1px solid var(--n9e-line);
+  border-radius: var(--n9e-radius-lg);
+  background: var(--n9e-paper-raised);
+}
+
+.methodTitle {
+  font-size: 1.08rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+}
+
+.methodNote {
+  margin: 0 0 1.1rem;
+  font-size: 0.9rem;
+  line-height: 1.72;
+  color: var(--n9e-ink-soft);
+}
+
+.cmd {
+  display: block;
+  padding: 0.85rem 0.95rem;
+  background: var(--n9e-paper-sunk);
+  border: 1px solid var(--n9e-line);
+  border-radius: var(--n9e-radius);
+  font-family: var(--n9e-font-mono);
+  font-size: 0.76rem;
+  line-height: 1.85;
+  color: var(--n9e-ink);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.cmd span {
+  display: block;
+}
+
+.cmd span::before {
+  content: '$ ';
+  color: var(--n9e-violet);
+}
+
+.methodAfter {
+  margin: 0.85rem 0 0;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.73rem;
+  color: var(--n9e-ink-faint);
+}
+
+.methodLink {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--n9e-violet);
+}
+
+/* ---------------- Categraf 页：插件清单 ----------------
+   插件名是配置里要照抄的字符串（inputs/ 下的目录名），所以用等宽字体原样呈现，
+   不做首字母大写之类的美化——看到什么就能写什么。 */
+
+.pluginGroups {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.15rem;
+  margin: 1.75rem 0 clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.pluginGroup {
+  padding: 1.15rem 1.25rem 1.25rem;
+  border: 1px solid var(--n9e-line);
+  border-radius: var(--n9e-radius-lg);
+  background: var(--n9e-paper-raised);
+}
+
+.pluginLabel {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--n9e-ink-faint);
+  margin: 0 0 0.8rem;
+}
+
+.pluginList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pluginList li {
+  padding: 0.15rem 0.45rem;
+  background: var(--n9e-paper-sunk);
+  border: 1px solid var(--n9e-line);
+  border-radius: 4px;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.72rem;
+  color: var(--n9e-ink-soft);
+}
+
+@media (max-width: 860px) {
+  .noteGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

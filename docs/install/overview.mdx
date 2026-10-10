@@ -1,0 +1,19 @@
+---
+title: Installation and deployment
+sidebar_label: Overview
+description: The ways to run Nightingale — Compose, Docker image, binaries, Helm, n9e-edge — and which fits which situation.
+---
+
+import DocCardList from '@theme/DocCardList';
+
+| Method | When to use it |
+|---|---|
+| Docker Compose | Evaluation and small production setups — brings up its own dependencies |
+| Docker image | You already run MySQL and a time-series store |
+| Binary | Linux amd64 / arm64 tarballs with checksums on every GitHub release |
+| Helm | Kubernetes |
+| `n9e-edge` | Edge data centers whose link to the center is unreliable |
+
+See the [download page](/download) for the exact commands per method.
+
+<DocCardList />

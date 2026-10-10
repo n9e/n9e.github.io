@@ -1,0 +1,66 @@
+{
+  "link.title.产品": {
+    "message": "Product",
+    "description": "The title of the footer links column with title=产品 in the footer"
+  },
+  "link.title.资源": {
+    "message": "Resources",
+    "description": "The title of the footer links column with title=资源 in the footer"
+  },
+  "link.title.社区": {
+    "message": "Community",
+    "description": "The title of the footer links column with title=社区 in the footer"
+  },
+  "link.title.关于": {
+    "message": "About",
+    "description": "The title of the footer links column with title=关于 in the footer"
+  },
+  "link.item.label.文档": {
+    "message": "Docs",
+    "description": "The label of footer link with label=文档 linking to /docs"
+  },
+  "link.item.label.下载": {
+    "message": "Download",
+    "description": "The label of footer link with label=下载 linking to /download"
+  },
+  "link.item.label.发布说明": {
+    "message": "Release notes",
+    "description": "The label of footer link with label=发布说明 linking to https://github.com/ccfos/nightingale/releases"
+  },
+  "link.item.label.Categraf 采集器": {
+    "message": "Categraf collector",
+    "description": "The label of footer link with label=Categraf 采集器 linking to https://github.com/flashcatcloud/categraf"
+  },
+  "link.item.label.集成生态": {
+    "message": "Integrations",
+    "description": "The label of footer link with label=集成生态 linking to /integrations"
+  },
+  "link.item.label.产品对比": {
+    "message": "Comparisons",
+    "description": "The label of footer link with label=产品对比 linking to /comparisons"
+  },
+  "link.item.label.MCP Server": {
+    "message": "MCP Server",
+    "description": "The label of footer link with label=MCP Server linking to https://github.com/ccfos/nightingale#-mcp-server"
+  },
+  "link.item.label.GitHub": {
+    "message": "GitHub",
+    "description": "The label of footer link with label=GitHub linking to https://github.com/ccfos/nightingale"
+  },
+  "link.item.label.Issues": {
+    "message": "Issues",
+    "description": "The label of footer link with label=Issues linking to https://github.com/ccfos/nightingale/issues"
+  },
+  "link.item.label.Slack": {
+    "message": "Slack",
+    "description": "The label of footer link with label=Slack linking to https://join.slack.com/t/n9e/shared_invite/zt-480klxytf-P9qm3C1M87kDmRPp_H30Kw"
+  },
+  "link.item.label.Apache-2.0 License": {
+    "message": "Apache-2.0 License",
+    "description": "The label of footer link with label=Apache-2.0 License linking to https://github.com/ccfos/nightingale/blob/main/LICENSE"
+  },
+  "copyright": {
+    "message": "© 2026 Nightingale Contributors · Apache-2.0 License",
+    "description": "The footer copyright"
+  }
+}

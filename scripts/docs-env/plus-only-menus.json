@@ -1,0 +1,178 @@
+{
+  "note": "开源文档不得出现的商业版（PLUS）功能。判定方法：在 `npm run dev`（开源构建）里实际访问路由，渲染 404 的即 PLUS 独有。不要只看 menu.tsx 取差集——AI 配置就是反例：它在商业版菜单里有独立入口，但开源版同样能用，只是入口挪进了 Nightingale AI 工作区的二级侧栏。",
+  "verified_on": "2026-09-03, n9e v9.1.1 (6c88f5096) + fe c0f704091",
+  "how_to_reverify": "起 OSS 前端（PROXY=http://localhost:17000 npm run dev），逐个访问下面的路径，看是否渲染 404 页",
+  "plus_only": [
+    {
+      "path": "/collects",
+      "zh": "采集规则",
+      "en": "Collection rules",
+      "affects_docs": [
+        "data/integrations/collector-config"
+      ]
+    },
+    {
+      "path": "/system/audits",
+      "zh": "操作审计",
+      "en": "Audit log",
+      "affects_docs": []
+    },
+    {
+      "path": "/label-mappings",
+      "zh": "标签词表",
+      "en": "Label mappings",
+      "affects_docs": []
+    },
+    {
+      "path": "/global-muting-rules",
+      "zh": "全局屏蔽",
+      "en": "Global muting",
+      "affects_docs": []
+    },
+    {
+      "path": "/reports",
+      "zh": "巡检报告",
+      "en": "Reports",
+      "affects_docs": []
+    },
+    {
+      "path": "/pingmesh",
+      "zh": "网络探测",
+      "en": "Pingmesh",
+      "affects_docs": []
+    },
+    {
+      "path": "/network-devices",
+      "zh": "网络设备",
+      "en": "Network devices",
+      "affects_docs": []
+    },
+    {
+      "path": "/mobile-device",
+      "zh": "移动设备",
+      "en": "Mobile devices",
+      "affects_docs": []
+    },
+    {
+      "path": "/dial-analysis",
+      "zh": "拨测分析",
+      "en": "Dial analysis",
+      "affects_docs": []
+    },
+    {
+      "path": "/ai-task",
+      "zh": "AI 任务",
+      "en": "AI tasks",
+      "affects_docs": []
+    },
+    {
+      "path": "/system/license-management",
+      "zh": "License",
+      "en": "License",
+      "affects_docs": []
+    },
+    {
+      "path": "/system/log-transform-engines",
+      "zh": "日志引擎",
+      "en": "Log engines",
+      "affects_docs": []
+    },
+    {
+      "path": "/kubernetes",
+      "zh": "Kubernetes",
+      "en": "Kubernetes",
+      "affects_docs": []
+    },
+    {
+      "path": "/profiling",
+      "zh": "性能剖析",
+      "en": "Profiling",
+      "affects_docs": []
+    },
+    {
+      "path": "/service-calendar",
+      "zh": "值班日历",
+      "en": "Service calendar",
+      "affects_docs": []
+    },
+    {
+      "path": "/log-extraction",
+      "zh": "日志抽取",
+      "en": "Log extraction",
+      "affects_docs": []
+    }
+  ],
+  "in_oss_but_easy_to_get_wrong": [
+    {
+      "path": "/nightingale-ai/llm-configs",
+      "zh": "大模型配置",
+      "en": "LLM configs",
+      "note": "开源版有。菜单里没有顶级「AI 配置」，入口在 Nightingale AI 工作区左侧的二级导航；访问 /ai-config/llm-configs 会 302 到这里。写 ai/llm-provider 时按这条路径描述。"
+    },
+    {
+      "path": "/nightingale-ai/skills",
+      "zh": "技能管理",
+      "en": "Skill management",
+      "note": "同上，入口也在 Nightingale AI 工作区里。"
+    },
+    {
+      "path": "/metrics-built-in",
+      "zh": "指标视图",
+      "en": "Built-in metrics",
+      "note": "开源版有，是「数据查询 → 指标」下的 tab。"
+    },
+    {
+      "path": "/recording-rules",
+      "zh": "记录规则",
+      "en": "Recording rules",
+      "note": "开源版有。"
+    },
+    {
+      "path": "/object/explorer",
+      "zh": "快捷视图",
+      "en": "Quick view",
+      "note": "开源版有。"
+    },
+    {
+      "path": "/alert-mutes",
+      "zh": "屏蔽规则",
+      "en": "Muting rules",
+      "note": "开源版有，是「告警规则」页的 tab，不是独立菜单项。"
+    },
+    {
+      "path": "/alert-subscribes",
+      "zh": "订阅规则",
+      "en": "Subscription rules",
+      "note": "开源版有，同样是 tab。"
+    }
+  ],
+  "oss_top_menu": [
+    "Nightingale AI",
+    "Infrastructure > Hosts",
+    "Explorer > Metrics / Logs / Dashboards",
+    "Alerts & Notifications > Alert rules / Self-healing / Events / Notification rules / Media types / Message templates / Workflows",
+    "Integrations > Data sources / Components / Embedded products",
+    "Organization > Users / Teams / Roles",
+    "System > Site / Variable / SSO / Alerting engines / About"
+  ],
+  "oss_datasource_plugins": {
+    "note": "开源版 v9.1.1 实际支持的数据源类型，取自 POST /api/n9e/datasource/plugin/list。旧站文档里的阿里云 SLS、腾讯云 CLS、Jaeger、Zabbix 都不在这个列表里，写 data/* 时不要照搬。",
+    "timeseries": [
+      "prometheus",
+      "tdengine",
+      "mysql",
+      "pgsql",
+      "iotdb"
+    ],
+    "logging": [
+      "elasticsearch",
+      "opensearch",
+      "victorialogs",
+      "ck",
+      "doris"
+    ],
+    "loki": [
+      "loki"
+    ]
+  }
+}

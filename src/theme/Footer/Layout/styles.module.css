@@ -1,0 +1,12 @@
+/* 明暗切换：居中一行，摆在语言切换上方 */
+.themeRow {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.6rem;
+}
+
+.localeRow {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}

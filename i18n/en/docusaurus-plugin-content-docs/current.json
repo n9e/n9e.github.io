@@ -1,0 +1,158 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.docs.category.get-started": {
+    "message": "Get started",
+    "description": "The label for category '开始使用' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.choose-your-path": {
+    "message": "Choose your path",
+    "description": "The label for category '选一条路进来' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.choose-your-path.link.generated-index.title": {
+    "message": "Choose your path",
+    "description": "The generated-index page title for category '选一条路进来' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.choose-your-path.link.generated-index.description": {
+    "message": "Four starting points depending on what you already run. Each one ends with a rule evaluating real data.",
+    "description": "The generated-index page description for category '选一条路进来' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.concepts": {
+    "message": "Architecture and concepts",
+    "description": "The label for category '架构与概念' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.concepts.link.generated-index.title": {
+    "message": "Architecture and concepts",
+    "description": "The generated-index page title for category '架构与概念' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.concepts.link.generated-index.description": {
+    "message": "The mental model behind the product: which processes exist, how a data source becomes an alert, and how events are thinned out on their way to a person.",
+    "description": "The generated-index page description for category '架构与概念' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.install": {
+    "message": "Install and deploy",
+    "description": "The label for category '安装部署' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.data": {
+    "message": "Collect and connect data",
+    "description": "The label for category '接入数据' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.categraf": {
+    "message": "Categraf",
+    "description": "The label for category 'Categraf' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.categraf.link.generated-index.title": {
+    "message": "Categraf",
+    "description": "The generated-index page title for category 'Categraf' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.categraf.link.generated-index.description": {
+    "message": "The recommended collector: one agent, 100+ input plugins, pushing over Prometheus Remote Write.",
+    "description": "The generated-index page description for category 'Categraf' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.integrations": {
+    "message": "Integration templates",
+    "description": "The label for category '集成模板' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.integrations.link.generated-index.title": {
+    "message": "Integration templates",
+    "description": "The generated-index page title for category '集成模板' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.integrations.link.generated-index.description": {
+    "message": "86 templates that bundle collector config, dashboards and alert rules so a component is onboarded as a set.",
+    "description": "The generated-index page description for category '集成模板' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.query": {
+    "message": "Query and dashboards",
+    "description": "The label for category '查询与仪表盘' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.query.link.generated-index.title": {
+    "message": "Query and dashboards",
+    "description": "The generated-index page title for category '查询与仪表盘' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.query.link.generated-index.description": {
+    "message": "Look at the data before you alert on it: the metrics and log explorers, built-in views, and dashboards you can share or embed.",
+    "description": "The generated-index page description for category '查询与仪表盘' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.alerting": {
+    "message": "Alert rules",
+    "description": "The label for category '告警规则' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.events": {
+    "message": "Events and noise reduction",
+    "description": "The label for category '事件、降噪与路由' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.notifications": {
+    "message": "Notifications",
+    "description": "The label for category '通知' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.ai": {
+    "message": "AI and MCP",
+    "description": "The label for category 'AI 与 MCP' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.security": {
+    "message": "Users, teams and security",
+    "description": "The label for category '用户、团队与安全' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.security.link.generated-index.title": {
+    "message": "Users, teams and security",
+    "description": "The generated-index page title for category '用户、团队与安全' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.security.link.generated-index.description": {
+    "message": "Who can see and change what, and how to harden a deployment that faces more than one team.",
+    "description": "The generated-index page description for category '用户、团队与安全' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.operations": {
+    "message": "Operations",
+    "description": "The label for category '运维' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.operations.link.generated-index.title": {
+    "message": "Operations",
+    "description": "The generated-index page title for category '运维' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.operations.link.generated-index.description": {
+    "message": "Keeping Nightingale itself healthy: topology, capacity, backups, upgrades, and knowing when it is the one that is broken.",
+    "description": "The generated-index page description for category '运维' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.troubleshooting": {
+    "message": "Troubleshooting",
+    "description": "The label for category '排障' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.troubleshooting.link.generated-index.title": {
+    "message": "Troubleshooting",
+    "description": "The generated-index page title for category '排障' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.troubleshooting.link.generated-index.description": {
+    "message": "Organised by symptom, not by component: find the line that matches what you are seeing.",
+    "description": "The generated-index page description for category '排障' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.migration": {
+    "message": "Migration and comparison",
+    "description": "The label for category '迁移与对比' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.migration.link.generated-index.title": {
+    "message": "Migration and comparison",
+    "description": "The generated-index page title for category '迁移与对比' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.migration.link.generated-index.description": {
+    "message": "Coming from another alerting stack, or from Nightingale v8: what maps to what, and how to run both during the switch.",
+    "description": "The generated-index page description for category '迁移与对比' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.reference": {
+    "message": "Reference",
+    "description": "The label for category '参考手册' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.help": {
+    "message": "Releases and help",
+    "description": "The label for category '发布与帮助' in sidebar 'docs'"
+  },
+  "sidebar.docs.link.github-issues": {
+    "message": "GitHub Issues",
+    "description": "The label for link 'GitHub Issues' in sidebar 'docs'"
+  },
+  "sidebar.docs.link.slack-community": {
+    "message": "Slack community",
+    "description": "The label for link 'Slack 社区' in sidebar 'docs'"
+  }
+}

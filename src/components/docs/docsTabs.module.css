@@ -1,0 +1,77 @@
+/* 文档区顶部的页签条。贴在导航栏下面一起吸顶；下面一条细线把它和侧栏/正文分开。 */
+
+.tabs {
+  position: sticky;
+  top: var(--n9e-navbar-height);
+  z-index: calc(var(--ifm-z-index-fixed) - 1);
+  background: var(--n9e-paper);
+  border-bottom: 1px solid var(--n9e-line);
+}
+
+.inner {
+  display: flex;
+  gap: 0.25rem;
+  max-width: var(--n9e-docs-maxw);
+  margin-inline: auto;
+  padding: 0 clamp(0.75rem, 2vw, 1.5rem);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.inner::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex: none;
+  height: var(--n9e-docs-tabs-height);
+  padding: 0 0.6rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--n9e-ink-soft);
+  white-space: nowrap;
+  transition: color 0.12s ease;
+}
+
+.tab:hover {
+  color: var(--n9e-ink);
+  text-decoration: none;
+}
+
+/* 当前页签：文字加深，底下一条品牌色的线（不是整块底色——页签条要保持轻） */
+.active {
+  color: var(--n9e-ink);
+  font-weight: 600;
+}
+
+.active::after {
+  content: '';
+  position: absolute;
+  left: 0.6rem;
+  right: 0.6rem;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--n9e-violet);
+}
+
+.icon {
+  display: inline-flex;
+  width: 1rem;
+  height: 1rem;
+  color: var(--n9e-ink-faint);
+}
+
+.icon :global(svg) {
+  width: 100%;
+  height: 100%;
+}
+
+.active .icon,
+.tab:hover .icon {
+  color: var(--n9e-violet);
+}

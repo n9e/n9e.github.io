@@ -1,0 +1,1119 @@
+/**
+ * 夜莺官网设计系统
+ *
+ * 强调色只用产品自己的告警级别色（S1/S2/S3），且永远承载真实语义——
+ * 页面上出现红色，就意味着这里讲的是 critical 告警，不做装饰性使用。
+ */
+
+/* ============================================================
+   1. 设计 token
+   ============================================================ */
+
+:root {
+  /* 纸面：冷紫调灰白，与品牌同色系（不是暖奶油白） */
+  --n9e-paper: #ffffff;
+  --n9e-paper-sunk: #f6f5fa;
+  --n9e-paper-raised: #ffffff;
+
+  /* 墨：带紫底调的近黑 */
+  --n9e-ink: #14121c;
+  --n9e-ink-soft: #4b4759;
+  --n9e-ink-faint: #7d7891;
+
+  --n9e-line: #e7e4f0;
+  --n9e-line-strong: #d6d1e4;
+
+  /* 品牌：取自产品实际主题色与 logo 渐变 */
+  --n9e-violet: #6c53b1;
+  --n9e-violet-deep: #3e2c78;
+  --n9e-violet-wash: #f0ecf9;
+  --n9e-electric: #0019f4;
+
+  /* 告警级别：产品的视觉母语 */
+  --n9e-s1: #d93a3f;
+  --n9e-s2: #d97b1f;
+  --n9e-s3: #3068ad;
+  --n9e-s1-wash: #fdeced;
+  --n9e-s2-wash: #fdf2e5;
+  --n9e-s3-wash: #eaf1fa;
+
+  --n9e-shadow-card: 0 1px 2px rgb(20 18 28 / 6%), 0 12px 32px -12px rgb(20 18 28 / 14%);
+  --n9e-shadow-float: 0 2px 6px rgb(20 18 28 / 8%), 0 24px 56px -20px rgb(20 18 28 / 22%);
+
+  --n9e-font-display: 'Archivo', 'PingFang SC', 'HarmonyOS Sans SC', 'Source Han Sans SC',
+    'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+  --n9e-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --n9e-radius: 10px;
+  --n9e-radius-lg: 16px;
+  --n9e-maxw: 1200px;
+
+  /* 子页面页头（集成 / 对比 / 下载 / Categraf）共用的尺寸：四页曾各写一套，
+     上下留白 68~88px、标题 47~59px 不等，并排看像四个站。改动只在这里。 */
+  --n9e-hero-pad-top: clamp(3.25rem, 6vw, 5rem);
+  --n9e-hero-pad-bottom: clamp(2.25rem, 4vw, 3.25rem);
+  --n9e-hero-title: clamp(2.1rem, 4.4vw, 3.3rem);
+  --n9e-hero-lead: clamp(1rem, 1.3vw, 1.12rem);
+
+  /* Docusaurus 主题变量对齐品牌 */
+  --ifm-color-primary: #6c53b1;
+  --ifm-color-primary-dark: #5f47a3;
+  --ifm-color-primary-darker: #59429a;
+  --ifm-color-primary-darkest: #493780;
+  --ifm-color-primary-light: #7d66bd;
+  --ifm-color-primary-lighter: #8570c2;
+  --ifm-color-primary-lightest: #a495d4;
+
+  --ifm-font-family-base: var(--n9e-font-display);
+  --ifm-font-family-monospace: var(--n9e-font-mono);
+  --ifm-background-color: var(--n9e-paper);
+  --ifm-background-surface-color: var(--n9e-paper-raised);
+  --ifm-heading-color: var(--n9e-ink);
+  --ifm-font-color-base: var(--n9e-ink-soft);
+  --ifm-navbar-height: 64px;
+  --ifm-navbar-background-color: color-mix(in srgb, var(--n9e-paper) 82%, transparent);
+  --ifm-navbar-shadow: none;
+  --ifm-footer-background-color: var(--n9e-paper-sunk);
+  --ifm-code-font-size: 90%;
+  --ifm-heading-font-weight: 700;
+  --docusaurus-highlighted-code-line-bg: rgb(108 83 177 / 12%);
+}
+
+/* 选择器必须带 html：Docusaurus 自己也有 [data-theme='dark'] 规则，
+   两者优先级相同就只能靠源码顺序决胜，而官方那份在后面——结果是
+   --ifm-background-color 被压回 #1b1b1d，body 盖不到的地方就露出一块浅色。
+   加上 html 把优先级提到 (0,1,1)，与加载顺序无关。 */
+html[data-theme='dark'] {
+  --n9e-paper: #0d0c13;
+  --n9e-paper-sunk: #09080e;
+  --n9e-paper-raised: #16151f;
+
+  --n9e-ink: #ece9f4;
+  --n9e-ink-soft: #a7a1bc;
+  --n9e-ink-faint: #726c87;
+
+  --n9e-line: #262336;
+  --n9e-line-strong: #383349;
+
+  --n9e-violet: #a189e0;
+  --n9e-violet-deep: #c9b9f2;
+  --n9e-violet-wash: #1c1730;
+  --n9e-electric: #7183ff;
+
+  --n9e-s1: #f0686d;
+  --n9e-s2: #eda054;
+  --n9e-s3: #6ba3dd;
+  --n9e-s1-wash: #2a1518;
+  --n9e-s2-wash: #2a1d10;
+  --n9e-s3-wash: #131f2e;
+
+  --n9e-shadow-card: 0 1px 2px rgb(0 0 0 / 40%), 0 16px 40px -16px rgb(0 0 0 / 60%);
+  --n9e-shadow-float: 0 2px 8px rgb(0 0 0 / 50%), 0 28px 64px -24px rgb(0 0 0 / 70%);
+
+  --ifm-color-primary: #a189e0;
+  --ifm-color-primary-dark: #8f71d8;
+  --ifm-color-primary-darker: #8665d4;
+  --ifm-color-primary-darkest: #6a45c5;
+  --ifm-color-primary-light: #b3a1e8;
+  --ifm-color-primary-lighter: #bcadec;
+  --ifm-color-primary-lightest: #d7cdf4;
+
+  --ifm-background-color: var(--n9e-paper);
+  --ifm-background-surface-color: var(--n9e-paper-raised);
+  --ifm-navbar-background-color: color-mix(in srgb, var(--n9e-paper) 78%, transparent);
+  --docusaurus-highlighted-code-line-bg: rgb(161 137 224 / 18%);
+}
+
+/* ============================================================
+   2. 基础排版
+   ============================================================ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--n9e-paper);
+  color: var(--n9e-ink-soft);
+  font-family: var(--n9e-font-display);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--n9e-ink);
+  letter-spacing: -0.022em;
+}
+
+/* 中文正文用系统字体，避免 Archivo 回退时字重不稳 */
+:lang(zh-CN) {
+  font-synthesis-weight: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--n9e-violet);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   3. 全局工具类（跨页面复用，统一命名空间避免选择器互相抵消）
+   ============================================================ */
+
+.n9e-container {
+  width: 100%;
+  max-width: var(--n9e-maxw);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.n9e-section {
+  padding-block: clamp(4.5rem, 8vw, 7.5rem);
+}
+
+.n9e-section--sunk {
+  background: var(--n9e-paper-sunk);
+  border-block: 1px solid var(--n9e-line);
+}
+
+.n9e-eyebrow {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--n9e-violet);
+  margin: 0 0 0.9rem;
+}
+
+.n9e-h2 {
+  font-size: clamp(1.85rem, 3.4vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.14;
+  letter-spacing: -0.028em;
+  margin: 0;
+}
+
+.n9e-lead {
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  line-height: 1.75;
+  color: var(--n9e-ink-soft);
+  max-width: 62ch;
+  margin: 1.1rem 0 0;
+}
+
+.n9e-mono {
+  font-family: var(--n9e-font-mono);
+  font-variant-ligatures: none;
+}
+
+/* 只给读屏软件的文字 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.n9e-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.72rem 1.35rem;
+  border-radius: var(--n9e-radius);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
+  border: 1px solid transparent;
+  transition: transform 0.16s ease, background-color 0.16s ease, border-color 0.16s ease,
+    color 0.16s ease;
+}
+
+.n9e-btn:hover {
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.n9e-btn--primary {
+  background: var(--n9e-violet);
+  color: #fff;
+}
+
+.n9e-btn--primary:hover {
+  background: var(--ifm-color-primary-dark);
+  color: #fff;
+}
+
+[data-theme='dark'] .n9e-btn--primary {
+  color: #17122a;
+}
+
+[data-theme='dark'] .n9e-btn--primary:hover {
+  color: #17122a;
+}
+
+.n9e-btn--ghost {
+  background: var(--n9e-paper-raised);
+  border-color: var(--n9e-line-strong);
+  color: var(--n9e-ink);
+}
+
+.n9e-btn--ghost:hover {
+  border-color: var(--n9e-violet);
+  color: var(--n9e-violet);
+}
+
+.n9e-btn--lg {
+  padding: 0.92rem 1.7rem;
+  font-size: 1rem;
+}
+
+/* 告警级别标记：页面上任何级别色都通过这些类使用 */
+.n9e-sev {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.16rem 0.4rem;
+  border-radius: 4px;
+}
+
+.n9e-sev--s1 {
+  color: var(--n9e-s1);
+  background: var(--n9e-s1-wash);
+}
+
+.n9e-sev--s2 {
+  color: var(--n9e-s2);
+  background: var(--n9e-s2-wash);
+}
+
+.n9e-sev--s3 {
+  color: var(--n9e-s3);
+  background: var(--n9e-s3-wash);
+}
+
+/* ============================================================
+   4. Docusaurus 主题外壳
+   ============================================================ */
+
+.navbar {
+  backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid var(--n9e-line);
+}
+
+.navbar__title {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.navbar__link {
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+.navbar__logo img {
+  height: 26px;
+}
+
+.navbar-github {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 带了 label 之后 Docusaurus 会追加外链箭头，图标本身已经说明去 GitHub，箭头多余 */
+.navbar-github svg {
+  display: none;
+}
+
+.navbar-github::before {
+  content: '';
+  width: 21px;
+  height: 21px;
+  background-color: currentColor;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z'/%3E%3C/svg%3E");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+
+div[class^='announcementBar_'] {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.01em;
+  border-bottom: none;
+}
+
+div[class^='announcementBar_'] a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.footer {
+  border-top: 1px solid var(--n9e-line);
+  --ifm-footer-title-color: var(--n9e-ink);
+  --ifm-footer-link-color: var(--n9e-ink-soft);
+  --ifm-footer-color: var(--n9e-ink-faint);
+}
+
+.footer__title {
+  font-size: 0.78rem;
+  font-family: var(--n9e-font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--n9e-ink-faint);
+}
+
+.footer__link-item {
+  font-size: 0.92rem;
+}
+
+.footer__copyright {
+  font-size: 0.82rem;
+  color: var(--n9e-ink-faint);
+}
+
+/* ============================================================
+   5. 动效基线：只保留首屏一次编排 + hover，尊重系统偏好
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+
+/* ---- 导航栏：菜单居中（参考 flashduty / netdata / incident.io）----
+   DOM 是 [左容器(品牌+菜单)] [右容器(操作区)]，品牌和菜单在同一个容器里，
+   所以用两个 auto 外边距把菜单挤到中间：品牌右侧 auto 把菜单推到最右，
+   最后一项右侧再来一个 auto，剩余空间被两边平分，菜单即居中。
+
+   只在桌面生效：996px 以下 Docusaurus 换成汉堡菜单，那套 DOM 不是这个结构。 */
+@media (min-width: 997px) {
+  .navbar__inner .navbar__items:not(.navbar__items--right) {
+    flex: 1;
+  }
+
+  .navbar__inner .navbar__items:not(.navbar__items--right) > .navbar__brand {
+    margin-right: auto;
+  }
+
+  .navbar__inner .navbar__items:not(.navbar__items--right) > :last-child {
+    margin-right: auto;
+  }
+}
+
+/* ---- 文档页右侧目录列 ----
+   官方给的是 col--3，即按百分比占 25%：屏幕越宽这一列越宽，而目录条目
+   本身是短标题，宽度不变。实测 1920px 下列宽 285px、最长的中文条目只有 80px，
+   七成是空白——而这段空白正好贴着页面右缘，读者看到的就是"右边比左边空一大块"。
+   固定成 --n9e-doc-toc-w，多出来的宽度还给正文列（三栏怎么算见"三栏宽度与居中"）。
+
+   :has() 里写官方类 .theme-doc-toc-desktop，不写我们自己的包装层 .n9e-toc，
+   也不用子选择器 >：这条规则曾经因为我们给目录外面套了一层 div 就整条失效，
+   目录列悄悄退回 25%，没人发现。下面那条否定规则的谓词必须和这里逐字一致，
+   否则两条会同时命中目录列，把刚设好的 max-width 又解开。 */
+@media (min-width: 997px) {
+  /* 只命中文档页最外层那一行。DocCardList 也是 .row > .col，写 main .row 会把
+     卡片栅格的 max-width 一并解开，卡片就散成参差不齐的一列。 */
+  main > .container > .row > .col:has(.theme-doc-toc-desktop) {
+    flex: 0 0 var(--n9e-doc-toc-w);
+    max-width: var(--n9e-doc-toc-w);
+  }
+
+  /* 正文列官方封了 max-width: 75%，只收窄目录列的话，腾出的宽度既不给正文
+     也不消失，会在行尾留一段死空间。解开这个封顶，正文才能接住。
+     整体仍受 .container 的 1320px 上限约束，不会无限拉宽。
+
+     这里的 !important 不是偷懒：官方那条就是 max-width:75%!important，
+     不带同级声明压不住（提高选择器优先级也没用，实测验证过）。 */
+  main > .container > .row > .col:not(:has(.theme-doc-toc-desktop)) {
+    max-width: none !important;
+  }
+}
+
+/* ---- 文档首页（/docs）----
+   它 front matter 里是 displayed_sidebar: null，不属于任何侧边栏，
+   所以没有上一页/下一页可给。但主题的 Paginator 仍然会渲染一个空的
+   <nav aria-label="…">——空地标对读屏软件是纯噪音，隐掉。
+   钩子用组件上的全局类名，不用 CSS Module 的哈希类：这条规则要作用于
+   组件外面的兄弟节点，模块作用域够不着。 */
+main:has(.n9e-docs-home) .pagination-nav,
+main:has(.n9e-docs-home) .theme-doc-footer {
+  display: none;
+}
+
+/* ---- 文档侧边栏（参考 Flashduty 的侧栏）----
+   它们的侧栏干净，是因为只有两种字：分组标题（粗、深、带图标，常开不折叠）和
+   条目（常规、灰），再加一个当前页的圆角色块——没有框、没有线、没有箭头。
+   我们的一级分组在 sidebars.ts 里是 collapsible: false，结构上已经一样，下面只对样式。
+   侧栏能这样全展开，是因为先被顶部页签切成了四份（见 DocsTabs）。
+
+   顺带把菜单的几个 Infima 变量接到站点色板：默认那套灰是 Infima 自己的，
+   和页面上其他文字不是一个色系。 */
+
+.menu {
+  --ifm-menu-color: var(--n9e-ink-soft);
+  --ifm-menu-color-active: var(--n9e-violet);
+  --ifm-menu-color-background-active: var(--n9e-violet-wash);
+  --ifm-menu-color-background-hover: var(--n9e-paper-sunk);
+  --ifm-menu-link-padding-vertical: 0.4rem;
+  --ifm-menu-link-padding-horizontal: 0.7rem;
+  padding: 0.5rem 0.75rem 2rem;
+}
+
+.menu__link {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  border-radius: 8px;
+  transition: color 0.12s ease, background-color 0.12s ease;
+}
+
+/* 侧栏滚动时，顶部一小段渐隐：不画线也能看出"上面还有内容"，
+   而不是一行字被搜索框硬切掉半截 */
+@media (min-width: 997px) {
+  .theme-doc-sidebar-menu {
+    padding-top: 0.6rem;
+  }
+
+  nav.menu {
+    mask-image: linear-gradient(to bottom, transparent, black 1rem);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 1rem);
+  }
+}
+
+/* 当前页：品牌色文字 + 淡紫圆角色块 */
+.menu__link[aria-current='page'] {
+  font-weight: 600;
+}
+
+/* ---- 一级分组行 ----
+   前面一枚图标（图标由生成的 docs-icons.css 提供，按分组 key 取），点击去分组总览。
+   官方给它 menu__link--active 时会染成品牌色、铺底色，这里压掉：分组不是当前页，
+   只有当前页那一行该亮。
+   tabs 布局（常开、不可折叠）：粗体深色，它就是侧栏的骨架；
+   single 布局（可折叠、默认折叠）：半粗灰色，十五行并排时不至于一面黑。 */
+.n9e-group > .menu__list-item-collapsible > .menu__link {
+  gap: 0.5rem;
+  padding-left: 0.55rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  color: var(--n9e-ink);
+}
+
+.n9e-docs-root--single .n9e-group > .menu__list-item-collapsible > .menu__link {
+  font-weight: 500;
+  color: var(--n9e-ink-soft);
+}
+
+.n9e-docs-root--single .n9e-group > .menu__list-item-collapsible > .menu__link::before {
+  background: var(--n9e-ink-faint);
+}
+
+/* 展开的那一组（当前页所在）：标签加深，让人知道自己在哪一组里 */
+.n9e-docs-root--single .n9e-group > .menu__list-item-collapsible > .menu__link--active:not([aria-current='page']) {
+  font-weight: 600;
+  color: var(--n9e-ink);
+}
+
+.n9e-docs-root--single .n9e-group > .menu__list-item-collapsible > .menu__link--active:not([aria-current='page'])::before {
+  background: var(--n9e-ink);
+}
+
+/* 折叠行的子项缩进到标签文字下方（图标 1rem + 间距 0.5rem），不是图标下方 */
+.n9e-docs-root--single .theme-doc-sidebar-menu > .n9e-group > .menu__list {
+  padding-left: 1.55rem;
+}
+
+.n9e-docs-root--single .theme-doc-sidebar-menu > .n9e-group + .n9e-group {
+  margin-top: 0.1rem;
+}
+
+/* ---- 分段标题（single 布局：上手 / 使用 / 运行 / 查阅）----
+   sidebars.ts 里 type: 'html' 的条目。十五个折叠行平铺时是一串等权的行，
+   分段标题把它们切成四块：一条细线 + 一行等宽小字，和页面各处的 eyebrow 同一种字。 */
+.theme-doc-sidebar-menu > .n9e-sb-section {
+  margin: 1.3rem 0 0.35rem;
+  padding: 0.7rem 0.6rem 0;
+  border-top: 1px solid var(--n9e-line);
+  font-family: var(--n9e-font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--n9e-ink-faint);
+  list-style: none;
+}
+
+/* 「文档首页」独立一行，第一段紧随其后，不再叠一条线 */
+.theme-doc-sidebar-menu > .theme-doc-sidebar-item-link-level-1:first-child + .n9e-sb-section {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 0;
+}
+
+.n9e-group > .menu__list-item-collapsible > .menu__link::before {
+  content: '';
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+  background: var(--n9e-ink-soft);
+  mask: var(--n9e-group-icon) center / contain no-repeat;
+  -webkit-mask: var(--n9e-group-icon) center / contain no-repeat;
+}
+
+.n9e-group > .menu__list-item-collapsible > .menu__link--active:not([aria-current='page']) {
+  color: var(--n9e-ink);
+  background: none;
+}
+
+.n9e-group > .menu__list-item-collapsible > .menu__link:hover {
+  background: none;
+  color: var(--n9e-violet);
+}
+
+.n9e-group > .menu__list-item-collapsible > .menu__link:hover::before {
+  background: var(--n9e-violet);
+}
+
+/* 分组之间留一段空 */
+.theme-doc-sidebar-menu > .n9e-group + .n9e-group {
+  margin-top: 1.4rem;
+}
+
+/* 分组下的条目：不缩进（Flashduty 也不缩），靠分组标题的图标和字重区分层级 */
+.theme-doc-sidebar-menu > .n9e-group > .menu__list {
+  margin-top: 0.15rem;
+  padding-left: 0;
+}
+
+/* ---- 二级分组（选一条路进来 / Categraf / 集成模板）：可折叠，小箭头，子项缩进 ---- */
+.n9e-group .theme-doc-sidebar-item-category > .menu__list-item-collapsible > .menu__link {
+  font-weight: 500;
+  color: var(--n9e-ink-soft);
+}
+
+.n9e-group .theme-doc-sidebar-item-category > .menu__list-item-collapsible > .menu__link--active:not([aria-current='page']) {
+  color: var(--n9e-ink);
+  background: none;
+}
+
+.menu__link--sublist-caret::after,
+.menu__caret::before {
+  width: 0.95rem;
+  height: 0.95rem;
+  background-size: 1.4rem 1.4rem;
+  opacity: 0.45;
+  transition: opacity 0.12s ease, transform var(--ifm-transition-fast) linear;
+}
+
+.menu__list-item-collapsible:hover .menu__link--sublist-caret::after,
+.menu__list-item-collapsible:hover .menu__caret::before {
+  opacity: 0.85;
+}
+
+.n9e-group .menu__list .menu__list {
+  margin-top: 0.1rem;
+  padding-left: 0.85rem;
+  border-left: 0;
+}
+
+.n9e-group .menu__list .menu__list .menu__link {
+  font-size: 0.88rem;
+}
+
+/* 侧栏与正文之间不画竖线，靠留白分开 */
+.theme-doc-sidebar-container {
+  border-right: 0 !important;
+}
+
+/* ---- 页签条的吸顶配合 ----
+   侧栏、右侧目录的吸顶位置都按 --ifm-navbar-height 算；页签条插进来后，
+   这个值在文档区内要多出一条的高度。只在 .n9e-docs-root 内覆盖，导航栏本身不变。 */
+:root {
+  --n9e-navbar-height: 64px;
+  --n9e-docs-tabs-height: 46px;
+}
+
+/* 官方 docsWrapper 是横向 flex（侧栏 | 正文）。页签条插在它里面，得让它先竖着排：
+   页签条一行，下面 docRoot 再横着排。 */
+.n9e-docs-root {
+  flex-direction: column;
+}
+
+/* ---- 三栏宽度与居中 ----
+   官方把侧栏钉在浏览器最左边，屏幕越宽左边越重（2000px 下侧栏和正文之间空出一大块）。
+   参考 Flashduty：整个三栏布局限宽居中，页签条的内容随之对齐，底下那条线仍然通栏。
+   导航栏内容也收到同一个宽度，logo 和侧栏左缘对齐。
+
+   总宽不拍一个整数，而是由三列自己加出来：
+     侧栏 300 + 呼吸 4rem + 正文 46rem + 呼吸 4rem + 目录 14rem − 1rem = 1372px
+   末尾的 −1rem 是 Infima 的栅格账：.row 用负外边距抵掉 .container 的横向内边距，
+   目录列自带的 1rem 左内边距已经算进右侧那段呼吸里了。这样两段呼吸严格相等
+   （1920px 下实测都是 64px），以后改正文宽度或目录宽度都不用重算总宽。
+
+   别把总宽提到 1440px 以上：main > .container 上面还压着 Infima 的 1320px，
+   超过之后正文列会先被它截住，这里的算式就不成立了。 */
+:root {
+  --n9e-doc-toc-w: 14rem;
+  --n9e-doc-gap: 4rem;
+  --n9e-docs-maxw: calc(
+    var(--doc-sidebar-width, 300px) + 2 * var(--n9e-doc-gap) + 46rem + var(--n9e-doc-toc-w) - 1rem
+  );
+}
+
+/* 1280px 以下：屏幕本来就没有富余，两侧呼吸和目录列先让位，宽度尽量给正文。
+   （1024px 下正文 484px，按老版的 25% 目录列算是 511px，差得不多；
+   不收的话只有 420px。）这一档没有多余的留白，左右对不对称也就无从谈起。 */
+@media (min-width: 997px) and (max-width: 1279.98px) {
+  :root {
+    --n9e-doc-toc-w: 12rem;
+    --n9e-doc-gap: 2rem;
+  }
+}
+
+.n9e-docs-root > [class*='docRoot_'] {
+  width: 100%;
+  max-width: var(--n9e-docs-maxw);
+  margin-inline: auto;
+}
+
+.navbar__inner {
+  max-width: var(--n9e-docs-maxw);
+  margin-inline: auto;
+}
+
+@media (min-width: 997px) {
+  /* 正文左侧的那一档呼吸。不给的话正文只离侧栏 1rem，而右边目录那侧空着一大段，
+     整页看着往左压。加在 .container 上而不是正文列上：小页脚（DocsFooter）挂在
+     .container 下、.row 外面，只有这样它才和正文左对齐。
+     文档首页是分流页，撑满容器，不吃这一档。 */
+  main:not(:has(.n9e-docs-home)) > .container {
+    padding-left: var(--n9e-doc-gap);
+  }
+}
+
+/* 没有侧栏的文档页（/docs 首页）：官方给 main 留了 30px（那是可折叠侧栏的展开条，
+   themeConfig 没开 hideable，条根本不存在），结果整块内容比容器偏左 15px。收掉。 */
+.n9e-docs-root [class*='docMainContainerEnhanced_'] {
+  max-width: 100%;
+}
+
+@media (min-width: 997px) {
+  .n9e-docs-root--tabs {
+    --ifm-navbar-height: calc(var(--n9e-navbar-height) + var(--n9e-docs-tabs-height));
+  }
+}
+
+/* ---- 目录里的未写页面 ----
+   front matter 里 sidebar_class_name: planned 的页面（由 scripts/scaffold-docs.mjs 生成）。
+   注意这个类落在 <li> 上而不是 <a> 上，选择器要写成 li.planned > a。
+   压淡一档 + 右侧一个空心小圆点，不加文字：目录里一百多条，每条后面跟个"（未写）"
+   就成了噪音；空心点足够让人在点之前知道。页面本身会把状态说清楚（含读屏）。 */
+.menu__list-item.planned > .menu__link {
+  color: var(--n9e-ink-faint);
+}
+
+.menu__list-item.planned > .menu__link::after {
+  content: '';
+  flex: none;
+  width: 6px;
+  height: 6px;
+  margin-left: auto;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.55;
+}
+
+.menu__list-item.planned > .menu__link:hover,
+.menu__list-item.planned > .menu__link.menu__link--active {
+  color: var(--n9e-ink-soft);
+}
+
+.menu__list-item.planned > .menu__link.menu__link--active::after {
+  border-color: var(--n9e-violet);
+  opacity: 0.9;
+}
+
+/* ---- 分组索引卡片（DocCardList）----
+   接到站点的卡片语言：同一套圆角、描边、hover 抬升；标题字号压到正文级别——
+   一页十几张卡，每张标题都 1.25rem 就成了一面标题墙。 */
+.card.cardContainer_fWXF,
+article > a.card {
+  border-radius: var(--n9e-radius);
+  border-color: var(--n9e-line);
+  background: var(--n9e-paper-raised);
+  box-shadow: none;
+  transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+article > a.card:hover {
+  border-color: var(--n9e-violet);
+  box-shadow: var(--n9e-shadow-card);
+  transform: translateY(-2px);
+}
+
+/* margin-top: 0 是必须的：卡片在 .markdown 里，会吃到正文 H2 那条 2.6rem 的上边距 */
+article > a.card h2 {
+  font-size: 1rem;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.4rem;
+}
+
+/* 官方给描述套了 text--truncate（单行省略号）。这里的描述是"这一页讲什么"的
+   那句话，被截成半句就等于没写——放开让它换行，卡片高度由内容决定。 */
+article > a.card p {
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--n9e-ink-faint);
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+/* 未写页面的卡片：标题也压淡，和目录里的处理一致 */
+article > a.card.planned h2 {
+  color: var(--n9e-ink-soft);
+}
+
+/* ============================================================
+   6. 文档文章页版式（参考 Mintlify / Flashduty 的文章页）
+   ============================================================
+   要点：分组名当眉题、H1 下面一句导语、正文限宽到中文 40 字左右、
+   分页和表格去掉方框、右侧目录加标题。除此之外不加东西——文章页应该安静。 */
+
+/* ---- 页头：眉题 → 标题 → 导语 ----
+   面包屑保留 DOM（读屏和结构化数据都用它），只是改成 Mintlify 那种"分组名眉题"的样子：
+   去掉首页图标，去掉当前页（它就是下面的 H1），剩下的祖先用品牌色、斜杠分隔。 */
+.theme-doc-breadcrumbs {
+  margin-bottom: 0.6rem;
+}
+
+.theme-doc-breadcrumbs .breadcrumbs {
+  padding: 0;
+  margin: 0;
+}
+
+.theme-doc-breadcrumbs .breadcrumbs__item {
+  display: inline;
+}
+
+/* 必须写在上面那条后面：两者优先级相同，靠源码顺序决胜 */
+.theme-doc-breadcrumbs .breadcrumbs__item:first-child,
+.theme-doc-breadcrumbs .breadcrumbs__item--active {
+  display: none;
+}
+
+.theme-doc-breadcrumbs .breadcrumbs__item::after {
+  content: '/';
+  margin: 0 0.45rem;
+  color: var(--n9e-line-strong);
+  background: none;
+  opacity: 1;
+  width: auto;
+  height: auto;
+  filter: none;
+}
+
+/* 最后一个祖先后面不要斜杠：当前页已经隐藏，倒数第二个就是最后可见项 */
+.theme-doc-breadcrumbs .breadcrumbs__item:nth-last-child(2)::after {
+  content: none;
+}
+
+.theme-doc-breadcrumbs .breadcrumbs__link {
+  padding: 0;
+  background: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--n9e-violet);
+}
+
+.theme-doc-breadcrumbs .breadcrumbs__link:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.n9e-doc-header {
+  margin-bottom: 2rem;
+}
+
+/* 官方给文章 H1 的是 3rem / 800：那是营销页的尺寸。文章标题只需要压过 H2 一档。 */
+.markdown .n9e-doc-header h1,
+.markdown > h1:first-child {
+  --ifm-h1-font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.6rem;
+}
+
+/* 导语：front matter 的 description。比正文大一号、颜色低一档——它是"这一页讲什么"，不是正文的第一段 */
+.n9e-doc-lead {
+  margin: 0;
+  max-width: 40rem;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--n9e-ink-soft);
+}
+
+/* ---- 正文限宽 ----
+   调研 §6.2：中文每行 30–42 字、拉丁 65–85 字符。16px 下 46rem ≈ 44 个汉字。
+   限在文章容器上而不是 .markdown 上，页头、分页、页脚才会和正文对齐。 */
+@media (min-width: 997px) {
+  /* 文档首页例外：它是分流页，要撑满容器。小页脚（DocsFooter）挂在 .container 下、
+     .row 外面，和文章同宽对齐；文档首页的小页脚则跟首页一样撑满。 */
+  main:not(:has(.n9e-docs-home)) > .container > .row > .col > [class*='docItemContainer_'],
+  main:not(:has(.n9e-docs-home)) > .container > footer {
+    max-width: 46rem;
+  }
+
+  main > .container {
+    padding-top: 2.25rem !important;
+  }
+}
+
+/* ---- 正文字号节奏 ----
+   官方 H2 是 2rem，一页四五个 H2 就成了一面标题墙。 */
+.markdown h2 {
+  --ifm-h2-font-size: 1.45rem;
+  margin-top: 2.6rem;
+  letter-spacing: -0.02em;
+}
+
+.markdown h3 {
+  --ifm-h3-font-size: 1.15rem;
+  margin-top: 2rem;
+}
+
+.markdown p,
+.markdown li {
+  line-height: 1.75;
+}
+
+/* ---- 表格：只留横线 ---- */
+.markdown table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.markdown table th,
+.markdown table td {
+  border: 0;
+  border-bottom: 1px solid var(--n9e-line);
+  padding: 0.6rem 0.9rem 0.6rem 0;
+  text-align: left;
+  vertical-align: top;
+  background: none;
+}
+
+.markdown table th {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--n9e-ink-faint);
+  border-bottom-color: var(--n9e-line-strong);
+}
+
+.markdown table tr {
+  background: none;
+  border: 0;
+}
+
+/* ---- 提示块：圆角、细描边，去掉粗左条 ---- */
+.theme-admonition {
+  border-radius: var(--n9e-radius);
+  border-left-width: 3px;
+  box-shadow: none;
+}
+
+/* ---- 分页：去方框，改成两条文字链接 ---- */
+.pagination-nav {
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--n9e-line);
+  gap: 1rem;
+}
+
+.pagination-nav__link {
+  border: 0;
+  padding: 0;
+  border-radius: 0;
+}
+
+.pagination-nav__link:hover {
+  border: 0;
+}
+
+.pagination-nav__sublabel {
+  font-size: 0.74rem;
+  font-family: var(--n9e-font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--n9e-ink-faint);
+  margin-bottom: 0.3rem;
+}
+
+.pagination-nav__label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--n9e-ink);
+  transition: color 0.16s ease;
+}
+
+.pagination-nav__link:hover .pagination-nav__label {
+  color: var(--n9e-violet);
+}
+
+/* ---- 页脚：编辑 · 报告问题 ---- */
+.theme-doc-footer {
+  margin-top: 2.5rem;
+}
+
+.n9e-doc-actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.25rem;
+  font-size: 0.88rem;
+}
+
+.n9e-doc-actions .theme-edit-this-page,
+.n9e-doc-issue {
+  color: var(--n9e-ink-faint);
+  transition: color 0.16s ease;
+}
+
+.n9e-doc-actions .theme-edit-this-page:hover,
+.n9e-doc-issue:hover {
+  color: var(--n9e-violet);
+  text-decoration: none;
+}
+
+/* ---- 右侧目录：加标题，压小 ----
+   吸顶挪到包装层上：官方把 position: sticky 放在 .theme-doc-toc-desktop 上，
+   我们为了加标题在外面套了一层 .n9e-toc，sticky 元素的包含块就变成了这层
+   刚好裹住内容的 div——于是目录一滚就跟着正文走了。sticky 提到外层，
+   里层退回 static；条目多的页面仍然在里层自己滚。 */
+.n9e-toc {
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 1rem);
+  max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
+  display: flex;
+  flex-direction: column;
+}
+
+.n9e-toc .theme-doc-toc-desktop {
+  position: static;
+  max-height: none;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* 标题下面压一条通栏细线。目录条目都是短标题，右边这一列如果没有一个明确的右缘，
+   读者看到的右侧留白就比左侧多出一大截——左边有搜索框和当前页色块撑满侧栏宽度，
+   右边却只有几行短字。有了这条线，左右两块的可见边缘对齐，页面才读着对称。
+   原来列表左边那条竖线一并去掉：一个块不需要两条线。 */
+.n9e-toc-title {
+  margin: 0 0 0.55rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--n9e-line);
+  font-family: var(--n9e-font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--n9e-ink-faint);
+}
+
+.table-of-contents {
+  font-size: 0.82rem;
+  padding-left: 0;
+  border-left: 0;
+}
+
+.table-of-contents__link {
+  color: var(--n9e-ink-faint);
+}
+
+.table-of-contents__link:hover,
+.table-of-contents__link--active {
+  color: var(--n9e-violet);
+}
+
+/* ---- 文档里的产品截图 ----
+   截图本身是明暗两套（见 src/components/docs/Shot.tsx），这里只负责让它和正文
+   有个交代：一条细边把界面截图和页面背景分开——暗色截图落在暗色页面上，
+   没有边框的话会糊成一片。圆角和卡片、代码块保持同一档。 */
+.n9e-shot {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--n9e-line);
+  border-radius: var(--n9e-radius);
+  /* 截图是 2x 出的，容器宽度按 1x 走，避免在窄屏上撑破正文 */
+  margin: 1.25rem 0;
+}
+
+/* ============================================================
+   嵌入模式：产品前端用 iframe 抽屉打开文档（?onlyContent），只留正文。
+   data-n9e-embed 由 docusaurus.config.ts 里的 EMBED_INLINE_SCRIPT 在首帧前打上。
+   ============================================================ */
+
+html[data-n9e-embed] {
+  --ifm-navbar-height: 0px;
+  --docusaurus-announcement-bar-height: 0px;
+}
+
+html[data-n9e-embed] .navbar,
+html[data-n9e-embed] .theme-announcement-bar,
+html[data-n9e-embed] .footer,
+html[data-n9e-embed] .theme-doc-sidebar-container,
+html[data-n9e-embed] .theme-doc-toc-desktop,
+html[data-n9e-embed] .theme-doc-toc-mobile,
+html[data-n9e-embed] .theme-doc-breadcrumbs,
+html[data-n9e-embed] .theme-doc-footer,
+html[data-n9e-embed] .pagination-nav,
+html[data-n9e-embed] .theme-doc-version-badge {
+  display: none !important;
+}
+
+/* 侧栏和目录都藏了，正文列吃满整宽 */
+html[data-n9e-embed] main[class*='docMainContainer_'],
+html[data-n9e-embed] [class*='docItemCol_'] {
+  max-width: 100% !important;
+  flex: 0 0 100% !important;
+}
+
+html[data-n9e-embed] main[class*='docMainContainer_'] > .container {
+  padding-block: 1.25rem 2rem !important;
+}

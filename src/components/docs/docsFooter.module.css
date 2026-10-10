@@ -1,0 +1,37 @@
+/* 文档页小页脚：一条细线 + 一行淡字，和上面「编辑此页 · 报告问题」同一个量级 */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  flex-wrap: wrap;
+  margin-top: 3.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--n9e-line);
+}
+
+.copyright {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--n9e-ink-faint);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* 官方的明暗按钮是 2rem 的圆钮，在这一行里压小一档 */
+.controls :global(.clean-btn) {
+  --ifm-color-emphasis-200: transparent;
+  width: 1.85rem;
+  height: 1.85rem;
+  color: var(--n9e-ink-faint);
+}
+
+.controls :global(.clean-btn):hover {
+  color: var(--n9e-violet);
+  background: var(--n9e-paper-sunk);
+}

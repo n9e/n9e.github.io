@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px; height: 630px;
+    background: #14121c;
+    background-image:
+      radial-gradient(circle at 78% 22%, rgba(114,0,241,.42) 0%, transparent 55%),
+      radial-gradient(circle at 12% 88%, rgba(0,25,244,.34) 0%, transparent 52%);
+    color: #ece9f4;
+    font-family: 'Archivo', 'PingFang SC', sans-serif;
+    padding: 72px 76px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden;
+  }
+  .kicker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 17px; font-weight: 600; letter-spacing: .22em;
+    color: #a189e0; display: flex; align-items: center; gap: 16px;
+  }
+  .kicker::before { content: ''; width: 42px; height: 2px; background: #a189e0; }
+  h1 {
+    font-size: 96px; font-weight: 800; letter-spacing: -.03em; line-height: 1.05;
+  }
+  .sub { margin-top: 22px; font-size: 27px; line-height: 1.5; color: #a7a1bc; max-width: 20em; }
+  .foot { display: flex; align-items: center; gap: 20px; font-family: 'JetBrains Mono', monospace; font-size: 19px; color: #726c87; }
+  .chip { padding: 7px 15px; border: 1px solid #383349; border-radius: 8px; color: #a7a1bc; }
+  /* 告警级别色条：产品的视觉母语 */
+  .rail { position: absolute; left: 0; top: 0; bottom: 0; width: 12px;
+          background: linear-gradient(180deg, #6c53b1 0%, #6c53b1 34%, #3e7bc4 46%, #ee8b2d 68%, #d93a3f 100%); }
+</style>
+</head>
+<body>
+  <div class="rail"></div>
+  <div>
+    <p class="kicker">THE OPEN-SOURCE ALERTING EXPERT</p>
+  </div>
+  <div>
+    <h1>开源告警专家</h1>
+    <p class="sub">接入已有数据源，统一告警规则、降噪与分发。内置 AI 助手与 MCP Server。</p>
+  </div>
+  <div class="foot">
+    <span class="chip">Nightingale v9</span>
+    <span class="chip">Apache-2.0</span>
+    <span class="chip">CCF ODC</span>
+    <span style="margin-left:auto">github.com/ccfos/nightingale</span>
+  </div>
+</body>
+</html>

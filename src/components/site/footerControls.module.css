@@ -1,0 +1,29 @@
+/* 语言切换：两个并列链接 + 中间一条竖线分隔，当前语言加重。
+   只有两种语言时，并列比下拉少一次点击。 */
+.locales {
+  display: flex;
+  align-items: center;
+}
+
+.locale {
+  padding-inline: 0.7rem;
+  font-size: 0.85rem;
+  line-height: 1.2;
+  color: var(--n9e-ink-faint);
+  transition: color 0.16s ease;
+}
+
+/* 分隔线画在相邻元素上，这样首尾不会多出一条 */
+.locale + .locale {
+  border-left: 1px solid var(--n9e-line-strong);
+}
+
+.locale:hover {
+  color: var(--n9e-violet);
+  text-decoration: none;
+}
+
+.localeActive {
+  color: var(--n9e-ink);
+  font-weight: 600;
+}

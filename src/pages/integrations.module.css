@@ -1,0 +1,706 @@
+/**
+ * 集成页专用样式。页头、数字条沿用 pages.module.css，分段标题线与通知媒介 tile
+ * 沿用首页 home.module.css；这里只放目录本身：搜索框、分类 chips、模板卡片、
+ * 数据源卡片、采集器卡片和兜底区。
+ */
+
+/* ---------------- 搜索 + 分区跳转 ---------------- */
+
+.searchRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem 1.5rem;
+  margin-top: clamp(1.75rem, 3vw, 2.25rem);
+}
+
+.search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 1 360px;
+  max-width: 560px;
+  height: 48px;
+  padding: 0 0.85rem 0 0.95rem;
+  border: 1px solid var(--n9e-line-strong);
+  border-radius: 12px;
+  background: var(--n9e-paper-raised);
+  box-shadow: var(--n9e-shadow-card);
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.search:focus-within {
+  border-color: var(--n9e-violet);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--n9e-violet) 22%, transparent);
+}
+
+.searchIcon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  margin-right: 0.6rem;
+  color: var(--n9e-ink-faint);
+}
+
+.search input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 0.98rem;
+  color: var(--n9e-ink);
+  outline: none;
+}
+
+.search input::placeholder {
+  color: var(--n9e-ink-faint);
+}
+
+.search input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.searchHint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex: none;
+  font-size: 0.74rem;
+  color: var(--n9e-ink-faint);
+  white-space: nowrap;
+}
+
+.searchHint kbd {
+  padding: 0.05rem 0.4rem;
+  border: 1px solid var(--n9e-line-strong);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  background: var(--n9e-paper-sunk);
+  font-family: var(--n9e-font-mono);
+  font-size: 0.72rem;
+  color: var(--n9e-ink-soft);
+}
+
+.searchClear {
+  flex: none;
+  padding: 0.25rem 0.6rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--n9e-paper-sunk);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--n9e-ink-soft);
+  cursor: pointer;
+}
+
+.searchClear:hover {
+  color: var(--n9e-ink);
+}
+
+.jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.1rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.jump a {
+  color: var(--n9e-ink-soft);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.jump a:hover {
+  color: var(--n9e-violet);
+  border-bottom-color: var(--n9e-violet);
+}
+
+/* ---------------- 分区骨架 ---------------- */
+
+.section {
+  padding-block: clamp(2.5rem, 4.5vw, 4rem);
+  scroll-margin-top: 80px;
+}
+
+.sectionSunk {
+  background: var(--n9e-paper-sunk);
+  border-top: 1px solid var(--n9e-line);
+  border-bottom: 1px solid var(--n9e-line);
+}
+
+.sectionHead {
+  max-width: 72ch;
+  margin-bottom: clamp(1.4rem, 2.5vw, 2rem);
+}
+
+.sectionTitle {
+  font-size: clamp(1.45rem, 2.4vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0.35rem 0 0.6rem;
+}
+
+.sectionLead {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--n9e-ink-soft);
+}
+
+/* ---------------- 分类 chips ----------------
+   状态类一律叠在基类上写（.chip.chipActive）：生产构建压缩 CSS 时会重排同优先级规则，
+   单独的 .chipActive 在 dev 下生效、build 出来却被 .chip 的 background 盖掉。 */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1.35rem;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.42rem 0.5rem 0.42rem 0.85rem;
+  border: 1px solid var(--n9e-line-strong);
+  border-radius: 999px;
+  background: transparent;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--n9e-ink-soft);
+  cursor: pointer;
+  transition: border-color 0.14s ease, color 0.14s ease, background 0.14s ease;
+}
+
+.chip:hover {
+  border-color: var(--n9e-violet);
+  color: var(--n9e-ink);
+}
+
+.chipCount {
+  min-width: 1.5em;
+  padding: 0.05rem 0.4rem;
+  border-radius: 999px;
+  background: var(--n9e-paper-sunk);
+  font-family: var(--n9e-font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--n9e-ink-faint);
+  text-align: center;
+}
+
+.chip.chipActive {
+  border-color: var(--n9e-violet);
+  background: var(--n9e-violet);
+  color: #fff;
+}
+
+.chip.chipActive .chipCount {
+  background: rgb(255 255 255 / 20%);
+  color: #fff;
+}
+
+:global([data-theme='dark']) .chip.chipActive,
+:global([data-theme='dark']) .chip.chipActive .chipCount {
+  color: #17122a;
+}
+
+:global([data-theme='dark']) .chip.chipActive .chipCount {
+  background: rgb(23 18 42 / 16%);
+}
+
+.chipEmpty {
+  opacity: 0.45;
+}
+
+/* ---------------- 模板卡片 ---------------- */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(232px, 1fr));
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* 「全部」的概览固定列数，才能说清楚是几行：桌面 4×4，窄屏 2×4，手机 1×4（多出来的藏掉，按钮能展开） */
+.cards.cardsFeatured {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.expand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.7rem;
+  padding: 0.6rem 1rem;
+  border: 1px dashed var(--n9e-line-strong);
+  border-radius: 12px;
+  background: transparent;
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--n9e-ink-soft);
+  cursor: pointer;
+  transition: border-color 0.14s ease, color 0.14s ease;
+}
+
+.expand:hover {
+  border-color: var(--n9e-violet);
+  color: var(--n9e-violet);
+}
+
+/* grid 子项默认 min-width:auto，nowrap 的 meta 会把整列撑开；收住它，窄屏就不会横向溢出 */
+.cards > li,
+.sourceGrid > li {
+  min-width: 0;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  height: 100%;
+  padding: 0.85rem 0.9rem;
+  border: 1px solid var(--n9e-line);
+  border-radius: 12px;
+  background: var(--n9e-paper-raised);
+  color: var(--n9e-ink);
+  text-decoration: none;
+  transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.card:hover {
+  border-color: var(--n9e-violet);
+  box-shadow: var(--n9e-shadow-card);
+  color: var(--n9e-ink);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+/* 图标垫一块浅底：上游图标有透明底、白底、深色线条各种情况，垫上后在两种主题下都看得清 */
+.cardIcon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 9px;
+  background: #fff;
+  border: 1px solid var(--n9e-line);
+}
+
+.cardIcon img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.cardIconFallback {
+  font-family: var(--n9e-font-mono);
+  font-weight: 700;
+  color: var(--n9e-violet);
+}
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.cardName {
+  font-size: 0.93rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.cardMeta {
+  min-width: 0;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: var(--n9e-ink-faint);
+}
+
+/* 每一项不在词中间折行，只在分隔点处折：两行时是「3 仪表盘 · 2 组规则」/「采集配置 · 指标说明」 */
+.metaItem {
+  white-space: nowrap;
+}
+
+/* 分隔点跟在下一项前面、和它一起 nowrap，折行时不会孤零零留在上一行末尾 */
+.metaItem + .metaItem {
+  margin-left: 0.35em;
+}
+
+.dot {
+  margin-right: 0.35em;
+}
+
+/* 角标占了右上角，名字给它让位，长名字（HTTP Response）不会压到角标下面 */
+.card:has(.cardLang) .cardName {
+  padding-right: 5rem;
+}
+
+.cardLang {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.6rem;
+  padding: 0.08rem 0.4rem;
+  border-radius: 999px;
+  background: var(--n9e-paper-sunk);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--n9e-ink-faint);
+}
+
+.sourceLink {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 1rem;
+  margin: 1.5rem 0 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.sourceLink a {
+  color: var(--n9e-violet);
+}
+
+.fetched {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--n9e-ink-faint);
+}
+
+.fetched::before {
+  content: '↻ ';
+}
+
+/* 搜索无结果 */
+.empty {
+  padding: clamp(2rem, 4vw, 3rem) 1.5rem;
+  border: 1px dashed var(--n9e-line-strong);
+  border-radius: var(--n9e-radius-lg);
+  text-align: center;
+}
+
+.empty h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.05rem;
+}
+
+.empty p {
+  max-width: 52ch;
+  margin: 0 auto 1rem;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--n9e-ink-soft);
+}
+
+.emptyLinks {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.5rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+/* ---------------- 数据源卡片 ---------------- */
+
+/* 一类一行：左侧类型标签，右侧 tile。类型一眼可分，名字也不用和 badge 抢宽度 */
+.sourceRow {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  align-items: start;
+  gap: 0.75rem;
+}
+
+.sourceRow + .sourceRow {
+  margin-top: 0.85rem;
+}
+
+.sourceRow .kind {
+  margin-top: 0.7rem;
+  justify-self: start;
+}
+
+.sourceGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.source {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--n9e-line);
+  border-radius: 10px;
+  background: var(--n9e-paper-raised);
+  color: var(--n9e-ink);
+  text-decoration: none;
+  transition: border-color 0.16s ease;
+}
+
+.source:hover {
+  border-color: var(--n9e-violet);
+  color: var(--n9e-ink);
+  text-decoration: none;
+}
+
+.source img {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  object-fit: contain;
+}
+
+.sourceName {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kind {
+  flex: none;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.kind_metrics {
+  background: var(--n9e-violet-wash);
+  color: var(--n9e-violet);
+}
+
+.kind_logs {
+  background: var(--n9e-s3-wash);
+  color: var(--n9e-s3);
+}
+
+.kind_sql {
+  background: var(--n9e-s2-wash);
+  color: var(--n9e-s2);
+}
+
+:global([data-theme='dark']) .kind_logs {
+  background: rgb(48 104 173 / 18%);
+  color: #7fb0e8;
+}
+
+:global([data-theme='dark']) .kind_sql {
+  background: rgb(217 123 31 / 18%);
+  color: #f0a75a;
+}
+
+/* 通知媒介沿用首页 tile，只把 ul 的默认缩进去掉，和上面几块左对齐 */
+.tiles {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------------- 采集器 ---------------- */
+
+.collectorGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.collector {
+  display: flex;
+  flex-direction: column;
+  padding: 1.15rem 1.2rem;
+  border: 1px solid var(--n9e-line);
+  border-radius: var(--n9e-radius-lg);
+  background: var(--n9e-paper-raised);
+}
+
+.collector.collectorRecommended {
+  border-color: var(--n9e-violet);
+  box-shadow: 0 0 0 1px var(--n9e-violet) inset;
+}
+
+.collector h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.5rem;
+  font-size: 0.98rem;
+  font-weight: 700;
+}
+
+.recommended {
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  background: var(--n9e-violet);
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 600;
+}
+
+:global([data-theme='dark']) .recommended {
+  color: #17122a;
+}
+
+.collector p {
+  flex: 1;
+  margin: 0 0 0.9rem;
+  font-size: 0.86rem;
+  line-height: 1.7;
+  color: var(--n9e-ink-soft);
+}
+
+.collector a {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--n9e-violet);
+}
+
+/* ---------------- 兜底 ---------------- */
+
+.notFound {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border: 1px solid var(--n9e-line);
+  border-radius: var(--n9e-radius-lg);
+  background: linear-gradient(135deg, var(--n9e-violet-wash), var(--n9e-paper-raised) 70%);
+}
+
+.notFound h2 {
+  margin: 0 0 0.45rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.notFound p {
+  max-width: 60ch;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--n9e-ink-soft);
+}
+
+.notFoundLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.notFoundLink {
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--n9e-line-strong);
+  border-radius: 999px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--n9e-ink);
+  text-decoration: none;
+  transition: border-color 0.14s ease;
+}
+
+.notFoundLink:hover {
+  border-color: var(--n9e-violet);
+  color: var(--n9e-violet);
+  text-decoration: none;
+}
+
+.notFoundLink.notFoundPrimary {
+  border-color: var(--n9e-violet);
+  background: var(--n9e-violet);
+  color: #fff;
+}
+
+.notFoundLink.notFoundPrimary:hover {
+  color: #fff;
+  opacity: 0.92;
+}
+
+:global([data-theme='dark']) .notFoundLink.notFoundPrimary,
+:global([data-theme='dark']) .notFoundLink.notFoundPrimary:hover {
+  color: #17122a;
+}
+
+/* ---------------- 响应式 ---------------- */
+
+@media (max-width: 996px) {
+  .collectorGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cards.cardsFeatured {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .cards.cardsFeatured > li:nth-child(n + 9) {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .sourceRow {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .sourceRow .kind {
+    margin-top: 0;
+  }
+
+  .search {
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .searchHint {
+    display: none;
+  }
+
+  .cards,
+  .cards.cardsFeatured {
+    grid-template-columns: 1fr;
+  }
+
+  .cards.cardsFeatured > li:nth-child(n + 5) {
+    display: none;
+  }
+
+  .collectorGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .notFoundLinks {
+    width: 100%;
+  }
+}

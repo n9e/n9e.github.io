@@ -1,0 +1,44 @@
+/* 侧边栏顶部的搜索区。原本在导航栏右上角，挪到这里——
+   搜索只作用于文档，放在文档导航的开头比放在全站导航里更合理。 */
+/* 侧栏整体不画线（见 custom.css 的侧栏说明），搜索区下面那条也去掉，靠留白分开 */
+.searchWrap {
+  padding: 0.85rem 0.75rem 0.25rem;
+}
+
+/* 插件的搜索框默认按导航栏的尺寸走，这里让它撑满侧边栏宽度 */
+.searchWrap :global(.navbar__search-input),
+.searchWrap :global(.DocSearch-Button) {
+  width: 100%;
+}
+
+/* ---- 搜索框外观 ----
+   插件默认套的是 Infima 原生样式：背景 rgb(68,73,80) 的全圆角胶囊，
+   既没接站点色板、圆角也和页面上其他输入类元素不是一套语言。
+   这里改成与卡片、代码块同源的方形圆角 + 站点色板。 */
+
+.searchWrap :global(.navbar__search-input) {
+  width: 100%;
+  height: 2.5rem;
+  border-radius: var(--n9e-radius);
+  background-color: var(--n9e-paper-sunk);
+  border: 1px solid transparent;
+  color: var(--n9e-ink);
+  font-size: 0.875rem;
+  /* 左内边距要给放大镜图标让位；插件把图标绝对定位在 0.75rem 处 */
+  padding: 0 0.75rem 0 2.25rem;
+  transition: border-color 0.16s ease, background-color 0.16s ease;
+}
+
+.searchWrap :global(.navbar__search-input)::placeholder {
+  color: var(--n9e-ink-faint);
+}
+
+.searchWrap :global(.navbar__search-input):hover {
+  border-color: var(--n9e-line-strong);
+}
+
+.searchWrap :global(.navbar__search-input):focus {
+  border-color: var(--n9e-violet);
+  background-color: var(--n9e-paper-raised);
+  outline: none;
+}

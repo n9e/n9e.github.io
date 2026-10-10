@@ -1,0 +1,13 @@
+/* 桌面端搜索已经挪进文档侧边栏顶部，导航栏这个就不要了。
+   移动端仍然留着——移动侧边栏是渲染进导航栏二级菜单的一个 <ul>，
+   往里塞输入框不合适，手机上还是导航栏这个位置最顺手。
+   996px 是 Docusaurus 自己的移动端断点。 */
+.mobileOnly {
+  display: flex;
+}
+
+@media (min-width: 997px) {
+  .mobileOnly {
+    display: none;
+  }
+}

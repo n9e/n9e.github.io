@@ -1,0 +1,22 @@
+{
+  "theme.SearchBar.label": {
+    "message": "搜索文档",
+    "description": "The ARIA label and placeholder for search button"
+  },
+  "theme.TOC.title": {
+    "message": "本页目录",
+    "description": "Heading above the on-page table of contents"
+  },
+  "theme.n9e.reportIssue": {
+    "message": "报告问题",
+    "description": "Link to open a docs issue for the current page"
+  },
+  "theme.n9e.issueTitle": {
+    "message": "文档反馈：{path}",
+    "description": "Prefilled title of the docs feedback issue"
+  },
+  "theme.n9e.docsTabs.home": {
+    "message": "首页",
+    "description": "Docs tab: docs home"
+  }
+}

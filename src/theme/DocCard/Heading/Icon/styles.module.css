@@ -1,0 +1,9 @@
+.planned {
+  display: inline-block;
+  vertical-align: middle;
+  width: 7px;
+  height: 7px;
+  margin: -2px 0.55rem 0 0;
+  border: 1.5px solid var(--n9e-ink-faint);
+  border-radius: 50%;
+}

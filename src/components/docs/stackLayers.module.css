@@ -1,0 +1,92 @@
+/* 窄屏不缩字：图保持可读宽度，容器横向滚动 */
+.wrap {
+  margin: 1.25rem 0 1.5rem;
+  overflow-x: auto;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  min-width: 600px;
+  height: auto;
+  font-family: var(--ifm-font-family-base);
+}
+
+.svg text {
+  dominant-baseline: central;
+}
+
+.card {
+  fill: var(--n9e-paper-raised);
+  stroke: var(--n9e-line-strong);
+}
+
+.group {
+  fill: var(--n9e-violet-wash);
+  stroke: var(--n9e-violet);
+  stroke-width: 1.5;
+}
+
+.badge {
+  fill: var(--n9e-paper-sunk);
+  stroke: var(--n9e-line-strong);
+}
+
+.badgeOn {
+  fill: var(--n9e-violet);
+}
+
+.num,
+.numOn {
+  font-size: 12px;
+  font-weight: 600;
+  text-anchor: middle;
+  fill: var(--n9e-ink-soft);
+}
+
+.numOn {
+  fill: var(--n9e-paper);
+}
+
+.name {
+  font-size: 14.5px;
+  font-weight: 600;
+  fill: var(--n9e-ink);
+}
+
+.body {
+  font-size: 14px;
+  fill: var(--n9e-ink-soft);
+}
+
+.label {
+  font-size: 13px;
+  font-style: italic;
+  fill: var(--n9e-ink-faint);
+}
+
+.link,
+.spine {
+  stroke: var(--n9e-line-strong);
+  stroke-width: 1.5;
+}
+
+.spine {
+  stroke: var(--n9e-violet);
+  opacity: 0.45;
+}
+
+.arrow {
+  fill: var(--n9e-line-strong);
+}
+
+.pill {
+  fill: var(--n9e-violet);
+}
+
+.pillText {
+  font-size: 13.5px;
+  font-weight: 600;
+  text-anchor: middle;
+  fill: var(--n9e-paper);
+}

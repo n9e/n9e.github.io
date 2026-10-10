@@ -1,0 +1,100 @@
+{
+  "fetchedAt": "2026-09-20",
+  "nightingale": {
+    "tag": "v9.1.1",
+    "publishedAt": "2026-08-18",
+    "notesUrl": "https://github.com/ccfos/nightingale/releases/tag/v9.1.1",
+    "checksumsUrl": "https://github.com/ccfos/nightingale/releases/download/v9.1.1/checksums.txt",
+    "assets": [
+      {
+        "name": "n9e-v9.1.1-linux-amd64.tar.gz",
+        "os": "linux",
+        "arch": "amd64",
+        "variant": "default",
+        "size": 289382476,
+        "url": "https://github.com/ccfos/nightingale/releases/download/v9.1.1/n9e-v9.1.1-linux-amd64.tar.gz",
+        "sha256": "3658184c74c8dffffed5388ef48de56b95f0482228c4bb0292093d128567d00e"
+      },
+      {
+        "name": "n9e-v9.1.1-linux-arm64.tar.gz",
+        "os": "linux",
+        "arch": "arm64",
+        "variant": "default",
+        "size": 283329344,
+        "url": "https://github.com/ccfos/nightingale/releases/download/v9.1.1/n9e-v9.1.1-linux-arm64.tar.gz",
+        "sha256": "9beb5643c840fbb26926a075db9a18b3895e325685230b7c306508df491a0086"
+      }
+    ]
+  },
+  "categraf": {
+    "tag": "v0.5.18",
+    "publishedAt": "2026-08-31",
+    "notesUrl": "https://github.com/flashcatcloud/categraf/releases/tag/v0.5.18",
+    "checksumsUrl": "https://github.com/flashcatcloud/categraf/releases/download/v0.5.18/checksums.txt",
+    "assets": [
+      {
+        "name": "categraf-slim-v0.5.18-linux-amd64.tar.gz",
+        "os": "linux",
+        "arch": "amd64",
+        "variant": "slim",
+        "size": 57198243,
+        "url": "https://github.com/flashcatcloud/categraf/releases/download/v0.5.18/categraf-slim-v0.5.18-linux-amd64.tar.gz",
+        "sha256": "740a0c2afa9162a2d57ee178f14414d11de038931832896d3a9418b4a87ab838"
+      },
+      {
+        "name": "categraf-slim-v0.5.18-linux-arm64.tar.gz",
+        "os": "linux",
+        "arch": "arm64",
+        "variant": "slim",
+        "size": 51344332,
+        "url": "https://github.com/flashcatcloud/categraf/releases/download/v0.5.18/categraf-slim-v0.5.18-linux-arm64.tar.gz",
+        "sha256": "7bb8b6c9a3836f596da1131bc77dbecbd8d6f56a44e00f6587a3cd640ca048da"
+      },
+      {
+        "name": "categraf-v0.5.18-linux-amd64-with-cgo-plugin.tar.gz",
+        "os": "linux",
+        "arch": "amd64",
+        "variant": "cgo",
+        "size": 57833880,
+        "url": "https://github.com/flashcatcloud/categraf/releases/download/v0.5.18/categraf-v0.5.18-linux-amd64-with-cgo-plugin.tar.gz",
+        "sha256": "7716f1ab2d632bdab93311af7b431cb8c79a304257124bf76f58bfe691885f25"
+      },
+      {
+        "name": "categraf-v0.5.18-linux-amd64.tar.gz",
+        "os": "linux",
+        "arch": "amd64",
+        "variant": "default",
+        "size": 57600023,
+        "url": "https://github.com/flashcatcloud/categraf/releases/download/v0.5.18/categraf-v0.5.18-linux-amd64.tar.gz",
+        "sha256": "d8e1a69d4262a4c9cafa940b2bf4ccd415a295bc3cd3428cfc6b4e8d635f9217"
+      },
+      {
+        "name": "categraf-v0.5.18-linux-arm64.tar.gz",
+        "os": "linux",
+        "arch": "arm64",
+        "variant": "default",
+        "size": 51696494,
+        "url": "https://github.com/flashcatcloud/categraf/releases/download/v0.5.18/categraf-v0.5.18-linux-arm64.tar.gz",
+        "sha256": "5d98d263348ec5b0996b57177c3cb4f3cbae8e83bea8f59a32384bb5162bbc3e"
+      },
+      {
+        "name": "categraf-v0.5.18-windows-amd64.zip",
+        "os": "windows",
+        "arch": "amd64",
+        "variant": "default",
+        "size": 58198480,
+        "url": "https://github.com/flashcatcloud/categraf/releases/download/v0.5.18/categraf-v0.5.18-windows-amd64.zip",
+        "sha256": "a45e3625340b9a7dbe521137761e076b52e0f984ef52dcdfe8ac7c2d31d4d46e"
+      },
+      {
+        "name": "categraf-v0.5.18-windows-arm64.zip",
+        "os": "windows",
+        "arch": "arm64",
+        "variant": "default",
+        "size": 51275760,
+        "url": "https://github.com/flashcatcloud/categraf/releases/download/v0.5.18/categraf-v0.5.18-windows-arm64.zip",
+        "sha256": "ea2850040a10adbda66a190dd8b6302d4a5ee01f8210b53110bbc96434d90374"
+      }
+    ]
+  }
+}

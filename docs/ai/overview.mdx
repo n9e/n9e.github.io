@@ -1,0 +1,52 @@
+---
+title: AI and MCP
+sidebar_label: Overview
+description: "The built-in assistant, the Skills marketplace, and an MCP endpoint that lets Claude Code or Cursor drive Nightingale with exactly your permissions."
+---
+
+import DocCardList from '@theme/DocCardList';
+
+Since v9 the `n9e` process is itself an MCP server. There is no extra component to deploy: the
+endpoint lives inside the process you already run.
+
+## Connect a client
+
+Claude Code, Cursor and anything else that speaks MCP connect to `/mcp`:
+
+```json title="~/.claude.json"
+{
+  "mcpServers": {
+    "nightingale": {
+      "type": "http",
+      "url": "http://127.0.0.1:17000/mcp",
+      "headers": { "X-User-Token": "<your-token>" }
+    }
+  }
+}
+```
+
+## What a client can reach
+
+**74 tools across 13 toolsets** — 42 read, 32 write:
+
+`alerts` · `targets` · `datasource` · `mutes` · `busi_groups` · `notify_rules` ·
+`alert_subscribes` · `event_pipelines` · `users` · `metrics` · `logs` · `dashboards` · `roles`
+
+Every tool call is dispatched onto Nightingale's own HTTP API carrying your token, so **a client can
+never reach anything its token's owner cannot** — the RBAC is identical to that user in the UI.
+
+## Authentication
+
+Personal token, or OAuth 2.1. Nightingale can act as the authorization server itself, which lets
+hosted clients like Claude and ChatGPT connect with zero pre-registration; it can also act as a
+resource server in front of an existing Keycloak, Entra ID or Okta.
+
+:::note Write tools are opt-in
+The 32 write tools are not registered until you turn them on in config.
+:::
+
+## Nightingale AI
+
+The built-in assistant and its Skills marketplace ship with the product.
+
+<DocCardList />

@@ -1,0 +1,17 @@
+---
+title: 边缘机房
+sidebar_label: 边缘机房
+description: "给与中心链路不稳的机房用的本地告警引擎，以及那个会让它悄无声息失效的参数。"
+---
+
+与中心机房链路不稳时，在本地跑 `n9e-edge` 作告警引擎：断网期间告警照常产生、照常通知。
+
+```bash
+n9e-edge --configs etc/edge
+```
+
+:::warning 必须指到 edge 自己的配置目录
+`--configs` 的默认值是 `etc`，而 `etc` 下放的是**中心端**的 `config.toml`。edge 有自己的
+`etc/edge/edge.toml`——传 `etc` 会让它加载错文件，而且错得很安静：样本会被打到不存在的路径上，
+404 又被写入方当成功，最终全部静默丢弃。另外 edge 需要独立部署 Redis，不能复用中心那套。
+:::

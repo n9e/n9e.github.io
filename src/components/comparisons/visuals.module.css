@@ -1,0 +1,637 @@
+/** 对比页的界面配图与 AI 专区。所有"界面"都是 HTML 画的，跟着语言和主题走。 */
+
+/* ---------------- 聊天窗口 ---------------- */
+
+.chat {
+  border: 1px solid var(--n9e-line-strong);
+  border-radius: var(--n9e-radius-lg);
+  background: var(--n9e-paper-raised);
+  box-shadow: var(--n9e-shadow-card);
+  overflow: hidden;
+}
+
+.chatBar {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 0.95rem;
+  border-bottom: 1px solid var(--n9e-line);
+  font-size: 0.78rem;
+  color: var(--n9e-ink-faint);
+}
+
+.chatMark {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--n9e-violet);
+}
+
+.chatBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1rem 1rem 1.1rem;
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.chatBody p {
+  margin: 0;
+}
+
+.cContext {
+  align-self: flex-start;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--n9e-line);
+  border-radius: 6px;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.7rem;
+  color: var(--n9e-ink-faint);
+}
+
+.cUser {
+  align-self: flex-end;
+  max-width: 88%;
+  padding: 0.55rem 0.8rem;
+  border-radius: 12px 12px 3px 12px;
+  background: var(--n9e-violet);
+  color: #fff;
+}
+
+:global([data-theme='dark']) .cUser {
+  color: #17122a;
+}
+
+.cTool {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.45rem;
+  padding-left: 0.1rem;
+  font-size: 0.8rem;
+  color: var(--n9e-ink-soft);
+}
+
+.cToolDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--n9e-violet);
+  transform: translateY(-2px);
+}
+
+.cDim {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.7rem;
+  color: var(--n9e-ink-faint);
+}
+
+.cOut {
+  max-width: 94%;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid var(--n9e-line);
+  border-radius: 3px 12px 12px 12px;
+  background: var(--n9e-paper-sunk);
+  color: var(--n9e-ink);
+}
+
+.cOk {
+  margin-right: 0.4rem;
+  color: var(--n9e-violet);
+  font-weight: 700;
+}
+
+/* 确认卡：改已有对象前的两段式，是夜莺 AI 最值得画出来的机制 */
+.cConfirm {
+  max-width: 94%;
+  padding: 0.75rem 0.9rem 0.85rem;
+  border: 1px solid var(--n9e-violet);
+  border-radius: 10px;
+  background: var(--n9e-violet-wash);
+}
+
+.cConfirmTitle {
+  font-weight: 700;
+  color: var(--n9e-ink);
+}
+
+.cChanges {
+  margin: 0.5rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cChanges li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.8rem;
+}
+
+.cChanges li span {
+  color: var(--n9e-ink-faint);
+}
+
+.cChanges li s {
+  color: var(--n9e-ink-faint);
+}
+
+.cChanges li b {
+  color: var(--n9e-violet);
+}
+
+.cConfirmNote {
+  font-size: 0.76rem;
+  color: var(--n9e-ink-soft);
+}
+
+.cActions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.7rem;
+}
+
+.cBtn,
+.cBtnPrimary {
+  padding: 0.3rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: 1px solid var(--n9e-line-strong);
+  color: var(--n9e-ink);
+}
+
+.cBtnPrimary {
+  border-color: var(--n9e-violet);
+  background: var(--n9e-violet);
+  color: #fff;
+}
+
+:global([data-theme='dark']) .cBtnPrimary {
+  color: #17122a;
+}
+
+/* ---------------- AI 专区 ---------------- */
+
+.ai {
+  padding-block: clamp(3rem, 6vw, 5rem);
+  border-bottom: 1px solid var(--n9e-line);
+}
+
+.aiGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.aiTitle {
+  margin: 0;
+  font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.028em;
+  line-height: 1.12;
+}
+
+.aiLead {
+  max-width: 52ch;
+  margin: 1rem 0 0;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--n9e-ink-soft);
+}
+
+.acc {
+  margin-top: 1.75rem;
+  border-top: 1px solid var(--n9e-line);
+}
+
+.accItem {
+  border-bottom: 1px solid var(--n9e-line);
+}
+
+.accHead {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.accBtn {
+  display: flex;
+  align-items: baseline;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 0.95rem 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  color: var(--n9e-ink-soft);
+  cursor: pointer;
+}
+
+.accBtn:hover {
+  color: var(--n9e-ink);
+}
+
+.accBtn:focus-visible {
+  outline: 2px solid var(--n9e-violet);
+  outline-offset: 2px;
+}
+
+.accOpen .accBtn {
+  color: var(--n9e-ink);
+}
+
+.accNo {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.72rem;
+  color: var(--n9e-ink-faint);
+}
+
+.accOpen .accNo {
+  color: var(--n9e-violet);
+}
+
+.accBody {
+  padding: 0 0 1.1rem 2rem;
+}
+
+.accBody p {
+  margin: 0;
+  font-size: 0.93rem;
+  line-height: 1.7;
+  color: var(--n9e-ink-soft);
+}
+
+.aiChatCol {
+  position: sticky;
+  top: calc(var(--n9e-navbar-height, 64px) + 1.5rem);
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+  padding: 1.1rem 0 0;
+  border-top: 1px solid var(--n9e-line);
+  list-style: none;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--n9e-ink);
+}
+
+.facts li::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 0.55rem;
+  border-radius: 50%;
+  background: var(--n9e-violet);
+  vertical-align: 0.15em;
+}
+
+.rivals {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.5rem;
+  margin: 1rem 0 0;
+  font-size: 0.82rem;
+  color: var(--n9e-ink-faint);
+}
+
+.rivalsLabel {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.72rem;
+}
+
+.rival b {
+  margin-right: 0.35rem;
+  font-weight: 600;
+  color: var(--n9e-ink-soft);
+}
+
+/* ---------------- 章节配图外框 ---------------- */
+
+.frame {
+  margin: 0;
+}
+
+.frameBody {
+  border: 1px solid var(--n9e-line-strong);
+  border-radius: var(--n9e-radius-lg);
+  background: var(--n9e-paper-raised);
+  box-shadow: var(--n9e-shadow-card);
+  overflow: hidden;
+}
+
+.frameCaption {
+  margin: 0.7rem 0 0;
+  font-size: 0.8rem;
+  color: var(--n9e-ink-faint);
+}
+
+.paneTitle {
+  margin: 0 0 0.6rem;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.68rem;
+  color: var(--n9e-ink-faint);
+}
+
+/* 规则的两种写法：上 YAML 下表单。配图栏只有 400 多像素宽，左右并排会把 YAML 截断 */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.splitCode {
+  padding: 1rem 1rem 1.1rem;
+  border-bottom: 1px solid var(--n9e-line);
+  background: var(--n9e-paper-sunk);
+}
+
+.splitCode pre {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.7rem;
+  line-height: 1.7;
+  color: var(--n9e-ink-soft);
+  white-space: pre;
+  overflow-x: auto;
+}
+
+.splitCode pre span {
+  display: block;
+}
+
+.splitCard {
+  padding: 1rem 1rem 1.1rem;
+}
+
+.fields {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.fields div {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0.6rem;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.fields dt {
+  color: var(--n9e-ink-faint);
+}
+
+.fields dd {
+  margin: 0;
+  font-weight: 600;
+  color: var(--n9e-ink);
+}
+
+/* 接线图：存储 → 夜莺 → 通道 */
+.wiring {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.35rem;
+  padding: 1rem 1rem 1.1rem;
+}
+
+.wireCol {
+  min-width: 0;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.chip,
+.chipMore {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--n9e-line);
+  border-radius: 6px;
+  background: var(--n9e-paper);
+  font-size: 0.74rem;
+  color: var(--n9e-ink);
+  white-space: nowrap;
+}
+
+.chip img,
+.chipIcon {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  flex: none;
+}
+
+.chipMore {
+  color: var(--n9e-ink-faint);
+}
+
+.arrow {
+  width: 34px;
+  height: 12px;
+  margin: 0.15rem 0 0.15rem 0.9rem;
+  color: var(--n9e-ink-faint);
+  transform: rotate(90deg);
+}
+
+.hub {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  align-self: flex-start;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--n9e-violet);
+  border-radius: 10px;
+  background: var(--n9e-violet-wash);
+}
+
+.hub img {
+  width: 22px;
+  height: 22px;
+}
+
+.hub b {
+  font-size: 0.86rem;
+}
+
+.hub span {
+  font-size: 0.72rem;
+  color: var(--n9e-ink-faint);
+}
+
+/* 嵌入 Grafana 的仪表盘，下面一张事件卡。
+   配图栏只有 400 多像素，左右并排会把事件标题挤成两行，上下排标题一行放得下 */
+.embed {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.panel {
+  padding: 1rem 1rem 0.9rem;
+  border-bottom: 1px solid var(--n9e-line);
+}
+
+.spark {
+  display: block;
+  width: 100%;
+  height: 72px;
+  color: #f46800;
+}
+
+.sparkFill {
+  fill: currentColor;
+  opacity: 0.12;
+  stroke: none;
+}
+
+.sparkMark {
+  stroke: var(--n9e-violet);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.panelNote {
+  margin: 0.6rem 0 0;
+  font-size: 0.72rem;
+  color: var(--n9e-ink-faint);
+}
+
+.eventCard {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.55rem 1rem;
+  align-items: center;
+  padding: 0.9rem 1rem;
+  background: var(--n9e-paper-sunk);
+}
+
+/* 标题独占一行，标签和送达状态在第二行左右分布 */
+.eventHead {
+  grid-column: 1 / -1;
+}
+
+.eventHead {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--n9e-ink);
+}
+
+.sev {
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  background: #e03e3e;
+  color: #fff;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.eventLabels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0;
+}
+
+.eventLabels code {
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--n9e-line);
+  border-radius: 4px;
+  background: var(--n9e-paper);
+  font-size: 0.68rem;
+  color: var(--n9e-ink-soft);
+}
+
+.eventStatus {
+  grid-column: 2;
+  grid-row: 2;
+  margin: 0;
+  font-size: 0.76rem;
+  font-weight: 600;
+  text-align: right;
+  color: var(--n9e-violet);
+}
+
+/* 配图下的一问一答 */
+.ask {
+  display: grid;
+  gap: 0.6rem;
+  margin: 1.1rem 0 0;
+}
+
+.ask div {
+  display: grid;
+  grid-template-columns: 6.5rem minmax(0, 1fr);
+  gap: 0.6rem;
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.ask dt {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.7rem;
+  color: var(--n9e-ink-faint);
+  padding-top: 0.15rem;
+}
+
+.ask dd {
+  margin: 0;
+  color: var(--n9e-ink-soft);
+}
+
+.ask div:first-child dd {
+  color: var(--n9e-ink);
+  font-weight: 600;
+}
+
+.askAi dt {
+  color: var(--n9e-violet);
+}
+
+/* ---------------- 响应式 ---------------- */
+
+@media (max-width: 960px) {
+  .aiGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .aiChatCol {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .eventCard {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .eventStatus {
+    grid-column: 1;
+    grid-row: auto;
+    text-align: left;
+  }
+
+}

@@ -1,0 +1,451 @@
+/* 文档首页（/docs）。
+   页面渲染在 Docusaurus 的 .markdown 容器里，所以每一条排版规则都显式写死
+   margin —— 靠继承会拿到正文的行距节奏，那套是给长文用的，这里是分流页。
+
+   版式：首屏居中、撑满容器；三组分流卡片走「左脊柱 + 右卡片」两栏，
+   脊柱与首页 Pipeline 同源（同一套阶段色）；底部参考/求助两栏收尾。 */
+
+.page {
+  position: relative;
+  max-width: 78rem;
+  margin-inline: auto;
+  padding-block: clamp(2.5rem, 6vw, 5rem) 4rem;
+}
+
+/* ---------- 首屏 ---------- */
+
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 0;
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+/* 品牌紫的一片柔光，和首页 Hero 用的是同一条规则（home.module.css .hero::before），
+   只是从右上角挪到了正中——这一页的重心在中轴线上。 */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  width: min(72vw, 900px);
+  height: min(72vw, 900px);
+  transform: translateX(-50%);
+  background: radial-gradient(circle, var(--n9e-violet-wash) 0%, transparent 66%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1.2rem;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--n9e-violet);
+}
+
+.version {
+  padding: 0.18rem 0.5rem;
+  border-radius: 4px;
+  background: var(--n9e-violet-wash);
+  color: var(--n9e-violet);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(2.6rem, 6.5vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--n9e-ink);
+}
+
+/* text-wrap: balance 让两行长度接近，避免"……降噪、路 / 由和通知"这种
+   把一个词劈在行尾的情况（浏览器对中文可以在任何字之间断行）。 */
+.lead {
+  margin: 1.35rem 0 0;
+  max-width: 40rem;
+  text-wrap: balance;
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+  line-height: 1.7;
+  color: var(--n9e-ink-soft);
+}
+
+/* ---------- 搜索：本页的主角 ----------
+   尺寸压过页面上任何一个按钮：这一格要读起来像"在这儿问"，
+   而不是像一个搜索控件。轮播的提示词见下面的 .hint。 */
+
+.search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 44rem;
+  height: 4rem;
+  margin: 2.5rem 0 0;
+  border: 1px solid var(--n9e-line-strong);
+  border-radius: 14px;
+  background: var(--n9e-paper-raised);
+  box-shadow: var(--n9e-shadow-float);
+  transition: border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.search:focus-within {
+  border-color: var(--n9e-violet);
+  box-shadow: 0 0 0 4px var(--n9e-violet-wash), var(--n9e-shadow-float);
+}
+
+.magnifier {
+  flex: none;
+  width: 1.3rem;
+  height: 1.3rem;
+  margin-left: 1.25rem;
+  color: var(--n9e-ink-faint);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 1.25rem 0 0.85rem;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--n9e-ink);
+  font-family: inherit;
+  font-size: 1.1rem;
+  text-align: left;
+}
+
+/* 轮播提示词。用叠一层 span 而不是 placeholder 属性——属性值换的时候
+   没有过渡可言，只会硬跳。因此这一层必须 aria-hidden 且不吃点击，
+   无障碍名称由 input 的 aria-label 承担。
+   left = 图标左距 1.25rem + 图标 1.3rem + 内距 0.85rem。 */
+.hint {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 3.4rem;
+  right: 1.25rem;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--n9e-ink-faint);
+  font-size: 1.1rem;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.hintText {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  animation: hint-in 340ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+
+@keyframes hint-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.55em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.85rem;
+  margin-top: 1.75rem;
+}
+
+/* ---------- 分流：脊柱 + 卡片 ----------
+   脊柱不是装饰：三段对应产品自己的三段（接进来判定 → 降噪送出去 → 长期跑住），
+   颜色与首页 Pipeline 的 railLine / railNode 一致。 */
+
+.bands {
+  border-top: 1px solid var(--n9e-line);
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.band {
+  position: relative;
+  display: grid;
+  grid-template-columns: 13rem minmax(0, 1fr);
+  gap: 0 clamp(1.5rem, 3vw, 3rem);
+  padding-bottom: clamp(2.75rem, 5vw, 4rem);
+}
+
+.band:last-child {
+  padding-bottom: 0;
+}
+
+.rail {
+  position: relative;
+  padding-left: 30px;
+  align-self: start;
+}
+
+.railNode {
+  position: absolute;
+  left: 0;
+  top: 0.2rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  box-shadow: 0 0 0 4px var(--n9e-paper);
+}
+
+.railLine {
+  position: absolute;
+  left: 5px;
+  top: 1.35rem;
+  bottom: calc(-1 * clamp(2.75rem, 5vw, 4rem));
+  width: 4px;
+  border-radius: 2px;
+}
+
+.band:last-child .railLine {
+  bottom: auto;
+  height: 7rem;
+}
+
+.band[data-stage='config'] .railNode {
+  background: var(--n9e-violet);
+}
+.band[data-stage='config'] .railLine {
+  background: var(--n9e-violet);
+  opacity: 0.55;
+}
+
+.band[data-stage='event'] .railNode {
+  background: var(--n9e-s2);
+}
+.band[data-stage='event'] .railLine {
+  background: linear-gradient(180deg, var(--n9e-s3), var(--n9e-s2) 45%, var(--n9e-s1));
+}
+
+.band[data-stage='ai'] .railNode {
+  background: var(--n9e-electric);
+}
+.band[data-stage='ai'] .railLine {
+  background: linear-gradient(180deg, var(--n9e-electric), transparent);
+}
+
+.bandHead {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin: 0;
+}
+
+.bandEyebrow {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--n9e-ink);
+}
+
+.bandLabel {
+  font-size: 0.98rem;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--n9e-ink-soft);
+}
+
+.cards {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 9rem;
+  padding: 1.5rem 2.75rem 1.6rem 1.5rem;
+  border: 1px solid var(--n9e-line);
+  border-radius: var(--n9e-radius-lg);
+  background: var(--n9e-paper-raised);
+  transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.card:hover {
+  border-color: var(--n9e-violet);
+  box-shadow: var(--n9e-shadow-card);
+  transform: translateY(-3px);
+  text-decoration: none;
+}
+
+.ask {
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  color: var(--n9e-ink);
+}
+
+.goal {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--n9e-ink-faint);
+}
+
+.arrow {
+  position: absolute;
+  top: 1.4rem;
+  right: 1.3rem;
+  font-size: 1.1rem;
+  color: var(--n9e-line-strong);
+  transition: color 0.16s ease, transform 0.16s ease;
+}
+
+.card:hover .arrow {
+  color: var(--n9e-violet);
+  transform: translateX(3px);
+}
+
+/* ---------- 参考区 / 求助区：两栏收尾 ---------- */
+
+.foot {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(2rem, 4vw, 4rem);
+  margin-top: clamp(3rem, 6vw, 5rem);
+  padding-top: clamp(1.75rem, 3vw, 2.5rem);
+  border-top: 1px solid var(--n9e-line);
+}
+
+.strip {
+  min-width: 0;
+}
+
+.stripEyebrow {
+  margin: 0 0 0.6rem;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--n9e-ink);
+}
+
+.stripTitle {
+  margin: 0 0 1rem;
+  font-size: 0.98rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--n9e-ink-soft);
+}
+
+/* 查表项用等宽字：它们指向的是配置键、API 路径这类要照抄的东西 */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.chip {
+  padding: 0.5rem 0.95rem;
+  border: 1px solid var(--n9e-line);
+  border-radius: 8px;
+  background: var(--n9e-paper-raised);
+  color: var(--n9e-ink-soft);
+  font-family: var(--n9e-font-mono);
+  font-size: 0.82rem;
+  transition: border-color 0.16s ease, color 0.16s ease;
+}
+
+.chip:hover {
+  border-color: var(--n9e-violet);
+  color: var(--n9e-violet);
+  text-decoration: none;
+}
+
+.helpLinks {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: 0.55rem 2.5rem;
+  margin-top: 0.4rem;
+}
+
+.helpLinks a {
+  font-size: 0.95rem;
+  color: var(--n9e-ink-soft);
+  transition: color 0.16s ease;
+}
+
+.helpLinks a:hover {
+  color: var(--n9e-violet);
+  text-decoration: none;
+}
+
+/* ---------- 响应式 ---------- */
+
+@media (max-width: 1100px) {
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  /* 脊柱竖不下了：组头横过来，节点留着当项目符号，竖线收掉 */
+  .band {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem 0;
+  }
+
+  .railLine {
+    display: none;
+  }
+
+  .bandHead {
+    flex-direction: row;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.9rem;
+  }
+
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .card {
+    min-height: 0;
+  }
+
+  .foot {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .search {
+    height: 3.5rem;
+  }
+
+  .input,
+  .hint {
+    font-size: 1rem;
+  }
+}

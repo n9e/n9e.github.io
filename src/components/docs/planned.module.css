@@ -1,0 +1,89 @@
+/* 占位页。整块用"注解"的语气：一条左侧竖线、等宽小标签、比正文低一档的墨色——
+   它是关于这一页的说明，不是这一页本身。 */
+
+.planned {
+  margin-top: 0.5rem;
+  padding: 1.25rem 1.5rem 1.5rem;
+  border: 1px solid var(--n9e-line);
+  border-left: 3px solid var(--n9e-s2);
+  border-radius: var(--n9e-radius);
+  background: var(--n9e-paper-sunk);
+}
+
+.status {
+  margin: 0 0 0.75rem;
+}
+
+/* 状态标签沿用告警级别的视觉语言：S2（橙）= 需要处理但不紧急。
+   这是页面上少数几处有资格用级别色的地方——它确实在说"这里有个待办"。 */
+.badge {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  background: var(--n9e-s2-wash);
+  color: var(--n9e-s2);
+  font-family: var(--n9e-font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.scope {
+  margin: 0 0 1.4rem;
+  max-width: 62ch;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--n9e-ink);
+}
+
+.scopeLead {
+  color: var(--n9e-ink-faint);
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem 2.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.h {
+  margin: 0 0 0.5rem;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--n9e-violet);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list li {
+  margin: 0 0 0.35rem;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.list a {
+  color: var(--n9e-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--n9e-line-strong);
+}
+
+.list a:hover {
+  color: var(--n9e-violet);
+  text-decoration-color: currentColor;
+}
+
+.contribute .body {
+  margin: 0 0 0.9rem;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--n9e-ink-soft);
+}

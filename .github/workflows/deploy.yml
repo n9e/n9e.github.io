@@ -1,0 +1,45 @@
+# 构建官网（Docusaurus）并发布到 gh-pages 分支，GitHub Pages 从这个分支提供 https://n9e.github.io
+# 沿用旧站的做法：push 到 main 即构建发布；也可以在 Actions 页面手动触发。
+
+name: Deploy site
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write # 推送 gh-pages 分支
+
+concurrency:
+  group: deploy-site
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      # prebuild 会从 GitHub API 拉 star 数、发布包和集成目录；带上 token 避免匿名限流。
+      # 拉取失败不会让构建失败，会沿用仓库里已有的数据。
+      - name: Build
+        run: npm run build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          # 默认会写入 .nojekyll，GitHub Pages 不再用 Jekyll 二次处理构建产物

@@ -1,0 +1,695 @@
+/** 对比页专用版式。页面上唯一的视觉重音是对比表的夜莺列，其余全部细线分隔、不套盒子。 */
+
+.page {
+  /* 夜莺列的"聚光灯"色：固定深紫配白字，明暗主题分别取值，白字对比度都够 */
+  --cmp-spot: #3e2c78;
+  --cmp-spot-ink: #ffffff;
+  --cmp-spot-soft: rgba(255, 255, 255, 0.72);
+  --cmp-measure: 68ch;
+}
+
+:global([data-theme='dark']) .page {
+  --cmp-spot: #2f2460;
+  --cmp-spot-ink: #f1edfb;
+  --cmp-spot-soft: rgba(241, 237, 251, 0.7);
+}
+
+/* ---------------- 首屏 ---------------- */
+
+.hero {
+  padding-block: var(--n9e-hero-pad-top) var(--n9e-hero-pad-bottom);
+  border-bottom: 1px solid var(--n9e-line);
+}
+
+.heroLabel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 1rem;
+  /* 与其他子页面的 eyebrow 同高：标题顶边在四页上对齐 */
+  margin: 0 0 0.9rem;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.76rem;
+  color: var(--n9e-ink-faint);
+}
+
+.heroLabel a {
+  color: var(--n9e-ink-soft);
+  text-decoration: underline;
+  text-decoration-color: var(--n9e-line-strong);
+  text-underline-offset: 0.3em;
+}
+
+.heroLabel a:hover {
+  color: var(--n9e-violet);
+  text-decoration-color: currentColor;
+}
+
+.heroTitle {
+  max-width: 24ch;
+  margin: 0;
+  font-size: var(--n9e-hero-title);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.032em;
+}
+
+.heroLead {
+  max-width: 60ch;
+  margin: 1.2rem 0 0;
+  font-size: var(--n9e-hero-lead);
+  line-height: 1.7;
+  color: var(--n9e-ink-soft);
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.9rem;
+}
+
+/* ---------------- 一眼看完 ---------------- */
+
+.sectionTitle {
+  margin: 0 0 1.25rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.matrix {
+  padding-block: clamp(2.5rem, 4.5vw, 3.75rem) clamp(2rem, 3.5vw, 2.75rem);
+}
+
+.matrixScroll {
+  overflow-x: auto;
+  /* 表格滚动时，夜莺列底色贴着容器边缘会被切成直角，留一点上下空间给圆角 */
+  padding-top: 0.5rem;
+}
+
+.table {
+  display: table;
+  width: 100%;
+  min-width: 760px;
+  margin: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.88rem;
+}
+
+/* Infima 给 th/td 四周都画了线，这里只留横向细线 */
+.table th,
+.table td {
+  padding: 0.95rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  border: 0;
+  border-bottom: 1px solid var(--n9e-line);
+  background: transparent;
+  line-height: 1.5;
+}
+
+.table thead,
+.table thead tr,
+.table thead th,
+.table tbody tr:nth-child(2n) {
+  background: transparent;
+}
+
+.table thead th {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--n9e-ink-soft);
+  white-space: nowrap;
+}
+
+/* 行头列：窄屏横向滚动时钉在左边，读者始终知道自己在看哪一行 */
+.table tbody th {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  width: 22%;
+  min-width: 190px;
+  padding-left: 0;
+  font-weight: 600;
+  color: var(--n9e-ink);
+  background: var(--n9e-paper);
+}
+
+.table thead th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  padding-left: 0;
+  background: var(--n9e-paper);
+}
+
+.table td {
+  display: table-cell;
+}
+
+.table td > span {
+  display: inline;
+}
+
+.table td svg {
+  margin-right: 0.5rem;
+  vertical-align: -0.05em;
+}
+
+/* 夜莺列：整列实心深紫，页面上唯一的大面积色块。
+   选择器要压过上面 .table th / .table td 的透明底，所以带上元素名 */
+.table th.spot,
+.table td.spot {
+  background: var(--cmp-spot);
+  color: var(--cmp-spot-ink);
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+.table thead th.spot {
+  color: var(--cmp-spot-ink);
+  border-radius: 10px 10px 0 0;
+}
+
+.table tbody tr:last-child td.spot {
+  border-radius: 0 0 10px 10px;
+  border-bottom-color: transparent;
+}
+
+/* 状态越弱，字色越淡；勾叉之外，读者靠灰度也能扫出差别 */
+.cell_full {
+  color: var(--n9e-ink);
+}
+
+.cell_partial {
+  color: var(--n9e-ink-soft);
+}
+
+.cell_none {
+  color: var(--n9e-ink-faint);
+}
+
+.table td.spot.cell_full,
+.table td.spot.cell_partial,
+.table td.spot.cell_none {
+  color: var(--cmp-spot-ink);
+}
+
+.level {
+  width: 12px;
+  height: 12px;
+  flex: none;
+  fill: currentColor;
+  stroke: none;
+}
+
+.levelRing {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+}
+
+.spot .level {
+  color: var(--cmp-spot-ink);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.5rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.78rem;
+}
+
+.legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.matrixNote {
+  max-width: 78ch;
+  margin: 0.9rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.65;
+  color: var(--n9e-ink-faint);
+}
+
+/* ---------------- 数字 ---------------- */
+
+.proof {
+  border-block: 1px solid var(--n9e-line);
+}
+
+.proofRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem clamp(1.75rem, 4vw, 3.5rem);
+  margin: 0;
+  padding: 1.35rem 0;
+  list-style: none;
+  font-size: 0.85rem;
+  color: var(--n9e-ink-faint);
+}
+
+.proofRow li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+}
+
+.proofRow b {
+  font-family: var(--n9e-font-mono);
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--n9e-ink);
+}
+
+/* ---------------- 三章判词 ---------------- */
+
+.chapters {
+  padding-block: clamp(2.5rem, 5vw, 4rem) clamp(3rem, 6vw, 5rem);
+}
+
+.chaptersGrid {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.chapterNav {
+  position: sticky;
+  top: calc(var(--n9e-navbar-height, 64px) + 2rem);
+}
+
+.chapterNav ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chapterNav a {
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.5rem 0 0.5rem 0.9rem;
+  border-left: 2px solid var(--n9e-line);
+  font-size: 0.88rem;
+  color: var(--n9e-ink-faint);
+  text-decoration: none;
+  transition: color 0.16s ease, border-color 0.16s ease;
+}
+
+.chapterNav a span {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.72rem;
+  line-height: 1.6;
+}
+
+.chapterNav a:hover {
+  color: var(--n9e-ink);
+}
+
+.chapterNav a.navActive {
+  border-left-color: var(--n9e-violet);
+  color: var(--n9e-ink);
+}
+
+.chapterNav a.navActive span {
+  color: var(--n9e-violet);
+}
+
+.chapterNav a:focus-visible,
+.faqItem summary:focus-visible {
+  outline: 2px solid var(--n9e-violet);
+  outline-offset: 2px;
+}
+
+.chapter {
+  padding-block: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid var(--n9e-line);
+  scroll-margin-top: calc(var(--n9e-navbar-height, 64px) + 1.5rem);
+}
+
+.chapter:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.chapterNo {
+  margin: 0;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.75rem;
+  color: var(--n9e-violet);
+}
+
+.chapterTitle {
+  margin: 0.3rem 0 1.5rem;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+/* 章节正文：左文字、右配图，配图在章节内随滚动吸顶 */
+.chapterBody {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: clamp(1.75rem, 4vw, 3.5rem);
+  align-items: start;
+}
+
+.chapterBody > div:first-child {
+  max-width: 56ch;
+}
+
+.chapterAside {
+  position: sticky;
+  top: calc(var(--n9e-navbar-height, 64px) + 1.5rem);
+  padding-top: 1.7rem;
+}
+
+/* 两种路子并排：中间一条竖线，不套盒子 */
+.ways {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-block: 1px solid var(--n9e-line);
+}
+
+.way {
+  padding: 1.1rem 1.25rem 1.2rem 0;
+}
+
+.way + .way {
+  padding-left: 1.25rem;
+  padding-right: 0;
+  border-left: 1px solid var(--n9e-line);
+}
+
+.wayLabel {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.72rem;
+  color: var(--n9e-ink-faint);
+}
+
+.wayOurs .wayLabel {
+  color: var(--n9e-violet);
+}
+
+.way p {
+  margin: 0;
+  font-size: 1.08rem;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  color: var(--n9e-ink);
+}
+
+.subLabel {
+  margin: 1.7rem 0 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--n9e-ink-faint);
+}
+
+.prose {
+  margin: 0;
+  font-size: 0.97rem;
+  line-height: 1.75;
+  color: var(--n9e-ink-soft);
+}
+
+/* 换的信号：空心小方框做项目符号，读者对号入座的意思就在图形里 */
+.signals {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.signals li {
+  position: relative;
+  padding: 0.35rem 0 0.35rem 1.6rem;
+  font-size: 0.97rem;
+  line-height: 1.6;
+  color: var(--n9e-ink);
+}
+
+.signals li::before {
+  content: '';
+  position: absolute;
+  left: 0.1rem;
+  top: 0.72rem;
+  width: 11px;
+  height: 11px;
+  border: 1.5px solid var(--n9e-violet);
+  border-radius: 2.5px;
+}
+
+.guide {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.8rem;
+  margin: 1.6rem 0 0;
+  font-size: 0.9rem;
+}
+
+.guide span {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.72rem;
+  color: var(--n9e-ink-faint);
+}
+
+.guide a {
+  font-weight: 600;
+  color: var(--n9e-violet);
+}
+
+/* ---------------- 并存 ---------------- */
+
+.bigTitle {
+  margin: 0;
+  font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: -0.028em;
+  line-height: 1.12;
+}
+
+.lead {
+  max-width: 60ch;
+  margin: 1rem 0 0;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--n9e-ink-soft);
+}
+
+.coexist {
+  padding-block: clamp(3rem, 6vw, 5rem);
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  margin: 2.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.steps li {
+  padding-top: 1rem;
+  border-top: 1px solid var(--n9e-line-strong);
+}
+
+.stepNo {
+  display: block;
+  font-family: var(--n9e-font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--n9e-violet);
+}
+
+.steps h3 {
+  margin: 0.4rem 0 0.45rem;
+  font-size: 1.02rem;
+  font-weight: 700;
+}
+
+.steps p {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--n9e-ink-soft);
+}
+
+.coexistLink {
+  margin: 2rem 0 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.coexistLink a {
+  color: var(--n9e-violet);
+}
+
+/* ---------------- FAQ ---------------- */
+
+.faq {
+  padding-block: clamp(3rem, 6vw, 5rem) clamp(2rem, 4vw, 3rem);
+}
+
+/* 标题和列表放在同一个阅读栏里居中。ch 随字号变，所以宽度限制不能分别写在两个字号不同的元素上 */
+.faqInner {
+  max-width: calc(var(--cmp-measure) + 2 * clamp(1.25rem, 4vw, 2.5rem));
+}
+
+.faqList {
+  border-bottom: 1px solid var(--n9e-line);
+}
+
+.faqItem {
+  border-top: 1px solid var(--n9e-line);
+}
+
+.faqItem summary {
+  position: relative;
+  padding: 1rem 2.5rem 1rem 0;
+  font-size: 1.02rem;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faqItem summary::-webkit-details-marker {
+  display: none;
+}
+
+/* 右侧的加号：展开后转成一横，动效只有一个属性，减少动态时关掉 */
+.faqItem summary::before,
+.faqItem summary::after {
+  content: '';
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  width: 14px;
+  height: 2px;
+  background: var(--n9e-ink-faint);
+  transform: translateY(-50%);
+  transition: transform 0.18s ease;
+}
+
+.faqItem summary::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.faqItem[open] summary::after {
+  transform: translateY(-50%) rotate(0deg);
+}
+
+.faqItem p {
+  margin: 0;
+  padding: 0 2.5rem 1.15rem 0;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--n9e-ink-soft);
+}
+
+/* ---------------- 结尾 ---------------- */
+
+.closing {
+  padding-block: clamp(3rem, 6vw, 5rem) clamp(4rem, 8vw, 6.5rem);
+  text-align: center;
+}
+
+.closing .lead {
+  margin-inline: auto;
+}
+
+.closing .heroActions {
+  justify-content: center;
+}
+
+/* ---------------- 响应式 ---------------- */
+
+@media (max-width: 960px) {
+  .chaptersGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .chapterNav {
+    position: static;
+  }
+
+  .chapterNav ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .chapterNav a {
+    padding: 0.4rem 0.75rem;
+    border: 1px solid var(--n9e-line);
+    border-radius: 999px;
+  }
+
+  .chapterNav a.navActive {
+    border-color: var(--n9e-violet);
+  }
+}
+
+@media (max-width: 760px) {
+  .steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .chapterBody {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .chapterBody > div:first-child {
+    max-width: none;
+  }
+
+  .chapterAside {
+    position: static;
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .ways {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .way {
+    padding: 1rem 0;
+  }
+
+  .way + .way {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid var(--n9e-line);
+  }
+
+  .table tbody th {
+    min-width: 150px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faqItem summary::before,
+  .faqItem summary::after,
+  .chapterNav a {
+    transition: none;
+  }
+}

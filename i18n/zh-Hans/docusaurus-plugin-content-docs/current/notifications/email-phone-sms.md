@@ -1,0 +1,130 @@
+---
+title: "邮件 / 电话 / 短信"
+sidebar_label: "邮件 / 电话 / 短信"
+description: "SMTP 设置，以及通过阿里云、腾讯云发电话和短信。"
+---
+
+这页办完你会得到：一个能发信的邮件媒介，以及（如果你要）走阿里云或腾讯云的短信、
+语音媒介——它们和 IM 群机器人最大的不同是**要按人发**，所以还得让用户填上邮箱和手机号。
+
+## 邮件：SMTP 配在媒介上
+
+**告警通知 → 通知媒介**，左边的类型面板里点 **邮件**。开源版自带一个叫 `Email` 的媒介，
+直接编辑它就行，不必新建。
+
+<Shot src="/img/docs/notifications/media-types.zh" alt="通知媒介" />
+
+SMTP 配置这一块：
+
+| 字段 | 说明 |
+|---|---|
+| 服务器 | SMTP 地址，如 `smtp.example.com` |
+| 端口 | 25（明文，不建议）、465（SSL）、587（STARTTLS） |
+| 用户名 | 通常是完整邮箱地址 |
+| 密码 | 登录密码或授权码。SMTP 这几个字段是原样使用的，**不支持引用变量**，密码只能明文填在这里 |
+| 发件人 | `alert@example.com`，也可以写成 `夜莺告警 <alert@example.com>` |
+| 跳过证书验证 | 自签证书时才开，仅作临时手段 |
+| 批量发送 | 一次 SMTP 连接里发几封，`0` 表示每封都新建连接；连接空闲 30 秒也会自动断开 |
+
+**变量配置 → 联系方式** 保持 `Email`。这个字段决定了「接收人是谁」怎么解析成收件地址：
+`Email` 取用户的邮箱，`Phone` 取手机号，其他自定义联系方式取用户资料里对应的那一项。
+
+填完点底部的 **测试** 真发一封，确认能收到再保存。
+
+## 常见邮箱的 SMTP 参数
+
+| 服务 | 服务器 | 端口 | 密码填什么 |
+|---|---|---|---|
+| 阿里企业邮箱 | `smtp.qiye.aliyun.com` | 465 | 登录密码 |
+| 腾讯企业邮箱 | `smtp.exmail.qq.com` | 465 | 登录密码 |
+| 163 / 126 | `smtp.163.com` / `smtp.126.com` | 465 | 授权码（先在网页端开启 SMTP） |
+| QQ 邮箱 | `smtp.qq.com` | 465 | 授权码 |
+| Gmail | `smtp.gmail.com` | 587 | App Password（需先开两步验证） |
+| Outlook / Microsoft 365 | `smtp.office365.com` | 587 | 账号密码或 App Password |
+
+云主机上常见的一个坑：**很多云厂商默认封禁 25 端口出方向**，表现为 `i/o timeout`。
+改用 465 或 587。
+
+## 收件人从哪儿来
+
+短信、语音、邮件这类媒介在通知规则里会多出 **接收人 / 接收团队** 两个字段，
+两者不能同时为空。发送时的解析规则是：
+
+1. 把接收人和接收团队里的所有用户展开成一个用户列表，去重；
+2. 按媒介的**联系方式**取每个用户的对应字段（`Email` 取邮箱、`Phone` 取手机号）；
+3. **取不到值的用户直接跳过，不报错。**
+
+所以第 3 步是最常见的「某些人收不到」的原因。去 **人员组织 → 用户管理** 编辑用户，
+把邮箱和手机号补上。
+
+联系方式的可选项除了内置的 `Phone`、`Email`，管理员还能在媒介表单里点
+「联系方式」旁边的齿轮，加自定义联系方式（比如企业内部的员工号）。
+
+## 电话和短信：四张卡片
+
+类型面板里有四张卡片：**阿里云短信**、**阿里云语音**、**腾讯云短信**、**腾讯云语音**。
+它们都是 `http` 类型的媒介，签名由夜莺按各家的算法（阿里云 ACS3-HMAC-SHA256、
+腾讯云 TC3-HMAC-SHA256）在发送时算好，AK/SK 用完即从日志里抹掉。
+
+四张卡片的共同点：
+
+- **联系方式固定是 `Phone`**，收件人手机号来自用户资料；
+- 请求里用 `{{ $sendto }}` 代表当前收件人的号码；
+- **一次调用只发一个号码**，多个收件人会循环发送。
+
+它们的差别在于凭证填哪儿：
+
+| 媒介 | 凭证位置 | 关键字段 |
+|---|---|---|
+| 阿里云短信 | 请求参数 | `AccessKeyId`、`AccessKeySecret`、`SignName`、`TemplateCode` |
+| 阿里云语音 | 请求参数 | `AccessKeyId`、`AccessKeySecret`、`TtsCode`、`CalledShowNumber` |
+| 腾讯云短信 | 请求头 | `Secret_ID`、`Secret_Key`、`X-TC-Region`，正文里 `SignName`、`SmsSdkAppId`、`TemplateId` |
+| 腾讯云语音 | 请求头 | `Secret_ID`、`Secret_Key`，正文里 `TemplateId`、`VoiceSdkAppid` |
+
+阿里云的两张卡片还预置了 `Host` 请求头（`dysmsapi.aliyuncs.com` / `dyvmsapi.aliyuncs.com`），
+**签名要用到它，不要删**。
+
+## 需要你替换的占位值
+
+新建时表单里预置的是中文占位提示，例如「需要改为实际的 access_key_id」「需要改为实际的模板 id」。
+**一个都不能留**，逐个换成你在云控制台申请到的真值：
+
+- 短信要先申请**签名**和**模板**（阿里云叫模板 CODE，腾讯云叫模板 ID），审批通过才能用；
+- 语音要申请 **TTS 模板**；阿里云的 `CalledShowNumber` 没有申请到号码时，**整行删掉**，不要留空值；
+- 腾讯云的 `X-TC-Region` 要改成你实际的地域，比如 `ap-guangzhou`。
+
+手机号格式两家不一样：**腾讯云要 E.164**（`+86138…`）。腾讯云语音的内置请求体已经写死了
+`+86{{ $sendto }}` 前缀，所以用户资料里的手机号**不要再写 +86**；腾讯云短信的内置请求体
+没有这个前缀，要么在用户资料里存成 `+86…`，要么自己把请求体改成 `"+86{{ $sendto }}"`。
+
+## 短信和语音的模板字段不一样
+
+| 媒介 | 请求里怎么引用 | 模板必须有的字段 |
+|---|---|---|
+| 阿里云短信 / 语音 | `{{$tpl.incident}}` | `incident` |
+| 腾讯云短信 / 语音 | `{{$tpl.content}}` | `content` |
+| 邮件 | 固定 | `subject`、`content` |
+
+内置的 `Aliyun SMS` / `Aliyun Voice` 模板的 `incident` 字段就是一行 `{{$event.RuleName}}`，
+因为云厂商的短信模板变量长度有限（腾讯云语音的单个变量上限约 30 个字符）。
+规则名很长的话，克隆一份模板缩短它，别指望云厂商帮你截断。
+
+## 常见报错
+
+| 报错 | 原因 |
+|---|---|
+| `535 Authentication failed` | 邮箱要用授权码而不是登录密码，或者服务商没开 SMTP |
+| `i/o timeout`（邮件） | 25 端口被封，换 465 / 587 |
+| `x509: certificate signed by unknown authority` | 自签证书，临时开「跳过证书验证」 |
+| `SignatureDoesNotMatch` | AK/SK 粘贴时带了空格，或删掉了 `Host` 请求头 |
+| `isv.SMS_SIGNATURE_ILLEGAL` / `FailedOperation.SignatureIncorrectOrUnapproved` | 签名没审批通过，或和控制台里的字不完全一致 |
+| `isv.MOBILE_NUMBER_ILLEGAL` / `InvalidParameterValue.InvalidPhoneNumber` | 手机号格式不对，多半是 `+86` 多写或少写 |
+| `AuthFailure.SignatureFailure`（腾讯云） | 密钥不对，或服务器时钟偏差超过 5 分钟 |
+
+失败详情在事件详情的**通知记录**里，见[重试与投递状态](./delivery.md)。
+
+## 下一步
+
+- 群机器人的配法：[钉钉 / 飞书 / 企业微信](./dingtalk-feishu-wecom.md)
+- 让 S1 打电话、S3 发邮件：[通知规则](./rules.md)
+- 把 HTTP 类媒介里的密钥挪进变量（SMTP 字段不支持）：[变量配置](../security/variables.md)

@@ -1,0 +1,1348 @@
+/**
+ * 首页版式。
+ *
+ * 签名元素：产品里每一行告警左侧那根级别色条，在这里放大成贯穿"四个阶段"的脊柱，
+ * 并在数据变成 event 的那一步换成 S1/S2/S3 三色 —— 颜色的变化本身在陈述事实。
+ */
+
+/* ============================================================
+   Hero
+   ============================================================ */
+
+.hero {
+  position: relative;
+  padding-block: clamp(3rem, 6vw, 5.5rem) clamp(4rem, 7vw, 6.5rem);
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset-block-start: -30%;
+  inset-inline-end: -10%;
+  width: 60vw;
+  height: 60vw;
+  max-width: 780px;
+  max-height: 780px;
+  background: radial-gradient(circle, var(--n9e-violet-wash) 0%, transparent 68%);
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 1.2s ease;
+}
+
+/* WebGL 色团就绪后接替静态光晕；拿不到 WebGL 时画布保持透明，光晕原样保留 */
+.hero:has(.heroShaderReady)::before {
+  opacity: 0;
+}
+
+.heroShader {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  /* 底边淡出，和下面的数字条衔接时不留一道硬边 */
+  mask-image: linear-gradient(to bottom, #000 70%, transparent);
+}
+
+.heroShaderReady {
+  opacity: 1;
+}
+
+.heroGrid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  /* 左栏略宽于右栏：英文三颗 CTA 需要的宽度比中文多约 60px，
+     原来的 1 : 1.05 在 1100px 左右的窗口会把第三颗挤到第二行 */
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+  gap: clamp(2.5rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  color: var(--n9e-violet);
+  margin: 0 0 1.35rem;
+}
+
+.kicker::before {
+  content: '';
+  width: 26px;
+  height: 2px;
+  background: var(--n9e-violet);
+  flex: none;
+}
+
+.title {
+  font-size: clamp(2.5rem, 5.6vw, 4.1rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--n9e-ink);
+  margin: 0;
+  /* 让浏览器把各行拉到等长，而不是塞满一行再溢出到下一行 */
+  text-wrap: balance;
+}
+
+/* 中文标题 4 个字、英文标题 4 个词，字号必须分开设：
+   英文沿用中文的字号会挤成三行，还会在 Open-Source 的连字符处断开 */
+/* 英文标题比中文长得多："for Your Existing Stack" 在 3.5rem 下比左栏宽约 40px，会折成三行；
+   压到刚好两行（3.2rem）时两行又都顶满左栏，成了一整块实心长方形，还挤着右边的截图。
+   3rem 让两行只占左栏九成左右，右侧留出呼吸；负字距下词距会显得粘，补一点 word-spacing */
+html[lang='en'] .title {
+  font-size: clamp(2.1rem, 4vw, 3rem);
+  letter-spacing: -0.03em;
+  word-spacing: 0.06em;
+}
+
+.titleLine {
+  display: block;
+  /* 收紧到文字宽度：第二行的渐变按文字铺开，而不是按整栏宽度铺开后只露出前九成 */
+  width: fit-content;
+}
+
+/* 第二行是限定语（for Your Existing Stack），用品牌渐变和主句拉开层级，
+   两行等宽的标题就不再是一整块同色的字 */
+.titleLine + .titleLine {
+  color: var(--n9e-violet);
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .titleLine + .titleLine {
+    background: linear-gradient(90deg, var(--n9e-violet), var(--n9e-electric));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+.heroLead {
+  font-size: clamp(1rem, 1.2vw, 1.08rem);
+  line-height: 1.78;
+  color: var(--n9e-ink-soft);
+  max-width: 36rem;
+  margin: 1.35rem 0 0;
+}
+
+/* 副标题下独立一行的能力点，做成小标签：
+   顶部 kicker 已经是紫色等宽字，这里再用同一种样式会重复，标题第二行又是紫色，颜色就太多了 */
+.heroHighlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.heroHighlight {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.28rem 0.75rem;
+  border: 1px solid var(--n9e-line-strong);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--n9e-paper) 70%, transparent);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--n9e-ink-soft);
+}
+
+.heroHighlight::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--n9e-violet);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  /* 顶对齐：第三颗按钮没有副标，若默认拉伸会让三颗按钮不在一条线上 */
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-top: 2.1rem;
+}
+
+/* 英文标签比中文长得多（"Install in 5 minutes" 的宽度接近"5 分钟安装"的两倍），
+   按 --lg 默认的 1.7rem 横向内边距，三颗按钮在常见桌面宽度会挤到第二行。
+   这里只收紧首屏这一组，全站其他 --lg 按钮尺寸不变。 */
+.ctas :global(.n9e-btn--lg) {
+  padding-inline: 1.25rem;
+}
+
+.ctaCol {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ctaNote {
+  font-size: 0.72rem;
+  line-height: 1.2;
+  color: var(--n9e-ink-faint);
+}
+
+.ghostCount {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.82rem;
+  color: var(--n9e-ink-faint);
+}
+
+/* 一行可复制的安装命令：调研里转化最实在的一条 */
+.install {
+  margin-top: 2.2rem;
+}
+
+.installCaption {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--n9e-ink-faint);
+  margin: 0 0 0.55rem;
+}
+
+.installBox {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem 0.95rem;
+  background: var(--n9e-paper-sunk);
+  border: 1px solid var(--n9e-line);
+  border-radius: var(--n9e-radius);
+}
+
+.installCode {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.76rem;
+  line-height: 1.85;
+  color: var(--n9e-ink);
+  white-space: pre;
+}
+
+.installLine {
+  display: block;
+}
+
+.installLine::before {
+  content: '$ ';
+  color: var(--n9e-violet);
+}
+
+.copyBtn {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.6rem;
+  background: var(--n9e-paper-raised);
+  border: 1px solid var(--n9e-line-strong);
+  border-radius: 6px;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.68rem;
+  color: var(--n9e-ink-soft);
+  cursor: pointer;
+  transition: border-color 0.16s ease, color 0.16s ease;
+}
+
+.copyBtn:hover {
+  border-color: var(--n9e-violet);
+  color: var(--n9e-violet);
+}
+
+/* ---- Hero 视觉：真实产品截图 + 一张告警卡片 ---- */
+
+.heroVisual {
+  position: relative;
+  padding-bottom: 3.5rem;
+}
+
+.browser {
+  border: 1px solid var(--n9e-line);
+  border-radius: var(--n9e-radius-lg);
+  overflow: hidden;
+  background: var(--n9e-paper-raised);
+  box-shadow: var(--n9e-shadow-float);
+}
+
+.browserBar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 34px;
+  padding-inline: 0.8rem;
+  background: var(--n9e-paper-sunk);
+  border-bottom: 1px solid var(--n9e-line);
+}
+
+.browserDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--n9e-line-strong);
+}
+
+.browserUrl {
+  margin-left: 0.65rem;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.68rem;
+  color: var(--n9e-ink-faint);
+}
+
+.shot {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* 截图跟随主题切换。选择器带上 .browser 提高优先级，避免与 .shot 的 display 打平后按源码顺序判定 */
+.browser .shotDark {
+  display: none;
+}
+
+[data-theme='dark'] .browser .shotLight {
+  display: none;
+}
+
+[data-theme='dark'] .browser .shotDark {
+  display: block;
+}
+
+/* 告警卡片：hero 的主角，字段与写法照搬产品界面 */
+.alertCard {
+  position: absolute;
+  left: clamp(-1.75rem, -2vw, -0.5rem);
+  bottom: -1.5rem;
+  width: min(23rem, 88%);
+  display: flex;
+  overflow: hidden;
+  background: var(--n9e-paper-raised);
+  border: 1px solid var(--n9e-line);
+  border-radius: var(--n9e-radius);
+  box-shadow: var(--n9e-shadow-float);
+  animation: cardIn 0.5s cubic-bezier(0.16, 0.8, 0.3, 1) 0.75s both;
+}
+
+.sevBar {
+  flex: none;
+  width: 4px;
+  background: var(--n9e-s1);
+  transform-origin: top center;
+  animation: barDraw 0.45s cubic-bezier(0.16, 0.8, 0.3, 1) 1.15s both;
+}
+
+.alertBody {
+  flex: 1;
+  min-width: 0;
+  padding: 0.85rem 1rem 0.9rem;
+}
+
+.alertHead {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.alertRule {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--n9e-ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.alertLabels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.55rem;
+}
+
+.alertLabel {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.65rem;
+  color: var(--n9e-ink-faint);
+  background: var(--n9e-paper-sunk);
+  border: 1px solid var(--n9e-line);
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+}
+
+.alertMeta {
+  display: flex;
+  gap: 1.1rem;
+  margin-top: 0.6rem;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.66rem;
+  color: var(--n9e-ink-faint);
+}
+
+.alertMeta b {
+  color: var(--n9e-ink-soft);
+  font-weight: 500;
+}
+
+.notifyRow {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 0.75rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--n9e-line);
+}
+
+.notifyLabel {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.66rem;
+  color: var(--n9e-ink-faint);
+}
+
+.notifyChip {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid var(--n9e-line);
+  padding: 1px;
+  animation: chipIn 0.32s cubic-bezier(0.16, 0.8, 0.3, 1) both;
+}
+
+.notifyChip:nth-of-type(1) {
+  animation-delay: 1.5s;
+}
+
+.notifyChip:nth-of-type(2) {
+  animation-delay: 1.62s;
+}
+
+.notifyChip:nth-of-type(3) {
+  animation-delay: 1.74s;
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@keyframes barDraw {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes chipIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px) scale(0.85);
+  }
+}
+
+/* ============================================================
+   数字条
+   ============================================================ */
+
+.stats {
+  border-block: 1px solid var(--n9e-line);
+  background: var(--n9e-paper-sunk);
+  padding-block: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+/* 五列等宽，内容在列内居中：左对齐时最后一列「74 MCP tools」很短，
+   整排右侧空出一大截，看起来整体偏左 */
+.stat {
+  padding-inline: 1rem;
+  border-left: 1px solid var(--n9e-line-strong);
+  text-align: center;
+}
+
+.stat:first-child {
+  border-left: none;
+}
+
+.statValue {
+  display: block;
+  font-family: var(--n9e-font-mono);
+  font-size: clamp(1.4rem, 2.4vw, 1.95rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--n9e-ink);
+}
+
+.statLabel {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  color: var(--n9e-ink-faint);
+}
+
+/* ============================================================
+   四个阶段：脊柱
+   ============================================================ */
+
+.chain {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.chainItem {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.78rem;
+  padding: 0.34rem 0.6rem;
+  border: 1px solid var(--n9e-line-strong);
+  border-radius: 6px;
+  background: var(--n9e-paper-raised);
+  color: var(--n9e-ink-soft);
+}
+
+.chainItem[data-stage='event'] {
+  color: var(--n9e-s2);
+  border-color: var(--n9e-s2);
+  background: var(--n9e-s2-wash);
+}
+
+.chainItem[data-stage='ai'] {
+  color: var(--n9e-violet);
+  border-color: var(--n9e-violet);
+  background: var(--n9e-violet-wash);
+}
+
+.chainSep {
+  width: 22px;
+  height: 1px;
+  background: var(--n9e-line-strong);
+}
+
+.chainNote {
+  margin: 0.85rem 0 0;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.7rem;
+  color: var(--n9e-ink-faint);
+}
+
+.chainNote b {
+  color: var(--n9e-s2);
+  font-weight: 500;
+}
+
+.steps {
+  margin-top: clamp(3rem, 5vw, 4.5rem);
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr);
+  gap: 0 clamp(1.25rem, 2.5vw, 2rem);
+  padding-bottom: clamp(3.5rem, 6vw, 5.5rem);
+}
+
+.step:last-child {
+  padding-bottom: 0;
+}
+
+/* 脊柱：config 段为品牌紫，event 段换成三级告警色，ai 段回到电光蓝紫 */
+.railLine {
+  position: absolute;
+  left: 5px;
+  top: 1.35rem;
+  bottom: 0;
+  width: 4px;
+  border-radius: 2px;
+}
+
+.railLine[data-stage='config'] {
+  background: var(--n9e-violet);
+  opacity: 0.55;
+}
+
+.railLine[data-stage='event'] {
+  background: linear-gradient(180deg, var(--n9e-s3), var(--n9e-s2) 45%, var(--n9e-s1));
+}
+
+.railLine[data-stage='ai'] {
+  background: linear-gradient(180deg, var(--n9e-electric), transparent);
+  bottom: auto;
+  height: 8rem;
+}
+
+.railNode {
+  position: absolute;
+  left: 0;
+  top: 0.95rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  box-shadow: 0 0 0 4px var(--n9e-paper);
+}
+
+.railNode[data-stage='config'] {
+  background: var(--n9e-violet);
+}
+
+.railNode[data-stage='event'] {
+  background: var(--n9e-s2);
+}
+
+.railNode[data-stage='ai'] {
+  background: var(--n9e-electric);
+}
+
+.artifact {
+  grid-column: 1;
+  align-self: start;
+  padding-left: 30px;
+  margin: 0.85rem 0 0;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--n9e-ink-faint);
+}
+
+.stepMain {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(1.5rem, 3vw, 2.75rem);
+  align-items: start;
+}
+
+.stepTitle {
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.8rem;
+}
+
+.stepBody {
+  margin: 0;
+  font-size: 0.97rem;
+  line-height: 1.78;
+  color: var(--n9e-ink-soft);
+}
+
+.stepPoints {
+  list-style: none;
+  margin: 1.15rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.stepPoints li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.89rem;
+  line-height: 1.6;
+  color: var(--n9e-ink-soft);
+}
+
+.stepPoints li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 1px;
+  background: var(--n9e-violet);
+}
+
+.miniFrame {
+  margin: 0;
+  border: 1px solid var(--n9e-line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--n9e-paper-raised);
+  box-shadow: var(--n9e-shadow-card);
+}
+
+.miniFrame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.codeCard {
+  margin: 0;
+  border: 1px solid var(--n9e-line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--n9e-paper-raised);
+  box-shadow: var(--n9e-shadow-card);
+}
+
+.codeBar {
+  padding: 0.5rem 0.85rem;
+  background: var(--n9e-paper-sunk);
+  border-bottom: 1px solid var(--n9e-line);
+  font-family: var(--n9e-font-mono);
+  font-size: 0.68rem;
+  color: var(--n9e-ink-faint);
+}
+
+.codeCard pre {
+  margin: 0;
+  padding: 0.95rem 1rem;
+  background: transparent;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.74rem;
+  line-height: 1.75;
+  color: var(--n9e-ink-soft);
+  overflow-x: auto;
+}
+
+/* ============================================================
+   MCP
+   ============================================================ */
+
+.mcp {
+  background: var(--n9e-paper-sunk);
+  border-block: 1px solid var(--n9e-line);
+}
+
+.mcpGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: center;
+}
+
+.figures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.75rem;
+  margin-top: 2rem;
+}
+
+.figValue {
+  display: block;
+  font-family: var(--n9e-font-mono);
+  font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+  font-weight: 700;
+  color: var(--n9e-violet);
+  line-height: 1;
+}
+
+.figLabel {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--n9e-ink);
+}
+
+.toolsetsLabel {
+  margin: 2rem 0 0.65rem;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--n9e-ink-faint);
+}
+
+.toolsets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.toolset {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.72rem;
+  padding: 0.22rem 0.5rem;
+  border: 1px solid var(--n9e-line-strong);
+  border-radius: 5px;
+  background: var(--n9e-paper-raised);
+  color: var(--n9e-ink-soft);
+}
+
+.mcpNote {
+  margin: 1.75rem 0 0;
+  font-size: 0.87rem;
+  line-height: 1.75;
+  color: var(--n9e-ink-faint);
+}
+
+/* 终端在明暗两种主题下都是深色——终端本来就是深色的 */
+.term {
+  border-radius: var(--n9e-radius-lg);
+  overflow: hidden;
+  background: #100e18;
+  border: 1px solid #262336;
+  box-shadow: var(--n9e-shadow-float);
+}
+
+.termBar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 32px;
+  padding-inline: 0.8rem;
+  background: rgb(255 255 255 / 4%);
+  border-bottom: 1px solid rgb(255 255 255 / 7%);
+}
+
+.termDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #35304a;
+}
+
+.termTitle {
+  margin-left: 0.6rem;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.68rem;
+  color: #6f6a85;
+}
+
+.termBody {
+  padding: 1.1rem 1.15rem;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.76rem;
+  line-height: 1.9;
+}
+
+.termBody p {
+  margin: 0;
+}
+
+.tUser {
+  color: #d3cbe9;
+  margin-top: 0.55rem !important;
+}
+
+.tUser::before {
+  content: '> ';
+  color: #6f6a85;
+}
+
+.tTool {
+  color: #a189e0;
+}
+
+.tTool::before {
+  content: '● ';
+}
+
+.tDim {
+  color: #6f6a85;
+}
+
+.tOut {
+  color: #948ea9;
+  padding-left: 1.05rem;
+}
+
+.tOk {
+  color: #4ec98a;
+}
+
+/* ============================================================
+   集成
+   ============================================================ */
+
+.intgGroup {
+  margin-top: clamp(2rem, 3.5vw, 2.75rem);
+}
+
+.intgLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 0 0 0.9rem;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--n9e-ink-faint);
+}
+
+.intgLabel::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--n9e-line);
+}
+
+.intgGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 0.55rem;
+}
+
+.intgItem {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--n9e-line);
+  border-radius: 8px;
+  background: var(--n9e-paper-raised);
+  font-size: 0.85rem;
+  color: var(--n9e-ink);
+  transition: border-color 0.16s ease;
+}
+
+.intgItem:hover {
+  border-color: var(--n9e-violet);
+}
+
+.intgItem img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  flex: none;
+}
+
+/* 电话、邮件这类通用媒介的徽标图标。和品牌 logo 一样占 22px、实心有色，
+   放在同一排里分量一致，是并列关系而不是"没找到 logo 的替代品"。
+   颜色由 ChannelIcon 内部固定，与 logo 一样不随主题变化。 */
+.intgIcon {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+
+.intgMore {
+  margin: 1.75rem 0 0;
+  font-size: 0.9rem;
+}
+
+/* ============================================================
+   部署 / 对比卡片
+   ============================================================ */
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.15rem;
+  margin-top: clamp(2rem, 3.5vw, 2.75rem);
+}
+
+/* 部署区只有两张卡：三列会在右边空出一格 */
+.cardGrid.cardGridPair {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem;
+  border: 1px solid var(--n9e-line);
+  border-radius: var(--n9e-radius-lg);
+  background: var(--n9e-paper-raised);
+}
+
+.cardTitle {
+  font-size: 1.12rem;
+  font-weight: 700;
+  margin: 0 0 0.6rem;
+}
+
+.cardBody {
+  flex: 1;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.72;
+  color: var(--n9e-ink-soft);
+}
+
+.cardCode {
+  display: block;
+  margin: 1rem 0 0;
+  padding: 0.5rem 0.7rem;
+  background: var(--n9e-paper-sunk);
+  border: 1px solid var(--n9e-line);
+  border-radius: 6px;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.74rem;
+  color: var(--n9e-ink);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+/* 全站命令块统一带这个提示符（见 .installLine、pages 里的 .cmd span）。
+   少了它，这两条会被读成标签而不是"可以敲进终端的命令"。 */
+.cardCode::before {
+  content: '$ ';
+  color: var(--n9e-violet);
+}
+
+.cardLink {
+  margin-top: 1.1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--n9e-violet);
+}
+
+.cardLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.compareCard {
+  padding: 1.5rem 1.5rem 1.6rem;
+  border: 1px solid var(--n9e-line);
+  border-top: 2px solid var(--n9e-violet);
+  border-radius: 4px 4px var(--n9e-radius-lg) var(--n9e-radius-lg);
+  background: var(--n9e-paper-raised);
+}
+
+.compareCard h3 {
+  font-family: var(--n9e-font-mono);
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.65rem;
+  color: var(--n9e-ink);
+}
+
+.compareCard p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.72;
+  color: var(--n9e-ink-soft);
+}
+
+.centerAction {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+/* ============================================================
+   用户与治理
+   ============================================================ */
+
+/* ---- 用户 logo 墙（英文站：逐个 logo 排成网格）----
+   这一屏要证明的是"用户很多"，而同一时刻能看见几个 logo，就是这个主张的全部证据。
+   横向滚动条任何瞬间只露出 7 个，网格能露出 24 个，所以这里用网格。
+   只显示整行：网格裁到四行，桌面 7 列露出 28 个、6 列 24 个、手机 3 列 12 个，
+   剩下的不露头，避免最后一行三个 logo 后面拖着一排空位。
+
+   这批 logo 里既有纯黑字标，也有纯白填充，还有 Tuya、Lotus 这种带实心底色的，
+   所以必须落在浅色底板上——深色模式也不例外，否则一半 logo 会看不见。 */
+.logoGrid {
+  position: relative;
+  margin: clamp(2rem, 3.5vw, 2.75rem) 0 0;
+  padding: 0.75rem;
+  background: #edecf1;
+  border: 1px solid var(--n9e-line);
+  border-radius: var(--n9e-radius-lg);
+}
+
+/* 暗色模式：不再铺浅底板，logo 灰阶后反相成浅灰字标压在深底上。
+   一块白色底板在深底上怎么调透明度都是发光的岛；单色字标读起来克制，也是暗色 logo 墙的通行做法。
+   带实心底色的 logo（Tuya、Lotus、Yoshinoya）会变成浅灰块配深字，能看清，只是失去品牌色。 */
+[data-theme='dark'] .logoGrid {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+[data-theme='dark'] .logoTile {
+  background: var(--n9e-paper-raised);
+  border: 1px solid var(--n9e-line);
+}
+
+[data-theme='dark'] .logoTile img {
+  /* 彩色字标灰阶后深浅不一，加一点对比度把偏暗的（DJI、Hikvision）提上来 */
+  filter: grayscale(1) invert(1) contrast(1.15);
+  opacity: 0.78;
+  transition: opacity 0.16s ease;
+}
+
+/* 悬停：格子切成白底、logo 还原品牌色。纯黑字标在深底上还原会直接消失，所以底色必须一起换 */
+[data-theme='dark'] .logoTile {
+  transition: background-color 0.16s ease, border-color 0.16s ease;
+}
+
+[data-theme='dark'] .logoTile:hover {
+  background: #fff;
+  border-color: #fff;
+}
+
+[data-theme='dark'] .logoTile:hover img {
+  filter: none;
+  opacity: 1;
+}
+
+/* 官方只给纯白版的那几个，暗色下本来就是白的，不用再反相；悬停到白底上时才反相成黑 */
+[data-theme='dark'] .logoTile img.logoInvert {
+  filter: grayscale(1);
+}
+
+[data-theme='dark'] .logoTile:hover img.logoInvert {
+  filter: invert(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-theme='dark'] .logoTile,
+  [data-theme='dark'] .logoTile img {
+    transition: none;
+  }
+}
+
+.logoGridInner {
+  display: grid;
+  /* 桌面 6 到 7 列、平板 4 列、手机 3 列，不必写断点 */
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.5rem;
+  /* 正好四行：4 个格子高加 3 个间距，第五行整行裁掉 */
+  max-height: calc(4 * 80px + 3 * 0.5rem);
+  overflow: hidden;
+}
+
+.logoTile {
+  display: grid;
+  place-items: center;
+  height: 80px;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  border-radius: 8px;
+}
+
+/* 宽字标撞 max-width，方章形（Sunborn、Lotus）撞 max-height。
+   高度限得越死，方章形就越小——放宽到 42px 是让两类 logo 视觉体量接近，
+   而不是让它们高度相等。 */
+.logoTile img {
+  max-width: 100%;
+  max-height: 42px;
+  object-fit: contain;
+}
+
+/* 手机上 auto-fill 只能塞下 2 列、露出 8 个，撑不起"用户很多"。
+   改成固定 3 列并整体缩一档，可见数量回到 12 个上下。 */
+@media (max-width: 600px) {
+  .logoGridInner {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.4rem;
+  }
+
+  .logoTile {
+    height: 62px;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .logoTile img {
+    max-height: 30px;
+  }
+
+  .logoGridInner {
+    max-height: calc(4 * 62px + 3 * 0.4rem);
+  }
+}
+
+/* 官方只提供纯白填充版的，反相成黑色才能放在白底上 */
+.logoInvert {
+  filter: invert(1);
+}
+
+.logoWall {
+  position: relative;
+  margin: clamp(2rem, 3.5vw, 2.75rem) 0 0;
+  padding: 0.75rem;
+  background: #fff;
+  border: 1px solid var(--n9e-line);
+  border-radius: var(--n9e-radius-lg);
+}
+
+/* 原图有 8 行，裁到 7 成高度并向白色渐隐——"还有更多"，也避免暗色下一整块白压住版面 */
+.logoWallCrop {
+  max-height: 26rem;
+  overflow: hidden;
+}
+
+.logoWallCrop::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 7rem;
+  background: linear-gradient(rgb(255 255 255 / 0%), #fff 78%);
+  pointer-events: none;
+}
+
+[data-theme='dark'] .logoWall {
+  opacity: 0.88;
+}
+
+.logoWall img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+
+
+
+
+
+
+/* ============================================================
+   收尾
+   ============================================================ */
+
+.finalCta {
+  text-align: center;
+  border-top: 1px solid var(--n9e-line);
+  background: var(--n9e-paper-sunk);
+}
+
+.finalTitle {
+  font-size: clamp(1.85rem, 3.4vw, 2.7rem);
+  font-weight: 800;
+  letter-spacing: -0.028em;
+  margin: 0;
+}
+
+.finalLead {
+  margin: 1.1rem auto 0;
+  max-width: 40rem;
+  font-size: 1.03rem;
+  line-height: 1.75;
+  color: var(--n9e-ink-soft);
+}
+
+.finalActions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.community {
+  margin: 2rem 0 0;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.78rem;
+  color: var(--n9e-ink-faint);
+}
+
+.community a {
+  color: var(--n9e-violet);
+}
+
+.community span {
+  margin-inline: 0.5rem;
+  opacity: 0.5;
+}
+
+/* ============================================================
+   响应式
+   ============================================================ */
+
+@media (max-width: 1100px) {
+  /* 折行后改用居中换行：5 项排 3+2 / 2+2+1 时，不满的最后一行也居中，不会全挤在左边 */
+  .statsRow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* 列间距归零：基础样式的 gap 在 flex 下会变成列间距，三个 33.333% 加上间距就超过一行 */
+    gap: 1.5rem 0;
+  }
+
+  .stat {
+    flex: 0 0 33.333%;
+  }
+
+  .stat:nth-child(4) {
+    border-left: none;
+  }
+}
+
+@media (max-width: 996px) {
+  .heroGrid,
+  .mcpGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* 单栏时整段文字都压在画布上，色团只留右上角一小片，不和正文抢 */
+  .heroShader {
+    mask-image: radial-gradient(ellipse 90% 40% at 100% 0%, #000, transparent);
+  }
+
+  .titleLine {
+    display: inline;
+  }
+
+  .heroLead {
+    max-width: none;
+  }
+
+  .step {
+    grid-template-columns: minmax(0, 1fr);
+    padding-left: 30px;
+  }
+
+  .artifact {
+    grid-column: 1;
+    padding-left: 0;
+    margin: 0.5rem 0 0.75rem;
+  }
+
+  .stepMain {
+    grid-column: 1;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cardGrid,
+  .cardGrid.cardGridPair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  }
+
+@media (max-width: 640px) {
+  .stat {
+    flex-basis: 50%;
+    padding-inline: 0;
+    border-left: none;
+  }
+
+  .alertCard {
+    position: static;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .heroVisual {
+    padding-bottom: 0;
+  }
+
+  .intgGrid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+}
