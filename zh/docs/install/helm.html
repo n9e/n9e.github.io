@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"><link rel="stylesheet" href="/zh/assets/css/styles.1081e512.css">
-<script src="/zh/assets/js/runtime~main.2c584f5e.js" defer="defer"></script>
+<script src="/zh/assets/js/runtime~main.3cdfeb99.js" defer="defer"></script>
 <script src="/zh/assets/js/main.b41d000f.js" defer="defer"></script>
 </head>
 <body>
@@ -23,18 +23,19 @@ Categraf 一起拉起来。装之前有两件事要先想清楚。</p>
 <p>要么装在独立的、专门跑基础设施的集群里，要么就用<a class="" href="/zh/docs/install/binary">二进制包</a>装在集群外的机器上。
 这不是 chart 有问题，是拓扑选择问题。</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="chart-的版本状况">chart 的版本状况<a href="#chart-的版本状况" class="hash-link" aria-label="chart 的版本状况的直接链接" title="chart 的版本状况的直接链接" translate="no">​</a></h2>
-<p>chart 在 <a href="https://github.com/flashcatcloud/n9e-helm" target="_blank" rel="noopener noreferrer" class="">flashcatcloud/n9e-helm</a>，
-和夜莺主仓库是分开维护的，<strong>版本明显落后于 v9</strong>：</p>
+<p>chart 在 <a href="https://github.com/flashcatcloud/n9e-helm" target="_blank" rel="noopener noreferrer" class="">flashcatcloud/n9e-helm</a>，和夜莺主仓库分开维护。
+从 chart <code>0.4.0</code> 起，master 分支已经跟到 v9：</p>
 <ul>
-<li class=""><code>Chart.yaml</code> 里 <code>appVersion: 8.5.0</code>，chart 版本 <code>0.3.0</code>；</li>
-<li class=""><code>values.yaml</code> 里镜像默认 <code>flashcatcloud/nightingale:8.5.0</code>；</li>
-<li class="">最新一个打好包的 release 是 2025 年的 <code>helm-chart-v8.0.0-beta12</code>；</li>
-<li class=""><strong>没有 Helm 仓库可以 <code>helm repo add</code></strong>，只能 clone 仓库用本地目录装。</li>
+<li class=""><code>Chart.yaml</code> 里 chart 版本 <code>0.4.0</code>，<code>appVersion: 9.1.1</code>；</li>
+<li class=""><code>values.yaml</code> 里镜像默认 <code>flashcatcloud/nightingale:9.1.1</code>；</li>
+<li class="">渲染出来的 <code>config.toml</code> 是 v9 的：带 <code>[EmbeddedTSDB]</code> 段但<strong>默认关闭</strong>——chart 自带 Prometheus 当时序库，
+而内置时序库只适合单副本的 <code>n9e</code>；同时打开了 <code>[HTTP.TokenAuth]</code>（<code>/mcp</code>、<code>/a2a</code> 要用），
+匿名访问 PromQL 查询和告警详情默认关闭，和上游默认一致。</li>
 </ul>
-<p>想跑 v9 就得自己把 <code>n9e.internal.image.tag</code> 改成 v9 的 tag。chart 渲染出来的 <code>config.toml</code>
-是 v8 风格的（没有 <code>[EmbeddedTSDB]</code> 段，指标直接写集群里的 Prometheus），
-这份配置在 v9 上仍然是合法的，表结构由 <code>n9e</code> 启动时的 AutoMigrate 补齐。
-但这个组合没有经过官方验证，<strong>上生产前请自己在测试集群里先跑一遍</strong>。</p>
+<p><strong>打包发布还没跟上</strong>：Helm 仓库 <code>https://flashcatcloud.github.io/n9e-helm</code> 里最新的仍是 v8 的
+<code>v8.0.0-beta12</code>，<code>helm repo add</code> 之后装到的是 v8。要装 v9，用 clone 下来的 master 目录装（见下一节）。</p>
+<p>从旧版 chart 升级上来的，换成新 chart 后 <code>helm upgrade</code> 即可，表结构由 <code>n9e</code> 启动时的 AutoMigrate 补齐。
+升级前的注意事项见<a class="" href="/zh/docs/install/upgrade">升级</a>。</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="装">装<a href="#装" class="hash-link" aria-label="装的直接链接" title="装的直接链接" translate="no">​</a></h2>
 <p>需要 Kubernetes 1.20+ 和 Helm v3.2.0+。</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token function" style="color:rgb(80, 250, 123)">git</span><span class="token plain"> clone https://github.com/flashcatcloud/n9e-helm.git</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">helm </span><span class="token function" style="color:rgb(80, 250, 123)">install</span><span class="token plain"> nightingale ./n9e-helm </span><span class="token parameter variable" style="color:rgb(189, 147, 249);font-style:italic">-n</span><span class="token plain"> n9e --create-namespace</span><br></div></code></pre></div></div>

@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"><link rel="stylesheet" href="/assets/css/styles.1081e512.css">
-<script src="/assets/js/runtime~main.8b4cea41.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.4f038c79.js" defer="defer"></script>
 <script src="/assets/js/main.9b1a60f6.js" defer="defer"></script>
 </head>
 <body>
@@ -25,18 +25,20 @@ dependency — the cluster goes, and the tool you would debug it with goes with 
 <a class="" href="/docs/install/binary">binary packages</a>. This is a topology decision, not a criticism of the chart.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-state-of-the-chart">The state of the chart<a href="#the-state-of-the-chart" class="hash-link" aria-label="Direct link to The state of the chart" title="Direct link to The state of the chart" translate="no">​</a></h2>
 <p>The chart lives at <a href="https://github.com/flashcatcloud/n9e-helm" target="_blank" rel="noopener noreferrer" class="">flashcatcloud/n9e-helm</a>, maintained
-separately from the main repository, and it <strong>lags well behind v9</strong>:</p>
+separately from the main repository. From chart <code>0.4.0</code> on, its master branch tracks v9:</p>
 <ul>
-<li class=""><code>Chart.yaml</code> says <code>appVersion: 8.5.0</code>, chart version <code>0.3.0</code>;</li>
-<li class=""><code>values.yaml</code> defaults the image to <code>flashcatcloud/nightingale:8.5.0</code>;</li>
-<li class="">the newest packaged release is <code>helm-chart-v8.0.0-beta12</code>, from 2025;</li>
-<li class=""><strong>there is no Helm repository to <code>helm repo add</code></strong> — clone the repo and install from the local
-directory.</li>
+<li class=""><code>Chart.yaml</code> says chart version <code>0.4.0</code>, <code>appVersion: 9.1.1</code>;</li>
+<li class=""><code>values.yaml</code> defaults the image to <code>flashcatcloud/nightingale:9.1.1</code>;</li>
+<li class="">the rendered <code>config.toml</code> is a v9 config: it has an <code>[EmbeddedTSDB]</code> section but keeps it
+<strong>off</strong> — the chart ships Prometheus as the time-series store, and the embedded TSDB only suits a
+single <code>n9e</code> replica. It also enables <code>[HTTP.TokenAuth]</code> (needed by <code>/mcp</code> and <code>/a2a</code>) and turns
+off anonymous access to PromQL queries and alert details, matching upstream defaults.</li>
 </ul>
-<p>Running v9 means overriding <code>n9e.internal.image.tag</code> yourself. The <code>config.toml</code> the chart renders
-is v8-shaped (no <code>[EmbeddedTSDB]</code> section; metrics go straight to the in-cluster Prometheus), which
-is still valid on v9, and the schema is filled in by AutoMigrate when <code>n9e</code> starts. That
-combination is not officially verified, so <strong>prove it on a test cluster before production</strong>.</p>
+<p><strong>Packaged releases have not caught up yet.</strong> The newest chart in the Helm repository at
+<code>https://flashcatcloud.github.io/n9e-helm</code> is still v8&#x27;s <code>v8.0.0-beta12</code>, so <code>helm repo add</code> gets
+you v8. To install v9, install from a clone of master, as in the next section.</p>
+<p>Coming from an older chart, switch to the new one and run <code>helm upgrade</code>; <code>n9e</code> fills in the
+schema with AutoMigrate on startup. See <a class="" href="/docs/install/upgrade">Upgrade</a> for what to check first.</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="install">Install<a href="#install" class="hash-link" aria-label="Direct link to Install" title="Direct link to Install" translate="no">​</a></h2>
 <p>Requires Kubernetes 1.20+ and Helm v3.2.0+.</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token function" style="color:rgb(80, 250, 123)">git</span><span class="token plain"> clone https://github.com/flashcatcloud/n9e-helm.git</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">helm </span><span class="token function" style="color:rgb(80, 250, 123)">install</span><span class="token plain"> nightingale ./n9e-helm </span><span class="token parameter variable" style="color:rgb(189, 147, 249);font-style:italic">-n</span><span class="token plain"> n9e --create-namespace</span><br></div></code></pre></div></div>
