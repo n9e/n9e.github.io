@@ -1,0 +1,712 @@
+[
+  {
+    "from": "/docs",
+    "action": "keep",
+    "to": "/docs",
+    "canonical": "https://n9e.github.io/docs",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/prologue",
+    "action": "redirect",
+    "to": "/docs/get-started/introduction",
+    "canonical": "https://n9e.github.io/docs/get-started/introduction",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/prologue/introduction",
+    "action": "redirect",
+    "to": "/docs/get-started/introduction",
+    "canonical": "https://n9e.github.io/docs/get-started/introduction",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/prologue/architecture",
+    "action": "redirect",
+    "to": "/docs/concepts/architecture",
+    "canonical": "https://n9e.github.io/docs/concepts/architecture",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/prologue/prometheus",
+    "action": "redirect",
+    "to": "/docs/get-started/where-it-fits",
+    "canonical": "https://n9e.github.io/docs/get-started/where-it-fits",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/prologue/pre-knowledge",
+    "action": "restore",
+    "to": "/docs/prologue/pre-knowledge",
+    "canonical": "https://n9e.github.io/docs/prologue/pre-knowledge",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/prologue/videos",
+    "action": "restore",
+    "to": "/docs/prologue/videos",
+    "canonical": "https://n9e.github.io/docs/prologue/videos",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/prologue/flashcat",
+    "action": "retire",
+    "expectedStatus": 404
+  },
+  {
+    "from": "/docs/install",
+    "action": "redirect",
+    "to": "/docs/install/overview",
+    "canonical": "https://n9e.github.io/docs/install/overview",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/install/pre-intro",
+    "action": "redirect",
+    "to": "/docs/install/overview",
+    "canonical": "https://n9e.github.io/docs/install/overview",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/install/compose",
+    "action": "redirect",
+    "to": "/docs/install/docker-compose",
+    "canonical": "https://n9e.github.io/docs/install/docker-compose",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/install/binary",
+    "action": "keep",
+    "to": "/docs/install/binary",
+    "canonical": "https://n9e.github.io/docs/install/binary",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/install/configuration",
+    "action": "keep",
+    "to": "/docs/install/configuration",
+    "canonical": "https://n9e.github.io/docs/install/configuration",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/install/helm",
+    "action": "keep",
+    "to": "/docs/install/helm",
+    "canonical": "https://n9e.github.io/docs/install/helm",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/install/upgrade",
+    "action": "keep",
+    "to": "/docs/install/upgrade",
+    "canonical": "https://n9e.github.io/docs/install/upgrade",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/agent",
+    "action": "redirect",
+    "to": "/docs/data/overview",
+    "canonical": "https://n9e.github.io/docs/data/overview",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/agent/intro",
+    "action": "redirect",
+    "to": "/docs/data/overview",
+    "canonical": "https://n9e.github.io/docs/data/overview",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/agent/categraf",
+    "action": "redirect",
+    "to": "/docs/data/categraf/install",
+    "canonical": "https://n9e.github.io/docs/data/categraf/install",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/agent/telegraf",
+    "action": "restore",
+    "to": "/docs/agent/telegraf",
+    "canonical": "https://n9e.github.io/docs/agent/telegraf",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/agent/datadog-agent",
+    "action": "restore",
+    "to": "/docs/agent/datadog-agent",
+    "canonical": "https://n9e.github.io/docs/agent/datadog-agent",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/usage",
+    "action": "restore",
+    "to": "/docs/usage",
+    "canonical": "https://n9e.github.io/docs/usage",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/usage/datasource",
+    "action": "redirect",
+    "to": "/docs/data/overview",
+    "canonical": "https://n9e.github.io/docs/data/overview",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/usage/dashboard",
+    "action": "redirect",
+    "to": "/docs/query/dashboards",
+    "canonical": "https://n9e.github.io/docs/query/dashboards",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/usage/ad-hoc",
+    "action": "redirect",
+    "to": "/docs/query/metric-explorer",
+    "canonical": "https://n9e.github.io/docs/query/metric-explorer",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/usage/metric-alerting",
+    "action": "redirect",
+    "to": "/docs/alerting/metric-rules",
+    "canonical": "https://n9e.github.io/docs/alerting/metric-rules",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/usage/logs-alerting",
+    "action": "redirect",
+    "to": "/docs/alerting/log-rules",
+    "canonical": "https://n9e.github.io/docs/alerting/log-rules",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/usage/notify-rules",
+    "action": "redirect",
+    "to": "/docs/notifications/rules",
+    "canonical": "https://n9e.github.io/docs/notifications/rules",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/usecase",
+    "action": "restore",
+    "to": "/docs/usecase",
+    "canonical": "https://n9e.github.io/docs/usecase",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/usecase/alerting",
+    "action": "redirect",
+    "to": "/docs/concepts/noise-routing",
+    "canonical": "https://n9e.github.io/docs/concepts/noise-routing",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/usecase/api",
+    "action": "redirect",
+    "to": "/docs/reference/http-api",
+    "canonical": "https://n9e.github.io/docs/reference/http-api",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/usecase/bizgroup",
+    "action": "redirect",
+    "to": "/docs/concepts/business-groups",
+    "canonical": "https://n9e.github.io/docs/concepts/business-groups",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/usecase/media",
+    "action": "redirect",
+    "to": "/docs/notifications/architecture",
+    "canonical": "https://n9e.github.io/docs/notifications/architecture",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/usecase/mute",
+    "action": "redirect",
+    "to": "/docs/events/mute-rules",
+    "canonical": "https://n9e.github.io/docs/events/mute-rules",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/usecase/processor",
+    "action": "redirect",
+    "to": "/docs/events/pipelines",
+    "canonical": "https://n9e.github.io/docs/events/pipelines",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/usecase/sso",
+    "action": "redirect",
+    "to": "/docs/security/sso",
+    "canonical": "https://n9e.github.io/docs/security/sso",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/usecase/subscribe",
+    "action": "redirect",
+    "to": "/docs/events/subscriptions",
+    "canonical": "https://n9e.github.io/docs/events/subscriptions",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/practice",
+    "action": "restore",
+    "to": "/docs/practice",
+    "canonical": "https://n9e.github.io/docs/practice",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/practice/linux",
+    "action": "restore",
+    "to": "/docs/practice/linux",
+    "canonical": "https://n9e.github.io/docs/practice/linux",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/practice/mysql",
+    "action": "restore",
+    "to": "/docs/practice/mysql",
+    "canonical": "https://n9e.github.io/docs/practice/mysql",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/practice/oracle",
+    "action": "restore",
+    "to": "/docs/practice/oracle",
+    "canonical": "https://n9e.github.io/docs/practice/oracle",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/practice/redis",
+    "action": "restore",
+    "to": "/docs/practice/redis",
+    "canonical": "https://n9e.github.io/docs/practice/redis",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/practice/proc",
+    "action": "restore",
+    "to": "/docs/practice/proc",
+    "canonical": "https://n9e.github.io/docs/practice/proc",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/practice/port",
+    "action": "restore",
+    "to": "/docs/practice/port",
+    "canonical": "https://n9e.github.io/docs/practice/port",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/practice/exec",
+    "action": "restore",
+    "to": "/docs/practice/exec",
+    "canonical": "https://n9e.github.io/docs/practice/exec",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/practice/java",
+    "action": "restore",
+    "to": "/docs/practice/java",
+    "canonical": "https://n9e.github.io/docs/practice/java",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/faq",
+    "action": "restore",
+    "to": "/docs/faq",
+    "canonical": "https://n9e.github.io/docs/faq",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/faq/how-to-import-prometheus-rules",
+    "action": "redirect",
+    "to": "/docs/alerting/import-export",
+    "canonical": "https://n9e.github.io/docs/alerting/import-export",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/faq/biz-team-subscribe-infra-alarms",
+    "action": "redirect",
+    "to": "/docs/events/subscriptions",
+    "canonical": "https://n9e.github.io/docs/events/subscriptions",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/faq/global-callback",
+    "action": "redirect",
+    "to": "/docs/events/subscriptions",
+    "canonical": "https://n9e.github.io/docs/events/subscriptions",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/faq/cpu-alerting",
+    "action": "restore",
+    "to": "/docs/faq/cpu-alerting",
+    "canonical": "https://n9e.github.io/docs/faq/cpu-alerting",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/docs/install/server",
+    "action": "redirect",
+    "to": "/docs/install/overview",
+    "canonical": "https://n9e.github.io/docs/install/overview",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs",
+    "action": "keep",
+    "to": "/zh/docs",
+    "canonical": "https://n9e.github.io/zh/docs",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/prologue",
+    "action": "redirect",
+    "to": "/zh/docs/get-started/introduction",
+    "canonical": "https://n9e.github.io/zh/docs/get-started/introduction",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/prologue/introduction",
+    "action": "redirect",
+    "to": "/zh/docs/get-started/introduction",
+    "canonical": "https://n9e.github.io/zh/docs/get-started/introduction",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/prologue/architecture",
+    "action": "redirect",
+    "to": "/zh/docs/concepts/architecture",
+    "canonical": "https://n9e.github.io/zh/docs/concepts/architecture",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/prologue/prometheus",
+    "action": "redirect",
+    "to": "/zh/docs/get-started/where-it-fits",
+    "canonical": "https://n9e.github.io/zh/docs/get-started/where-it-fits",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/prologue/pre-knowledge",
+    "action": "restore",
+    "to": "/zh/docs/prologue/pre-knowledge",
+    "canonical": "https://n9e.github.io/zh/docs/prologue/pre-knowledge",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/prologue/videos",
+    "action": "restore",
+    "to": "/zh/docs/prologue/videos",
+    "canonical": "https://n9e.github.io/zh/docs/prologue/videos",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/prologue/flashcat",
+    "action": "retire",
+    "expectedStatus": 404
+  },
+  {
+    "from": "/zh/docs/install",
+    "action": "redirect",
+    "to": "/zh/docs/install/overview",
+    "canonical": "https://n9e.github.io/zh/docs/install/overview",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/install/pre-intro",
+    "action": "redirect",
+    "to": "/zh/docs/install/overview",
+    "canonical": "https://n9e.github.io/zh/docs/install/overview",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/install/compose",
+    "action": "redirect",
+    "to": "/zh/docs/install/docker-compose",
+    "canonical": "https://n9e.github.io/zh/docs/install/docker-compose",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/install/binary",
+    "action": "keep",
+    "to": "/zh/docs/install/binary",
+    "canonical": "https://n9e.github.io/zh/docs/install/binary",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/install/configuration",
+    "action": "keep",
+    "to": "/zh/docs/install/configuration",
+    "canonical": "https://n9e.github.io/zh/docs/install/configuration",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/install/helm",
+    "action": "keep",
+    "to": "/zh/docs/install/helm",
+    "canonical": "https://n9e.github.io/zh/docs/install/helm",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/install/upgrade",
+    "action": "keep",
+    "to": "/zh/docs/install/upgrade",
+    "canonical": "https://n9e.github.io/zh/docs/install/upgrade",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/agent",
+    "action": "redirect",
+    "to": "/zh/docs/data/overview",
+    "canonical": "https://n9e.github.io/zh/docs/data/overview",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/agent/intro",
+    "action": "redirect",
+    "to": "/zh/docs/data/overview",
+    "canonical": "https://n9e.github.io/zh/docs/data/overview",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/agent/categraf",
+    "action": "redirect",
+    "to": "/zh/docs/data/categraf/install",
+    "canonical": "https://n9e.github.io/zh/docs/data/categraf/install",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/agent/telegraf",
+    "action": "restore",
+    "to": "/zh/docs/agent/telegraf",
+    "canonical": "https://n9e.github.io/zh/docs/agent/telegraf",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/agent/datadog-agent",
+    "action": "restore",
+    "to": "/zh/docs/agent/datadog-agent",
+    "canonical": "https://n9e.github.io/zh/docs/agent/datadog-agent",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/usage",
+    "action": "restore",
+    "to": "/zh/docs/usage",
+    "canonical": "https://n9e.github.io/zh/docs/usage",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/usage/datasource",
+    "action": "redirect",
+    "to": "/zh/docs/data/overview",
+    "canonical": "https://n9e.github.io/zh/docs/data/overview",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/usage/dashboard",
+    "action": "redirect",
+    "to": "/zh/docs/query/dashboards",
+    "canonical": "https://n9e.github.io/zh/docs/query/dashboards",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/usage/ad-hoc",
+    "action": "redirect",
+    "to": "/zh/docs/query/metric-explorer",
+    "canonical": "https://n9e.github.io/zh/docs/query/metric-explorer",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/usage/metric-alerting",
+    "action": "redirect",
+    "to": "/zh/docs/alerting/metric-rules",
+    "canonical": "https://n9e.github.io/zh/docs/alerting/metric-rules",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/usage/logs-alerting",
+    "action": "redirect",
+    "to": "/zh/docs/alerting/log-rules",
+    "canonical": "https://n9e.github.io/zh/docs/alerting/log-rules",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/usage/notify-rules",
+    "action": "redirect",
+    "to": "/zh/docs/notifications/rules",
+    "canonical": "https://n9e.github.io/zh/docs/notifications/rules",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/usecase",
+    "action": "restore",
+    "to": "/zh/docs/usecase",
+    "canonical": "https://n9e.github.io/zh/docs/usecase",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/usecase/alerting",
+    "action": "redirect",
+    "to": "/zh/docs/concepts/noise-routing",
+    "canonical": "https://n9e.github.io/zh/docs/concepts/noise-routing",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/usecase/api",
+    "action": "redirect",
+    "to": "/zh/docs/reference/http-api",
+    "canonical": "https://n9e.github.io/zh/docs/reference/http-api",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/usecase/bizgroup",
+    "action": "redirect",
+    "to": "/zh/docs/concepts/business-groups",
+    "canonical": "https://n9e.github.io/zh/docs/concepts/business-groups",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/usecase/media",
+    "action": "redirect",
+    "to": "/zh/docs/notifications/architecture",
+    "canonical": "https://n9e.github.io/zh/docs/notifications/architecture",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/usecase/mute",
+    "action": "redirect",
+    "to": "/zh/docs/events/mute-rules",
+    "canonical": "https://n9e.github.io/zh/docs/events/mute-rules",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/usecase/processor",
+    "action": "redirect",
+    "to": "/zh/docs/events/pipelines",
+    "canonical": "https://n9e.github.io/zh/docs/events/pipelines",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/usecase/sso",
+    "action": "redirect",
+    "to": "/zh/docs/security/sso",
+    "canonical": "https://n9e.github.io/zh/docs/security/sso",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/usecase/subscribe",
+    "action": "redirect",
+    "to": "/zh/docs/events/subscriptions",
+    "canonical": "https://n9e.github.io/zh/docs/events/subscriptions",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/practice",
+    "action": "restore",
+    "to": "/zh/docs/practice",
+    "canonical": "https://n9e.github.io/zh/docs/practice",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/practice/linux",
+    "action": "restore",
+    "to": "/zh/docs/practice/linux",
+    "canonical": "https://n9e.github.io/zh/docs/practice/linux",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/practice/mysql",
+    "action": "restore",
+    "to": "/zh/docs/practice/mysql",
+    "canonical": "https://n9e.github.io/zh/docs/practice/mysql",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/practice/oracle",
+    "action": "restore",
+    "to": "/zh/docs/practice/oracle",
+    "canonical": "https://n9e.github.io/zh/docs/practice/oracle",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/practice/redis",
+    "action": "restore",
+    "to": "/zh/docs/practice/redis",
+    "canonical": "https://n9e.github.io/zh/docs/practice/redis",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/practice/proc",
+    "action": "restore",
+    "to": "/zh/docs/practice/proc",
+    "canonical": "https://n9e.github.io/zh/docs/practice/proc",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/practice/port",
+    "action": "restore",
+    "to": "/zh/docs/practice/port",
+    "canonical": "https://n9e.github.io/zh/docs/practice/port",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/practice/exec",
+    "action": "restore",
+    "to": "/zh/docs/practice/exec",
+    "canonical": "https://n9e.github.io/zh/docs/practice/exec",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/practice/java",
+    "action": "restore",
+    "to": "/zh/docs/practice/java",
+    "canonical": "https://n9e.github.io/zh/docs/practice/java",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/faq",
+    "action": "restore",
+    "to": "/zh/docs/faq",
+    "canonical": "https://n9e.github.io/zh/docs/faq",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/faq/how-to-import-prometheus-rules",
+    "action": "redirect",
+    "to": "/zh/docs/alerting/import-export",
+    "canonical": "https://n9e.github.io/zh/docs/alerting/import-export",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/faq/biz-team-subscribe-infra-alarms",
+    "action": "redirect",
+    "to": "/zh/docs/events/subscriptions",
+    "canonical": "https://n9e.github.io/zh/docs/events/subscriptions",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/faq/global-callback",
+    "action": "redirect",
+    "to": "/zh/docs/events/subscriptions",
+    "canonical": "https://n9e.github.io/zh/docs/events/subscriptions",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/faq/cpu-alerting",
+    "action": "restore",
+    "to": "/zh/docs/faq/cpu-alerting",
+    "canonical": "https://n9e.github.io/zh/docs/faq/cpu-alerting",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/docs/install/server",
+    "action": "redirect",
+    "to": "/zh/docs/install/overview",
+    "canonical": "https://n9e.github.io/zh/docs/install/overview",
+    "expectedStatus": 200
+  }
+]
