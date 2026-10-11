@@ -62,6 +62,34 @@ strings for English are in `i18n/en/docusaurus-theme-classic/*.json`.
 Writing or editing docs follows [WRITING-DOCS.md](./WRITING-DOCS.md). Adding a docs page means
 registering it in `scripts/docs-tree.mjs` and running `npm run scaffold`.
 
+## Historical documentation URLs
+
+`scripts/legacy-doc-urls.mjs` records how each pre-redesign Hugo documentation URL is handled:
+redirect to equivalent content, keep, restore, or retire. Its frozen inventory comes from the
+commit before `54cbdc54`; the older `/docs/install/server` entry is recorded separately and
+redirects to the current installation overview rather than retaining an obsolete-architecture article.
+English and Chinese keep their language. Collector and monitoring-practice articles retain
+their original URLs and are registered in the current sidebar.
+
+The official `@docusaurus/plugin-client-redirects` plugin emits static HTML aliases. `postbuild`
+adds slashless aliases without overwriting current pages, copies the target canonical URL,
+uses `location.replace` while forwarding query and hash, and checks the completed output.
+These are zero-second meta-refresh redirects, **not HTTP 301 responses**. Retired and unknown
+URLs remain 404 on GitHub Pages. A client module also handles known old URLs reached by SPA
+navigation; it does not replace the static aliases.
+
+```bash
+npm run test:legacy-doc-urls
+npm run build                     # includes alias finalization and validation
+npm run check:legacy-doc-urls     # validate an already completed build
+```
+
+The result table is `build/legacy-doc-url-report.json`. Validation includes every inventoried
+URL, both slash forms, final canonical URLs, target content and sitemap exclusions for moved
+pages. Changes to a mapping must include its reason and a valid final target. Do not redirect
+unrelated deleted articles to the homepage. For a future domain migration, reuse the path
+mapping and update the site URL rather than inserting an intermediate redirect destination.
+
 ## Generated data
 
 The homepage numbers, the download page and the integrations catalog come from files in

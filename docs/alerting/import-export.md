@@ -61,6 +61,8 @@ Notification settings are not carried over. The importer clears the legacy chann
 and leaves the rule with no notification rule attached, so **attach one after importing** or nothing
 will be sent. See [Notification rules](../notifications/rules.md).
 
+<span id="导入步骤" />
+
 ## Import Prometheus alerting rules
 
 The third tab, **Import Prometheus alert rules**, takes a Prometheus rule file as YAML — the same

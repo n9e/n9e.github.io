@@ -21,6 +21,8 @@ description: "页面本身跑在上面的那套 API：认证、按对象分的�
 服务 API 由 `[HTTP.APIForService]` 控制，默认 `Enable = false`。
 边缘模式需要把它打开。
 
+<span id="搞定认证" />
+
 ## 认证
 
 **推荐用个人 Token。** 在界面右下角头像菜单里生成，长期有效直到删除：
@@ -98,6 +100,23 @@ curl -o /dev/null -w '%{http_code}' http://n9e:17000/api/n9e/does-not-exist
 
 `/alert-cur-events` 和 `/alert-his-events` **只有查询和删除**，没有创建。
 事件只能由告警引擎判定产生。要造测试数据，就建一条必然触发的规则。
+
+<span id="数据推送类" />
+
+## 数据写入 {#data-ingestion}
+
+采集器请求与页面管理 API 是不同链路。`[HTTP.APIForAgent].Enable` 控制接收入口，
+指标写入内置存储或配置的外置目标。页面登录 JWT 不能替代采集器凭据。
+
+| 格式 | 接收入口 | 配置说明 |
+|---|---|---|
+| Prometheus Remote Write | `POST /prometheus/v1/write` | [Telegraf](../agent/telegraf.md)、[Categraf](../data/categraf/remote-write.md) |
+| OpenTSDB JSON | `POST /opentsdb/put` | [数据写入协议](./write-protocols.md) |
+| Datadog v1 series | `POST /datadog/api/v1/series` | [Datadog Agent 兼容说明](../agent/datadog-agent.md) |
+
+开启认证时，Remote Write 和 OpenTSDB 使用 Agent BasicAuth；Datadog v1 series 则将
+`api_key` 与其中的密码值匹配。先确认认证和实际写入目标，再在时序库中查询，
+不能把 HTTP 响应成功直接当成数据已经可查询。
 
 ## 相关
 

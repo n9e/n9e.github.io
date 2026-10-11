@@ -98,6 +98,8 @@ export const tree = [
   section('start', 'Start', '上手', ICONS.start),
   category('get-started', ['Get started', ''], ['开始使用', ''], [
     doc('get-started/introduction', ['What Nightingale is', ''], ['夜莺是什么', ''], { existing: true }),
+    doc('prologue/pre-knowledge', ['Prerequisites', ''], ['前置知识', ''], { existing: true }),
+    doc('prologue/videos', ['Video tutorials', ''], ['视频教程', ''], { existing: true }),
     doc('get-started/where-it-fits',
       ['Where it fits in the observability stack',
         'Which layers Nightingale owns (rules, noise reduction, routing, delivery) and which it deliberately leaves to Prometheus, VictoriaMetrics, Grafana and your collectors.'],
@@ -264,6 +266,20 @@ export const tree = [
           ['Troubleshooting', 'No data arriving, host not appearing, plugin errors: where the logs are and what they mean.'],
           ['排障', '没数据、主机不出现、插件报错：日志在哪、怎么读。'], { existing: true }),
       ]),
+    category('other-collectors', ['Other collectors', ''], ['其他采集器', ''], [
+      doc('agent/telegraf', ['Telegraf', ''], ['Telegraf', ''], { existing: true }),
+      doc('agent/datadog-agent', ['Datadog Agent', ''], ['Datadog Agent', ''], { existing: true }),
+    ]),
+    category('monitoring-practice', ['Monitoring practice', ''], ['监控实践', ''], [
+      doc('practice/linux', ['Linux hosts', ''], ['Linux 机器', ''], { existing: true }),
+      doc('practice/mysql', ['MySQL', ''], ['MySQL', ''], { existing: true }),
+      doc('practice/oracle', ['Oracle', ''], ['Oracle', ''], { existing: true }),
+      doc('practice/redis', ['Redis', ''], ['Redis', ''], { existing: true }),
+      doc('practice/proc', ['Processes', ''], ['进程', ''], { existing: true }),
+      doc('practice/port', ['Ports and HTTP', ''], ['端口与 HTTP', ''], { existing: true }),
+      doc('practice/java', ['Java applications', ''], ['Java 程序', ''], { existing: true }),
+      doc('practice/exec', ['Custom scripts', ''], ['自定义脚本', ''], { existing: true }),
+    ], { index: 'practice/index' }),
     category('integrations',
       ['Integration templates', '86 templates that bundle collector config, dashboards and alert rules so a component is onboarded as a set.'],
       ['集成模板', '86 个模板把采集配置、仪表盘、告警规则打成一套，一个组件一次接完。'],
@@ -353,6 +369,7 @@ export const tree = [
     doc('alerting/best-practices',
       ['Rule design best practices', 'What to alert on, what to leave to dashboards, and how to keep a rule set maintainable as it grows past a hundred.'],
       ['规则设计实践', '该对什么告警、什么留给仪表盘、规则超过一百条之后怎么保持可维护。'], { existing: true }),
+    doc('faq/cpu-alerting', ['Should high CPU trigger an alert?', ''], ['CPU 负载高是否应告警', ''], { existing: true }),
   ], { index: 'alerting/overview' , icon: ICONS.bell }),
 
   category('events', ['Events and noise reduction', ''], ['事件、降噪与路由', ''], [

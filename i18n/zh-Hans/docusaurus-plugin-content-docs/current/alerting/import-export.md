@@ -59,6 +59,8 @@ CSV 不能反向导入。
 通知配置不会被带过来。导入时会清掉旧版的媒介和接收组字段，规则上也不会挂任何通知规则，
 所以**导入之后要自己挂一条**，否则什么也发不出去。见[通知规则](../notifications/rules.md)。
 
+<span id="导入步骤" />
+
 ## 导入 Prometheus 原生告警规则
 
 第三个 tab **导入 Prometheus 告警规则**吃的是 Prometheus 的规则文件 YAML——

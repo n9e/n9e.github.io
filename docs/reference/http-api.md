@@ -23,6 +23,8 @@ perform the action in the UI**.
 The service API is governed by `[HTTP.APIForService]`, `Enable = false` by default. Edge mode
 requires turning it on.
 
+<span id="搞定认证" />
+
 ## Authentication
 
 **Prefer a personal token.** Generate one from the avatar menu; it is long-lived until deleted:
@@ -99,6 +101,25 @@ By object; the routing table has the complete list:
 
 `/alert-cur-events` and `/alert-his-events` **only list and delete**. Events come from rule
 evaluation and nowhere else. To produce test data, write a rule that is certain to fire.
+
+<span id="数据推送类" />
+
+## Data ingestion {#data-ingestion}
+
+Collector requests are separate from the management API. They are enabled by
+`[HTTP.APIForAgent].Enable` and write metrics into the embedded store or configured
+external writers. A web-login JWT is not the collector credential.
+
+| Format | Receiver | Guide |
+|---|---|---|
+| Prometheus Remote Write | `POST /prometheus/v1/write` | [Telegraf](../agent/telegraf.md), [Categraf](../data/categraf/remote-write.md) |
+| OpenTSDB JSON | `POST /opentsdb/put` | [Data ingestion protocols](./write-protocols.md) |
+| Datadog v1 series | `POST /datadog/api/v1/series` | [Datadog Agent compatibility](../agent/datadog-agent.md) |
+
+Remote Write and OpenTSDB use the configured Agent BasicAuth when enabled.
+Datadog v1 series instead matches `api_key` against its password values. Check
+authentication and the actual destination store before treating an HTTP response
+as proof that a sample is queryable.
 
 ## Related
 

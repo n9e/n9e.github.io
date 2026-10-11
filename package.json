@@ -11,16 +11,19 @@
     "releases": "node scripts/fetch-releases.mjs",
     "stats": "node scripts/fetch-stats.mjs",
     "build": "docusaurus build",
-    "postbuild": "node scripts/strip-nul.mjs build",
+    "postbuild": "node scripts/strip-nul.mjs build && node scripts/finalize-legacy-doc-urls.mjs && node scripts/check-legacy-doc-urls.mjs",
     "serve": "docusaurus serve",
     "clear": "docusaurus clear",
     "swizzle": "docusaurus swizzle",
     "write-translations": "docusaurus write-translations",
     "typecheck": "tsc",
-    "scaffold": "node scripts/scaffold-docs.mjs"
+    "scaffold": "node scripts/scaffold-docs.mjs",
+    "test:legacy-doc-urls": "node --test scripts/legacy-doc-urls.test.mjs",
+    "check:legacy-doc-urls": "node scripts/check-legacy-doc-urls.mjs"
   },
   "dependencies": {
     "@docusaurus/core": "^3.10.2",
+    "@docusaurus/plugin-client-redirects": "3.10.2",
     "@docusaurus/preset-classic": "^3.10.2",
     "@easyops-cn/docusaurus-search-local": "^0.55.3",
     "@mdx-js/react": "^3.0.0",
@@ -33,6 +36,7 @@
     "@docusaurus/module-type-aliases": "^3.10.2",
     "@docusaurus/tsconfig": "^3.10.2",
     "@docusaurus/types": "^3.10.2",
+    "cheerio": "1.0.0-rc.12",
     "typescript": "~5.6.2"
   },
   "browserslist": {

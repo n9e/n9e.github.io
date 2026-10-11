@@ -100,6 +100,26 @@ open-source notification rule form has neither section, and the open-source back
 process them. To keep the volume down here, use mute rules, per-severity filters on
 subscriptions, and dropping events in an event pipeline.
 
+## Configure a custom medium {#custom-media}
+
+For an HTTP endpoint not covered by a built-in medium, create a medium with an
+explicit **media type**, such as `custom_webhook`, and choose HTTP as its sending
+type. Configure its URL, method, headers and body for the receiver's contract.
+
+Declare rule-specific inputs such as a token in the medium's parameter
+configuration; their values belong in the notification rule. A body can reference
+the selected message template through `$tpl`, and rule parameters through `$params`.
+These are Go-template variables, not JSON placeholders.
+
+Create a message template with the same media-type string, then select the medium
+and template in a notification rule and fill in its parameters. Matching the
+display names is insufficient: the media-type strings must match.
+
+Use the [notification test](./test.md) before attaching the rule to production
+alerts. Confirm both a successful delivery record and the receiver's actual
+payload. For a whole-event callback, see [Callback](./callback.md); for a local
+executable, see [Script medium](./script.md).
+
 ## Next
 
 - Configure one: [Notification rules](./rules.md)

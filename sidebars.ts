@@ -21,6 +21,8 @@ const sidebars: SidebarsConfig = {
       className: 'n9e-group n9e-group--get-started',
       items: [
         'get-started/introduction',
+        'prologue/pre-knowledge',
+        'prologue/videos',
         'get-started/where-it-fits',
         {
           type: 'category',
@@ -130,6 +132,33 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'category',
+          key: 'other-collectors',
+          label: '其他采集器',
+          collapsed: true,
+          items: [
+            'agent/telegraf',
+            'agent/datadog-agent',
+          ],
+        },
+        {
+          type: 'category',
+          key: 'monitoring-practice',
+          label: '监控实践',
+          collapsed: true,
+          link: { type: 'doc', id: 'practice/index' },
+          items: [
+            'practice/linux',
+            'practice/mysql',
+            'practice/oracle',
+            'practice/redis',
+            'practice/proc',
+            'practice/port',
+            'practice/java',
+            'practice/exec',
+          ],
+        },
+        {
+          type: 'category',
           key: 'integrations',
           label: '集成模板',
           collapsed: true,
@@ -192,6 +221,7 @@ const sidebars: SidebarsConfig = {
         'alerting/templates',
         'alerting/import-export',
         'alerting/best-practices',
+        'faq/cpu-alerting',
       ],
     },
     {

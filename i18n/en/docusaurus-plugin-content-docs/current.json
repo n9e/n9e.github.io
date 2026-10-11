@@ -51,6 +51,14 @@
     "message": "The recommended collector: one agent, 100+ input plugins, pushing over Prometheus Remote Write.",
     "description": "The generated-index page description for category 'Categraf' in sidebar 'docs'"
   },
+  "sidebar.docs.category.other-collectors": {
+    "message": "Other collectors",
+    "description": "The label for category '其他采集器' in sidebar 'docs'"
+  },
+  "sidebar.docs.category.monitoring-practice": {
+    "message": "Monitoring practice",
+    "description": "The label for category '监控实践' in sidebar 'docs'"
+  },
   "sidebar.docs.category.integrations": {
     "message": "Integration templates",
     "description": "The label for category '集成模板' in sidebar 'docs'"

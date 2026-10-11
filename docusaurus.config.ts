@@ -4,6 +4,7 @@ import { themes as prismThemes } from 'prism-react-renderer';
 import { SLACK_INVITE, DEMO_URL } from './src/data/site';
 import { starCount } from './src/lib/format';
 import repo from './src/data/stats.json';
+import { redirectsForLocale } from './scripts/legacy-doc-urls.mjs';
 
 // 域名待定（方案 §6 待拍板项 2）。改这里即可，页面内不硬编码站点地址。
 const SITE_URL = 'https://n9e.github.io';
@@ -24,13 +25,17 @@ const EMBED_INLINE_SCRIPT = `(function () {
     }
     var q = new URLSearchParams(l.search);
     var inFrame = window.self !== window.top;
-    var ss = window.sessionStorage;
-    if (!q.has('onlyContent') && !(inFrame && ss.getItem('n9e-embed') === '1')) return;
+    // 隐私设置可能禁止 iframe 访问存储。显式 URL 参数仍须生效，不能因存储失败退出。
+    var ss;
+    try { ss = window.sessionStorage; } catch (e) {}
+    function read(key) { try { return ss && ss.getItem(key); } catch (e) { return null; } }
+    function remember(key, value) { try { if (ss) ss.setItem(key, value); } catch (e) {} }
+    if (!q.has('onlyContent') && !(inFrame && read('n9e-embed') === '1')) return;
     var theme = q.get('theme');
-    if (theme !== 'dark' && theme !== 'light') theme = inFrame ? ss.getItem('n9e-embed-theme') : null;
+    if (theme !== 'dark' && theme !== 'light') theme = inFrame ? read('n9e-embed-theme') : null;
     if (inFrame) {
-      ss.setItem('n9e-embed', '1');
-      if (theme) ss.setItem('n9e-embed-theme', theme);
+      remember('n9e-embed', '1');
+      if (theme) remember('n9e-embed-theme', theme);
     }
     document.documentElement.setAttribute('data-n9e-embed', '');
     // 前端抽屉会带 #oauth2 这类锚点打开。站点全局是 scroll-behavior: smooth，加载期间的平滑滚动会被
@@ -107,7 +112,10 @@ const config: Config = {
     'https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap',
   ],
 
-  clientModules: [require.resolve('./src/clientModules/baiduAnalytics.ts')],
+  clientModules: [
+    require.resolve('./src/clientModules/legacyDocRedirects.ts'),
+    require.resolve('./src/clientModules/baiduAnalytics.ts'),
+  ],
 
   presets: [
     [
@@ -143,6 +151,10 @@ const config: Config = {
   // 它的 SearchBar 会调 useActiveVersion，所以必须和 docs 插件同开同关——
   // 单独打开这一段而 docs: false 会直接构建失败。
   plugins: [
+    [
+      '@docusaurus/plugin-client-redirects',
+      { redirects: redirectsForLocale(isEn ? 'en' : 'zh-Hans') },
+    ],
     [
       '@easyops-cn/docusaurus-search-local',
       {

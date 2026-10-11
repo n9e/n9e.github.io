@@ -79,6 +79,8 @@ These are two genuinely different shapes, and the choice decides which features 
 Nightingale is not a long-term metric store. The embedded TSDB is the deliberate exception — see
 [Storage](./storage.md).
 
+<span id="边缘模式" />
+
 ## Edge mode
 
 With several sites, having the central `n9e` query a remote site's TSDB makes alerting only as
