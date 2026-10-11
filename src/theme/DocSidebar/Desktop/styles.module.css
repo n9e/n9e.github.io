@@ -2,13 +2,31 @@
    搜索只作用于文档，放在文档导航的开头比放在全站导航里更合理。 */
 /* 侧栏整体不画线（见 custom.css 的侧栏说明），搜索区下面那条也去掉，靠留白分开 */
 .searchWrap {
+  /* 插件默认的 560px 右对齐面板会被侧栏的 clip-path 截掉左半边。 */
+  --search-local-modal-width: 100%;
   padding: 0.85rem 0.75rem 0.25rem;
 }
 
-/* 插件的搜索框默认按导航栏的尺寸走，这里让它撑满侧边栏宽度 */
+/* 去掉导航栏搜索的左外边距，并让 autocomplete 包装层也撑满侧栏。
+   只设置 input 的宽度不会撑开插件动态创建的 inline-block 包装层。 */
+.searchWrap :global(.navbar__search) {
+  margin-left: 0;
+}
+
+.searchWrap :global(.navbar__search > span) {
+  width: 100%;
+}
+
+/* 搜索框与结果面板同宽，右对齐时也能完整落在侧栏内。 */
 .searchWrap :global(.navbar__search-input),
 .searchWrap :global(.DocSearch-Button) {
   width: 100%;
+}
+
+.searchWrap :global([role='listbox']) {
+  max-height: calc(100vh - var(--ifm-navbar-height) - 5rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 /* ---- 搜索框外观 ----
