@@ -2,6 +2,8 @@
 
 Configure Categraf Oracle instances and SQL collection, map labels and values, and verify database permissions.
 
+Last reviewed 2026-10-11
+
 By the end of this page, Oracle samples will reach your TSDB, and you will know where shared and per-instance SQL belongs. The example uses the **Categraf v0.5.17** Oracle configuration and the store used by Nightingale v9.
 
 ## Configuration files[​](#configuration-files "Direct link to Configuration files")

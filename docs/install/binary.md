@@ -2,6 +2,8 @@
 
 Download the Linux amd64 / arm64 tarball from GitHub releases, verify the checksum, point it at your MySQL and Redis, and run n9e under systemd.
 
+Last reviewed 2026-10-10
+
 By the end of this page you have an `n9e` process managed by systemd, talking to your own MySQL and Redis, listening on 17000.
 
 ## Download and verify[​](#download-and-verify "Direct link to Download and verify")

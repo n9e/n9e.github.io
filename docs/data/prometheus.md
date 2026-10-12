@@ -2,6 +2,8 @@
 
 Register a Prometheus or Thanos endpoint, set auth and timeouts, and verify with a query.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a registered Prometheus data source whose connection has been tested and which returns a line in the Metrics explorer. Thanos, Mimir, M3 and VictoriaMetrics all implement Prometheus's query API and use this same type (VictoriaMetrics has one extra switch — see [VictoriaMetrics](https://n9e.github.io/docs/data/victoriametrics.md)).
 
 Nothing is moved. A data source is a connection: Nightingale queries your store where it is, and your scrape config stays exactly as it is.
@@ -44,7 +46,7 @@ The form lists the shape for each product:
 
 **Timeout(ms)** defaults to 10000. Raise it for a large, slow cluster, but not to minutes — the alerting engine evaluates on a schedule, and one stuck query holds up a whole batch of rules.
 
-![The Prometheus data source form](/img/docs/data/form-prometheus.png)![The Prometheus data source form](/img/docs/data/form-prometheus.dark.png)
+![The Prometheus data source form](/img/docs/data/form-prometheus.webp)![The Prometheus data source form](/img/docs/data/form-prometheus.dark.webp)
 
 ## 2. Auth and TLS[​](#2-auth-and-tls "Direct link to 2. Auth and TLS")
 
@@ -83,7 +85,7 @@ Then confirm it yourself: **Explorer → Metrics**, pick the source you just cre
 up
 ```
 
-A line on the chart means this half works. If nothing comes back, stop here — [Data source connects but queries return no data](https://n9e.github.io/docs/troubleshooting/no-data.md).
+A line on the chart means this half works. If nothing comes back, stop here — [Why does a data source connect but return no data?](https://n9e.github.io/docs/troubleshooting/no-data.md).
 
 ## When it doesn't connect[​](#when-it-doesnt-connect "Direct link to When it doesn't connect")
 

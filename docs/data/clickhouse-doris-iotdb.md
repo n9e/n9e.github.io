@@ -2,6 +2,8 @@
 
 ClickHouse, Doris and IoTDB are one family in Nightingale: queried with SQL, one numeric column of the result becomes the series value and the rest become labels.
 
+Last reviewed 2026-10-10
+
 These three hold different things — ClickHouse and Doris usually hold bulk logs and event detail, IoTDB holds device time series — but to Nightingale they are one family: **you query them with SQL, and the table that comes back is treated as series for a rule to judge**. This page covers how to connect each one, what shape the SQL has to take, and which column becomes a value and which becomes a label.
 
 ## What each one can do in the open-source edition[​](#what-each-one-can-do-in-the-open-source-edition "Direct link to What each one can do in the open-source edition")
@@ -34,7 +36,7 @@ Nodes is a list you can extend, but **the current implementation uses only the f
 
 **Advanced settings** holds the pool and the caps: timeout in milliseconds (default 100000), maximum rows retrieved per request (default 500, required), max idle connections (10), max open connections (100), max connection lifetime in seconds (14400).
 
-![The ClickHouse data source form](/img/docs/data/form-clickhouse.png)![The ClickHouse data source form](/img/docs/data/form-clickhouse.dark.png)
+![The ClickHouse data source form](/img/docs/data/form-clickhouse.webp)![The ClickHouse data source form](/img/docs/data/form-clickhouse.dark.webp)
 
 **Save & test** genuinely opens a connection and runs `SHOW DATABASES`; failing that, nothing is stored. A malformed address (one carrying `http://`) counts as a config error rather than a connectivity problem, so **even plain Save will not store it**.
 

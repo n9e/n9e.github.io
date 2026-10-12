@@ -2,6 +2,8 @@
 
 在一台机器上装 Categraf，通过 Remote Write 指向夜莺，一分钟内在对象列表里看到它上线。
 
+最后校对于 2026-10-10
+
 这条路的终点：一台机器出现在夜莺的设备列表里，CPU、内存、磁盘都有数， 并且它的指标被内置时序库存了下来。大约 10 分钟。
 
 适合手上还没有 Prometheus、想先看到东西的人。
@@ -69,7 +71,7 @@ region = "shanghai"
 
 **基础设施 → 设备列表**，一分钟内应该能看到这台机器，状态是在线，并带上 CPU、内存利用率。
 
-![设备列表，机器已经上报](/zh/img/docs/data/targets-list.zh.png)![设备列表，机器已经上报](/zh/img/docs/data/targets-list.zh.dark.png)
+![设备列表，机器已经上报](/zh/img/docs/data/targets-list.zh.webp)![设备列表，机器已经上报](/zh/img/docs/data/targets-list.zh.dark.webp)
 
 看不到就按顺序查：
 
@@ -77,7 +79,7 @@ region = "shanghai"
 2. 这台机器能不能访问到夜莺（防火墙、安全组）；
 3. 两边时间差是不是超过了几分钟。
 
-细的排查见 [Categraf 对象显示离线](https://n9e.github.io/zh/zh/docs/troubleshooting/categraf-offline.md)。
+细的排查见 [Categraf 对象为什么显示离线？](https://n9e.github.io/zh/zh/docs/troubleshooting/categraf-offline.md)。
 
 ## 5. 顺手导一套仪表盘和规则[​](#5-顺手导一套仪表盘和规则 "5. 顺手导一套仪表盘和规则的直接链接")
 

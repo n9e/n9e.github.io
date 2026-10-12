@@ -2,6 +2,8 @@
 
 Sign in to the public demo and walk the path from data source to delivered alert, in the same order as the quick start — no install needed.
 
+Last reviewed 2026-10-10
+
 After this page you will have seen, on a running instance, every stop an alert makes in Nightingale: the data source it reads, the rule that evaluates it, the event it produces and the rule that delivers it.
 
 ## Sign in[​](#sign-in "Direct link to Sign in")

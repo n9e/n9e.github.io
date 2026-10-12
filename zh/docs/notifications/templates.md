@@ -2,13 +2,15 @@
 
 消息模板用 Go text/template，变量都挂在 $event 上；写错的变量不报错、只在消息里留空白，预览能提前发现。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：一份自己的消息模板，用到的每个变量都在预览里验证过， 并且知道为什么写错的变量不会报错、只会让消息里空一块。
 
 ## 打开模板编辑器[​](#打开模板编辑器 "打开模板编辑器的直接链接")
 
 **告警通知 → 消息模板**。左边是模板列表，中间是编辑器，右边是可引用的事件变量面板 （点任意一个即可复制）。
 
-![消息模板](/zh/img/docs/notifications/message-templates.zh.png)![消息模板](/zh/img/docs/notifications/message-templates.zh.dark.png)
+![消息模板](/zh/img/docs/notifications/message-templates.zh.webp)![消息模板](/zh/img/docs/notifications/message-templates.zh.dark.webp)
 
 标题栏显示这份模板的**标识**和**媒介类型**。标识是服务端生成的 uuid，不用管； 媒介类型决定这份模板在通知规则里跟着哪个媒介出现。
 

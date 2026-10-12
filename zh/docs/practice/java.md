@@ -2,6 +2,8 @@
 
 按应用能力选择 Spring Boot Actuator、Micrometer、JMX Exporter 或组件自带指标，再用 Categraf 或现有 Prometheus 抓取。
 
+最后校对于 2026-10-11
+
 这页办完，你会选择适合 Java 应用的指标暴露方式，并把 JVM 或应用指标接入夜莺。 夜莺 v9 不直接抓取 Java 进程；用 **Categraf v0.5.17** 或已有 Prometheus / vmagent 完成采集。
 
 ## Actuator[​](#actuator "Actuator的直接链接")
@@ -68,7 +70,7 @@ curl --fail http://127.0.0.1:9404/metrics
 
 **预期结果**：9404 端口返回 Prometheus 指标。上面的规则用于起步验证，上线时按所需 MBean 收窄范围，并限制指标端口访问。 发行包与参数以 [1.3.0 官方说明](https://prometheus.github.io/jmx_exporter/1.3.0/java-agent/http-mode/) 为准。
 
-## 组件自身暴露指标[​](#component-metrics "组件自身暴露指标�的直接链接")
+## 组件自身暴露指标[​](#component-metrics "组件自身暴露指标的直接链接")
 
 组件已有 Prometheus 指标端点时，优先复用，不必再添加重复的 JMX 抓取链路。 比如某些消息队列、中间件或服务框架提供自己的 `/metrics`；先确认返回格式及鉴权。 不同端点的指标名称与标签不同，应配套选择仪表盘和告警规则。
 

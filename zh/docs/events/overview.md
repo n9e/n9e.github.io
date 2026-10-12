@@ -2,6 +2,8 @@
 
 事件从触发它的规则到接收它的人之间会经历什么——屏蔽规则、订阅、事件 Pipeline，以及自愈。
 
+最后校对于 2026-10-10
+
 规则下游：屏蔽规则、订阅规则、事件 Pipeline——聚合、改写标签、按条件路由。需要自动处置就接 **ibex** 跑自愈脚本，不必叫醒人。
 
 ## [活跃事件与历史事件](https://n9e.github.io/zh/zh/docs/events/active-historical.md)

@@ -2,6 +2,8 @@
 
 OIDC、OAuth2、LDAP、CAS、钉钉与飞书登录，以及把外部组映射到角色。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：用公司账号就能登进夜莺，账号第一次登录时自动创建， 并且落在一个**看得见东西**的角色和团队上——最后这半句是接 SSO 最常翻车的地方。
 
 ## 六个身份源，两种配置方式[​](#六个身份源两种配置方式 "六个身份源，两种配置方式的直接链接")
@@ -11,7 +13,7 @@ OIDC、OAuth2、LDAP、CAS、钉钉与飞书登录，以及把外部组映射到
 * **LDAP / CAS / OIDC / OAuth2**：一整块 TOML 文本，在代码编辑器里直接改，字段名就是 TOML 的键名；
 * **钉钉 / 飞书**：常规表单。
 
-![单点登录](/zh/img/docs/security/sso.zh.png)![单点登录](/zh/img/docs/security/sso.zh.dark.png)
+![单点登录](/zh/img/docs/security/sso.zh.webp)![单点登录](/zh/img/docs/security/sso.zh.dark.webp)
 
 两种都是底部一个 **保存**。保存后**不用重启进程**——后端定期比对配置的更新时间， 变了就重新加载一次。保存要求 `Admin`；`/system/sso-settings` 那个权限点只管菜单显不显示， 见[角色与权限矩阵](https://n9e.github.io/zh/zh/docs/security/roles.md)。
 

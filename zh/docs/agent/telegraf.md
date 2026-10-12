@@ -2,6 +2,8 @@
 
 使用 Telegraf HTTP 输出与 Prometheus Remote Write 把指标写入夜莺，并核验认证、存储和实际数据。
 
+最后校对于 2026-10-11
+
 这页办完，你会把已有 Telegraf 的指标写进夜莺使用的时序库，不需要更换采集器。 示例使用 **Telegraf 1.36.3、夜莺 v9**；Telegraf 负责采集，夜莺接收后写入内置时序库或配置的外置存储。
 
 ## 开始之前[​](#before-you-start "开始之前的直接链接")

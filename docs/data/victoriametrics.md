@@ -2,6 +2,8 @@
 
 There is no separate VictoriaMetrics type: register it as Prometheus and set the TSDB type to VictoriaMetrics; single-node and cluster endpoints differ.
 
+Last reviewed 2026-10-10
+
 To save you hunting through the type list: **the open-source edition has no "VictoriaMetrics" data source type.** VictoriaMetrics implements Prometheus's query API, so you register it under the **Prometheus** type and then set **Time series database type** to `VictoriaMetrics` in the same form.
 
 This page covers three things: which URL to use for single-node versus cluster, what that **Time series database type** setting actually changes, and how to configure the write path when Nightingale is pushing samples into VictoriaMetrics itself.

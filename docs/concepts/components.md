@@ -2,6 +2,8 @@
 
 Most deployments need only the n9e process; n9e-alert and n9e-pushgw are roles that can be split out, n9e-edge serves multi-site setups, Categraf collects on hosts.
 
+Last reviewed 2026-10-10
+
 A Nightingale release ships several binaries, but **most deployments need exactly one**. This page sorts out which is which.
 
 ## One line each[​](#one-line-each "Direct link to One line each")

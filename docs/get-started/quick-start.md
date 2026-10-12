@@ -2,6 +2,8 @@
 
 One docker compose up -d brings up Nightingale with its dependencies; sign in on port 17000 as root, then register a data source, write a rule and add a channel.
 
+Last reviewed 2026-10-10
+
 The compose bundle starts Nightingale together with the database and time-series store it needs, so there is nothing to prepare beforehand.
 
 ```

@@ -2,6 +2,8 @@
 
 Alert on a business database directly: read-only credentials, the SQL a rule runs, and guarding against slow queries.
 
+Last reviewed 2026-10-10
+
 Some numbers never reach a time series database at all: pending orders, payment failure rate, how long ago the last row landed in a table. There is no need to export those as metrics and scrape them — Nightingale can connect to the business database directly, run a SQL statement on a schedule, and judge the result.
 
 Where this page ends: a read-only account, a connected database source, and a SQL alert rule that runs without dragging the database down.
@@ -61,7 +63,7 @@ MySQL and PostgreSQL share one form; only the default port differs:
 | Max idle / max open connections                                    | Default 10 / 100. Lower them if the database is tight on connections          |
 | Maximum connection lifetime (unit: seconds)                        | Defaults to 14400                                                             |
 
-![The MySQL data source form](/img/docs/data/form-mysql.png)![The MySQL data source form](/img/docs/data/form-mysql.dark.png)
+![The MySQL data source form](/img/docs/data/form-mysql.webp)![The MySQL data source form](/img/docs/data/form-mysql.dark.webp)
 
 TDengine talks over its REST interface and needs fewer fields: URL `http://localhost:6041`, timeout in milliseconds (10000 by default), user and password as needed. The connectivity test posts `show databases` to `<URL>/rest/sql`.
 

@@ -2,6 +2,8 @@
 
 安装 agent、填夜莺的写入地址、确认主机出现在对象列表里。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：目标机器上跑着 Categraf，**基础设施 → 设备列表** 里能看到这台机器， 点开有 CPU、内存、操作系统这些元信息。大约 5 分钟。
 
 [Categraf](https://github.com/flashcatcloud/categraf) 是夜莺推荐的采集器：一个二进制、 90 多个输入插件，按 Prometheus Remote Write 协议把指标推给夜莺。夜莺自己不采集任何东西。

@@ -1,6 +1,8 @@
-# 判定记录缺失或被丢弃
+# 判定记录为什么缺失或被丢弃？
 
 判定记录缺失有四种情况：没记录、没评估、查询被拒、周期被跳过；过载和数据源超时是主因，被跳过的周期没有任何指标能反映。
+
+最后校对于 2026-10-10
 
 规则页上的判定记录是断的：有的周期有、有的周期没有，或者干脆整段空白。 判定记录是排查「有数据却不告警」的唯一现场，它一缺，排障就没了抓手。
 
@@ -8,14 +10,14 @@
 
 ## 先分清是「没记录」还是「没评估」[​](#先分清是没记录还是没评估 "先分清是「没记录」还是「没评估」的直接链接")
 
-| 现象                              | 说明                                                                                                        |
-| --------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| 记录在，但事件停在某个阶段        | 评估正常，去 [查询有结果但告警不触发](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-not-firing.md) |
-| 接口返回 `"enabled": false`       | 判定记录功能被关掉了，评估一切正常                                                                          |
-| 记录零散缺失，`truncated` 为 true | 评估正常，是记录本身被降级或丢了                                                                            |
-| 一条记录都没有，`instances` 为空  | **没有引擎在跑这条规则**，这才是评估的问题                                                                  |
+| 现象                              | 说明                                                                                                                |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| 记录在，但事件停在某个阶段        | 评估正常，去 [查询有结果，为什么告警不触发？](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-not-firing.md) |
+| 接口返回 `"enabled": false`       | 判定记录功能被关掉了，评估一切正常                                                                                  |
+| 记录零散缺失，`truncated` 为 true | 评估正常，是记录本身被降级或丢了                                                                                    |
+| 一条记录都没有，`instances` 为空  | **没有引擎在跑这条规则**，这才是评估的问题                                                                          |
 
-最后一种走 [查询有结果但告警不触发](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-not-firing.md) 里的「规则根本没进入评估」。 剩下三种才是这一页要讲的。
+最后一种走 [查询有结果，为什么告警不触发？](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-not-firing.md) 里的「规则根本没进入评估」。 剩下三种才是这一页要讲的。
 
 ## 记录是什么、存在哪[​](#记录是什么存在哪 "记录是什么、存在哪的直接链接")
 
@@ -128,7 +130,7 @@ result truncated by the per-query byte budget ([Alert.EvalLog] MaxQueryBytes = 3
 
 把时间范围缩小，或者调大 `MaxQueryBytes`（代价是这台引擎的堆内存， 大约是 `MaxConcurrentQueries × MaxQueryBytes × 3.7`，而且必须低于中心侧 48MB 的单节点响应上限）。
 
-## 评估周期被跳过：没有任何指标能告诉你[​](#评��估周期被跳过没有任何指标能告诉你 "评估周期被跳过：没有任何指标能告诉你的直接链接")
+## 评估周期被跳过：没有任何指标能告诉你[​](#评估周期被跳过没有任何指标能告诉你 "评估周期被跳过：没有任何指标能告诉你的直接链接")
 
 上一轮还没跑完，下一轮到点了，调度器会**直接跳过这一轮**。 这条路径**既没有日志也没有指标**，只能从旁证看出来：
 
@@ -136,7 +138,7 @@ result truncated by the per-query byte budget ([Alert.EvalLog] MaxQueryBytes = 3
 curl -s http://127.0.0.1:17000/metrics | grep -E 'n9e_alert_rule_eval_total|n9e_alert_rule_eval_duration_ms'
 ```
 
-`n9e_alert_rule_eval_total` 增长得比「规则数 ÷ 执行频率」应有的速度慢， 同时某几条规则的 `n9e_alert_rule_eval_duration_ms` 明显偏高，就是在跳周期。 处理办法在 [性能与积压现象](https://n9e.github.io/zh/zh/docs/troubleshooting/performance.md)。
+`n9e_alert_rule_eval_total` 增长得比「规则数 ÷ 执行频率」应有的速度慢， 同时某几条规则的 `n9e_alert_rule_eval_duration_ms` 明显偏高，就是在跳周期。 处理办法在 [夜莺为什么变慢或出现积压？](https://n9e.github.io/zh/zh/docs/troubleshooting/performance.md)。
 
 顺带一提，查询报错和查询为空在引擎里是**两种完全不同的行为**： 查询报错时这一轮的判定和恢复处理**整个不做**，正在告警的事件既不刷新也不恢复； 查询正常返回空则会走恢复逻辑。判定记录里 `n9e_alert_eval_query_series_count` 为负数 就是错误态：`-1` 查询报错、`-2` 数据源或客户端拿不到、`-3` 查询模板渲染失败。
 
@@ -151,7 +153,7 @@ curl -s http://127.0.0.1:17000/metrics | grep -E 'n9e_alert_rule_eval_total|n9e_
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 记录在但事件没出来：[查询有结果但告警不触发](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-not-firing.md)
-* 引擎慢、队列涨：[性能与积压现象](https://n9e.github.io/zh/zh/docs/troubleshooting/performance.md)
+* 记录在但事件没出来：[查询有结果，为什么告警不触发？](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-not-firing.md)
+* 引擎慢、队列涨：[夜莺为什么变慢或出现积压？](https://n9e.github.io/zh/zh/docs/troubleshooting/performance.md)
 * 判定记录页面怎么读：[判定执行记录](https://n9e.github.io/zh/zh/docs/alerting/execution-records.md)
 * 判定与恢复的模型：[判定、恢复与状态变化](https://n9e.github.io/zh/zh/docs/concepts/evaluation.md)

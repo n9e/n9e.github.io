@@ -2,7 +2,7 @@
 * [Collect and connect data](https://n9e.github.io/docs/data/overview.md)
 * Categraf
 
-# Categraf
+# Categraf collector
 
 The recommended collector: one agent, 100+ input plugins, pushing over Prometheus Remote Write.
 

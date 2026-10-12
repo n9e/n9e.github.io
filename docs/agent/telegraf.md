@@ -2,6 +2,8 @@
 
 Send Telegraf metrics to Nightingale with HTTP output and Prometheus Remote Write, then verify the stored data.
 
+Last reviewed 2026-10-11
+
 By the end of this page, your existing Telegraf will write metrics to the store used by Nightingale. The example targets **Telegraf 1.36.3 and Nightingale v9**. Nightingale writes received metrics to its embedded TSDB or a configured external store.
 
 ## Before you start[​](#before-you-start "Direct link to Before you start")

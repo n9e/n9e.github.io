@@ -2,6 +2,8 @@
 
 Bring up Nightingale with its database and time-series store in one command; what the bundle contains and how to change it.
 
+Last reviewed 2026-10-10
+
 The repository ships four ready-made bundles under `docker/`. One `docker compose up -d` gives you Nightingale plus a database, a time-series store and a collector, with nothing to prepare first.
 
 ## Four bundles, pick one[​](#four-bundles-pick-one "Direct link to Four bundles, pick one")

@@ -2,6 +2,8 @@
 
 规则上的四个时间字段——执行频率、持续时长、留观时长、恢复判定——共同决定事件何时产生、何时恢复、何时重复通知。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：能有意识地设规则上那四个时间字段，而不是一路默认； 并且分得清哪几个决定「事件存不存在」，哪几个只决定「消息发不发」。
 
 这些字段背后的状态机在[判定、恢复与状态变化](https://n9e.github.io/zh/zh/docs/concepts/evaluation.md)里讲。 这一页讲的是字段本身。
@@ -111,5 +113,5 @@ Prometheus 类规则没有这个开关。单写一条规则来做——用 `up =
 ## 下一步[​](#下一步 "下一步的直接链接")
 
 * 这些字段驱动的状态机：[判定、恢复与状态变化](https://n9e.github.io/zh/zh/docs/concepts/evaluation.md)
-* 它就是停不下来：[告警反复触发或从不恢复](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-flapping.md)
+* 它就是停不下来：[告警为什么反复触发或从不恢复？](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-flapping.md)
 * 它就是不开始：[告警规则不触发](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-not-firing.md)

@@ -2,6 +2,8 @@
 
 Decide CPU alert conditions, severity and delivery from business impact and a concrete response, then attach a runbook.
 
+Last reviewed 2026-10-11
+
 After this page, you will decide which CPU conditions deserve a notification and describe what the recipient should do.
 
 ## Start with an action[​](#actionable "Direct link to Start with an action")

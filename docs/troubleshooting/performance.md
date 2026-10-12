@@ -1,6 +1,8 @@
-# Performance and backlog symptoms
+# Why is Nightingale slow or backlogged?
 
 Late alerts, growing queues and high database CPU each map to one built-in metric that localises the cause; pick the metric by symptom, then work back to the root.
+
+Last reviewed 2026-10-10
 
 Alerts arrive minutes later than the thing they are about; a page in the UI takes forever to load; charts show regular holes. This page does one job: **get from a symptom to the metric that localises it, and from that metric to the cause.** How to size a deployment and what the defaults are belong to [Capacity planning](https://n9e.github.io/docs/operations/capacity.md) and [Limits and defaults](https://n9e.github.io/docs/reference/limits.md) — not repeated here.
 
@@ -154,4 +156,4 @@ Once it is fixed, **build alert rules on these metrics** so you do not investiga
 * The defaults and ceilings: [Limits and defaults](https://n9e.github.io/docs/reference/limits.md)
 * What each metric means: [Built-in metrics](https://n9e.github.io/docs/reference/built-in-metrics.md)
 * Turning these into alerts: [Monitor Nightingale itself](https://n9e.github.io/docs/operations/self-monitoring.md)
-* Evaluation stopped entirely: [Evaluation records are missing or dropped](https://n9e.github.io/docs/troubleshooting/evaluation-missing.md)
+* Evaluation stopped entirely: [Why are evaluation records missing or dropped?](https://n9e.github.io/docs/troubleshooting/evaluation-missing.md)

@@ -2,6 +2,8 @@
 
 夜莺在原地查询你的存储。十二种数据源共用一套规则体系；还没采集的部分交给 Categraf。
 
+最后校对于 2026-10-10
+
 把已有的存储接进来，夜莺在原地查询。指标、日志、SQL 类数据库用同一套规则体系，不必为每种数据源 重学一遍配法。数据不用搬迁：接数据源接的是一条连接，不是一份拷贝。
 
 夜莺自身不做采集。推荐搭档是 [Categraf](https://n9e.github.io/zh/zh/categraf.md)——一个 agent、100+ 插件，按 Prometheus Remote Write 协议写入。Telegraf、Datadog Agent 和标准 exporter 以同样方式写入；已经在抓取目标的 Prometheus 也可以原样保留。

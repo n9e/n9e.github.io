@@ -1,10 +1,12 @@
-# MCP tools are missing or denied
+# Why are MCP tools missing or denied?
 
 "No such tool" has three shapes — write tools not enabled, toolset disabled, or the token's user lacks the permission — and the tools/list response tells them apart.
 
+Last reviewed 2026-10-10
+
 The client connected, but the model says it has no such tool; or the tool list is far shorter than expected; or a call comes back refused. Those are three different causes with **three differently shaped responses**, so classifying by shape is much faster than working through the config.
 
-This assumes the connection itself works. If the client cannot connect at all, start with [MCP authentication fails](https://n9e.github.io/docs/troubleshooting/mcp-auth.md).
+This assumes the connection itself works. If the client cannot connect at all, start with [Why does MCP authentication fail?](https://n9e.github.io/docs/troubleshooting/mcp-auth.md).
 
 ## Count what `tools/list` returns[​](#count-what-toolslist-returns "Direct link to count-what-toolslist-returns")
 
@@ -136,4 +138,4 @@ You changed the server config, restarted center, and the client looks unchanged.
 * Per-tool parameters: [MCP tool reference](https://n9e.github.io/docs/reference/mcp-tools.md)
 * Read before turning writes on: [Enable write tools safely](https://n9e.github.io/docs/ai/write-tools.md)
 * How the boundary is computed: [Permission inheritance and RBAC](https://n9e.github.io/docs/ai/permissions.md)
-* It will not connect at all: [MCP authentication fails](https://n9e.github.io/docs/troubleshooting/mcp-auth.md)
+* It will not connect at all: [Why does MCP authentication fail?](https://n9e.github.io/docs/troubleshooting/mcp-auth.md)

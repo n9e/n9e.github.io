@@ -2,6 +2,8 @@
 
 把夜莺嵌进既有门户、按需隐藏菜单、把身份透传过去。
 
+最后校对于 2026-10-10
+
 这页办完你会得到两件事：夜莺侧栏里多出几个外部系统的入口；以及一个把夜莺页面 嵌进自家门户、且不用让用户再登录一次的做法。
 
 ## 两个方向，别混[​](#两个方向别混 "两个方向，别混的直接链接")
@@ -13,7 +15,7 @@
 
 **集成中心 → 系统集成**（`/embedded-products`），点 **新增**。
 
-![系统集成](/zh/img/docs/query/embedded-products.zh.png)![系统集成](/zh/img/docs/query/embedded-products.zh.dark.png)
+![系统集成](/zh/img/docs/query/embedded-products.zh.webp)![系统集成](/zh/img/docs/query/embedded-products.zh.dark.webp)
 
 | 字段   | 填什么                                                        |
 | ------ | ------------------------------------------------------------- |

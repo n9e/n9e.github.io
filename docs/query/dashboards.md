@@ -2,6 +2,8 @@
 
 A dashboard belongs to a business group; build it from an integration template or from scratch with twelve panel types, and export it whole to hand to someone else.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a dashboard owned by a business group, with at least one panel drawing real data, saved and exportable to hand to someone else.
 
 ## First decide: import a template or start empty[​](#first-decide-import-a-template-or-start-empty "Direct link to First decide: import a template or start empty")
@@ -15,7 +17,7 @@ Either way, note one thing first: **the Add / Import / More buttons only appear 
 
 **Explorer → Dashboards** (`/dashboards`), pick a business group on the left, then **Import**.
 
-![Dashboard list](/img/docs/query/dashboard-list.png)![Dashboard list](/img/docs/query/dashboard-list.dark.png)
+![Dashboard list](/img/docs/query/dashboard-list.webp)![Dashboard list](/img/docs/query/dashboard-list.dark.webp)
 
 The dialog has four tabs:
 

@@ -2,6 +2,8 @@
 
 Four sources when Nightingale itself misbehaves: the process log, evaluation records, /metrics and pprof — collect all four before opening an issue.
 
+Last reviewed 2026-10-10
+
 There are four sources of information when Nightingale itself misbehaves: the process log, the evaluation records, `/metrics`, and pprof. This page covers where each one is, how to turn it on, and which of them to bundle into an issue report.
 
 ## Logs: decide where they go first[​](#logs-decide-where-they-go-first "Direct link to Logs: decide where they go first")

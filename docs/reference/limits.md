@@ -2,6 +2,8 @@
 
 Hard limits, soft limits and default sizes: queue lengths, timeouts, retention.
 
+Last reviewed 2026-10-10
+
 The numbers you can ignore until scale finds them. The full set is in [Configuration reference](https://n9e.github.io/docs/reference/configuration.md).
 
 ## HTTP[​](#http "Direct link to HTTP")
@@ -73,4 +75,4 @@ A full queue drops data. A queue length that keeps climbing toward the cap means
 
 * [Configuration reference](https://n9e.github.io/docs/reference/configuration.md)
 * [Capacity planning](https://n9e.github.io/docs/operations/capacity.md)
-* [Performance and backlog symptoms](https://n9e.github.io/docs/troubleshooting/performance.md)
+* [Why is Nightingale slow or backlogged?](https://n9e.github.io/docs/troubleshooting/performance.md)

@@ -1,6 +1,6 @@
 THE OPEN-SOURCE ALERTING EXPERT
 
-# 开源告警专家
+# 开源监控告警专家
 
 夜莺监控（Nightingale，n9e）是一款开源告警引擎：接入你已有的 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等 10+ 数据源，统一告警规则、降噪与分发。内置 AI 助手与 MCP Server，不用多部署一个进程。
 
@@ -38,13 +38,13 @@ S1CPU 使用率持续高于 90%
 
 已送达![钉钉](/zh/img/logos/dingtalk.png)![飞书](/zh/img/logos/feishu.png)![Slack](/zh/img/logos/slack.png)
 
-13,330GitHub Stars
+13,331GitHub Stars
 
 10+数据源类型
 
 20通知媒介
 
-86内置集成模板
+83内置集成模板
 
 74MCP 工具
 
@@ -65,7 +65,7 @@ datasource
 数据不搬迁。把 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse、Loki 接成数据源，夜莺在其上做告警分析。还没有采集？Categraf 一个 agent 覆盖操作系统、中间件与数据库，按 Prometheus Remote Write 协议直接写入。
 
 * 10+ 数据源类型，指标、日志、数据库统一接入
-* 86 个内置集成模板：采集配置、仪表盘、告警规则成套导入
+* 83 个内置集成模板：采集配置、仪表盘、告警规则成套导入
 
 ![夜莺集成中心的组件模板列表](/zh/img/step-connect.webp)
 
@@ -160,33 +160,33 @@ INTEGRATIONS
 
 DATA SOURCES<!-- --> · <!-- -->数据源
 
-* ![](/zh/img/logos/prometheus.png)Prometheus
-* ![](/zh/img/logos/victoriametrics.png)VictoriaMetrics
-* ![](/zh/img/logos/elasticsearch.png)ElasticSearch
-* ![](/zh/img/logos/ck.png)ClickHouse
-* ![](/zh/img/logos/loki.png)Loki
-* ![](/zh/img/logos/victorialogs.png)VictoriaLogs
-* ![](/zh/img/logos/mysql.png)MySQL
-* ![](/zh/img/logos/pgsql.png)PostgreSQL
-* ![](/zh/img/logos/tdengine.png)TDengine
-* ![](/zh/img/logos/opensearch.png)OpenSearch
-* ![](/zh/img/logos/doris.png)Doris
-* ![](/zh/img/logos/iotdb.png)IoTDB
+* ![Prometheus logo](/zh/img/logos/prometheus.png)Prometheus
+* ![VictoriaMetrics logo](/zh/img/logos/victoriametrics.png)VictoriaMetrics
+* ![ElasticSearch logo](/zh/img/logos/elasticsearch.png)ElasticSearch
+* ![ClickHouse logo](/zh/img/logos/ck.png)ClickHouse
+* ![Loki logo](/zh/img/logos/loki.png)Loki
+* ![VictoriaLogs logo](/zh/img/logos/victorialogs.png)VictoriaLogs
+* ![MySQL logo](/zh/img/logos/mysql.png)MySQL
+* ![PostgreSQL logo](/zh/img/logos/pgsql.png)PostgreSQL
+* ![TDengine logo](/zh/img/logos/tdengine.png)TDengine
+* ![OpenSearch logo](/zh/img/logos/opensearch.png)OpenSearch
+* ![Doris logo](/zh/img/logos/doris.png)Doris
+* ![IoTDB logo](/zh/img/logos/iotdb.png)IoTDB
 
 NOTIFICATIONS<!-- --> · <!-- -->通知媒介
 
-* ![](/zh/img/logos/dingtalk.png)钉钉
-* ![](/zh/img/logos/feishu.png)飞书
-* ![](/zh/img/logos/wecom.png)企业微信
+* ![钉钉 logo](/zh/img/logos/dingtalk.png)钉钉
+* ![飞书 logo](/zh/img/logos/feishu.png)飞书
+* ![企业微信 logo](/zh/img/logos/wecom.png)企业微信
 * 电话 / 短信
 * 邮件
-* ![](/zh/img/logos/slack.png)Slack
-* ![](/zh/img/logos/telegram.png)Telegram
-* ![](/zh/img/logos/discord.png)Discord
-* ![](/zh/img/logos/mattermost.png)Mattermost
-* ![](/zh/img/logos/pagerduty.png)PagerDuty
-* ![](/zh/img/logos/flashduty.png)FlashDuty
-* ![](/zh/img/logos/jira.png)Jira
+* ![Slack logo](/zh/img/logos/slack.png)Slack
+* ![Telegram logo](/zh/img/logos/telegram.png)Telegram
+* ![Discord logo](/zh/img/logos/discord.png)Discord
+* ![Mattermost logo](/zh/img/logos/mattermost.png)Mattermost
+* ![PagerDuty logo](/zh/img/logos/pagerduty.png)PagerDuty
+* ![FlashDuty logo](/zh/img/logos/flashduty.png)FlashDuty
+* ![Jira logo](/zh/img/logos/jira.png)Jira
 
 [查看全部集成<!-- --> →](https://n9e.github.io/zh/zh/integrations.md)
 

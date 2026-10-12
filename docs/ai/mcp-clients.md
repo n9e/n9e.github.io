@@ -2,6 +2,8 @@
 
 Claude Code, Cursor and other MCP clients connect with just the /mcp URL and a token; one read-only prompt confirms the connection works.
 
+Last reviewed 2026-10-10
+
 Where this page ends: an MCP client connected to Nightingale, and a read-only prompt whose answer proves that the address, the token and the permissions are all right.
 
 ## A client only needs two things[​](#a-client-only-needs-two-things "Direct link to A client only needs two things")

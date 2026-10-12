@@ -1,6 +1,8 @@
-# Edge 与中心失联
+# Edge 为什么与中心失联？
 
 边缘断网期间判定和通知照常在本地进行，但事件不会回传中心——这是预期行为；从未连上过才是配置错误，两者的判断方法不同。
+
+最后校对于 2026-10-10
 
 **系统配置 → 告警引擎**里那个边缘实例的心跳停了，或者整行消失了； 或者机房里的人收到了告警，中心的事件列表却一条都没有。
 
@@ -158,5 +160,5 @@ n9e-edge --configs etc/edge
 * 断网期间的完整行为模型：[Edge 断网行为](https://n9e.github.io/zh/zh/docs/operations/edge-partition.md)
 * edge 怎么部署：[边缘机房](https://n9e.github.io/zh/zh/docs/install/edge.md)
 * 部署形态怎么选：[生产拓扑](https://n9e.github.io/zh/zh/docs/operations/topology.md)
-* 事件产生了但没通知：[有事件但收不到通知](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)
+* 事件产生了但没通知：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)
 * 中心侧也没数据：[数据源连接正常但查询无数据](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)

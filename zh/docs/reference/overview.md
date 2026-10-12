@@ -2,6 +2,8 @@
 
 查阅型内容——配置项、HTTP API、MCP 工具、通知模板变量、写入协议与内置指标。尽量从源码生成。
 
+最后校对于 2026-10-10
+
 ## [配置项](https://n9e.github.io/zh/zh/docs/reference/configuration.md)
 
 [config.toml 与 etc/edge/edge.toml 的每一个键：默认值、由哪个进程读取。](https://n9e.github.io/zh/zh/docs/reference/configuration.md)

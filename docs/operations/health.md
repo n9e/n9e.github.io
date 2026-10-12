@@ -2,6 +2,8 @@
 
 The /metrics and health endpoints each process exposes, and the handful worth graphing.
 
+Last reviewed 2026-10-10
+
 `n9e`, `n9e-edge`, `n9e-alert` and `n9e-pushgw` share one HTTP skeleton, so the endpoints below are the same on every process — only the port differs (17000 for Center, 19000 for edge).
 
 ## Endpoints every process has[​](#endpoints-every-process-has "Direct link to Endpoints every process has")
@@ -79,7 +81,7 @@ A **Last heartbeat** frozen at some point means that instance is in trouble; a r
 
 Version information lives under **System → About**: frontend version, backend version, and which features each data source type supports.
 
-![The about page](/img/docs/operations/about.png)![The about page](/img/docs/operations/about.dark.png)
+![The about page](/img/docs/operations/about.webp)![The about page](/img/docs/operations/about.dark.webp)
 
 ## Labelled counters do not exist until they fire[​](#labelled-counters-do-not-exist-until-they-fire "Direct link to Labelled counters do not exist until they fire")
 

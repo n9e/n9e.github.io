@@ -2,13 +2,15 @@
 
 SMTP settings, and voice and SMS through Aliyun and Tencent Cloud.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a working email media type, and — if you need them — SMS and voice media types through Aliyun or Tencent Cloud. The big difference from a chat bot is that these are **addressed per person**, so your users also have to have an email address and a phone number on file.
 
 ## Email: SMTP lives on the media type[​](#email-smtp-lives-on-the-media-type "Direct link to Email: SMTP lives on the media type")
 
 **Alerts & Notifications → Media types**, then **Email** in the type panel on the left. The open-source edition ships a media type called `Email`; edit that rather than creating a new one.
 
-![Media types](/img/docs/notifications/media-types.png)![Media types](/img/docs/notifications/media-types.dark.png)
+![Media types](/img/docs/notifications/media-types.webp)![Media types](/img/docs/notifications/media-types.dark.webp)
 
 The SMTP block:
 

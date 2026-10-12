@@ -1,6 +1,8 @@
-# Evaluation records are missing or dropped
+# Why are evaluation records missing or dropped?
 
 Missing evaluation records mean one of four things: not recorded, not evaluated, query rejected or cycle skipped; overload and datasource timeouts are the usual causes.
+
+Last reviewed 2026-10-10
 
 The evaluation records on the rule page have holes in them: some cycles are there, some are not, or a whole stretch is blank. Those records are the only forensic trace of "there was data and it did not alert" — without them, troubleshooting has nothing to hold on to.
 
@@ -8,14 +10,14 @@ The evaluation records on the rule page have holes in them: some cycles are ther
 
 ## First: "no record" or "no evaluation"[​](#first-no-record-or-no-evaluation "Direct link to First: \"no record\" or \"no evaluation\"")
 
-| Symptom                                       | What it means                                                                                                                        |
-| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| Records present, events stopped at some stage | Evaluation is fine — go to [Query works but the alert does not fire](https://n9e.github.io/docs/troubleshooting/alert-not-firing.md) |
-| The API returns `"enabled": false`            | The evaluation-record feature is turned off; evaluation is unaffected                                                                |
-| Records scattered, `truncated` is true        | Evaluation is fine; the record itself was degraded or dropped                                                                        |
-| No records at all and `instances` is empty    | **No engine is running this rule** — that is a real evaluation problem                                                               |
+| Symptom                                       | What it means                                                                                                                                            |
+| --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Records present, events stopped at some stage | Evaluation is fine — go to [Why does the alert not fire when the query returns results?](https://n9e.github.io/docs/troubleshooting/alert-not-firing.md) |
+| The API returns `"enabled": false`            | The evaluation-record feature is turned off; evaluation is unaffected                                                                                    |
+| Records scattered, `truncated` is true        | Evaluation is fine; the record itself was degraded or dropped                                                                                            |
+| No records at all and `instances` is empty    | **No engine is running this rule** — that is a real evaluation problem                                                                                   |
 
-The last one is covered by "The rule is never evaluated" in [Query works but the alert does not fire](https://n9e.github.io/docs/troubleshooting/alert-not-firing.md). The other three are this page.
+The last one is covered by "The rule is never evaluated" in [Why does the alert not fire when the query returns results?](https://n9e.github.io/docs/troubleshooting/alert-not-firing.md). The other three are this page.
 
 ## What the records are and where they live[​](#what-the-records-are-and-where-they-live "Direct link to What the records are and where they live")
 
@@ -136,7 +138,7 @@ If the previous cycle is still running when the next one is due, the scheduler *
 curl -s http://127.0.0.1:17000/metrics | grep -E 'n9e_alert_rule_eval_total|n9e_alert_rule_eval_duration_ms'
 ```
 
-If `n9e_alert_rule_eval_total` grows more slowly than "rule count ÷ interval" implies, and a few rules show a high `n9e_alert_rule_eval_duration_ms`, cycles are being skipped. The fix is in [Performance and backlog symptoms](https://n9e.github.io/docs/troubleshooting/performance.md).
+If `n9e_alert_rule_eval_total` grows more slowly than "rule count ÷ interval" implies, and a few rules show a high `n9e_alert_rule_eval_duration_ms`, cycles are being skipped. The fix is in [Why is Nightingale slow or backlogged?](https://n9e.github.io/docs/troubleshooting/performance.md).
 
 While you are here: a query **error** and an **empty** query result are two very different things inside the engine. On an error, the whole judgement and recovery step for that cycle is skipped — firing events are neither refreshed nor recovered. An empty-but-successful result runs the recovery logic normally. A negative `n9e_alert_eval_query_series_count` is the error marker: `-1` query failed, `-2` the data source or client could not be obtained, `-3` the query template failed to render.
 
@@ -151,7 +153,7 @@ While you are here: a query **error** and an **empty** query result are two very
 
 ## Next[​](#next "Direct link to Next")
 
-* Records are there but no event appeared: [Query works but the alert does not fire](https://n9e.github.io/docs/troubleshooting/alert-not-firing.md)
-* Slow engine, growing queues: [Performance and backlog symptoms](https://n9e.github.io/docs/troubleshooting/performance.md)
+* Records are there but no event appeared: [Why does the alert not fire when the query returns results?](https://n9e.github.io/docs/troubleshooting/alert-not-firing.md)
+* Slow engine, growing queues: [Why is Nightingale slow or backlogged?](https://n9e.github.io/docs/troubleshooting/performance.md)
 * How to read the records page: [Evaluation execution records](https://n9e.github.io/docs/alerting/execution-records.md)
 * The judgement model: [Evaluation, recovery and state changes](https://n9e.github.io/docs/concepts/evaluation.md)

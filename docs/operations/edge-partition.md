@@ -2,6 +2,8 @@
 
 What n9e-edge does when it loses the center: evaluation continues, notifications go local, and what syncs back later.
 
+Last reviewed 2026-10-10
+
 `n9e-edge` exists so that alerting survives a partition. This page spells out what actually happens during one — including the fact that **alert events produced during a partition are lost for good**, and the one operational rule that follows from it.
 
 ## What the edge does normally[​](#what-the-edge-does-normally "Direct link to What the edge does normally")

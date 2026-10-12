@@ -27,7 +27,7 @@ Coming from another alerting stack, or from Nightingale v8: what maps to what, a
 
 [Previous](https://n9e.github.io/docs/troubleshooting/performance.md)
 
-[Performance and backlog symptoms](https://n9e.github.io/docs/troubleshooting/performance.md)
+[Why is Nightingale slow or backlogged?](https://n9e.github.io/docs/troubleshooting/performance.md)
 
 [Next](https://n9e.github.io/docs/migration/v8-to-v9.md)
 

@@ -2,6 +2,8 @@
 
 Nightingale ships with an embedded TSDB for onboarding; this page explains its limits and when to switch to Prometheus or VictoriaMetrics.
 
+Last reviewed 2026-10-10
+
 Nightingale stores two different kinds of thing, in two different places:
 
 * **Metadata** — users, business groups, alert rules, dashboards, notification config. Lives in SQLite / MySQL / PostgreSQL;

@@ -2,6 +2,8 @@
 
 Categraf sends a heartbeat with host metadata every ten seconds; the target list shows status and tags from it, and hosts are assigned to business groups by hand.
 
+Last reviewed 2026-10-10
+
 **Infrastructure → Hosts** is Nightingale's machine inventory. This page covers how a machine gets into that list, where each column comes from, and how to tag hosts and attach them to business groups.
 
 ## What the heartbeat does[​](#what-the-heartbeat-does "Direct link to What the heartbeat does")

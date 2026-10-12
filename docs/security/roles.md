@@ -2,6 +2,8 @@
 
 Built-in roles, custom roles, and which menu and API operations each grants.
 
+Last reviewed 2026-10-10
+
 Roles govern **layer one** of the permission model: which pages you can open and which endpoints you can call. *Which data* you may act on is layer two, decided by business-group membership, and the two are ANDed. This page covers layer one only.
 
 ## What a permission point looks like[​](#what-a-permission-point-looks-like "Direct link to What a permission point looks like")
@@ -48,7 +50,7 @@ What `Standard` does *not* get is worth memorising, because it rarely matches wh
 
 ## Build a custom role[​](#build-a-custom-role "Direct link to Build a custom role")
 
-![Role management](/img/docs/security/roles.png)![Role management](/img/docs/security/roles.dark.png)
+![Role management](/img/docs/security/roles.webp)![Role management](/img/docs/security/roles.dark.webp)
 
 1. **Organization → Roles**, then the **+** next to the **Role list** heading on the left.
 2. Enter a name and a note. The name is the string shown in the user form — keep it ASCII and without spaces.

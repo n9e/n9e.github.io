@@ -2,6 +2,8 @@
 
 Three objects carry a notification: the rule picks recipients, the media type says how to send, the template says what to send; a missing link makes it vanish.
 
+Last reviewed 2026-10-11
+
 Where this page ends: you know which three objects an alert event passes through on its way from "fired" to "your phone rang", what each one owns, which field joins them, and which missing link makes a notification disappear without a sound.
 
 ## Three objects[​](#three-objects "Direct link to Three objects")

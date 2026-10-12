@@ -2,6 +2,8 @@
 
 Site-wide settings and encrypted variables that templates and integrations can reference.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a credential stored in the database whose plaintext never shows up in the UI again, a way to reference it from a notification medium, and a field-by-field reading of Site settings.
 
 Both live under **System**, but they do different jobs: Variable settings holds **values** (mostly credentials), while Site settings controls **how the system looks and what it logs**.
@@ -10,7 +12,7 @@ Both live under **System**, but they do different jobs: Variable settings holds 
 
 **System → Variable** (`/system/variable-settings`), then **Create** at the top right.
 
-![Variable settings](/img/docs/security/variables.png)![Variable settings](/img/docs/security/variables.dark.png)
+![Variable settings](/img/docs/security/variables.webp)![Variable settings](/img/docs/security/variables.dark.webp)
 
 | Field          | Notes                                                                                |
 | -------------- | ------------------------------------------------------------------------------------ |

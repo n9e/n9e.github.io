@@ -2,6 +2,8 @@
 
 注册 Prometheus 或 Thanos 地址，设置认证与超时，用一条查询验证。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：一个已注册、连通性测过、能在即时查询里查出曲线的 Prometheus 数据源。 Thanos、Mimir、M3、VictoriaMetrics 都实现了 Prometheus 的查询 API，也都用这个类型接入 （VictoriaMetrics 还多一个开关，见 [VictoriaMetrics](https://n9e.github.io/zh/zh/docs/data/victoriametrics.md)）。
 
 数据不会被搬走。数据源只是一条连接：夜莺按需去你的时序库上查，抓取配置一行不用改。
@@ -44,7 +46,7 @@
 
 **超时(单位<!-- -->:ms<!-- -->)** 默认 10000。查询慢的大集群往上调，别调到分钟级——告警引擎按周期评估， 一条查询卡住会拖累整批规则。
 
-![Prometheus 数据源表单](/zh/img/docs/data/form-prometheus.zh.png)![Prometheus 数据源表单](/zh/img/docs/data/form-prometheus.zh.dark.png)
+![Prometheus 数据源表单](/zh/img/docs/data/form-prometheus.zh.webp)![Prometheus 数据源表单](/zh/img/docs/data/form-prometheus.zh.dark.webp)
 
 ## 2. 认证与 TLS[​](#2-认证与-tls "2. 认证与 TLS的直接链接")
 
@@ -83,7 +85,7 @@
 up
 ```
 
-有曲线出来，这条路就通了。查不到先别往下走，看 [数据源连上了但查不到数据](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)。
+有曲线出来，这条路就通了。查不到先别往下走，看 [数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)。
 
 ## 排障[​](#排障 "排障的直接链接")
 

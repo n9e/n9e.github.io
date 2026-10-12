@@ -2,6 +2,8 @@
 
 Every key in config.toml and etc/edge/edge.toml, with defaults and which process reads it.
 
+Last reviewed 2026-10-10
+
 Configuration lives in the `etc/` directory next to the binary. `n9e`, `n9e-alert` and `n9e-pushgw` read `config.toml`; `n9e-edge` reads `etc/edge/edge.toml`.
 
 Point them elsewhere with `--configs`, or the `N9E_CONFIGS` environment variable:

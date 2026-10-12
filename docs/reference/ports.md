@@ -2,6 +2,8 @@
 
 Every listening port and every outbound connection, so a firewall rule set can be written from one table.
 
+Last reviewed 2026-10-10
+
 ## Listening (inbound)[​](#listening-inbound "Direct link to Listening (inbound)")
 
 | Port  | Process                     | Config key                            | Who connects                                 |

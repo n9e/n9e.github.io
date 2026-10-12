@@ -2,6 +2,8 @@
 
 Connect an ES or OpenSearch cluster, choose index patterns and the timestamp field, and run a log query.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a connected ES cluster, one reusable index pattern, and a query that returns real log lines in the Log explorer.
 
 One difference up front, because it changes how you will use this: **in the open-source edition ElasticSearch works in the Log explorer and on dashboards, while OpenSearch is only usable for alert rules.** Both register as data sources and both drive log alert rules, but the OpenSearch explorer and dashboards are not available. If you want to search logs, use the ElasticSearch type.
@@ -31,7 +33,7 @@ The **HTTP** section is a list you can extend: click the `+` next to the heading
 
 The **Enable write** switch is unused in the open-source edition; leave it off.
 
-![The Elasticsearch data source form](/img/docs/data/form-elasticsearch.png)![The Elasticsearch data source form](/img/docs/data/form-elasticsearch.dark.png)
+![The Elasticsearch data source form](/img/docs/data/form-elasticsearch.webp)![The Elasticsearch data source form](/img/docs/data/form-elasticsearch.dark.webp)
 
 Click **Save & test**. For ES, that step fetches the version number: on success the version is stored with the config, and on failure the record is **still saved** with the reason shown in the result panel — so when you see "Saved, connectivity not verified", read the reason before moving on.
 

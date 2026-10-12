@@ -1,10 +1,12 @@
-# 数据源连上了但查不到数据
+# 数据源连上了，为什么查不到数据？
 
 数据源测试通过但查询为空，按写入 → 存储 → 查询逐层确认：数据没写进来、时间范围不含最近点、标签不匹配、查的不是同一个库。
 
+最后校对于 2026-10-10
+
 数据源页面上「测试」是通过的，绿的，但在查询界面里怎么写都是空。 这页按「数据从哪来、到哪去」的顺序排查：写入 → 存储 → 查询，每一层都给出确认方法。
 
-紧急程度取决于你在查什么：如果是刚接入的新数据源，只影响你自己； 如果是一直有数据的库突然空了，告警规则也在这条链路上，**正在跑的告警会跟着一起失灵**， 先去 [判定记录缺失或被丢弃](https://n9e.github.io/zh/zh/docs/troubleshooting/evaluation-missing.md) 确认规则还在不在评估。
+紧急程度取决于你在查什么：如果是刚接入的新数据源，只影响你自己； 如果是一直有数据的库突然空了，告警规则也在这条链路上，**正在跑的告警会跟着一起失灵**， 先去 [判定记录为什么缺失或被丢弃？](https://n9e.github.io/zh/zh/docs/troubleshooting/evaluation-missing.md) 确认规则还在不在评估。
 
 ## 先确认这个数据源在开源版里查得了[​](#先确认这个数据源在开源版里查得了 "先确认这个数据源在开源版里查得了的直接链接")
 
@@ -94,7 +96,7 @@ mem_used_percent{ident="n9e-web-01", region="trade"}
 {"error":"embedded tsdb endpoints only accept requests from the n9e host by default; set EmbeddedTSDB.BasicAuthUser/BasicAuthPass (or DatasourceUrl) to allow remote access","errorType":"forbidden","status":"error"}
 ```
 
-这不是没数据，是这个端点默认只收本机请求。细节见 [内置时序库数据断续或缺失](https://n9e.github.io/zh/zh/docs/troubleshooting/embedded-tsdb-data.md)。
+这不是没数据，是这个端点默认只收本机请求。细节见 [内置时序库的数据为什么断续或缺失？](https://n9e.github.io/zh/zh/docs/troubleshooting/embedded-tsdb-data.md)。
 
 ## 收集这些再去提问[​](#收集这些再去提问 "收集这些再去提问的直接链接")
 
@@ -109,7 +111,7 @@ mem_used_percent{ident="n9e-web-01", region="trade"}
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 机器根本没上来：[Categraf 对象显示离线](https://n9e.github.io/zh/zh/docs/troubleshooting/categraf-offline.md)
-* 内置时序库自己的问题：[内置时序库数据断续或缺失](https://n9e.github.io/zh/zh/docs/troubleshooting/embedded-tsdb-data.md)
-* 数据在但规则不响：[查询有结果但告警不触发](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-not-firing.md)
+* 机器根本没上来：[Categraf 对象为什么显示离线？](https://n9e.github.io/zh/zh/docs/troubleshooting/categraf-offline.md)
+* 内置时序库自己的问题：[内置时序库的数据为什么断续或缺失？](https://n9e.github.io/zh/zh/docs/troubleshooting/embedded-tsdb-data.md)
+* 数据在但规则不响：[查询有结果，为什么告警不触发？](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-not-firing.md)
 * 采集端怎么排：[Categraf 排障](https://n9e.github.io/zh/zh/docs/data/categraf/troubleshooting.md)

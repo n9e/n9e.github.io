@@ -2,7 +2,9 @@
 
 13 个工具集共 74 个工具的参数，以及读写之分。
 
-`/mcp` 端点默认启用，暴露的工具来自 `n9e-mcp-server`。这页是完整清单。
+最后校对于 2026-10-10
+
+`/mcp` 端点默认启用，内置在 n9e 进程里，不需要单独部署 MCP server（独立的 `n9e-mcp-server` 已弃用，它的工具集库现在随 n9e 一起发布）。这页是完整清单。
 
 怎么连、怎么鉴权见[启用 MCP 端点](https://n9e.github.io/zh/zh/docs/ai/mcp-endpoint.md)； 权限边界见[MCP 的权限继承](https://n9e.github.io/zh/zh/docs/ai/permissions.md)。
 
@@ -111,7 +113,7 @@ Event pipeline/workflow management tools for event processing
 
 这个工具集全是只读的。
 
-### `logs`[​](#logs "logs的直接链接")
+### `logs`[​](#logs "logs��的直接链接")
 
 Logs query tools (Loki/Elasticsearch/OpenSearch) via n9e logs-query
 

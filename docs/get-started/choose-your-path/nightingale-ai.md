@@ -2,6 +2,8 @@
 
 Configure an LLM provider, turn on the built-in assistant and the MCP endpoint, and connect a client such as Claude Code.
 
+Last reviewed 2026-10-10
+
 Where this path ends: you can ask "which S1 alerts are firing right now" inside Nightingale in plain language, and an MCP client such as Claude Code can ask the same thing. About 10 minutes.
 
 ## Before you start[​](#before-you-start "Direct link to Before you start")

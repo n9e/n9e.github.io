@@ -2,6 +2,8 @@
 
 Business groups are the permission boundary: every rule, target and dashboard belongs to one, and membership decides who can see or change it.
 
+Last reviewed 2026-10-10
+
 The business group is **the only permission boundary** in Nightingale. Understanding it clears up most permission confusion.
 
 ## It is two things at once[​](#it-is-two-things-at-once "Direct link to It is two things at once")

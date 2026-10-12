@@ -27,7 +27,7 @@
 
 [上一页](https://n9e.github.io/zh/zh/docs/troubleshooting/performance.md)
 
-[性能与积压现象](https://n9e.github.io/zh/zh/docs/troubleshooting/performance.md)
+[夜莺为什么变慢或出现积压？](https://n9e.github.io/zh/zh/docs/troubleshooting/performance.md)
 
 [下一页](https://n9e.github.io/zh/zh/docs/migration/v8-to-v9.md)
 

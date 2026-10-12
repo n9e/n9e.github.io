@@ -2,6 +2,8 @@
 
 The API the UI runs on: authentication, endpoints by object, and why there is no OpenAPI document.
 
+Last reviewed 2026-10-11
+
 The Nightingale web UI **runs entirely on a public HTTP API** — everything you can do in the interface has an endpoint behind it. That is good news: automation does not need a second API, it uses the same one the UI does.
 
 **There is no OpenAPI / Swagger document today.** The authority is the routing table itself, `ccfos/nightingale/center/router/router.go`, where all 413 `/api/n9e/*` endpoints are registered. The fastest way to find the endpoint for an action is to **open your browser's network panel and perform the action in the UI**.

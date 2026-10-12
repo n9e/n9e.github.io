@@ -2,6 +2,8 @@
 
 Dashboard variables add dropdowns at the top of a board, populated from label values and chained to each other; pick a host or a cluster and every chart switches.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a few dropdowns at the top of a board so that picking a host or a cluster switches every chart at once — one board serving dozens of hosts instead of dozens of copies.
 
 ## 1. Add the first variable[​](#1-add-the-first-variable "Direct link to 1. Add the first variable")

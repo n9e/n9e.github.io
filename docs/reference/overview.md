@@ -2,6 +2,8 @@
 
 Lookup material — configuration keys, the HTTP API, MCP tools, notification variables, write protocols and built-in metrics. Generated from the source tree wherever possible.
 
+Last reviewed 2026-10-10
+
 ## [Configuration reference](https://n9e.github.io/docs/reference/configuration.md)
 
 [Every key in config.toml and etc/edge/edge.toml, with defaults and which process reads it.](https://n9e.github.io/docs/reference/configuration.md)

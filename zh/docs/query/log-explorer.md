@@ -2,6 +2,8 @@
 
 检索 ElasticSearch、Loki、VictoriaLogs，定义索引模式，从一条日志跳到一条规则。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：在日志存储上跑通一条检索，用字段侧栏把结果收窄到你要的那几条， 并把「查哪些索引、用哪个时间字段」存成一个索引模式，下次不用重填。
 
 ## 开始之前：这个页面能选哪些数据源[​](#开始之前这个页面能选哪些数据源 "开始之前：这个页面能选哪些数据源的直接链接")
@@ -16,7 +18,7 @@ OpenSearch、ClickHouse、Doris 可以注册成数据源，但**在这个检索�
 
 **数据查询 → 日志**（`/log/explorer`）。
 
-![日志检索](/zh/img/docs/query/log-explorer.zh.png)![日志检索](/zh/img/docs/query/log-explorer.zh.dark.png)
+![日志检索](/zh/img/docs/query/log-explorer.zh.webp)![日志检索](/zh/img/docs/query/log-explorer.zh.dark.webp)
 
 左边一列自上而下（Elasticsearch 的形态）：
 

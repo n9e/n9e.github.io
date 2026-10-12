@@ -2,6 +2,8 @@
 
 OIDC, OAuth2, LDAP, CAS, DingTalk and Feishu login, and mapping external groups to roles.
 
+Last reviewed 2026-10-10
+
 Where this page ends: people sign in to Nightingale with their corporate account, an account is created automatically on first login, and it lands on a role and a team that can actually **see something** — that last clause is where SSO integrations usually go wrong.
 
 ## Six providers, two ways to configure them[​](#six-providers-two-ways-to-configure-them "Direct link to Six providers, two ways to configure them")
@@ -11,7 +13,7 @@ Where this page ends: people sign in to Nightingale with their corporate account
 * **LDAP / CAS / OIDC / OAuth2**: one block of TOML, edited directly in a code editor. The field names *are* the TOML keys.
 * **DingTalk / Feishu**: an ordinary form.
 
-![Single sign-on settings](/img/docs/security/sso.png)![Single sign-on settings](/img/docs/security/sso.dark.png)
+![Single sign-on settings](/img/docs/security/sso.webp)![Single sign-on settings](/img/docs/security/sso.dark.webp)
 
 Both end in a **Save** button at the bottom. Saving needs **no process restart** — the backend periodically compares the configuration's update time and reloads when it moves. Saving requires `Admin`; the `/system/sso-settings` permission point only governs menu visibility, as covered in [Roles and permission matrix](https://n9e.github.io/docs/security/roles.md).
 

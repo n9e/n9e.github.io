@@ -2,6 +2,8 @@
 
 Collect MySQL runtime metrics with Categraf and distinguish them from business-SQL alerts and Nightingale metadata storage.
 
+Last reviewed 2026-10-11
+
 By the end of this page, MySQL runtime metrics will be collected, and you will know how that differs from business-SQL alerting. The configuration targets **Categraf v0.5.17 and Nightingale v9**.
 
 ## Choose the intended use[​](#choose "Direct link to Choose the intended use")

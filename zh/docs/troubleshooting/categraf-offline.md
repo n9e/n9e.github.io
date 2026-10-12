@@ -1,6 +1,8 @@
-# Categraf 对象显示离线
+# Categraf 对象为什么显示离线？
 
 设备显示离线意味着心跳没在期限内到达 Redis：常见原因是时钟偏差、心跳地址错误或网络策略；「更新时间」不能用来判断存活。
+
+最后校对于 2026-10-10
 
 设备列表里某台机器的状态格子变黄或变红，但你 SSH 上去 categraf 明明活着。 这页先讲清楚「离线」是怎么判出来的——判定规则不搞明白，后面查什么都是猜。
 
@@ -95,7 +97,7 @@ failed to write target ts in redis after 3 retries, keys: [...]
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 机器在但没指标：[数据源连上了但查不到数据](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)
+* 机器在但没指标：[数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)
 * 采集端的完整排查：[Categraf 排障](https://n9e.github.io/zh/zh/docs/data/categraf/troubleshooting.md)
 * 设备列表这个页面本身：[设备列表](https://n9e.github.io/zh/zh/docs/data/categraf/targets.md)
 * 失联告警怎么配：[告警规则的生效范围](https://n9e.github.io/zh/zh/docs/alerting/scope.md)

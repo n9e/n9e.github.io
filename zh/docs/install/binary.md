@@ -2,6 +2,8 @@
 
 下载 GitHub Release 的 Linux amd64 / arm64 包，校验解压，接上已有的 MySQL 和 Redis，用 systemd 托管 n9e。
 
+最后校对于 2026-10-10
+
 这页做完，你会得到一个由 systemd 托管、连着你自己的 MySQL 和 Redis、监听 17000 的 `n9e` 进程。
 
 ## 下载与校验[​](#下载与校验 "下载与校验的直接链接")

@@ -2,6 +2,8 @@
 
 通过 Categraf exec 插件执行脚本，输出 Prometheus 指标，验证权限、超时和正式服务中的采集结果。
 
+最后校对于 2026-10-11
+
 这页办完，你会让一个脚本输出自定义指标，经 Categraf 写入夜莺的时序库。 示例使用 **Categraf v0.5.17、夜莺 v9**；脚本可以是 Shell、Python，或任何可执行程序。
 
 ## 编写脚本[​](#script "编写脚本的直接链接")
@@ -57,4 +59,4 @@ data_format = "prometheus"
 ## 下一步[​](#next "下一步的直接链接")
 
 * [创建第一条告警](https://n9e.github.io/zh/zh/docs/alerting/first-rule.md)
-* [数据源连上了但查不到数据](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)
+* [数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)

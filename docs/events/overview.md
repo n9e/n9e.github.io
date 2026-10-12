@@ -2,6 +2,8 @@
 
 What happens to an event between the rule that fired it and the person who receives it — mute rules, subscriptions, event pipelines, and self-healing.
 
+Last reviewed 2026-10-10
+
 Downstream of the rule: mute rules, subscriptions, and event pipelines — grouping, label rewriting and conditional routing. Wire up **ibex** when an alert should fix itself rather than wake somebody.
 
 ## [Active and historical events](https://n9e.github.io/docs/events/active-historical.md)

@@ -2,6 +2,8 @@
 
 面向主机、容器和常见中间件的预置视图，以及怎么加自己的。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：不写一行 PromQL，点着指标名就能看图；以及把团队自己的查询也录进 这个目录，让不熟 PromQL 的同事也能用。
 
 ## 这个页面解决什么[​](#这个页面解决什么 "这个页面解决什么的直接链接")
@@ -16,7 +18,7 @@
 
 ## 1. 先配过滤条件，再点指标[​](#1-先配过滤条件再点指标 "1. 先配过滤条件，再点指标的直接链接")
 
-![指标视图](/zh/img/docs/query/metrics-built-in.zh.png)![指标视图](/zh/img/docs/query/metrics-built-in.zh.dark.png)
+![指标视图](/zh/img/docs/query/metrics-built-in.zh.webp)![指标视图](/zh/img/docs/query/metrics-built-in.zh.dark.webp)
 
 左边那一栏叫「过滤条件」，作用是**在你点击一条指标查图时，自动给查询加上一组标签条件**。
 

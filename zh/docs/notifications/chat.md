@@ -2,6 +2,8 @@
 
 基于 Webhook 的聊天媒介，以及怎么写一条各家 Markdown 都不吃掉的消息。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：一个能往 Slack / Telegram / Discord / Mattermost 发消息的媒介， 并且知道为什么同一份模板在这四家渲染出来不一样。
 
 ## 四家的处境不一样[​](#四家的处境不一样 "四家的处境不一样的直接链接")
@@ -116,7 +118,7 @@ Bot 方式（`slackbot` / `mattermostbot`）的 token 放在请求头里， 写�
 
 不想折腾 JSON 导入的话，直接用内置的 **回调**（Callback）媒介：类型面板里点「回调」， URL 留 `{{$params.callback_url}}`，把请求体改成目标平台要的形状。
 
-![新建通知媒介](/zh/img/docs/notifications/media-type-add.zh.png)![新建通知媒介](/zh/img/docs/notifications/media-type-add.zh.dark.png)
+![新建通知媒介](/zh/img/docs/notifications/media-type-add.zh.webp)![新建通知媒介](/zh/img/docs/notifications/media-type-add.zh.dark.webp)
 
 代价是：**回调类媒介不消费消息模板**，界面上也不显示模板下拉框。 整条消息的排版得写在媒介的请求体里，用 `{{$event.RuleName}}` 这类变量直接拼，比如：
 
@@ -146,7 +148,7 @@ Bot 方式（`slackbot` / `mattermostbot`）的 token 放在请求头里， 写�
 * **`<` 会被还原。** 其余媒介走 `html/template`，`<` 被转义成 `&lt;`； Slack 的 `<url|文字>` 链接语法要是被转义就废了，所以渲染完会把 `&lt;` 换回 `<`。
 * **渲染失败时整个字段被丢掉。** 其余媒介会把 Go 模板的报错当成正文发出去 （难看，但你至少看得见）；Slack 是直接不发这个字段，消息可能是空的。 所以改完 Slack 模板一定要用**预览**看一眼，见[模板与变量](https://n9e.github.io/zh/zh/docs/notifications/templates.md)。
 
-## 在通知规则里用起来[​](#在通知规则里用起来 "在通知规则里用起来的直接链接")
+## 在通知规则里用起来[​](#在通知规则里用起来 "在通知规则里用起�来的直接链接")
 
 媒介建好之后就和别的媒介一样：新建通知规则 → 选媒介 → 选模板 → 填 `webhook_url` 之类的参数 → 勾选适用级别 → **通知测试**。
 

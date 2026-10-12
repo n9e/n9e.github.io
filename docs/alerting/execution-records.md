@@ -2,13 +2,15 @@
 
 Every evaluation leaves a record: see what the query returned and why an event did or did not fire.
 
+Last reviewed 2026-10-10
+
 Where this page ends: for any rule, you can pull up the last hour of evaluations and read, cycle by cycle, what the query returned, which series crossed the threshold, and what happened to each event afterwards. This is the answer to "the query returns data but the rule does not fire".
 
 ## Open the records[​](#open-the-records "Direct link to Open the records")
 
 **Alerts & Notifications → Alert rules**, hover the row of the rule, and click **Eval records** in the operations column.
 
-![The alert rule list](/img/docs/alerting/rule-list.png)![The alert rule list](/img/docs/alerting/rule-list.dark.png)
+![The alert rule list](/img/docs/alerting/rule-list.webp)![The alert rule list](/img/docs/alerting/rule-list.dark.webp)
 
 A drawer opens showing the last hour. Change the range with the time picker at the top, and use **Load earlier records** at the bottom to page backwards.
 
@@ -65,7 +67,7 @@ The order matters and it is not the order people assume: the **pipeline runs bef
 
 **"It fired but nobody was notified."** Look at the *Event handling* column. `Muted` and `Dropped by pipeline` mean the event never reached notification. `Fired` means it did, and the problem is downstream in the notification rules — see [No notification arrives](https://n9e.github.io/docs/troubleshooting/no-notification.md).
 
-**"It fires and recovers over and over."** Compare the *Anomalies* count across consecutive rows. A count that flips between `1` and `0` every cycle is a metric sitting on the threshold — see [Alert fires repeatedly or never recovers](https://n9e.github.io/docs/troubleshooting/alert-flapping.md).
+**"It fires and recovers over and over."** Compare the *Anomalies* count across consecutive rows. A count that flips between `1` and `0` every cycle is a metric sitting on the threshold — see [Why does an alert fire repeatedly or never recover?](https://n9e.github.io/docs/troubleshooting/alert-flapping.md).
 
 ## Where records live, and how long[​](#where-records-live-and-how-long "Direct link to Where records live, and how long")
 

@@ -2,6 +2,8 @@
 
 通知发送失败只对「连不上」自动重试，参数按发送类型各不相同；每条消息的投递结果在通知记录里可查，记录保留 7 天。
 
+最后校对于 2026-10-10
+
 这页办完你会知道：一条通知从「决定要发」到「对方收到」中间可能卡在哪， 哪些失败会自动重试、哪些不会，以及事后去哪儿翻这一条到底发生了什么。
 
 ## 消息是怎么发出去的[​](#消息是怎么发出去的 "消息是怎么发出去的的直接链接")
@@ -86,4 +88,4 @@ CleanNotifyRecordDay = 30
 
 * 先验证通道再上线：[端到端测试一条通知](https://n9e.github.io/zh/zh/docs/notifications/test.md)
 * 消息内容渲染失败：[模板渲染报错](https://n9e.github.io/zh/zh/docs/troubleshooting/template-errors.md)
-* 一条都收不到时的排查顺序：[有事件但收不到通知](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)
+* 一条都收不到时的排查顺序：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)

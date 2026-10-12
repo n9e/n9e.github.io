@@ -2,6 +2,8 @@
 
 Send Datadog Agent v1 metric series to Nightingale, with the API-version and authentication boundaries made explicit.
 
+Last reviewed 2026-10-11
+
 This page lets hosts with Datadog Agent keep their collectors and send **compatible metric series** to Nightingale.
 
 Compatibility

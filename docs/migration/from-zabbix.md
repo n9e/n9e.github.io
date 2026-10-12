@@ -2,6 +2,8 @@
 
 Moving from Zabbix is a rebuild: hosts map to targets, templates to integrations, triggers to rules; some concepts have no equivalent, and Zabbix never has to stop.
 
+Last reviewed 2026-10-10
+
 Where this page ends: every Zabbix object placed on a Nightingale one, a clear list of what has **no equivalent at all**, and an order of work that never takes Zabbix down.
 
 ## Accept this first: it is a rebuild, not a migration[​](#accept-this-first-it-is-a-rebuild-not-a-migration "Direct link to Accept this first: it is a rebuild, not a migration")

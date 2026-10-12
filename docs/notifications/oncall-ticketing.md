@@ -2,6 +2,8 @@
 
 Hand events to an on-call platform or open a ticket, with the field mapping each one expects.
 
+Last reviewed 2026-10-10
+
 Where this page ends: Nightingale events enter FlashDuty's or PagerDuty's on-call flow, or turn into a Jira ticket — rather than sitting in a chat room waiting for someone to notice.
 
 ## Three approaches, three different things[​](#three-approaches-three-different-things "Direct link to Three approaches, three different things")

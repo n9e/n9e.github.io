@@ -2,6 +2,8 @@
 
 先掌握日志、进程、时序数据、PromQL 与采集链路，再按现象定位采集、存储、告警和通知问题。
 
+最后校对于 2026-10-11
+
 读完这页，你会知道使用夜莺前需要掌握什么，并能把“没数据”“没告警”“没通知”拆成具体环节排查。
 
 ## Linux 与部署基础[​](#linux "Linux 与部署基础的直接链接")
@@ -55,4 +57,4 @@ Prometheus / vmagent 的抓取是 Pull：采集端知道一次抓取是否成功
 
 * [快速开始](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
 * [系统架构](https://n9e.github.io/zh/zh/docs/concepts/architecture.md)
-* [数据源连上了但查不到数据](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)
+* [数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)

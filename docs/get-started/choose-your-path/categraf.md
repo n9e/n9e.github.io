@@ -2,6 +2,8 @@
 
 Install Categraf on a host, point it at Nightingale over Remote Write, and see the machine appear under Targets within a minute.
 
+Last reviewed 2026-10-10
+
 Where this path ends: a machine listed under Hosts in Nightingale with live CPU, memory and disk, and its metrics stored in the embedded TSDB. About 10 minutes.
 
 This is the path to take when you have no Prometheus yet and want to see something first.
@@ -69,7 +71,7 @@ Give `--configs` **an absolute path**, or be sure of your working directory: Cat
 
 **Infrastructure → Hosts**. Within a minute the machine should be listed, marked up, and carrying CPU and memory utilisation.
 
-![The host list, showing hosts reporting in](/img/docs/data/targets-list.png)![The host list, showing hosts reporting in](/img/docs/data/targets-list.dark.png)
+![The host list, showing hosts reporting in](/img/docs/data/targets-list.webp)![The host list, showing hosts reporting in](/img/docs/data/targets-list.dark.webp)
 
 If it is not there, check in this order:
 
@@ -77,7 +79,7 @@ If it is not there, check in this order:
 2. whether the host can actually reach Nightingale (firewall, security group);
 3. whether the clocks differ by more than a couple of minutes.
 
-Details in [Categraf target is offline](https://n9e.github.io/docs/troubleshooting/categraf-offline.md).
+Details in [Why does a Categraf target show as offline?](https://n9e.github.io/docs/troubleshooting/categraf-offline.md).
 
 ## 5. Import a dashboard and rules while you are here[​](#5-import-a-dashboard-and-rules-while-you-are-here "Direct link to 5. Import a dashboard and rules while you are here")
 

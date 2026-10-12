@@ -2,6 +2,8 @@
 
 从对象列表里的一台主机一键跳到它的核心指标。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：选中几台机器就能看它们的指标，不用先想清楚查询该怎么写； 以及把「每天要看的那几台机器 + 那几个指标」存成一个视图，明天直接打开。
 
 ## 两条路，先选一条[​](#两条路先选一条 "两条路，先选一条的直接链接")
@@ -27,7 +29,7 @@
 
 **数据查询 → 指标 → 快捷视图**（`/object/explorer`）。
 
-![快捷视图](/zh/img/docs/query/object-explorer.zh.png)![快捷视图](/zh/img/docs/query/object-explorer.zh.dark.png)
+![快捷视图](/zh/img/docs/query/object-explorer.zh.webp)![快捷视图](/zh/img/docs/query/object-explorer.zh.dark.webp)
 
 **先在右上角选数据源。** 不选数据源，下面三栏全是空的——这是「打开一片空白」最常见的 原因，不是没数据。
 

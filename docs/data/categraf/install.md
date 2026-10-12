@@ -2,6 +2,8 @@
 
 Install the agent, set the Nightingale write URL, and confirm the host shows up under Targets.
 
+Last reviewed 2026-10-10
+
 Where this page ends: Categraf running on the target host, that host visible under **Infrastructure → Hosts**, with CPU, memory and OS metadata attached. About five minutes.
 
 [Categraf](https://github.com/flashcatcloud/categraf) is the collector Nightingale recommends: one binary, 90-odd input plugins, pushing metrics over Prometheus Remote Write. Nightingale collects nothing itself.

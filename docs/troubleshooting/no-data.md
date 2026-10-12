@@ -1,10 +1,12 @@
-# Data source connects but queries return no data
+# Why does a data source connect but return no data?
 
 A source passes its test but returns nothing: check write, store and query in turn — nothing written, time range past the last point, label mismatch, wrong store.
 
+Last reviewed 2026-10-10
+
 The data source page says the test passed, the status is green, and every query you write comes back empty. This page follows the data: write → store → query, with a way to confirm each layer.
 
-How urgent depends on what you are querying. A brand-new data source only affects you. A source that had data yesterday and is empty today sits on the same path your alert rules use, so **rules are silently failing too** — start at [Evaluation records are missing or dropped](https://n9e.github.io/docs/troubleshooting/evaluation-missing.md) to confirm the rules are still being evaluated.
+How urgent depends on what you are querying. A brand-new data source only affects you. A source that had data yesterday and is empty today sits on the same path your alert rules use, so **rules are silently failing too** — start at [Why are evaluation records missing or dropped?](https://n9e.github.io/docs/troubleshooting/evaluation-missing.md) to confirm the rules are still being evaluated.
 
 ## First, confirm this source is queryable at all in the open-source build[​](#first-confirm-this-source-is-queryable-at-all-in-the-open-source-build "Direct link to First, confirm this source is queryable at all in the open-source build")
 
@@ -94,7 +96,7 @@ One more: a remote Grafana or a second Nightingale querying the embedded TSDB's 
 {"error":"embedded tsdb endpoints only accept requests from the n9e host by default; set EmbeddedTSDB.BasicAuthUser/BasicAuthPass (or DatasourceUrl) to allow remote access","errorType":"forbidden","status":"error"}
 ```
 
-That is not missing data — the endpoint only accepts local requests by default. See [Embedded TSDB has fragmented or missing data](https://n9e.github.io/docs/troubleshooting/embedded-tsdb-data.md).
+That is not missing data — the endpoint only accepts local requests by default. See [Why is embedded TSDB data fragmented or missing?](https://n9e.github.io/docs/troubleshooting/embedded-tsdb-data.md).
 
 ## Collect this before you ask[​](#collect-this-before-you-ask "Direct link to Collect this before you ask")
 
@@ -109,7 +111,7 @@ Before opening a [GitHub issue](https://github.com/ccfos/nightingale/issues) or 
 
 ## Next[​](#next "Direct link to Next")
 
-* The host never showed up: [Categraf target is offline](https://n9e.github.io/docs/troubleshooting/categraf-offline.md)
-* Problems inside the embedded store: [Embedded TSDB has fragmented or missing data](https://n9e.github.io/docs/troubleshooting/embedded-tsdb-data.md)
-* Data is there but the rule stays quiet: [Query works but the alert does not fire](https://n9e.github.io/docs/troubleshooting/alert-not-firing.md)
+* The host never showed up: [Why does a Categraf target show as offline?](https://n9e.github.io/docs/troubleshooting/categraf-offline.md)
+* Problems inside the embedded store: [Why is embedded TSDB data fragmented or missing?](https://n9e.github.io/docs/troubleshooting/embedded-tsdb-data.md)
+* Data is there but the rule stays quiet: [Why does the alert not fire when the query returns results?](https://n9e.github.io/docs/troubleshooting/alert-not-firing.md)
 * Debugging the agent: [Categraf troubleshooting](https://n9e.github.io/docs/data/categraf/troubleshooting.md)

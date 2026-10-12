@@ -2,6 +2,8 @@
 
 A rule from scratch: pick the source, write the query, set severity, test fire it, and watch the event appear.
 
+Last reviewed 2026-10-10
+
 Where this page ends: one rule you wrote yourself has produced a real event, and you have seen it in the event list. About 10 minutes. The rule will be deliberately trivial — the point is to prove the chain works end to end before you start worrying about thresholds.
 
 ## Before you start[​](#before-you-start "Direct link to Before you start")
@@ -14,7 +16,7 @@ Where this page ends: one rule you wrote yourself has produced a real event, and
 
 **Alerts & Notifications → Alert rules**. Pick a business group in the left tree — the rule belongs to it, and so will every event it produces. Then **Add**.
 
-![The new alert rule form](/img/docs/alerting/rule-form.png)![The new alert rule form](/img/docs/alerting/rule-form.dark.png)
+![The new alert rule form](/img/docs/alerting/rule-form.webp)![The new alert rule form](/img/docs/alerting/rule-form.dark.webp)
 
 The form is six steps down the middle, with a live **Rule summary** on the right that fills in as you type. The controls at the top — **Core steps only**, **Expand all**, **Collapse sidebar** — change how much of it is on screen; they change nothing about the rule.
 

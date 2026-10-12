@@ -2,6 +2,8 @@
 
 三大国内办公应用的机器人 Webhook 与卡片消息。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：告警发进你的钉钉群 / 飞书群 / 企业微信群，一个媒介被所有群共用， 每个群的 token 各自填在自己的通知规则里。
 
 ## 最快的路径：粘贴 Webhook 地址[​](#最快的路径粘贴-webhook-地址 "最快的路径：粘贴 Webhook 地址的直接链接")
@@ -27,7 +29,7 @@
 
 **告警通知 → 通知媒介**。开源版内置了 `Dingtalk`、`Wecom`、`Feishu Card` 三个媒介， 直接用就行；Lark 卡片在左侧类型面板里有卡片，点一下建一个。
 
-![通知媒介](/zh/img/docs/notifications/media-types.zh.png)![通知媒介](/zh/img/docs/notifications/media-types.zh.dark.png)
+![通知媒介](/zh/img/docs/notifications/media-types.zh.webp)![通知媒介](/zh/img/docs/notifications/media-types.zh.dark.webp)
 
 媒介里已经预置好了 URL、请求方法、请求头和请求体。只有这几种情况需要动它：
 

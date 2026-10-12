@@ -2,6 +2,8 @@
 
 Rules that run a SQL statement against MySQL, PostgreSQL, ClickHouse, Doris, TDengine or IoTDB on a schedule.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a rule that runs one SQL statement on a schedule, turns a column of the result into a number, and fires when that number crosses a line. This is how you alert on business state — stuck orders, failed jobs, a queue that stopped draining — without exporting it as a metric first.
 
 ## Which sources take this path[​](#which-sources-take-this-path "Direct link to Which sources take this path")

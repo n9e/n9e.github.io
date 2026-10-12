@@ -1,6 +1,8 @@
-# Categraf target is offline
+# Why does a Categraf target show as offline?
 
 A target shows offline when its heartbeat has not reached Redis in time — clock skew, a wrong heartbeat URL or network policy; update time is not a liveness signal.
+
+Last reviewed 2026-10-10
 
 The status cell for a host in the host list turns yellow or red, yet you SSH in and Categraf is plainly alive. This page starts with how "offline" is decided, because everything else is guesswork until you know the rule.
 
@@ -95,7 +97,7 @@ If the symptom is "this host was never in the list" rather than "it turned red",
 
 ## Next[​](#next "Direct link to Next")
 
-* The host is there but has no metrics: [Data source connects but queries return no data](https://n9e.github.io/docs/troubleshooting/no-data.md)
+* The host is there but has no metrics: [Why does a data source connect but return no data?](https://n9e.github.io/docs/troubleshooting/no-data.md)
 * The full agent-side walkthrough: [Categraf troubleshooting](https://n9e.github.io/docs/data/categraf/troubleshooting.md)
 * The host list page itself: [Targets](https://n9e.github.io/docs/data/categraf/targets.md)
 * Configuring liveness alerts: [Rule scope](https://n9e.github.io/docs/alerting/scope.md)

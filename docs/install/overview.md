@@ -2,6 +2,8 @@
 
 The ways to run Nightingale — Compose, Docker image, binaries, Helm, n9e-edge — and which fits which situation.
 
+Last reviewed 2026-10-10
+
 | Method         | When to use it                                                          |
 | -------------- | ----------------------------------------------------------------------- |
 | Docker Compose | Evaluation and small production setups — brings up its own dependencies |

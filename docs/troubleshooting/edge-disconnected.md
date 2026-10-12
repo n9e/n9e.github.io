@@ -1,6 +1,8 @@
-# Edge loses contact with the center
+# Why does the edge lose contact with the center?
 
 During a partition the edge keeps alerting locally but its events never reach the center — that is expected; an edge that never connected is a misconfiguration.
+
+Last reviewed 2026-10-10
 
 The edge instance's heartbeat under **System → Alerting engines** has frozen, or its row has disappeared altogether; or people at the site received an alert while the centre's event list shows nothing at all.
 
@@ -158,5 +160,5 @@ One more normal behaviour: in the narrow window where the centre actually commit
 * The full partition behaviour model: [Edge network partition behavior](https://n9e.github.io/docs/operations/edge-partition.md)
 * Deploying an edge: [Edge data centers](https://n9e.github.io/docs/install/edge.md)
 * Choosing a deployment shape: [Production topology](https://n9e.github.io/docs/operations/topology.md)
-* The event exists but nothing was sent: [Alert event exists but no notification arrives](https://n9e.github.io/docs/troubleshooting/no-notification.md)
-* No data at the centre either: [Data source connects but queries return no data](https://n9e.github.io/docs/troubleshooting/no-data.md)
+* The event exists but nothing was sent: [Why is there an alert event but no notification?](https://n9e.github.io/docs/troubleshooting/no-notification.md)
+* No data at the centre either: [Why does a data source connect but return no data?](https://n9e.github.io/docs/troubleshooting/no-data.md)

@@ -2,13 +2,15 @@
 
 SMTP 设置，以及通过阿里云、腾讯云发电话和短信。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：一个能发信的邮件媒介，以及（如果你要）走阿里云或腾讯云的短信、 语音媒介——它们和 IM 群机器人最大的不同是**要按人发**，所以还得让用户填上邮箱和手机号。
 
 ## 邮件：SMTP 配在媒介上[​](#邮件smtp-配在媒介上 "邮件：SMTP 配在媒介上的直接链接")
 
 **告警通知 → 通知媒介**，左边的类型面板里点 **邮件**。开源版自带一个叫 `Email` 的媒介， 直接编辑它就行，不必新建。
 
-![通知媒介](/zh/img/docs/notifications/media-types.zh.png)![通知媒介](/zh/img/docs/notifications/media-types.zh.dark.png)
+![通知媒介](/zh/img/docs/notifications/media-types.zh.webp)![通知媒介](/zh/img/docs/notifications/media-types.zh.dark.webp)
 
 SMTP 配置这一块：
 

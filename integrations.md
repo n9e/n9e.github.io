@@ -26,25 +26,25 @@ Nightingale ships no storage of its own; it queries what you already run. Metric
 
 Metrics
 
-* [![](/img/logos/prometheus.png)Prometheus](https://n9e.github.io/docs/data/prometheus.md)
-* [![](/img/logos/victoriametrics.png)VictoriaMetrics](https://n9e.github.io/docs/data/victoriametrics.md)
-* [![](/img/logo-mark.webp)Embedded TSDB](https://n9e.github.io/docs/data/embedded-tsdb.md)
+* [![Prometheus logo](/img/logos/prometheus.png)Prometheus](https://n9e.github.io/docs/data/prometheus.md)
+* [![VictoriaMetrics logo](/img/logos/victoriametrics.png)VictoriaMetrics](https://n9e.github.io/docs/data/victoriametrics.md)
+* [![Embedded TSDB logo](/img/logo-mark.webp)Embedded TSDB](https://n9e.github.io/docs/data/embedded-tsdb.md)
 
 Logs
 
-* [![](/img/logos/elasticsearch.png)ElasticSearch](https://n9e.github.io/docs/data/elasticsearch.md)
-* [![](/img/logos/opensearch.png)OpenSearch](https://n9e.github.io/docs/data/elasticsearch.md)
-* [![](/img/logos/loki.png)Loki](https://n9e.github.io/docs/data/loki-victorialogs.md)
-* [![](/img/logos/victorialogs.png)VictoriaLogs](https://n9e.github.io/docs/data/loki-victorialogs.md)
+* [![ElasticSearch logo](/img/logos/elasticsearch.png)ElasticSearch](https://n9e.github.io/docs/data/elasticsearch.md)
+* [![OpenSearch logo](/img/logos/opensearch.png)OpenSearch](https://n9e.github.io/docs/data/elasticsearch.md)
+* [![Loki logo](/img/logos/loki.png)Loki](https://n9e.github.io/docs/data/loki-victorialogs.md)
+* [![VictoriaLogs logo](/img/logos/victorialogs.png)VictoriaLogs](https://n9e.github.io/docs/data/loki-victorialogs.md)
 
 SQL
 
-* [![](/img/logos/ck.png)ClickHouse](https://n9e.github.io/docs/data/clickhouse-doris-iotdb.md)
-* [![](/img/logos/mysql.png)MySQL](https://n9e.github.io/docs/data/sql-databases.md)
-* [![](/img/logos/pgsql.png)PostgreSQL](https://n9e.github.io/docs/data/sql-databases.md)
-* [![](/img/logos/tdengine.png)TDengine](https://n9e.github.io/docs/data/sql-databases.md)
-* [![](/img/logos/doris.png)Doris](https://n9e.github.io/docs/data/clickhouse-doris-iotdb.md)
-* [![](/img/logos/iotdb.png)IoTDB](https://n9e.github.io/docs/data/clickhouse-doris-iotdb.md)
+* [![ClickHouse logo](/img/logos/ck.png)ClickHouse](https://n9e.github.io/docs/data/clickhouse-doris-iotdb.md)
+* [![MySQL logo](/img/logos/mysql.png)MySQL](https://n9e.github.io/docs/data/sql-databases.md)
+* [![PostgreSQL logo](/img/logos/pgsql.png)PostgreSQL](https://n9e.github.io/docs/data/sql-databases.md)
+* [![TDengine logo](/img/logos/tdengine.png)TDengine](https://n9e.github.io/docs/data/sql-databases.md)
+* [![Doris logo](/img/logos/doris.png)Doris](https://n9e.github.io/docs/data/clickhouse-doris-iotdb.md)
+* [![IoTDB logo](/img/logos/iotdb.png)IoTDB](https://n9e.github.io/docs/data/clickhouse-doris-iotdb.md)
 
 NOTIFICATIONS
 
@@ -52,18 +52,18 @@ NOTIFICATIONS
 
 DingTalk, WeCom, Feishu, email and phone/SMS work out of the box. Slack, Telegram, Discord, PagerDuty and Jira come with built-in message templates — create the media type and send. Anything else goes through a webhook with a custom body.
 
-* ![](/img/logos/slack.png)Slack
-* ![](/img/logos/pagerduty.png)PagerDuty
+* ![Slack logo](/img/logos/slack.png)Slack
+* ![PagerDuty logo](/img/logos/pagerduty.png)PagerDuty
 * Email
-* ![](/img/logos/telegram.png)Telegram
-* ![](/img/logos/discord.png)Discord
-* ![](/img/logos/jira.png)Jira
-* ![](/img/logos/mattermost.png)Mattermost
+* ![Telegram logo](/img/logos/telegram.png)Telegram
+* ![Discord logo](/img/logos/discord.png)Discord
+* ![Jira logo](/img/logos/jira.png)Jira
+* ![Mattermost logo](/img/logos/mattermost.png)Mattermost
 * Phone / SMS
-* ![](/img/logos/flashduty.png)FlashDuty
-* ![](/img/logos/dingtalk.png)DingTalk
-* ![](/img/logos/feishu.png)Feishu
-* ![](/img/logos/wecom.png)WeCom
+* ![FlashDuty logo](/img/logos/flashduty.png)FlashDuty
+* ![DingTalk logo](/img/logos/dingtalk.png)DingTalk
+* ![Feishu logo](/img/logos/feishu.png)Feishu
+* ![WeCom logo](/img/logos/wecom.png)WeCom
 
 [Notification docs<!-- --> →](https://n9e.github.io/docs/notifications/overview.md)
 
@@ -75,22 +75,22 @@ Each template bundles Categraf collector config, dashboards and a set of alert r
 
 All83Hosts & hardware14Databases & storage16Message queues8Web & middleware15Containers & cloud native8Cloud providers & CDN9Network & probes9DevOps & others4
 
-* [![](/img/integrations/Linux.png)Linux5 dashboards·4 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Linux/markdown/README.en_US.md)
-* [![](/img/integrations/Kubernetes.png)Kubernetes17 dashboards·9 rule sets·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Kubernetes/markdown/README.en_US.md)
-* [![](/img/integrations/MySQL.png)MySQL7 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/MySQL/markdown/README.en_US.md)
-* [![](/img/integrations/Redis.png)Redis3 dashboards·2 rule sets·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/Redis/markdown/README.en_US.md)
-* [![](/img/integrations/Windows.png)Windows6 dashboards·2 rule sets](https://github.com/ccfos/nightingale/blob/main/integrations/Windows/markdown/README.en_US.md)
-* [![](/img/integrations/Docker.png)Docker1 dashboard·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/Docker/markdown/README.en_US.md)
-* [![](/img/integrations/PostgreSQL.png)PostgreSQL1 dashboard·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/PostgreSQL/markdown/README.en_US.md)
-* [![](/img/integrations/Nginx.png)Nginx3 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Nginx/markdown/README.en_US.md)
-* [![](/img/integrations/Elasticsearch.png)Elasticsearch5 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Elasticsearch/markdown/README.en_US.md)
-* [![](/img/integrations/Kafka.png)Kafka2 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Kafka/markdown/README.en_US.md)
-* [![](/img/integrations/MongoDB.png)MongoDB1 dashboard·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/MongoDB/markdown/README.en_US.md)
-* [![](/img/integrations/Java.png)Java3 dashboards](https://github.com/ccfos/nightingale/blob/main/integrations/Java/markdown/README.en_US.md)
-* [![](/img/integrations/RabbitMQ.png)RabbitMQ4 dashboards·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/RabbitMQ/markdown/README.en_US.md)
-* [![](/img/integrations/SNMP.png)SNMP9 dashboards·5 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/SNMP/markdown/README.en_US.md)
-* [![](/img/integrations/Ping.png)Ping2 dashboards·1 rule set·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Ping/markdown/README.en_US.md)
-* [![](/img/integrations/AliYun.png)Alibaba Cloud44 dashboards·12 rule sets·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/AliYun/markdown/README.en_US.md)
+* [![Linux logo](/img/integrations/Linux.png)Linux5 dashboards·4 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Linux/markdown/README.en_US.md)
+* [![Kubernetes logo](/img/integrations/Kubernetes.png)Kubernetes17 dashboards·9 rule sets·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Kubernetes/markdown/README.en_US.md)
+* [![MySQL logo](/img/integrations/MySQL.png)MySQL7 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/MySQL/markdown/README.en_US.md)
+* [![Redis logo](/img/integrations/Redis.png)Redis3 dashboards·2 rule sets·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/Redis/markdown/README.en_US.md)
+* [![Windows logo](/img/integrations/Windows.png)Windows6 dashboards·2 rule sets](https://github.com/ccfos/nightingale/blob/main/integrations/Windows/markdown/README.en_US.md)
+* [![Docker logo](/img/integrations/Docker.png)Docker1 dashboard·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/Docker/markdown/README.en_US.md)
+* [![PostgreSQL logo](/img/integrations/PostgreSQL.png)PostgreSQL1 dashboard·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/PostgreSQL/markdown/README.en_US.md)
+* [![Nginx logo](/img/integrations/Nginx.png)Nginx3 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Nginx/markdown/README.en_US.md)
+* [![Elasticsearch logo](/img/integrations/Elasticsearch.png)Elasticsearch5 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Elasticsearch/markdown/README.en_US.md)
+* [![Kafka logo](/img/integrations/Kafka.png)Kafka2 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Kafka/markdown/README.en_US.md)
+* [![MongoDB logo](/img/integrations/MongoDB.png)MongoDB1 dashboard·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/MongoDB/markdown/README.en_US.md)
+* [![Java logo](/img/integrations/Java.png)Java3 dashboards](https://github.com/ccfos/nightingale/blob/main/integrations/Java/markdown/README.en_US.md)
+* [![RabbitMQ logo](/img/integrations/RabbitMQ.png)RabbitMQ4 dashboards·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/RabbitMQ/markdown/README.en_US.md)
+* [![SNMP logo](/img/integrations/SNMP.png)SNMP9 dashboards·5 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/SNMP/markdown/README.en_US.md)
+* [![Ping logo](/img/integrations/Ping.png)Ping2 dashboards·1 rule set·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Ping/markdown/README.en_US.md)
+* [![Alibaba Cloud logo](/img/integrations/AliYun.png)Alibaba Cloud44 dashboards·12 rule sets·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/AliYun/markdown/README.en_US.md)
 
 Show all 83 templates
 

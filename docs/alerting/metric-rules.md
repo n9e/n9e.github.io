@@ -2,6 +2,8 @@
 
 Metric rules put the threshold inside the PromQL expression; one rule can carry several severities, and the labels the query returns land on the event for routing.
 
+Last reviewed 2026-10-10
+
 Where this page ends: you can read and write the alert-conditions step of a Prometheus-type rule — where the threshold goes, how one rule carries several severities, and which of the returned labels end up on the event.
 
 This is the rule type for **Prometheus Like** data sources: Prometheus itself, VictoriaMetrics, Thanos, Mimir. For the others, see [Log rules](https://n9e.github.io/docs/alerting/log-rules.md) and [SQL-backed rules](https://n9e.github.io/docs/alerting/sql-rules.md).

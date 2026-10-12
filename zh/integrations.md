@@ -26,25 +26,25 @@ DATA SOURCES
 
 指标
 
-* [![](/zh/img/logos/prometheus.png)Prometheus](https://n9e.github.io/zh/zh/docs/data/prometheus.md)
-* [![](/zh/img/logos/victoriametrics.png)VictoriaMetrics](https://n9e.github.io/zh/zh/docs/data/victoriametrics.md)
-* [![](/zh/img/logo-mark.webp)内置 TSDB](https://n9e.github.io/zh/zh/docs/data/embedded-tsdb.md)
+* [![Prometheus logo](/zh/img/logos/prometheus.png)Prometheus](https://n9e.github.io/zh/zh/docs/data/prometheus.md)
+* [![VictoriaMetrics logo](/zh/img/logos/victoriametrics.png)VictoriaMetrics](https://n9e.github.io/zh/zh/docs/data/victoriametrics.md)
+* [![内置 TSDB logo](/zh/img/logo-mark.webp)内置 TSDB](https://n9e.github.io/zh/zh/docs/data/embedded-tsdb.md)
 
 日志
 
-* [![](/zh/img/logos/elasticsearch.png)ElasticSearch](https://n9e.github.io/zh/zh/docs/data/elasticsearch.md)
-* [![](/zh/img/logos/opensearch.png)OpenSearch](https://n9e.github.io/zh/zh/docs/data/elasticsearch.md)
-* [![](/zh/img/logos/loki.png)Loki](https://n9e.github.io/zh/zh/docs/data/loki-victorialogs.md)
-* [![](/zh/img/logos/victorialogs.png)VictoriaLogs](https://n9e.github.io/zh/zh/docs/data/loki-victorialogs.md)
+* [![ElasticSearch logo](/zh/img/logos/elasticsearch.png)ElasticSearch](https://n9e.github.io/zh/zh/docs/data/elasticsearch.md)
+* [![OpenSearch logo](/zh/img/logos/opensearch.png)OpenSearch](https://n9e.github.io/zh/zh/docs/data/elasticsearch.md)
+* [![Loki logo](/zh/img/logos/loki.png)Loki](https://n9e.github.io/zh/zh/docs/data/loki-victorialogs.md)
+* [![VictoriaLogs logo](/zh/img/logos/victorialogs.png)VictoriaLogs](https://n9e.github.io/zh/zh/docs/data/loki-victorialogs.md)
 
 SQL
 
-* [![](/zh/img/logos/ck.png)ClickHouse](https://n9e.github.io/zh/zh/docs/data/clickhouse-doris-iotdb.md)
-* [![](/zh/img/logos/mysql.png)MySQL](https://n9e.github.io/zh/zh/docs/data/sql-databases.md)
-* [![](/zh/img/logos/pgsql.png)PostgreSQL](https://n9e.github.io/zh/zh/docs/data/sql-databases.md)
-* [![](/zh/img/logos/tdengine.png)TDengine](https://n9e.github.io/zh/zh/docs/data/sql-databases.md)
-* [![](/zh/img/logos/doris.png)Doris](https://n9e.github.io/zh/zh/docs/data/clickhouse-doris-iotdb.md)
-* [![](/zh/img/logos/iotdb.png)IoTDB](https://n9e.github.io/zh/zh/docs/data/clickhouse-doris-iotdb.md)
+* [![ClickHouse logo](/zh/img/logos/ck.png)ClickHouse](https://n9e.github.io/zh/zh/docs/data/clickhouse-doris-iotdb.md)
+* [![MySQL logo](/zh/img/logos/mysql.png)MySQL](https://n9e.github.io/zh/zh/docs/data/sql-databases.md)
+* [![PostgreSQL logo](/zh/img/logos/pgsql.png)PostgreSQL](https://n9e.github.io/zh/zh/docs/data/sql-databases.md)
+* [![TDengine logo](/zh/img/logos/tdengine.png)TDengine](https://n9e.github.io/zh/zh/docs/data/sql-databases.md)
+* [![Doris logo](/zh/img/logos/doris.png)Doris](https://n9e.github.io/zh/zh/docs/data/clickhouse-doris-iotdb.md)
+* [![IoTDB logo](/zh/img/logos/iotdb.png)IoTDB](https://n9e.github.io/zh/zh/docs/data/clickhouse-doris-iotdb.md)
 
 NOTIFICATIONS
 
@@ -52,18 +52,18 @@ NOTIFICATIONS
 
 钉钉、企业微信、飞书、邮件、电话短信开箱即用；Slack、Telegram、Discord、PagerDuty、Jira 这些有内置消息模板，建一个媒介就能发；剩下的走 Webhook 自定义 body。
 
-* ![](/zh/img/logos/dingtalk.png)钉钉
-* ![](/zh/img/logos/feishu.png)飞书
-* ![](/zh/img/logos/wecom.png)企业微信
+* ![钉钉 logo](/zh/img/logos/dingtalk.png)钉钉
+* ![飞书 logo](/zh/img/logos/feishu.png)飞书
+* ![企业微信 logo](/zh/img/logos/wecom.png)企业微信
 * 电话 / 短信
 * 邮件
-* ![](/zh/img/logos/slack.png)Slack
-* ![](/zh/img/logos/telegram.png)Telegram
-* ![](/zh/img/logos/discord.png)Discord
-* ![](/zh/img/logos/mattermost.png)Mattermost
-* ![](/zh/img/logos/pagerduty.png)PagerDuty
-* ![](/zh/img/logos/flashduty.png)FlashDuty
-* ![](/zh/img/logos/jira.png)Jira
+* ![Slack logo](/zh/img/logos/slack.png)Slack
+* ![Telegram logo](/zh/img/logos/telegram.png)Telegram
+* ![Discord logo](/zh/img/logos/discord.png)Discord
+* ![Mattermost logo](/zh/img/logos/mattermost.png)Mattermost
+* ![PagerDuty logo](/zh/img/logos/pagerduty.png)PagerDuty
+* ![FlashDuty logo](/zh/img/logos/flashduty.png)FlashDuty
+* ![Jira logo](/zh/img/logos/jira.png)Jira
 
 [通知媒介文档<!-- --> →](https://n9e.github.io/zh/zh/docs/notifications/overview.md)
 
@@ -75,22 +75,22 @@ BUILT-IN TEMPLATES
 
 全部83主机与硬件14数据库与存储16消息队列8Web 与中间件15容器与云原生8云厂商与 CDN9网络与探测9DevOps 与其他4
 
-* [![](/zh/img/integrations/Linux.png)Linux5 仪表盘·4 组规则·采集配置·指标说明](https://github.com/ccfos/nightingale/blob/main/integrations/Linux/markdown/README.md)
-* [![](/zh/img/integrations/Kubernetes.png)Kubernetes17 仪表盘·9 组规则·指标说明](https://github.com/ccfos/nightingale/blob/main/integrations/Kubernetes/markdown/README.md)
-* [![](/zh/img/integrations/MySQL.png)MySQL7 仪表盘·2 组规则·采集配置·指标说明](https://github.com/ccfos/nightingale/blob/main/integrations/MySQL/markdown/README.md)
-* [![](/zh/img/integrations/Redis.png)Redis3 仪表盘·2 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/Redis/markdown/README.md)
-* [![](/zh/img/integrations/Windows.png)Windows6 仪表盘·2 组规则](https://github.com/ccfos/nightingale/blob/main/integrations/Windows/markdown/README.md)
-* [![](/zh/img/integrations/Docker.png)Docker1 仪表盘·1 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/Docker/markdown/README.md)
-* [![](/zh/img/integrations/PostgreSQL.png)PostgreSQL1 仪表盘·1 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/PostgreSQL/markdown/README.md)
-* [![](/zh/img/integrations/Nginx.png)Nginx3 仪表盘·2 组规则·采集配置·指标说明](https://github.com/ccfos/nightingale/blob/main/integrations/Nginx/markdown/README.md)
-* [![](/zh/img/integrations/Elasticsearch.png)Elasticsearch5 仪表盘·2 组规则·采集配置·指标说明](https://github.com/ccfos/nightingale/blob/main/integrations/Elasticsearch/markdown/README.md)
-* [![](/zh/img/integrations/Kafka.png)Kafka2 仪表盘·2 组规则·采集配置·指标说明](https://github.com/ccfos/nightingale/blob/main/integrations/Kafka/markdown/README.md)
-* [![](/zh/img/integrations/MongoDB.png)MongoDB1 仪表盘·1 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/MongoDB/markdown/README.md)
-* [![](/zh/img/integrations/Java.png)Java3 仪表盘](https://github.com/ccfos/nightingale/blob/main/integrations/Java/markdown/README.md)
-* [![](/zh/img/integrations/RabbitMQ.png)RabbitMQ4 仪表盘·1 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/RabbitMQ/markdown/README.md)
-* [![](/zh/img/integrations/SNMP.png)SNMP9 仪表盘·5 组规则·采集配置·指标说明](https://github.com/ccfos/nightingale/blob/main/integrations/SNMP/markdown/README.md)
-* [![](/zh/img/integrations/Ping.png)Ping2 仪表盘·1 组规则·采集配置·指标说明](https://github.com/ccfos/nightingale/blob/main/integrations/Ping/markdown/README.md)
-* [![](/zh/img/integrations/AliYun.png)Alibaba Cloud44 仪表盘·12 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/AliYun/markdown/README.md)
+* [![Linux logo](/zh/img/integrations/Linux.png)Linux5 仪表盘·4 组规则·采集配置·指标说明](https://github.com/ccfos/nightingale/blob/main/integrations/Linux/markdown/README.md)
+* [![Kubernetes logo](/zh/img/integrations/Kubernetes.png)Kubernetes17 仪表盘·9 组规则·指标说明](https://github.com/ccfos/nightingale/blob/main/integrations/Kubernetes/markdown/README.md)
+* [![MySQL logo](/zh/img/integrations/MySQL.png)MySQL7 仪表盘·2 组规则·采集配置·指标说明](https://github.com/ccfos/nightingale/blob/main/integrations/MySQL/markdown/README.md)
+* [![Redis logo](/zh/img/integrations/Redis.png)Redis3 仪表盘·2 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/Redis/markdown/README.md)
+* [![Windows logo](/zh/img/integrations/Windows.png)Windows6 仪表盘·2 组规则](https://github.com/ccfos/nightingale/blob/main/integrations/Windows/markdown/README.md)
+* [![Docker logo](/zh/img/integrations/Docker.png)Docker1 仪表盘·1 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/Docker/markdown/README.md)
+* [![PostgreSQL logo](/zh/img/integrations/PostgreSQL.png)PostgreSQL1 仪表盘·1 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/PostgreSQL/markdown/README.md)
+* [![Nginx logo](/zh/img/integrations/Nginx.png)Nginx3 仪表盘·2 组规则·采集配置·指标说明](https://github.com/ccfos/nightingale/blob/main/integrations/Nginx/markdown/README.md)
+* [![Elasticsearch logo](/zh/img/integrations/Elasticsearch.png)Elasticsearch5 仪表盘·2 组规则·采集配置·指标说明](https://github.com/ccfos/nightingale/blob/main/integrations/Elasticsearch/markdown/README.md)
+* [![Kafka logo](/zh/img/integrations/Kafka.png)Kafka2 仪表盘·2 组规则·采集配置·指标说明](https://github.com/ccfos/nightingale/blob/main/integrations/Kafka/markdown/README.md)
+* [![MongoDB logo](/zh/img/integrations/MongoDB.png)MongoDB1 仪表盘·1 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/MongoDB/markdown/README.md)
+* [![Java logo](/zh/img/integrations/Java.png)Java3 仪表盘](https://github.com/ccfos/nightingale/blob/main/integrations/Java/markdown/README.md)
+* [![RabbitMQ logo](/zh/img/integrations/RabbitMQ.png)RabbitMQ4 仪表盘·1 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/RabbitMQ/markdown/README.md)
+* [![SNMP logo](/zh/img/integrations/SNMP.png)SNMP9 仪表盘·5 组规则·采集配置·指标说明](https://github.com/ccfos/nightingale/blob/main/integrations/SNMP/markdown/README.md)
+* [![Ping logo](/zh/img/integrations/Ping.png)Ping2 仪表盘·1 组规则·采集配置·指标说明](https://github.com/ccfos/nightingale/blob/main/integrations/Ping/markdown/README.md)
+* [![Alibaba Cloud logo](/zh/img/integrations/AliYun.png)Alibaba Cloud44 仪表盘·12 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/AliYun/markdown/README.md)
 
 展开全部 83 个模板
 

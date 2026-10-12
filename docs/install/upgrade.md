@@ -2,6 +2,8 @@
 
 Upgrade between minor versions and across v8 → v9: back up first, read the database changes, roll the binaries.
 
+Last reviewed 2026-10-10
+
 Upgrading Nightingale means **replacing the binary and restarting**: the schema is brought up to date by the process itself at startup, and there is no separate migration command. The work is at the two ends — backing up before, and confirming afterwards that the upgrade actually happened.
 
 ## Before you start[​](#before-you-start "Direct link to Before you start")
@@ -70,7 +72,7 @@ grep -i "failed to migrate table" /opt/n9e/logs/*.log
 
 Then open **System → About**; the version there should match the command line:
 
-![The About page](/img/docs/operations/about.png)![The About page](/img/docs/operations/about.dark.png)
+![The About page](/img/docs/operations/about.webp)![The About page](/img/docs/operations/about.dark.webp)
 
 Finally check that nothing broke: open a dashboard and confirm charts render, and look at the events page to confirm new events are still being produced. Indexes on the large tables (`alert_his_event`, `notification_record`) are built **asynchronously after startup** and can take tens of minutes on a big database. The service is usable throughout — do not restart just because you see index-building in the log.
 

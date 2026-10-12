@@ -2,6 +2,8 @@
 
 Webhook-based chat channels, and how to format a message that survives each one's markdown.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a media type that posts to Slack, Telegram, Discord or Mattermost, and an understanding of why the same template renders differently in each of them.
 
 ## The four are not equal[​](#the-four-are-not-equal "Direct link to The four are not equal")
@@ -116,7 +118,7 @@ For the bot variants (`slackbot`, `mattermostbot`) the token lives in a header, 
 
 If you would rather not touch JSON, use the built-in **Callback** media type: click Callback in the type panel, leave the URL as `{{$params.callback_url}}`, and rewrite the body into whatever shape the target expects.
 
-![Add a media type](/img/docs/notifications/media-type-add.png)![Add a media type](/img/docs/notifications/media-type-add.dark.png)
+![Add a media type](/img/docs/notifications/media-type-add.webp)![Add a media type](/img/docs/notifications/media-type-add.dark.webp)
 
 The cost: **Callback media types do not consume message templates**, and the UI hides the template dropdown for them. The whole message layout has to live in the media type's body, assembled from event variables directly:
 

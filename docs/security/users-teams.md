@@ -2,13 +2,15 @@
 
 Create users, group them into teams, and use teams as notification recipients.
 
+Last reviewed 2026-10-10
+
 Where this page ends: an account that can log in, can receive alerts, and belongs to a team — teams being the handle every later authorization step reaches for, since business groups recognise teams and not individual users.
 
 ## 1. Create a user[​](#1-create-a-user "Direct link to 1. Create a user")
 
 **Organization → Users**, then **Add** at the top right.
 
-![User management](/img/docs/security/users.png)![User management](/img/docs/security/users.dark.png)
+![User management](/img/docs/security/users.webp)![User management](/img/docs/security/users.dark.webp)
 
 Top to bottom in the form:
 
@@ -41,7 +43,7 @@ The keys under Contact details come from a dropdown backed by the system's defin
 
 **Organization → Teams**, then the **+** next to the **Team list** heading on the left. A team needs only a name and a note.
 
-![Team management](/img/docs/security/teams.png)![Team management](/img/docs/security/teams.dark.png)
+![Team management](/img/docs/security/teams.webp)![Team management](/img/docs/security/teams.dark.webp)
 
 Select it on the left and use **Add members** at the top right to pick users. The header row on the right shows the team's ID, note, last editor, and **which business groups it is authorized on** — this is where you look up authorization from the team's side.
 

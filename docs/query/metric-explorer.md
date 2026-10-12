@@ -2,13 +2,15 @@
 
 Ad-hoc PromQL against any registered source, with the same query editor rules use.
 
+Last reviewed 2026-10-10
+
 Where this page ends: one PromQL query running against any registered Prometheus-type source, a clear idea of why Table and Graph do not show the same numbers, and four ways to take that query somewhere useful.
 
 ## 1. Pick a source and run the first query[​](#1-pick-a-source-and-run-the-first-query "Direct link to 1. Pick a source and run the first query")
 
 **Explorer → Metrics** (`/metric/explorer`) opens on the **Explorer** tab.
 
-![Metrics explorer](/img/docs/query/metric-explorer.png)![Metrics explorer](/img/docs/query/metric-explorer.dark.png)
+![Metrics explorer](/img/docs/query/metric-explorer.webp)![Metrics explorer](/img/docs/query/metric-explorer.dark.webp)
 
 The top row:
 
@@ -24,7 +26,7 @@ Type PromQL into the box and click **Execute**:
 up
 ```
 
-Expected result: the **Table** tab lists series with their instant values, and "Series (N)" at the top left gives the count. If nothing comes back, start at [Data source connects but queries return no data](https://n9e.github.io/docs/troubleshooting/no-data.md).
+Expected result: the **Table** tab lists series with their instant values, and "Series (N)" at the top left gives the count. If nothing comes back, start at [Why does a data source connect but return no data?](https://n9e.github.io/docs/troubleshooting/no-data.md).
 
 ## 2. Table and Graph do not show the same data[​](#2-table-and-graph-do-not-show-the-same-data "Direct link to 2. Table and Graph do not show the same data")
 

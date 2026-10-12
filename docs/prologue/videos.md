@@ -2,6 +2,8 @@
 
 Keep the pre-redesign video catalogue and pair each tutorial with its current documentation.
 
+Last reviewed 2026-10-11
+
 This page preserves the old tutorial catalogue for existing bookmarks and pairs each topic with its current guide.
 
 Historical videos

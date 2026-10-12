@@ -2,6 +2,8 @@
 
 Rebuild from backups in a new environment, and the order in which to bring components back.
 
+Last reviewed 2026-10-10
+
 [Backup and restore](https://n9e.github.io/docs/operations/backup-restore.md) puts a database back where it came from. This page covers the harder case: **the environment is gone and you are rebuilding on different machines.** Almost everything about the procedure is the same; what is different is that the addresses changed, and several things inside Nightingale were pinned to the old ones.
 
 ## What you have to have brought with you[​](#what-you-have-to-have-brought-with-you "Direct link to What you have to have brought with you")

@@ -2,6 +2,8 @@
 
 The file layout of an integration template, so you can write and contribute one.
 
+Last reviewed 2026-10-10
+
 An integration template is a component's monitoring in one bundle: collector config, dashboards, alert rules and metric descriptions. Nightingale ships **88 of them** under `integrations/` in the source repository, loaded into the Components page at startup.
 
 To cover a component that is not there yet, follow this layout and open a pull request.

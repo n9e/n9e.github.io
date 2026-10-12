@@ -2,6 +2,8 @@
 
 Symptom-by-symptom fixes for the AI features: the assistant stays silent or stops halfway, a skill is ignored or fails to install, an MCP client cannot connect.
 
+Last reviewed 2026-10-10
+
 Symptom first, then the fix. Everything on this page is verifiable from the product's own logs and error messages — no guessing at what the model was thinking.
 
 ## Which half is broken[​](#which-half-is-broken "Direct link to Which half is broken")
@@ -118,5 +120,5 @@ More in [A2A endpoint](https://n9e.github.io/docs/ai/a2a.md).
 ## Next[​](#next "Direct link to Next")
 
 * Config reference for the endpoints: [Enable the MCP endpoint](https://n9e.github.io/docs/ai/mcp-endpoint.md)
-* Authentication failures in depth: [MCP authentication fails](https://n9e.github.io/docs/troubleshooting/mcp-auth.md)
-* Missing tools in depth: [MCP tools are missing or denied](https://n9e.github.io/docs/troubleshooting/mcp-tools-missing.md)
+* Authentication failures in depth: [Why does MCP authentication fail?](https://n9e.github.io/docs/troubleshooting/mcp-auth.md)
+* Missing tools in depth: [Why are MCP tools missing or denied?](https://n9e.github.io/docs/troubleshooting/mcp-tools-missing.md)

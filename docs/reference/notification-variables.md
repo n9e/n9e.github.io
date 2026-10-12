@@ -2,6 +2,8 @@
 
 The event fields and helper functions available inside a message template.
 
+Last reviewed 2026-10-10
+
 Message templates are Go `text/template`.
 
 **The trap that catches everyone: event fields hang off `$event`, not off the template's top-level `.`.** Writing `{{"{{"}}.RuleName{{"}}"}}` silently renders an empty string, and `{{"{{"}}timeformat .TriggerTime{{"}}"}}` fails outright with `invalid value; expected int64`.
@@ -72,4 +74,4 @@ Values such as the site address are `{{"{{"}}$.domain{{"}}"}}` — note the dot.
 ## Related[​](#related "Direct link to Related")
 
 * [Templates and variables](https://n9e.github.io/docs/notifications/templates.md)
-* [Notification template rendering fails](https://n9e.github.io/docs/troubleshooting/template-errors.md)
+* [Why does notification template rendering fail?](https://n9e.github.io/docs/troubleshooting/template-errors.md)

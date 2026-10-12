@@ -2,6 +2,8 @@
 
 规则在页面上配、按业务组分权限、分 S1 / S2 / S3 三级，一条规则可同时作用于多个数据源。装完就带一批常用规则。
 
+最后校对于 2026-10-10
+
 ## [创建第一条规则](https://n9e.github.io/zh/zh/docs/alerting/first-rule.md)
 
 [从零写一条规则：选数据源、写查询、定级别、测试触发、看事件出现。](https://n9e.github.io/zh/zh/docs/alerting/first-rule.md)

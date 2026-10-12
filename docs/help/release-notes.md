@@ -2,6 +2,8 @@
 
 Curated notes per release with upgrade impact, in addition to the GitHub changelog.
 
+Last reviewed 2026-10-10
+
 This page does not mirror the changelog — the full per-commit list lives on GitHub and is updated faster than this page could be. It answers one question instead: **if I move to this version, what do I have to change?**
 
 Curated through **v9.1.1 (2026-08-18)**. For anything newer, go straight to GitHub.

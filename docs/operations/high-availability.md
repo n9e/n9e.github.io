@@ -2,6 +2,8 @@
 
 Which failures a multi-instance deployment survives, which it does not, and how to test it.
 
+Last reviewed 2026-10-10
+
 High availability in Nightingale needs no extra component: **run several `n9e` processes with identical config, sharing one MySQL and one Redis**. This page is about what that actually protects, what it does not protect at all, and how to prove it before you need it.
 
 ## Building the cluster[​](#building-the-cluster "Direct link to Building the cluster")

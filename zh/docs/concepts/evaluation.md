@@ -2,6 +2,8 @@
 
 规则不是查到就报：评估周期、持续时长、恢复条件三个参数加一套状态机，决定事件何时首次触发、何时恢复、会不会抖动。
 
+最后校对于 2026-10-10
+
 一条规则不是「查到就报」。中间有三个时间参数和一套状态机， 它们决定了「什么时候第一次响」「什么时候不再响」「会不会来回抖」。
 
 ## 三个时间参数[​](#三个时间参数 "三个时间参数的直接链接")
@@ -78,4 +80,4 @@ cpu_usage_active > 95   →  S1
 
 * [告警生命周期与级别](https://n9e.github.io/zh/zh/docs/concepts/alert-lifecycle.md)
 * [评估周期与恢复](https://n9e.github.io/zh/zh/docs/alerting/evaluation.md)
-* [告警反复触发或从不恢复](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-flapping.md)
+* [告警为什么反复触发或从不恢复？](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-flapping.md)

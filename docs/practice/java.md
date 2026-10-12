@@ -2,6 +2,8 @@
 
 Choose Actuator, Micrometer, JMX Exporter or built-in application metrics, then scrape them with Categraf or Prometheus.
 
+Last reviewed 2026-10-11
+
 By the end of this page, you will choose a suitable Java metrics endpoint and connect JVM or application metrics to Nightingale. Nightingale v9 does not scrape Java processes itself. Use **Categraf v0.5.17**, Prometheus or vmagent.
 
 ## Actuator[​](#actuator "Direct link to Actuator")

@@ -2,11 +2,13 @@
 
 在通知之前按顺序对事件做变换、补充、丢弃或路由的处理器链。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：一条挂在告警规则或通知规则上的处理器链，事件在发出去之前 先从它上面淌过一遍——改标签、补上下文、或者干脆丢掉。
 
 界面上这个功能叫 **工作流**，入口是 **告警通知 → 工作流**（`/event-pipelines`）。
 
-![工作流列表](/zh/img/docs/events/pipelines.zh.png)![工作流列表](/zh/img/docs/events/pipelines.zh.dark.png)
+![工作流列表](/zh/img/docs/events/pipelines.zh.webp)![工作流列表](/zh/img/docs/events/pipelines.zh.dark.webp)
 
 ## 1. 新建一条工作流[​](#1-新建一条工作流 "1. 新建一条工作流的直接链接")
 

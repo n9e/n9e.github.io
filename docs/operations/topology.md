@@ -2,6 +2,8 @@
 
 Reference layouts for one team, one company, and multi-site with edge alerting.
 
+Last reviewed 2026-10-10
+
 Three sizes, three deployment pictures. Pick the one closest to where you are and copy it; there is no need to design a topology from scratch.
 
 ## One team: a single host[​](#one-team-a-single-host "Direct link to One team: a single host")

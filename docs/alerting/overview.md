@@ -2,6 +2,8 @@
 
 Rules are configured in the UI, scoped by business group, graded S1 / S2 / S3, and can span several data sources. A library of common rules ships with the install.
 
+Last reviewed 2026-10-10
+
 ## [Create the first rule](https://n9e.github.io/docs/alerting/first-rule.md)
 
 [A rule from scratch: pick the source, write the query, set severity, test fire it, and watch the event appear.](https://n9e.github.io/docs/alerting/first-rule.md)

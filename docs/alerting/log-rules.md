@@ -2,6 +2,8 @@
 
 Alert on log counts or matched patterns from ElasticSearch, OpenSearch, Loki and VictoriaLogs — all four alert, but only three can be previewed in the Log explorer.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a rule that counts matching log lines on a schedule and fires when there are too many of them, on whichever of the four log stores you run.
 
 Log alerting always reduces to the same thing — **turn a window of logs into one number, then compare it**. What differs between the four sources is where the comparison lives.

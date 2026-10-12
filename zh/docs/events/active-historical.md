@@ -2,6 +2,8 @@
 
 活跃事件列表放着尚未恢复的告警，恢复后转入历史事件；两张表都能按标签、级别、业务组检索并批量处置。
 
+最后校对于 2026-10-10
+
 这页办完你会知道：一条告警现在在哪张表里、为什么在那里，以及值班时怎么从几百条里 快速捞出你要的那几条。
 
 入口：**告警通知 → 告警事件**，页面顶部两个 tab——**活跃告警** 和 **历史告警**。
@@ -25,7 +27,7 @@
 
 ## 找到你要的那条[​](#找到你要的那条 "找到你要的那条的直接链接")
 
-![活跃告警](/zh/img/docs/events/active-events.zh.png)![活跃告警](/zh/img/docs/events/active-events.zh.dark.png)
+![活跃告警](/zh/img/docs/events/active-events.zh.webp)![活跃告警](/zh/img/docs/events/active-events.zh.dark.webp)
 
 顶部一行：
 
@@ -45,7 +47,7 @@
 点事件标题（蓝色那行）从右侧滑出详情。除了规则名、级别、标签、首次触发时间、触发时值， 有三处值得专门看：
 
 * **查询语句**：规则实际执行的 PromQL / SQL，旁边有按钮直接拿去复算， 用来判断「是数据真的异常，还是阈值写错了」；
-* **通知记录**：这条事件被推到了哪些媒介、成没成功、失败的返回是什么。 收不到通知时先看这里，再看 [有事件但收不到通知](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)；
+* **通知记录**：这条事件被推到了哪些媒介、成没成功、失败的返回是什么。 收不到通知时先看这里，再看 [有告警事件，为什么收不到通知？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)；
 * **Hash**：事件指纹（规则 + 标签算出来的），排查「为什么这两条被当成同一个事件」时 直接复制比对。
 
 底部三个按钮：
@@ -62,7 +64,7 @@
 
 ## 历史事件：导出与清理[​](#历史事件导出与清理 "历史事件：导出与清理的直接链接")
 
-![历史告警](/zh/img/docs/events/historical-events.zh.png)![历史告警](/zh/img/docs/events/historical-events.zh.dark.png)
+![历史告警](/zh/img/docs/events/historical-events.zh.webp)![历史告警](/zh/img/docs/events/historical-events.zh.dark.webp)
 
 历史告警的列和活跃告警不同：**首次触发时间**（第一次进告警状态）和 **检测时间**（最后一次判定确认它还在告警 / 已恢复）分成两列，复盘时间线时看这两个。
 

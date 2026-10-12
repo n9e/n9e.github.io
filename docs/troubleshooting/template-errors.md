@@ -1,6 +1,8 @@
-# Notification template rendering fails
+# Why does notification template rendering fail?
 
 A message body that is error text, or a field that is empty, is a template rendering problem that still logs as success; preview against a real event to catch it.
+
+Last reviewed 2026-10-10
 
 An alert arrives in the chat room and the body is a paragraph of English error text; or the title, or one particular field, is inexplicably empty. Both are template rendering problems, and both **show as success in the notification records** — the HTTP request really was sent, and the far side really did answer 200.
 
@@ -136,6 +138,6 @@ One more: the template function `printf` **has been redefined by the product and
 ## Next[​](#next "Direct link to Next")
 
 * Every variable spelled out: [Message templates and variables](https://n9e.github.io/docs/notifications/templates.md)
-* Nothing arrived at all: [Alert event exists but no notification arrives](https://n9e.github.io/docs/troubleshooting/no-notification.md)
+* Nothing arrived at all: [Why is there an alert event but no notification?](https://n9e.github.io/docs/troubleshooting/no-notification.md)
 * Testing the chain end to end: [Test a notification end to end](https://n9e.github.io/docs/notifications/test.md)
 * Reading delivery status: [Retries and delivery status](https://n9e.github.io/docs/notifications/delivery.md)

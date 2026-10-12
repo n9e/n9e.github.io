@@ -2,6 +2,8 @@
 
 Of the six observability layers, Nightingale owns the middle three — rules, noise reduction, routing and delivery; collectors, storage and Grafana stay as they are.
 
+Last reviewed 2026-10-10
+
 After this page you can place Nightingale in the stack you already run, and say which pieces stay.
 
 ## Six layers, Nightingale owns the middle three[​](#six-layers-nightingale-owns-the-middle-three "Direct link to Six layers, Nightingale owns the middle three")

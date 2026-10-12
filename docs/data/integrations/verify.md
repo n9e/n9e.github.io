@@ -2,6 +2,8 @@
 
 A quiet imported rule may just mean no data arrived; query the metric name the template lists in the Metrics explorer to confirm the component's metrics are in.
 
+Last reviewed 2026-10-10
+
 An imported alert rule that stays quiet means one of two things: everything is fine, or **the data never arrived**. Those look identical from the outside, so spend two minutes confirming the metrics are really there before you trust the rules.
 
 This page gives three checkpoints, from the host outwards, and what you should see at each one.
@@ -101,4 +103,4 @@ One more case worth calling out on its own: **the wrong data source**. Metrics w
 
 * Data is in, now tune the thresholds: [Import dashboards and rules](https://n9e.github.io/docs/data/integrations/import.md)
 * Data is not in: [Categraf troubleshooting](https://n9e.github.io/docs/data/categraf/troubleshooting.md)
-* The data source itself is the problem: [Data source connects but queries return no data](https://n9e.github.io/docs/troubleshooting/no-data.md)
+* The data source itself is the problem: [Why does a data source connect but return no data?](https://n9e.github.io/docs/troubleshooting/no-data.md)

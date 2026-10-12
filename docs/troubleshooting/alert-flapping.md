@@ -1,6 +1,8 @@
-# Alert fires repeatedly or never recovers
+# Why does an alert fire repeatedly or never recover?
 
 Flapping or never-recovering alerts usually come from a threshold sitting on the data, a data gap read as recovery, a changing label set, or no recovery condition.
+
+Last reviewed 2026-10-10
 
 One rule sent forty messages overnight — fire, recover, fire, recover. Or the opposite: the problem was fixed hours ago and the event is still sitting there. These are two directions of the same machinery, so they share a page.
 
@@ -34,7 +36,7 @@ Once confirmed, treat it from these angles:
 
 * **set the recover duration longer than one gap** — with a 15-second collection interval, 60–120 seconds is a reasonable starting point;
 * avoid expressions that go entirely empty when a single point is missing;
-* the gap itself is an ingest problem — fix the root cause via [Data source connects but queries return no data](https://n9e.github.io/docs/troubleshooting/no-data.md).
+* the gap itself is an ingest problem — fix the root cause via [Why does a data source connect but return no data?](https://n9e.github.io/docs/troubleshooting/no-data.md).
 
 One counter-intuitive point worth stating plainly: **a query error and an empty query result behave completely differently.** On an error the whole judgement-and-recovery step for that cycle is skipped, so the event is neither refreshed nor recovered. Only a successful empty result triggers recovery. An intermittently timing-out data source therefore does not cause flapping — it causes stuck state.
 
@@ -54,7 +56,7 @@ How to confirm: take an adjacent recovered/triggered pair from the history and *
 
 An event that will not clear, in this order:
 
-1. **Is the rule still being evaluated?** If the evaluation records stop at some point, no engine is running the rule any more — and **without evaluation there is never a recovery**. Go to [Evaluation records are missing or dropped](https://n9e.github.io/docs/troubleshooting/evaluation-missing.md).
+1. **Is the rule still being evaluated?** If the evaluation records stop at some point, no engine is running the rule any more — and **without evaluation there is never a recovery**. Go to [Why are evaluation records missing or dropped?](https://n9e.github.io/docs/troubleshooting/evaluation-missing.md).
 2. **Is the query erroring every cycle?** Errors skip recovery entirely. Check whether `n9e_alert_rule_eval_error_total{stage="query_data"}` is climbing and whether `n9e_alert_eval_query_series_count` is negative.
 3. **Is the recover duration too long?** Until the window elapses, the event is still firing.
 4. **Did the object disappear?** Once a host is deleted from the host list, events carrying that `ident` are treated as muted (the evaluation record's detail reads `ident not exists, was muted`) and will not recover on their own.
@@ -94,5 +96,5 @@ When one rule carries several severities, the **inhibit** switch keeps only the 
 
 * The full model: [Evaluation, recovery and state changes](https://n9e.github.io/docs/concepts/evaluation.md)
 * Tuning the intervals: [Evaluation interval and recovery](https://n9e.github.io/docs/alerting/evaluation.md)
-* Root cause of the data gaps: [Data source connects but queries return no data](https://n9e.github.io/docs/troubleshooting/no-data.md)
+* Root cause of the data gaps: [Why does a data source connect but return no data?](https://n9e.github.io/docs/troubleshooting/no-data.md)
 * Other noise-reduction options: [Common noise patterns](https://n9e.github.io/docs/events/noise-patterns.md)

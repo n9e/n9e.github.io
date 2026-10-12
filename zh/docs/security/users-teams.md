@@ -2,13 +2,15 @@
 
 创建用户、组成团队、把团队作为通知接收方。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：一个能登录、能收到告警、并且被编进团队的账号——团队是后面 一切授权动作的抓手，业务组只认团队，不认单个用户。
 
 ## 1. 创建用户[​](#1-创建用户 "1. 创建用户的直接链接")
 
 **人员组织 → 用户管理**，右上角点 **新 增**。
 
-![用户管理](/zh/img/docs/security/users.zh.png)![用户管理](/zh/img/docs/security/users.zh.dark.png)
+![用户管理](/zh/img/docs/security/users.zh.webp)![用户管理](/zh/img/docs/security/users.zh.dark.webp)
 
 表单从上往下：
 
@@ -41,7 +43,7 @@
 
 **人员组织 → 团队管理**，左侧「团队列表」标题旁的 **+** 建团队，只要名称和备注两项。
 
-![团队管理](/zh/img/docs/security/teams.zh.png)![团队管理](/zh/img/docs/security/teams.zh.dark.png)
+![团队管理](/zh/img/docs/security/teams.zh.webp)![团队管理](/zh/img/docs/security/teams.zh.dark.webp)
 
 建完在左侧选中它，右上角 **添加成员**，从用户里挑人。右侧顶部那一行会显示这个团队的 ID、备注、更新人，以及**它被授权到了哪些业务组**——这是从团队视角反查授权的地方。
 

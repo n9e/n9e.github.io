@@ -2,17 +2,19 @@
 
 按标签匹配、时间窗或维护计划屏蔽，并看到一条屏蔽规则现在吞掉了什么。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：一条在指定时间窗内让某类告警不吵的规则，并且你清楚它到底是 「事件也不产生」还是「事件照记、只是不发」。
 
 入口：**告警通知 → 规则管理**，页面顶部切到 **屏蔽规则** tab（`/alert-mutes`）。
 
-![屏蔽规则列表](/zh/img/docs/events/mute-rules.zh.png)![屏蔽规则列表](/zh/img/docs/events/mute-rules.zh.dark.png)
+![屏蔽规则列表](/zh/img/docs/events/mute-rules.zh.webp)![屏蔽规则列表](/zh/img/docs/events/mute-rules.zh.dark.webp)
 
 ## 1. 新建一条屏蔽规则[​](#1-新建一条屏蔽规则 "1. 新建一条屏蔽规则的直接链接")
 
 点 **新增**。表单分三段，前两段标了「核心」。
 
-![屏蔽规则表单](/zh/img/docs/events/mute-form.zh.png)![屏蔽规则表单](/zh/img/docs/events/mute-form.zh.dark.png)
+![屏蔽规则表单](/zh/img/docs/events/mute-form.zh.webp)![屏蔽规则表单](/zh/img/docs/events/mute-form.zh.dark.webp)
 
 **筛选条件**——决定哪些事件被屏蔽，各项之间是「与」，留空表示不限制：
 

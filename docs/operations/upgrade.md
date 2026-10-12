@@ -2,6 +2,8 @@
 
 How schema migrations run on startup, and how to upgrade a multi-instance deployment in order.
 
+Last reviewed 2026-10-10
+
 The commands for replacing a binary are in [Upgrade](https://n9e.github.io/docs/install/upgrade.md). This page is the runtime half: **what the process does to your schema when it boots, and what a multi-instance deployment looks like from the moment the first instance goes down until the last one is back**.
 
 ## Migration runs inside the process, at startup[​](#migration-runs-inside-the-process-at-startup "Direct link to Migration runs inside the process, at startup")
@@ -65,7 +67,7 @@ Neither corrupts data, and both cost you a start you then have to diagnose. The 
 2. Wait for its log to go quiet: no `failed to migrate`, and no index work still running.
 3. Only then take the next instance, and one at a time from there.
 
-![The alerting engines page](/img/docs/operations/alerting-engines.png)![The alerting engines page](/img/docs/operations/alerting-engines.dark.png)
+![The alerting engines page](/img/docs/operations/alerting-engines.webp)![The alerting engines page](/img/docs/operations/alerting-engines.dark.webp)
 
 [Upgrade](https://n9e.github.io/docs/install/upgrade.md) already asks you to roll one at a time so that alerting never stops. The migration race is a **second, independent reason** for the same rule — and the reason the first instance deserves a pause before you touch the second, rather than a fixed interval.
 
@@ -91,4 +93,4 @@ Restarting every instance together turns the first row into "nothing is evaluate
 * [v8 to v9](https://n9e.github.io/docs/migration/v8-to-v9.md) — the cross-major breaking points
 * [High availability and failure domains](https://n9e.github.io/docs/operations/high-availability.md) — how rules move between instances
 * [Rollback and recovery](https://n9e.github.io/docs/operations/rollback.md) — when it goes wrong
-* [Upgrade or database migration fails](https://n9e.github.io/docs/troubleshooting/upgrade-fails.md) — when the log has something in it
+* [Why does an upgrade or database migration fail?](https://n9e.github.io/docs/troubleshooting/upgrade-fails.md) — when the log has something in it

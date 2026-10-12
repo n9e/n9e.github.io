@@ -2,13 +2,15 @@
 
 Match events by label and severity, then pick the media type, the template and the recipients.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a working notification rule — S1 through one media type, S3 through another — attached to an alert rule so events actually go out, and you have already received a test message from it before saving.
 
 ## 1. Create a notification rule[​](#1-create-a-notification-rule "Direct link to 1. Create a notification rule")
 
 **Alerts & Notifications → Notification rules**, then **Add** at the top right.
 
-![Notification rules](/img/docs/notifications/notify-rules.png)![Notification rules](/img/docs/notifications/notify-rules.dark.png)
+![Notification rules](/img/docs/notifications/notify-rules.webp)![Notification rules](/img/docs/notifications/notify-rules.dark.webp)
 
 The form has three sections: **Notification configuration** (the core one), **Basic configuration**, and **Event workflow** (optional). Skip basic configuration for now — the name is generated for you once you have picked a media type and a team.
 
@@ -79,4 +81,4 @@ Note that an alert rule can also carry a pipeline; that one affects everything d
 * Change the wording: [Templates and variables](https://n9e.github.io/docs/notifications/templates.md)
 * Let another team receive the same events: [Alert subscriptions](https://n9e.github.io/docs/events/subscriptions.md)
 * Stay quiet during a change window: [Mute rules](https://n9e.github.io/docs/events/mute-rules.md)
-* Configured but nothing arrives: [Alert event exists but no notification arrives](https://n9e.github.io/docs/troubleshooting/no-notification.md)
+* Configured but nothing arrives: [Why is there an alert event but no notification?](https://n9e.github.io/docs/troubleshooting/no-notification.md)

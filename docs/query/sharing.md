@@ -2,6 +2,8 @@
 
 Share one dashboard through a link that expires, without creating an account for the viewer.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a link that expires on its own, letting someone without a Nightingale account open exactly one dashboard — and that you can revoke at any point before it expires.
 
 ## 1. Generate a time-limited link[​](#1-generate-a-time-limited-link "Direct link to 1. Generate a time-limited link")

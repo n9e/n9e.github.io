@@ -1,10 +1,12 @@
-# MCP 工具缺失或被拒绝
+# MCP 工具为什么缺失或被拒绝？
 
 「没有这个工具」有三种形状：写工具未开启、工具集被禁用、Token 用户缺少权限——tools/list 的返回先分出是哪一种。
 
+最后校对于 2026-10-10
+
 客户端连上了，但模型说「我没有这个工具」；或者工具列表比预期短一大截； 或者调用返回一句拒绝。这三种是三个不同的原因，**返回的形状不一样**， 先按形状分类，比逐条试配置快得多。
 
-前提是连接本身是通的。如果客户端压根连不上，先看 [MCP 认证失败](https://n9e.github.io/zh/zh/docs/troubleshooting/mcp-auth.md)。
+前提是连接本身是通的。如果客户端压根连不上，先看 [MCP 认证为什么失败？](https://n9e.github.io/zh/zh/docs/troubleshooting/mcp-auth.md)。
 
 ## 先数一下 `tools/list` 返回了几个[​](#先数一下-toolslist-返回了几个 "先数一下-toolslist-返回了几个的直接链接")
 
@@ -136,4 +138,4 @@ WARNING [MCP] ignoring unknown toolset "alert"; valid names: [alert_subscribes a
 * 逐个工具的参数：[MCP 工具参考](https://n9e.github.io/zh/zh/docs/reference/mcp-tools.md)
 * 打开写工具之前先读：[安全地启用写工具](https://n9e.github.io/zh/zh/docs/ai/write-tools.md)
 * 权限边界怎么算：[权限继承与 RBAC](https://n9e.github.io/zh/zh/docs/ai/permissions.md)
-* 连都连不上：[MCP 认证失败](https://n9e.github.io/zh/zh/docs/troubleshooting/mcp-auth.md)
+* 连都连不上：[MCP 认证为什么失败？](https://n9e.github.io/zh/zh/docs/troubleshooting/mcp-auth.md)

@@ -2,6 +2,8 @@
 
 Skill 是一份用 SKILL.md 描述的排查方法，可从市场安装或自己编写，设定可见团队后由助手在对应问题上自动调用。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：团队自己的排障方法被装成一个 Skill，可见范围给对了人， 并且别人问到对应问题时它能稳定被命中。
 
 ## Skill 是什么[​](#skill-是什么 "Skill 是什么的直接链接")
@@ -16,7 +18,7 @@ Skill 不是模型，也不是工具。模型来自[配置大模型提供方](ht
 
 **Nightingale AI → Skill 管理**，地址 `/nightingale-ai/skills`，老地址 `/ai-config/skills` 会跳过来。页面由权限点 `/ai-config/skills` 把守，**内置角色里只有 `Admin` 带这个点**—— 别人要用，就在**人员组织 → 角色管理**里给自定义角色勾上。
 
-![Skill 管理](/zh/img/docs/ai/skills.zh.png)![Skill 管理](/zh/img/docs/ai/skills.zh.dark.png)
+![Skill 管理](/zh/img/docs/ai/skills.zh.webp)![Skill 管理](/zh/img/docs/ai/skills.zh.dark.webp)
 
 左边是一棵树：一个 Skill 一个节点，展开是它的文件。**产品内置了 22 个 Skill**， 带**内置**标签——覆盖告警规则不触发的排查、主机健康与上线诊断、仪表盘分析与创建、 PromQL 和 SQL 生成、通知模板编写、Prometheus 规则导入、自愈脚本编写等等。 它们的每个文件都能打开来看，但下载不了也删不掉。 同时它们也是写自己 Skill 时最好的范例。
 

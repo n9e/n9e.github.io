@@ -2,6 +2,8 @@
 
 A local alerting engine for sites whose link to the center is unreliable, and the one flag that silently breaks it.
 
+Last reviewed 2026-10-10
+
 Where the network to the central site is unreliable, run `n9e-edge` as a local alerting engine so alerts keep firing and keep being delivered through a partition:
 
 ```

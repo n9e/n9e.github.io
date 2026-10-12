@@ -2,6 +2,8 @@
 
 Opinions on rule design: alert only on what needs a person, leave trends to dashboards, size a rule to one class of object, and review so the rule set does not rot.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a set of opinions you can argue with, and a review habit that keeps a rule set from rotting. None of it is enforced by the product — it is the part that decides whether people still read your alerts in six months.
 
 ## What is worth alerting on[​](#what-is-worth-alerting-on "Direct link to What is worth alerting on")

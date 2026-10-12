@@ -2,6 +2,8 @@
 
 The write path: queue sizing, backpressure, multiple writers and forwarding to two backends.
 
+Last reviewed 2026-10-10
+
 Pushgw is the "samples in, samples forwarded out" half of Nightingale. It is on by default inside the `n9e` process and needs no attention at low volume. The moment you set up dual write, or start losing samples, you need to know what the queue looks like, how backpressure shows up, and which failures are silent.
 
 ## The write path[​](#the-write-path "Direct link to The write path")

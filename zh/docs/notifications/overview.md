@@ -2,6 +2,8 @@
 
 事件怎么送到人手里——通知媒介、消息模板、通知规则，以及哪些是开箱就有的。
 
+最后校对于 2026-10-10
+
 开箱就配好并启用的媒介有 6 个——FlashDuty、Callback、邮件、钉钉、企业微信、飞书卡片； 另有 20 份内置消息模板覆盖其余的：Slack、Telegram、Discord、Mattermost、 PagerDuty、FlashDuty、Jira 与 Webhook。每条消息都由模板渲染，可用变量见 [通知模板变量](https://n9e.github.io/zh/zh/docs/reference/notification-variables.md)。
 
 ## [通知架构](https://n9e.github.io/zh/zh/docs/notifications/architecture.md)

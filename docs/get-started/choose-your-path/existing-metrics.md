@@ -2,6 +2,8 @@
 
 Register the store as a data source, keep scraping exactly as before, and get the first rule evaluating against it — no data moves.
 
+Last reviewed 2026-10-10
+
 Where this path ends: one alert rule evaluating against the time-series database you **already run**, with your scrape config untouched and not one byte of data moved. About 10 minutes.
 
 ## Before you start[​](#before-you-start "Direct link to Before you start")
@@ -43,13 +45,13 @@ If the endpoint uses basic auth, fill **User** and **Password** under **Auth** �
 
 Click **Save & test**. A failed test is not saved, and the error names the step that failed.
 
-![The Prometheus data source form](/img/docs/data/form-prometheus.png)![The Prometheus data source form](/img/docs/data/form-prometheus.dark.png)
+![The Prometheus data source form](/img/docs/data/form-prometheus.webp)![The Prometheus data source form](/img/docs/data/form-prometheus.dark.webp)
 
 ## 2. Saving opens a guided dialog[​](#2-saving-opens-a-guided-dialog "Direct link to 2. Saving opens a guided dialog")
 
 Saving does not drop you back on the list. A dialog opens and answers, right there, whether the source you just registered actually works — and offers the few things worth doing next.
 
-![The guided dialog that opens after saving a data source](/img/docs/get-started/ds-next-step.png)![The guided dialog that opens after saving a data source](/img/docs/get-started/ds-next-step.dark.png)
+![The guided dialog that opens after saving a data source](/img/docs/get-started/ds-next-step.webp)![The guided dialog that opens after saving a data source](/img/docs/get-started/ds-next-step.dark.webp)
 
 ### Health check[​](#health-check "Direct link to Health check")
 
@@ -79,7 +81,7 @@ The matching runs on sentinel metrics: every built-in template picks one to thre
 
 Click a card to open the import dialog:
 
-![Importing component templates from the data source dialog](/img/docs/get-started/ds-template-import.png)![Importing component templates from the data source dialog](/img/docs/get-started/ds-template-import.dark.png)
+![Importing component templates from the data source dialog](/img/docs/get-started/ds-template-import.webp)![Importing component templates from the data source dialog](/img/docs/get-started/ds-template-import.dark.webp)
 
 Pick a business group, tick the dashboards or alert rules to bring in, and the import binds them to the source you just saved. The other two import entry points, and the templates themselves, are covered in [Import dashboards and rules](https://n9e.github.io/docs/data/integrations/import.md).
 
@@ -95,7 +97,7 @@ Pick a business group, tick the dashboards or alert rules to bring in, and the i
 up
 ```
 
-A line on the chart means this half works. If nothing comes back, stop here — [Data source connects but queries return no data](https://n9e.github.io/docs/troubleshooting/no-data.md).
+A line on the chart means this half works. If nothing comes back, stop here — [Why does a data source connect but return no data?](https://n9e.github.io/docs/troubleshooting/no-data.md).
 
 ## 4. Write the first rule[​](#4-write-the-first-rule "Direct link to 4. Write the first rule")
 

@@ -2,6 +2,8 @@
 
 导入的规则不响可能只是数据没到；用集成模板列出的指标名在即时查询里查一次，两分钟就能确认组件指标已经到达。
 
+最后校对于 2026-10-10
+
 导进来的告警规则不响，有两种可能：真的没问题，或者**数据压根没到**。 这两件事看起来一模一样，所以在信任规则之前，先花两分钟确认指标真的进来了。
 
 这页给你三个由近及远的确认点，以及每一步「应该看到什么」。
@@ -102,4 +104,4 @@ mysql_global_status_threads_connected
 
 * 数据到了，去调阈值：[导入仪表盘与规则](https://n9e.github.io/zh/zh/docs/data/integrations/import.md)
 * 数据没到：[Categraf 排障](https://n9e.github.io/zh/zh/docs/data/categraf/troubleshooting.md)
-* 数据源本身有问题：[数据源连上了但查不到数据](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)
+* 数据源本身有问题：[数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)

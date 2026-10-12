@@ -1,6 +1,8 @@
-# Upgrade or database migration fails
+# Why does an upgrade or database migration fail?
 
 Unknown column errors, blank pages or a hung process after an upgrade mean the schema did not fully migrate — usually missing database privileges or an interrupted run.
+
+Last reviewed 2026-10-10
 
 You swapped in the new binary, the process started, and the UI reports `Unknown column`; or one new feature's page is blank; or the process hangs entirely after startup. All of these point at one thing: **the schema was not fully brought up to date.**
 

@@ -2,6 +2,8 @@
 
 硬限制、软限制与默认大小：队列长度、超时、保留期。
 
+最后校对于 2026-10-10
+
 这页汇总那些「不改也能跑、但规模上来会撞上」的数字。完整配置见[配置项](https://n9e.github.io/zh/zh/docs/reference/configuration.md)。
 
 ## HTTP[​](#http "HTTP的直接链接")
@@ -38,7 +40,7 @@
 
 真正的硬限制不是这几个数字，而是**它只存在于单个 Center 进程的本地磁盘上**： 多副本部署时每个副本只有一部分数据。适用范围大致到 10 万活跃序列， 再往上换外部时序库。见[内置时序库的单实例限制](https://n9e.github.io/zh/zh/docs/operations/embedded-tsdb-limits.md)。
 
-## 写入与转发[​](#写入与转发 "写入与转发的直接链接")
+## 写入与转发[​](#写��入与转发 "写入与转发的直接链接")
 
 | 项           | 默认    | 配置项                           |
 | ------------ | ------- | -------------------------------- |
@@ -73,4 +75,4 @@
 
 * [配置项](https://n9e.github.io/zh/zh/docs/reference/configuration.md)
 * [容量规划](https://n9e.github.io/zh/zh/docs/operations/capacity.md)
-* [性能与积压现象](https://n9e.github.io/zh/zh/docs/troubleshooting/performance.md)
+* [夜莺为什么变慢或出现积压？](https://n9e.github.io/zh/zh/docs/troubleshooting/performance.md)

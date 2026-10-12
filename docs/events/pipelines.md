@@ -2,11 +2,13 @@
 
 Ordered processors that transform, enrich, drop or route an event before notification.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a chain of processors attached to an alert rule or a notification rule, which every event flows through before it goes out — rewriting labels, attaching context, or dropping the event outright.
 
 In the UI this feature is called **Workflows**, under **Alerts & Notifications → Workflows** (`/event-pipelines`).
 
-![The workflow list](/img/docs/events/pipelines.png)![The workflow list](/img/docs/events/pipelines.dark.png)
+![The workflow list](/img/docs/events/pipelines.webp)![The workflow list](/img/docs/events/pipelines.dark.webp)
 
 ## 1. Create a workflow[​](#1-create-a-workflow "Direct link to 1. Create a workflow")
 

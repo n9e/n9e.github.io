@@ -2,6 +2,8 @@
 
 Remove Nightingale cleanly, and what to keep or export before you do.
 
+Last reviewed 2026-10-10
+
 Nightingale has no installer, so it has no uninstaller either: stop the processes, delete the directory, drop the database. What actually needs thought is **what you still want before you delete it** — particularly the parts that stay useful somewhere else.
 
 ## Export before you uninstall[​](#export-before-you-uninstall "Direct link to Export before you uninstall")

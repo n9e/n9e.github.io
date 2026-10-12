@@ -2,6 +2,8 @@
 
 Import the bundled dashboards and alert rules into a business group, and adjust thresholds before enabling.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a business group that now has this component's dashboards, plus a batch of alert rules sitting **disabled**, waiting for you to adjust thresholds and enable them one by one.
 
 Nightingale ships templates for 86 components. Once metrics are arriving there is no need to draw panels or write rules from scratch — import the templates into a business group and tune them.

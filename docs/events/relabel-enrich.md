@@ -2,6 +2,8 @@
 
 Rename or add labels, or call your own service and write what it returns back onto the event.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a processor that reshapes an event's labels into what you actually want, plus a way to pull information from an external system (CMDB, on-call roster, config store) onto the event.
 
 Both live inside a workflow's processors; see [Event pipelines](https://n9e.github.io/docs/events/pipelines.md) for how to create one.

@@ -2,6 +2,8 @@
 
 Keep Grafana dashboards; move alert rules and contact points, and what to do about unified alerting state.
 
+Last reviewed 2026-10-10
+
 Where this page ends: Grafana unified alerting taken apart onto Nightingale objects, a clear line between what moves automatically and what has to be rewritten, and a decision about Grafana's No data / Error states.
 
 ## What stays, what gets replaced[​](#what-stays-what-gets-replaced "Direct link to What stays, what gets replaced")

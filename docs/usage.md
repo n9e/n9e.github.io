@@ -2,6 +2,8 @@
 
 Find current datasource, query, dashboard, alerting and notification guides from the former usage index.
 
+Last reviewed 2026-10-11
+
 Continue from this former catalogue to the current guides and the practical articles that retain their original URLs.
 
 ## Browse by topic[​](#topics "Direct link to Browse by topic")

@@ -2,6 +2,8 @@
 
 Embed Nightingale into an existing portal, hide menus selectively, and pass identity through.
 
+Last reviewed 2026-10-10
+
 Where this page ends: extra entries in the Nightingale side menu that open your other systems, and a way to embed Nightingale pages into your own portal without asking people to log in a second time.
 
 ## Two directions, don't mix them[​](#two-directions-dont-mix-them "Direct link to Two directions, don't mix them")
@@ -13,7 +15,7 @@ Where this page ends: extra entries in the Nightingale side menu that open your 
 
 **Integrations → Embedded products** (`/embedded-products`), then **Add**.
 
-![Embedded products](/img/docs/query/embedded-products.png)![Embedded products](/img/docs/query/embedded-products.dark.png)
+![Embedded products](/img/docs/query/embedded-products.webp)![Embedded products](/img/docs/query/embedded-products.dark.webp)
 
 | Field      | What to put in it                                                                      |
 | ---------- | -------------------------------------------------------------------------------------- |

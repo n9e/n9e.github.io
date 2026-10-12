@@ -2,6 +2,8 @@
 
 Undo an upgrade or a bad config push, and recover from a corrupted metadata database.
 
+Last reviewed 2026-10-10
+
 Three different things get called "rolling back", and mechanically they have nothing in common: a **version**, a **file in `etc/`**, and a **change somebody made in the UI**. Each has its own undo, and only the first one is covered by [Rollback](https://n9e.github.io/docs/install/rollback.md), which has the commands. This page is about performing each of them on a deployment that is running, plus the case where the metadata database itself is what broke.
 
 ## Rolling a cluster back to the previous version[​](#rolling-a-cluster-back-to-the-previous-version "Direct link to Rolling a cluster back to the previous version")

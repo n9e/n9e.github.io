@@ -2,6 +2,8 @@
 
 接入 ES 或 OpenSearch 集群，选择索引模式与时间字段，跑一条日志查询。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：一个接好的 ES 集群、一个可复用的索引模式， 以及一条在日志检索里真的查出日志的查询。
 
 先说一条会影响你怎么用的差别：**开源版里 ElasticSearch 能在日志检索和仪表盘里用， OpenSearch 只能用来配告警规则。** 两者都能注册成数据源、都能配日志告警规则， 但 OpenSearch 用不了探索器和仪表盘。有日志检索需求的，优先用 ElasticSearch 类型。
@@ -31,7 +33,7 @@
 
 「允许写入」这个开关开源版用不到，保持关闭。
 
-![Elasticsearch 数据源表单](/zh/img/docs/data/form-elasticsearch.zh.png)![Elasticsearch 数据源表单](/zh/img/docs/data/form-elasticsearch.zh.dark.png)
+![Elasticsearch 数据源表单](/zh/img/docs/data/form-elasticsearch.zh.webp)![Elasticsearch 数据源表单](/zh/img/docs/data/form-elasticsearch.zh.dark.webp)
 
 点 **测试连通性并保存**。ES 类型这一步做的是取版本号：取到了就把版本填进配置， 取不到**不会阻断保存**，但结果页会告诉你原因——所以看到「已保存，未验证连通性」别急着走， 先把原因看完。
 

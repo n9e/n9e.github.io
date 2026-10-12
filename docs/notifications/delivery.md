@@ -2,6 +2,8 @@
 
 Failed sends are retried only for connection failures, with parameters per send type; the outcome of every message is in the notification log, kept for seven days.
 
+Last reviewed 2026-10-10
+
 Where this page ends: you know where a notification can get stuck between "decided to send" and "they received it", which failures are retried and which are not, and where to look afterwards to find out what happened to one specific message.
 
 ## How a message actually leaves[​](#how-a-message-actually-leaves "Direct link to How a message actually leaves")
@@ -86,4 +88,4 @@ If you need long-term retention, export the rows elsewhere rather than raising t
 
 * Prove the channel works first: [Test a notification end to end](https://n9e.github.io/docs/notifications/test.md)
 * The message body failed to render: [Template rendering errors](https://n9e.github.io/docs/troubleshooting/template-errors.md)
-* Nothing arrives at all: [Alert event exists but no notification arrives](https://n9e.github.io/docs/troubleshooting/no-notification.md)
+* Nothing arrives at all: [Why is there an alert event but no notification?](https://n9e.github.io/docs/troubleshooting/no-notification.md)

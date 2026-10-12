@@ -2,6 +2,8 @@
 
 把现有存储注册为数据源，抓取配置原样保留，让第一条规则在它上面跑起来——数据不用搬。
 
+最后校对于 2026-10-10
+
 这条路的终点：一条告警规则在你**现有**的时序库上跑起来，抓取配置一行没改，数据一个字节没搬。 大约 10 分钟。
 
 ## 开始之前[​](#开始之前 "开始之前的直接链接")
@@ -43,13 +45,13 @@ VictoriaMetrics、Thanos、Mimir 都实现了 PromQL HTTP API，所以都注册�
 
 点 **测试连通性并保存**。测试不通过不会入库，错误信息会直接告诉你卡在哪一步。 （旁边那个 **不测试连通性直接保存** 用于地址暂时不可达、想先把配置存下来的情况。）
 
-![Prometheus 数据源表单](/zh/img/docs/data/form-prometheus.zh.png)![Prometheus 数据源表单](/zh/img/docs/data/form-prometheus.zh.dark.png)
+![Prometheus 数据源表单](/zh/img/docs/data/form-prometheus.zh.webp)![Prometheus 数据源表单](/zh/img/docs/data/form-prometheus.zh.dark.webp)
 
 ## 2. 保存之后会弹一个引导[​](#2-保存之后会弹一个引导 "2. 保存之后会弹一个引导的直接链接")
 
 保存不会直接跳回列表，而是弹出一个引导：它当场替你回答「这个数据源现在能不能用」， 再给出接下来能做的几件事。
 
-![保存数据源后弹出的引导弹窗](/zh/img/docs/get-started/ds-next-step.zh.png)![保存数据源后弹出的引导弹窗](/zh/img/docs/get-started/ds-next-step.zh.dark.png)
+![保存数据源后弹出的引导弹窗](/zh/img/docs/get-started/ds-next-step.zh.webp)![保存数�据源后弹出的引导弹窗](/zh/img/docs/get-started/ds-next-step.zh.dark.webp)
 
 ### 数据体检[​](#数据体检 "数据体检的直接链接")
 
@@ -79,7 +81,7 @@ VictoriaMetrics、Thanos、Mimir 都实现了 PromQL HTTP API，所以都注册�
 
 点卡片进导入弹窗：
 
-![从数据源引导里导入组件模板](/zh/img/docs/get-started/ds-template-import.zh.png)![从数据源引导里导入组件模板](/zh/img/docs/get-started/ds-template-import.zh.dark.png)
+![从数据源引导里导入组件模板](/zh/img/docs/get-started/ds-template-import.zh.webp)![从数据源引导里导入组件模板](/zh/img/docs/get-started/ds-template-import.zh.dark.webp)
 
 选业务组，勾要导的仪表盘或告警规则，导入时会自动绑定到刚保存的这个数据源上。 另外两个导入入口和模板本身的说明见[导入仪表盘与规则](https://n9e.github.io/zh/zh/docs/data/integrations/import.md)。
 
@@ -95,7 +97,7 @@ VictoriaMetrics、Thanos、Mimir 都实现了 PromQL HTTP API，所以都注册�
 up
 ```
 
-有曲线出来，这条路就通了。查不到先别往下走—— [数据源连上了但查不到数据](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)。
+有曲线出来，这条路就通了。查不到先别往下走—— [数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)。
 
 ## 4. 写第一条规则[​](#4-写第一条规则 "4. 写第一条规则的直接链接")
 

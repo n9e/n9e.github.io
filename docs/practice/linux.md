@@ -2,6 +2,8 @@
 
 Collect Linux metrics with Categraf, distinguish heartbeat metadata from stored samples, and detect missing hosts.
 
+Last reviewed 2026-10-11
+
 By the end of this page, Linux host metrics will be queryable in Nightingale, and you will know why an online target and a populated dashboard are separate checks. The collector commands target **Categraf v0.5.17 and Nightingale v9**.
 
 ## Collect and connect[​](#collect "Direct link to Collect and connect")

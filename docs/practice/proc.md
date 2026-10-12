@@ -2,6 +2,8 @@
 
 Distinguish system process counts from a service’s resource usage and verify processes, procstat or application metrics.
 
+Last reviewed 2026-10-11
+
 By the end of this page, you will distinguish excessive system process counts from a missing service and collect per-service resource metrics. The configuration targets **Categraf v0.5.17 and Nightingale v9**.
 
 ## Choose the signal[​](#choose "Direct link to Choose the signal")

@@ -2,6 +2,8 @@
 
 把模板里的采集配置放进 Categraf，开始采集该组件的指标。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：目标机器上多了一个 `conf/input.<插件>/<插件>.toml`， Categraf 开始采集这个组件的指标，并且你已经确认指标到了夜莺。
 
 前提是目标机器上**已经装好 Categraf**——还没装先看 [安装与注册](https://n9e.github.io/zh/zh/docs/data/categraf/install.md)。夜莺本身不采集任何东西， 它只是告诉你该往 Categraf 里放什么。

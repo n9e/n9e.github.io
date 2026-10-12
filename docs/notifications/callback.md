@@ -2,6 +2,8 @@
 
 POST events to any HTTP endpoint: the URL, headers and body template, the variables they can use, and when a call counts as delivered.
 
+Last reviewed 2026-10-10
+
 Where this page ends: every event a notification rule matches is POSTed to an HTTP endpoint you own — a ticketing system, an internal bot, an automation service — in a body shaped the way that endpoint expects.
 
 The open-source edition **ships a Callback media type, already enabled**. In most cases you do not create a new one; you point a notification rule at it and give it a URL.

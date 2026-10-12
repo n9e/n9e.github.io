@@ -2,6 +2,8 @@
 
 Keep Grafana for visualisation: point it at the same stores, and hand alerting to Nightingale.
 
+Last reviewed 2026-10-10
+
 Where this page ends: your Grafana dashboards untouched, and Nightingale alerting on the same stores. No data is migrated and no panel is rebuilt.
 
 ## Splitting the work[​](#splitting-the-work "Direct link to Splitting the work")

@@ -2,6 +2,8 @@
 
 Mute rules, subscriptions, pipelines and notification rules are not alternatives: they act on an event in a fixed order, which is why a muted alert can still page.
 
+Last reviewed 2026-10-10
+
 Nightingale has four mechanisms that act on an event. They are **not alternatives** — each acts at a different moment. Getting the order wrong is what produces "I muted it and still got paged" and "the pipeline rewrote the label but routing did not follow".
 
 ## The actual order[​](#the-actual-order "Direct link to The actual order")
@@ -72,4 +74,4 @@ That is different from adding one more recipient to somebody else's notification
 * [Alert subscriptions](https://n9e.github.io/docs/events/subscriptions.md)
 * [Event pipelines](https://n9e.github.io/docs/events/pipelines.md)
 * [Notification rules](https://n9e.github.io/docs/notifications/rules.md)
-* When nothing arrives, walk this chain: [Alert event exists but no notification arrives](https://n9e.github.io/docs/troubleshooting/no-notification.md)
+* When nothing arrives, walk this chain: [Why is there an alert event but no notification?](https://n9e.github.io/docs/troubleshooting/no-notification.md)

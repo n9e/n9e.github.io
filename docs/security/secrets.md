@@ -2,6 +2,8 @@
 
 Keep database passwords, channel tokens and LLM keys out of config files.
 
+Last reviewed 2026-10-10
+
 Where this page ends: an accurate list of which credentials can be moved, how to move them, and where the rest live. It starts with what the product actually offers, because this is the area people most often configure from imagination.
 
 ## The two mechanisms that exist[​](#the-two-mechanisms-that-exist "Direct link to The two mechanisms that exist")

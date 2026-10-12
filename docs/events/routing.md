@@ -2,6 +2,8 @@
 
 Send an event to different channels or teams depending on its labels and severity.
 
+Last reviewed 2026-10-10
+
 Where this page ends: you know which piece of configuration to touch for "S1 phones people, S3 only goes to a chat room" and "`env=prod` goes to the on-call room, `env=dev` goes nowhere".
 
 ## Routing happens inside notification rules[​](#routing-happens-inside-notification-rules "Direct link to Routing happens inside notification rules")

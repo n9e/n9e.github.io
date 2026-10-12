@@ -2,6 +2,8 @@
 
 The three objects everything else hangs off: a data source is queried by a rule, and a rule that trips produces an event.
 
+Last reviewed 2026-10-10
+
 There are a lot of objects in Nightingale, but three carry the model. Everything else decorates them.
 
 ## The three objects[​](#the-three-objects "Direct link to The three objects")

@@ -2,6 +2,8 @@
 
 The command line is thin: every process takes three flags, configuration lives in the toml files under etc/, and there are no subcommands for managing rules.
 
+Last reviewed 2026-10-10
+
 Nightingale's command line is **thin** — configuration lives in the toml files under `etc/`, and there are three flags. There are no subcommands for managing alert rules and the like; that is what the [HTTP API](https://n9e.github.io/docs/reference/http-api.md) is for.
 
 ## The four service processes[​](#the-four-service-processes "Direct link to The four service processes")

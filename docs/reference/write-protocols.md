@@ -2,6 +2,8 @@
 
 Prometheus Remote Write, OpenTSDB, Datadog and Falcon: endpoints, payloads and label handling.
 
+Last reviewed 2026-10-10
+
 The ingest side is called Pushgw and lives inside the Center process (it can also run on its own as `n9e-pushgw`). **It does not store data long-term** — what arrives is forwarded to one or more TSDBs per `[[Pushgw.Writers]]`, plus the embedded TSDB when that is on.
 
 You do not have to use it. Your existing Prometheus can keep scraping while Nightingale only queries, and alerting works the same. The difference between the two shapes is in [Where it fits](https://n9e.github.io/docs/get-started/where-it-fits.md).

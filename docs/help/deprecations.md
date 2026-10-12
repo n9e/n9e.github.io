@@ -2,6 +2,8 @@
 
 Features, fields and UI items marked deprecated, with their replacements; the project publishes no removal schedule, and GitHub releases are the version record.
 
+Last reviewed 2026-10-10
+
 This page lists what Nightingale marks as deprecated and what replaced it. It does not list removal dates, because **the project does not publish any** — see the first section before reading the rest.
 
 ## There is no published maintenance policy[​](#there-is-no-published-maintenance-policy "Direct link to There is no published maintenance policy")

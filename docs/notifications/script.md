@@ -2,6 +2,8 @@
 
 Hand events to your own program: how the script is stored and run, what arrives on stdin, and how success and failure are recorded.
 
+Last reviewed 2026-10-10
+
 Where this page ends: every event a notification rule matches is handed to a program you wrote — a shell or Python script that calls an internal SMS gateway, writes to a queue, or does anything an HTTP callback cannot.
 
 Reach for this only when [Callback](https://n9e.github.io/docs/notifications/callback.md) is not enough. A script runs **on the alert engine's machine, as the engine's user**, so it is more powerful and also easier to get wrong.

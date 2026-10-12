@@ -1,6 +1,8 @@
-# 试跑成功但生产执行失败
+# 工作流试跑成功，为什么生产执行失败？
 
 试跑成功而线上失败，差别在事件和进程：真实事件可能缺标签，线上执行的是告警进程而非页面进程，权限和网络可达性都不同。
+
+最后校对于 2026-10-10
 
 工作流的试跑面板一片绿，每个节点都有输出，标签也改对了。挂到规则上，真实事件来了， 什么都没发生——执行记录空的，或者有记录但结果和试跑完全不一样。
 
@@ -126,7 +128,7 @@ INFO dispatch/dispatch.go:265 processor_by_notify_rule_id:1 pipeline_id:1, event
 4. 打开这条记录，逐个节点核对结果，尤其是标签改写节点的前后 diff；
 5. 有回调节点的，再去对端确认真的收到了。
 
-## 收集这些再去提问[​](#收集这些再去提问 "收集这些再去提问的直接�链接")
+## 收集这些再去提问[​](#收集这些再去提问 "收集这些再去提问的直接链接")
 
 1. 工作流的完整配置（处理器类型、顺序、生效范围、变量），以及它挂在哪条规则上；
 2. 试跑的结果截图，和**同一条事件**的线上执行记录，两份一起给；
@@ -141,5 +143,5 @@ INFO dispatch/dispatch.go:265 processor_by_notify_rule_id:1 pipeline_id:1, event
 * 试跑面板怎么用：[用模拟事件试跑](https://n9e.github.io/zh/zh/docs/events/try-workflow.md)
 * 执行记录逐列怎么读：[查看 Pipeline 执行记录](https://n9e.github.io/zh/zh/docs/events/execution-records.md)
 * 工作流怎么配：[事件 Pipeline](https://n9e.github.io/zh/zh/docs/events/pipelines.md)
-* 跑通了但发错了地方：[Pipeline 路由到了错误的目的地](https://n9e.github.io/zh/zh/docs/troubleshooting/wrong-routing.md)
+* 跑通了但发错了地方：[Pipeline 为什么路由到了错误的目的地？](https://n9e.github.io/zh/zh/docs/troubleshooting/wrong-routing.md)
 * 标签改写的细节：[改写标签与富化上下文](https://n9e.github.io/zh/zh/docs/events/relabel-enrich.md)

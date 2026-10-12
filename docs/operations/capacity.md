@@ -2,6 +2,8 @@
 
 Load is driven by rule count, series count, event volume and database traffic; measure four numbers to know where to scale — there is deliberately no sizing table.
 
+Last reviewed 2026-10-10
+
 This page does not give you a "X cores and Y GB run Z rules" table — the last section explains why. What it gives instead is **four numbers you can measure directly**, and where to scale when each one approaches its limit. Measuring your own environment beats copying someone else's spec sheet.
 
 ## What consumes what[​](#what-consumes-what "Direct link to What consumes what")

@@ -2,6 +2,8 @@
 
 Categraf batches metrics and ships them over Prometheus Remote Write; several writers can feed Nightingale and a second backend at once; failed writes are not retried.
 
+Last reviewed 2026-10-10
+
 Categraf does not send each sample as it is collected. Metrics go into a queue, are batched, and shipped over Prometheus Remote Write. This page covers the four knobs on that path — and one thing you must know: **a failed write is not retried.**
 
 ## Where the data goes[​](#where-the-data-goes "Direct link to Where the data goes")

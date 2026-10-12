@@ -2,17 +2,19 @@
 
 Silence by label match, time window or maintenance schedule, and see what a mute rule is currently swallowing.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a rule that keeps a class of alert quiet during a window you choose, and you know whether it means "no event at all" or "the event is still recorded, just not sent".
 
 Entry point: **Alerts & Notifications → Alert rules**, then the **Muting rules** tab at the top of the page (`/alert-mutes`).
 
-![The muting rules list](/img/docs/events/mute-rules.png)![The muting rules list](/img/docs/events/mute-rules.dark.png)
+![The muting rules list](/img/docs/events/mute-rules.webp)![The muting rules list](/img/docs/events/mute-rules.dark.webp)
 
 ## 1. Create a mute rule[​](#1-create-a-mute-rule "Direct link to 1. Create a mute rule")
 
 Click **Add**. The form has three sections; the first two are marked as the core ones.
 
-![The mute rule form](/img/docs/events/mute-form.png)![The mute rule form](/img/docs/events/mute-form.dark.png)
+![The mute rule form](/img/docs/events/mute-form.webp)![The mute rule form](/img/docs/events/mute-form.dark.webp)
 
 **Filter conditions** decide which events get muted. They are AND-ed, and an empty one means no restriction:
 

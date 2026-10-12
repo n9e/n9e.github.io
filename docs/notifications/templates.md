@@ -2,13 +2,15 @@
 
 Templates are Go text/template with every variable under $event; a misspelled variable raises no error and just leaves a hole in the message — preview catches it.
 
+Last reviewed 2026-10-10
+
 Where this page ends: your own message template, every variable in it verified in the preview, and an understanding of why a misspelled variable never raises an error — it just leaves a hole in the message.
 
 ## Open the template editor[​](#open-the-template-editor "Direct link to Open the template editor")
 
 **Alerts & Notifications → Message templates**. The list is on the left, the editor in the middle, and a panel of referenceable event variables on the right (click any of them to copy).
 
-![Message templates](/img/docs/notifications/message-templates.png)![Message templates](/img/docs/notifications/message-templates.dark.png)
+![Message templates](/img/docs/notifications/message-templates.webp)![Message templates](/img/docs/notifications/message-templates.dark.webp)
 
 The header shows the template's **ident** and its **media type**. The ident is a server-side uuid you never need to touch; the media type decides which media type this template appears under in a notification rule.
 

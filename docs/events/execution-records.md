@@ -2,11 +2,13 @@
 
 Execution records trace each event through every processor: what each one changed, whether the event was dropped, and where it was sent.
 
+Last reviewed 2026-10-10
+
 Where this page ends: you can answer whether a given event entered a workflow, what each processor did to it, and whether it was dropped halfway through.
 
 Entry point: **Alerts & Notifications → Workflows**, then the **Execution history** tab (`/event-pipelines-executions`). Opening executions from a single workflow's row is the same table with that workflow pre-filtered.
 
-![Execution records](/img/docs/events/pipeline-executions.png)![Execution records](/img/docs/events/pipeline-executions.dark.png)
+![Execution records](/img/docs/events/pipeline-executions.webp)![Execution records](/img/docs/events/pipeline-executions.dark.webp)
 
 ## Widen the time range first[​](#widen-the-time-range-first "Direct link to Widen the time range first")
 

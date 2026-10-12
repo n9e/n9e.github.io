@@ -2,6 +2,8 @@
 
 Configuration is a directory: config.toml is read by n9e, alert and pushgw, etc/edge by n9e-edge; environment variables fill in blanks but never override set keys.
 
+Last reviewed 2026-10-10
+
 Nightingale is configured by a **directory**, not a file. Knowing how that directory is loaded, and when environment variables actually apply, removes a whole class of "I changed the config and nothing happened".
 
 ## Where the config directory is[​](#where-the-config-directory-is "Direct link to Where the config directory is")

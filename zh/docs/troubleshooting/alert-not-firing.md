@@ -1,6 +1,8 @@
-# 查询有结果但告警不触发
+# 查询有结果，为什么告警不触发？
 
 查询有数据却不触发，答案九成在判定记录里：持续时长未满、datasource\_queries 选错、时间段或业务组不符、规则被禁用或被屏蔽。
+
+最后校对于 2026-10-10
 
 在即时查询里把规则的表达式贴进去，数据明明白白超了阈值，规则页面上却一条事件都没有。 这页给的不是「可能是 A 可能是 B」的清单，而是一条从判定记录往回读的路径。
 
@@ -29,7 +31,7 @@ for=180s elapsed=45s
 
 意思是持续时长要 180 秒，目前才满足了 45 秒——不是不触发，是还没到时候。
 
-`anomaly_total` 是 0，说明**查询这一步就没有越阈的序列**——不是判定的问题， 回到查询本身：[数据源连上了但查不到数据](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)。
+`anomaly_total` 是 0，说明**查询这一步就没有越阈的序列**——不是判定的问题， 回到查询本身：[数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)。
 
 ## 规则根本没进入评估[​](#规则根本没进入评估 "规则根本没进入评估的直接链接")
 
@@ -86,8 +88,8 @@ for=180s elapsed=45s
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 判定记录本身是空的：[判定记录缺失或被丢弃](https://n9e.github.io/zh/zh/docs/troubleshooting/evaluation-missing.md)
-* 事件有了但没通知：[有事件但收不到通知](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)
-* 反复触发/不恢复：[告警反复触发或从不恢复](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-flapping.md)
+* 判定记录本身是空的：[判定记录为什么缺失或被丢弃？](https://n9e.github.io/zh/zh/docs/troubleshooting/evaluation-missing.md)
+* 事件有了但没通知：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)
+* 反复触发/不恢复：[告警为什么反复触发或从不恢复？](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-flapping.md)
 * 判定与恢复的完整模型：[判定、恢复与状态变化](https://n9e.github.io/zh/zh/docs/concepts/evaluation.md)
 * 判定记录页面怎么读：[判定执行记录](https://n9e.github.io/zh/zh/docs/alerting/execution-records.md)

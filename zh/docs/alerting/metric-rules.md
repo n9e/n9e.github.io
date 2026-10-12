@@ -2,6 +2,8 @@
 
 指标规则把阈值写在 PromQL 里，一条规则可带 S1 / S2 / S3 多档级别，查询返回的标签会落到事件上供路由使用。
 
+最后校对于 2026-10-10
+
 这页办完你会看得懂、也写得出 Prometheus 类规则的「告警条件」那一步——阈值写在哪儿、 一条规则怎么带多个级别、查询返回的标签里哪些最后会落到事件上。
 
 这是 **Prometheus Like** 类数据源的规则类型：Prometheus 本身、VictoriaMetrics、Thanos、Mimir。 其他类型见[日志规则](https://n9e.github.io/zh/zh/docs/alerting/log-rules.md)和 [SQL 规则](https://n9e.github.io/zh/zh/docs/alerting/sql-rules.md)。

@@ -2,6 +2,8 @@
 
 Move from the embedded store to Prometheus or VictoriaMetrics without a gap, using Pushgw dual write.
 
+Last reviewed 2026-10-10
+
 The embedded store and an external one **can be enabled at the same time**, and that overlap is the migration window: write to both, wait until the external store holds enough history, then turn the embedded one off. No downtime, and no gap in the charts.
 
 ## How dual write works[​](#how-dual-write-works "Direct link to How dual write works")

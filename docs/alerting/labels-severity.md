@@ -2,6 +2,8 @@
 
 Attach labels for routing, write annotations that read well in a notification, and choose S1 / S2 / S3 deliberately.
 
+Last reviewed 2026-10-10
+
 Where this page ends: the events your rule produces carry the labels that routing needs, the text a person needs at 3 a.m., and a severity that means the same thing across your whole rule set.
 
 ## Three different things you can attach[​](#three-different-things-you-can-attach "Direct link to Three different things you can attach")

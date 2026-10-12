@@ -2,6 +2,8 @@
 
 The embedded store lives inside one Center process: what that rules out and when to move off it.
 
+Last reviewed 2026-10-10
+
 The embedded store lets you get charts and alerts with zero extra dependencies, at the cost of being tied to one process. This page spells out what "tied to one process" excludes, so you know when you have to move off it.
 
 ## It is a Prometheus TSDB inside the process[​](#it-is-a-prometheus-tsdb-inside-the-process "Direct link to It is a Prometheus TSDB inside the process")

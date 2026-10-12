@@ -1,6 +1,8 @@
-# Query works but the alert does not fire
+# Why does the alert not fire when the query returns results?
 
 Query has data but nothing fires: the evaluation records hold the answer — for-duration not met, wrong datasource\_queries, group or window mismatch, disabled, muted.
+
+Last reviewed 2026-10-10
 
 You paste the rule's expression into the Metrics explorer, the value is clearly over the threshold, and the rule page shows no events at all. This page is not a list of "maybe A, maybe B" — it is one path, read backwards from the evaluation records.
 
@@ -29,7 +31,7 @@ for=180s elapsed=45s
 
 The for-duration is 180 seconds and only 45 have accumulated — it is not failing to fire, it is not due yet.
 
-If `anomaly_total` is 0, **no series crossed the threshold at query time**. That is not a judgement problem; go back to the query: [Data source connects but queries return no data](https://n9e.github.io/docs/troubleshooting/no-data.md).
+If `anomaly_total` is 0, **no series crossed the threshold at query time**. That is not a judgement problem; go back to the query: [Why does a data source connect but return no data?](https://n9e.github.io/docs/troubleshooting/no-data.md).
 
 ## The rule is never evaluated[​](#the-rule-is-never-evaluated "Direct link to The rule is never evaluated")
 
@@ -86,8 +88,8 @@ Mute rules have two modes and they behave very differently:
 
 ## Next[​](#next "Direct link to Next")
 
-* The evaluation records themselves are empty: [Evaluation records are missing or dropped](https://n9e.github.io/docs/troubleshooting/evaluation-missing.md)
-* The event exists but nothing arrives: [Alert event exists but no notification arrives](https://n9e.github.io/docs/troubleshooting/no-notification.md)
-* Fires and recovers repeatedly: [Alert fires repeatedly or never recovers](https://n9e.github.io/docs/troubleshooting/alert-flapping.md)
+* The evaluation records themselves are empty: [Why are evaluation records missing or dropped?](https://n9e.github.io/docs/troubleshooting/evaluation-missing.md)
+* The event exists but nothing arrives: [Why is there an alert event but no notification?](https://n9e.github.io/docs/troubleshooting/no-notification.md)
+* Fires and recovers repeatedly: [Why does an alert fire repeatedly or never recover?](https://n9e.github.io/docs/troubleshooting/alert-flapping.md)
 * The full model: [Evaluation, recovery and state changes](https://n9e.github.io/docs/concepts/evaluation.md)
 * How to read the records page: [Evaluation execution records](https://n9e.github.io/docs/alerting/execution-records.md)

@@ -2,6 +2,8 @@
 
 Add teams to a business group with read or write rights, and see the effect on rules and targets.
 
+Last reviewed 2026-10-10
+
 Where this page ends: one business group, plus a list of which teams may read it and which may write to it. This is layer two of the permission model — layer one is roles, covered in [Roles and permission matrix](https://n9e.github.io/docs/security/roles.md).
 
 ## Where to find it[​](#where-to-find-it "Direct link to Where to find it")

@@ -2,6 +2,8 @@
 
 按现象排查 AI 功能：助手不回答或半路中断、Skill 没被用上或装不上、MCP 客户端连不上——每条都能从产品日志核对。
 
+最后校对于 2026-10-10
+
 先看现象，再给做法。这页上的每一条都能从产品自己的日志和报错里核对—— 不用去猜模型当时在想什么。
 
 ## 哪一半坏了[​](#哪一半坏了 "哪一半坏了的直接链接")
@@ -118,5 +120,5 @@
 ## 下一步[​](#下一步 "下一步的直接链接")
 
 * 端点本身的配置：[启用 MCP 端点](https://n9e.github.io/zh/zh/docs/ai/mcp-endpoint.md)
-* 认证失败的细节：[MCP 认证失败](https://n9e.github.io/zh/zh/docs/troubleshooting/mcp-auth.md)
-* 工具缺失的细节：[MCP 工具缺失或被拒绝](https://n9e.github.io/zh/zh/docs/troubleshooting/mcp-tools-missing.md)
+* 认证失败的细节：[MCP 认证为什么失败？](https://n9e.github.io/zh/zh/docs/troubleshooting/mcp-auth.md)
+* 工具缺失的细节：[MCP 工具为什么缺失或被拒绝？](https://n9e.github.io/zh/zh/docs/troubleshooting/mcp-tools-missing.md)

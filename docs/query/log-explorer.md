@@ -2,6 +2,8 @@
 
 Search ElasticSearch, Loki and VictoriaLogs sources, define index patterns, and pivot from a log line to a rule.
 
+Last reviewed 2026-10-10
+
 Where this page ends: one search running against your log store, narrowed to the lines you care about using the field sidebar, and "which indices, which time field" saved as an index pattern so you never type it again.
 
 ## Before you start: which sources this page accepts[​](#before-you-start-which-sources-this-page-accepts "Direct link to Before you start: which sources this page accepts")
@@ -16,7 +18,7 @@ Registering the source itself is covered in [ElasticSearch / OpenSearch](https:/
 
 **Explorer → Logs** (`/log/explorer`).
 
-![Log explorer](/img/docs/query/log-explorer.png)![Log explorer](/img/docs/query/log-explorer.dark.png)
+![Log explorer](/img/docs/query/log-explorer.webp)![Log explorer](/img/docs/query/log-explorer.dark.webp)
 
 The left column, top to bottom (this is the Elasticsearch shape):
 

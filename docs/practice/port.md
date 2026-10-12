@@ -2,6 +2,8 @@
 
 Configure Categraf TCP, UDP and HTTP probes, then verify result codes, response content and certificate expiry metrics.
 
+Last reviewed 2026-10-11
+
 By the end of this page, an independent probe will check service ports and HTTP responses rather than process existence alone. The configuration targets **Categraf v0.5.17 and Nightingale v9**.
 
 ## TCP and UDP[​](#tcp-udp "Direct link to TCP and UDP")

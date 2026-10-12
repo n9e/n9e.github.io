@@ -2,6 +2,8 @@
 
 Precompute expensive expressions on a schedule and alert on the result instead.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a recording rule evaluating on a fixed schedule, turning a PromQL expression that takes seconds to run into a new metric. Alert rules and panels then query that metric instead, and evaluation drops from seconds to milliseconds.
 
 ## When it is worth it[​](#when-it-is-worth-it "Direct link to When it is worth it")
@@ -44,7 +46,7 @@ The embedded TSDB's `/prometheus` endpoint only accepts requests from the local 
 
 **Explorer → Metrics → Recording rules** (`/recording-rules`), then **Add**.
 
-![Recording rules](/img/docs/query/recording-rules.png)![Recording rules](/img/docs/query/recording-rules.dark.png)
+![Recording rules](/img/docs/query/recording-rules.webp)![Recording rules](/img/docs/query/recording-rules.dark.webp)
 
 | Field               | What to put in it                                                                                                                    |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |

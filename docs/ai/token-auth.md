@@ -2,6 +2,8 @@
 
 Create a token, pass it in X-User-Token, and understand that the client inherits exactly that user's permissions.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a least-privilege account dedicated to AI access with one token under it, and a command that proves the token reaches `/mcp`.
 
 ## 1. Create a dedicated account[​](#1-create-a-dedicated-account "Direct link to 1. Create a dedicated account")

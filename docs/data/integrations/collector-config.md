@@ -2,6 +2,8 @@
 
 Copy a template's collector config into Categraf and start collecting the component's metrics.
 
+Last reviewed 2026-10-10
+
 Where this page ends: the target host has a new `conf/input.<plugin>/<plugin>.toml`, Categraf is collecting that component's metrics, and you have confirmed they reached Nightingale.
 
 This assumes Categraf is **already installed** on the host — if not, start at [Install and register](https://n9e.github.io/docs/data/categraf/install.md). Nightingale collects nothing itself; it only tells you what to put into Categraf.

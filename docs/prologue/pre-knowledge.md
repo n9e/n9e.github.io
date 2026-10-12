@@ -2,6 +2,8 @@
 
 Learn logs, processes, time-series concepts, PromQL and the data path before diagnosing collection, storage, alerting or delivery.
 
+Last reviewed 2026-10-11
+
 After this page, you will know the prerequisites for Nightingale and be able to separate missing data, missing alerts and missing notifications into specific checks.
 
 ## Linux and deployment basics[​](#linux "Direct link to Linux and deployment basics")

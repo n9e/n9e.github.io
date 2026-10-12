@@ -2,6 +2,8 @@
 
 Conversation history is stored server-side and can be reviewed or deleted; in the open-source build an agent is an internal binding, not something you create.
 
+Last reviewed 2026-10-10
+
 Two separate things share this page, and they are worth telling apart up front. **Conversation history is a real, everyday feature.** **"Agent" is an internal binding in the open-source build, not something you create** — the details are in the second half so you do not go looking for a page that is not there.
 
 ## Where conversations live[​](#where-conversations-live "Direct link to Where conversations live")

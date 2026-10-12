@@ -2,6 +2,8 @@
 
 消息模板里可用的事件字段与辅助函数。
 
+最后校对于 2026-10-10
+
 消息模板用的是 Go 的 `text/template`。
 
 **最容易踩的一点：事件字段挂在 `$event` 上，不是模板顶层的 `.`。** 写成 `{{"{{"}}.RuleName{{"}}"}}` 会静默渲染成空字符串， `{{"{{"}}timeformat .TriggerTime{{"}}"}}` 直接报 `invalid value; expected int64`。
@@ -61,7 +63,7 @@
 
 恢复事件要用 `sub $event.LastEvalTime $event.FirstTriggerTime`。
 
-## 有几类媒介不消费模板[​](#有几类媒介不消费模板 "有几类媒介不消费模板的直接链接")
+## 有几类媒介不消费模板[​](#有几类媒介�不消费模板 "有几类媒介不消费模板的直接链接")
 
 `callback`、`flashduty`、`pagerduty` 这三类**不走消息模板**—— 它们的请求体直接透传事件 JSON，界面上也不给选模板。 其余媒介**缺模板会整条丢弃**，并写一条失败的通知记录。
 
@@ -72,4 +74,4 @@
 ## 相关[​](#相关 "相关的直接链接")
 
 * [消息模板与变量](https://n9e.github.io/zh/zh/docs/notifications/templates.md)
-* [通知模板渲染失败](https://n9e.github.io/zh/zh/docs/troubleshooting/template-errors.md)
+* [通知模板为什么渲染失败？](https://n9e.github.io/zh/zh/docs/troubleshooting/template-errors.md)

@@ -2,6 +2,8 @@
 
 What to change before real traffic: default credentials, external database, TSDB choice, HA, backups and self-monitoring.
 
+Last reviewed 2026-10-10
+
 Getting a single instance running is easy, but those defaults are **not for production**. This is the list to walk before you go live.
 
 ## Must do[​](#must-do "Direct link to Must do")

@@ -2,6 +2,8 @@
 
 Rules that page you when the alerting system is the thing that is down.
 
+Last reviewed 2026-10-10
+
 An alerting system that is down will not tell you it is down. This page gives the concrete rules that make Nightingale watch itself, and what to do about **the one part it cannot cover**.
 
 ## Start with the boundary[​](#start-with-the-boundary "Direct link to Start with the boundary")

@@ -1,6 +1,8 @@
-# MCP 认证失败
+# MCP 认证为什么失败？
 
 MCP 认证失败先看状态码是哪一层拒绝的：网关、Token 还是 OAuth；常见原因是头名写错、Token 过期、回调地址不匹配。
+
+最后校对于 2026-10-10
 
 MCP 客户端连不上：状态显示失败、日志里是 401、或者 OAuth 授权页转了一圈又回到未连接。 这页按「哪一层拒绝了你」组织——**每一层的返回长得不一样**，认出来就不用挨个试。
 
@@ -166,7 +168,7 @@ curl -s --noproxy '*' -o /dev/null -w '%{http_code}\n' \
 
 4. 让它执行一个只读请求，比如「列出我能看到的业务组」， 返回的条数应该和这个账号登录界面看到的一致。
 
-工具数不对、或者少了某些工具，那是另一个问题，见 [MCP 工具缺失或被拒绝](https://n9e.github.io/zh/zh/docs/troubleshooting/mcp-tools-missing.md)。
+工具数不对、或者少了某些工具，那是另一个问题，见 [MCP 工具为什么缺失或被拒绝？](https://n9e.github.io/zh/zh/docs/troubleshooting/mcp-tools-missing.md)。
 
 ## 收集这些再去提问[​](#收集这些再去提问 "收集这些再去提问的直接链接")
 
@@ -183,5 +185,5 @@ curl -s --noproxy '*' -o /dev/null -w '%{http_code}\n' \
 * 端点本身怎么开：[启用 MCP 端点](https://n9e.github.io/zh/zh/docs/ai/mcp-endpoint.md)
 * Token 怎么建、代表谁：[个人 Token 认证](https://n9e.github.io/zh/zh/docs/ai/token-auth.md)
 * 托管客户端和企业 SSO：[OAuth 2.1 与外部身份提供方](https://n9e.github.io/zh/zh/docs/ai/oauth.md)
-* 连上了但工具不对：[MCP 工具缺失或被拒绝](https://n9e.github.io/zh/zh/docs/troubleshooting/mcp-tools-missing.md)
+* 连上了但工具不对：[MCP 工具为什么缺失或被拒绝？](https://n9e.github.io/zh/zh/docs/troubleshooting/mcp-tools-missing.md)
 * 客户端侧配置：[连接 Claude Code / Cursor 等客户端](https://n9e.github.io/zh/zh/docs/ai/mcp-clients.md)

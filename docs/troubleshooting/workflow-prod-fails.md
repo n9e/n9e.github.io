@@ -1,6 +1,8 @@
-# Workflow Try run succeeds but production execution fails
+# Why does a workflow Try run succeed but production execution fail?
 
 Try run passes, production fails: real events may lack labels the mock had, and the alert process — not the UI — runs the workflow with its own permissions and network.
+
+Last reviewed 2026-10-10
 
 The try-run panel is all green, every node produced output, the labels came out right. You attach it to a rule, a real event arrives, and nothing happens — no execution records at all, or records whose result looks nothing like the try run.
 
@@ -141,5 +143,5 @@ Dropping is configured behaviour, so the **overall status stays Success** and th
 * Using the try-run panel: [Try a workflow with a mock event](https://n9e.github.io/docs/events/try-workflow.md)
 * Reading the records column by column: [Inspect workflow execution records](https://n9e.github.io/docs/events/execution-records.md)
 * Configuring a workflow: [Event pipelines](https://n9e.github.io/docs/events/pipelines.md)
-* It runs but goes to the wrong place: [Event pipeline routes to the wrong destination](https://n9e.github.io/docs/troubleshooting/wrong-routing.md)
+* It runs but goes to the wrong place: [Why does the event pipeline route to the wrong destination?](https://n9e.github.io/docs/troubleshooting/wrong-routing.md)
 * The label mechanics: [Rewrite labels and enrich context](https://n9e.github.io/docs/events/relabel-enrich.md)

@@ -2,6 +2,8 @@
 
 A rule has two scopes: the business group decides who may edit it and owns its events; the data source list decides which instances it queries, and can span several.
 
+Last reviewed 2026-10-10
+
 Every rule has two independent scopes: **who owns it** and **what it queries**. They are set in two different steps of the form, they mean different things, and mixing them up is the usual cause of "why is this event in the wrong team's inbox".
 
 ## The two scopes, and where they live[​](#the-two-scopes-and-where-they-live "Direct link to The two scopes, and where they live")

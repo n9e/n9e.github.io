@@ -2,6 +2,8 @@
 
 Active events hold alerts that have not recovered; on recovery they move to history. Both lists are searchable by label, severity and business group, in bulk.
 
+Last reviewed 2026-10-10
+
 Where this page ends: you know which of the two tables an alert is in and why, and how to pull the handful you care about out of several hundred while on call.
 
 Entry point: **Alerts & Notifications → Events**, with two tabs at the top — **Active alerts** and **Historical alerts**.
@@ -25,7 +27,7 @@ An event's business group comes from **the rule's business group**, not the host
 
 ## Finding the one you want[​](#finding-the-one-you-want "Direct link to Finding the one you want")
 
-![Active alerts](/img/docs/events/active-events.png)![Active alerts](/img/docs/events/active-events.dark.png)
+![Active alerts](/img/docs/events/active-events.webp)![Active alerts](/img/docs/events/active-events.dark.webp)
 
 The top row:
 
@@ -45,7 +47,7 @@ When there are still too many rows, fold them into cards with the **Aggregate ru
 Clicking the event title (the blue line) slides a detail panel in from the right. Beyond rule name, severity, labels, first trigger time and trigger value, three things are worth going to directly:
 
 * **The query**: the PromQL / SQL the rule actually ran, with a button next to it to re-run it. This is how you tell "the data really is abnormal" from "the threshold is wrong";
-* **Notification records**: which media types this event was pushed to, whether they succeeded, and what a failure returned. Start here when nothing arrives, then follow [Alert event exists but no notification arrives](https://n9e.github.io/docs/troubleshooting/no-notification.md);
+* **Notification records**: which media types this event was pushed to, whether they succeeded, and what a failure returned. Start here when nothing arrives, then follow [Why is there an alert event but no notification?](https://n9e.github.io/docs/troubleshooting/no-notification.md);
 * **Hash**: the event fingerprint, computed from rule plus labels. Copy and compare it when working out why two rows are treated as the same event.
 
 Three buttons at the bottom:
@@ -62,7 +64,7 @@ Deleting is not muting: the rule is still enabled, so if the condition still hol
 
 ## Historical events: export and cleanup[​](#historical-events-export-and-cleanup "Direct link to Historical events: export and cleanup")
 
-![Historical alerts](/img/docs/events/historical-events.png)![Historical alerts](/img/docs/events/historical-events.dark.png)
+![Historical alerts](/img/docs/events/historical-events.webp)![Historical alerts](/img/docs/events/historical-events.dark.webp)
 
 The historical columns differ from the active ones: **First triggered** (when it entered the alerting state) and **Last evaluated** (when evaluation last confirmed it was still firing, or recovered) are separate columns. Those two are what you reconstruct a timeline from.
 

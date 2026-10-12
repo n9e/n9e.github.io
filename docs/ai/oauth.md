@@ -2,6 +2,8 @@
 
 Nightingale as authorization server for hosted clients, or as resource server in front of Keycloak, Entra ID or Okta.
 
+Last reviewed 2026-10-10
+
 Personal tokens are already enough. This page solves two different problems: letting an integrator call Nightingale **as themselves, with their company account**, and letting hosted clients such as Claude and ChatGPT — which **cannot send a custom header** — connect by entering an address.
 
 Both options can be on at once without interfering, and personal tokens keep working either way.

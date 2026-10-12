@@ -2,6 +2,8 @@
 
 Only the metadata database and the etc/ directory are irreplaceable: back both up on a schedule and rehearse the restore; embedded TSDB metrics can be re-collected.
 
+Last reviewed 2026-10-10
+
 Only two things in Nightingale are genuinely irreplaceable: the **metadata database** and the `etc/` directory. Metrics can be collected again and logs can be thrown away, but losing configuration and rules means rebuilding them by hand, one at a time. This page covers what to back up, how, and how to prove the backup actually works.
 
 ## What to back up[​](#what-to-back-up "Direct link to What to back up")

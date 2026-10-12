@@ -2,6 +2,8 @@
 
 Install on hosts without internet access: packages, images and integration templates to fetch in advance.
 
+Last reviewed 2026-10-10
+
 Once installed, Nightingale needs no internet of its own — the release package is self-contained, carrying the integration templates, the built-in dashboards, even the collector installer. The only thing to plan is how to get the package inside.
 
 ## What to fetch in advance[​](#what-to-fetch-in-advance "Direct link to What to fetch in advance")

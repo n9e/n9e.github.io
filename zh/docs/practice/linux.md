@@ -2,6 +2,8 @@
 
 用 Categraf 采集 Linux 指标，区分心跳与时序写入，并排查机器可见但查询无数据和失联告警。
 
+最后校对于 2026-10-11
+
 这页办完，你会在夜莺中查到 Linux 主机指标，并知道为什么“设备在线”和“仪表盘有数据”需要分别验证。 采集命令以 **Categraf v0.5.17、夜莺 v9** 为例。
 
 ## 采集和接入[​](#collect "采集和接入的直接链接")
@@ -40,7 +42,7 @@
 sudo journalctl -u categraf.service -n 100 --no-pager
 ```
 
-**预期结果**：在正确时序库中直接查询能看到样本；再处理仪表盘变量，避免把展示过滤误当成采集故障。 详细排查见[数据源连上了但查不到数据](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)。
+**预期结果**：在正确时序库中直接查询能看到样本；再处理仪表盘变量，避免把展示过滤误当成采集故障。 详细排查见[数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)。
 
 ## 机器失联监控[​](#missing-host "机器失联监控的直接链接")
 

@@ -2,6 +2,8 @@
 
 Safe AI automation keeps a person in the loop at write time: the assistant proposes and you confirm, one account can write, or AI drafts a script that a human runs.
 
+Last reviewed 2026-10-10
+
 This page is about one boundary: how much you let an AI change, and what stops a wrong change from becoming an outage. The short answer is that the safe patterns are the ones where a person is still in the loop at the moment of the write — and Nightingale enforces that on one surface and leaves it to you on the others.
 
 ## Three surfaces, three write postures[​](#three-surfaces-three-write-postures "Direct link to Three surfaces, three write postures")

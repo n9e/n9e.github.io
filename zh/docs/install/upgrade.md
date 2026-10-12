@@ -2,6 +2,8 @@
 
 小版本升级与 v8 → v9 跨版本升级：先备份、读数据库变更说明、再滚动替换二进制。
 
+最后校对于 2026-10-10
+
 夜莺的升级就是**换二进制、重启**：表结构由进程启动时自己补齐，没有单独的迁移命令要跑。 麻烦的部分在前后两头——升级前的备份，和升级后确认真的升上去了。
 
 ## 升级前[​](#升级前 "升级前的直接链接")
@@ -70,7 +72,7 @@ grep -i "failed to migrate table" /opt/n9e/logs/*.log
 
 然后打开**系统配置 → 关于产品**，页面上的版本号应该和命令行一致：
 
-![关于产品页](/zh/img/docs/operations/about.zh.png)![关于产品页](/zh/img/docs/operations/about.zh.dark.png)
+![关于产品页](/zh/img/docs/operations/about.zh.webp)![关于产品页](/zh/img/docs/operations/about.zh.dark.webp)
 
 最后确认功能没坏：随便打开一个仪表盘看图出得来、去告警事件页看新事件还在产生。 大表（`alert_his_event`、`notification_record`）的索引是**启动后异步建的**， 大库上可能要几十分钟，这期间服务照常可用，不要因为看到建索引的日志就重启。
 

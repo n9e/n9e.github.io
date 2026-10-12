@@ -2,6 +2,8 @@
 
 Use the built-in store to get going with zero extra components; retention, capacity and the single-Center constraint.
 
+Last reviewed 2026-10-10
+
 The embedded time-series store is **on by default**, so charts and alert rules work straight after install with nothing else configured. This page is about tuning its retention and capacity, and about where it stops being the right answer.
 
 ## It is already running[​](#it-is-already-running "Direct link to It is already running")

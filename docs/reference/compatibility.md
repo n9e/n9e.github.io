@@ -2,6 +2,8 @@
 
 What is known to work with which versions, and why there is no official support matrix here.
 
+Last reviewed 2026-10-10
+
 **To be clear up front: the project publishes no official support matrix.** What follows was verified against the release artefacts and the code — it is not a promise.
 
 Treat this page as a starting set of known-good combinations, not as an exhaustive list of what works.

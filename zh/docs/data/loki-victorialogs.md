@@ -2,6 +2,8 @@
 
 注册日志存储，写 LogQL 或 LogsQL 查询，按条数或匹配结果告警。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：一个接好的 Loki 或 VictoriaLogs，一条能在日志检索里查出日志的查询， 以及一条「五分钟内某关键词出现超过 N 次」的告警规则。
 
 两者在夜莺里的定位一样——都是日志存储，都能在**数据查询 → 日志**里检索， 都能配日志类告警规则。区别只在查询语言和地址写法。
@@ -20,7 +22,7 @@
 | 用户名 / 密码                 | Loki 前面挂了认证网关时填                                                                              |
 | 自定义HTTP标头                | 多租户模式下在这里加 `X-Scope-OrgID`，值是租户 ID                                                      |
 
-![Loki 数据源表单](/zh/img/docs/data/form-loki.zh.png)![Loki 数据源表单](/zh/img/docs/data/form-loki.zh.dark.png)
+![Loki 数据源表单](/zh/img/docs/data/form-loki.zh.webp)![Loki 数据源表单](/zh/img/docs/data/form-loki.zh.dark.webp)
 
 URL 少了 `/loki` 是最常见的错。点 **测试连通性并保存** 时夜莺会请求 `<URL>/api/v1/labels`，返回 404 而且 URL 里没有 `/loki`，它会直接把补好的地址提示给你： `/loki suffix is miss, please add /loki to the url: ...`。
 
@@ -39,7 +41,7 @@ URL 少了 `/loki` 是最常见的错。点 **测试连通性并保存** 时夜�
 | 用户名 / 密码                 | 开了认证就填                                                 |
 | 自定义HTTP标头                | 网关需要额外头时填                                           |
 
-![VictoriaLogs 数据源表单](/zh/img/docs/data/form-victorialogs.zh.png)![VictoriaLogs 数据源表单](/zh/img/docs/data/form-victorialogs.zh.dark.png)
+![VictoriaLogs 数据源表单](/zh/img/docs/data/form-victorialogs.zh.webp)![VictoriaLogs 数据源表单](/zh/img/docs/data/form-victorialogs.zh.dark.webp)
 
 ## 查询：LogQL 与 LogsQL[​](#查询logql-与-logsql "查询：LogQL 与 LogsQL的直接链接")
 

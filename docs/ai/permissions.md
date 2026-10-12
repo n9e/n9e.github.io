@@ -2,6 +2,8 @@
 
 Every MCP tool call is an internal API call made as the token's user, so a client never sees or changes more than that user; business groups apply unchanged.
 
+Last reviewed 2026-10-10
+
 This page answers one question: where exactly is the boundary for a connected AI client, and how do you move that boundary to where you want it.
 
 ## The short version[​](#the-short-version "Direct link to The short version")

@@ -2,6 +2,8 @@
 
 Choose collection and verification guides for hosts, databases, processes, ports, Java and custom scripts.
 
+Last reviewed 2026-10-11
+
 Continue from this former catalogue to the current guides and the practical articles that retain their original URLs.
 
 ## Browse by topic[​](#topics "Direct link to Browse by topic")

@@ -2,6 +2,8 @@
 
 Return to the previous version after a failed upgrade, including what to do about schema migrations that already ran.
 
+Last reviewed 2026-10-10
+
 Rolling the binary back is easy. The database is the hard part: the new version altered the schema the moment it started, and **there is no reverse migration**. This page is about getting back to a working system under that constraint.
 
 ## One thing to be clear about first[​](#one-thing-to-be-clear-about-first "Direct link to One thing to be clear about first")

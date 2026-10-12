@@ -2,6 +2,8 @@
 
 Paste-ready investigation prompts paired with the built-in skill that answers each: triage active events, find the noisiest rule, explain a metric spike.
 
+Last reviewed 2026-10-10
+
 A cookbook. Each section pairs a question you can paste with the built-in skill written to answer it, so you can see why it lands rather than guessing at phrasing.
 
 Where these came from

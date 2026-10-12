@@ -2,6 +2,8 @@
 
 Four timing fields on a rule — interval, for-duration, observation window, recovery — decide when an event is created, when it recovers and when it re-notifies.
 
+Last reviewed 2026-10-10
+
 Where this page ends: you can set the four timing fields on a rule deliberately instead of leaving them at their defaults, and you know which of them decide whether an event exists at all versus whether a message goes out.
 
 The state machine behind these fields is described in [Evaluation, recovery and state changes](https://n9e.github.io/docs/concepts/evaluation.md). This page is about the fields.
@@ -111,5 +113,5 @@ When the numbers are not doing what you expect, the answer is in [the evaluation
 ## Next[​](#next "Direct link to Next")
 
 * The state machine these fields drive: [Evaluation, recovery and state changes](https://n9e.github.io/docs/concepts/evaluation.md)
-* When it will not stop: [Alert fires repeatedly or never recovers](https://n9e.github.io/docs/troubleshooting/alert-flapping.md)
+* When it will not stop: [Why does an alert fire repeatedly or never recover?](https://n9e.github.io/docs/troubleshooting/alert-flapping.md)
 * When it never starts: [Alert rule does not fire](https://n9e.github.io/docs/troubleshooting/alert-not-firing.md)

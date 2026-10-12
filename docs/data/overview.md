@@ -2,6 +2,8 @@
 
 Nightingale queries your stores where they are. Twelve source types share one rule model; Categraf covers what nothing collects yet.
 
+Last reviewed 2026-10-10
+
 Register what you already run; Nightingale queries it in place. Metrics, logs and SQL-queried stores share one rule model, so there is nothing new to learn per source type. Nothing is migrated: a data source is a connection, not a copy.
 
 Nightingale does not collect anything itself. [Categraf](https://n9e.github.io/categraf.md) is the recommended companion — one agent, 100+ plugins, writing over Prometheus Remote Write. Telegraf, the Datadog Agent and standard exporters write in the same way, and an existing Prometheus that already scrapes your targets can stay exactly as it is.

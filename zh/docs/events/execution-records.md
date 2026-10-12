@@ -2,11 +2,13 @@
 
 Pipeline 执行记录逐事件记下每个处理器改了什么、事件是否被丢弃、最终送到了哪里。
 
+最后校对于 2026-10-10
+
 这页办完你会能回答：某条事件进没进这条工作流、每个处理器把它改成了什么样、 它是不是在半路被丢掉了。
 
 入口：**告警通知 → 工作流**，顶部切到 **执行记录** tab（`/event-pipelines-executions`）。 工作流列表里点某条工作流的执行记录，是同一张表加了工作流筛选。
 
-![执行记录](/zh/img/docs/events/pipeline-executions.zh.png)![执行记录](/zh/img/docs/events/pipeline-executions.zh.dark.png)
+![执行记录](/zh/img/docs/events/pipeline-executions.zh.webp)![执行记录](/zh/img/docs/events/pipeline-executions.zh.dark.webp)
 
 ## 先把时间范围放宽[​](#先把时间范围放宽 "先把时间范围放宽的直接链接")
 

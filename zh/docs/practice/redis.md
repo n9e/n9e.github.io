@@ -2,6 +2,8 @@
 
 配置 Categraf Redis 插件，或抓取已有 Redis Exporter，把运行指标写入时序库并查询验证。
 
+最后校对于 2026-10-11
+
 这页办完，你会把 Redis 的运行指标接入夜莺，已有 Redis Exporter 也可以继续使用。 配置以 **Categraf v0.5.17、夜莺 v9** 为例。
 
 ## 直接采集 Redis[​](#direct-collection "直接采集 Redis的直接链接")

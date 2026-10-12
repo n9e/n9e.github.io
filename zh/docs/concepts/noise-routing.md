@@ -2,6 +2,8 @@
 
 屏蔽规则、订阅、事件 Pipeline、通知规则不是并列的备选，而是按固定先后作用于事件；搞错顺序就会出现配了屏蔽仍收到告警。
 
+最后校对于 2026-10-10
+
 夜莺有四种「对事件动手」的机制，它们**不是并列的**，作用的时机不同。 搞错顺序，就会出现「明明配了屏蔽还是收到告警」「Pipeline 改了标签但路由没跟着变」这类问题。
 
 ## 真实顺序[​](#真实顺序 "真实顺序的直接链接")
@@ -72,4 +74,4 @@
 * [订阅规则](https://n9e.github.io/zh/zh/docs/events/subscriptions.md)
 * [事件 Pipeline](https://n9e.github.io/zh/zh/docs/events/pipelines.md)
 * [通知规则](https://n9e.github.io/zh/zh/docs/notifications/rules.md)
-* 收不到通知时顺着这条链查：[有事件但收不到通知](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)
+* 收不到通知时顺着这条链查：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)

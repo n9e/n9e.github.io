@@ -2,6 +2,8 @@
 
 Move rules between environments as JSON, and keep them in version control.
 
+Last reviewed 2026-10-11
+
 Where this page ends: a set of rules leaves one environment as a JSON file and arrives in another one, and you know exactly which fields did not survive the trip.
 
 ## Export a set of rules[​](#export-a-set-of-rules "Direct link to Export a set of rules")

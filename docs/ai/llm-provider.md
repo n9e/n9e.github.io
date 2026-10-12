@@ -2,13 +2,15 @@
 
 Point Nightingale at OpenAI-compatible, Anthropic or self-hosted models; keys, base URLs and model selection.
 
+Last reviewed 2026-10-10
+
 Where this page ends: one LLM config that passed **Test connection**, is enabled, and carries the **Default** tag — which is the prerequisite for every AI feature in the product.
 
 ## Where the page is[​](#where-the-page-is "Direct link to Where the page is")
 
 **Nightingale AI → LLM configs**, at `/nightingale-ai/llm-configs`. There is no top-level menu item for it; the older address `/ai-config/llm-configs` redirects here.
 
-![The LLM configs list](/img/docs/ai/llm-configs.png)![The LLM configs list](/img/docs/ai/llm-configs.dark.png)
+![The LLM configs list](/img/docs/ai/llm-configs.webp)![The LLM configs list](/img/docs/ai/llm-configs.dark.webp)
 
 The page is guarded by the permission point `/ai-config/llm-configs`, which **neither `Standard` nor `Guest` holds**. So: an `Admin`, or a custom role you granted that point to under **Organization → Roles**.
 

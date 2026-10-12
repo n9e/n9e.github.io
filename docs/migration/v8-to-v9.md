@@ -2,6 +2,8 @@
 
 v8 to v9 is a binary swap with the schema migrated on startup, but several new config sections must be added by hand or the new features stay silently off.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a v8 install running v9, with the prerequisites checked beforehand, the config sections that **must be added by hand** in place (otherwise the new features stay silently off), and a verification pass done.
 
 There is **no manual data migration** between v8 and v9, and no breaking API rename. Three things do bite: the Redis version, a couple of sections that only exist in the new config file, and the indexes built online at startup.

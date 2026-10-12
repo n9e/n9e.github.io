@@ -41,13 +41,13 @@ Fired
 
 Delivered![Slack](/img/logos/slack.png)![PagerDuty](/img/logos/pagerduty.png)![Telegram](/img/logos/telegram.png)
 
-13,330GitHub stars
+13,331GitHub stars
 
 10+Data source types
 
 20Notification channels
 
-86Built-in integrations
+83Built-in integrations
 
 74MCP tools
 
@@ -68,7 +68,7 @@ datasource
 No migration. Register Prometheus, VictoriaMetrics, ElasticSearch, ClickHouse or Loki as a data source and Nightingale evaluates alerts on top of it. Nothing collecting yet? Categraf covers operating systems, middleware and databases in a single agent and writes straight in over Prometheus Remote Write.
 
 * 10+ data source types — metrics, logs and databases alike
-* 86 built-in integrations bundle collector config, dashboards and rules
+* 83 built-in integrations bundle collector config, dashboards and rules
 
 ![Nightingale integration templates](/img/step-connect.webp)
 
@@ -163,33 +163,33 @@ Nightingale never asks you to replace what works. Data sources, collectors and n
 
 DATA SOURCES<!-- --> · <!-- -->Data sources
 
-* ![](/img/logos/prometheus.png)Prometheus
-* ![](/img/logos/victoriametrics.png)VictoriaMetrics
-* ![](/img/logos/elasticsearch.png)ElasticSearch
-* ![](/img/logos/ck.png)ClickHouse
-* ![](/img/logos/loki.png)Loki
-* ![](/img/logos/victorialogs.png)VictoriaLogs
-* ![](/img/logos/mysql.png)MySQL
-* ![](/img/logos/pgsql.png)PostgreSQL
-* ![](/img/logos/tdengine.png)TDengine
-* ![](/img/logos/opensearch.png)OpenSearch
-* ![](/img/logos/doris.png)Doris
-* ![](/img/logos/iotdb.png)IoTDB
+* ![Prometheus logo](/img/logos/prometheus.png)Prometheus
+* ![VictoriaMetrics logo](/img/logos/victoriametrics.png)VictoriaMetrics
+* ![ElasticSearch logo](/img/logos/elasticsearch.png)ElasticSearch
+* ![ClickHouse logo](/img/logos/ck.png)ClickHouse
+* ![Loki logo](/img/logos/loki.png)Loki
+* ![VictoriaLogs logo](/img/logos/victorialogs.png)VictoriaLogs
+* ![MySQL logo](/img/logos/mysql.png)MySQL
+* ![PostgreSQL logo](/img/logos/pgsql.png)PostgreSQL
+* ![TDengine logo](/img/logos/tdengine.png)TDengine
+* ![OpenSearch logo](/img/logos/opensearch.png)OpenSearch
+* ![Doris logo](/img/logos/doris.png)Doris
+* ![IoTDB logo](/img/logos/iotdb.png)IoTDB
 
 NOTIFICATIONS<!-- --> · <!-- -->Notification channels
 
-* ![](/img/logos/slack.png)Slack
-* ![](/img/logos/pagerduty.png)PagerDuty
+* ![Slack logo](/img/logos/slack.png)Slack
+* ![PagerDuty logo](/img/logos/pagerduty.png)PagerDuty
 * Email
-* ![](/img/logos/telegram.png)Telegram
-* ![](/img/logos/discord.png)Discord
-* ![](/img/logos/jira.png)Jira
-* ![](/img/logos/mattermost.png)Mattermost
+* ![Telegram logo](/img/logos/telegram.png)Telegram
+* ![Discord logo](/img/logos/discord.png)Discord
+* ![Jira logo](/img/logos/jira.png)Jira
+* ![Mattermost logo](/img/logos/mattermost.png)Mattermost
 * Phone / SMS
-* ![](/img/logos/flashduty.png)FlashDuty
-* ![](/img/logos/dingtalk.png)DingTalk
-* ![](/img/logos/feishu.png)Feishu
-* ![](/img/logos/wecom.png)WeCom
+* ![FlashDuty logo](/img/logos/flashduty.png)FlashDuty
+* ![DingTalk logo](/img/logos/dingtalk.png)DingTalk
+* ![Feishu logo](/img/logos/feishu.png)Feishu
+* ![WeCom logo](/img/logos/wecom.png)WeCom
 
 [See every integration<!-- --> →](https://n9e.github.io/integrations.md)
 

@@ -2,6 +2,8 @@
 
 How an event reaches a person — media types, message templates and notification rules, and which of them ship configured.
 
+Last reviewed 2026-10-10
+
 Six media types ship configured and enabled — FlashDuty, Callback, Email, DingTalk, WeCom and Feishu Card — and 20 built-in message templates cover the rest: Slack, Telegram, Discord, Mattermost, PagerDuty, FlashDuty, Jira and webhooks. Each message is rendered from a template; the variables available to those templates are listed in the [reference](https://n9e.github.io/docs/reference/notification-variables.md).
 
 ## [Notification architecture](https://n9e.github.io/docs/notifications/architecture.md)

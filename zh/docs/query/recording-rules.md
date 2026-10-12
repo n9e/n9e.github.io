@@ -2,6 +2,8 @@
 
 按计划预先计算开销大的表达式，改为对结果告警。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：一条按固定频率预算的记录规则，把一个跑起来要好几秒的 PromQL 变成一个新指标；告警规则和面板改查这个新指标，判定从秒级降到毫秒级。
 
 ## 什么时候值得做[​](#什么时候值得做 "什么时候值得做的直接链接")
@@ -44,7 +46,7 @@ http://127.0.0.1:17000/prometheus/api/v1/write
 
 **数据查询 → 指标 → 记录规则**（`/recording-rules`），点 **新增**。
 
-![记录规则](/zh/img/docs/query/recording-rules.zh.png)![记录规则](/zh/img/docs/query/recording-rules.zh.dark.png)
+![记录规则](/zh/img/docs/query/recording-rules.zh.webp)![记录规则](/zh/img/docs/query/recording-rules.zh.dark.webp)
 
 | 字段     | 填什么                                                                                        |
 | -------- | --------------------------------------------------------------------------------------------- |

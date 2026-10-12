@@ -2,6 +2,8 @@
 
 Define the contact fields users can fill in, and how a media type picks one of them to decide where each person's notification goes.
 
+Last reviewed 2026-10-10
+
 Where this page ends: the user form offers exactly the contact fields your media types need — a WeCom user ID, an internal IM handle, a pager number — and a notification rule that names people or teams knows which address to use for each of them.
 
 ## What a contact method is[​](#what-a-contact-method-is "Direct link to What a contact method is")

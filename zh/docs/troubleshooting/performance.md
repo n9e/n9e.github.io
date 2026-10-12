@@ -1,6 +1,8 @@
-# 性能与积压现象
+# 夜莺为什么变慢或出现积压？
 
 告警延迟、队列增长、数据库 CPU 高各对应一个能定位的内置指标；先按现象选指标，再从指标找根因。
+
+最后校对于 2026-10-10
 
 告警比实际晚了好几分钟才到；界面点开一个页面转半天；指标图上出现规律性的空洞。 这页只做一件事：**从现象找到那个能定位的指标，再从指标找到根因。** 容量该怎么规划、各项默认值是多少，是[容量规划](https://n9e.github.io/zh/zh/docs/operations/capacity.md)和 [限制与默认值](https://n9e.github.io/zh/zh/docs/reference/limits.md)的事，这里不重复。
 
@@ -59,7 +61,7 @@ grep '^n9e_alert_eval_query_series_count' /tmp/m2.txt | sort -t' ' -k2 -rn | hea
 
 **耗时高 + 曲线数大 = 查询本身太宽**，这是最常见的组合。
 
-## 队列涨：分清是哪一个队列[​](#队列涨分清是哪一个队列 "队列涨：分清是哪一个队列的直接链接")
+## 队列涨：分清是哪一个队列[​](#队列涨分清是哪一个队列 "队列涨：分清是哪一个队列的��直接链接")
 
 三个队列在链路的不同位置，涨的那个直接指出瓶颈在哪一段：
 
@@ -113,7 +115,7 @@ grep -E '^n9e_db_pool_in_use_connections|^n9e_db_pool_wait_count_total' /tmp/m2.
 
 **怎么修**：**先找慢查询，再考虑加连接数。** 盲目调大连接池只会把压力全推给数据库。 两张表最容易失控：**历史告警事件默认永久保留**（`[Center] CleanAlertHisEventDay`）， 通知记录默认留 7 天。前者在高事件量环境下会无限长大，上线前就该设个保留期。
 
-### 判定记录写不过来[​](#判定�记录写不过来 "判定记录写不过来的直接链接")
+### 判定记录写不过来[​](#判定记录写不过来 "判定记录写不过来的直接链接")
 
 判定记录（evallog）默认开着，每轮判定都往本地磁盘写一份。
 
@@ -127,7 +129,7 @@ grep -E '^n9e_alert_eval_log_drop_total|^n9e_alert_eval_log_query_reject_total' 
 
 **怎么修**：磁盘跟不上就调 `[Alert.EvalLog]` 的 `MaxDiskGB` 和 `RetentionHours`， 或者用 `PerRuleDailyMB` 限制单条规则的写入量。确实不需要就整节关掉。
 
-## 确认恢复了[​](#确认恢复了 "确认恢复了的直接链接")
+## 确认恢复了[​](#确认��恢复了 "确认恢复了的直接链接")
 
 1. **三个队列都不再持续增长**——隔一分钟取两次 `/metrics`，差值回到 0 附近；
 2. `n9e_alert_rule_eval_duration_ms` 排序后的头部，耗时明显低于各自的执行频率；
@@ -154,4 +156,4 @@ grep -E '^n9e_alert_eval_log_drop_total|^n9e_alert_eval_log_query_reject_total' 
 * 各项默认值和上限：[限制与默认值](https://n9e.github.io/zh/zh/docs/reference/limits.md)
 * 每个指标的含义：[内置指标](https://n9e.github.io/zh/zh/docs/reference/built-in-metrics.md)
 * 把这些做成告警：[监控夜莺自身](https://n9e.github.io/zh/zh/docs/operations/self-monitoring.md)
-* 判定彻底停了：[判定记录缺失或被丢弃](https://n9e.github.io/zh/zh/docs/troubleshooting/evaluation-missing.md)
+* 判定彻底停了：[判定记录为什么缺失或被丢弃？](https://n9e.github.io/zh/zh/docs/troubleshooting/evaluation-missing.md)

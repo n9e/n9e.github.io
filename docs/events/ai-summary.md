@@ -2,6 +2,8 @@
 
 Have an LLM write a short summary onto each event before it is notified: model setup, the prompt template, where the result lands, and what happens when the call fails.
 
+Last reviewed 2026-10-10
+
 Where this page ends: every event that passes through a workflow carries an `ai_summary` annotation written by a large language model, and your notification template puts it at the top of the message.
 
 It is one of the processors in a workflow (**Alerts & Notifications → Workflows**); add a processor card and pick **AI summary** under **Enrich**. How workflows run and get attached to rules is in [Event pipelines](https://n9e.github.io/docs/events/pipelines.md).

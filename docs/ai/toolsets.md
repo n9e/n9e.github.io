@@ -2,6 +2,8 @@
 
 The MCP endpoint offers 74 tools in 13 toolsets; six toolsets are entirely read-only, there are no delete tools, and write tools must be enabled separately.
 
+Last reviewed 2026-10-10
+
 This page exists to support one decision: which toolsets to expose. Per-tool parameters live in the [MCP tool reference](https://n9e.github.io/docs/reference/mcp-tools.md), which is generated from source.
 
 ## The 13 toolsets at a glance[​](#the-13-toolsets-at-a-glance "Direct link to The 13 toolsets at a glance")

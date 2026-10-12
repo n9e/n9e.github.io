@@ -2,6 +2,8 @@
 
 Run a script with the Categraf exec input, emit Prometheus metrics, and verify permissions, timeouts and service execution.
 
+Last reviewed 2026-10-11
+
 By the end of this page, a script will emit custom samples that Categraf sends to Nightingale's TSDB. The example uses **Categraf v0.5.17 and Nightingale v9**. The executable may be Shell, Python or a compiled program.
 
 ## Write the script[​](#script "Direct link to Write the script")

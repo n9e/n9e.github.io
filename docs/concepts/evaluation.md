@@ -2,6 +2,8 @@
 
 A rule does not fire on the first high value: three timing parameters and a small state machine decide when it first fires, when it recovers and whether it flaps.
 
+Last reviewed 2026-10-10
+
 A rule does not fire the moment a query comes back high. Three timing parameters and a small state machine decide when it first speaks, when it stops, and whether it flaps.
 
 ## Three timing parameters[​](#three-timing-parameters "Direct link to Three timing parameters")
@@ -78,4 +80,4 @@ The rule page keeps **evaluation records**: one per cycle, holding what the quer
 
 * [Alert lifecycle and severity](https://n9e.github.io/docs/concepts/alert-lifecycle.md)
 * [Evaluation interval and recovery](https://n9e.github.io/docs/alerting/evaluation.md)
-* [Alert fires repeatedly or never recovers](https://n9e.github.io/docs/troubleshooting/alert-flapping.md)
+* [Why does an alert fire repeatedly or never recover?](https://n9e.github.io/docs/troubleshooting/alert-flapping.md)

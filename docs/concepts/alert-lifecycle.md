@@ -2,6 +2,8 @@
 
 An event is identified by rule plus label set and passes through firing, ongoing and recovered; S1 / S2 / S3 change nothing mechanically — they signal urgency.
 
+Last reviewed 2026-10-10
+
 ## An event's life[​](#an-events-life "Direct link to An event's life")
 
 Between being created and disappearing, an event shows up in three places:

@@ -2,13 +2,15 @@
 
 把夜莺指向 OpenAI 兼容、Anthropic 或自托管模型：密钥、地址与模型选择。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：一条「测试连接」通过、处于启用状态、并且带着**默认**标签的 LLM 配置—— 产品里所有 AI 能力都以它为前提。
 
 ## 页面在哪[​](#页面在哪 "页面在哪的直接链接")
 
 **Nightingale AI → LLM 管理**，地址 `/nightingale-ai/llm-configs`。它没有顶级菜单入口； 老地址 `/ai-config/llm-configs` 会跳到这里。
 
-![LLM 配置列表](/zh/img/docs/ai/llm-configs.zh.png)![LLM 配置列表](/zh/img/docs/ai/llm-configs.zh.dark.png)
+![LLM 配置列表](/zh/img/docs/ai/llm-configs.zh.webp)![LLM 配置列表](/zh/img/docs/ai/llm-configs.zh.dark.webp)
 
 页面由权限点 `/ai-config/llm-configs` 把守，**`Standard` 和 `Guest` 都不带这个点**。 也就是说：要么用 `Admin`，要么在**人员组织 → 角色管理**里建一个带这个点的自定义角色。
 

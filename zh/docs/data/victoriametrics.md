@@ -2,6 +2,8 @@
 
 VictoriaMetrics 按 Prometheus 类型接入，再把时序库类型设为 VictoriaMetrics；单机版与集群版的地址写法不同。
 
+最后校对于 2026-10-10
+
 先说一句免得你在类型列表里找：**开源版没有「VictoriaMetrics」这个数据源类型**。 VictoriaMetrics 实现了 Prometheus 的查询 API，所以它用 **Prometheus** 类型接入， 再把表单里的「时序库类型」改成 `VictoriaMetrics`。
 
 这页说清三件事：单机版和集群版的地址怎么填、那个「时序库类型」到底改变了什么、 以及夜莺自己也往 VM 里写数据时该怎么配。

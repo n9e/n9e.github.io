@@ -2,6 +2,8 @@
 
 The environment variables Nightingale reads, and why config keys cannot be overridden that way.
 
+Last reviewed 2026-10-10
+
 **First, the thing to be clear about: Nightingale has no mechanism for overriding arbitrary config keys from the environment.** There is no `N9E_DB_DSN`. Configuration comes from the toml files under `etc/` and nowhere else.
 
 The containerised answer is to **mount a config file**, not to pile up environment variables — which is exactly what the compose bundles do (`./etc-nightingale:/app/etc`).

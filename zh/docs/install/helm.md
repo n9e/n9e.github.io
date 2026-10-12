@@ -2,6 +2,8 @@
 
 社区维护的 Helm chart 在 Kubernetes 里拉起夜莺连同 MySQL、Redis、Prometheus 和 Categraf；values 可改为指向集群外数据库。
 
+最后校对于 2026-10-10
+
 社区维护着一个 Helm chart，能在 Kubernetes 里把夜莺连同 MySQL、Redis、Prometheus、 Categraf 一起拉起来。装之前有两件事要先想清楚。
 
 ## 先想清楚要不要装进 K8s[​](#先想清楚要不要装进-k8s "先想清楚要不要装进 K8s的直接链接")

@@ -2,6 +2,8 @@
 
 Alert on ElasticSearch, Loki, ClickHouse, MySQL and the other SQL-queried stores using the same rule model as metrics.
 
+Last reviewed 2026-10-10
+
 Where this path ends: a rule evaluating against your log store or business database, producing an event when it crosses the line. Same rule model as metrics — only the query language differs. About 15 minutes.
 
 ## What the open-source build supports[​](#what-the-open-source-build-supports "Direct link to What the open-source build supports")

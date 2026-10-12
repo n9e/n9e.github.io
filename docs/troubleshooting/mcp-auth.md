@@ -1,6 +1,8 @@
-# MCP authentication fails
+# Why does MCP authentication fail?
 
 MCP authentication fails at the gateway, the token check or OAuth — the status code says which; usual causes: wrong header name, expired token, bad redirect URL.
+
+Last reviewed 2026-10-10
 
 The MCP client will not connect: it reports failure, the log says 401, or the OAuth consent page comes back round to "not connected". This page is organised by **which layer rejected you** — each layer answers differently, and recognising the answer saves you trying everything in turn.
 
@@ -166,7 +168,7 @@ In a multi-instance deployment (several centers behind a load balancer) **`Issue
 
 4. Ask it something read-only — "list the business groups I can see" — and check the count matches what that account sees in the UI.
 
-A wrong tool count, or specific tools missing, is a different problem: see [MCP tools are missing or denied](https://n9e.github.io/docs/troubleshooting/mcp-tools-missing.md).
+A wrong tool count, or specific tools missing, is a different problem: see [Why are MCP tools missing or denied?](https://n9e.github.io/docs/troubleshooting/mcp-tools-missing.md).
 
 ## Collect this before you ask[​](#collect-this-before-you-ask "Direct link to Collect this before you ask")
 
@@ -183,5 +185,5 @@ A wrong tool count, or specific tools missing, is a different problem: see [MCP 
 * Turning the endpoint on: [Enable the MCP endpoint](https://n9e.github.io/docs/ai/mcp-endpoint.md)
 * Creating a token and whom it speaks for: [Personal token authentication](https://n9e.github.io/docs/ai/token-auth.md)
 * Hosted clients and company SSO: [OAuth 2.1 and external identity providers](https://n9e.github.io/docs/ai/oauth.md)
-* Connected, but the tools are wrong: [MCP tools are missing or denied](https://n9e.github.io/docs/troubleshooting/mcp-tools-missing.md)
+* Connected, but the tools are wrong: [Why are MCP tools missing or denied?](https://n9e.github.io/docs/troubleshooting/mcp-tools-missing.md)
 * Client-side configuration: [Connect Claude Code / Cursor / other clients](https://n9e.github.io/docs/ai/mcp-clients.md)

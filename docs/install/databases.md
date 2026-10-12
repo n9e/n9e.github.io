@@ -2,6 +2,8 @@
 
 The metadata store is MySQL, PostgreSQL or SQLite (testing only); the process creates the schema on first start, and Redis holds runtime state such as heartbeats.
 
+Last reviewed 2026-10-10
+
 Nightingale connects to two stores: a **metadata database** (users, business groups, alert rules, dashboards, notification config) and **Redis**. Metrics are not in either — those belong to the [time-series store](https://n9e.github.io/docs/concepts/storage.md).
 
 ## Which one[​](#which-one "Direct link to Which one")

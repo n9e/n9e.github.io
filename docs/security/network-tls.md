@@ -2,6 +2,8 @@
 
 Terminate TLS, restrict the write endpoints, and which ports must not face the internet.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a network plan you can turn straight into firewall rules and gateway configuration, plus a list of what the default configuration hands out without a login — because the second decides how much of the first you can skip.
 
 ## What is on port 17000[​](#what-is-on-port-17000 "Direct link to What is on port 17000")

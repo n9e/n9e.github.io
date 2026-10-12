@@ -2,7 +2,7 @@
 * [接入数据](https://n9e.github.io/zh/zh/docs/data/overview.md)
 * Categraf
 
-# Categraf
+# Categraf 采集器
 
 推荐的采集器：一个 agent、100+ 输入插件，按 Prometheus Remote Write 推送。
 

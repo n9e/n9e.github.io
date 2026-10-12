@@ -2,6 +2,8 @@
 
 A community-maintained Helm chart deploys Nightingale on Kubernetes with MySQL, Redis, Prometheus and Categraf; values can point it at databases outside the cluster.
 
+Last reviewed 2026-10-10
+
 A community-maintained Helm chart brings up Nightingale in Kubernetes together with MySQL, Redis, Prometheus and Categraf. Two things are worth settling before you install it.
 
 ## Decide whether it belongs in Kubernetes at all[​](#decide-whether-it-belongs-in-kubernetes-at-all "Direct link to Decide whether it belongs in Kubernetes at all")

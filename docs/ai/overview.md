@@ -2,6 +2,8 @@
 
 The built-in assistant, the Skills marketplace, and an MCP endpoint that lets Claude Code or Cursor drive Nightingale with exactly your permissions.
 
+Last reviewed 2026-10-10
+
 Since v9 the `n9e` process is itself an MCP server. There is no extra component to deploy: the endpoint lives inside the process you already run.
 
 ## Connect a client[​](#connect-a-client "Direct link to Connect a client")

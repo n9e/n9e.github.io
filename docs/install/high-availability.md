@@ -2,6 +2,8 @@
 
 Run multiple Center and Alert instances behind a load balancer, and what still needs to be a singleton.
 
+Last reviewed 2026-10-10
+
 A Nightingale cluster needs no extra component: **run several `n9e` processes with identical config, sharing one MySQL and one Redis**. This page covers doing that correctly — the load balancer in front, what the instances need from each other, and which pieces stay single even when everything else is replicated.
 
 ## Building it[​](#building-it "Direct link to Building it")

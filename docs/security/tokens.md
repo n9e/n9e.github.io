@@ -2,6 +2,8 @@
 
 Personal tokens, service accounts for MCP and the API, and rotating them without downtime.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a practice that can answer "which token belongs to whom, when was it last used, when is it due for replacement", and an order of operations for swapping a token without breaking anything in production.
 
 The shortest path to creating and using a token is [Personal token authentication](https://n9e.github.io/docs/ai/token-auth.md); this page is about everything after that.

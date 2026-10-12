@@ -2,13 +2,15 @@
 
 Fire a rule on demand to check the query, labels and the rendered notification before it goes live.
 
+Last reviewed 2026-10-10
+
 Where this page ends: you press one button on the rule form and get a six-stage report — did the query work, what would the event look like, would a mute rule swallow it, and did the message actually reach a person. No waiting for the metric to misbehave.
 
 ## Run it[​](#run-it "Direct link to Run it")
 
 **Test fire** sits at the bottom of the alert rule form, next to **Save**. The rule does not have to be saved first — the test runs against whatever is currently in the form.
 
-![The alert rule form](/img/docs/alerting/rule-edit.png)![The alert rule form](/img/docs/alerting/rule-edit.dark.png)
+![The alert rule form](/img/docs/alerting/rule-edit.webp)![The alert rule form](/img/docs/alerting/rule-edit.dark.webp)
 
 A small dialog asks for four things:
 

@@ -2,6 +2,8 @@
 
 Recipes that hold up in production: flapping, storms during deploys, duplicate sources, and what should never page a human.
 
+Last reviewed 2026-10-10
+
 This page is organised by symptom: recognise which kind of noise you have, then apply the matching recipe. The order the mechanisms act in is in [Noise reduction and routing model](https://n9e.github.io/docs/concepts/noise-routing.md); here it is only about use.
 
 ## Flapping: fires, recovers, fires again[​](#flapping-fires-recovers-fires-again "Direct link to Flapping: fires, recovers, fires again")

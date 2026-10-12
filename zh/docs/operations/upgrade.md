@@ -2,6 +2,8 @@
 
 schema 迁移在启动时怎么跑，以及多实例部署该按什么顺序升级。
 
+最后校对于 2026-10-10
+
 换二进制的命令在[升级](https://n9e.github.io/zh/zh/docs/install/upgrade.md)里。这页讲运行侧的另一半： **进程启动时会对你的库做什么，以及从第一个实例停掉到最后一个实例回来的这段时间里， 多实例部署是什么样子。**
 
 ## 迁移在进程启动时跑，没有单独的命令[​](#迁移在进程启动时跑没有单独的命令 "迁移在进程启动时跑，没有单独的命令的直接链接")
@@ -65,7 +67,7 @@ grep -iE "failed to migrate table|failed to create index" /opt/n9e/logs/*.log
 2. 等它的日志安静下来：没有 `failed to migrate`，索引也不再有动静。
 3. 然后才动下一个，之后一个一个来。
 
-![告警引擎页面](/zh/img/docs/operations/alerting-engines.zh.png)![告警引擎页面](/zh/img/docs/operations/alerting-engines.zh.dark.png)
+![告警引擎页面](/zh/img/docs/operations/alerting-engines.zh.webp)![告警引擎页面](/zh/img/docs/operations/alerting-engines.zh.dark.webp)
 
 [升级](https://n9e.github.io/zh/zh/docs/install/upgrade.md)里要求一个一个滚，是为了让告警不中断。 迁移竞争是**同一条规则的第二个、独立的理由**——也是「第一个实例升完要停一停再动第二个」 而不是「隔固定时间动下一个」的原因。
 
@@ -91,4 +93,4 @@ grep -iE "failed to migrate table|failed to create index" /opt/n9e/logs/*.log
 * [v8 升级 v9](https://n9e.github.io/zh/zh/docs/migration/v8-to-v9.md)——跨大版本的破坏性变更
 * [高可用与故障域](https://n9e.github.io/zh/zh/docs/operations/high-availability.md)——规则在实例之间怎么流转
 * [回滚与恢复](https://n9e.github.io/zh/zh/docs/operations/rollback.md)——升级不顺利的时候
-* [升级或数据库迁移失败](https://n9e.github.io/zh/zh/docs/troubleshooting/upgrade-fails.md)——日志里真有东西的时候
+* [升级或数据库迁移为什么失败？](https://n9e.github.io/zh/zh/docs/troubleshooting/upgrade-fails.md)——日志里真有东西的时候

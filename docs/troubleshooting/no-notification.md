@@ -1,6 +1,8 @@
-# Alert event exists but no notification arrives
+# Why is there an alert event but no notification?
 
 Event but no message: in the notification log, no record means a mute or notification rule stopped it; a failure points at the channel, a success at the receiver.
+
+Last reviewed 2026-10-10
 
 The event is plainly there on the events page, and the chat room, the mailbox and the phone are all silent. This page walks the **real order** in which an event travels from creation to delivery, with a way to confirm each step.
 
@@ -105,14 +107,14 @@ notify send timeMatch:true severityMatch:true tagMatch:true attributesMatch:true
 
 The detail on the record is the reason:
 
-| Detail                                         | Meaning                                                                                                                               |
-| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `notify_channel not found`                     | The media type was deleted or disabled                                                                                                |
-| `message_template not found`                   | This notification config has no message template selected                                                                             |
-| `failed to enqueue notify task, queue is full` | This media type's send queue (100,000 per channel) is full — the target is stuck                                                      |
-| `all retries failed, last error: ...`          | The address could not be reached at all                                                                                               |
-| `status_code:400, response:...`                | The target received it and rejected the content — usually a token, a signature or the message format                                  |
-| `failed to execute template: ...`              | Template rendering failed, see [Notification template rendering fails](https://n9e.github.io/docs/troubleshooting/template-errors.md) |
+| Detail                                         | Meaning                                                                                                                                        |
+| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `notify_channel not found`                     | The media type was deleted or disabled                                                                                                         |
+| `message_template not found`                   | This notification config has no message template selected                                                                                      |
+| `failed to enqueue notify task, queue is full` | This media type's send queue (100,000 per channel) is full — the target is stuck                                                               |
+| `all retries failed, last error: ...`          | The address could not be reached at all                                                                                                        |
+| `status_code:400, response:...`                | The target received it and rejected the content — usually a token, a signature or the message format                                           |
+| `failed to execute template: ...`              | Template rendering failed, see [Why does notification template rendering fail?](https://n9e.github.io/docs/troubleshooting/template-errors.md) |
 
 One exception worth knowing about `message_template not found`: **callback, flashduty and pagerduty do not consume a message template**, so a missing template does not stop them. Every other media type with no template is **dropped and a failed record is written**. Note that callback is exempted by the media-type identifier `callback` — a copy of the callback media type saved under a different identifier is **not** exempt.
 
@@ -150,8 +152,8 @@ One trap: **a subscription with no notification rule selected leaves the subscri
 
 ## Next[​](#next "Direct link to Next")
 
-* It arrived, but the body is an error message: [Notification template rendering fails](https://n9e.github.io/docs/troubleshooting/template-errors.md)
-* It went to the wrong people: [Event pipeline routes to the wrong destination](https://n9e.github.io/docs/troubleshooting/wrong-routing.md)
-* The event was never created: [Query works but the alert does not fire](https://n9e.github.io/docs/troubleshooting/alert-not-firing.md)
+* It arrived, but the body is an error message: [Why does notification template rendering fail?](https://n9e.github.io/docs/troubleshooting/template-errors.md)
+* It went to the wrong people: [Why does the event pipeline route to the wrong destination?](https://n9e.github.io/docs/troubleshooting/wrong-routing.md)
+* The event was never created: [Why does the alert not fire when the query returns results?](https://n9e.github.io/docs/troubleshooting/alert-not-firing.md)
 * The full model: [Noise reduction and routing model](https://n9e.github.io/docs/concepts/noise-routing.md)
 * Testing the chain end to end: [Test a notification end to end](https://n9e.github.io/docs/notifications/test.md)

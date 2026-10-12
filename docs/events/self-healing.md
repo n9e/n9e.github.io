@@ -2,6 +2,8 @@
 
 Run a script on the affected host through ibex, or call a webhook, when a specific event fires.
 
+Last reviewed 2026-10-10
+
 Where this page ends: when an alert fires, Nightingale runs a script **on the host that has the problem**, and you can read the result, per-host stdout / stderr and exit code in the UI.
 
 Entry point: **Alerts & Notifications → Self-healing**, with two tabs — **Self-healing scripts** (`/job-tpls`) and **Task history** (`/job-tasks`).

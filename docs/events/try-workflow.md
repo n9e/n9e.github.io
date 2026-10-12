@@ -2,6 +2,8 @@
 
 Run a pipeline against a hand-written event and see each processor's output before anything is live.
 
+Last reviewed 2026-10-10
+
 Where this page ends: before the workflow is attached to any rule, you can see what it does to an event — which processor changed which label, and whether the event was dropped along the way.
 
 ## Where the test run lives[​](#where-the-test-run-lives "Direct link to Where the test run lives")

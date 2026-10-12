@@ -2,6 +2,8 @@
 
 The A2A endpoint exposes Nightingale as an agent that other agent platforms can discover and call; the agent card declares the address and supported methods.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a Nightingale agent that a third-party agent platform can discover and call on its own, plus one verified `message:send` request.
 
 ## Not the same thing as MCP[​](#not-the-same-thing-as-mcp "Direct link to Not the same thing as MCP")

@@ -1,6 +1,8 @@
-# Embedded TSDB has fragmented or missing data
+# Why is embedded TSDB data fragmented or missing?
 
 Gaps in the embedded TSDB rarely raise errors — retention, disk pressure or restarts; three timestamp metrics show whether the gap is on the write or the query side.
+
+Last reviewed 2026-10-10
 
 The chart has gaps in it; or you widen the time range and there is nothing at all before a certain point; or the same query gives different answers on two refreshes. Each of these has a definite cause in the embedded store, and **most of them do not produce an error** — so classify first, act second.
 
@@ -160,5 +162,5 @@ Old data that the retention policy already deleted **does not come back** after 
 * Where that data source came from: [Auto-registered Embedded TSDB datasource](https://n9e.github.io/docs/data/embedded-tsdb.md)
 * When to move off it: [Embedded TSDB single-Center limits](https://n9e.github.io/docs/operations/embedded-tsdb-limits.md)
 * Migrating without downtime: [External TSDB and dual-write migration](https://n9e.github.io/docs/install/external-tsdb.md)
-* The source connects but returns nothing: [Data source connects but queries return no data](https://n9e.github.io/docs/troubleshooting/no-data.md)
+* The source connects but returns nothing: [Why does a data source connect but return no data?](https://n9e.github.io/docs/troubleshooting/no-data.md)
 * The collection side: [Categraf troubleshooting](https://n9e.github.io/docs/data/categraf/troubleshooting.md)

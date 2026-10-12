@@ -2,11 +2,13 @@
 
 Let a team receive events from rules they do not own, with their own channel and severity filter.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a subscription that delivers another business group's alerts to your team, sent through **your** notification rules, without touching their configuration.
 
 Entry point: **Alerts & Notifications → Alert rules**, then the **Subscription rules** tab (`/alert-subscribes`).
 
-![The subscriptions list](/img/docs/events/subscriptions.png)![The subscriptions list](/img/docs/events/subscriptions.dark.png)
+![The subscriptions list](/img/docs/events/subscriptions.webp)![The subscriptions list](/img/docs/events/subscriptions.dark.webp)
 
 ## 1. Create a subscription[​](#1-create-a-subscription "Direct link to 1. Create a subscription")
 
@@ -16,7 +18,7 @@ Click **Add**. The form opens with the three cases this feature exists for:
 * **Escalation safety net**: alerts unresolved for over an hour also go to the team lead;
 * **Global callback**: send every alert event to one webhook for automation.
 
-![The subscription form](/img/docs/events/subscribe-form.png)![The subscription form](/img/docs/events/subscribe-form.dark.png)
+![The subscription form](/img/docs/events/subscribe-form.webp)![The subscription form](/img/docs/events/subscribe-form.dark.webp)
 
 ## 2. Filter settings: which events count[​](#2-filter-settings-which-events-count "Direct link to 2. Filter settings: which events count")
 
@@ -69,4 +71,4 @@ The semantics are "**I also want to receive events matching this**":
 * The opposite need, keeping something quiet: [Mute rules](https://n9e.github.io/docs/events/mute-rules.md)
 * Which path a subscribed event takes: [Conditional routing](https://n9e.github.io/docs/events/routing.md)
 * The order all of this happens in: [Noise reduction and routing model](https://n9e.github.io/docs/concepts/noise-routing.md)
-* Subscribed but nothing arrives: [Alert event exists but no notification arrives](https://n9e.github.io/docs/troubleshooting/no-notification.md)
+* Subscribed but nothing arrives: [Why is there an alert event but no notification?](https://n9e.github.io/docs/troubleshooting/no-notification.md)

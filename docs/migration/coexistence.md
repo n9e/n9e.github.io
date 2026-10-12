@@ -2,6 +2,8 @@
 
 Run both systems on the same data during the switch, compare what fires, and cut over channel by channel.
 
+Last reviewed 2026-10-10
+
 Where this page ends: a working method for running two alerting systems side by side, reconciling them daily, and backing out of any stage in about a minute. It applies equally whether you are coming from Alertmanager, Zabbix or Grafana Alerting.
 
 ## What is actually running in parallel[​](#what-is-actually-running-in-parallel "Direct link to What is actually running in parallel")

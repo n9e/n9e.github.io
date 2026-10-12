@@ -2,6 +2,8 @@
 
 Robot webhooks and card messages for the three major Chinese workplace apps.
 
+Last reviewed 2026-10-10
+
 Where this page ends: alerts land in your DingTalk / Feishu / WeCom room, with one media type shared by every room and each room's token kept on its own notification rule.
 
 ## The fast path: paste the webhook URL[​](#the-fast-path-paste-the-webhook-url "Direct link to The fast path: paste the webhook URL")
@@ -27,7 +29,7 @@ Anything it cannot recognise (Slack, your own webhook) goes through the manual f
 
 **Alerts & Notifications → Media types**. The open-source edition ships `Dingtalk`, `Wecom` and `Feishu Card` ready to use; Lark Card has a card in the type panel on the left, one click to create.
 
-![Media types](/img/docs/notifications/media-types.png)![Media types](/img/docs/notifications/media-types.dark.png)
+![Media types](/img/docs/notifications/media-types.webp)![Media types](/img/docs/notifications/media-types.dark.webp)
 
 URL, method, headers and body are all pre-filled. You only need to touch them when:
 

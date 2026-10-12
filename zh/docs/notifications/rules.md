@@ -2,17 +2,19 @@
 
 按标签和级别匹配事件，再决定走哪个媒介、用哪份模板、发给谁。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：一条能用的通知规则——S1 走一个媒介、S3 走另一个， 挂到告警规则上之后事件真的能送出去，并且你在保存之前就已经收到过一条测试消息。
 
 ## 1. 新建一条通知规则[​](#1-新建一条通知规则 "1. 新建一条通知规则的直接链接")
 
 **告警通知 → 通知规则**，右上角 **新增**。
 
-![通知规则](/zh/img/docs/notifications/notify-rules.zh.png)![通知规则](/zh/img/docs/notifications/notify-rules.zh.dark.png)
+![通知规则](/zh/img/docs/notifications/notify-rules.zh.webp)![通知规则](/zh/img/docs/notifications/notify-rules.zh.dark.webp)
 
 表单分三块：**通知配置**（核心）、**基础配置**、**事件处理工作流**（可选）。 先跳过基础配置——名称会在你选完媒介和接收团队之后自动生成。
 
-## 2. 填第一条通知配置[​](#2-填第一条通知配置 "2. 填第一条通知配置的直接链接")
+## 2. 填第一条通知配置[​](#2-填第一条通知配置 "2. 填第��一条通知配置的直接链接")
 
 | 字段              | 说明                                                                                                                          |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -79,4 +81,4 @@
 * 改消息文案：[模板与变量](https://n9e.github.io/zh/zh/docs/notifications/templates.md)
 * 让另一个团队也收到同样的事件：[订阅规则](https://n9e.github.io/zh/zh/docs/events/subscriptions.md)
 * 变更窗口内别吵：[屏蔽规则](https://n9e.github.io/zh/zh/docs/events/mute-rules.md)
-* 规则配好了却收不到：[有事件但收不到通知](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)
+* 规则配好了却收不到：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)

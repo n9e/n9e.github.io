@@ -2,6 +2,8 @@
 
 每个进程暴露的 /metrics 与健康检查端点，以及值得画出来的那几个。
 
+最后校对于 2026-10-10
+
 `n9e`、`n9e-edge`、`n9e-alert`、`n9e-pushgw` 用的是同一套 HTTP 骨架， 所以下面这几个端点在哪个进程上都一样，只是端口不同（Center 17000，edge 19000）。
 
 ## 每个进程都有的端点[​](#每个进程都有的端点 "每个进程都有的端点的直接链接")
@@ -79,9 +81,9 @@ curl --noproxy '*' http://n9e:17000/api/n9e/version # v9.1.1
 
 版本信息在**系统配置 → 关于产品**：前端版本、后端版本，以及各数据源支持哪些功能。
 
-![关于产品页](/zh/img/docs/operations/about.zh.png)![关于产品页](/zh/img/docs/operations/about.zh.dark.png)
+![关于产品页](/zh/img/docs/operations/about.zh.webp)![关于产品页](/zh/img/docs/operations/about.zh.dark.webp)
 
-## 带标签的计数器一开始并不存在[​](#带标签的计数器一开始并不存在 "带标签的计数器��一开始并不存在的直接链接")
+## 带标签的计数器一开始并不存在[​](#带标签的计数器一开始并不存在 "带标签的计数器一开始并不存在的直接链接")
 
 Prometheus 的 `CounterVec` 只有在某个标签组合第一次被记录时才会出现在 `/metrics` 上。 所以刚启动的实例上，`n9e_alert_rule_eval_error_total`、`n9e_alert_query_data_error_total` 这些**根本不存在**，不是等于 0。
 

@@ -2,6 +2,8 @@
 
 One rule plus one label set is one event, so repeated evaluations never create a second; the aggregation view folds hundreds of active events into a few cards.
 
+Last reviewed 2026-10-10
+
 Where this page ends: you know why one incident does not produce a message every evaluation cycle, and how to fold a screenful of hundreds of active events into a handful of cards.
 
 ## Deduplication is built in: an event is rule + label set[​](#deduplication-is-built-in-an-event-is-rule--label-set "Direct link to Deduplication is built in: an event is rule + label set")

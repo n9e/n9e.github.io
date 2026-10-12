@@ -2,6 +2,8 @@
 
 Nightingale ships rule templates for MySQL, Redis, Kubernetes and sixty other components; import them into any business group, and save your own rules as templates.
 
+Last reviewed 2026-10-10
+
 Where this page ends: the alert rules that ship with Nightingale for MySQL, Redis, Kubernetes and sixty other things are in one of your business groups, pointed at your data sources and attached to a notification rule — and you know how to put your own rules into the same library.
 
 ## The library that ships with the install[​](#the-library-that-ships-with-the-install "Direct link to The library that ships with the install")

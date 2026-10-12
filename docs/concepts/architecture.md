@@ -2,6 +2,8 @@
 
 The core is one n9e process: no dependencies for testing, MySQL and Redis for production, several instances sharing them for a cluster, and n9e-edge for multi-site.
 
+Last reviewed 2026-10-11
+
 The architecture is small: **one `n9e` process is the whole core**. For testing it runs with no dependencies at all; production adds MySQL and Redis. Multi-site deployments with unreliable links have a separate edge mode.
 
 ## What one process does[​](#what-one-process-does "Direct link to What one process does")

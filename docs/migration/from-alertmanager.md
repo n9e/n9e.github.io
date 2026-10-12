@@ -2,6 +2,8 @@
 
 Keep Prometheus for storage and scraping; move rules, routes, silences and receivers into Nightingale objects.
 
+Last reviewed 2026-10-10
+
 Where this page ends: you can take an `alertmanager.yml` and a `rules.yml` apart, place every entry on a Nightingale object, know which entries **have no equivalent**, and cut over in an order you can reverse at any point.
 
 Alertmanager is the only component Nightingale actually replaces. Nothing else moves.

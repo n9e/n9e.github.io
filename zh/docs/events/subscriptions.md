@@ -2,11 +2,13 @@
 
 让一个团队接收不属于自己的规则产生的事件，用自己的媒介和级别筛选。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：一条订阅规则，让你的团队收到别人业务组的告警， 用**你自己的**通知规则去发，而不用去改人家的配置。
 
 入口：**告警通知 → 规则管理**，顶部切到 **订阅规则** tab（`/alert-subscribes`）。
 
-![订阅规则列表](/zh/img/docs/events/subscriptions.zh.png)![订阅规则列表](/zh/img/docs/events/subscriptions.zh.dark.png)
+![订阅规则列表](/zh/img/docs/events/subscriptions.zh.webp)![订阅规则列表](/zh/img/docs/events/subscriptions.zh.dark.webp)
 
 ## 1. 新建订阅[​](#1-新建订阅 "1. 新建订阅的直接链接")
 
@@ -16,7 +18,7 @@
 * **告警升级兜底**：持续 1 小时未恢复的告警，额外通知一份给团队负责人；
 * **全局回调**：所有告警事件都回调一个 Webhook 做自动化。
 
-![订阅规则表单](/zh/img/docs/events/subscribe-form.zh.png)![订阅规则表单](/zh/img/docs/events/subscribe-form.zh.dark.png)
+![订阅规则表单](/zh/img/docs/events/subscribe-form.zh.webp)![订阅规则表单](/zh/img/docs/events/subscribe-form.zh.dark.webp)
 
 ## 2. 筛选配置：哪些事件算数[​](#2-筛选配置哪些事件算数 "2. 筛选配置：哪些事件算数的直接链接")
 
@@ -64,9 +66,9 @@
 * **订阅会放大风暴。** 源侧一次爆发几百条，订阅侧就跟着几百条。接收方用团队而不是个人， 并用「持续时长」把短暂抖动挡在外面。
 * **停用比删除安全。** 排查「谁在给我发这些」的时候，先把订阅关掉观察一轮，再决定删不删。
 
-## 下一步[​](#下一步 "下一步的直接链��接")
+## 下一步[​](#下一步 "下一步的直接链接")
 
 * 反过来，想让某类告警别吵：[屏蔽规则](https://n9e.github.io/zh/zh/docs/events/mute-rules.md)
 * 订阅出来的事件走哪条通知路径：[条件路由](https://n9e.github.io/zh/zh/docs/events/routing.md)
 * 各机制的先后顺序：[降噪与路由模型](https://n9e.github.io/zh/zh/docs/concepts/noise-routing.md)
-* 订阅了却收不到：[有事件但收不到通知](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)
+* 订阅了却收不到：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)

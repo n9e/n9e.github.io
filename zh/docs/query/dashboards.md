@@ -2,6 +2,8 @@
 
 仪表盘归属业务组，可从集成模板导入或从空白建起，有十二种面板类型，能整块导出交给别人。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：一个属于某个业务组的仪表盘，上面至少有一块画着真实数据的图， 存下来、也能整块导出给别人。
 
 ## 先决定：导模板还是从空白开始[​](#先决定导模板还是从空白开始 "先决定：导模板还是从空白开始的直接链接")
@@ -15,7 +17,7 @@
 
 **数据查询 → 仪表盘**（`/dashboards`），左侧选好业务组，点 **导入**。
 
-![仪表盘列表](/zh/img/docs/query/dashboard-list.zh.png)![仪表盘列表](/zh/img/docs/query/dashboard-list.zh.dark.png)
+![仪表盘列表](/zh/img/docs/query/dashboard-list.zh.webp)![仪表盘列表](/zh/img/docs/query/dashboard-list.zh.dark.webp)
 
 弹窗里有四个 tab：
 

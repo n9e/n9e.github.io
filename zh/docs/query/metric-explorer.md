@@ -2,13 +2,15 @@
 
 对任意已注册数据源即席写 PromQL，用的是和规则相同的查询编辑器。
 
+最后校对于 2026-10-10
+
 这页办完你会得到：在任意一个已注册的 Prometheus 类数据源上跑通一条 PromQL， 分得清「表格」和「图表」看的不是同一份数据，并知道怎么把这条查询带去告警规则或仪表盘。
 
 ## 1. 选数据源，跑第一条查询[​](#1-选数据源跑第一条查询 "1. 选数据源，跑第一条查询的直接链接")
 
 **数据查询 → 指标**（`/metric/explorer`），默认落在 **即时查询** 这个 tab 上。
 
-![即时查询](/zh/img/docs/query/metric-explorer.zh.png)![即时查询](/zh/img/docs/query/metric-explorer.zh.dark.png)
+![即时查询](/zh/img/docs/query/metric-explorer.zh.webp)![即时查询](/zh/img/docs/query/metric-explorer.zh.dark.webp)
 
 顶上那一行：
 
@@ -24,7 +26,7 @@
 up
 ```
 
-预期结果：**表格 (Table)** 里列出一行行序列和它们的瞬时值，左上角的「序列 (N)」是条数。 一条都没有，先看[数据源连上了但查不到数据](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)。
+预期结果：**表格 (Table)** 里列出一行行序列和它们的瞬时值，左上角的「序列 (N)」是条数。 一条都没有，先看[数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)。
 
 ## 2. 表格和图表看的不是同一份数据[​](#2-表格和图表看的不是同一份数据 "2. 表格和图表看的不是同一份数据的直接链接")
 

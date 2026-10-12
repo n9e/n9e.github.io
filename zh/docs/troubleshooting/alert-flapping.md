@@ -1,6 +1,8 @@
-# 告警反复触发或从不恢复
+# 告警为什么反复触发或从不恢复？
 
 告警反复触发或从不恢复，多半是阈值贴着数据抖动、数据断流被当成恢复、标签集在两次判定间变了，或没设恢复条件。
+
+最后校对于 2026-10-10
 
 同一条规则一晚上发了几十条，触发—恢复—触发—恢复；或者反过来，问题早修好了， 事件还挂在那里不走。这两种是同一套机制的两个方向，放在一页里讲。
 
@@ -34,7 +36,7 @@
 
 * **把留观时长设成大于一个采集断点的长度**，比如采集间隔 15 秒就设 60\~120 秒；
 * 表达式里避免用会因为一个点缺失就整体变空的写法；
-* 断点本身是采集或写入的问题，去 [数据源连上了但查不到数据](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md) 治根。
+* 断点本身是采集或写入的问题，去 [数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md) 治根。
 
 顺带说清楚一个反直觉的点：**查询报错和查询返回空的行为完全不同。** 报错时这一轮的判定和恢复处理**整个不做**，事件既不刷新也不恢复； 只有正常返回空才会触发恢复逻辑。所以数据源间歇性超时反而不会造成抖动， 它造成的是「状态卡住」。
 
@@ -54,7 +56,7 @@
 
 事件挂着不走，按这个顺序看：
 
-1. **规则还在评估吗。** 判定记录停在某个时间点之后就没有了，说明引擎不再跑这条规则， 而**没有评估就永远不会恢复**。走 [判定记录缺失或被丢弃](https://n9e.github.io/zh/zh/docs/troubleshooting/evaluation-missing.md)。
+1. **规则还在评估吗。** 判定记录停在某个时间点之后就没有了，说明引擎不再跑这条规则， 而**没有评估就永远不会恢复**。走 [判定记录为什么缺失或被丢弃？](https://n9e.github.io/zh/zh/docs/troubleshooting/evaluation-missing.md)。
 2. **查询一直在报错吗。** 报错时恢复处理整个跳过。看 `n9e_alert_rule_eval_error_total{stage="query_data"}` 有没有在涨， 判定记录里 `n9e_alert_eval_query_series_count` 是不是负数。
 3. **留观时长设得太长了吗。** 窗口没走完，事件就还是触发中。
 4. **对象消失了吗。** 机器从设备列表里删了之后，带这个 `ident` 的事件会被当成屏蔽处理 （判定记录里 detail 是 `ident not exists, was muted`），它不会自己恢复。
@@ -94,5 +96,5 @@ stalled, notify_repeat_step_matched(...) notify_max_number_not_matched(#5 / 5)
 
 * 判定与恢复的完整模型：[判定、恢复与状态变化](https://n9e.github.io/zh/zh/docs/concepts/evaluation.md)
 * 判定周期和恢复参数怎么调：[判定周期与恢复](https://n9e.github.io/zh/zh/docs/alerting/evaluation.md)
-* 数据断点的根因：[数据源连上了但查不到数据](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)
+* 数据断点的根因：[数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)
 * 还有哪些降噪手段：[常见噪音与对策](https://n9e.github.io/zh/zh/docs/events/noise-patterns.md)

@@ -2,6 +2,8 @@
 
 The short list to run before exposing Nightingale to a wider audience.
 
+Last reviewed 2026-10-10
+
 This page is an index to the ones before it, ordered by when each item is due. Every line can be confirmed in under a minute; the long version lives on the page it links to.
 
 Nightingale's defaults are tuned for "works the moment it is installed", not for "hand it straight to a room full of people". The four items in the first section are therefore not optional.
