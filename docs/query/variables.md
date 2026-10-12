@@ -2,6 +2,7 @@
 title: "Variables and filters"
 sidebar_label: "Variables and filters"
 description: "Dashboard variables add dropdowns at the top of a board, populated from label values and chained to each other; pick a host or a cluster and every chart switches."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a few dropdowns at the top of a board so that picking a host or a

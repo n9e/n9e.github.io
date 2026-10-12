@@ -2,6 +2,7 @@
 title: "Coexistence and rollback plan"
 sidebar_label: "Coexistence and rollback plan"
 description: "Run both systems on the same data during the switch, compare what fires, and cut over channel by channel."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a working method for running two alerting systems side by side, reconciling

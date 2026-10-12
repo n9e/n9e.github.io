@@ -2,6 +2,7 @@
 title: "接入 Claude Code / Cursor 等客户端"
 sidebar_label: "接入 MCP 客户端"
 description: "Claude Code、Cursor 等 MCP 客户端只需 /mcp 地址和一个 Token 即可接入；一条只读提示词就能验证连通。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一个连上夜莺的 MCP 客户端，

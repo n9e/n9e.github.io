@@ -2,6 +2,7 @@
 title: "事件 Pipeline"
 sidebar_label: "事件 Pipeline"
 description: "在通知之前按顺序对事件做变换、补充、丢弃或路由的处理器链。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一条挂在告警规则或通知规则上的处理器链，事件在发出去之前

@@ -2,6 +2,7 @@
 title: "记录规则"
 sidebar_label: "记录规则"
 description: "按计划预先计算开销大的表达式，改为对结果告警。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一条按固定频率预算的记录规则，把一个跑起来要好几秒的 PromQL

@@ -2,6 +2,7 @@
 title: "Log rules"
 sidebar_label: "Log rules"
 description: "Alert on log counts or matched patterns from ElasticSearch, OpenSearch, Loki and VictoriaLogs — all four alert, but only three can be previewed in the Log explorer."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a rule that counts matching log lines on a schedule and fires when there are

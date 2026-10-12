@@ -4,6 +4,7 @@ sidebar_label: "Using Nightingale"
 description: "Find current datasource, query, dashboard, alerting and notification guides from the former usage index."
 slug: "/usage"
 displayed_sidebar: "docs"
+last_reviewed: 2026-10-11
 ---
 
 Continue from this former catalogue to the current guides and the practical articles that retain their original URLs.

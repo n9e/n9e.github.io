@@ -2,6 +2,7 @@
 title: "想启用 Nightingale AI"
 sidebar_label: "想启用 Nightingale AI"
 description: "配置一个大模型提供方，打开内置助手和 MCP 端点，再接上 Claude Code 这类客户端。"
+last_reviewed: 2026-10-10
 ---
 
 这条路的终点：能在夜莺里用自然语言问「现在有哪些 S1 告警」，

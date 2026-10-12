@@ -92,8 +92,8 @@ export default function StackLayers() {
 
   return (
     <div className={styles.wrap}>
-      <svg viewBox={`0 0 ${W} ${H}`} className={styles.svg} role="img" aria-labelledby="stack-layers-title">
-        <title id="stack-layers-title">{c.title}</title>
+      {/* 无障碍名用 aria-label 而不是 <title>：有些抓取器把页内所有 <title> 都拼进页面标题 */}
+      <svg viewBox={`0 0 ${W} ${H}`} className={styles.svg} role="img" aria-label={c.title}>
 
         <rect x={1} y={y1} width={W - 2} height={CARD_H} rx={8} className={styles.card} />
         <Row y={y1 + CARD_H / 2} layer={l1} />

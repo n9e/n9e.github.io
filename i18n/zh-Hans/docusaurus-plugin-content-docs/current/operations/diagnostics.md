@@ -2,6 +2,7 @@
 title: "日志与诊断包"
 sidebar_label: "日志与诊断包"
 description: "排查夜莺自身问题有四个信息源：进程日志、判定记录、/metrics 和 pprof；提 Issue 时把这四样一起打包。"
+last_reviewed: 2026-10-10
 ---
 
 排查夜莺自身的问题有四个信息源：进程日志、判定记录、`/metrics` 和 pprof。

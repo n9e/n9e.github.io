@@ -2,6 +2,7 @@
 title: "安装与注册"
 sidebar_label: "安装与注册"
 description: "安装 agent、填夜莺的写入地址、确认主机出现在对象列表里。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：目标机器上跑着 Categraf，**基础设施 → 设备列表** 里能看到这台机器，

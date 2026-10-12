@@ -2,6 +2,7 @@
 title: "Connect Datadog Agent"
 sidebar_label: "Connect Datadog Agent"
 description: "Send Datadog Agent v1 metric series to Nightingale, with the API-version and authentication boundaries made explicit."
+last_reviewed: 2026-10-11
 ---
 
 This page lets hosts with Datadog Agent keep their collectors and send **compatible metric series** to Nightingale.

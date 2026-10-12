@@ -2,6 +2,7 @@
 title: "Install collector configuration"
 sidebar_label: "Install collector configuration"
 description: "Copy a template's collector config into Categraf and start collecting the component's metrics."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: the target host has a new `conf/input.<plugin>/<plugin>.toml`, Categraf is

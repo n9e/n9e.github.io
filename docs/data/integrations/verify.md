@@ -2,6 +2,7 @@
 title: "Verify incoming data"
 sidebar_label: "Verify incoming data"
 description: "A quiet imported rule may just mean no data arrived; query the metric name the template lists in the Metrics explorer to confirm the component's metrics are in."
+last_reviewed: 2026-10-10
 ---
 
 An imported alert rule that stays quiet means one of two things: everything is fine, or **the data
@@ -122,4 +123,4 @@ configured `Pushgw.Writers` to forward to an external store, query that source i
 
 - Data is in, now tune the thresholds: [Import dashboards and rules](./import.md)
 - Data is not in: [Categraf troubleshooting](../categraf/troubleshooting.md)
-- The data source itself is the problem: [Data source connects but queries return no data](../../troubleshooting/no-data.md)
+- The data source itself is the problem: [Why does a data source connect but return no data?](../../troubleshooting/no-data.md)

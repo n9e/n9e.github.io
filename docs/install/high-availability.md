@@ -2,6 +2,7 @@
 title: "High availability"
 sidebar_label: "High availability"
 description: "Run multiple Center and Alert instances behind a load balancer, and what still needs to be a singleton."
+last_reviewed: 2026-10-10
 ---
 
 A Nightingale cluster needs no extra component: **run several `n9e` processes with identical config,

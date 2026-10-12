@@ -2,6 +2,7 @@
 title: "重试与投递状态"
 sidebar_label: "重试与投递状态"
 description: "通知发送失败只对「连不上」自动重试，参数按发送类型各不相同；每条消息的投递结果在通知记录里可查，记录保留 7 天。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会知道：一条通知从「决定要发」到「对方收到」中间可能卡在哪，
@@ -103,4 +104,4 @@ CleanNotifyRecordDay = 30
 
 - 先验证通道再上线：[端到端测试一条通知](./test.md)
 - 消息内容渲染失败：[模板渲染报错](../troubleshooting/template-errors.md)
-- 一条都收不到时的排查顺序：[有事件但收不到通知](../troubleshooting/no-notification.md)
+- 一条都收不到时的排查顺序：[有告警事件，为什么收不到通知？](../troubleshooting/no-notification.md)

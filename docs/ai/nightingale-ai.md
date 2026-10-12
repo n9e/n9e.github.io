@@ -2,6 +2,7 @@
 title: "Nightingale AI overview"
 sidebar_label: "Nightingale AI overview"
 description: "Nightingale AI is the built-in assistant: it answers questions about alerts, metrics and configuration, drafts changes, and sees only what the asking user can see."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: you know which questions the built-in assistant can actually answer, where

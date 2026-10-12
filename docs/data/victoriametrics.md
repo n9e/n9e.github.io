@@ -2,6 +2,7 @@
 title: "VictoriaMetrics"
 sidebar_label: "VictoriaMetrics"
 description: "There is no separate VictoriaMetrics type: register it as Prometheus and set the TSDB type to VictoriaMetrics; single-node and cluster endpoints differ."
+last_reviewed: 2026-10-10
 ---
 
 To save you hunting through the type list: **the open-source edition has no "VictoriaMetrics" data

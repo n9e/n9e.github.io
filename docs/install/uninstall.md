@@ -2,6 +2,7 @@
 title: "Uninstall and data retention"
 sidebar_label: "Uninstall and data retention"
 description: "Remove Nightingale cleanly, and what to keep or export before you do."
+last_reviewed: 2026-10-10
 ---
 
 Nightingale has no installer, so it has no uninstaller either: stop the processes, delete the

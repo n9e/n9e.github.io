@@ -1,0 +1,378 @@
+{
+  "/img/docs/ai/assistant": [
+    3200,
+    1800
+  ],
+  "/img/docs/ai/assistant.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/ai/llm-configs": [
+    3200,
+    1800
+  ],
+  "/img/docs/ai/llm-configs.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/ai/skills": [
+    3200,
+    1800
+  ],
+  "/img/docs/ai/skills.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/alerting/rule-edit": [
+    3200,
+    1800
+  ],
+  "/img/docs/alerting/rule-edit.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/alerting/rule-form": [
+    3200,
+    1800
+  ],
+  "/img/docs/alerting/rule-form.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/alerting/rule-list": [
+    3200,
+    1800
+  ],
+  "/img/docs/alerting/rule-list.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/components": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/components.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/datasource-list": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/datasource-list.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/datasource-types": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/datasource-types.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/form-clickhouse": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/form-clickhouse.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/form-elasticsearch": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/form-elasticsearch.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/form-loki": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/form-loki.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/form-mysql": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/form-mysql.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/form-prometheus": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/form-prometheus.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/form-victorialogs": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/form-victorialogs.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/targets-list": [
+    3200,
+    1800
+  ],
+  "/img/docs/data/targets-list.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/events/active-events": [
+    3200,
+    1800
+  ],
+  "/img/docs/events/active-events.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/events/historical-events": [
+    3200,
+    1800
+  ],
+  "/img/docs/events/historical-events.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/events/mute-form": [
+    3200,
+    1800
+  ],
+  "/img/docs/events/mute-form.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/events/mute-rules": [
+    3200,
+    1800
+  ],
+  "/img/docs/events/mute-rules.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/events/pipeline-executions": [
+    3200,
+    1800
+  ],
+  "/img/docs/events/pipeline-executions.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/events/pipelines": [
+    3200,
+    1800
+  ],
+  "/img/docs/events/pipelines.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/events/subscribe-form": [
+    3200,
+    1800
+  ],
+  "/img/docs/events/subscribe-form.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/events/subscriptions": [
+    3200,
+    1800
+  ],
+  "/img/docs/events/subscriptions.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/get-started/ds-next-step": [
+    3200,
+    1800
+  ],
+  "/img/docs/get-started/ds-next-step.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/get-started/ds-template-import": [
+    3200,
+    1800
+  ],
+  "/img/docs/get-started/ds-template-import.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/get-started/landing-onboarding": [
+    3200,
+    1800
+  ],
+  "/img/docs/get-started/landing-onboarding.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/get-started/targets-list": [
+    3200,
+    1800
+  ],
+  "/img/docs/get-started/targets-list.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/notifications/media-type-add": [
+    3200,
+    1800
+  ],
+  "/img/docs/notifications/media-type-add.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/notifications/media-types": [
+    3200,
+    1800
+  ],
+  "/img/docs/notifications/media-types.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/notifications/message-templates": [
+    3200,
+    1800
+  ],
+  "/img/docs/notifications/message-templates.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/notifications/notify-rule-detail": [
+    3200,
+    1800
+  ],
+  "/img/docs/notifications/notify-rule-detail.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/notifications/notify-rules": [
+    3200,
+    1800
+  ],
+  "/img/docs/notifications/notify-rules.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/operations/about": [
+    3200,
+    1800
+  ],
+  "/img/docs/operations/about.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/operations/alerting-engines": [
+    3200,
+    1800
+  ],
+  "/img/docs/operations/alerting-engines.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/query/dashboard-list": [
+    3200,
+    1800
+  ],
+  "/img/docs/query/dashboard-list.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/query/embedded-products": [
+    3200,
+    1800
+  ],
+  "/img/docs/query/embedded-products.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/query/log-explorer": [
+    3200,
+    1800
+  ],
+  "/img/docs/query/log-explorer.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/query/metric-explorer": [
+    3200,
+    1800
+  ],
+  "/img/docs/query/metric-explorer.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/query/metrics-built-in": [
+    3200,
+    1800
+  ],
+  "/img/docs/query/metrics-built-in.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/query/object-explorer": [
+    3200,
+    1800
+  ],
+  "/img/docs/query/object-explorer.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/query/recording-rules": [
+    3200,
+    1800
+  ],
+  "/img/docs/query/recording-rules.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/security/roles": [
+    3200,
+    1800
+  ],
+  "/img/docs/security/roles.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/security/sso": [
+    3200,
+    1800
+  ],
+  "/img/docs/security/sso.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/security/teams": [
+    3200,
+    1800
+  ],
+  "/img/docs/security/teams.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/security/users": [
+    3200,
+    1800
+  ],
+  "/img/docs/security/users.zh": [
+    3200,
+    1800
+  ],
+  "/img/docs/security/variables": [
+    3200,
+    1800
+  ],
+  "/img/docs/security/variables.zh": [
+    3200,
+    1800
+  ]
+}

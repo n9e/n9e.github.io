@@ -2,6 +2,7 @@
 title: "Connect Telegraf"
 sidebar_label: "Connect Telegraf"
 description: "Send Telegraf metrics to Nightingale with HTTP output and Prometheus Remote Write, then verify the stored data."
+last_reviewed: 2026-10-11
 ---
 
 By the end of this page, your existing Telegraf will write metrics to the store used by Nightingale.

@@ -2,6 +2,7 @@
 title: "Targets and heartbeat"
 sidebar_label: "Targets and heartbeat"
 description: "Categraf sends a heartbeat with host metadata every ten seconds; the target list shows status and tags from it, and hosts are assigned to business groups by hand."
+last_reviewed: 2026-10-10
 ---
 
 **Infrastructure → Hosts** is Nightingale's machine inventory. This page covers how a machine gets

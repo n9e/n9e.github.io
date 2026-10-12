@@ -2,6 +2,7 @@
 title: "升级与数据库迁移"
 sidebar_label: "升级与数据库迁移"
 description: "schema 迁移在启动时怎么跑，以及多实例部署该按什么顺序升级。"
+last_reviewed: 2026-10-10
 ---
 
 换二进制的命令在[升级](../install/upgrade.md)里。这页讲运行侧的另一半：
@@ -121,4 +122,4 @@ grep -iE "failed to migrate table|failed to create index" /opt/n9e/logs/*.log
 - [v8 升级 v9](../migration/v8-to-v9.md)——跨大版本的破坏性变更
 - [高可用与故障域](./high-availability.md)——规则在实例之间怎么流转
 - [回滚与恢复](./rollback.md)——升级不顺利的时候
-- [升级或数据库迁移失败](../troubleshooting/upgrade-fails.md)——日志里真有东西的时候
+- [升级或数据库迁移为什么失败？](../troubleshooting/upgrade-fails.md)——日志里真有东西的时候

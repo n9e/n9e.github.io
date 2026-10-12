@@ -2,6 +2,7 @@
 title: "输入插件"
 sidebar_label: "输入插件"
 description: "Categraf 内置 90 多个输入插件；每个插件一个 conf/input.<名> 目录，放入配置即启用，可在前台单独跑一个来验证。"
+last_reviewed: 2026-10-10
 ---
 
 Categraf 内置 90 多个输入插件，覆盖操作系统、数据库、中间件、网络探测、容器。

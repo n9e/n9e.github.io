@@ -2,6 +2,7 @@
 title: "Enable write tools safely"
 sidebar_label: "Enable write tools safely"
 description: "MCP write tools are not registered by default; enable them explicitly under [HTTP.A2A], scope them to one token, and every change is traceable in the log."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: an `[HTTP.A2A]` config that keeps write access as small as it can be, and a

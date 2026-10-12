@@ -2,6 +2,7 @@
 title: "认证、Token 与 RBAC 模型"
 sidebar_label: "认证与权限模型"
 description: "权限只有两层：角色决定能进哪些页面、调哪些接口，业务组成员关系决定能动哪些数据；界面、HTTP API 和 MCP 共用这一套。"
+last_reviewed: 2026-10-10
 ---
 
 夜莺的权限模型只有两层，但很多人只看到其中一层，于是困惑「为什么我是 Admin 还是改不了这条规则」。

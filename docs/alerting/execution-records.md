@@ -2,6 +2,7 @@
 title: "Inspect evaluation execution records"
 sidebar_label: "Inspect evaluation execution records"
 description: "Every evaluation leaves a record: see what the query returned and why an event did or did not fire."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: for any rule, you can pull up the last hour of evaluations and read, cycle by
@@ -89,7 +90,7 @@ see [No notification arrives](../troubleshooting/no-notification.md).
 
 **"It fires and recovers over and over."** Compare the *Anomalies* count across consecutive rows.
 A count that flips between `1` and `0` every cycle is a metric sitting on the threshold —
-see [Alert fires repeatedly or never recovers](../troubleshooting/alert-flapping.md).
+see [Why does an alert fire repeatedly or never recover?](../troubleshooting/alert-flapping.md).
 
 ## Where records live, and how long
 

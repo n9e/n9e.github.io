@@ -376,5 +376,41 @@
   "theme.n9e.docsTabs.home": {
     "message": "Home",
     "description": "Docs tab: docs home"
+  },
+  "theme.n9e.notFound.lead": {
+    "message": "The page may have moved when the site was rebuilt. Search the docs, or start from one of these pages.",
+    "description": "Explanation on the 404 page"
+  },
+  "theme.n9e.notFound.searchLabel": {
+    "message": "Search the docs",
+    "description": "Label of the 404 search box"
+  },
+  "theme.n9e.notFound.searchPlaceholder": {
+    "message": "e.g. alert rule, Categraf, MCP",
+    "description": "Placeholder of the 404 search box"
+  },
+  "theme.n9e.notFound.searchButton": {
+    "message": "Search",
+    "description": "Submit button of the 404 search box"
+  },
+  "theme.n9e.notFound.docs": {
+    "message": "Documentation",
+    "description": "404 page link: docs home"
+  },
+  "theme.n9e.notFound.quickStart": {
+    "message": "Quick start",
+    "description": "404 page link: quick start"
+  },
+  "theme.n9e.notFound.download": {
+    "message": "Download",
+    "description": "404 page link: download page"
+  },
+  "theme.n9e.notFound.integrations": {
+    "message": "Integrations",
+    "description": "404 page link: integrations page"
+  },
+  "theme.n9e.lastReviewed": {
+    "message": "Last reviewed {date}",
+    "description": "Shown under a doc title; {date} is an ISO date from front matter last_reviewed"
   }
 }

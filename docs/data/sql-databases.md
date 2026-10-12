@@ -2,6 +2,7 @@
 title: "MySQL / PostgreSQL / TDengine"
 sidebar_label: "MySQL / PostgreSQL / TDengine"
 description: "Alert on a business database directly: read-only credentials, the SQL a rule runs, and guarding against slow queries."
+last_reviewed: 2026-10-10
 ---
 
 Some numbers never reach a time series database at all: pending orders, payment failure rate, how

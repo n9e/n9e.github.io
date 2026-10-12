@@ -99,6 +99,15 @@ const sets = fs.readdirSync(API)
 const total = sets.reduce((n, s) => n + s.tools.length, 0);
 const writes = sets.reduce((n, s) => n + s.tools.filter((t) => t.write).length, 0);
 
+// 同一份统计也写进 src/data/mcp.json：首页、对比页、介绍页上的「74 个工具 / 13 个工具集」
+// 都从那里取（src/data/figures.ts），不再在文案里手抄数字。
+const DATA = new URL('../../src/data/mcp.json', import.meta.url);
+fs.writeFileSync(
+  DATA,
+  `${JSON.stringify({ version: ver, tools: total, readTools: total - writes, writeTools: writes, toolsets: sets.length }, null, 2)}\n`,
+);
+console.error(`已写入 ${path.relative(process.cwd(), DATA.pathname)}：${total} 个工具 / ${sets.length} 个工具集 / ${writes} 个写工具`);
+
 console.log(`<!-- 由 scripts/docs-env/gen-mcp-reference.mjs 从 n9e-mcp-server ${ver} 生成，不要手改 -->\n`);
 if (zh) {
   console.log(`共 **${total} 个工具**，分属 **${sets.length} 个工具集**，其中 ${writes} 个是写工具。\n`);

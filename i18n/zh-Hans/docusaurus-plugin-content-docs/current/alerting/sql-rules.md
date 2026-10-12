@@ -2,6 +2,7 @@
 title: "SQL 规则"
 sidebar_label: "SQL 规则"
 description: "按计划对 MySQL、PostgreSQL、ClickHouse、Doris、TDengine、IoTDB 执行一条 SQL 的规则。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一条按周期执行一句 SQL、把结果里的某一列变成数字、越线就报警的规则。

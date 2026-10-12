@@ -2,6 +2,7 @@
 title: "MySQL 监控"
 sidebar_label: "MySQL 监控"
 description: "用 Categraf MySQL 插件采集数据库运行指标，区分性能监控、业务 SQL 查询和夜莺自身的元数据库。"
+last_reviewed: 2026-10-11
 ---
 
 这页办完，你会采到 MySQL 的连接、运行状态等指标，并分清性能监控和业务 SQL 告警。

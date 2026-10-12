@@ -2,6 +2,7 @@
 title: "Conditional routing"
 sidebar_label: "Conditional routing"
 description: "Send an event to different channels or teams depending on its labels and severity."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: you know which piece of configuration to touch for "S1 phones people, S3

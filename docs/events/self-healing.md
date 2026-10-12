@@ -2,6 +2,7 @@
 title: "Trigger self-healing with ibex / webhook"
 sidebar_label: "Trigger self-healing with ibex / webhook"
 description: "Run a script on the affected host through ibex, or call a webhook, when a specific event fires."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: when an alert fires, Nightingale runs a script **on the host that has the

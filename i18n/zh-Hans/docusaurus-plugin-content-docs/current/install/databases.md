@@ -2,6 +2,7 @@
 title: "MySQL / PostgreSQL / SQLite 与 Redis"
 sidebar_label: "MySQL / PostgreSQL / SQLite 与 Redis"
 description: "元数据库可选 MySQL、PostgreSQL 或 SQLite（仅测试），表结构由进程首次启动时自动建好；Redis 存放心跳等运行时状态。"
+last_reviewed: 2026-10-10
 ---
 
 夜莺要连两个存储：一个**元数据库**（用户、业务组、规则、仪表盘、通知配置都在里面），

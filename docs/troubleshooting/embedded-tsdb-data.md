@@ -1,7 +1,8 @@
 ---
-title: "Embedded TSDB has fragmented or missing data"
-sidebar_label: "Embedded TSDB has fragmented or missing data"
+title: "Why is embedded TSDB data fragmented or missing?"
+sidebar_label: "Why is embedded TSDB data fragmented or missing?"
 description: "Gaps in the embedded TSDB rarely raise errors — retention, disk pressure or restarts; three timestamp metrics show whether the gap is on the write or the query side."
+last_reviewed: 2026-10-10
 ---
 
 The chart has gaps in it; or you widen the time range and there is nothing at all before a certain
@@ -193,5 +194,5 @@ and values can be pasted as they are.
 - Where that data source came from: [Auto-registered Embedded TSDB datasource](../data/embedded-tsdb.md)
 - When to move off it: [Embedded TSDB single-Center limits](../operations/embedded-tsdb-limits.md)
 - Migrating without downtime: [External TSDB and dual-write migration](../install/external-tsdb.md)
-- The source connects but returns nothing: [Data source connects but queries return no data](./no-data.md)
+- The source connects but returns nothing: [Why does a data source connect but return no data?](./no-data.md)
 - The collection side: [Categraf troubleshooting](../data/categraf/troubleshooting.md)

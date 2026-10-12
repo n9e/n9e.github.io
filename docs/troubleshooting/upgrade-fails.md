@@ -1,7 +1,8 @@
 ---
-title: "Upgrade or database migration fails"
-sidebar_label: "Upgrade or database migration fails"
+title: "Why does an upgrade or database migration fail?"
+sidebar_label: "Why does an upgrade or database migration fail?"
 description: "Unknown column errors, blank pages or a hung process after an upgrade mean the schema did not fully migrate — usually missing database privileges or an interrupted run."
+last_reviewed: 2026-10-10
 ---
 
 You swapped in the new binary, the process started, and the UI reports `Unknown column`; or one new

@@ -4,6 +4,7 @@ sidebar_label: "使用说明入口"
 description: "从旧使用说明目录进入数据源、查询、仪表盘、告警和通知的当前文档。"
 slug: "/usage"
 displayed_sidebar: "docs"
+last_reviewed: 2026-10-11
 ---
 
 从这里可以继续访问旧目录中的主题；链接已经指向当前说明或保留原地址的实践文章。

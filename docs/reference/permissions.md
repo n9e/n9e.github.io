@@ -2,6 +2,7 @@
 title: "Permission matrix"
 sidebar_label: "Permission matrix"
 description: "Every permission point, which built-in roles hold it, and the menu or API it guards."
+last_reviewed: 2026-10-10
 ---
 
 Permission points are the **first layer** of the model. The second is business-group membership,

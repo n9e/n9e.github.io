@@ -2,6 +2,7 @@
 title: "Prometheus"
 sidebar_label: "Prometheus"
 description: "Register a Prometheus or Thanos endpoint, set auth and timeouts, and verify with a query."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a registered Prometheus data source whose connection has been tested and
@@ -95,7 +96,7 @@ up
 ```
 
 A line on the chart means this half works. If nothing comes back, stop here —
-[Data source connects but queries return no data](../troubleshooting/no-data.md).
+[Why does a data source connect but return no data?](../troubleshooting/no-data.md).
 
 ## When it doesn't connect
 

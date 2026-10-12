@@ -1,7 +1,8 @@
 ---
-title: "MCP tools are missing or denied"
-sidebar_label: "MCP tools are missing or denied"
+title: "Why are MCP tools missing or denied?"
+sidebar_label: "Why are MCP tools missing or denied?"
 description: "\"No such tool\" has three shapes — write tools not enabled, toolset disabled, or the token's user lacks the permission — and the tools/list response tells them apart."
+last_reviewed: 2026-10-10
 ---
 
 The client connected, but the model says it has no such tool; or the tool list is far shorter than
@@ -9,7 +10,7 @@ expected; or a call comes back refused. Those are three different causes with **
 shaped responses**, so classifying by shape is much faster than working through the config.
 
 This assumes the connection itself works. If the client cannot connect at all, start with
-[MCP authentication fails](./mcp-auth.md).
+[Why does MCP authentication fail?](./mcp-auth.md).
 
 ## Count what `tools/list` returns
 
@@ -168,4 +169,4 @@ count in the client** means client-side caching.
 - Per-tool parameters: [MCP tool reference](../reference/mcp-tools.md)
 - Read before turning writes on: [Enable write tools safely](../ai/write-tools.md)
 - How the boundary is computed: [Permission inheritance and RBAC](../ai/permissions.md)
-- It will not connect at all: [MCP authentication fails](./mcp-auth.md)
+- It will not connect at all: [Why does MCP authentication fail?](./mcp-auth.md)

@@ -2,6 +2,7 @@
 title: "模板与变量"
 sidebar_label: "模板与变量"
 description: "消息模板用 Go text/template，变量都挂在 $event 上；写错的变量不报错、只在消息里留空白，预览能提前发现。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一份自己的消息模板，用到的每个变量都在预览里验证过，

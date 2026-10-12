@@ -1,7 +1,8 @@
 ---
-title: "Evaluation records are missing or dropped"
-sidebar_label: "Evaluation records are missing or dropped"
+title: "Why are evaluation records missing or dropped?"
+sidebar_label: "Why are evaluation records missing or dropped?"
 description: "Missing evaluation records mean one of four things: not recorded, not evaluated, query rejected or cycle skipped; overload and datasource timeouts are the usual causes."
+last_reviewed: 2026-10-10
 ---
 
 The evaluation records on the rule page have holes in them: some cycles are there, some are not, or
@@ -15,13 +16,13 @@ investigate entirely the wrong thing.
 
 | Symptom | What it means |
 |---|---|
-| Records present, events stopped at some stage | Evaluation is fine — go to [Query works but the alert does not fire](./alert-not-firing.md) |
+| Records present, events stopped at some stage | Evaluation is fine — go to [Why does the alert not fire when the query returns results?](./alert-not-firing.md) |
 | The API returns `"enabled": false` | The evaluation-record feature is turned off; evaluation is unaffected |
 | Records scattered, `truncated` is true | Evaluation is fine; the record itself was degraded or dropped |
 | No records at all and `instances` is empty | **No engine is running this rule** — that is a real evaluation problem |
 
 The last one is covered by "The rule is never evaluated" in
-[Query works but the alert does not fire](./alert-not-firing.md). The other three are this page.
+[Why does the alert not fire when the query returns results?](./alert-not-firing.md). The other three are this page.
 
 ## What the records are and where they live
 
@@ -155,7 +156,7 @@ curl -s http://127.0.0.1:17000/metrics | grep -E 'n9e_alert_rule_eval_total|n9e_
 
 If `n9e_alert_rule_eval_total` grows more slowly than "rule count ÷ interval" implies, and a few
 rules show a high `n9e_alert_rule_eval_duration_ms`, cycles are being skipped. The fix is in
-[Performance and backlog symptoms](./performance.md).
+[Why is Nightingale slow or backlogged?](./performance.md).
 
 While you are here: a query **error** and an **empty** query result are two very different things
 inside the engine. On an error, the whole judgement and recovery step for that cycle is skipped —
@@ -177,7 +178,7 @@ embedded in a path.
 
 ## Next
 
-- Records are there but no event appeared: [Query works but the alert does not fire](./alert-not-firing.md)
-- Slow engine, growing queues: [Performance and backlog symptoms](./performance.md)
+- Records are there but no event appeared: [Why does the alert not fire when the query returns results?](./alert-not-firing.md)
+- Slow engine, growing queues: [Why is Nightingale slow or backlogged?](./performance.md)
 - How to read the records page: [Evaluation execution records](../alerting/execution-records.md)
 - The judgement model: [Evaluation, recovery and state changes](../concepts/evaluation.md)

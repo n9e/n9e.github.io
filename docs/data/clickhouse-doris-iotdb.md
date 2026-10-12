@@ -2,6 +2,7 @@
 title: "ClickHouse / Doris / IoTDB"
 sidebar_label: "ClickHouse / Doris / IoTDB"
 description: "ClickHouse, Doris and IoTDB are one family in Nightingale: queried with SQL, one numeric column of the result becomes the series value and the rest become labels."
+last_reviewed: 2026-10-10
 ---
 
 These three hold different things — ClickHouse and Doris usually hold bulk logs and event detail,

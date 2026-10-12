@@ -2,6 +2,7 @@
 title: "Permission inheritance and RBAC"
 sidebar_label: "Permission inheritance and RBAC"
 description: "Every MCP tool call is an internal API call made as the token's user, so a client never sees or changes more than that user; business groups apply unchanged."
+last_reviewed: 2026-10-10
 ---
 
 This page answers one question: where exactly is the boundary for a connected AI client, and how

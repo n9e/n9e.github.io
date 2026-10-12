@@ -2,6 +2,7 @@
 title: "内置时序库与外部存储"
 sidebar_label: "存储"
 description: "夜莺自带一个时序库让你零依赖起步；这页讲它的边界，以及什么时候必须换成 Prometheus 或 VictoriaMetrics。"
+last_reviewed: 2026-10-10
 ---
 
 夜莺要存两类东西，它们的去处完全不同：

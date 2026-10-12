@@ -2,6 +2,7 @@
 title: "Logs and diagnostic bundles"
 sidebar_label: "Logs and diagnostic bundles"
 description: "Four sources when Nightingale itself misbehaves: the process log, evaluation records, /metrics and pprof — collect all four before opening an issue."
+last_reviewed: 2026-10-10
 ---
 
 There are four sources of information when Nightingale itself misbehaves: the process log, the

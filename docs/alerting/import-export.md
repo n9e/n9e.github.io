@@ -2,6 +2,7 @@
 title: "Import, export and reuse"
 sidebar_label: "Import, export and reuse"
 description: "Move rules between environments as JSON, and keep them in version control."
+last_reviewed: 2026-10-11
 ---
 
 Where this page ends: a set of rules leaves one environment as a JSON file and arrives in another

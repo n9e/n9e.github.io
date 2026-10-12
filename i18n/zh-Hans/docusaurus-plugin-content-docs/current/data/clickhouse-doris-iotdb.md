@@ -2,6 +2,7 @@
 title: "ClickHouse / Doris / IoTDB"
 sidebar_label: "ClickHouse / Doris / IoTDB"
 description: "ClickHouse、Doris、IoTDB 同属 SQL 类数据源：查询结果的数值列成为序列值，其余列成为标签，直接用于告警判定。"
+last_reviewed: 2026-10-10
 ---
 
 这三个存的东西不一样——ClickHouse 和 Doris 通常放海量日志和明细，

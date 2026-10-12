@@ -1,7 +1,8 @@
 ---
-title: "Alert fires repeatedly or never recovers"
-sidebar_label: "Alert fires repeatedly or never recovers"
+title: "Why does an alert fire repeatedly or never recover?"
+sidebar_label: "Why does an alert fire repeatedly or never recover?"
 description: "Flapping or never-recovering alerts usually come from a threshold sitting on the data, a data gap read as recovery, a changing label set, or no recovery condition."
+last_reviewed: 2026-10-10
 ---
 
 One rule sent forty messages overnight — fire, recover, fire, recover. Or the opposite: the problem
@@ -54,7 +55,7 @@ Once confirmed, treat it from these angles:
   seconds is a reasonable starting point;
 - avoid expressions that go entirely empty when a single point is missing;
 - the gap itself is an ingest problem — fix the root cause via
-  [Data source connects but queries return no data](./no-data.md).
+  [Why does a data source connect but return no data?](./no-data.md).
 
 One counter-intuitive point worth stating plainly: **a query error and an empty query result behave
 completely differently.** On an error the whole judgement-and-recovery step for that cycle is
@@ -86,7 +87,7 @@ An event that will not clear, in this order:
 
 1. **Is the rule still being evaluated?** If the evaluation records stop at some point, no engine is
    running the rule any more — and **without evaluation there is never a recovery**. Go to
-   [Evaluation records are missing or dropped](./evaluation-missing.md).
+   [Why are evaluation records missing or dropped?](./evaluation-missing.md).
 2. **Is the query erroring every cycle?** Errors skip recovery entirely. Check whether
    `n9e_alert_rule_eval_error_total{stage="query_data"}` is climbing and whether
    `n9e_alert_eval_query_series_count` is negative.
@@ -141,5 +142,5 @@ the structure of which keys are changing** — without that the problem is unrea
 
 - The full model: [Evaluation, recovery and state changes](../concepts/evaluation.md)
 - Tuning the intervals: [Evaluation interval and recovery](../alerting/evaluation.md)
-- Root cause of the data gaps: [Data source connects but queries return no data](./no-data.md)
+- Root cause of the data gaps: [Why does a data source connect but return no data?](./no-data.md)
 - Other noise-reduction options: [Common noise patterns](../events/noise-patterns.md)

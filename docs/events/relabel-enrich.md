@@ -2,6 +2,7 @@
 title: "Rewrite labels and enrich context"
 sidebar_label: "Rewrite labels and enrich context"
 description: "Rename or add labels, or call your own service and write what it returns back onto the event."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a processor that reshapes an event's labels into what you actually want,

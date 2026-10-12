@@ -22,6 +22,12 @@ fails, the build carries on with the data already in the repository. The build a
 copy of every page next to its HTML (`/docs/x` → `/docs/x.md`) for AI crawlers; fonts are
 self-hosted from `@fontsource`, so nothing is loaded from Google Fonts.
 
+Every doc carries a `last_reviewed: YYYY-MM-DD` front matter field. It is rendered under the
+title, emitted as `article:modified_time` and as `TechArticle.dateModified`, and it is the only
+date signal the site gives (git timestamps are deliberately not used, see `docusaurus.config.ts`).
+Bump it only after checking the page against the product. Troubleshooting pages are titled as
+questions on purpose: that is how people and AI assistants phrase the query.
+
 ## Deployment
 
 Every push to `main` triggers `.github/workflows/deploy.yml`: it runs `npm ci && npm run build`
@@ -112,6 +118,17 @@ npm run integrations   # template catalog; icons are re-downloaded only when the
 Set `GITHUB_TOKEN` to avoid anonymous rate limits. When upstream adds a template that
 `scripts/integration-categories.mjs` does not categorize yet, the script prints a warning and files
 it under "Other"; the build does not fail.
+
+The figures quoted across the homepage, comparisons page, integrations page and introduction
+(integration count, data source types, notification channels, MCP tools) all come from
+`src/data/figures.ts`. The integration count is the catalog length; the MCP numbers are
+`src/data/mcp.json`, written by `scripts/docs-env/gen-mcp-reference.mjs` from the toolset library
+pinned in nightingale's `go.mod` (the standalone `n9e-mcp-server` is deprecated; the tools ship
+inside n9e). Do not type these numbers into copy.
+
+Docs screenshots are lossless WebP under `static/img/docs/`, produced from the PNGs that
+`scripts/docs-env/shoot-docs.mjs` captures by `node scripts/docs-env/webp-docs.mjs`, which also
+records their dimensions in `src/data/doc-shots.json` for the `<Shot>` component.
 
 ## Design conventions
 

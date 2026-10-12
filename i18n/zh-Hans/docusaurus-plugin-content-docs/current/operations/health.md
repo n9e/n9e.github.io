@@ -2,6 +2,7 @@
 title: "内置指标与健康检查"
 sidebar_label: "内置指标与健康检查"
 description: "每个进程暴露的 /metrics 与健康检查端点，以及值得画出来的那几个。"
+last_reviewed: 2026-10-10
 ---
 
 `n9e`、`n9e-edge`、`n9e-alert`、`n9e-pushgw` 用的是同一套 HTTP 骨架，

@@ -2,6 +2,7 @@
 title: "安全地启用写工具"
 sidebar_label: "安全地启用写工具"
 description: "MCP 写工具默认不注册；在 [HTTP.A2A] 配置里显式打开，可限定到某个 Token，每次改动都留在日志里可追溯。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一份把写能力收到最小面的 `[HTTP.A2A]` 配置，

@@ -2,6 +2,7 @@
 title: "Release notes"
 sidebar_label: "Release notes"
 description: "Curated notes per release with upgrade impact, in addition to the GitHub changelog."
+last_reviewed: 2026-10-10
 ---
 
 This page does not mirror the changelog — the full per-commit list lives on GitHub and is updated

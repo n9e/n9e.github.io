@@ -2,6 +2,7 @@
 title: "自定义采集脚本"
 sidebar_label: "自定义采集脚本"
 description: "通过 Categraf exec 插件执行脚本，输出 Prometheus 指标，验证权限、超时和正式服务中的采集结果。"
+last_reviewed: 2026-10-11
 ---
 
 这页办完，你会让一个脚本输出自定义指标，经 Categraf 写入夜莺的时序库。
@@ -62,4 +63,4 @@ data_format = "prometheus"
 ## 下一步 {#next}
 
 - [创建第一条告警](../alerting/first-rule.md)
-- [数据源连上了但查不到数据](../troubleshooting/no-data.md)
+- [数据源连上了，为什么查不到数据？](../troubleshooting/no-data.md)

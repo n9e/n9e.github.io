@@ -2,6 +2,7 @@
 title: "Alert lifecycle and S1 / S2 / S3 severity"
 sidebar_label: "Lifecycle and severity"
 description: "An event is identified by rule plus label set and passes through firing, ongoing and recovered; S1 / S2 / S3 change nothing mechanically — they signal urgency."
+last_reviewed: 2026-10-10
 ---
 
 ## An event's life

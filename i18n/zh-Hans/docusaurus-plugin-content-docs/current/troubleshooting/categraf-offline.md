@@ -1,7 +1,8 @@
 ---
-title: "Categraf 对象显示离线"
-sidebar_label: "Categraf 对象显示离线"
+title: "Categraf 对象为什么显示离线？"
+sidebar_label: "Categraf 对象为什么显示离线？"
 description: "设备显示离线意味着心跳没在期限内到达 Redis：常见原因是时钟偏差、心跳地址错误或网络策略；「更新时间」不能用来判断存活。"
+last_reviewed: 2026-10-10
 ---
 
 设备列表里某台机器的状态格子变黄或变红，但你 SSH 上去 categraf 明明活着。
@@ -113,7 +114,7 @@ failed to write target ts in redis after 3 retries, keys: [...]
 
 ## 下一步
 
-- 机器在但没指标：[数据源连上了但查不到数据](./no-data.md)
+- 机器在但没指标：[数据源连上了，为什么查不到数据？](./no-data.md)
 - 采集端的完整排查：[Categraf 排障](../data/categraf/troubleshooting.md)
 - 设备列表这个页面本身：[设备列表](../data/categraf/targets.md)
 - 失联告警怎么配：[告警规则的生效范围](../alerting/scope.md)

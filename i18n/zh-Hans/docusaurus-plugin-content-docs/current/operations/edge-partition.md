@@ -2,6 +2,7 @@
 title: "边缘断网行为"
 sidebar_label: "边缘断网行为"
 description: "n9e-edge 失联时会怎样：判定继续、通知走本地、之后什么会同步回来。"
+last_reviewed: 2026-10-10
 ---
 
 `n9e-edge` 存在的意义就是断链时还能告警。这页把「断链时具体发生什么」讲清楚——

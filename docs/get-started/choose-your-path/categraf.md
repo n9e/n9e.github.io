@@ -2,6 +2,7 @@
 title: "I need to monitor a host with Categraf"
 sidebar_label: "I need to monitor a host with Categraf"
 description: "Install Categraf on a host, point it at Nightingale over Remote Write, and see the machine appear under Targets within a minute."
+last_reviewed: 2026-10-10
 ---
 
 Where this path ends: a machine listed under Hosts in Nightingale with live CPU, memory and disk,
@@ -75,7 +76,7 @@ If it is not there, check in this order:
 2. whether the host can actually reach Nightingale (firewall, security group);
 3. whether the clocks differ by more than a couple of minutes.
 
-Details in [Categraf target is offline](../../troubleshooting/categraf-offline.md).
+Details in [Why does a Categraf target show as offline?](../../troubleshooting/categraf-offline.md).
 
 ## 5. Import a dashboard and rules while you are here
 

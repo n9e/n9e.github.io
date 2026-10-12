@@ -2,6 +2,7 @@
 title: "权限继承与 RBAC"
 sidebar_label: "权限继承与 RBAC"
 description: "每次 MCP 工具调用都是以 Token 用户身份发起的内部 API 调用，客户端的权限因此与该用户完全一致，业务组边界同样生效。"
+last_reviewed: 2026-10-10
 ---
 
 这页解释一件事：接上来的 AI 客户端，权限边界到底画在哪，

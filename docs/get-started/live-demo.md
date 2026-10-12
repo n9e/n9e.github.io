@@ -2,6 +2,7 @@
 title: "Guided live demo"
 sidebar_label: "Guided live demo"
 description: "Sign in to the public demo and walk the path from data source to delivered alert, in the same order as the quick start — no install needed."
+last_reviewed: 2026-10-10
 ---
 
 After this page you will have seen, on a running instance, every stop an alert makes in

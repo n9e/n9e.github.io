@@ -2,6 +2,7 @@
 title: "Authentication, tokens and RBAC model"
 sidebar_label: "Authentication and permissions"
 description: "Two layers: roles decide which pages and endpoints are reachable, business-group membership decides which data can be touched; UI, HTTP API and MCP share the model."
+last_reviewed: 2026-10-10
 ---
 
 There are only two layers to the permission model, but many people only see one of them, and then

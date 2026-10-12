@@ -2,6 +2,7 @@
 title: "高可用与故障域"
 sidebar_label: "高可用与故障域"
 description: "多实例部署能扛住哪些故障、扛不住哪些，以及怎么演练。"
+last_reviewed: 2026-10-10
 ---
 
 夜莺的高可用没有额外组件：**多跑几个 `n9e`，配置一致，共享同一套 MySQL 和 Redis**。

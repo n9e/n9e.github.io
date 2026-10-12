@@ -8,17 +8,20 @@ bad=0
 say() { echo; echo "== $1"; }
 
 # 正文里引用的是 <Shot src="/img/docs/xxx" />（不带扩展名），
-# 组件自己拼 .png 和 .dark.png，所以两份都要在
+# 组件自己拼 .webp 和 .dark.webp，所以两份都要在（截完 PNG 记得跑 webp-docs.mjs）
 say "引用了但磁盘上没有的图"
 grep -rhoE 'src="/img/docs/[^"]+"' docs i18n 2>/dev/null | sed 's|src="||; s|"$||' | sort -u | while read -r p; do
   for v in "" ".dark"; do
-    [ -f "static${p}${v}.png" ] || echo "  缺图 static${p}${v}.png"
+    [ -f "static${p}${v}.webp" ] || echo "  缺图 static${p}${v}.webp"
   done
 done | tee /tmp/_missing_img
 [ -s /tmp/_missing_img ] && bad=1
 
+say "还没转成 WebP 的 PNG（跑 node scripts/docs-env/webp-docs.mjs）"
+if find static/img/docs -name '*.png' 2>/dev/null | grep .; then bad=1; fi
+
 say "有图但没人引用"
-find static/img/docs -name '*.png' 2>/dev/null | sed 's|^static||; s|\.dark\.png$||; s|\.png$||' | sort -u | while read -r p; do
+find static/img/docs -name '*.webp' 2>/dev/null | sed 's|^static||; s|\.dark\.webp$||; s|\.webp$||' | sort -u | while read -r p; do
   grep -rqF "src=\"$p\"" docs i18n 2>/dev/null || echo "  没人引用 $p"
 done
 

@@ -2,6 +2,7 @@
 title: "Center、Alert、Edge、Pushgw 与 Categraf"
 sidebar_label: "进程与角色"
 description: "绝大多数部署只需要 n9e 一个进程；n9e-alert、n9e-pushgw 是可拆出的角色，n9e-edge 给多机房用，Categraf 在采集侧。"
+last_reviewed: 2026-10-10
 ---
 
 夜莺的发布包里有好几个二进制，但**绝大多数部署只需要一个**。这页说清楚谁是谁。

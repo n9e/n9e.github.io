@@ -2,6 +2,7 @@
 title: "SQL-backed rules"
 sidebar_label: "SQL-backed rules"
 description: "Rules that run a SQL statement against MySQL, PostgreSQL, ClickHouse, Doris, TDengine or IoTDB on a schedule."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a rule that runs one SQL statement on a schedule, turns a column of the result

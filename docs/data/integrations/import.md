@@ -2,6 +2,7 @@
 title: "Import dashboards and rules"
 sidebar_label: "Import dashboards and rules"
 description: "Import the bundled dashboards and alert rules into a business group, and adjust thresholds before enabling."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a business group that now has this component's dashboards, plus a batch of

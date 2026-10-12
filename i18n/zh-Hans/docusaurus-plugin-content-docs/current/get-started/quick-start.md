@@ -2,6 +2,7 @@
 sidebar_label: 快速开始
 title: 五分钟拉起夜莺
 description: "docker compose up -d 一条命令拉起夜莺及依赖，以 root 登录 17000 端口，然后接数据源、写规则、配通知。"
+last_reviewed: 2026-10-10
 ---
 
 compose 编排会把夜莺连同它依赖的数据库、时序库一起拉起，不需要提前准备任何东西。

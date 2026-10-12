@@ -2,6 +2,7 @@
 title: "From Grafana Alerting"
 sidebar_label: "From Grafana Alerting"
 description: "Keep Grafana dashboards; move alert rules and contact points, and what to do about unified alerting state."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: Grafana unified alerting taken apart onto Nightingale objects, a clear line

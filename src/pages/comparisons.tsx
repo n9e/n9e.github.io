@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import clsx from 'clsx';
 import Layout from '@theme/Layout';
+import Head from '@docusaurus/Head';
 import Link from '@docusaurus/Link';
 import { useCopy } from '@site/src/content';
 import type { CapabilityLevel } from '@site/src/content/types';
@@ -256,6 +257,22 @@ export default function Comparisons(): React.ReactElement {
           </div>
         </section>
 
+        {/* FAQ 的问答对同时以 FAQPage 结构化数据输出：Google 早已不再给普通站点展示 FAQ 富摘要，
+            这里图的是 AI 搜索按问答对抽取、引用时拿到的是整段答案而不是半句。内容与下面可见的
+            details 完全同源，不另写一份。 */}
+        <Head>
+          <script type="application/ld+json">
+            {JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: page.faq.items.map((item) => ({
+                '@type': 'Question',
+                name: item.q,
+                acceptedAnswer: { '@type': 'Answer', text: item.a },
+              })),
+            })}
+          </script>
+        </Head>
         <section className={styles.faq} aria-labelledby="faq-title">
           <div className={clsx('n9e-container', styles.faqInner)}>
             <h2 id="faq-title" className={styles.sectionTitle}>

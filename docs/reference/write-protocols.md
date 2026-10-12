@@ -2,6 +2,7 @@
 title: "Data write protocols"
 sidebar_label: "Data write protocols"
 description: "Prometheus Remote Write, OpenTSDB, Datadog and Falcon: endpoints, payloads and label handling."
+last_reviewed: 2026-10-10
 ---
 
 The ingest side is called Pushgw and lives inside the Center process (it can also run on its own as

@@ -2,6 +2,7 @@
 title: "System architecture"
 sidebar_label: "System architecture"
 description: "The core is one n9e process: no dependencies for testing, MySQL and Redis for production, several instances sharing them for a cluster, and n9e-edge for multi-site."
+last_reviewed: 2026-10-11
 ---
 
 The architecture is small: **one `n9e` process is the whole core**. For testing it runs with no

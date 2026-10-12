@@ -2,6 +2,7 @@
 title: "Environment variables"
 sidebar_label: "Environment variables"
 description: "The environment variables Nightingale reads, and why config keys cannot be overridden that way."
+last_reviewed: 2026-10-10
 ---
 
 **First, the thing to be clear about: Nightingale has no mechanism for overriding arbitrary config

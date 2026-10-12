@@ -2,6 +2,7 @@
 title: "Object quick view"
 sidebar_label: "Object quick view"
 description: "From a host in the target list to its key metrics in one click."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: metrics for a few selected hosts without having to work out the query

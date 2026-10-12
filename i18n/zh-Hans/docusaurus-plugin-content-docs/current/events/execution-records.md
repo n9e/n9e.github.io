@@ -2,6 +2,7 @@
 title: "查看 Pipeline 执行记录"
 sidebar_label: "查看 Pipeline 执行记录"
 description: "Pipeline 执行记录逐事件记下每个处理器改了什么、事件是否被丢弃、最终送到了哪里。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会能回答：某条事件进没进这条工作流、每个处理器把它改成了什么样、

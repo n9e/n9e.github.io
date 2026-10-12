@@ -2,6 +2,7 @@
 title: "CLI reference"
 sidebar_label: "CLI reference"
 description: "The command line is thin: every process takes three flags, configuration lives in the toml files under etc/, and there are no subcommands for managing rules."
+last_reviewed: 2026-10-10
 ---
 
 Nightingale's command line is **thin** — configuration lives in the toml files under `etc/`, and

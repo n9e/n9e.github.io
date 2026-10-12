@@ -2,6 +2,7 @@
 title: "Inspect workflow execution records"
 sidebar_label: "Inspect workflow execution records"
 description: "Execution records trace each event through every processor: what each one changed, whether the event was dropped, and where it was sent."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: you can answer whether a given event entered a workflow, what each

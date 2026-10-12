@@ -2,6 +2,7 @@
 title: "Noise reduction and routing model"
 sidebar_label: "Noise reduction and routing model"
 description: "Mute rules, subscriptions, pipelines and notification rules are not alternatives: they act on an event in a fixed order, which is why a muted alert can still page."
+last_reviewed: 2026-10-10
 ---
 
 Nightingale has four mechanisms that act on an event. They are **not alternatives** — each acts at
@@ -68,4 +69,4 @@ do not have to touch their configuration.
 - [Alert subscriptions](../events/subscriptions.md)
 - [Event pipelines](../events/pipelines.md)
 - [Notification rules](../notifications/rules.md)
-- When nothing arrives, walk this chain: [Alert event exists but no notification arrives](../troubleshooting/no-notification.md)
+- When nothing arrives, walk this chain: [Why is there an alert event but no notification?](../troubleshooting/no-notification.md)

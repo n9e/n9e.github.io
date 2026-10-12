@@ -2,6 +2,7 @@
 title: "Production topology"
 sidebar_label: "Production topology"
 description: "Reference layouts for one team, one company, and multi-site with edge alerting."
+last_reviewed: 2026-10-10
 ---
 
 Three sizes, three deployment pictures. Pick the one closest to where you are and copy it; there is

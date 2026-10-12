@@ -2,6 +2,7 @@
 title: "配置大模型提供方"
 sidebar_label: "配置大模型提供方"
 description: "把夜莺指向 OpenAI 兼容、Anthropic 或自托管模型：密钥、地址与模型选择。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一条「测试连接」通过、处于启用状态、并且带着**默认**标签的 LLM 配置——

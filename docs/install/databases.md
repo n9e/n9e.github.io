@@ -2,6 +2,7 @@
 title: "MySQL / PostgreSQL / SQLite and Redis"
 sidebar_label: "MySQL / PostgreSQL / SQLite and Redis"
 description: "The metadata store is MySQL, PostgreSQL or SQLite (testing only); the process creates the schema on first start, and Redis holds runtime state such as heartbeats."
+last_reviewed: 2026-10-10
 ---
 
 Nightingale connects to two stores: a **metadata database** (users, business groups, alert rules,

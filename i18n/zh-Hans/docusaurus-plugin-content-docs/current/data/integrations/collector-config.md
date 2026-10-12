@@ -2,6 +2,7 @@
 title: "安装采集配置"
 sidebar_label: "安装采集配置"
 description: "把模板里的采集配置放进 Categraf，开始采集该组件的指标。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：目标机器上多了一个 `conf/input.<插件>/<插件>.toml`，

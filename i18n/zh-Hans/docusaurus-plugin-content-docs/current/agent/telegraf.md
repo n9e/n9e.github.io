@@ -2,6 +2,7 @@
 title: "Telegraf 对接"
 sidebar_label: "Telegraf 对接"
 description: "使用 Telegraf HTTP 输出与 Prometheus Remote Write 把指标写入夜莺，并核验认证、存储和实际数据。"
+last_reviewed: 2026-10-11
 ---
 
 这页办完，你会把已有 Telegraf 的指标写进夜莺使用的时序库，不需要更换采集器。

@@ -1,7 +1,8 @@
 ---
-title: "有事件但收不到通知"
-sidebar_label: "有事件但收不到通知"
+title: "有告警事件，为什么收不到通知？"
+sidebar_label: "有告警事件，为什么收不到通知？"
 description: "有事件但没通知，先看通知记录：没有记录是被屏蔽规则或通知规则拦下，记录失败看媒介配置，记录成功但人没收到看对端。"
+last_reviewed: 2026-10-10
 ---
 
 告警事件页上明明白白有一条事件，钉钉群、邮箱、手机都没动静。
@@ -109,7 +110,7 @@ notify send timeMatch:true severityMatch:true tagMatch:true attributesMatch:true
 | `failed to enqueue notify task, queue is full` | 这个媒介的发送队列满了（每媒介 10 万条），下游卡住了 |
 | `all retries failed, last error: ...` | 连都连不上，是网络或地址问题 |
 | `status_code:400, response:...` | 对方收到了但拒绝了内容——一般是 token、签名或消息格式 |
-| `failed to execute template: ...` | 模板渲染失败，见 [通知模板渲染失败](./template-errors.md) |
+| `failed to execute template: ...` | 模板渲染失败，见 [通知模板为什么渲染失败？](./template-errors.md) |
 
 关于 `message_template not found` 有一个例外要知道：
 **callback、flashduty、pagerduty 这三类不消费消息模板**，缺模板不会被拦；
@@ -164,8 +165,8 @@ notify send timeMatch:true severityMatch:true tagMatch:true attributesMatch:true
 
 ## 下一步
 
-- 收到了但内容是报错文本：[通知模板渲染失败](./template-errors.md)
-- 发给了错误的人：[Pipeline 路由到了错误的目的地](./wrong-routing.md)
-- 事件本身就没产生：[查询有结果但告警不触发](./alert-not-firing.md)
+- 收到了但内容是报错文本：[通知模板为什么渲染失败？](./template-errors.md)
+- 发给了错误的人：[Pipeline 为什么路由到了错误的目的地？](./wrong-routing.md)
+- 事件本身就没产生：[查询有结果，为什么告警不触发？](./alert-not-firing.md)
 - 链路的完整模型：[降噪与路由模型](../concepts/noise-routing.md)
 - 怎么端到端测一遍：[端到端测试一条通知](../notifications/test.md)

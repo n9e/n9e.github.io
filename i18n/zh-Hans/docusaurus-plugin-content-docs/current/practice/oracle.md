@@ -2,6 +2,7 @@
 title: "Oracle 监控"
 sidebar_label: "Oracle 监控"
 description: "配置 Categraf Oracle 实例与采集 SQL，将结果中的标签列和数值列转成指标，并验证数据库权限。"
+last_reviewed: 2026-10-11
 ---
 
 这页办完，你会从 Oracle 采到时序指标，并理解通用 SQL 和单实例 SQL 放在哪里。

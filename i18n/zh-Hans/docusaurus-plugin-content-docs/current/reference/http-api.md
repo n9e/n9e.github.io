@@ -2,6 +2,7 @@
 title: "HTTP API"
 sidebar_label: "HTTP API"
 description: "页面本身跑在上面的那套 API：认证、按对象分的端点、以及为什么没有 OpenAPI 文档。"
+last_reviewed: 2026-10-11
 ---
 
 夜莺的 Web 界面**完全跑在一套公开的 HTTP API 上**——你在界面上能做的每一件事，

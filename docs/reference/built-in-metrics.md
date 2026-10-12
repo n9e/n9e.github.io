@@ -2,6 +2,7 @@
 title: "Built-in metrics"
 sidebar_label: "Built-in metrics"
 description: "What each Nightingale process exposes about itself on /metrics."
+last_reviewed: 2026-10-10
 ---
 
 Every process exposes `/metrics` on its own HTTP port, in Prometheus format:

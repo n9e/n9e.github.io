@@ -2,6 +2,7 @@
 title: "Limits and defaults"
 sidebar_label: "Limits and defaults"
 description: "Hard limits, soft limits and default sizes: queue lengths, timeouts, retention."
+last_reviewed: 2026-10-10
 ---
 
 The numbers you can ignore until scale finds them. The full set is in
@@ -83,4 +84,4 @@ daily 02:00 job deletes older events in batches — otherwise plan for that tabl
 
 - [Configuration reference](./configuration.md)
 - [Capacity planning](../operations/capacity.md)
-- [Performance and backlog symptoms](../troubleshooting/performance.md)
+- [Why is Nightingale slow or backlogged?](../troubleshooting/performance.md)

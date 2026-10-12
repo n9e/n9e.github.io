@@ -2,6 +2,7 @@
 title: "Personal token authentication"
 sidebar_label: "Personal token authentication"
 description: "Create a token, pass it in X-User-Token, and understand that the client inherits exactly that user's permissions."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a least-privilege account dedicated to AI access with one token under it,

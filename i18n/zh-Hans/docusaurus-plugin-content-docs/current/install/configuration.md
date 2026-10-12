@@ -2,6 +2,7 @@
 title: "配置文件布局"
 sidebar_label: "配置文件布局"
 description: "配置是一个目录：config.toml 供 n9e、alert、pushgw 读取，etc/edge 供 n9e-edge 读取；环境变量只填空缺，不覆盖已有配置。"
+last_reviewed: 2026-10-10
 ---
 
 夜莺的配置是**一个目录**，不是一个文件。搞清楚目录怎么加载、环境变量什么时候管用，

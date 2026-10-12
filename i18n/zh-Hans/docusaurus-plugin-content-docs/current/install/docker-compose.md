@@ -2,6 +2,7 @@
 title: "Docker Compose"
 sidebar_label: "Docker Compose"
 description: "一条命令把夜莺连同数据库、时序库一起拉起；编排里有什么、怎么改。"
+last_reviewed: 2026-10-10
 ---
 
 仓库的 `docker/` 下有四套现成的编排，`docker compose up -d` 一条命令就能拿到一套

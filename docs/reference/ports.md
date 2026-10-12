@@ -2,6 +2,7 @@
 title: "Ports and network flows"
 sidebar_label: "Ports and network flows"
 description: "Every listening port and every outbound connection, so a firewall rule set can be written from one table."
+last_reviewed: 2026-10-10
 ---
 
 ## Listening (inbound)

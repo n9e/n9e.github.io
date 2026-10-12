@@ -2,6 +2,7 @@
 title: "端口与网络流向"
 sidebar_label: "端口与网络流向"
 description: "所有监听端口与所有出向连接，一张表就能写出防火墙规则。"
+last_reviewed: 2026-10-10
 ---
 
 ## 监听（入向）

@@ -2,6 +2,7 @@
 title: "Scope by business group and data source"
 sidebar_label: "Scope by business group and data source"
 description: "A rule has two scopes: the business group decides who may edit it and owns its events; the data source list decides which instances it queries, and can span several."
+last_reviewed: 2026-10-10
 ---
 
 Every rule has two independent scopes: **who owns it** and **what it queries**. They are set in two

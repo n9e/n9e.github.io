@@ -18,5 +18,41 @@
   "theme.n9e.docsTabs.home": {
     "message": "首页",
     "description": "Docs tab: docs home"
+  },
+  "theme.n9e.notFound.lead": {
+    "message": "这个页面可能在网站改版时挪了位置。搜一下文档，或者从下面这些入口开始。",
+    "description": "Explanation on the 404 page"
+  },
+  "theme.n9e.notFound.searchLabel": {
+    "message": "搜索文档",
+    "description": "Label of the 404 search box"
+  },
+  "theme.n9e.notFound.searchPlaceholder": {
+    "message": "例如：告警规则、Categraf、MCP",
+    "description": "Placeholder of the 404 search box"
+  },
+  "theme.n9e.notFound.searchButton": {
+    "message": "搜索",
+    "description": "Submit button of the 404 search box"
+  },
+  "theme.n9e.notFound.docs": {
+    "message": "文档",
+    "description": "404 page link: docs home"
+  },
+  "theme.n9e.notFound.quickStart": {
+    "message": "快速开始",
+    "description": "404 page link: quick start"
+  },
+  "theme.n9e.notFound.download": {
+    "message": "下载",
+    "description": "404 page link: download page"
+  },
+  "theme.n9e.notFound.integrations": {
+    "message": "集成",
+    "description": "404 page link: integrations page"
+  },
+  "theme.n9e.lastReviewed": {
+    "message": "最后校对于 {date}",
+    "description": "Shown under a doc title; {date} is an ISO date from front matter last_reviewed"
   }
 }

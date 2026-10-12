@@ -2,6 +2,7 @@
 title: "Network and TLS hardening"
 sidebar_label: "Network and TLS hardening"
 description: "Terminate TLS, restrict the write endpoints, and which ports must not face the internet."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a network plan you can turn straight into firewall rules and gateway

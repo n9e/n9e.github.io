@@ -2,6 +2,7 @@
 title: "已有 Prometheus / VictoriaMetrics"
 sidebar_label: "已有 Prometheus / VictoriaMetrics"
 description: "把现有存储注册为数据源，抓取配置原样保留，让第一条规则在它上面跑起来——数据不用搬。"
+last_reviewed: 2026-10-10
 ---
 
 这条路的终点：一条告警规则在你**现有**的时序库上跑起来，抓取配置一行没改，数据一个字节没搬。
@@ -109,7 +110,7 @@ up
 ```
 
 有曲线出来，这条路就通了。查不到先别往下走——
-[数据源连上了但查不到数据](../../troubleshooting/no-data.md)。
+[数据源连上了，为什么查不到数据？](../../troubleshooting/no-data.md)。
 
 ## 4. 写第一条规则
 

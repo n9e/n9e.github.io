@@ -2,6 +2,7 @@
 title: "Common investigation workflows"
 sidebar_label: "Common investigation workflows"
 description: "Paste-ready investigation prompts paired with the built-in skill that answers each: triage active events, find the noisiest rule, explain a metric spike."
+last_reviewed: 2026-10-10
 ---
 
 A cookbook. Each section pairs a question you can paste with the built-in skill written to answer

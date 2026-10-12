@@ -2,6 +2,7 @@
 title: "Install, manage and write Skills"
 sidebar_label: "Install, manage and write Skills"
 description: "A skill is a procedure in a SKILL.md file: install one from the marketplace or write your own, scope it to teams, and the assistant uses it for matching questions."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: your team's own troubleshooting procedure installed as a skill, visible to

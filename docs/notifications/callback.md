@@ -2,6 +2,7 @@
 title: "Callback (generic webhook)"
 sidebar_label: "Callback (generic webhook)"
 description: "POST events to any HTTP endpoint: the URL, headers and body template, the variables they can use, and when a call counts as delivered."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: every event a notification rule matches is POSTed to an HTTP endpoint you

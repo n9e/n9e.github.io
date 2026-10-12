@@ -2,6 +2,7 @@
 title: "Pushgw queue, writers and dual write"
 sidebar_label: "Pushgw queue, writers and dual write"
 description: "The write path: queue sizing, backpressure, multiple writers and forwarding to two backends."
+last_reviewed: 2026-10-10
 ---
 
 Pushgw is the "samples in, samples forwarded out" half of Nightingale. It is on by default inside

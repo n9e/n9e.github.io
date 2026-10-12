@@ -2,6 +2,7 @@
 title: "命令行"
 sidebar_label: "命令行"
 description: "夜莺的命令行很薄：n9e、n9e-edge 等进程只有三个参数，配置全在 etc/ 的 toml 文件里，没有管理规则的子命令。"
+last_reviewed: 2026-10-10
 ---
 
 夜莺的命令行**很薄**——配置都在 `etc/` 的 toml 文件里，参数只有三个。

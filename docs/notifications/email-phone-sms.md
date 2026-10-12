@@ -2,6 +2,7 @@
 title: "Email / Phone / SMS"
 sidebar_label: "Email / Phone / SMS"
 description: "SMTP settings, and voice and SMS through Aliyun and Tencent Cloud."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a working email media type, and — if you need them — SMS and voice media

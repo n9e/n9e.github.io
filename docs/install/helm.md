@@ -2,6 +2,7 @@
 title: "Helm / Kubernetes"
 sidebar_label: "Helm / Kubernetes"
 description: "A community-maintained Helm chart deploys Nightingale on Kubernetes with MySQL, Redis, Prometheus and Categraf; values can point it at databases outside the cluster."
+last_reviewed: 2026-10-10
 ---
 
 A community-maintained Helm chart brings up Nightingale in Kubernetes together with MySQL, Redis,

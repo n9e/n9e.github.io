@@ -2,6 +2,7 @@
 title: "I already have logs or databases"
 sidebar_label: "I already have logs or databases"
 description: "Alert on ElasticSearch, Loki, ClickHouse, MySQL and the other SQL-queried stores using the same rule model as metrics."
+last_reviewed: 2026-10-10
 ---
 
 Where this path ends: a rule evaluating against your log store or business database, producing an

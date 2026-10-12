@@ -2,6 +2,7 @@
 title: "限制与默认值"
 sidebar_label: "限制与默认值"
 description: "硬限制、软限制与默认大小：队列长度、超时、保留期。"
+last_reviewed: 2026-10-10
 ---
 
 这页汇总那些「不改也能跑、但规模上来会撞上」的数字。完整配置见[配置项](./configuration.md)。
@@ -79,4 +80,4 @@ description: "硬限制、软限制与默认大小：队列长度、超时、保
 
 - [配置项](./configuration.md)
 - [容量规划](../operations/capacity.md)
-- [性能与积压现象](../troubleshooting/performance.md)
+- [夜莺为什么变慢或出现积压？](../troubleshooting/performance.md)

@@ -2,6 +2,7 @@
 title: "MySQL / PostgreSQL / TDengine"
 sidebar_label: "MySQL / PostgreSQL / TDengine"
 description: "直接对业务数据库告警：只读账号、规则执行的 SQL、以及怎么防慢查询。"
+last_reviewed: 2026-10-10
 ---
 
 有些指标压根不在时序库里：待处理订单数、支付失败率、某张表最后一条记录的时间。

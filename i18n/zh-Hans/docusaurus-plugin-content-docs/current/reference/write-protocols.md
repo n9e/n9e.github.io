@@ -2,6 +2,7 @@
 title: "数据写入协议"
 sidebar_label: "数据写入协议"
 description: "Prometheus Remote Write、OpenTSDB、Datadog、Falcon：端点、报文、标签处理。"
+last_reviewed: 2026-10-10
 ---
 
 夜莺接收数据的能力叫 Pushgw，在 Center 进程里（也可以拆成独立的 `n9e-pushgw`）。

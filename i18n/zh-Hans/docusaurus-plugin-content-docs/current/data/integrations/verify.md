@@ -2,6 +2,7 @@
 title: "验证数据到达"
 sidebar_label: "验证数据到达"
 description: "导入的规则不响可能只是数据没到；用集成模板列出的指标名在即时查询里查一次，两分钟就能确认组件指标已经到达。"
+last_reviewed: 2026-10-10
 ---
 
 导进来的告警规则不响，有两种可能：真的没问题，或者**数据压根没到**。
@@ -114,4 +115,4 @@ mysql_global_status_threads_connected
 
 - 数据到了，去调阈值：[导入仪表盘与规则](./import.md)
 - 数据没到：[Categraf 排障](../categraf/troubleshooting.md)
-- 数据源本身有问题：[数据源连上了但查不到数据](../../troubleshooting/no-data.md)
+- 数据源本身有问题：[数据源连上了，为什么查不到数据？](../../troubleshooting/no-data.md)

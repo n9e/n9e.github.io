@@ -1,7 +1,8 @@
 ---
-title: "MCP authentication fails"
-sidebar_label: "MCP authentication fails"
+title: "Why does MCP authentication fail?"
+sidebar_label: "Why does MCP authentication fail?"
 description: "MCP authentication fails at the gateway, the token check or OAuth — the status code says which; usual causes: wrong header name, expired token, bad redirect URL."
+last_reviewed: 2026-10-10
 ---
 
 The MCP client will not connect: it reports failure, the log says 401, or the OAuth consent page
@@ -196,7 +197,7 @@ have the client authorize again.
    what that account sees in the UI.
 
 A wrong tool count, or specific tools missing, is a different problem: see
-[MCP tools are missing or denied](./mcp-tools-missing.md).
+[Why are MCP tools missing or denied?](./mcp-tools-missing.md).
 
 ## Collect this before you ask
 
@@ -216,5 +217,5 @@ the evidence.
 - Turning the endpoint on: [Enable the MCP endpoint](../ai/mcp-endpoint.md)
 - Creating a token and whom it speaks for: [Personal token authentication](../ai/token-auth.md)
 - Hosted clients and company SSO: [OAuth 2.1 and external identity providers](../ai/oauth.md)
-- Connected, but the tools are wrong: [MCP tools are missing or denied](./mcp-tools-missing.md)
+- Connected, but the tools are wrong: [Why are MCP tools missing or denied?](./mcp-tools-missing.md)
 - Client-side configuration: [Connect Claude Code / Cursor / other clients](../ai/mcp-clients.md)

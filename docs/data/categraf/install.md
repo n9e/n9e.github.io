@@ -2,6 +2,7 @@
 title: "Install and register"
 sidebar_label: "Install and register"
 description: "Install the agent, set the Nightingale write URL, and confirm the host shows up under Targets."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: Categraf running on the target host, that host visible under

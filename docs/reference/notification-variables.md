@@ -2,6 +2,7 @@
 title: "Notification variables"
 sidebar_label: "Notification variables"
 description: "The event fields and helper functions available inside a message template."
+last_reviewed: 2026-10-10
 ---
 
 Message templates are Go `text/template`.
@@ -79,4 +80,4 @@ Values such as the site address are `{{"{{"}}$.domain{{"}}"}}` — note the dot.
 ## Related
 
 - [Templates and variables](../notifications/templates.md)
-- [Notification template rendering fails](../troubleshooting/template-errors.md)
+- [Why does notification template rendering fail?](../troubleshooting/template-errors.md)

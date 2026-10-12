@@ -2,6 +2,7 @@
 title: "Slack / Telegram / Discord / Mattermost"
 sidebar_label: "Slack / Telegram / Discord / Mattermost"
 description: "Webhook-based chat channels, and how to format a message that survives each one's markdown."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a media type that posts to Slack, Telegram, Discord or Mattermost, and an

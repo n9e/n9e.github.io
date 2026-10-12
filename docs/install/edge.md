@@ -2,6 +2,7 @@
 title: Edge data centers
 sidebar_label: Edge data centers
 description: "A local alerting engine for sites whose link to the center is unreliable, and the one flag that silently breaks it."
+last_reviewed: 2026-10-10
 ---
 
 Where the network to the central site is unreliable, run `n9e-edge` as a local alerting engine so

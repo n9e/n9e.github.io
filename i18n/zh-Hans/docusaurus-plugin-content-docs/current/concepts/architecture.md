@@ -2,6 +2,7 @@
 title: "系统架构"
 sidebar_label: "系统架构"
 description: "夜莺的核心是一个 n9e 进程：测试零依赖，生产加 MySQL 和 Redis，多实例共享同一套库即为集群，多机房用 n9e-edge。"
+last_reviewed: 2026-10-10
 ---
 
 夜莺的架构不复杂：**核心就一个 `n9e` 进程**。测试时它可以什么都不依赖地跑起来，

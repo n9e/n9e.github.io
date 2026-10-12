@@ -2,6 +2,7 @@
 title: "AI summary processor"
 sidebar_label: "AI summary processor"
 description: "Have an LLM write a short summary onto each event before it is notified: model setup, the prompt template, where the result lands, and what happens when the call fails."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: every event that passes through a workflow carries an `ai_summary`

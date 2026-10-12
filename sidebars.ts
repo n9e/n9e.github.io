@@ -118,7 +118,8 @@ const sidebars: SidebarsConfig = {
           collapsed: true,
           link: {
             type: 'generated-index',
-            title: 'Categraf',
+            // 「Categraf 采集器」而不是「Categraf」：/categraf 产品页的 <title> 已经是「Categraf」
+            title: 'Categraf 采集器',
             description: "推荐的采集器：一个 agent、100+ 输入插件，按 Prometheus Remote Write 推送。",
             slug: '/data/categraf',
           },

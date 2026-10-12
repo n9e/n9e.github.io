@@ -2,6 +2,7 @@
 title: "SSO / external identity integration"
 sidebar_label: "SSO / external identity integration"
 description: "OIDC, OAuth2, LDAP, CAS, DingTalk and Feishu login, and mapping external groups to roles."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: people sign in to Nightingale with their corporate account, an account is

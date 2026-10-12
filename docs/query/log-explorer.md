@@ -2,6 +2,7 @@
 title: "Log explorer and index patterns"
 sidebar_label: "Log explorer and index patterns"
 description: "Search ElasticSearch, Loki and VictoriaLogs sources, define index patterns, and pivot from a log line to a rule."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: one search running against your log store, narrowed to the lines you

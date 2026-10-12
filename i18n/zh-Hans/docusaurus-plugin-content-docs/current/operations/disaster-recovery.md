@@ -2,6 +2,7 @@
 title: "灾备"
 sidebar_label: "灾备"
 description: "在全新环境里从备份重建，以及各个组件该按什么顺序拉起来。"
+last_reviewed: 2026-10-10
 ---
 
 [备份与恢复](./backup-restore.md)讲的是把库恢复回它原来待的地方。这页讲更难的那种：

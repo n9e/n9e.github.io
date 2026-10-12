@@ -2,6 +2,7 @@
 title: "Embedded TSDB and external storage"
 sidebar_label: "Storage"
 description: "Nightingale ships with an embedded TSDB for onboarding; this page explains its limits and when to switch to Prometheus or VictoriaMetrics."
+last_reviewed: 2026-10-10
 ---
 
 Nightingale stores two different kinds of thing, in two different places:

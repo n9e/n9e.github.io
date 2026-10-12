@@ -2,6 +2,7 @@
 title: "Event pipelines"
 sidebar_label: "Event pipelines"
 description: "Ordered processors that transform, enrich, drop or route an event before notification."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a chain of processors attached to an alert rule or a notification rule,

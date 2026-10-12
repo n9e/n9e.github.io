@@ -2,6 +2,7 @@
 title: "Event aggregation and deduplication"
 sidebar_label: "Event aggregation and deduplication"
 description: "One rule plus one label set is one event, so repeated evaluations never create a second; the aggregation view folds hundreds of active events into a few cards."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: you know why one incident does not produce a message every evaluation

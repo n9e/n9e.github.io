@@ -2,6 +2,7 @@
 title: "Security checklist"
 sidebar_label: "Security checklist"
 description: "The short list to run before exposing Nightingale to a wider audience."
+last_reviewed: 2026-10-10
 ---
 
 This page is an index to the ones before it, ordered by when each item is due. Every line can be

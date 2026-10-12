@@ -2,6 +2,7 @@
 title: "AI / Skill / MCP troubleshooting"
 sidebar_label: "AI / Skill / MCP troubleshooting"
 description: "Symptom-by-symptom fixes for the AI features: the assistant stays silent or stops halfway, a skill is ignored or fails to install, an MCP client cannot connect."
+last_reviewed: 2026-10-10
 ---
 
 Symptom first, then the fix. Everything on this page is verifiable from the product's own logs and
@@ -146,5 +147,5 @@ More in [A2A endpoint](./a2a.md).
 ## Next
 
 - Config reference for the endpoints: [Enable the MCP endpoint](./mcp-endpoint.md)
-- Authentication failures in depth: [MCP authentication fails](../troubleshooting/mcp-auth.md)
-- Missing tools in depth: [MCP tools are missing or denied](../troubleshooting/mcp-tools-missing.md)
+- Authentication failures in depth: [Why does MCP authentication fail?](../troubleshooting/mcp-auth.md)
+- Missing tools in depth: [Why are MCP tools missing or denied?](../troubleshooting/mcp-tools-missing.md)

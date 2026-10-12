@@ -2,6 +2,7 @@
 title: "Edge network partition behavior"
 sidebar_label: "Edge network partition behavior"
 description: "What n9e-edge does when it loses the center: evaluation continues, notifications go local, and what syncs back later."
+last_reviewed: 2026-10-10
 ---
 
 `n9e-edge` exists so that alerting survives a partition. This page spells out what actually happens

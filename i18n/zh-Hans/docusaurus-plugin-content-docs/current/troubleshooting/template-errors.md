@@ -1,7 +1,8 @@
 ---
-title: "通知模板渲染失败"
-sidebar_label: "通知模板渲染失败"
+title: "通知模板为什么渲染失败？"
+sidebar_label: "通知模板为什么渲染失败？"
 description: "消息正文变成报错或某个字段莫名为空，都是模板渲染问题，而且通知记录仍显示成功；用真实事件预览模板能提前发现。"
+last_reviewed: 2026-10-10
 ---
 
 群里收到一条告警，正文是一段英文报错；或者标题、某个字段莫名其妙是空的。
@@ -163,6 +164,6 @@ failed to parse template: template: content:1: bad character U+007D '}'
 ## 下一步
 
 - 模板变量的完整写法：[消息模板与变量](../notifications/templates.md)
-- 根本没收到消息：[有事件但收不到通知](./no-notification.md)
+- 根本没收到消息：[有告警事件，为什么收不到通知？](./no-notification.md)
 - 怎么端到端测一遍：[端到端测试一条通知](../notifications/test.md)
 - 投递状态怎么读：[重试与投递状态](../notifications/delivery.md)

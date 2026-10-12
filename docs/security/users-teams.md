@@ -2,6 +2,7 @@
 title: "Users and teams"
 sidebar_label: "Users and teams"
 description: "Create users, group them into teams, and use teams as notification recipients."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: an account that can log in, can receive alerts, and belongs to a team — teams

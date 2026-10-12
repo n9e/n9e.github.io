@@ -2,6 +2,7 @@
 title: "Rollback and recovery"
 sidebar_label: "Rollback and recovery"
 description: "Undo an upgrade or a bad config push, and recover from a corrupted metadata database."
+last_reviewed: 2026-10-10
 ---
 
 Three different things get called "rolling back", and mechanically they have nothing in common: a

@@ -2,6 +2,7 @@
 title: "Compatibility matrix"
 sidebar_label: "Compatibility matrix"
 description: "What is known to work with which versions, and why there is no official support matrix here."
+last_reviewed: 2026-10-10
 ---
 
 **To be clear up front: the project publishes no official support matrix.** What follows was

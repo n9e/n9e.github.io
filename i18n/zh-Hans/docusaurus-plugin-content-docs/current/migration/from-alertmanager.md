@@ -2,6 +2,7 @@
 title: "从 Prometheus + Alertmanager 迁移"
 sidebar_label: "从 Prometheus + Alertmanager 迁移"
 description: "Prometheus 继续负责存储和抓取；把规则、路由、静默、接收器搬成夜莺的对象。"
+last_reviewed: 2026-10-10
 ---
 
 看完这页，你能把一份 `alertmanager.yml` 和一份 `rules.yml` 拆开，逐项落到夜莺的对象上，

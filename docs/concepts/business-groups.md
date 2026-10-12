@@ -2,6 +2,7 @@
 title: "Business groups and resource ownership"
 sidebar_label: "Business groups"
 description: "Business groups are the permission boundary: every rule, target and dashboard belongs to one, and membership decides who can see or change it."
+last_reviewed: 2026-10-10
 ---
 
 The business group is **the only permission boundary** in Nightingale. Understanding it clears up

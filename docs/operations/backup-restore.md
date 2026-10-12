@@ -2,6 +2,7 @@
 title: "Backup and restore"
 sidebar_label: "Backup and restore"
 description: "Only the metadata database and the etc/ directory are irreplaceable: back both up on a schedule and rehearse the restore; embedded TSDB metrics can be re-collected."
+last_reviewed: 2026-10-10
 ---
 
 Only two things in Nightingale are genuinely irreplaceable: the **metadata database** and the `etc/`

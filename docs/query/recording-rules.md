@@ -2,6 +2,7 @@
 title: "Recording rules"
 sidebar_label: "Recording rules"
 description: "Precompute expensive expressions on a schedule and alert on the result instead."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a recording rule evaluating on a fixed schedule, turning a PromQL

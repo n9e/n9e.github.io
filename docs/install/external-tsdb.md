@@ -2,6 +2,7 @@
 title: "External TSDB and dual-write migration"
 sidebar_label: "External TSDB and dual-write migration"
 description: "Move from the embedded store to Prometheus or VictoriaMetrics without a gap, using Pushgw dual write."
+last_reviewed: 2026-10-10
 ---
 
 The embedded store and an external one **can be enabled at the same time**, and that overlap is the

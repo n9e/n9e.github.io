@@ -2,6 +2,7 @@
 title: "学习夜莺的前置知识"
 sidebar_label: "学习夜莺的前置知识"
 description: "先掌握日志、进程、时序数据、PromQL 与采集链路，再按现象定位采集、存储、告警和通知问题。"
+last_reviewed: 2026-10-11
 ---
 
 读完这页，你会知道使用夜莺前需要掌握什么，并能把“没数据”“没告警”“没通知”拆成具体环节排查。
@@ -63,4 +64,4 @@ Categraf Remote Write 是 Push：采集器主动发送指标，不能把它的�
 
 - [快速开始](../get-started/quick-start.md)
 - [系统架构](../concepts/architecture.md)
-- [数据源连上了但查不到数据](../troubleshooting/no-data.md)
+- [数据源连上了，为什么查不到数据？](../troubleshooting/no-data.md)

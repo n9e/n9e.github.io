@@ -2,6 +2,7 @@
 title: "Built-in metric views"
 sidebar_label: "Built-in metric views"
 description: "Pre-built views for hosts, containers and common middleware, and how to add your own."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: charts from clicking metric names instead of writing PromQL, and your

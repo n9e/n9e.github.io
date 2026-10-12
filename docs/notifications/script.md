@@ -2,6 +2,7 @@
 title: "Script media type"
 sidebar_label: "Script media type"
 description: "Hand events to your own program: how the script is stored and run, what arrives on stdin, and how success and failure are recorded."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: every event a notification rule matches is handed to a program you wrote —

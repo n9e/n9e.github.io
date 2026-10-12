@@ -1,7 +1,8 @@
 ---
-title: "性能与积压现象"
-sidebar_label: "性能与积压现象"
+title: "夜莺为什么变慢或出现积压？"
+sidebar_label: "夜莺为什么变慢或出现积压？"
 description: "告警延迟、队列增长、数据库 CPU 高各对应一个能定位的内置指标；先按现象选指标，再从指标找根因。"
+last_reviewed: 2026-10-10
 ---
 
 告警比实际晚了好几分钟才到；界面点开一个页面转半天；指标图上出现规律性的空洞。
@@ -183,4 +184,4 @@ grep -E '^n9e_alert_eval_log_drop_total|^n9e_alert_eval_log_query_reject_total' 
 - 各项默认值和上限：[限制与默认值](../reference/limits.md)
 - 每个指标的含义：[内置指标](../reference/built-in-metrics.md)
 - 把这些做成告警：[监控夜莺自身](../operations/self-monitoring.md)
-- 判定彻底停了：[判定记录缺失或被丢弃](./evaluation-missing.md)
+- 判定彻底停了：[判定记录为什么缺失或被丢弃？](./evaluation-missing.md)

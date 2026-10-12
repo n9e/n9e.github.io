@@ -2,6 +2,7 @@
 title: "Loki / VictoriaLogs"
 sidebar_label: "Loki / VictoriaLogs"
 description: "注册日志存储，写 LogQL 或 LogsQL 查询，按条数或匹配结果告警。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一个接好的 Loki 或 VictoriaLogs，一条能在日志检索里查出日志的查询，

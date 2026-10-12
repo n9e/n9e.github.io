@@ -2,6 +2,7 @@
 title: "Contact methods"
 sidebar_label: "Contact methods"
 description: "Define the contact fields users can fill in, and how a media type picks one of them to decide where each person's notification goes."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: the user form offers exactly the contact fields your media types need — a

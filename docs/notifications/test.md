@@ -2,6 +2,7 @@
 title: "Test a notification end to end"
 sidebar_label: "Test a notification end to end"
 description: "Send a test message through a real channel, from rule to phone, before you rely on it at 3 a.m."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: you have proof that when a real alert fires, the message lands in that
@@ -105,7 +106,7 @@ voice, script and mute records are the exceptions.
 3. Both pass, real alert does not arrive → the alert rule does not reference this notification
    rule, or a mute rule swallowed the event.
 4. No record at all for that event → the event never reached the notification stage; walk
-   [Alert event exists but no notification arrives](../troubleshooting/no-notification.md).
+   [Why is there an alert event but no notification?](../troubleshooting/no-notification.md).
 
 ## Next
 

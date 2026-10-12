@@ -2,6 +2,7 @@
 title: "AI / Skill / MCP 排障"
 sidebar_label: "AI / Skill / MCP 排障"
 description: "按现象排查 AI 功能：助手不回答或半路中断、Skill 没被用上或装不上、MCP 客户端连不上——每条都能从产品日志核对。"
+last_reviewed: 2026-10-10
 ---
 
 先看现象，再给做法。这页上的每一条都能从产品自己的日志和报错里核对——
@@ -142,5 +143,5 @@ description: "按现象排查 AI 功能：助手不回答或半路中断、Skill
 ## 下一步
 
 - 端点本身的配置：[启用 MCP 端点](./mcp-endpoint.md)
-- 认证失败的细节：[MCP 认证失败](../troubleshooting/mcp-auth.md)
-- 工具缺失的细节：[MCP 工具缺失或被拒绝](../troubleshooting/mcp-tools-missing.md)
+- 认证失败的细节：[MCP 认证为什么失败？](../troubleshooting/mcp-auth.md)
+- 工具缺失的细节：[MCP 工具为什么缺失或被拒绝？](../troubleshooting/mcp-tools-missing.md)

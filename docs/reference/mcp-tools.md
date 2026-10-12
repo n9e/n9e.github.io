@@ -2,10 +2,12 @@
 title: "MCP tool reference"
 sidebar_label: "MCP tool reference"
 description: "All 74 tools across 13 toolsets with parameters, and which are read versus write."
+last_reviewed: 2026-10-10
 ---
 
-The `/mcp` endpoint is on by default and exposes the tools from `n9e-mcp-server`. This page is the
-full list.
+The `/mcp` endpoint is on by default and is built into the n9e process; there is no separate MCP
+server to deploy (the standalone `n9e-mcp-server` binary is deprecated, its toolset library now ships
+inside n9e). This page is the full list.
 
 How to connect and authenticate is in [Enable the MCP endpoint](../ai/mcp-endpoint.md); the
 permission boundary is in [Permission inheritance](../ai/permissions.md).

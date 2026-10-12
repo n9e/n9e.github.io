@@ -2,6 +2,7 @@
 title: "Helm / Kubernetes"
 sidebar_label: "Helm / Kubernetes"
 description: "社区维护的 Helm chart 在 Kubernetes 里拉起夜莺连同 MySQL、Redis、Prometheus 和 Categraf；values 可改为指向集群外数据库。"
+last_reviewed: 2026-10-10
 ---
 
 社区维护着一个 Helm chart，能在 Kubernetes 里把夜莺连同 MySQL、Redis、Prometheus、

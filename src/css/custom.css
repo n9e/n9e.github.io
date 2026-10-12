@@ -885,6 +885,14 @@ article > a.card.planned h2 {
   color: var(--n9e-ink-soft);
 }
 
+/* 「最后校对于」：导语下一行小字，和导语同色系但更轻 */
+.n9e-doc-reviewed {
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
+  color: var(--n9e-ink-soft);
+  opacity: 0.8;
+}
+
 /* ---- 正文限宽 ----
    调研 §6.2：中文每行 30–42 字、拉丁 65–85 字符。16px 下 46rem ≈ 44 个汉字。
    限在文章容器上而不是 .markdown 上，页头、分页、页脚才会和正文对齐。 */
@@ -1078,6 +1086,8 @@ article > a.card.planned h2 {
 .n9e-shot {
   display: block;
   width: 100%;
+  /* <Shot> 会带 width/height 属性占位；高度必须跟着宽度等比缩，否则属性里的 2x 高度会把图拉变形 */
+  height: auto;
   border: 1px solid var(--n9e-line);
   border-radius: var(--n9e-radius);
   /* 截图是 2x 出的，容器宽度按 1x 走，避免在窄屏上撑破正文 */

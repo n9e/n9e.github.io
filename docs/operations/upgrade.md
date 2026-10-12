@@ -2,6 +2,7 @@
 title: "Upgrade and database migration"
 sidebar_label: "Upgrade and database migration"
 description: "How schema migrations run on startup, and how to upgrade a multi-instance deployment in order."
+last_reviewed: 2026-10-10
 ---
 
 The commands for replacing a binary are in [Upgrade](../install/upgrade.md). This page is the
@@ -129,4 +130,4 @@ upgrade takes", which is the whole reason for rolling.
 - [v8 to v9](../migration/v8-to-v9.md) — the cross-major breaking points
 - [High availability and failure domains](./high-availability.md) — how rules move between instances
 - [Rollback and recovery](./rollback.md) — when it goes wrong
-- [Upgrade or database migration fails](../troubleshooting/upgrade-fails.md) — when the log has something in it
+- [Why does an upgrade or database migration fail?](../troubleshooting/upgrade-fails.md) — when the log has something in it

@@ -2,6 +2,7 @@
 title: "启用 MCP 端点"
 sidebar_label: "启用 MCP 端点"
 description: "/mcp 端点内置在 n9e 进程里，默认开启；用 curl 列出工具清单即可确认存活，配置里可只放开部分工具集。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一条用 curl 验证过、能列出工具清单的 `/mcp` 端点，

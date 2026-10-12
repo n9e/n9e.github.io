@@ -2,6 +2,7 @@
 title: "Anonymous time-limited sharing"
 sidebar_label: "Anonymous time-limited sharing"
 description: "Share one dashboard through a link that expires, without creating an account for the viewer."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a link that expires on its own, letting someone without a Nightingale

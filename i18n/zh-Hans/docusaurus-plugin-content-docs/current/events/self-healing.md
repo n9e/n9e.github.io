@@ -2,6 +2,7 @@
 title: "用 ibex / Webhook 触发自愈"
 sidebar_label: "用 ibex / Webhook 触发自愈"
 description: "特定事件触发时，通过 ibex 在受影响主机上跑脚本，或调用一个 Webhook。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一条告警触发时，夜莺自动在**出问题的那台机器上**执行一段脚本，

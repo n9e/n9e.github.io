@@ -2,6 +2,7 @@
 title: "二进制包"
 sidebar_label: "二进制包"
 description: "下载 GitHub Release 的 Linux amd64 / arm64 包，校验解压，接上已有的 MySQL 和 Redis，用 systemd 托管 n9e。"
+last_reviewed: 2026-10-10
 ---
 
 这页做完，你会得到一个由 systemd 托管、连着你自己的 MySQL 和 Redis、监听 17000 的 `n9e` 进程。

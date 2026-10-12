@@ -1,5 +1,6 @@
 import type { SiteCopy } from './types';
 import stats from '../data/stats.json';
+import { figures } from '../data/figures';
 import { SLACK_INVITE } from '../data/site';
 
 /**
@@ -56,10 +57,10 @@ export const en: SiteCopy = {
   stats: {
     starsLabel: 'GitHub stars',
     items: [
-      { value: '10+', label: 'Data source types' },
-      { value: '20', label: 'Notification channels' },
-      { value: '86', label: 'Built-in integrations' },
-      { value: '74', label: 'MCP tools' },
+      { value: figures.datasourceTypes, label: 'Data source types' },
+      { value: figures.notificationChannels, label: 'Notification channels' },
+      { value: figures.integrations, label: 'Built-in integrations' },
+      { value: figures.mcpTools, label: 'MCP tools' },
     ],
   },
 
@@ -75,8 +76,8 @@ export const en: SiteCopy = {
         title: 'Connect what you already run',
         body: 'No migration. Register Prometheus, VictoriaMetrics, ElasticSearch, ClickHouse or Loki as a data source and Nightingale evaluates alerts on top of it. Nothing collecting yet? Categraf covers operating systems, middleware and databases in a single agent and writes straight in over Prometheus Remote Write.',
         points: [
-          '10+ data source types — metrics, logs and databases alike',
-          '86 built-in integrations bundle collector config, dashboards and rules',
+          `${figures.datasourceTypes} data source types — metrics, logs and databases alike`,
+          `${figures.integrations} built-in integrations bundle collector config, dashboards and rules`,
         ],
         shot: 'img/step-connect.webp',
         shotSize: [1600, 784],
@@ -133,12 +134,12 @@ export const en: SiteCopy = {
 
   mcp: {
     eyebrow: 'BUILT-IN MCP SERVER',
-    title: '74 tools, nothing extra to deploy',
+    title: `${figures.mcpTools} tools, nothing extra to deploy`,
     lead: 'The MCP endpoint lives inside the n9e process, so it is not one more component to operate. Every tool call is dispatched onto Nightingale’s own HTTP API carrying your token — a client can never reach anything its token’s owner cannot.',
     figures: [
-      { value: '42', label: 'read tools' },
-      { value: '32', label: 'write tools' },
-      { value: '13', label: 'toolsets' },
+      { value: figures.mcpReadTools, label: 'read tools' },
+      { value: figures.mcpWriteTools, label: 'write tools' },
+      { value: figures.mcpToolsets, label: 'toolsets' },
     ],
     toolsetsLabel: 'Toolsets',
     toolsets: [
@@ -363,7 +364,7 @@ export const en: SiteCopy = {
       {
         label: 'Built-in AI and MCP server',
         cells: [
-          { level: 'full', text: '74 tools, in-process' },
+          { level: 'full', text: `${figures.mcpTools} tools, in-process` },
           { level: 'none', text: 'None' },
           { level: 'none', text: 'None' },
           { level: 'partial', text: 'Assistant is Cloud-only' },
@@ -374,9 +375,9 @@ export const en: SiteCopy = {
     matrixNote:
       'Based on the publicly documented capabilities of each project’s open-source edition as of August 2026. We try to state what the other tools are good at — advice you cannot trust is worth nothing to a community.',
     proof: [
-      { value: '10+', label: 'Data source types' },
-      { value: '20', label: 'Notification channels' },
-      { value: '74', label: 'MCP tools' },
+      { value: figures.datasourceTypes, label: 'Data source types' },
+      { value: figures.notificationChannels, label: 'Notification channels' },
+      { value: figures.mcpTools, label: 'MCP tools' },
     ],
     theirWayLabel: 'Their way',
     ourWayLabel: 'The Nightingale way',
@@ -562,8 +563,8 @@ export const en: SiteCopy = {
         },
       ],
       facts: [
-        '74 MCP tools',
-        '13 toolsets',
+        `${figures.mcpTools} MCP tools`,
+        `${figures.mcpToolsets} toolsets`,
         'No delete tools',
         'Permissions follow the user',
         'OpenAI-compatible, Anthropic or self-hosted models',
@@ -630,7 +631,7 @@ export const en: SiteCopy = {
   integrationsPage: {
     title: 'Plugs into what you already run',
     lead: 'Data sources, collectors, notification channels and templates — Nightingale connects to what exists rather than replacing it. The full list is below, and every entry links to how to wire it up.',
-    counts: { templates: 'Built-in templates', sources: 'Data source types', channels: 'Notification channels', channelsValue: '20' },
+    counts: { templates: 'Built-in templates', sources: 'Data source types', channels: 'Notification channels', channelsValue: figures.notificationChannels },
     search: {
       placeholder: 'Search integrations: nginx, k8s, aws, cert…',
       hint: 'to search',

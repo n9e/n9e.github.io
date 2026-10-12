@@ -2,6 +2,7 @@
 title: "内置指标"
 sidebar_label: "内置指标"
 description: "每个夜莺进程在 /metrics 上暴露的自身指标。"
+last_reviewed: 2026-10-10
 ---
 
 每个进程都在自己的 HTTP 端口上暴露 `/metrics`，Prometheus 格式：

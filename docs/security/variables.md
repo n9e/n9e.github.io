@@ -2,6 +2,7 @@
 title: "Site and user variable settings"
 sidebar_label: "Site and user variable settings"
 description: "Site-wide settings and encrypted variables that templates and integrations can reference."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a credential stored in the database whose plaintext never shows up in the UI

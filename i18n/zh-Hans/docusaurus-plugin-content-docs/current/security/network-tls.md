@@ -2,6 +2,7 @@
 title: "网络与 TLS 加固"
 sidebar_label: "网络与 TLS 加固"
 description: "终结 TLS、限制写入端点、哪些端口绝不能暴露到公网。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一份能直接写成防火墙规则和网关配置的收口方案，

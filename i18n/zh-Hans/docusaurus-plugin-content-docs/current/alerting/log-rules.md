@@ -2,6 +2,7 @@
 title: "日志规则"
 sidebar_label: "日志规则"
 description: "对 ElasticSearch、OpenSearch、Loki、VictoriaLogs 的日志条数或匹配做告警——四种都能告警，但只有三种能在日志检索里预览。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一条按周期数日志行数、多了就报警的规则，

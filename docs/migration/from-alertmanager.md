@@ -2,6 +2,7 @@
 title: "From Prometheus + Alertmanager"
 sidebar_label: "From Prometheus + Alertmanager"
 description: "Keep Prometheus for storage and scraping; move rules, routes, silences and receivers into Nightingale objects."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: you can take an `alertmanager.yml` and a `rules.yml` apart, place every

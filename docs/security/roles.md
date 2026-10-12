@@ -2,6 +2,7 @@
 title: "Roles and permission matrix"
 sidebar_label: "Roles and permission matrix"
 description: "Built-in roles, custom roles, and which menu and API operations each grants."
+last_reviewed: 2026-10-10
 ---
 
 Roles govern **layer one** of the permission model: which pages you can open and which endpoints

@@ -1,7 +1,8 @@
 ---
-title: "数据源连上了但查不到数据"
-sidebar_label: "数据源连上了但查不到数据"
+title: "数据源连上了，为什么查不到数据？"
+sidebar_label: "数据源连上了，为什么查不到数据？"
 description: "数据源测试通过但查询为空，按写入 → 存储 → 查询逐层确认：数据没写进来、时间范围不含最近点、标签不匹配、查的不是同一个库。"
+last_reviewed: 2026-10-10
 ---
 
 数据源页面上「测试」是通过的，绿的，但在查询界面里怎么写都是空。
@@ -9,7 +10,7 @@ description: "数据源测试通过但查询为空，按写入 → 存储 → �
 
 紧急程度取决于你在查什么：如果是刚接入的新数据源，只影响你自己；
 如果是一直有数据的库突然空了，告警规则也在这条链路上，**正在跑的告警会跟着一起失灵**，
-先去 [判定记录缺失或被丢弃](./evaluation-missing.md) 确认规则还在不在评估。
+先去 [判定记录为什么缺失或被丢弃？](./evaluation-missing.md) 确认规则还在不在评估。
 
 ## 先确认这个数据源在开源版里查得了
 
@@ -120,7 +121,7 @@ mem_used_percent{ident="n9e-web-01", region="trade"}
 ```
 
 这不是没数据，是这个端点默认只收本机请求。细节见
-[内置时序库数据断续或缺失](./embedded-tsdb-data.md)。
+[内置时序库的数据为什么断续或缺失？](./embedded-tsdb-data.md)。
 
 ## 收集这些再去提问
 
@@ -136,7 +137,7 @@ mem_used_percent{ident="n9e-web-01", region="trade"}
 
 ## 下一步
 
-- 机器根本没上来：[Categraf 对象显示离线](./categraf-offline.md)
-- 内置时序库自己的问题：[内置时序库数据断续或缺失](./embedded-tsdb-data.md)
-- 数据在但规则不响：[查询有结果但告警不触发](./alert-not-firing.md)
+- 机器根本没上来：[Categraf 对象为什么显示离线？](./categraf-offline.md)
+- 内置时序库自己的问题：[内置时序库的数据为什么断续或缺失？](./embedded-tsdb-data.md)
+- 数据在但规则不响：[查询有结果，为什么告警不触发？](./alert-not-firing.md)
 - 采集端怎么排：[Categraf 排障](../data/categraf/troubleshooting.md)

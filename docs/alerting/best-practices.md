@@ -2,6 +2,7 @@
 title: "Rule design best practices"
 sidebar_label: "Rule design best practices"
 description: "Opinions on rule design: alert only on what needs a person, leave trends to dashboards, size a rule to one class of object, and review so the rule set does not rot."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a set of opinions you can argue with, and a review habit that keeps a rule set

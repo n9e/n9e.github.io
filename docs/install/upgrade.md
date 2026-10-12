@@ -2,6 +2,7 @@
 title: "Upgrade"
 sidebar_label: "Upgrade"
 description: "Upgrade between minor versions and across v8 → v9: back up first, read the database changes, roll the binaries."
+last_reviewed: 2026-10-10
 ---
 
 Upgrading Nightingale means **replacing the binary and restarting**: the schema is brought up to

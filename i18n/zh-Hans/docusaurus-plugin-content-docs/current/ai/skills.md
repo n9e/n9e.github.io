@@ -2,6 +2,7 @@
 title: "安装、管理与编写 Skills"
 sidebar_label: "安装、管理与编写 Skills"
 description: "Skill 是一份用 SKILL.md 描述的排查方法，可从市场安装或自己编写，设定可见团队后由助手在对应问题上自动调用。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：团队自己的排障方法被装成一个 Skill，可见范围给对了人，

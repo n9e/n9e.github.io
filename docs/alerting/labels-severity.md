@@ -2,6 +2,7 @@
 title: "Labels, annotations and severity"
 sidebar_label: "Labels, annotations and severity"
 description: "Attach labels for routing, write annotations that read well in a notification, and choose S1 / S2 / S3 deliberately."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: the events your rule produces carry the labels that routing needs, the text a

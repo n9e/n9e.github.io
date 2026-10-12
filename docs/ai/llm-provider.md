@@ -2,6 +2,7 @@
 title: "Configure an LLM provider"
 sidebar_label: "Configure an LLM provider"
 description: "Point Nightingale at OpenAI-compatible, Anthropic or self-hosted models; keys, base URLs and model selection."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: one LLM config that passed **Test connection**, is enabled, and carries the

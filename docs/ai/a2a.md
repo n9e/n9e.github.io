@@ -2,6 +2,7 @@
 title: "A2A endpoint"
 sidebar_label: "A2A endpoint"
 description: "The A2A endpoint exposes Nightingale as an agent that other agent platforms can discover and call; the agent card declares the address and supported methods."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a Nightingale agent that a third-party agent platform can discover and call

@@ -2,7 +2,10 @@
 sidebar_label: 产品简介
 title: 夜莺监控（Nightingale）是什么
 description: "夜莺监控（Nightingale，n9e）是开源告警引擎：接上已有的 Prometheus、日志库和数据库做规则判定、降噪和分发，自己不存数据、不做采集。"
+last_reviewed: 2026-10-12
 ---
+
+import { figures } from '@site/src/data/figures';
 
 夜莺监控（Nightingale，简称 **n9e**）是一个开源告警引擎，由中国计算机学会开源发展技术委员会（CCF ODTC）
 托管，代码在 [GitHub](https://github.com/ccfos/nightingale)，Apache-2.0 许可。它不存你的数据，也不替你采集——
@@ -22,11 +25,11 @@ description: "夜莺监控（Nightingale，n9e）是开源告警引擎：接上�
 接一个数据源，在其上写一条规则，产生的事件依次经过屏蔽规则、订阅规则、事件 Pipeline，最后落到
 通知媒介。v9 起同一个进程还是 MCP Server，AI 客户端可以用自然语言把这一整套跑通。
 
-- **10+ 数据源类型** —— 指标、日志、SQL 类数据库统一接入
-- **20 份内置消息模板** —— 钉钉、飞书、企业微信、电话、短信、Slack、PagerDuty……
+- **{figures.datasourceTypes} 数据源类型** —— 指标、日志、SQL 类数据库统一接入
+- **{figures.notificationChannels} 份内置消息模板** —— 钉钉、飞书、企业微信、电话、短信、Slack、PagerDuty……
   其中 6 个媒介开箱即用，其余照模板填自己的地址
-- **86 个内置集成模板** —— 采集配置、仪表盘、告警规则成套导入
-- **74 个 MCP 工具**，分属 13 个工具集
+- **{figures.integrations} 个内置集成模板** —— 采集配置、仪表盘、告警规则成套导入
+- **{figures.mcpTools} 个 MCP 工具**，分属 {figures.mcpToolsets} 个工具集
 
 Apache-2.0 全功能开源。
 

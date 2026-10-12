@@ -1,7 +1,8 @@
 ---
-title: "Troubleshooting"
+title: "Categraf troubleshooting"
 sidebar_label: "Troubleshooting"
 description: "Categraf problems come in three symptoms — host missing, host present but no metrics, one plugin silent — and the log has the answer, even for errors not marked E!."
+last_reviewed: 2026-10-10
 ---
 
 Almost every Categraf-side problem is visible in the log — provided you know where to look and

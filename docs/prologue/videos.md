@@ -2,6 +2,7 @@
 title: "Video tutorials"
 sidebar_label: "Video tutorials"
 description: "Keep the pre-redesign video catalogue and pair each tutorial with its current documentation."
+last_reviewed: 2026-10-11
 ---
 
 This page preserves the old tutorial catalogue for existing bookmarks and pairs each topic with its current guide.

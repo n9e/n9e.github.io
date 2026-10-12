@@ -2,6 +2,7 @@
 title: "查看判定执行记录"
 sidebar_label: "查看判定执行记录"
 description: "每次判定都有记录：看查询返回了什么、事件为什么触发或没触发。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：对任意一条规则，都能翻出最近一小时的每个评估周期，逐条看到查询返回了什么、
@@ -77,7 +78,7 @@ description: "每次判定都有记录：看查询返回了什么、事件为什
 [没有收到通知](../troubleshooting/no-notification.md)。
 
 **「反复触发又反复恢复。」** 对比相邻几行的「异常点」数量。每个周期在 `1` 和 `0` 之间来回跳，
-就是指标压在阈值上，见[告警反复触发或从不恢复](../troubleshooting/alert-flapping.md)。
+就是指标压在阈值上，见[告警为什么反复触发或从不恢复？](../troubleshooting/alert-flapping.md)。
 
 ## 记录存在哪、留多久
 

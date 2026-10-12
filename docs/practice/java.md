@@ -2,6 +2,7 @@
 title: "Monitor Java applications"
 sidebar_label: "Monitor Java applications"
 description: "Choose Actuator, Micrometer, JMX Exporter or built-in application metrics, then scrape them with Categraf or Prometheus."
+last_reviewed: 2026-10-11
 ---
 
 By the end of this page, you will choose a suitable Java metrics endpoint and connect JVM or application metrics to Nightingale.

@@ -2,6 +2,7 @@
 title: "PagerDuty / FlashDuty / Jira"
 sidebar_label: "PagerDuty / FlashDuty / Jira"
 description: "把事件交给值班平台或开工单，附各家要求的字段映射。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：夜莺的告警事件进入 FlashDuty 或 PagerDuty 的值班流程，

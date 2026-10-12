@@ -2,6 +2,7 @@
 title: "Configuration reference"
 sidebar_label: "Configuration reference"
 description: "Every key in config.toml and etc/edge/edge.toml, with defaults and which process reads it."
+last_reviewed: 2026-10-10
 ---
 
 Configuration lives in the `etc/` directory next to the binary. `n9e`, `n9e-alert` and `n9e-pushgw`

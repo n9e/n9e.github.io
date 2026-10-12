@@ -2,6 +2,7 @@
 title: "Noise reduction patterns"
 sidebar_label: "Noise reduction patterns"
 description: "Recipes that hold up in production: flapping, storms during deploys, duplicate sources, and what should never page a human."
+last_reviewed: 2026-10-10
 ---
 
 This page is organised by symptom: recognise which kind of noise you have, then apply the

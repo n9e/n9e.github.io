@@ -2,6 +2,7 @@
 title: "Disaster recovery"
 sidebar_label: "Disaster recovery"
 description: "Rebuild from backups in a new environment, and the order in which to bring components back."
+last_reviewed: 2026-10-10
 ---
 
 [Backup and restore](./backup-restore.md) puts a database back where it came from. This page covers

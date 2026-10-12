@@ -2,6 +2,7 @@
 title: "即时查询"
 sidebar_label: "即时查询"
 description: "对任意已注册数据源即席写 PromQL，用的是和规则相同的查询编辑器。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：在任意一个已注册的 Prometheus 类数据源上跑通一条 PromQL，
@@ -28,7 +29,7 @@ up
 ```
 
 预期结果：**表格 (Table)** 里列出一行行序列和它们的瞬时值，左上角的「序列 (N)」是条数。
-一条都没有，先看[数据源连上了但查不到数据](../troubleshooting/no-data.md)。
+一条都没有，先看[数据源连上了，为什么查不到数据？](../troubleshooting/no-data.md)。
 
 ## 2. 表格和图表看的不是同一份数据
 

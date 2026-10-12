@@ -2,6 +2,7 @@
 title: "Use Grafana with Nightingale"
 sidebar_label: "Use Grafana with Nightingale"
 description: "Keep Grafana for visualisation: point it at the same stores, and hand alerting to Nightingale."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: your Grafana dashboards untouched, and Nightingale alerting on the same

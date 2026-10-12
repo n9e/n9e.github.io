@@ -2,6 +2,7 @@
 title: "进程监控"
 sidebar_label: "进程监控"
 description: "区分系统进程总数和单个服务的资源占用，用 processes、procstat 或应用指标采集验证进程存活。"
+last_reviewed: 2026-10-11
 ---
 
 这页办完，你会知道如何分别监控“系统进程太多”和“某个服务没了”，并采到单个服务的资源指标。

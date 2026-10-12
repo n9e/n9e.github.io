@@ -4,6 +4,7 @@ sidebar_label: "功能专题入口"
 description: "从旧功能专题目录进入业务组、API、通知媒介、屏蔽、订阅和工作流的当前说明。"
 slug: "/usecase"
 displayed_sidebar: "docs"
+last_reviewed: 2026-10-11
 ---
 
 从这里可以继续访问旧目录中的主题；链接已经指向当前说明或保留原地址的实践文章。

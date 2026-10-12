@@ -2,6 +2,7 @@
 title: "已有日志库或数据库"
 sidebar_label: "已有日志库或数据库"
 description: "用和指标同一套规则体系，对 ElasticSearch、Loki、ClickHouse、MySQL 这类日志库和数据库做告警。"
+last_reviewed: 2026-10-10
 ---
 
 这条路的终点：一条规则跑在你的日志库或业务库上，越界了就产生事件。

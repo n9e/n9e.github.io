@@ -2,6 +2,7 @@
 title: "Capacity planning"
 sidebar_label: "Capacity planning"
 description: "Load is driven by rule count, series count, event volume and database traffic; measure four numbers to know where to scale — there is deliberately no sizing table."
+last_reviewed: 2026-10-10
 ---
 
 This page does not give you a "X cores and Y GB run Z rules" table — the last section explains why.

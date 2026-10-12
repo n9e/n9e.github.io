@@ -2,6 +2,7 @@
 title: "Secret management"
 sidebar_label: "Secret management"
 description: "Keep database passwords, channel tokens and LLM keys out of config files."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: an accurate list of which credentials can be moved, how to move them, and

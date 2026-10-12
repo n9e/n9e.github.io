@@ -2,6 +2,7 @@
 title: "High availability and failure domains"
 sidebar_label: "High availability and failure domains"
 description: "Which failures a multi-instance deployment survives, which it does not, and how to test it."
+last_reviewed: 2026-10-10
 ---
 
 High availability in Nightingale needs no extra component: **run several `n9e` processes with

@@ -1,7 +1,8 @@
 ---
-title: "Categraf target is offline"
-sidebar_label: "Categraf target is offline"
+title: "Why does a Categraf target show as offline?"
+sidebar_label: "Why does a Categraf target show as offline?"
 description: "A target shows offline when its heartbeat has not reached Redis in time — clock skew, a wrong heartbeat URL or network policy; update time is not a liveness signal."
+last_reviewed: 2026-10-10
 ---
 
 The status cell for a host in the host list turns yellow or red, yet you SSH in and Categraf is
@@ -124,7 +125,7 @@ like `n9e:17000`.
 
 ## Next
 
-- The host is there but has no metrics: [Data source connects but queries return no data](./no-data.md)
+- The host is there but has no metrics: [Why does a data source connect but return no data?](./no-data.md)
 - The full agent-side walkthrough: [Categraf troubleshooting](../data/categraf/troubleshooting.md)
 - The host list page itself: [Targets](../data/categraf/targets.md)
 - Configuring liveness alerts: [Rule scope](../alerting/scope.md)

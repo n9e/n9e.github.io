@@ -2,6 +2,7 @@
 title: "日志检索与索引模式"
 sidebar_label: "日志检索与索引模式"
 description: "检索 ElasticSearch、Loki、VictoriaLogs，定义索引模式，从一条日志跳到一条规则。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：在日志存储上跑通一条检索，用字段侧栏把结果收窄到你要的那几条，

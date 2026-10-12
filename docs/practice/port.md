@@ -2,6 +2,7 @@
 title: "Probe ports and HTTP endpoints"
 sidebar_label: "Probe ports and HTTP endpoints"
 description: "Configure Categraf TCP, UDP and HTTP probes, then verify result codes, response content and certificate expiry metrics."
+last_reviewed: 2026-10-11
 ---
 
 By the end of this page, an independent probe will check service ports and HTTP responses rather than process existence alone.

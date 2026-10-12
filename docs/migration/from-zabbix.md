@@ -2,6 +2,7 @@
 title: "From Zabbix"
 sidebar_label: "From Zabbix"
 description: "Moving from Zabbix is a rebuild: hosts map to targets, templates to integrations, triggers to rules; some concepts have no equivalent, and Zabbix never has to stop."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: every Zabbix object placed on a Nightingale one, a clear list of what has

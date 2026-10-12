@@ -2,6 +2,7 @@
 title: "Metric rules"
 sidebar_label: "Metric rules"
 description: "Metric rules put the threshold inside the PromQL expression; one rule can carry several severities, and the labels the query returns land on the event for routing."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: you can read and write the alert-conditions step of a Prometheus-type rule —

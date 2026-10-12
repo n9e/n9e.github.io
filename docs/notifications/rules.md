@@ -2,6 +2,7 @@
 title: "Notification rules"
 sidebar_label: "Notification rules"
 description: "Match events by label and severity, then pick the media type, the template and the recipients."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a working notification rule — S1 through one media type, S3 through
@@ -107,4 +108,4 @@ while this one affects only this notification rule.
 - Change the wording: [Templates and variables](./templates.md)
 - Let another team receive the same events: [Alert subscriptions](../events/subscriptions.md)
 - Stay quiet during a change window: [Mute rules](../events/mute-rules.md)
-- Configured but nothing arrives: [Alert event exists but no notification arrives](../troubleshooting/no-notification.md)
+- Configured but nothing arrives: [Why is there an alert event but no notification?](../troubleshooting/no-notification.md)

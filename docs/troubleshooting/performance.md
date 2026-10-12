@@ -1,7 +1,8 @@
 ---
-title: "Performance and backlog symptoms"
-sidebar_label: "Performance and backlog symptoms"
+title: "Why is Nightingale slow or backlogged?"
+sidebar_label: "Why is Nightingale slow or backlogged?"
 description: "Late alerts, growing queues and high database CPU each map to one built-in metric that localises the cause; pick the metric by symptom, then work back to the root."
+last_reviewed: 2026-10-10
 ---
 
 Alerts arrive minutes later than the thing they are about; a page in the UI takes forever to load;
@@ -203,4 +204,4 @@ shared as they are; replace data source addresses and any credentials in a DSN.
 - The defaults and ceilings: [Limits and defaults](../reference/limits.md)
 - What each metric means: [Built-in metrics](../reference/built-in-metrics.md)
 - Turning these into alerts: [Monitor Nightingale itself](../operations/self-monitoring.md)
-- Evaluation stopped entirely: [Evaluation records are missing or dropped](./evaluation-missing.md)
+- Evaluation stopped entirely: [Why are evaluation records missing or dropped?](./evaluation-missing.md)

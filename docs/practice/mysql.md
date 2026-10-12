@@ -2,6 +2,7 @@
 title: "Monitor MySQL"
 sidebar_label: "Monitor MySQL"
 description: "Collect MySQL runtime metrics with Categraf and distinguish them from business-SQL alerts and Nightingale metadata storage."
+last_reviewed: 2026-10-11
 ---
 
 By the end of this page, MySQL runtime metrics will be collected, and you will know how that differs from business-SQL alerting.

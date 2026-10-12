@@ -2,6 +2,7 @@
 title: "Should high CPU load trigger an alert?"
 sidebar_label: "Should high CPU load trigger an alert?"
 description: "Decide CPU alert conditions, severity and delivery from business impact and a concrete response, then attach a runbook."
+last_reviewed: 2026-10-11
 ---
 
 After this page, you will decide which CPU conditions deserve a notification and describe what the recipient should do.

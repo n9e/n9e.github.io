@@ -2,6 +2,7 @@
 title: "Connect Claude Code / Cursor / other clients"
 sidebar_label: "Connect an MCP client"
 description: "Claude Code, Cursor and other MCP clients connect with just the /mcp URL and a token; one read-only prompt confirms the connection works."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: an MCP client connected to Nightingale, and a read-only prompt whose answer

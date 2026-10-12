@@ -2,6 +2,7 @@
 title: "Test fire a rule"
 sidebar_label: "Test fire a rule"
 description: "Fire a rule on demand to check the query, labels and the rendered notification before it goes live."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: you press one button on the rule form and get a six-stage report — did the

@@ -2,6 +2,7 @@
 title: "Agents and conversation history"
 sidebar_label: "Agents and conversation history"
 description: "Conversation history is stored server-side and can be reviewed or deleted; in the open-source build an agent is an internal binding, not something you create."
+last_reviewed: 2026-10-10
 ---
 
 Two separate things share this page, and they are worth telling apart up front. **Conversation

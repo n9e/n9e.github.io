@@ -1,7 +1,8 @@
 ---
-title: "MCP 工具缺失或被拒绝"
-sidebar_label: "MCP 工具缺失或被拒绝"
+title: "MCP 工具为什么缺失或被拒绝？"
+sidebar_label: "MCP 工具为什么缺失或被拒绝？"
 description: "「没有这个工具」有三种形状：写工具未开启、工具集被禁用、Token 用户缺少权限——tools/list 的返回先分出是哪一种。"
+last_reviewed: 2026-10-10
 ---
 
 客户端连上了，但模型说「我没有这个工具」；或者工具列表比预期短一大截；
@@ -9,7 +10,7 @@ description: "「没有这个工具」有三种形状：写工具未开启、工
 先按形状分类，比逐条试配置快得多。
 
 前提是连接本身是通的。如果客户端压根连不上，先看
-[MCP 认证失败](./mcp-auth.md)。
+[MCP 认证为什么失败？](./mcp-auth.md)。
 
 ## 先数一下 `tools/list` 返回了几个
 
@@ -162,4 +163,4 @@ WARNING [MCP] ignoring unknown toolset "alert"; valid names: [alert_subscribes a
 - 逐个工具的参数：[MCP 工具参考](../reference/mcp-tools.md)
 - 打开写工具之前先读：[安全地启用写工具](../ai/write-tools.md)
 - 权限边界怎么算：[权限继承与 RBAC](../ai/permissions.md)
-- 连都连不上：[MCP 认证失败](./mcp-auth.md)
+- 连都连不上：[MCP 认证为什么失败？](./mcp-auth.md)

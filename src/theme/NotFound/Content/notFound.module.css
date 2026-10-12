@@ -1,0 +1,53 @@
+.main {
+  min-height: 50vh;
+}
+
+.inner {
+  max-width: 40rem;
+  margin: 0 auto;
+}
+
+.lead {
+  color: var(--n9e-ink-2, var(--ifm-color-emphasis-700));
+  font-size: 1.05rem;
+}
+
+.search {
+  margin: 1.5rem 0;
+}
+
+.searchLabel {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.searchRow {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.searchInput {
+  flex: 1;
+  min-width: 0;
+  padding: 0.55rem 0.8rem;
+  font: inherit;
+  color: inherit;
+  background: var(--ifm-background-color);
+  border: 1px solid var(--n9e-line, var(--ifm-color-emphasis-300));
+  border-radius: var(--n9e-radius, 8px);
+}
+
+.searchButton {
+  white-space: nowrap;
+}
+
+.links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+}

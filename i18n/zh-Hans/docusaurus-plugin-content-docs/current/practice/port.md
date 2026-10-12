@@ -2,6 +2,7 @@
 title: "端口与 HTTP 探测"
 sidebar_label: "端口与 HTTP 探测"
 description: "配置 Categraf TCP、UDP、HTTP 探测，验证结果码、响应内容及 TLS 证书到期指标。"
+last_reviewed: 2026-10-11
 ---
 
 这页办完，你会从独立探测点检查服务端口和 HTTP 响应，而不只看进程是否存在。

@@ -2,6 +2,7 @@
 title: "I want to enable Nightingale AI"
 sidebar_label: "I want to enable Nightingale AI"
 description: "Configure an LLM provider, turn on the built-in assistant and the MCP endpoint, and connect a client such as Claude Code."
+last_reviewed: 2026-10-10
 ---
 
 Where this path ends: you can ask "which S1 alerts are firing right now" inside Nightingale in

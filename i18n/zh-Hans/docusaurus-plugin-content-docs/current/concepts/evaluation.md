@@ -2,6 +2,7 @@
 title: "判定、恢复与状态变化"
 sidebar_label: "判定与恢复"
 description: "规则不是查到就报：评估周期、持续时长、恢复条件三个参数加一套状态机，决定事件何时首次触发、何时恢复、会不会抖动。"
+last_reviewed: 2026-10-10
 ---
 
 一条规则不是「查到就报」。中间有三个时间参数和一套状态机，
@@ -80,4 +81,4 @@ cpu_usage_active > 95   →  S1
 
 - [告警生命周期与级别](./alert-lifecycle.md)
 - [评估周期与恢复](../alerting/evaluation.md)
-- [告警反复触发或从不恢复](../troubleshooting/alert-flapping.md)
+- [告警为什么反复触发或从不恢复？](../troubleshooting/alert-flapping.md)

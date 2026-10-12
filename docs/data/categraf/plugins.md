@@ -2,6 +2,7 @@
 title: "Input plugins"
 sidebar_label: "Input plugins"
 description: "Categraf ships over ninety input plugins; a config file in conf/input.<name> enables one, and a single plugin can run alone in the foreground for testing."
+last_reviewed: 2026-10-10
 ---
 
 Categraf ships more than ninety input plugins covering operating systems, databases, middleware,

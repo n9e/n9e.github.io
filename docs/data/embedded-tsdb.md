@@ -2,6 +2,7 @@
 title: "Auto-registered Embedded TSDB datasource"
 sidebar_label: "Auto-registered Embedded TSDB datasource"
 description: "A fresh install auto-registers a Prometheus-type source named embedded-tsdb; Pushgw writes into it by default, and it is queried like any external Prometheus source."
+last_reviewed: 2026-10-10
 ---
 
 Open **Integrations → Data sources** on a fresh install and there is already a Prometheus-type

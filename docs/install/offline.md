@@ -2,6 +2,7 @@
 title: "Offline deployment"
 sidebar_label: "Offline deployment"
 description: "Install on hosts without internet access: packages, images and integration templates to fetch in advance."
+last_reviewed: 2026-10-10
 ---
 
 Once installed, Nightingale needs no internet of its own — the release package is self-contained,

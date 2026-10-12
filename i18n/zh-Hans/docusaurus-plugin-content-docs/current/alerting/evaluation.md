@@ -2,6 +2,7 @@
 title: "判定周期与恢复"
 sidebar_label: "判定周期与恢复"
 description: "规则上的四个时间字段——执行频率、持续时长、留观时长、恢复判定——共同决定事件何时产生、何时恢复、何时重复通知。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：能有意识地设规则上那四个时间字段，而不是一路默认；
@@ -140,5 +141,5 @@ Categraf 环境用 `target_up == 0`。
 ## 下一步
 
 - 这些字段驱动的状态机：[判定、恢复与状态变化](../concepts/evaluation.md)
-- 它就是停不下来：[告警反复触发或从不恢复](../troubleshooting/alert-flapping.md)
+- 它就是停不下来：[告警为什么反复触发或从不恢复？](../troubleshooting/alert-flapping.md)
 - 它就是不开始：[告警规则不触发](../troubleshooting/alert-not-firing.md)

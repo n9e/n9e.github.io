@@ -2,6 +2,7 @@
 title: "Callback（通用 Webhook）"
 sidebar_label: "Callback（通用 Webhook）"
 description: "把事件 POST 到任意 HTTP 接口：URL、请求头、请求体模板，模板里能用哪些变量，以及什么情况才算发送成功。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：通知规则命中的每个事件，都按对方要求的格式 POST 到你自己的 HTTP 接口——

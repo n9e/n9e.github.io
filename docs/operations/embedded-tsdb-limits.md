@@ -2,6 +2,7 @@
 title: "Embedded TSDB single-Center limits"
 sidebar_label: "Embedded TSDB single-Center limits"
 description: "The embedded store lives inside one Center process: what that rules out and when to move off it."
+last_reviewed: 2026-10-10
 ---
 
 The embedded store lets you get charts and alerts with zero extra dependencies, at the cost of being

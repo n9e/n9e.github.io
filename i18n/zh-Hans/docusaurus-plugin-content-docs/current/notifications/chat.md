@@ -2,6 +2,7 @@
 title: "Slack / Telegram / Discord / Mattermost"
 sidebar_label: "Slack / Telegram / Discord / Mattermost"
 description: "基于 Webhook 的聊天媒介，以及怎么写一条各家 Markdown 都不吃掉的消息。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一个能往 Slack / Telegram / Discord / Mattermost 发消息的媒介，

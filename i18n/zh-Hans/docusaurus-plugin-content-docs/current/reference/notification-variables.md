@@ -2,6 +2,7 @@
 title: "通知模板变量"
 sidebar_label: "通知模板变量"
 description: "消息模板里可用的事件字段与辅助函数。"
+last_reviewed: 2026-10-10
 ---
 
 消息模板用的是 Go 的 `text/template`。
@@ -77,4 +78,4 @@ description: "消息模板里可用的事件字段与辅助函数。"
 ## 相关
 
 - [消息模板与变量](../notifications/templates.md)
-- [通知模板渲染失败](../troubleshooting/template-errors.md)
+- [通知模板为什么渲染失败？](../troubleshooting/template-errors.md)

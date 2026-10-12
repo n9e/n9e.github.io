@@ -2,6 +2,7 @@
 title: "Alert subscriptions"
 sidebar_label: "Alert subscriptions"
 description: "Let a team receive events from rules they do not own, with their own channel and severity filter."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a subscription that delivers another business group's alerts to your team,
@@ -96,4 +97,4 @@ The semantics are "**I also want to receive events matching this**":
 - The opposite need, keeping something quiet: [Mute rules](./mute-rules.md)
 - Which path a subscribed event takes: [Conditional routing](./routing.md)
 - The order all of this happens in: [Noise reduction and routing model](../concepts/noise-routing.md)
-- Subscribed but nothing arrives: [Alert event exists but no notification arrives](../troubleshooting/no-notification.md)
+- Subscribed but nothing arrives: [Why is there an alert event but no notification?](../troubleshooting/no-notification.md)

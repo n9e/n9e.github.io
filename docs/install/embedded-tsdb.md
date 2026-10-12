@@ -2,6 +2,7 @@
 title: "Embedded TSDB for onboarding and small scale"
 sidebar_label: "Embedded TSDB for onboarding and small scale"
 description: "Use the built-in store to get going with zero extra components; retention, capacity and the single-Center constraint."
+last_reviewed: 2026-10-10
 ---
 
 The embedded time-series store is **on by default**, so charts and alert rules work straight after

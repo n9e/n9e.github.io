@@ -2,6 +2,7 @@
 title: "降噪与路由模型"
 sidebar_label: "降噪与路由模型"
 description: "屏蔽规则、订阅、事件 Pipeline、通知规则不是并列的备选，而是按固定先后作用于事件；搞错顺序就会出现配了屏蔽仍收到告警。"
+last_reviewed: 2026-10-10
 ---
 
 夜莺有四种「对事件动手」的机制，它们**不是并列的**，作用的时机不同。
@@ -65,4 +66,4 @@ description: "屏蔽规则、订阅、事件 Pipeline、通知规则不是并列
 - [订阅规则](../events/subscriptions.md)
 - [事件 Pipeline](../events/pipelines.md)
 - [通知规则](../notifications/rules.md)
-- 收不到通知时顺着这条链查：[有事件但收不到通知](../troubleshooting/no-notification.md)
+- 收不到通知时顺着这条链查：[有告警事件，为什么收不到通知？](../troubleshooting/no-notification.md)

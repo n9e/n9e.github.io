@@ -2,7 +2,10 @@
 sidebar_label: Introduction
 title: What Nightingale (n9e) is
 description: "Nightingale (n9e, 夜莺) is an open-source alerting engine: it evaluates rules on the stores you already run, cuts the noise and delivers to on-call; it stores and collects nothing."
+last_reviewed: 2026-10-12
 ---
+
+import { figures } from '@site/src/data/figures';
 
 Nightingale (夜莺, also known as **n9e**) is an open-source alerting engine, hosted by the China
 Computer Federation's open-source committee (CCF ODTC) and developed on
@@ -25,11 +28,11 @@ Register a data source, write one rule against it, and the resulting event flows
 subscriptions and event pipelines before reaching a notification channel. Since v9 the same process
 is also an MCP server, so an AI client can drive all of it in plain language.
 
-- **10+ data source types** — metrics, logs and SQL-queried stores alike
-- **20 built-in message templates** covering DingTalk, Feishu, WeCom, phone, SMS, Slack,
+- **{figures.datasourceTypes} data source types** — metrics, logs and SQL-queried stores alike
+- **{figures.notificationChannels} built-in message templates** covering DingTalk, Feishu, WeCom, phone, SMS, Slack,
   PagerDuty and more — six media types ship configured, the rest you point at your own endpoint
-- **86 built-in integrations** bundling collector config, dashboards and rules
-- **74 MCP tools** across 13 toolsets
+- **{figures.integrations} built-in integrations** bundling collector config, dashboards and rules
+- **{figures.mcpTools} MCP tools** across {figures.mcpToolsets} toolsets
 
 Apache-2.0, fully featured.
 

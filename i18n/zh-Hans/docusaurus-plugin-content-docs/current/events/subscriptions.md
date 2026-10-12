@@ -2,6 +2,7 @@
 title: "订阅规则"
 sidebar_label: "订阅规则"
 description: "让一个团队接收不属于自己的规则产生的事件，用自己的媒介和级别筛选。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一条订阅规则，让你的团队收到别人业务组的告警，
@@ -86,4 +87,4 @@ description: "让一个团队接收不属于自己的规则产生的事件，用
 - 反过来，想让某类告警别吵：[屏蔽规则](./mute-rules.md)
 - 订阅出来的事件走哪条通知路径：[条件路由](./routing.md)
 - 各机制的先后顺序：[降噪与路由模型](../concepts/noise-routing.md)
-- 订阅了却收不到：[有事件但收不到通知](../troubleshooting/no-notification.md)
+- 订阅了却收不到：[有告警事件，为什么收不到通知？](../troubleshooting/no-notification.md)

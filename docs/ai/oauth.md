@@ -2,6 +2,7 @@
 title: "OAuth 2.1 and external identity providers"
 sidebar_label: "OAuth 2.1 and external identity"
 description: "Nightingale as authorization server for hosted clients, or as resource server in front of Keycloak, Entra ID or Okta."
+last_reviewed: 2026-10-10
 ---
 
 Personal tokens are already enough. This page solves two different problems: letting an integrator

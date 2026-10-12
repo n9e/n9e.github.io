@@ -1,7 +1,8 @@
 ---
-title: "Edge 与中心失联"
-sidebar_label: "Edge 与中心失联"
+title: "Edge 为什么与中心失联？"
+sidebar_label: "Edge 为什么与中心失联？"
 description: "边缘断网期间判定和通知照常在本地进行，但事件不会回传中心——这是预期行为；从未连上过才是配置错误，两者的判断方法不同。"
+last_reviewed: 2026-10-10
 ---
 
 **系统配置 → 告警引擎**里那个边缘实例的心跳停了，或者整行消失了；
@@ -181,5 +182,5 @@ n9e-edge --configs etc/edge
 - 断网期间的完整行为模型：[Edge 断网行为](../operations/edge-partition.md)
 - edge 怎么部署：[边缘机房](../install/edge.md)
 - 部署形态怎么选：[生产拓扑](../operations/topology.md)
-- 事件产生了但没通知：[有事件但收不到通知](./no-notification.md)
+- 事件产生了但没通知：[有告警事件，为什么收不到通知？](./no-notification.md)
 - 中心侧也没数据：[数据源连接正常但查询无数据](./no-data.md)

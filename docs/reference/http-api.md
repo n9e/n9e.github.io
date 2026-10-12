@@ -2,6 +2,7 @@
 title: "HTTP API"
 sidebar_label: "HTTP API"
 description: "The API the UI runs on: authentication, endpoints by object, and why there is no OpenAPI document."
+last_reviewed: 2026-10-11
 ---
 
 The Nightingale web UI **runs entirely on a public HTTP API** — everything you can do in the

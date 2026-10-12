@@ -1,7 +1,8 @@
 ---
-title: "Notification template rendering fails"
-sidebar_label: "Notification template rendering fails"
+title: "Why does notification template rendering fail?"
+sidebar_label: "Why does notification template rendering fail?"
 description: "A message body that is error text, or a field that is empty, is a template rendering problem that still logs as success; preview against a real event to catch it."
+last_reviewed: 2026-10-10
 ---
 
 An alert arrives in the chat room and the body is a paragraph of English error text; or the title,
@@ -176,6 +177,6 @@ error text itself contains no credentials and can be pasted as is.
 ## Next
 
 - Every variable spelled out: [Message templates and variables](../notifications/templates.md)
-- Nothing arrived at all: [Alert event exists but no notification arrives](./no-notification.md)
+- Nothing arrived at all: [Why is there an alert event but no notification?](./no-notification.md)
 - Testing the chain end to end: [Test a notification end to end](../notifications/test.md)
 - Reading delivery status: [Retries and delivery status](../notifications/delivery.md)

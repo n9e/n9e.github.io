@@ -2,6 +2,7 @@
 title: "Build a dashboard"
 sidebar_label: "Build a dashboard"
 description: "A dashboard belongs to a business group; build it from an integration template or from scratch with twelve panel types, and export it whole to hand to someone else."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a dashboard owned by a business group, with at least one panel drawing

@@ -2,6 +2,7 @@
 title: "Retries and delivery status"
 sidebar_label: "Retries and delivery status"
 description: "Failed sends are retried only for connection failures, with parameters per send type; the outcome of every message is in the notification log, kept for seven days."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: you know where a notification can get stuck between "decided to send"
@@ -119,4 +120,4 @@ the table grows in proportion to your alert volume.
 
 - Prove the channel works first: [Test a notification end to end](./test.md)
 - The message body failed to render: [Template rendering errors](../troubleshooting/template-errors.md)
-- Nothing arrives at all: [Alert event exists but no notification arrives](../troubleshooting/no-notification.md)
+- Nothing arrives at all: [Why is there an alert event but no notification?](../troubleshooting/no-notification.md)

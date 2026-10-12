@@ -27,7 +27,7 @@ export default function Integrations(): React.ReactElement {
               {group.items.map((item) => (
                 <li key={item.name} className={styles.intgItem}>
                   {item.logo ? (
-                    <img src={withBaseUrl(item.logo)} alt="" loading="lazy" />
+                    <img src={withBaseUrl(item.logo)} alt={`${item.name} logo`} loading="lazy" />
                   ) : (
                     item.icon && <ChannelIcon name={item.icon} className={styles.intgIcon} />
                   )}

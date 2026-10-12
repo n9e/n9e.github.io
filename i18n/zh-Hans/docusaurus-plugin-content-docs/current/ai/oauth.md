@@ -2,6 +2,7 @@
 title: "OAuth 2.1 与外部身份源"
 sidebar_label: "OAuth 2.1 与外部身份源"
 description: "夜莺作为托管客户端的授权服务器，或作为 Keycloak、Entra ID、Okta 前面的资源服务器。"
+last_reviewed: 2026-10-10
 ---
 
 个人 Token 已经够用了。这页解决的是另外两件事：

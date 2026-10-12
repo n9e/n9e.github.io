@@ -2,6 +2,7 @@
 title: "Rollback"
 sidebar_label: "Rollback"
 description: "Return to the previous version after a failed upgrade, including what to do about schema migrations that already ran."
+last_reviewed: 2026-10-10
 ---
 
 Rolling the binary back is easy. The database is the hard part: the new version altered the schema

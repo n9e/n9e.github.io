@@ -2,6 +2,7 @@
 title: "Production readiness checklist"
 sidebar_label: "Production readiness checklist"
 description: "What to change before real traffic: default credentials, external database, TSDB choice, HA, backups and self-monitoring."
+last_reviewed: 2026-10-10
 ---
 
 Getting a single instance running is easy, but those defaults are **not for production**. This is

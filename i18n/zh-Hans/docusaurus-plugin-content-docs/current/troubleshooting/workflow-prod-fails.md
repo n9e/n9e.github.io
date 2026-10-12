@@ -1,7 +1,8 @@
 ---
-title: "试跑成功但生产执行失败"
-sidebar_label: "试跑成功但生产执行失败"
+title: "工作流试跑成功，为什么生产执行失败？"
+sidebar_label: "工作流试跑成功，为什么生产执行失败？"
 description: "试跑成功而线上失败，差别在事件和进程：真实事件可能缺标签，线上执行的是告警进程而非页面进程，权限和网络可达性都不同。"
+last_reviewed: 2026-10-10
 ---
 
 工作流的试跑面板一片绿，每个节点都有输出，标签也改对了。挂到规则上，真实事件来了，
@@ -167,5 +168,5 @@ INFO dispatch/dispatch.go:265 processor_by_notify_rule_id:1 pipeline_id:1, event
 - 试跑面板怎么用：[用模拟事件试跑](../events/try-workflow.md)
 - 执行记录逐列怎么读：[查看 Pipeline 执行记录](../events/execution-records.md)
 - 工作流怎么配：[事件 Pipeline](../events/pipelines.md)
-- 跑通了但发错了地方：[Pipeline 路由到了错误的目的地](./wrong-routing.md)
+- 跑通了但发错了地方：[Pipeline 为什么路由到了错误的目的地？](./wrong-routing.md)
 - 标签改写的细节：[改写标签与富化上下文](../events/relabel-enrich.md)

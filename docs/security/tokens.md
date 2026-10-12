@@ -2,6 +2,7 @@
 title: "Tokens and credential rotation"
 sidebar_label: "Tokens and credential rotation"
 description: "Personal tokens, service accounts for MCP and the API, and rotating them without downtime."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a practice that can answer "which token belongs to whom, when was it last

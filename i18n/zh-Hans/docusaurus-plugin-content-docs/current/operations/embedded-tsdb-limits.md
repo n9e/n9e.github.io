@@ -2,6 +2,7 @@
 title: "内置时序库的单 Center 限制"
 sidebar_label: "内置时序库的单 Center 限制"
 description: "内置时序库只活在一个 Center 进程里：这排除了什么，什么时候该迁走。"
+last_reviewed: 2026-10-10
 ---
 
 内置时序库让你零依赖就能看图、能告警，代价是它绑死在一个进程上。

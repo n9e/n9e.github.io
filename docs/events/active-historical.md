@@ -2,6 +2,7 @@
 title: "Active and historical events"
 sidebar_label: "Active and historical events"
 description: "Active events hold alerts that have not recovered; on recovery they move to history. Both lists are searchable by label, severity and business group, in bulk."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: you know which of the two tables an alert is in and why, and how to pull
@@ -65,7 +66,7 @@ directly:
   This is how you tell "the data really is abnormal" from "the threshold is wrong";
 - **Notification records**: which media types this event was pushed to, whether they succeeded,
   and what a failure returned. Start here when nothing arrives, then follow
-  [Alert event exists but no notification arrives](../troubleshooting/no-notification.md);
+  [Why is there an alert event but no notification?](../troubleshooting/no-notification.md);
 - **Hash**: the event fingerprint, computed from rule plus labels. Copy and compare it when
   working out why two rows are treated as the same event.
 

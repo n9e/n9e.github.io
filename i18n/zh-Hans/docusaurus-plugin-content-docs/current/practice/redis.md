@@ -2,6 +2,7 @@
 title: "Redis 监控"
 sidebar_label: "Redis 监控"
 description: "配置 Categraf Redis 插件，或抓取已有 Redis Exporter，把运行指标写入时序库并查询验证。"
+last_reviewed: 2026-10-11
 ---
 
 这页办完，你会把 Redis 的运行指标接入夜莺，已有 Redis Exporter 也可以继续使用。

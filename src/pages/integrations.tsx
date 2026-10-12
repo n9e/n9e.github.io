@@ -142,7 +142,7 @@ export default function IntegrationsPage(): React.ReactElement {
         <Link className={styles.card} to={readmeUrl(item, i18n.currentLocale)}>
           <span className={styles.cardIcon}>
             {item.icon ? (
-              <img src={withBaseUrl(`img/integrations/${item.icon.file}`)} alt="" loading="lazy" />
+              <img src={withBaseUrl(`img/integrations/${item.icon.file}`)} alt={`${item.name} logo`} loading="lazy" />
             ) : (
               <span className={styles.cardIconFallback}>{item.name.slice(0, 1)}</span>
             )}
@@ -246,7 +246,7 @@ export default function IntegrationsPage(): React.ReactElement {
                       {g.items.map((s) => (
                         <li key={s.name}>
                           <Link className={styles.source} to={s.href}>
-                            <img src={withBaseUrl(s.logo)} alt="" loading="lazy" />
+                            <img src={withBaseUrl(s.logo)} alt={`${s.name} logo`} loading="lazy" />
                             <span className={styles.sourceName}>{s.name}</span>
                           </Link>
                         </li>
@@ -271,7 +271,7 @@ export default function IntegrationsPage(): React.ReactElement {
                 {visibleChannels.map((item) => (
                   <li key={item.name} className={homeStyles.intgItem}>
                     {item.logo ? (
-                      <img src={withBaseUrl(item.logo)} alt="" loading="lazy" />
+                      <img src={withBaseUrl(item.logo)} alt={`${item.name} logo`} loading="lazy" />
                     ) : (
                       item.icon && <ChannelIcon name={item.icon} className={homeStyles.intgIcon} />
                     )}

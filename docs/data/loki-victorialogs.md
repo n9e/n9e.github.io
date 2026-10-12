@@ -2,6 +2,7 @@
 title: "Loki / VictoriaLogs"
 sidebar_label: "Loki / VictoriaLogs"
 description: "Register a log store, write a LogQL or LogsQL query, and alert on counts or matches."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a connected Loki or VictoriaLogs, a query that returns log lines in the Log

@@ -2,6 +2,7 @@
 title: "Configuration layout"
 sidebar_label: "Configuration layout"
 description: "Configuration is a directory: config.toml is read by n9e, alert and pushgw, etc/edge by n9e-edge; environment variables fill in blanks but never override set keys."
+last_reviewed: 2026-10-10
 ---
 
 Nightingale is configured by a **directory**, not a file. Knowing how that directory is loaded, and

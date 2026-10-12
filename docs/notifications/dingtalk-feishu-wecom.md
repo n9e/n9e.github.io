@@ -2,6 +2,7 @@
 title: "DingTalk / Feishu / WeCom"
 sidebar_label: "DingTalk / Feishu / WeCom"
 description: "Robot webhooks and card messages for the three major Chinese workplace apps."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: alerts land in your DingTalk / Feishu / WeCom room, with one media type

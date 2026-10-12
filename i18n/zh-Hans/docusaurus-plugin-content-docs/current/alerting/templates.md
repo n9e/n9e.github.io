@@ -2,6 +2,7 @@
 title: "规则模板与内置规则"
 sidebar_label: "规则模板与内置规则"
 description: "夜莺自带 MySQL、Redis、Kubernetes 等六十多个组件的规则模板，可导入任意业务组；自己的规则也能存为模板复用。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：夜莺自带的 MySQL、Redis、Kubernetes 等六十多个组件的告警规则，

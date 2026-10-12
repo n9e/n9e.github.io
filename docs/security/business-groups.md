@@ -2,6 +2,7 @@
 title: "Business group authorization"
 sidebar_label: "Business group authorization"
 description: "Add teams to a business group with read or write rights, and see the effect on rules and targets."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: one business group, plus a list of which teams may read it and which may

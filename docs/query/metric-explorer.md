@@ -2,6 +2,7 @@
 title: "Metrics explorer"
 sidebar_label: "Metrics explorer"
 description: "Ad-hoc PromQL against any registered source, with the same query editor rules use."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: one PromQL query running against any registered Prometheus-type source,
@@ -30,7 +31,7 @@ up
 
 Expected result: the **Table** tab lists series with their instant values, and "Series (N)"
 at the top left gives the count. If nothing comes back, start at
-[Data source connects but queries return no data](../troubleshooting/no-data.md).
+[Why does a data source connect but return no data?](../troubleshooting/no-data.md).
 
 ## 2. Table and Graph do not show the same data
 

@@ -2,6 +2,7 @@
 title: "Monitor Oracle"
 sidebar_label: "Monitor Oracle"
 description: "Configure Categraf Oracle instances and SQL collection, map labels and values, and verify database permissions."
+last_reviewed: 2026-10-11
 ---
 
 By the end of this page, Oracle samples will reach your TSDB, and you will know where shared and per-instance SQL belongs.

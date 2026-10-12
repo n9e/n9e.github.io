@@ -2,6 +2,7 @@
 title: "Labels, annotations and identity"
 sidebar_label: "Labels and annotations"
 description: "Labels decide which event this is; annotations decide what the notification says. They are not interchangeable."
+last_reviewed: 2026-10-10
 ---
 
 Labels and annotations both look like "key-value pairs on an event", but they do different jobs,

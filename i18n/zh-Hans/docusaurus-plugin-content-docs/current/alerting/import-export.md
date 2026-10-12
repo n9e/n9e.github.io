@@ -2,6 +2,7 @@
 title: "导入、导出与复用"
 sidebar_label: "导入、导出与复用"
 description: "以 JSON 在环境之间搬运规则，并纳入版本控制。"
+last_reviewed: 2026-10-11
 ---
 
 这页办完你会得到：一批规则以 JSON 文件的形式离开一套环境、落到另一套环境里，

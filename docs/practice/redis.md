@@ -2,6 +2,7 @@
 title: "Monitor Redis"
 sidebar_label: "Monitor Redis"
 description: "Use the Categraf Redis input or scrape an existing Redis Exporter, then verify the stored runtime metrics."
+last_reviewed: 2026-10-11
 ---
 
 By the end of this page, Redis runtime metrics will be available in Nightingale. An existing Redis Exporter can remain in place.

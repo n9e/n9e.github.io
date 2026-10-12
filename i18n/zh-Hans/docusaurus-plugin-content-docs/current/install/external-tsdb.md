@@ -2,6 +2,7 @@
 title: "外置时序库与双写迁移"
 sidebar_label: "外置时序库与双写迁移"
 description: "借助 Pushgw 双写，从内置时序库无缝切换到 Prometheus 或 VictoriaMetrics。"
+last_reviewed: 2026-10-10
 ---
 
 内置时序库和外部时序库**可以同时开着**，这就是迁移窗口：先两边都写，等外部库攒够历史，

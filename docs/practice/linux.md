@@ -2,6 +2,7 @@
 title: "Monitor Linux hosts"
 sidebar_label: "Monitor Linux hosts"
 description: "Collect Linux metrics with Categraf, distinguish heartbeat metadata from stored samples, and detect missing hosts."
+last_reviewed: 2026-10-11
 ---
 
 By the end of this page, Linux host metrics will be queryable in Nightingale, and you will know why an online target and a populated dashboard are separate checks.

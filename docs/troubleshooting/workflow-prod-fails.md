@@ -1,7 +1,8 @@
 ---
-title: "Workflow Try run succeeds but production execution fails"
-sidebar_label: "Workflow Try run succeeds but production execution fails"
+title: "Why does a workflow Try run succeed but production execution fail?"
+sidebar_label: "Why does a workflow Try run succeed but production execution fail?"
 description: "Try run passes, production fails: real events may lack labels the mock had, and the alert process — not the UI — runs the workflow with its own permissions and network."
+last_reviewed: 2026-10-10
 ---
 
 The try-run panel is all green, every node produced output, the labels came out right. You attach it
@@ -186,5 +187,5 @@ snapshot. **Keep the label keys** — the decisions are made on them.
 - Using the try-run panel: [Try a workflow with a mock event](../events/try-workflow.md)
 - Reading the records column by column: [Inspect workflow execution records](../events/execution-records.md)
 - Configuring a workflow: [Event pipelines](../events/pipelines.md)
-- It runs but goes to the wrong place: [Event pipeline routes to the wrong destination](./wrong-routing.md)
+- It runs but goes to the wrong place: [Why does the event pipeline route to the wrong destination?](./wrong-routing.md)
 - The label mechanics: [Rewrite labels and enrich context](../events/relabel-enrich.md)

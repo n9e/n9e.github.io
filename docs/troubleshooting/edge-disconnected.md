@@ -1,7 +1,8 @@
 ---
-title: "Edge loses contact with the center"
-sidebar_label: "Edge loses contact with the center"
+title: "Why does the edge lose contact with the center?"
+sidebar_label: "Why does the edge lose contact with the center?"
 description: "During a partition the edge keeps alerting locally but its events never reach the center — that is expected; an edge that never connected is a misconfiguration."
+last_reviewed: 2026-10-10
 ---
 
 The edge instance's heartbeat under **System → Alerting engines** has frozen, or its row has
@@ -196,5 +197,5 @@ the error text verbatim.
 - The full partition behaviour model: [Edge network partition behavior](../operations/edge-partition.md)
 - Deploying an edge: [Edge data centers](../install/edge.md)
 - Choosing a deployment shape: [Production topology](../operations/topology.md)
-- The event exists but nothing was sent: [Alert event exists but no notification arrives](./no-notification.md)
-- No data at the centre either: [Data source connects but queries return no data](./no-data.md)
+- The event exists but nothing was sent: [Why is there an alert event but no notification?](./no-notification.md)
+- No data at the centre either: [Why does a data source connect but return no data?](./no-data.md)

@@ -2,6 +2,7 @@
 title: "与 Grafana 配合"
 sidebar_label: "与 Grafana 配合"
 description: "可视化继续用 Grafana：指向同一批存储，把告警交给夜莺。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：Grafana 里的大盘一个不动，夜莺在同一批存储上跑告警。

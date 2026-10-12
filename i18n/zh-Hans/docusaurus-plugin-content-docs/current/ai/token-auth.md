@@ -2,6 +2,7 @@
 title: "个人 Token 认证"
 sidebar_label: "个人 Token 认证"
 description: "创建 Token、放进 X-User-Token 头，并理解客户端继承的正是该用户的权限。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一个专门给 AI 客户端用的最小权限账号，和它名下的一个 Token；

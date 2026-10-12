@@ -2,6 +2,7 @@
 title: "从 Grafana Alerting 迁移"
 sidebar_label: "从 Grafana Alerting 迁移"
 description: "Grafana 仪表盘留着；搬告警规则和联系点，以及统一告警的状态怎么处理。"
+last_reviewed: 2026-10-10
 ---
 
 看完这页，你能把 Grafana 的统一告警拆成夜莺的对象，知道哪些能自动搬、哪些只能重写，

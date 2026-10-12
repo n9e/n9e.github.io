@@ -2,6 +2,7 @@
 title: "Datadog Agent 对接"
 sidebar_label: "Datadog Agent 对接"
 description: "把 Datadog Agent 的 v1 series 指标写到夜莺；明确 v2 API、认证与其他 Datadog 数据类型的兼容边界。"
+last_reviewed: 2026-10-11
 ---
 
 这页帮助已有 Datadog Agent 的机器把**兼容的指标数据**写到夜莺，保留已有采集配置。
@@ -51,6 +52,6 @@ sudo journalctl -u datadog-agent -n 100 --no-pager
 ## 下一步 {#next}
 
 - [数据写入协议](../reference/write-protocols.md)
-- [数据源连上了但查不到数据](../troubleshooting/no-data.md)
+- [数据源连上了，为什么查不到数据？](../troubleshooting/no-data.md)
 
 实现依据：[Pushgw 路由](https://github.com/ccfos/nightingale/blob/01a8e22eb21d81f5cbe5c34e5a1511ff63e39983/pushgw/router/router.go)、[series 解析与认证](https://github.com/ccfos/nightingale/blob/01a8e22eb21d81f5cbe5c34e5a1511ff63e39983/pushgw/router/router_datadog.go)。

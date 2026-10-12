@@ -2,6 +2,7 @@
 title: "Enable the MCP endpoint"
 sidebar_label: "Enable the MCP endpoint"
 description: "The /mcp endpoint is built into the n9e process and on by default; list its tools with curl to confirm it is up, and restrict which toolsets it exposes in config."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a `/mcp` endpoint you have verified with curl and that lists its tools, plus

@@ -2,6 +2,7 @@
 title: "Where it fits in the observability stack"
 sidebar_label: "Where it fits"
 description: "Of the six observability layers, Nightingale owns the middle three — rules, noise reduction, routing and delivery; collectors, storage and Grafana stay as they are."
+last_reviewed: 2026-10-10
 ---
 
 After this page you can place Nightingale in the stack you already run, and say which pieces stay.

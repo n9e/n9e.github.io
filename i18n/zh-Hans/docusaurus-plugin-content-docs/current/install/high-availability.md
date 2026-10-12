@@ -2,6 +2,7 @@
 title: "高可用"
 sidebar_label: "高可用"
 description: "在负载均衡后面跑多个 Center 和 Alert 实例，以及哪些部分仍然必须单实例。"
+last_reviewed: 2026-10-10
 ---
 
 夜莺的集群没有额外组件：**多跑几个 `n9e` 进程，配置文件完全一样，共享同一套 MySQL 和 Redis**。

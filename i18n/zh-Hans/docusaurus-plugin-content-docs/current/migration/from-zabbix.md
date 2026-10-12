@@ -2,6 +2,7 @@
 title: "从 Zabbix 迁移"
 sidebar_label: "从 Zabbix 迁移"
 description: "从 Zabbix 迁移是重建而非搬迁：主机对应对象、模板对应集成、触发器对应规则，部分概念没有对应物，全程 Zabbix 不停机。"
+last_reviewed: 2026-10-10
 ---
 
 看完这页，你能把 Zabbix 的对象逐个对到夜莺上，知道哪几样**根本没有对应物**，

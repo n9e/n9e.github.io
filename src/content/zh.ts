@@ -1,5 +1,6 @@
 import type { SiteCopy } from './types';
 import stats from '../data/stats.json';
+import { figures } from '../data/figures';
 import { SLACK_INVITE } from '../data/site';
 
 /**
@@ -12,8 +13,8 @@ export const zh: SiteCopy = {
     demoLabel: '在线体验',
     demoNote: '无需注册',
     ctaPrimaryNote: '自托管部署',
-    title: '开源告警专家',
-    // 「夜莺监控」是中文搜索的品牌主词，H1 没有它，<title> 和首段必须有
+    // 「夜莺监控」是中文搜索的品牌主词：H1 里保留「监控」二字，<title> 和首段写全称
+    title: '开源监控告警专家',
     metaTitle: '夜莺监控 Nightingale (n9e)：开源监控告警引擎',
     metaDescription:
       '夜莺监控（Nightingale，n9e）是开源监控告警引擎：对接 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等数据源，统一告警规则、降噪与分发，内置 AI 助手与 MCP Server。自托管，Apache-2.0。',
@@ -52,10 +53,10 @@ export const zh: SiteCopy = {
   stats: {
     starsLabel: 'GitHub Stars',
     items: [
-      { value: '10+', label: '数据源类型' },
-      { value: '20', label: '通知媒介' },
-      { value: '86', label: '内置集成模板' },
-      { value: '74', label: 'MCP 工具' },
+      { value: figures.datasourceTypes, label: '数据源类型' },
+      { value: figures.notificationChannels, label: '通知媒介' },
+      { value: figures.integrations, label: '内置集成模板' },
+      { value: figures.mcpTools, label: 'MCP 工具' },
     ],
   },
 
@@ -70,7 +71,7 @@ export const zh: SiteCopy = {
         stage: 'config',
         title: '接入已有数据源',
         body: '数据不搬迁。把 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse、Loki 接成数据源，夜莺在其上做告警分析。还没有采集？Categraf 一个 agent 覆盖操作系统、中间件与数据库，按 Prometheus Remote Write 协议直接写入。',
-        points: ['10+ 数据源类型，指标、日志、数据库统一接入', '86 个内置集成模板：采集配置、仪表盘、告警规则成套导入'],
+        points: [`${figures.datasourceTypes} 数据源类型，指标、日志、数据库统一接入`, `${figures.integrations} 个内置集成模板：采集配置、仪表盘、告警规则成套导入`],
         shot: 'img/step-connect.webp',
         shotSize: [1600, 784],
         shotAlt: '夜莺集成中心的组件模板列表',
@@ -123,12 +124,12 @@ export const zh: SiteCopy = {
 
   mcp: {
     eyebrow: 'BUILT-IN MCP SERVER',
-    title: '74 个工具，零额外部署',
+    title: `${figures.mcpTools} 个工具，零额外部署`,
     lead: 'MCP 端点内置在 n9e 进程里，不是又一个要运维的组件。每次工具调用都带着你的 token 落到夜莺自己的 HTTP API 上，所以客户端拿不到 token 主人看不到的东西。',
     figures: [
-      { value: '42', label: '读工具' },
-      { value: '32', label: '写工具' },
-      { value: '13', label: '工具集' },
+      { value: figures.mcpReadTools, label: '读工具' },
+      { value: figures.mcpWriteTools, label: '写工具' },
+      { value: figures.mcpToolsets, label: '工具集' },
     ],
     toolsetsLabel: '工具集',
     toolsets: [
@@ -317,7 +318,7 @@ export const zh: SiteCopy = {
       {
         label: '内置 AI / MCP Server',
         cells: [
-          { level: 'full', text: '74 个工具，进程内置' },
+          { level: 'full', text: `${figures.mcpTools} 个工具，进程内置` },
           { level: 'none', text: '无' },
           { level: 'none', text: '无' },
           { level: 'partial', text: 'Assistant 仅 Cloud 版' },
@@ -328,9 +329,9 @@ export const zh: SiteCopy = {
     matrixNote:
       '基于各项目 2026 年 8 月开源版本的公开能力，只作选型参考。我们尽量把对方的长处写清楚——选型建议不老实，社区口碑也就没了。',
     proof: [
-      { value: '10+', label: '数据源类型' },
-      { value: '20', label: '通知媒介' },
-      { value: '74', label: 'MCP 工具' },
+      { value: figures.datasourceTypes, label: '数据源类型' },
+      { value: figures.notificationChannels, label: '通知媒介' },
+      { value: figures.mcpTools, label: 'MCP 工具' },
     ],
     theirWayLabel: '它的路子',
     ourWayLabel: '夜莺的路子',
@@ -516,8 +517,8 @@ export const zh: SiteCopy = {
         },
       ],
       facts: [
-        '74 个 MCP 工具',
-        '13 个工具集',
+        `${figures.mcpTools} 个 MCP 工具`,
+        `${figures.mcpToolsets} 个工具集`,
         '没有删除工具',
         '权限随用户走',
         'OpenAI 兼容、Anthropic 或自托管模型',
@@ -584,7 +585,7 @@ export const zh: SiteCopy = {
   integrationsPage: {
     title: '接上你已有的一切',
     lead: '数据源、采集器、通知媒介、内置模板——夜莺对接现成的东西，不要求你换体系。下面是全部清单，每一项都可以点进去看怎么接。',
-    counts: { templates: '内置集成模板', sources: '数据源类型', channels: '通知媒介', channelsValue: '20' },
+    counts: { templates: '内置集成模板', sources: '数据源类型', channels: '通知媒介', channelsValue: figures.notificationChannels },
     search: {
       placeholder: '搜索集成：nginx、k8s、阿里云、证书……',
       hint: '聚焦搜索',

@@ -2,6 +2,7 @@
 title: "Evaluation interval and recovery"
 sidebar_label: "Evaluation interval and recovery"
 description: "Four timing fields on a rule — interval, for-duration, observation window, recovery — decide when an event is created, when it recovers and when it re-notifies."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: you can set the four timing fields on a rule deliberately instead of leaving
@@ -154,5 +155,5 @@ which stage the event stopped at.
 ## Next
 
 - The state machine these fields drive: [Evaluation, recovery and state changes](../concepts/evaluation.md)
-- When it will not stop: [Alert fires repeatedly or never recovers](../troubleshooting/alert-flapping.md)
+- When it will not stop: [Why does an alert fire repeatedly or never recover?](../troubleshooting/alert-flapping.md)
 - When it never starts: [Alert rule does not fire](../troubleshooting/alert-not-firing.md)

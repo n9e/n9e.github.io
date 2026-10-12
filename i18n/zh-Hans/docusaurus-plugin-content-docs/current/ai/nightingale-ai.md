@@ -2,6 +2,7 @@
 title: "Nightingale AI 概览"
 sidebar_label: "Nightingale AI 概览"
 description: "Nightingale AI 是内置在页面里的助手，能查告警、指标和配置并起草改动；权限与提问的人完全一致。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会知道：内置助手到底答得了哪些问题、从哪些地方能叫出它，

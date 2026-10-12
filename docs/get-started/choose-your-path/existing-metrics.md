@@ -2,6 +2,7 @@
 title: "I already have Prometheus / VictoriaMetrics"
 sidebar_label: "I already have Prometheus / VictoriaMetrics"
 description: "Register the store as a data source, keep scraping exactly as before, and get the first rule evaluating against it — no data moves."
+last_reviewed: 2026-10-10
 ---
 
 Where this path ends: one alert rule evaluating against the time-series database you **already run**,
@@ -113,7 +114,7 @@ up
 ```
 
 A line on the chart means this half works. If nothing comes back, stop here —
-[Data source connects but queries return no data](../../troubleshooting/no-data.md).
+[Why does a data source connect but return no data?](../../troubleshooting/no-data.md).
 
 ## 4. Write the first rule
 

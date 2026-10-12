@@ -2,6 +2,7 @@
 title: "Monitor processes"
 sidebar_label: "Monitor processes"
 description: "Distinguish system process counts from a service’s resource usage and verify processes, procstat or application metrics."
+last_reviewed: 2026-10-11
 ---
 
 By the end of this page, you will distinguish excessive system process counts from a missing service and collect per-service resource metrics.

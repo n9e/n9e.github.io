@@ -2,6 +2,7 @@
 title: "ElasticSearch / OpenSearch"
 sidebar_label: "ElasticSearch / OpenSearch"
 description: "接入 ES 或 OpenSearch 集群，选择索引模式与时间字段，跑一条日志查询。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一个接好的 ES 集群、一个可复用的索引模式，

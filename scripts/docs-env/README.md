@@ -76,6 +76,8 @@ node shoot-docs.mjs data alerting   # 只截这些 section
 ```
 
 - 落到 `static/img/docs/<section>/<name>.png`（英文）和 `<name>.zh.png`（中文）；
+- 截完跑 `node webp-docs.mjs`：PNG 转成无损 WebP（体积省三到五成）、删掉 PNG，
+  并把尺寸写进 `src/data/doc-shots.json` 供 `<Shot>` 加 width/height。正文和组件只认 `.webp`；
 - 视口 1600×900，`deviceScaleFactor: 2`，和团队既有约定一致；
 - 语言和「侧栏收起」都在登录前写进 localStorage（`language`、`menuCollapsed`），
   靠点按钮收侧栏不可靠，每次导航组件都会重挂载；

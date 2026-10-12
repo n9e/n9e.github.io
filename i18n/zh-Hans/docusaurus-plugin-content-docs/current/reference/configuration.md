@@ -2,6 +2,7 @@
 title: "配置项"
 sidebar_label: "配置项"
 description: "config.toml 与 etc/edge/edge.toml 的每一个键：默认值、由哪个进程读取。"
+last_reviewed: 2026-10-10
 ---
 
 配置文件在二进制同级的 `etc/` 目录下。`n9e`、`n9e-alert`、`n9e-pushgw` 读 `config.toml`，

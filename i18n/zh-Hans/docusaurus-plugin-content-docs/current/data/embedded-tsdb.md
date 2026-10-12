@@ -2,6 +2,7 @@
 title: "自动注册的内置时序库数据源"
 sidebar_label: "自动注册的内置时序库数据源"
 description: "全新安装自动注册 embedded-tsdb 数据源（Prometheus 类型），Pushgw 收到的数据默认写入其中，查法与外置 Prometheus 相同。"
+last_reviewed: 2026-10-10
 ---
 
 装完夜莺第一次打开 **集成中心 → 数据源**，列表里已经躺着一条名叫 `embedded-tsdb` 的

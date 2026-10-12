@@ -2,6 +2,7 @@
 title: "通知规则"
 sidebar_label: "通知规则"
 description: "按标签和级别匹配事件，再决定走哪个媒介、用哪份模板、发给谁。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一条能用的通知规则——S1 走一个媒介、S3 走另一个，
@@ -95,4 +96,4 @@ description: "按标签和级别匹配事件，再决定走哪个媒介、用哪
 - 改消息文案：[模板与变量](./templates.md)
 - 让另一个团队也收到同样的事件：[订阅规则](../events/subscriptions.md)
 - 变更窗口内别吵：[屏蔽规则](../events/mute-rules.md)
-- 规则配好了却收不到：[有事件但收不到通知](../troubleshooting/no-notification.md)
+- 规则配好了却收不到：[有告警事件，为什么收不到通知？](../troubleshooting/no-notification.md)

@@ -2,6 +2,7 @@
 title: "Deprecations and EOL policy"
 sidebar_label: "Deprecations and EOL policy"
 description: "Features, fields and UI items marked deprecated, with their replacements; the project publishes no removal schedule, and GitHub releases are the version record."
+last_reviewed: 2026-10-10
 ---
 
 This page lists what Nightingale marks as deprecated and what replaced it. It does not list removal

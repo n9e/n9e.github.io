@@ -4,6 +4,7 @@ sidebar_label: "常见问题入口"
 description: "按问题进入 CPU 告警、Prometheus 规则导入、订阅和数据排查的当前说明。"
 slug: "/faq"
 displayed_sidebar: "docs"
+last_reviewed: 2026-10-11
 ---
 
 从这里可以继续访问旧目录中的主题；链接已经指向当前说明或保留原地址的实践文章。

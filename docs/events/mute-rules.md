@@ -2,6 +2,7 @@
 title: "Mute rules"
 sidebar_label: "Mute rules"
 description: "Silence by label match, time window or maintenance schedule, and see what a mute rule is currently swallowing."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a rule that keeps a class of alert quiet during a window you choose, and

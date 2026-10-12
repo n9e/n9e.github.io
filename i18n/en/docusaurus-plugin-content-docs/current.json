@@ -44,7 +44,7 @@
     "description": "The label for category 'Categraf' in sidebar 'docs'"
   },
   "sidebar.docs.category.categraf.link.generated-index.title": {
-    "message": "Categraf",
+    "message": "Categraf collector",
     "description": "The generated-index page title for category 'Categraf' in sidebar 'docs'"
   },
   "sidebar.docs.category.categraf.link.generated-index.description": {

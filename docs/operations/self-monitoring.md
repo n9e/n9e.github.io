@@ -2,6 +2,7 @@
 title: "Monitor Nightingale itself"
 sidebar_label: "Monitor Nightingale itself"
 description: "Rules that page you when the alerting system is the thing that is down."
+last_reviewed: 2026-10-10
 ---
 
 An alerting system that is down will not tell you it is down. This page gives the concrete rules

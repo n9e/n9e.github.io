@@ -1,7 +1,8 @@
 ---
-title: "Query works but the alert does not fire"
-sidebar_label: "Query works but the alert does not fire"
+title: "Why does the alert not fire when the query returns results?"
+sidebar_label: "Why does the alert not fire when the query returns results?"
 description: "Query has data but nothing fires: the evaluation records hold the answer — for-duration not met, wrong datasource_queries, group or window mismatch, disabled, muted."
+last_reviewed: 2026-10-10
 ---
 
 You paste the rule's expression into the Metrics explorer, the value is clearly over the threshold,
@@ -41,7 +42,7 @@ The for-duration is 180 seconds and only 45 have accumulated — it is not faili
 due yet.
 
 If `anomaly_total` is 0, **no series crossed the threshold at query time**. That is not a judgement
-problem; go back to the query: [Data source connects but queries return no data](./no-data.md).
+problem; go back to the query: [Why does a data source connect but return no data?](./no-data.md).
 
 ## The rule is never evaluated
 
@@ -123,8 +124,8 @@ history back, switch the mute rule to notification-only.
 
 ## Next
 
-- The evaluation records themselves are empty: [Evaluation records are missing or dropped](./evaluation-missing.md)
-- The event exists but nothing arrives: [Alert event exists but no notification arrives](./no-notification.md)
-- Fires and recovers repeatedly: [Alert fires repeatedly or never recovers](./alert-flapping.md)
+- The evaluation records themselves are empty: [Why are evaluation records missing or dropped?](./evaluation-missing.md)
+- The event exists but nothing arrives: [Why is there an alert event but no notification?](./no-notification.md)
+- Fires and recovers repeatedly: [Why does an alert fire repeatedly or never recover?](./alert-flapping.md)
 - The full model: [Evaluation, recovery and state changes](../concepts/evaluation.md)
 - How to read the records page: [Evaluation execution records](../alerting/execution-records.md)

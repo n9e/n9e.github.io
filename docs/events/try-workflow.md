@@ -2,6 +2,7 @@
 title: "Try a workflow with a mock event"
 sidebar_label: "Try a workflow with a mock event"
 description: "Run a pipeline against a hand-written event and see each processor's output before anything is live."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: before the workflow is attached to any rule, you can see what it does to

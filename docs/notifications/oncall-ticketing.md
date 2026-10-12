@@ -2,6 +2,7 @@
 title: "PagerDuty / FlashDuty / Jira"
 sidebar_label: "PagerDuty / FlashDuty / Jira"
 description: "Hand events to an on-call platform or open a ticket, with the field mapping each one expects."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: Nightingale events enter FlashDuty's or PagerDuty's on-call flow, or turn

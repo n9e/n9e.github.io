@@ -2,6 +2,7 @@
 title: "发布说明"
 sidebar_label: "发布说明"
 description: "除 GitHub 变更记录之外，每个版本带升级影响说明的整理版。"
+last_reviewed: 2026-10-10
 ---
 
 这页不复述变更列表——完整的逐条改动一直在 GitHub 上，而且比这里更新得快。

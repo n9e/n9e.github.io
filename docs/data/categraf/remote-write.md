@@ -2,6 +2,7 @@
 title: "Remote write"
 sidebar_label: "Remote write"
 description: "Categraf batches metrics and ships them over Prometheus Remote Write; several writers can feed Nightingale and a second backend at once; failed writes are not retried."
+last_reviewed: 2026-10-10
 ---
 
 Categraf does not send each sample as it is collected. Metrics go into a queue, are batched, and

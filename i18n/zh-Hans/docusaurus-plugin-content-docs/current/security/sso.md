@@ -2,6 +2,7 @@
 title: "SSO 与外部身份集成"
 sidebar_label: "SSO 与外部身份集成"
 description: "OIDC、OAuth2、LDAP、CAS、钉钉与飞书登录，以及把外部组映射到角色。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：用公司账号就能登进夜莺，账号第一次登录时自动创建，

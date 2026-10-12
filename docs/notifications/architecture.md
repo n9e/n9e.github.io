@@ -2,6 +2,7 @@
 title: "Notification architecture"
 sidebar_label: "Notification architecture"
 description: "Three objects carry a notification: the rule picks recipients, the media type says how to send, the template says what to send; a missing link makes it vanish."
+last_reviewed: 2026-10-11
 ---
 
 Where this page ends: you know which three objects an alert event passes through on its way

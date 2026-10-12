@@ -2,9 +2,10 @@
 title: "MCP 工具"
 sidebar_label: "MCP 工具"
 description: "13 个工具集共 74 个工具的参数，以及读写之分。"
+last_reviewed: 2026-10-10
 ---
 
-`/mcp` 端点默认启用，暴露的工具来自 `n9e-mcp-server`。这页是完整清单。
+`/mcp` 端点默认启用，内置在 n9e 进程里，不需要单独部署 MCP server（独立的 `n9e-mcp-server` 已弃用，它的工具集库现在随 n9e 一起发布）。这页是完整清单。
 
 怎么连、怎么鉴权见[启用 MCP 端点](../ai/mcp-endpoint.md)；
 权限边界见[MCP 的权限继承](../ai/permissions.md)。

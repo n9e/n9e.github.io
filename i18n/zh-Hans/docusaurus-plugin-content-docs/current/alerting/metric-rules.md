@@ -2,6 +2,7 @@
 title: "指标规则"
 sidebar_label: "指标规则"
 description: "指标规则把阈值写在 PromQL 里，一条规则可带 S1 / S2 / S3 多档级别，查询返回的标签会落到事件上供路由使用。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会看得懂、也写得出 Prometheus 类规则的「告警条件」那一步——阈值写在哪儿、

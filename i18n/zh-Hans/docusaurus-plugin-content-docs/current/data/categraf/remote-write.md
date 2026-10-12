@@ -2,6 +2,7 @@
 title: "Remote Write"
 sidebar_label: "Remote Write"
 description: "Categraf 攒批后按 Prometheus Remote Write 发出指标，可配多个写入目标同时写夜莺和另一个后端；写失败不重试。"
+last_reviewed: 2026-10-10
 ---
 
 Categraf 采到的指标不是采一条发一条，而是进队列、攒批、按 Prometheus Remote Write

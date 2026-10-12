@@ -2,6 +2,7 @@
 title: "Java 程序监控"
 sidebar_label: "Java 程序监控"
 description: "按应用能力选择 Spring Boot Actuator、Micrometer、JMX Exporter 或组件自带指标，再用 Categraf 或现有 Prometheus 抓取。"
+last_reviewed: 2026-10-11
 ---
 
 这页办完，你会选择适合 Java 应用的指标暴露方式，并把 JVM 或应用指标接入夜莺。

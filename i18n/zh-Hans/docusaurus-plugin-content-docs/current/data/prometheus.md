@@ -2,6 +2,7 @@
 title: "Prometheus"
 sidebar_label: "Prometheus"
 description: "注册 Prometheus 或 Thanos 地址，设置认证与超时，用一条查询验证。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一个已注册、连通性测过、能在即时查询里查出曲线的 Prometheus 数据源。
@@ -87,7 +88,7 @@ up
 ```
 
 有曲线出来，这条路就通了。查不到先别往下走，看
-[数据源连上了但查不到数据](../troubleshooting/no-data.md)。
+[数据源连上了，为什么查不到数据？](../troubleshooting/no-data.md)。
 
 ## 排障
 

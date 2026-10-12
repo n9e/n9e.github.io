@@ -2,6 +2,7 @@
 title: "ElasticSearch / OpenSearch"
 sidebar_label: "ElasticSearch / OpenSearch"
 description: "Connect an ES or OpenSearch cluster, choose index patterns and the timestamp field, and run a log query."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a connected ES cluster, one reusable index pattern, and a query that returns

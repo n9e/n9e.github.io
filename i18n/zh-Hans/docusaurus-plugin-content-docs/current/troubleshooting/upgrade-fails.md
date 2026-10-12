@@ -1,7 +1,8 @@
 ---
-title: "升级或数据库迁移失败"
-sidebar_label: "升级或数据库迁移失败"
+title: "升级或数据库迁移为什么失败？"
+sidebar_label: "升级或数据库迁移为什么失败？"
 description: "升级后出现 Unknown column、新功能页面空白或进程卡住，都说明表结构没有完整升上去，常见于数据库权限不足或迁移中断。"
+last_reviewed: 2026-10-10
 ---
 
 换了新二进制，进程起来了，界面却报 `Unknown column`；或者某个新功能的页面一片空白；

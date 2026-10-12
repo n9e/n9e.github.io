@@ -2,6 +2,7 @@
 title: "Pushgw 队列、写入器与双写"
 sidebar_label: "Pushgw 队列、写入器与双写"
 description: "写入路径：队列大小、背压、多写入器、同时转发到两个后端。"
+last_reviewed: 2026-10-10
 ---
 
 Pushgw 是「样本进来、转发出去」的那一段。它在 `n9e` 进程里默认就开着，

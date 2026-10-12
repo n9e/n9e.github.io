@@ -2,6 +2,7 @@
 title: "Safe automation patterns"
 sidebar_label: "Safe automation patterns"
 description: "Safe AI automation keeps a person in the loop at write time: the assistant proposes and you confirm, one account can write, or AI drafts a script that a human runs."
+last_reviewed: 2026-10-10
 ---
 
 This page is about one boundary: how much you let an AI change, and what stops a wrong change from

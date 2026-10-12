@@ -2,6 +2,7 @@
 title: "VictoriaMetrics"
 sidebar_label: "VictoriaMetrics"
 description: "VictoriaMetrics 按 Prometheus 类型接入，再把时序库类型设为 VictoriaMetrics；单机版与集群版的地址写法不同。"
+last_reviewed: 2026-10-10
 ---
 
 先说一句免得你在类型列表里找：**开源版没有「VictoriaMetrics」这个数据源类型**。

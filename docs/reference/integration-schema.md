@@ -2,6 +2,7 @@
 title: "Integration manifest and payload schema"
 sidebar_label: "Integration schema"
 description: "The file layout of an integration template, so you can write and contribute one."
+last_reviewed: 2026-10-10
 ---
 
 An integration template is a component's monitoring in one bundle: collector config, dashboards,

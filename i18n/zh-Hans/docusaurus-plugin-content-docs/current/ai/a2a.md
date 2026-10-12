@@ -2,6 +2,7 @@
 title: "A2A 端点"
 sidebar_label: "A2A 端点"
 description: "A2A 端点把夜莺暴露成可被其他 Agent 平台发现和调用的 Agent，Agent Card 声明地址与支持的方法。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一个第三方 Agent 平台能自动发现并调用的夜莺 Agent，

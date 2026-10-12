@@ -1,7 +1,8 @@
 ---
-title: "排障"
+title: "Categraf 排障"
 sidebar_label: "排障"
 description: "Categraf 的问题按现象分三类：主机不出现、主机在但没指标、某个插件没数据；答案几乎都在日志里，包括不以 E! 标记的错误。"
+last_reviewed: 2026-10-10
 ---
 
 Categraf 侧的问题基本都能在日志里看出来，前提是知道去哪看、以及**哪些错误不是 `E!` 级别**。

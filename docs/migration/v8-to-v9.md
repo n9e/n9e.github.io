@@ -2,6 +2,7 @@
 title: "v8 to v9"
 sidebar_label: "v8 to v9"
 description: "v8 to v9 is a binary swap with the schema migrated on startup, but several new config sections must be added by hand or the new features stay silently off."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: a v8 install running v9, with the prerequisites checked beforehand, the

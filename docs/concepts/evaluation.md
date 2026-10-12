@@ -2,6 +2,7 @@
 title: "Evaluation, recovery and state changes"
 sidebar_label: "Evaluation and recovery"
 description: "A rule does not fire on the first high value: three timing parameters and a small state machine decide when it first fires, when it recovers and whether it flaps."
+last_reviewed: 2026-10-10
 ---
 
 A rule does not fire the moment a query comes back high. Three timing parameters and a small state
@@ -85,4 +86,4 @@ See [Evaluation execution records](../alerting/execution-records.md).
 
 - [Alert lifecycle and severity](./alert-lifecycle.md)
 - [Evaluation interval and recovery](../alerting/evaluation.md)
-- [Alert fires repeatedly or never recovers](../troubleshooting/alert-flapping.md)
+- [Why does an alert fire repeatedly or never recover?](../troubleshooting/alert-flapping.md)

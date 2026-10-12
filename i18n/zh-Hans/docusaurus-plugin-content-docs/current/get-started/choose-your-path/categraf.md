@@ -2,6 +2,7 @@
 title: "还没采集，从 Categraf 开始"
 sidebar_label: "还没采集，从 Categraf 开始"
 description: "在一台机器上装 Categraf，通过 Remote Write 指向夜莺，一分钟内在对象列表里看到它上线。"
+last_reviewed: 2026-10-10
 ---
 
 这条路的终点：一台机器出现在夜莺的设备列表里，CPU、内存、磁盘都有数，
@@ -72,7 +73,7 @@ region = "shanghai"
 2. 这台机器能不能访问到夜莺（防火墙、安全组）；
 3. 两边时间差是不是超过了几分钟。
 
-细的排查见 [Categraf 对象显示离线](../../troubleshooting/categraf-offline.md)。
+细的排查见 [Categraf 对象为什么显示离线？](../../troubleshooting/categraf-offline.md)。
 
 ## 5. 顺手导一套仪表盘和规则
 

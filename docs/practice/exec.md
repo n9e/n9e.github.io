@@ -2,6 +2,7 @@
 title: "Custom collector scripts"
 sidebar_label: "Custom collector scripts"
 description: "Run a script with the Categraf exec input, emit Prometheus metrics, and verify permissions, timeouts and service execution."
+last_reviewed: 2026-10-11
 ---
 
 By the end of this page, a script will emit custom samples that Categraf sends to Nightingale's TSDB.

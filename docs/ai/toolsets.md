@@ -2,6 +2,7 @@
 title: "Read and write toolsets"
 sidebar_label: "Read and write toolsets"
 description: "The MCP endpoint offers 74 tools in 13 toolsets; six toolsets are entirely read-only, there are no delete tools, and write tools must be enabled separately."
+last_reviewed: 2026-10-10
 ---
 
 This page exists to support one decision: which toolsets to expose. Per-tool parameters live in

@@ -2,6 +2,7 @@
 title: "Token 与凭据轮换"
 sidebar_label: "Token 与凭据轮换"
 description: "个人 Token、给 MCP 和 API 用的服务账号，以及不停机地轮换它们。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会得到：一套能说清「哪个 Token 给谁用、上次什么时候用过、什么时候换」的做法，

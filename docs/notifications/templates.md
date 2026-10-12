@@ -2,6 +2,7 @@
 title: "Templates and variables"
 sidebar_label: "Templates and variables"
 description: "Templates are Go text/template with every variable under $event; a misspelled variable raises no error and just leaves a hole in the message — preview catches it."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: your own message template, every variable in it verified in the preview,

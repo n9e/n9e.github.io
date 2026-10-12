@@ -2,6 +2,7 @@
 title: "Share, embed and integrate external systems"
 sidebar_label: "Share, embed and integrate external systems"
 description: "Embed Nightingale into an existing portal, hide menus selectively, and pass identity through."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: extra entries in the Nightingale side menu that open your other

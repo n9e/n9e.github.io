@@ -2,6 +2,7 @@
 title: "Built-in metrics and health checks"
 sidebar_label: "Built-in metrics and health checks"
 description: "The /metrics and health endpoints each process exposes, and the handful worth graphing."
+last_reviewed: 2026-10-10
 ---
 
 `n9e`, `n9e-edge`, `n9e-alert` and `n9e-pushgw` share one HTTP skeleton, so the endpoints below are

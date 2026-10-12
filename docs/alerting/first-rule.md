@@ -2,6 +2,7 @@
 title: "Create the first rule"
 sidebar_label: "Create the first rule"
 description: "A rule from scratch: pick the source, write the query, set severity, test fire it, and watch the event appear."
+last_reviewed: 2026-10-10
 ---
 
 Where this page ends: one rule you wrote yourself has produced a real event, and you have seen it in

@@ -2,6 +2,7 @@
 title: "条件路由"
 sidebar_label: "条件路由"
 description: "根据标签和级别把事件送到不同的媒介或团队。"
+last_reviewed: 2026-10-10
 ---
 
 这页办完你会知道：想让「S1 打电话、S3 只进群」「`env=prod` 的走值班群、`env=dev` 的不发」
