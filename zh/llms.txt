@@ -1,0 +1,321 @@
+# 夜莺监控 Nightingale (n9e)
+
+> 开源监控告警引擎：对接 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等数据源，统一告警规则、降噪与分发；自托管，Apache-2.0，内置 AI 助手与 MCP Server。
+
+
+## zh
+
+夜莺监控（Nightingale，n9e）是开源监控告警引擎：对接 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等数据源，统一告警规则、降噪与分发，内置 AI 助手与 MCP Server。自托管，Apache-2.0。
+
+- [开源告警专家](https://n9e.github.io/zh/index.md): 夜莺监控（Nightingale，n9e）是开源监控告警引擎：对接 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等数据源，统一告警规则、降噪与分发，内置 AI 助手与 MCP Server。自托管，Apache-2.0。
+
+### categraf
+
+夜莺在你已有的数据上做告警分析，Categraf 负责把数据送进来：一个 agent 覆盖操作系统、中间件、数据库、网络设备与 Kubernetes，按 Prometheus Remote Write 协议推送。MIT 协议开源，与夜莺出自同一个团队。
+
+- [Categraf](https://n9e.github.io/zh/categraf.md): 夜莺在你已有的数据上做告警分析，Categraf 负责把数据送进来：一个 agent 覆盖操作系统、中间件、数据库、网络设备与 Kubernetes，按 Prometheus Remote Write 协议推送。MIT 协议开源，与夜莺出自同一个团队。
+
+### comparisons
+
+Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告警这一层，该交给专门做告警的工具。
+
+- [存储不用换， 换掉的是告警这一层。](https://n9e.github.io/zh/comparisons.md): Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告警这一层，该交给专门做告警的工具。
+
+### download
+
+这里的每个包都来自打了标签的正式发布，发布在 GitHub 上。先说你要做什么，页面只给这条路上用得到的命令。
+
+- [五分钟装起来， 或者按生产的要求部署。](https://n9e.github.io/zh/download.md): 这里的每个包都来自打了标签的正式发布，发布在 GitHub 上。先说你要做什么，页面只给这条路上用得到的命令。
+
+### integrations
+
+数据源、采集器、通知媒介、内置模板——夜莺对接现成的东西，不要求你换体系。下面是全部清单，每一项都可以点进去看怎么接。
+
+- [接上你已有的一切](https://n9e.github.io/zh/integrations.md): 数据源、采集器、通知媒介、内置模板——夜莺对接现成的东西，不要求你换体系。下面是全部清单，每一项都可以点进去看怎么接。
+
+### docs
+
+从这里开始。按你要办的事进去——接数据源、写告警规则、降噪、把告警送到值班人、部署到生产，或者接上 MCP。
+
+- [夜莺文档](https://n9e.github.io/zh/docs.md): 从这里开始。按你要办的事进去——接数据源、写告警规则、降噪、把告警送到值班人、部署到生产，或者接上 MCP。
+
+#### agent
+
+- [Datadog Agent 对接](https://n9e.github.io/zh/docs/agent/datadog-agent.md): 把 Datadog Agent 的 v1 series 指标写到夜莺；明确 v2 API、认证与其他 Datadog 数据类型的兼容边界。
+- [Telegraf 对接](https://n9e.github.io/zh/docs/agent/telegraf.md): 使用 Telegraf HTTP 输出与 Prometheus Remote Write 把指标写入夜莺，并核验认证、存储和实际数据。
+
+#### ai
+
+- [A2A 端点](https://n9e.github.io/zh/docs/ai/a2a.md): A2A 端点把夜莺暴露成可被其他 Agent 平台发现和调用的 Agent，Agent Card 声明地址与支持的方法。
+- [Agent 与对话历史](https://n9e.github.io/zh/docs/ai/agents.md): 对话历史保存在夜莺服务端，可查看和删除；开源版的「Agent」是内部绑定，不是可以自行创建的对象。
+- [安全的自动化模式](https://n9e.github.io/zh/docs/ai/automation.md): 安全的 AI 自动化都让人留在写入那一刻：助手提议、人确认，默认只读、单账号可写，或 AI 起草脚本、人来执行。
+- [配置大模型提供方](https://n9e.github.io/zh/docs/ai/llm-provider.md): 把夜莺指向 OpenAI 兼容、Anthropic 或自托管模型：密钥、地址与模型选择。
+- [接入 Claude Code / Cursor 等客户端](https://n9e.github.io/zh/docs/ai/mcp-clients.md): Claude Code、Cursor 等 MCP 客户端只需 /mcp 地址和一个 Token 即可接入；一条只读提示词就能验证连通。
+- [启用 MCP 端点](https://n9e.github.io/zh/docs/ai/mcp-endpoint.md): /mcp 端点内置在 n9e 进程里，默认开启；用 curl 列出工具清单即可确认存活，配置里可只放开部分工具集。
+- [Nightingale AI 概览](https://n9e.github.io/zh/docs/ai/nightingale-ai.md): Nightingale AI 是内置在页面里的助手，能查告警、指标和配置并起草改动；权限与提问的人完全一致。
+- [OAuth 2.1 与外部身份源](https://n9e.github.io/zh/docs/ai/oauth.md): 夜莺作为托管客户端的授权服务器，或作为 Keycloak、Entra ID、Okta 前面的资源服务器。
+- [AI 能力与 MCP](https://n9e.github.io/zh/docs/ai/overview.md): 内置助手、Skills 市场，以及一个让 Claude Code、Cursor 以你本人的权限操作夜莺的 MCP 端点。
+- [权限继承与 RBAC](https://n9e.github.io/zh/docs/ai/permissions.md): 每次 MCP 工具调用都是以 Token 用户身份发起的内部 API 调用，客户端的权限因此与该用户完全一致，业务组边界同样生效。
+- [安装、管理与编写 Skills](https://n9e.github.io/zh/docs/ai/skills.md): Skill 是一份用 SKILL.md 描述的排查方法，可从市场安装或自己编写，设定可见团队后由助手在对应问题上自动调用。
+- [个人 Token 认证](https://n9e.github.io/zh/docs/ai/token-auth.md): 创建 Token、放进 X-User-Token 头，并理解客户端继承的正是该用户的权限。
+- [读写工具集](https://n9e.github.io/zh/docs/ai/toolsets.md): MCP 端点提供 13 个工具集共 74 个工具；六个工具集完全只读，没有删除工具，写工具需要单独开启。
+- [AI / Skill / MCP 排障](https://n9e.github.io/zh/docs/ai/troubleshooting.md): 按现象排查 AI 功能：助手不回答或半路中断、Skill 没被用上或装不上、MCP 客户端连不上——每条都能从产品日志核对。
+- [常见排查工作流](https://n9e.github.io/zh/docs/ai/workflows.md): 可直接粘贴的排查提示词，配上回答它们的内置 Skill：分诊活跃事件、找最吵的规则、解释一次指标尖峰。
+- [安全地启用写工具](https://n9e.github.io/zh/docs/ai/write-tools.md): MCP 写工具默认不注册；在 [HTTP.A2A] 配置里显式打开，可限定到某个 Token，每次改动都留在日志里可追溯。
+
+#### alerting
+
+- [规则设计实践](https://n9e.github.io/zh/docs/alerting/best-practices.md): 规则设计的几条主张：只对需要人处理的事告警，趋势留给仪表盘，一条规则覆盖一类对象，定期回顾让规则集不腐烂。
+- [判定周期与恢复](https://n9e.github.io/zh/docs/alerting/evaluation.md): 规则上的四个时间字段——执行频率、持续时长、留观时长、恢复判定——共同决定事件何时产生、何时恢复、何时重复通知。
+- [查看判定执行记录](https://n9e.github.io/zh/docs/alerting/execution-records.md): 每次判定都有记录：看查询返回了什么、事件为什么触发或没触发。
+- [创建第一条规则](https://n9e.github.io/zh/docs/alerting/first-rule.md): 从零写一条规则：选数据源、写查询、定级别、测试触发、看事件出现。
+- [导入、导出与复用](https://n9e.github.io/zh/docs/alerting/import-export.md): 以 JSON 在环境之间搬运规则，并纳入版本控制。
+- [标签、附加信息与级别](https://n9e.github.io/zh/docs/alerting/labels-severity.md): 给路由用的标签、在通知里读得顺的附加信息，以及有意识地选 S1 / S2 / S3。
+- [日志规则](https://n9e.github.io/zh/docs/alerting/log-rules.md): 对 ElasticSearch、OpenSearch、Loki、VictoriaLogs 的日志条数或匹配做告警——四种都能告警，但只有三种能在日志检索里预览。
+- [指标规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md): 指标规则把阈值写在 PromQL 里，一条规则可带 S1 / S2 / S3 多档级别，查询返回的标签会落到事件上供路由使用。
+- [告警规则](https://n9e.github.io/zh/docs/alerting/overview.md): 规则在页面上配、按业务组分权限、分 S1 / S2 / S3 三级，一条规则可同时作用于多个数据源。装完就带一批常用规则。
+- [按业务组与数据源划定范围](https://n9e.github.io/zh/docs/alerting/scope.md): 每条规则有两个独立的范围：归属的业务组决定谁能改、事件算谁的；数据源列表决定查询打到哪些实例，一条规则可跨多个。
+- [SQL 规则](https://n9e.github.io/zh/docs/alerting/sql-rules.md): 按计划对 MySQL、PostgreSQL、ClickHouse、Doris、TDengine、IoTDB 执行一条 SQL 的规则。
+- [规则模板与内置规则](https://n9e.github.io/zh/docs/alerting/templates.md): 夜莺自带 MySQL、Redis、Kubernetes 等六十多个组件的规则模板，可导入任意业务组；自己的规则也能存为模板复用。
+- [测试触发](https://n9e.github.io/zh/docs/alerting/test-fire.md): 手动触发一条规则，在上线前检查查询、标签和渲染出来的通知。
+
+#### concepts
+
+产品背后的心智模型：有哪几个进程、一个数据源怎么变成一条告警、事件在送到人之前经过了哪几道筛。
+
+- [架构与概念](https://n9e.github.io/zh/docs/concepts.md): 产品背后的心智模型：有哪几个进程、一个数据源怎么变成一条告警、事件在送到人之前经过了哪几道筛。
+- [告警生命周期与 S1 / S2 / S3](https://n9e.github.io/zh/docs/concepts/alert-lifecycle.md): 告警事件由规则 + 标签集唯一标识，经历触发、持续、恢复三个阶段；S1 / S2 / S3 不改变机制，只告诉收到的人有多急。
+- [系统架构](https://n9e.github.io/zh/docs/concepts/architecture.md): 夜莺的核心是一个 n9e 进程：测试零依赖，生产加 MySQL 和 Redis，多实例共享同一套库即为集群，多机房用 n9e-edge。
+- [认证、Token 与 RBAC 模型](https://n9e.github.io/zh/docs/concepts/auth-rbac.md): 权限只有两层：角色决定能进哪些页面、调哪些接口，业务组成员关系决定能动哪些数据；界面、HTTP API 和 MCP 共用这一套。
+- [业务组与资源归属](https://n9e.github.io/zh/docs/concepts/business-groups.md): 业务组是权限边界：规则、对象、仪表盘都归属某个业务组，成员关系决定谁能看、谁能改。
+- [Center、Alert、Edge、Pushgw 与 Categraf](https://n9e.github.io/zh/docs/concepts/components.md): 绝大多数部署只需要 n9e 一个进程；n9e-alert、n9e-pushgw 是可拆出的角色，n9e-edge 给多机房用，Categraf 在采集侧。
+- [数据源 → 规则 → 事件](https://n9e.github.io/zh/docs/concepts/data-model.md): 整个产品挂在三个对象上：规则查询数据源，越界的规则产生事件。
+- [判定、恢复与状态变化](https://n9e.github.io/zh/docs/concepts/evaluation.md): 规则不是查到就报：评估周期、持续时长、恢复条件三个参数加一套状态机，决定事件何时首次触发、何时恢复、会不会抖动。
+- [标签、注解与身份](https://n9e.github.io/zh/docs/concepts/labels-annotations.md): 标签决定一个事件「是谁」，注解决定通知里能看到什么，两者不能混用。
+- [降噪与路由模型](https://n9e.github.io/zh/docs/concepts/noise-routing.md): 屏蔽规则、订阅、事件 Pipeline、通知规则不是并列的备选，而是按固定先后作用于事件；搞错顺序就会出现配了屏蔽仍收到告警。
+- [内置时序库与外部存储](https://n9e.github.io/zh/docs/concepts/storage.md): 夜莺自带一个时序库让你零依赖起步；这页讲它的边界，以及什么时候必须换成 Prometheus 或 VictoriaMetrics。
+
+#### data
+
+- [Categraf](https://n9e.github.io/zh/docs/data/categraf.md): 推荐的采集器：一个 agent、100+ 输入插件，按 Prometheus Remote Write 推送。
+- [安装与注册](https://n9e.github.io/zh/docs/data/categraf/install.md): 安装 agent、填夜莺的写入地址、确认主机出现在对象列表里。
+- [输入插件](https://n9e.github.io/zh/docs/data/categraf/plugins.md): Categraf 内置 90 多个输入插件；每个插件一个 conf/input.<名> 目录，放入配置即启用，可在前台单独跑一个来验证。
+- [Remote Write](https://n9e.github.io/zh/docs/data/categraf/remote-write.md): Categraf 攒批后按 Prometheus Remote Write 发出指标，可配多个写入目标同时写夜莺和另一个后端；写失败不重试。
+- [对象与心跳](https://n9e.github.io/zh/docs/data/categraf/targets.md): Categraf 每 10 秒向夜莺发一次心跳，带上主机元信息完成注册；设备列表据此显示状态和标签，主机要手动归入业务组。
+- [排障](https://n9e.github.io/zh/docs/data/categraf/troubleshooting.md): Categraf 的问题按现象分三类：主机不出现、主机在但没指标、某个插件没数据；答案几乎都在日志里，包括不以 E! 标记的错误。
+- [ClickHouse / Doris / IoTDB](https://n9e.github.io/zh/docs/data/clickhouse-doris-iotdb.md): ClickHouse、Doris、IoTDB 同属 SQL 类数据源：查询结果的数值列成为序列值，其余列成为标签，直接用于告警判定。
+- [ElasticSearch / OpenSearch](https://n9e.github.io/zh/docs/data/elasticsearch.md): 接入 ES 或 OpenSearch 集群，选择索引模式与时间字段，跑一条日志查询。
+- [自动注册的内置时序库数据源](https://n9e.github.io/zh/docs/data/embedded-tsdb.md): 全新安装自动注册 embedded-tsdb 数据源（Prometheus 类型），Pushgw 收到的数据默认写入其中，查法与外置 Prometheus 相同。
+- [集成模板](https://n9e.github.io/zh/docs/data/integrations.md): 86 个模板把采集配置、仪表盘、告警规则打成一套，一个组件一次接完。
+- [安装采集配置](https://n9e.github.io/zh/docs/data/integrations/collector-config.md): 把模板里的采集配置放进 Categraf，开始采集该组件的指标。
+- [导入仪表盘与规则](https://n9e.github.io/zh/docs/data/integrations/import.md): 把模板附带的仪表盘和告警规则导入某个业务组，启用前调整阈值。
+- [验证数据到达](https://n9e.github.io/zh/docs/data/integrations/verify.md): 导入的规则不响可能只是数据没到；用集成模板列出的指标名在即时查询里查一次，两分钟就能确认组件指标已经到达。
+- [Loki / VictoriaLogs](https://n9e.github.io/zh/docs/data/loki-victorialogs.md): 注册日志存储，写 LogQL 或 LogsQL 查询，按条数或匹配结果告警。
+- [接入数据](https://n9e.github.io/zh/docs/data/overview.md): 夜莺在原地查询你的存储。十二种数据源共用一套规则体系；还没采集的部分交给 Categraf。
+- [Prometheus](https://n9e.github.io/zh/docs/data/prometheus.md): 注册 Prometheus 或 Thanos 地址，设置认证与超时，用一条查询验证。
+- [MySQL / PostgreSQL / TDengine](https://n9e.github.io/zh/docs/data/sql-databases.md): 直接对业务数据库告警：只读账号、规则执行的 SQL、以及怎么防慢查询。
+- [VictoriaMetrics](https://n9e.github.io/zh/docs/data/victoriametrics.md): VictoriaMetrics 按 Prometheus 类型接入，再把时序库类型设为 VictoriaMetrics；单机版与集群版的地址写法不同。
+
+#### events
+
+- [活跃事件与历史事件](https://n9e.github.io/zh/docs/events/active-historical.md): 活跃事件列表放着尚未恢复的告警，恢复后转入历史事件；两张表都能按标签、级别、业务组检索并批量处置。
+- [事件聚合与去重](https://n9e.github.io/zh/docs/events/aggregation.md): 同一规则 + 同一标签集只对应一个事件，重复判定不会再建一条；聚合视图按表达式把上百条活跃事件折成几张卡片。
+- [AI 摘要处理器](https://n9e.github.io/zh/docs/events/ai-summary.md): 通知之前让大模型给每个事件写一段摘要：模型怎么接、提示词模板怎么写、结果落在哪、调用失败会怎样。
+- [查看 Pipeline 执行记录](https://n9e.github.io/zh/docs/events/execution-records.md): Pipeline 执行记录逐事件记下每个处理器改了什么、事件是否被丢弃、最终送到了哪里。
+- [屏蔽规则](https://n9e.github.io/zh/docs/events/mute-rules.md): 按标签匹配、时间窗或维护计划屏蔽，并看到一条屏蔽规则现在吞掉了什么。
+- [降噪模式](https://n9e.github.io/zh/docs/events/noise-patterns.md): 经得起生产考验的套路：抖动、发布期间的风暴、重复数据源，以及什么根本不该叫醒人。
+- [事件、降噪与路由](https://n9e.github.io/zh/docs/events/overview.md): 事件从触发它的规则到接收它的人之间会经历什么——屏蔽规则、订阅、事件 Pipeline，以及自愈。
+- [事件 Pipeline](https://n9e.github.io/zh/docs/events/pipelines.md): 在通知之前按顺序对事件做变换、补充、丢弃或路由的处理器链。
+- [改写标签与补充上下文](https://n9e.github.io/zh/docs/events/relabel-enrich.md): 重命名或新增标签，或者调用你自己的接口，把返回的内容写回事件。
+- [条件路由](https://n9e.github.io/zh/docs/events/routing.md): 根据标签和级别把事件送到不同的媒介或团队。
+- [用 ibex / Webhook 触发自愈](https://n9e.github.io/zh/docs/events/self-healing.md): 特定事件触发时，通过 ibex 在受影响主机上跑脚本，或调用一个 Webhook。
+- [订阅规则](https://n9e.github.io/zh/docs/events/subscriptions.md): 让一个团队接收不属于自己的规则产生的事件，用自己的媒介和级别筛选。
+- [用模拟事件试跑](https://n9e.github.io/zh/docs/events/try-workflow.md): 对一条手写的事件跑一遍 Pipeline，在上线前看每个处理器的输出。
+
+#### faq
+
+按问题进入 CPU 告警、Prometheus 规则导入、订阅和数据排查的当前说明。
+
+- [常见问题入口](https://n9e.github.io/zh/docs/faq.md): 按问题进入 CPU 告警、Prometheus 规则导入、订阅和数据排查的当前说明。
+- [CPU 负载高，到底应不应该告警？](https://n9e.github.io/zh/docs/faq/cpu-alerting.md): 从业务影响和处理动作决定 CPU 告警条件、级别和通知方式，为每条需要处理的规则补上排查预案。
+
+#### get-started
+
+- [选一条路进来](https://n9e.github.io/zh/docs/get-started/choose-your-path.md): 按你手上已有的东西，从四个起点里挑一个。每条路的终点都是一条在真实数据上跑起来的规则。
+- [还没采集，从 Categraf 开始](https://n9e.github.io/zh/docs/get-started/choose-your-path/categraf.md): 在一台机器上装 Categraf，通过 Remote Write 指向夜莺，一分钟内在对象列表里看到它上线。
+- [已有日志库或数据库](https://n9e.github.io/zh/docs/get-started/choose-your-path/existing-logs-databases.md): 用和指标同一套规则体系，对 ElasticSearch、Loki、ClickHouse、MySQL 这类日志库和数据库做告警。
+- [已有 Prometheus / VictoriaMetrics](https://n9e.github.io/zh/docs/get-started/choose-your-path/existing-metrics.md): 把现有存储注册为数据源，抓取配置原样保留，让第一条规则在它上面跑起来——数据不用搬。
+- [想启用 Nightingale AI](https://n9e.github.io/zh/docs/get-started/choose-your-path/nightingale-ai.md): 配置一个大模型提供方，打开内置助手和 MCP 端点，再接上 Claude Code 这类客户端。
+- [夜莺监控（Nightingale）是什么](https://n9e.github.io/zh/docs/get-started/introduction.md): 夜莺监控（Nightingale，n9e）是开源告警引擎：接上已有的 Prometheus、日志库和数据库做规则判定、降噪和分发，自己不存数据、不做采集。
+- [在线体验导览](https://n9e.github.io/zh/docs/get-started/live-demo.md): 登录公共演示环境，按快速开始的顺序走一遍：从数据源到告警送达，不用安装任何东西。
+- [上生产前的检查清单](https://n9e.github.io/zh/docs/get-started/production-checklist.md): 真正上线前要改掉的东西：默认密码、外置数据库、时序库选型、高可用、备份与自监控。
+- [五分钟拉起夜莺](https://n9e.github.io/zh/docs/get-started/quick-start.md): docker compose up -d 一条命令拉起夜莺及依赖，以 root 登录 17000 端口，然后接数据源、写规则、配通知。
+- [在可观测体系中的位置](https://n9e.github.io/zh/docs/get-started/where-it-fits.md): 六层可观测栈里，夜莺负责中间的规则、降噪和路由送达；采集、存储和 Grafana 可视化继续用现有的。
+
+#### help
+
+- [弃用与生命周期](https://n9e.github.io/zh/docs/help/deprecations.md): 被夜莺标记为弃用的功能、字段和界面项及各自的替代方案；项目未公布移除时间表，版本信息以 GitHub Release 为准。
+- [发布说明](https://n9e.github.io/zh/docs/help/release-notes.md): 除 GitHub 变更记录之外，每个版本带升级影响说明的整理版。
+
+#### install
+
+- [二进制包](https://n9e.github.io/zh/docs/install/binary.md): 下载 GitHub Release 的 Linux amd64 / arm64 包，校验解压，接上已有的 MySQL 和 Redis，用 systemd 托管 n9e。
+- [配置文件布局](https://n9e.github.io/zh/docs/install/configuration.md): 配置是一个目录：config.toml 供 n9e、alert、pushgw 读取，etc/edge 供 n9e-edge 读取；环境变量只填空缺，不覆盖已有配置。
+- [MySQL / PostgreSQL / SQLite 与 Redis](https://n9e.github.io/zh/docs/install/databases.md): 元数据库可选 MySQL、PostgreSQL 或 SQLite（仅测试），表结构由进程首次启动时自动建好；Redis 存放心跳等运行时状态。
+- [Docker Compose](https://n9e.github.io/zh/docs/install/docker-compose.md): 一条命令把夜莺连同数据库、时序库一起拉起；编排里有什么、怎么改。
+- [边缘机房](https://n9e.github.io/zh/docs/install/edge.md): 给与中心链路不稳的机房用的本地告警引擎，以及那个会让它悄无声息失效的参数。
+- [内置时序库：开箱与小规模](https://n9e.github.io/zh/docs/install/embedded-tsdb.md): 零额外组件先跑起来：内置时序库的保留期、容量，以及单 Center 的限制。
+- [外置时序库与双写迁移](https://n9e.github.io/zh/docs/install/external-tsdb.md): 借助 Pushgw 双写，从内置时序库无缝切换到 Prometheus 或 VictoriaMetrics。
+- [Helm / Kubernetes](https://n9e.github.io/zh/docs/install/helm.md): 社区维护的 Helm chart 在 Kubernetes 里拉起夜莺连同 MySQL、Redis、Prometheus 和 Categraf；values 可改为指向集群外数据库。
+- [高可用](https://n9e.github.io/zh/docs/install/high-availability.md): 在负载均衡后面跑多个 Center 和 Alert 实例，以及哪些部分仍然必须单实例。
+- [离线部署](https://n9e.github.io/zh/docs/install/offline.md): 在没有外网的机器上安装：需要提前准备的包、镜像和集成模板。
+- [安装与部署](https://n9e.github.io/zh/docs/install/overview.md): 夜莺的几种跑法——Compose、Docker 镜像、二进制、Helm、n9e-edge——各自适合什么场景。
+- [回滚](https://n9e.github.io/zh/docs/install/rollback.md): 升级失败后回到上一版本，包括已经执行过的表结构变更该怎么处理。
+- [卸载与数据保留](https://n9e.github.io/zh/docs/install/uninstall.md): 干净地卸载夜莺，以及卸载前该保留或导出什么。
+- [升级](https://n9e.github.io/zh/docs/install/upgrade.md): 小版本升级与 v8 → v9 跨版本升级：先备份、读数据库变更说明、再滚动替换二进制。
+
+#### migration
+
+从别的告警栈或从夜莺 v8 过来：什么对应什么，切换期间怎么两边并行。
+
+- [迁移与对比](https://n9e.github.io/zh/docs/migration.md): 从别的告警栈或从夜莺 v8 过来：什么对应什么，切换期间怎么两边并行。
+- [并行运行与回退方案](https://n9e.github.io/zh/docs/migration/coexistence.md): 切换期间两套系统跑同一批数据、对比触发结果、按媒介逐个切。
+- [从 Prometheus + Alertmanager 迁移](https://n9e.github.io/zh/docs/migration/from-alertmanager.md): Prometheus 继续负责存储和抓取；把规则、路由、静默、接收器搬成夜莺的对象。
+- [从 Grafana Alerting 迁移](https://n9e.github.io/zh/docs/migration/from-grafana-alerting.md): Grafana 仪表盘留着；搬告警规则和联系点，以及统一告警的状态怎么处理。
+- [从 Zabbix 迁移](https://n9e.github.io/zh/docs/migration/from-zabbix.md): 从 Zabbix 迁移是重建而非搬迁：主机对应对象、模板对应集成、触发器对应规则，部分概念没有对应物，全程 Zabbix 不停机。
+- [v8 升级 v9](https://n9e.github.io/zh/docs/migration/v8-to-v9.md): v8 升 v9 换二进制即可，表结构启动时自动迁移；但有几段新配置必须手工补上，否则新功能静默不生效，部分功能也改了位置。
+
+#### notifications
+
+- [通知架构](https://n9e.github.io/zh/docs/notifications/architecture.md): 一条通知经过三个对象：通知规则决定发给谁，媒介决定怎么发，模板决定发什么；三者靠媒介类型对上，缺一环通知就静默消失。
+- [Callback（通用 Webhook）](https://n9e.github.io/zh/docs/notifications/callback.md): 把事件 POST 到任意 HTTP 接口：URL、请求头、请求体模板，模板里能用哪些变量，以及什么情况才算发送成功。
+- [Slack / Telegram / Discord / Mattermost](https://n9e.github.io/zh/docs/notifications/chat.md): 基于 Webhook 的聊天媒介，以及怎么写一条各家 Markdown 都不吃掉的消息。
+- [重试与投递状态](https://n9e.github.io/zh/docs/notifications/delivery.md): 通知发送失败只对「连不上」自动重试，参数按发送类型各不相同；每条消息的投递结果在通知记录里可查，记录保留 7 天。
+- [钉钉 / 飞书 / 企业微信](https://n9e.github.io/zh/docs/notifications/dingtalk-feishu-wecom.md): 三大国内办公应用的机器人 Webhook 与卡片消息。
+- [邮件 / 电话 / 短信](https://n9e.github.io/zh/docs/notifications/email-phone-sms.md): SMTP 设置，以及通过阿里云、腾讯云发电话和短信。
+- [PagerDuty / FlashDuty / Jira](https://n9e.github.io/zh/docs/notifications/oncall-ticketing.md): 把事件交给值班平台或开工单，附各家要求的字段映射。
+- [通知](https://n9e.github.io/zh/docs/notifications/overview.md): 事件怎么送到人手里——通知媒介、消息模板、通知规则，以及哪些是开箱就有的。
+- [通知规则](https://n9e.github.io/zh/docs/notifications/rules.md): 按标签和级别匹配事件，再决定走哪个媒介、用哪份模板、发给谁。
+- [脚本媒介](https://n9e.github.io/zh/docs/notifications/script.md): 把事件交给你自己的程序：脚本怎么保存和执行、stdin 里收到什么、成功和失败怎么记录。
+- [模板与变量](https://n9e.github.io/zh/docs/notifications/templates.md): 消息模板用 Go text/template，变量都挂在 $event 上；写错的变量不报错、只在消息里留空白，预览能提前发现。
+- [端到端测试一条通知](https://n9e.github.io/zh/docs/notifications/test.md): 在凌晨三点依赖它之前，先通过真实媒介从规则到手机完整发一条测试消息。
+
+#### operations
+
+让夜莺自己保持健康：拓扑、容量、备份、升级，以及及时知道坏的是它自己。
+
+- [运维](https://n9e.github.io/zh/docs/operations.md): 让夜莺自己保持健康：拓扑、容量、备份、升级，以及及时知道坏的是它自己。
+- [备份与恢复](https://n9e.github.io/zh/docs/operations/backup-restore.md): 夜莺真正不可再生的只有元数据库和 etc/ 目录，两者必须定期备份并演练恢复；内置时序库可选，指标丢了可以重新采集。
+- [容量规划](https://n9e.github.io/zh/docs/operations/capacity.md): 夜莺的资源消耗由规则数、序列数、事件量和数据库负载决定；量出四个数就知道该往哪个方向扩，这里不提供规格表。
+- [日志与诊断包](https://n9e.github.io/zh/docs/operations/diagnostics.md): 排查夜莺自身问题有四个信息源：进程日志、判定记录、/metrics 和 pprof；提 Issue 时把这四样一起打包。
+- [灾备](https://n9e.github.io/zh/docs/operations/disaster-recovery.md): 在全新环境里从备份重建，以及各个组件该按什么顺序拉起来。
+- [边缘断网行为](https://n9e.github.io/zh/docs/operations/edge-partition.md): n9e-edge 失联时会怎样：判定继续、通知走本地、之后什么会同步回来。
+- [内置时序库的单 Center 限制](https://n9e.github.io/zh/docs/operations/embedded-tsdb-limits.md): 内置时序库只活在一个 Center 进程里：这排除了什么，什么时候该迁走。
+- [内置指标与健康检查](https://n9e.github.io/zh/docs/operations/health.md): 每个进程暴露的 /metrics 与健康检查端点，以及值得画出来的那几个。
+- [高可用与故障域](https://n9e.github.io/zh/docs/operations/high-availability.md): 多实例部署能扛住哪些故障、扛不住哪些，以及怎么演练。
+- [Pushgw 队列、写入器与双写](https://n9e.github.io/zh/docs/operations/pushgw.md): 写入路径：队列大小、背压、多写入器、同时转发到两个后端。
+- [回滚与恢复](https://n9e.github.io/zh/docs/operations/rollback.md): 撤销一次升级或一次配置改动，以及元数据库损坏之后怎么恢复。
+- [监控夜莺自身](https://n9e.github.io/zh/docs/operations/self-monitoring.md): 当告警系统本身挂了的时候，能叫醒你的那几条规则。
+- [生产拓扑](https://n9e.github.io/zh/docs/operations/topology.md): 单团队、单公司、多机房带边缘告警的参考布局。
+- [升级与数据库迁移](https://n9e.github.io/zh/docs/operations/upgrade.md): schema 迁移在启动时怎么跑，以及多实例部署该按什么顺序升级。
+
+#### practice
+
+按 Linux、数据库、进程、端口、Java 和自定义脚本选择具体的采集与验证方法。
+
+- [监控实践](https://n9e.github.io/zh/docs/practice.md): 按 Linux、数据库、进程、端口、Java 和自定义脚本选择具体的采集与验证方法。
+- [自定义采集脚本](https://n9e.github.io/zh/docs/practice/exec.md): 通过 Categraf exec 插件执行脚本，输出 Prometheus 指标，验证权限、超时和正式服务中的采集结果。
+- [Java 程序监控](https://n9e.github.io/zh/docs/practice/java.md): 按应用能力选择 Spring Boot Actuator、Micrometer、JMX Exporter 或组件自带指标，再用 Categraf 或现有 Prometheus 抓取。
+- [Linux 机器监控](https://n9e.github.io/zh/docs/practice/linux.md): 用 Categraf 采集 Linux 指标，区分心跳与时序写入，并排查机器可见但查询无数据和失联告警。
+- [MySQL 监控](https://n9e.github.io/zh/docs/practice/mysql.md): 用 Categraf MySQL 插件采集数据库运行指标，区分性能监控、业务 SQL 查询和夜莺自身的元数据库。
+- [Oracle 监控](https://n9e.github.io/zh/docs/practice/oracle.md): 配置 Categraf Oracle 实例与采集 SQL，将结果中的标签列和数值列转成指标，并验证数据库权限。
+- [端口与 HTTP 探测](https://n9e.github.io/zh/docs/practice/port.md): 配置 Categraf TCP、UDP、HTTP 探测，验证结果码、响应内容及 TLS 证书到期指标。
+- [进程监控](https://n9e.github.io/zh/docs/practice/proc.md): 区分系统进程总数和单个服务的资源占用，用 processes、procstat 或应用指标采集验证进程存活。
+- [Redis 监控](https://n9e.github.io/zh/docs/practice/redis.md): 配置 Categraf Redis 插件，或抓取已有 Redis Exporter，把运行指标写入时序库并查询验证。
+
+#### prologue
+
+- [学习夜莺的前置知识](https://n9e.github.io/zh/docs/prologue/pre-knowledge.md): 先掌握日志、进程、时序数据、PromQL 与采集链路，再按现象定位采集、存储、告警和通知问题。
+- [入门视频教程](https://n9e.github.io/zh/docs/prologue/videos.md): 保留改版前的视频教程目录，并将每个视频关联到当前版本的项目、部署、采集和通知说明。
+
+#### query
+
+先看数据再做告警：即时查询与日志检索、内置视图，以及可分享、可嵌入的仪表盘。
+
+- [查询与仪表盘](https://n9e.github.io/zh/docs/query.md): 先看数据再做告警：即时查询与日志检索、内置视图，以及可分享、可嵌入的仪表盘。
+- [内置指标视图](https://n9e.github.io/zh/docs/query/built-in-views.md): 面向主机、容器和常见中间件的预置视图，以及怎么加自己的。
+- [创建仪表盘](https://n9e.github.io/zh/docs/query/dashboards.md): 仪表盘归属业务组，可从集成模板导入或从空白建起，有十二种面板类型，能整块导出交给别人。
+- [嵌入与被集成](https://n9e.github.io/zh/docs/query/embedding.md): 把夜莺嵌进既有门户、按需隐藏菜单、把身份透传过去。
+- [与 Grafana 配合](https://n9e.github.io/zh/docs/query/grafana.md): 可视化继续用 Grafana：指向同一批存储，把告警交给夜莺。
+- [日志检索与索引模式](https://n9e.github.io/zh/docs/query/log-explorer.md): 检索 ElasticSearch、Loki、VictoriaLogs，定义索引模式，从一条日志跳到一条规则。
+- [即时查询](https://n9e.github.io/zh/docs/query/metric-explorer.md): 对任意已注册数据源即席写 PromQL，用的是和规则相同的查询编辑器。
+- [对象快捷视图](https://n9e.github.io/zh/docs/query/object-view.md): 从对象列表里的一台主机一键跳到它的核心指标。
+- [记录规则](https://n9e.github.io/zh/docs/query/recording-rules.md): 按计划预先计算开销大的表达式，改为对结果告警。
+- [匿名限时分享](https://n9e.github.io/zh/docs/query/sharing.md): 通过一条会过期的链接分享某一个仪表盘，不用给对方开账号。
+- [变量与筛选](https://n9e.github.io/zh/docs/query/variables.md): 仪表盘变量在盘顶生成下拉框，选项由标签值驱动、可互相联动；选一台机器或一个集群，整屏图表跟着切换。
+
+#### reference
+
+- [内置指标](https://n9e.github.io/zh/docs/reference/built-in-metrics.md): 每个夜莺进程在 /metrics 上暴露的自身指标。
+- [命令行](https://n9e.github.io/zh/docs/reference/cli.md): 夜莺的命令行很薄：n9e、n9e-edge 等进程只有三个参数，配置全在 etc/ 的 toml 文件里，没有管理规则的子命令。
+- [兼容性矩阵](https://n9e.github.io/zh/docs/reference/compatibility.md): 各依赖组件的版本情况，以及为什么这里没有一张官方的「支持版本」表。
+- [配置项](https://n9e.github.io/zh/docs/reference/configuration.md): config.toml 与 etc/edge/edge.toml 的每一个键：默认值、由哪个进程读取。
+- [环境变量](https://n9e.github.io/zh/docs/reference/environment-variables.md): 夜莺读的环境变量，以及为什么配置项本身不能用环境变量覆盖。
+- [HTTP API](https://n9e.github.io/zh/docs/reference/http-api.md): 页面本身跑在上面的那套 API：认证、按对象分的端点、以及为什么没有 OpenAPI 文档。
+- [集成模板清单与结构](https://n9e.github.io/zh/docs/reference/integration-schema.md): 集成模板的文件结构，照着就能自己写一个并贡献回来。
+- [限制与默认值](https://n9e.github.io/zh/docs/reference/limits.md): 硬限制、软限制与默认大小：队列长度、超时、保留期。
+- [MCP 工具](https://n9e.github.io/zh/docs/reference/mcp-tools.md): 13 个工具集共 74 个工具的参数，以及读写之分。
+- [通知模板变量](https://n9e.github.io/zh/docs/reference/notification-variables.md): 消息模板里可用的事件字段与辅助函数。
+- [参考手册](https://n9e.github.io/zh/docs/reference/overview.md): 查阅型内容——配置项、HTTP API、MCP 工具、通知模板变量、写入协议与内置指标。尽量从源码生成。
+- [权限矩阵](https://n9e.github.io/zh/docs/reference/permissions.md): 每个权限点、哪些内置角色持有它、它守着哪个菜单或 API。
+- [端口与网络流向](https://n9e.github.io/zh/docs/reference/ports.md): 所有监听端口与所有出向连接，一张表就能写出防火墙规则。
+- [数据写入协议](https://n9e.github.io/zh/docs/reference/write-protocols.md): Prometheus Remote Write、OpenTSDB、Datadog、Falcon：端点、报文、标签处理。
+
+#### security
+
+谁能看、谁能改，以及面向多个团队的部署该怎么加固。
+
+- [用户、团队与安全](https://n9e.github.io/zh/docs/security.md): 谁能看、谁能改，以及面向多个团队的部署该怎么加固。
+- [业务组授权](https://n9e.github.io/zh/docs/security/business-groups.md): 以读或写权限把团队加进业务组，看它对规则和对象的影响。
+- [安全检查清单](https://n9e.github.io/zh/docs/security/checklist.md): 把夜莺开放给更多人之前要过一遍的清单。
+- [联系方式](https://n9e.github.io/zh/docs/security/contacts.md): 定义用户可以填写的联系方式字段，以及媒介如何从中选一个，决定每个人的通知发到哪里。
+- [网络与 TLS 加固](https://n9e.github.io/zh/docs/security/network-tls.md): 终结 TLS、限制写入端点、哪些端口绝不能暴露到公网。
+- [角色与权限矩阵](https://n9e.github.io/zh/docs/security/roles.md): 内置角色、自定义角色，以及各自授予哪些菜单和 API 操作。
+- [密钥管理](https://n9e.github.io/zh/docs/security/secrets.md): 把数据库密码、媒介 Token、大模型密钥挪出配置文件。
+- [SSO 与外部身份集成](https://n9e.github.io/zh/docs/security/sso.md): OIDC、OAuth2、LDAP、CAS、钉钉与飞书登录，以及把外部组映射到角色。
+- [Token 与凭据轮换](https://n9e.github.io/zh/docs/security/tokens.md): 个人 Token、给 MCP 和 API 用的服务账号，以及不停机地轮换它们。
+- [用户与团队](https://n9e.github.io/zh/docs/security/users-teams.md): 创建用户、组成团队、把团队作为通知接收方。
+- [站点与用户变量](https://n9e.github.io/zh/docs/security/variables.md): 全站设置，以及模板和集成可以引用的加密变量。
+
+#### troubleshooting
+
+按现象而不是按组件组织：找到和你看到的现象一致的那一条。
+
+- [排障](https://n9e.github.io/zh/docs/troubleshooting.md): 按现象而不是按组件组织：找到和你看到的现象一致的那一条。
+- [告警反复触发或从不恢复](https://n9e.github.io/zh/docs/troubleshooting/alert-flapping.md): 告警反复触发或从不恢复，多半是阈值贴着数据抖动、数据断流被当成恢复、标签集在两次判定间变了，或没设恢复条件。
+- [查询有结果但告警不触发](https://n9e.github.io/zh/docs/troubleshooting/alert-not-firing.md): 查询有数据却不触发，答案九成在判定记录里：持续时长未满、datasource_queries 选错、时间段或业务组不符、规则被禁用或被屏蔽。
+- [Categraf 对象显示离线](https://n9e.github.io/zh/docs/troubleshooting/categraf-offline.md): 设备显示离线意味着心跳没在期限内到达 Redis：常见原因是时钟偏差、心跳地址错误或网络策略；「更新时间」不能用来判断存活。
+- [Edge 与中心失联](https://n9e.github.io/zh/docs/troubleshooting/edge-disconnected.md): 边缘断网期间判定和通知照常在本地进行，但事件不会回传中心——这是预期行为；从未连上过才是配置错误，两者的判断方法不同。
+- [内置时序库数据断续或缺失](https://n9e.github.io/zh/docs/troubleshooting/embedded-tsdb-data.md): 内置时序库出现断档多半不报错：保留期到了、磁盘压力、进程重启都是常见原因；三个时间戳指标能先分清断在写入侧还是查询侧。
+- [判定记录缺失或被丢弃](https://n9e.github.io/zh/docs/troubleshooting/evaluation-missing.md): 判定记录缺失有四种情况：没记录、没评估、查询被拒、周期被跳过；过载和数据源超时是主因，被跳过的周期没有任何指标能反映。
+- [MCP 认证失败](https://n9e.github.io/zh/docs/troubleshooting/mcp-auth.md): MCP 认证失败先看状态码是哪一层拒绝的：网关、Token 还是 OAuth；常见原因是头名写错、Token 过期、回调地址不匹配。
+- [MCP 工具缺失或被拒绝](https://n9e.github.io/zh/docs/troubleshooting/mcp-tools-missing.md): 「没有这个工具」有三种形状：写工具未开启、工具集被禁用、Token 用户缺少权限——tools/list 的返回先分出是哪一种。
+- [数据源连上了但查不到数据](https://n9e.github.io/zh/docs/troubleshooting/no-data.md): 数据源测试通过但查询为空，按写入 → 存储 → 查询逐层确认：数据没写进来、时间范围不含最近点、标签不匹配、查的不是同一个库。
+- [有事件但收不到通知](https://n9e.github.io/zh/docs/troubleshooting/no-notification.md): 有事件但没通知，先看通知记录：没有记录是被屏蔽规则或通知规则拦下，记录失败看媒介配置，记录成功但人没收到看对端。
+- [性能与积压现象](https://n9e.github.io/zh/docs/troubleshooting/performance.md): 告警延迟、队列增长、数据库 CPU 高各对应一个能定位的内置指标；先按现象选指标，再从指标找根因。
+- [通知模板渲染失败](https://n9e.github.io/zh/docs/troubleshooting/template-errors.md): 消息正文变成报错或某个字段莫名为空，都是模板渲染问题，而且通知记录仍显示成功；用真实事件预览模板能提前发现。
+- [升级或数据库迁移失败](https://n9e.github.io/zh/docs/troubleshooting/upgrade-fails.md): 升级后出现 Unknown column、新功能页面空白或进程卡住，都说明表结构没有完整升上去，常见于数据库权限不足或迁移中断。
+- [试跑成功但生产执行失败](https://n9e.github.io/zh/docs/troubleshooting/workflow-prod-fails.md): 试跑成功而线上失败，差别在事件和进程：真实事件可能缺标签，线上执行的是告警进程而非页面进程，权限和网络可达性都不同。
+- [Pipeline 路由到了错误的目的地](https://n9e.github.io/zh/docs/troubleshooting/wrong-routing.md): 通知发错人，通常是目的地在链路里被决定的位置和预期不一样：处理器顺序、匹配之前的标签改写、两个挂载点的作用域差异。
+
+#### usage
+
+从旧使用说明目录进入数据源、查询、仪表盘、告警和通知的当前文档。
+
+- [使用说明入口](https://n9e.github.io/zh/docs/usage.md): 从旧使用说明目录进入数据源、查询、仪表盘、告警和通知的当前文档。
+
+#### usecase
+
+从旧功能专题目录进入业务组、API、通知媒介、屏蔽、订阅和工作流的当前说明。
+
+- [功能专题入口](https://n9e.github.io/zh/docs/usecase.md): 从旧功能专题目录进入业务组、API、通知媒介、屏蔽、订阅和工作流的当前说明。

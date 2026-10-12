@@ -355,6 +355,34 @@
     "expectedStatus": 200
   },
   {
+    "from": "/blog",
+    "action": "redirect",
+    "to": "/",
+    "canonical": "https://n9e.github.io/",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/blog/five-steps-to-build-observability",
+    "action": "redirect",
+    "to": "/docs/get-started/where-it-fits",
+    "canonical": "https://n9e.github.io/docs/get-started/where-it-fits",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/contributors",
+    "action": "redirect",
+    "to": "https://github.com/ccfos/nightingale/graphs/contributors",
+    "canonical": "https://github.com/ccfos/nightingale/graphs/contributors",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/contributors/ulric-qin",
+    "action": "redirect",
+    "to": "https://github.com/ccfos/nightingale/graphs/contributors",
+    "canonical": "https://github.com/ccfos/nightingale/graphs/contributors",
+    "expectedStatus": 200
+  },
+  {
     "from": "/zh/docs",
     "action": "keep",
     "to": "/zh/docs",
@@ -708,5 +736,24 @@
     "to": "/zh/docs/install/overview",
     "canonical": "https://n9e.github.io/zh/docs/install/overview",
     "expectedStatus": 200
+  },
+  {
+    "from": "/zh/blog",
+    "action": "redirect",
+    "to": "/zh/",
+    "canonical": "https://n9e.github.io/zh/",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/contributors",
+    "action": "redirect",
+    "to": "https://github.com/ccfos/nightingale/graphs/contributors",
+    "canonical": "https://github.com/ccfos/nightingale/graphs/contributors",
+    "expectedStatus": 200
+  },
+  {
+    "from": "/zh/contributors/henk-verlinde",
+    "action": "retire",
+    "expectedStatus": 404
   }
 ]

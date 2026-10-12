@@ -1,0 +1,316 @@
+# Nightingale (n9e)
+
+> Open-source alerting engine for Prometheus, VictoriaMetrics, Elasticsearch, ClickHouse and more. Self-hosted, Apache-2.0, with a built-in AI agent and MCP server.
+
+- [Nightingale (n9e)](https://n9e.github.io/index.md)
+
+## categraf
+
+Nightingale evaluates alerts on data you already have. Categraf is one way to put it there: a single agent covering operating systems, middleware, databases, network gear and Kubernetes, writing over Prometheus Remote Write. MIT licensed, built by the team behind Nightingale.
+
+- [Categraf](https://n9e.github.io/categraf.md): Nightingale evaluates alerts on data you already have. Categraf is one way to put it there: a single agent covering operating systems, middleware, databases, network gear and Kubernetes, writing over Prometheus Remote Write. MIT licensed, built by the team behind Nightingale.
+
+## comparisons
+
+Prometheus, Zabbix and Grafana each have their ground. Nightingale argues for one thing only: the alerting layer should belong to a tool built for it.
+
+- [Keep your storage. Change who owns alerting.](https://n9e.github.io/comparisons.md): Prometheus, Zabbix and Grafana each have their ground. Nightingale argues for one thing only: the alerting layer should belong to a tool built for it.
+
+## download
+
+Every package here is built from a tagged release and published on GitHub. Say what you are trying to do and the page shows only the commands for that path.
+
+- [Up in five minutes, or deployed the way production needs.](https://n9e.github.io/download.md): Every package here is built from a tagged release and published on GitHub. Say what you are trying to do and the page shows only the commands for that path.
+
+## integrations
+
+Data sources, collectors, notification channels and templates — Nightingale connects to what exists rather than replacing it. The full list is below, and every entry links to how to wire it up.
+
+- [Plugs into what you already run](https://n9e.github.io/integrations.md): Data sources, collectors, notification channels and templates — Nightingale connects to what exists rather than replacing it. The full list is below, and every entry links to how to wire it up.
+
+## docs
+
+Start here. Find the task you are trying to finish — connecting a data source, writing a rule, cutting noise, delivering to on-call, deploying to production, or wiring up MCP.
+
+- [Nightingale docs](https://n9e.github.io/docs.md): Start here. Find the task you are trying to finish — connecting a data source, writing a rule, cutting noise, delivering to on-call, deploying to production, or wiring up MCP.
+
+### agent
+
+- [Connect Datadog Agent](https://n9e.github.io/docs/agent/datadog-agent.md): Send Datadog Agent v1 metric series to Nightingale, with the API-version and authentication boundaries made explicit.
+- [Connect Telegraf](https://n9e.github.io/docs/agent/telegraf.md): Send Telegraf metrics to Nightingale with HTTP output and Prometheus Remote Write, then verify the stored data.
+
+### ai
+
+- [A2A endpoint](https://n9e.github.io/docs/ai/a2a.md): The A2A endpoint exposes Nightingale as an agent that other agent platforms can discover and call; the agent card declares the address and supported methods.
+- [Agents and conversation history](https://n9e.github.io/docs/ai/agents.md): Conversation history is stored server-side and can be reviewed or deleted; in the open-source build an agent is an internal binding, not something you create.
+- [Safe automation patterns](https://n9e.github.io/docs/ai/automation.md): Safe AI automation keeps a person in the loop at write time: the assistant proposes and you confirm, one account can write, or AI drafts a script that a human runs.
+- [Configure an LLM provider](https://n9e.github.io/docs/ai/llm-provider.md): Point Nightingale at OpenAI-compatible, Anthropic or self-hosted models; keys, base URLs and model selection.
+- [Connect Claude Code / Cursor / other clients](https://n9e.github.io/docs/ai/mcp-clients.md): Claude Code, Cursor and other MCP clients connect with just the /mcp URL and a token; one read-only prompt confirms the connection works.
+- [Enable the MCP endpoint](https://n9e.github.io/docs/ai/mcp-endpoint.md): The /mcp endpoint is built into the n9e process and on by default; list its tools with curl to confirm it is up, and restrict which toolsets it exposes in config.
+- [Nightingale AI overview](https://n9e.github.io/docs/ai/nightingale-ai.md): Nightingale AI is the built-in assistant: it answers questions about alerts, metrics and configuration, drafts changes, and sees only what the asking user can see.
+- [OAuth 2.1 and external identity providers](https://n9e.github.io/docs/ai/oauth.md): Nightingale as authorization server for hosted clients, or as resource server in front of Keycloak, Entra ID or Okta.
+- [AI and MCP](https://n9e.github.io/docs/ai/overview.md): The built-in assistant, the Skills marketplace, and an MCP endpoint that lets Claude Code or Cursor drive Nightingale with exactly your permissions.
+- [Permission inheritance and RBAC](https://n9e.github.io/docs/ai/permissions.md): Every MCP tool call is an internal API call made as the token's user, so a client never sees or changes more than that user; business groups apply unchanged.
+- [Install, manage and write Skills](https://n9e.github.io/docs/ai/skills.md): A skill is a procedure in a SKILL.md file: install one from the marketplace or write your own, scope it to teams, and the assistant uses it for matching questions.
+- [Personal token authentication](https://n9e.github.io/docs/ai/token-auth.md): Create a token, pass it in X-User-Token, and understand that the client inherits exactly that user's permissions.
+- [Read and write toolsets](https://n9e.github.io/docs/ai/toolsets.md): The MCP endpoint offers 74 tools in 13 toolsets; six toolsets are entirely read-only, there are no delete tools, and write tools must be enabled separately.
+- [AI / Skill / MCP troubleshooting](https://n9e.github.io/docs/ai/troubleshooting.md): Symptom-by-symptom fixes for the AI features: the assistant stays silent or stops halfway, a skill is ignored or fails to install, an MCP client cannot connect.
+- [Common investigation workflows](https://n9e.github.io/docs/ai/workflows.md): Paste-ready investigation prompts paired with the built-in skill that answers each: triage active events, find the noisiest rule, explain a metric spike.
+- [Enable write tools safely](https://n9e.github.io/docs/ai/write-tools.md): MCP write tools are not registered by default; enable them explicitly under [HTTP.A2A], scope them to one token, and every change is traceable in the log.
+
+### alerting
+
+- [Rule design best practices](https://n9e.github.io/docs/alerting/best-practices.md): Opinions on rule design: alert only on what needs a person, leave trends to dashboards, size a rule to one class of object, and review so the rule set does not rot.
+- [Evaluation interval and recovery](https://n9e.github.io/docs/alerting/evaluation.md): Four timing fields on a rule — interval, for-duration, observation window, recovery — decide when an event is created, when it recovers and when it re-notifies.
+- [Inspect evaluation execution records](https://n9e.github.io/docs/alerting/execution-records.md): Every evaluation leaves a record: see what the query returned and why an event did or did not fire.
+- [Create the first rule](https://n9e.github.io/docs/alerting/first-rule.md): A rule from scratch: pick the source, write the query, set severity, test fire it, and watch the event appear.
+- [Import, export and reuse](https://n9e.github.io/docs/alerting/import-export.md): Move rules between environments as JSON, and keep them in version control.
+- [Labels, annotations and severity](https://n9e.github.io/docs/alerting/labels-severity.md): Attach labels for routing, write annotations that read well in a notification, and choose S1 / S2 / S3 deliberately.
+- [Log rules](https://n9e.github.io/docs/alerting/log-rules.md): Alert on log counts or matched patterns from ElasticSearch, OpenSearch, Loki and VictoriaLogs — all four alert, but only three can be previewed in the Log explorer.
+- [Metric rules](https://n9e.github.io/docs/alerting/metric-rules.md): Metric rules put the threshold inside the PromQL expression; one rule can carry several severities, and the labels the query returns land on the event for routing.
+- [Alert rules](https://n9e.github.io/docs/alerting/overview.md): Rules are configured in the UI, scoped by business group, graded S1 / S2 / S3, and can span several data sources. A library of common rules ships with the install.
+- [Scope by business group and data source](https://n9e.github.io/docs/alerting/scope.md): A rule has two scopes: the business group decides who may edit it and owns its events; the data source list decides which instances it queries, and can span several.
+- [SQL-backed rules](https://n9e.github.io/docs/alerting/sql-rules.md): Rules that run a SQL statement against MySQL, PostgreSQL, ClickHouse, Doris, TDengine or IoTDB on a schedule.
+- [Rule templates and built-in rules](https://n9e.github.io/docs/alerting/templates.md): Nightingale ships rule templates for MySQL, Redis, Kubernetes and sixty other components; import them into any business group, and save your own rules as templates.
+- [Test fire a rule](https://n9e.github.io/docs/alerting/test-fire.md): Fire a rule on demand to check the query, labels and the rendered notification before it goes live.
+
+### concepts
+
+The mental model behind the product: which processes exist, how a data source becomes an alert, and how events are thinned out on their way to a person.
+
+- [Architecture and concepts](https://n9e.github.io/docs/concepts.md): The mental model behind the product: which processes exist, how a data source becomes an alert, and how events are thinned out on their way to a person.
+- [Alert lifecycle and S1 / S2 / S3 severity](https://n9e.github.io/docs/concepts/alert-lifecycle.md): An event is identified by rule plus label set and passes through firing, ongoing and recovered; S1 / S2 / S3 change nothing mechanically — they signal urgency.
+- [System architecture](https://n9e.github.io/docs/concepts/architecture.md): The core is one n9e process: no dependencies for testing, MySQL and Redis for production, several instances sharing them for a cluster, and n9e-edge for multi-site.
+- [Authentication, tokens and RBAC model](https://n9e.github.io/docs/concepts/auth-rbac.md): Two layers: roles decide which pages and endpoints are reachable, business-group membership decides which data can be touched; UI, HTTP API and MCP share the model.
+- [Business groups and resource ownership](https://n9e.github.io/docs/concepts/business-groups.md): Business groups are the permission boundary: every rule, target and dashboard belongs to one, and membership decides who can see or change it.
+- [Center, Alert, Edge, Pushgw and Categraf](https://n9e.github.io/docs/concepts/components.md): Most deployments need only the n9e process; n9e-alert and n9e-pushgw are roles that can be split out, n9e-edge serves multi-site setups, Categraf collects on hosts.
+- [Datasource → rule → event model](https://n9e.github.io/docs/concepts/data-model.md): The three objects everything else hangs off: a data source is queried by a rule, and a rule that trips produces an event.
+- [Evaluation, recovery and state changes](https://n9e.github.io/docs/concepts/evaluation.md): A rule does not fire on the first high value: three timing parameters and a small state machine decide when it first fires, when it recovers and whether it flaps.
+- [Labels, annotations and identity](https://n9e.github.io/docs/concepts/labels-annotations.md): Labels decide which event this is; annotations decide what the notification says. They are not interchangeable.
+- [Noise reduction and routing model](https://n9e.github.io/docs/concepts/noise-routing.md): Mute rules, subscriptions, pipelines and notification rules are not alternatives: they act on an event in a fixed order, which is why a muted alert can still page.
+- [Embedded TSDB and external storage](https://n9e.github.io/docs/concepts/storage.md): Nightingale ships with an embedded TSDB for onboarding; this page explains its limits and when to switch to Prometheus or VictoriaMetrics.
+
+### data
+
+- [Categraf](https://n9e.github.io/docs/data/categraf.md): The recommended collector: one agent, 100+ input plugins, pushing over Prometheus Remote Write.
+- [Install and register](https://n9e.github.io/docs/data/categraf/install.md): Install the agent, set the Nightingale write URL, and confirm the host shows up under Targets.
+- [Input plugins](https://n9e.github.io/docs/data/categraf/plugins.md): Categraf ships over ninety input plugins; a config file in conf/input.<name> enables one, and a single plugin can run alone in the foreground for testing.
+- [Remote write](https://n9e.github.io/docs/data/categraf/remote-write.md): Categraf batches metrics and ships them over Prometheus Remote Write; several writers can feed Nightingale and a second backend at once; failed writes are not retried.
+- [Targets and heartbeat](https://n9e.github.io/docs/data/categraf/targets.md): Categraf sends a heartbeat with host metadata every ten seconds; the target list shows status and tags from it, and hosts are assigned to business groups by hand.
+- [Troubleshooting](https://n9e.github.io/docs/data/categraf/troubleshooting.md): Categraf problems come in three symptoms — host missing, host present but no metrics, one plugin silent — and the log has the answer, even for errors not marked E!.
+- [ClickHouse / Doris / IoTDB](https://n9e.github.io/docs/data/clickhouse-doris-iotdb.md): ClickHouse, Doris and IoTDB are one family in Nightingale: queried with SQL, one numeric column of the result becomes the series value and the rest become labels.
+- [ElasticSearch / OpenSearch](https://n9e.github.io/docs/data/elasticsearch.md): Connect an ES or OpenSearch cluster, choose index patterns and the timestamp field, and run a log query.
+- [Auto-registered Embedded TSDB datasource](https://n9e.github.io/docs/data/embedded-tsdb.md): A fresh install auto-registers a Prometheus-type source named embedded-tsdb; Pushgw writes into it by default, and it is queried like any external Prometheus source.
+- [Integration templates](https://n9e.github.io/docs/data/integrations.md): 86 templates that bundle collector config, dashboards and alert rules so a component is onboarded as a set.
+- [Install collector configuration](https://n9e.github.io/docs/data/integrations/collector-config.md): Copy a template's collector config into Categraf and start collecting the component's metrics.
+- [Import dashboards and rules](https://n9e.github.io/docs/data/integrations/import.md): Import the bundled dashboards and alert rules into a business group, and adjust thresholds before enabling.
+- [Verify incoming data](https://n9e.github.io/docs/data/integrations/verify.md): A quiet imported rule may just mean no data arrived; query the metric name the template lists in the Metrics explorer to confirm the component's metrics are in.
+- [Loki / VictoriaLogs](https://n9e.github.io/docs/data/loki-victorialogs.md): Register a log store, write a LogQL or LogsQL query, and alert on counts or matches.
+- [Connect your data](https://n9e.github.io/docs/data/overview.md): Nightingale queries your stores where they are. Twelve source types share one rule model; Categraf covers what nothing collects yet.
+- [Prometheus](https://n9e.github.io/docs/data/prometheus.md): Register a Prometheus or Thanos endpoint, set auth and timeouts, and verify with a query.
+- [MySQL / PostgreSQL / TDengine](https://n9e.github.io/docs/data/sql-databases.md): Alert on a business database directly: read-only credentials, the SQL a rule runs, and guarding against slow queries.
+- [VictoriaMetrics](https://n9e.github.io/docs/data/victoriametrics.md): There is no separate VictoriaMetrics type: register it as Prometheus and set the TSDB type to VictoriaMetrics; single-node and cluster endpoints differ.
+
+### events
+
+- [Active and historical events](https://n9e.github.io/docs/events/active-historical.md): Active events hold alerts that have not recovered; on recovery they move to history. Both lists are searchable by label, severity and business group, in bulk.
+- [Event aggregation and deduplication](https://n9e.github.io/docs/events/aggregation.md): One rule plus one label set is one event, so repeated evaluations never create a second; the aggregation view folds hundreds of active events into a few cards.
+- [AI summary processor](https://n9e.github.io/docs/events/ai-summary.md): Have an LLM write a short summary onto each event before it is notified: model setup, the prompt template, where the result lands, and what happens when the call fails.
+- [Inspect workflow execution records](https://n9e.github.io/docs/events/execution-records.md): Execution records trace each event through every processor: what each one changed, whether the event was dropped, and where it was sent.
+- [Mute rules](https://n9e.github.io/docs/events/mute-rules.md): Silence by label match, time window or maintenance schedule, and see what a mute rule is currently swallowing.
+- [Noise reduction patterns](https://n9e.github.io/docs/events/noise-patterns.md): Recipes that hold up in production: flapping, storms during deploys, duplicate sources, and what should never page a human.
+- [Events, noise reduction and routing](https://n9e.github.io/docs/events/overview.md): What happens to an event between the rule that fired it and the person who receives it — mute rules, subscriptions, event pipelines, and self-healing.
+- [Event pipelines](https://n9e.github.io/docs/events/pipelines.md): Ordered processors that transform, enrich, drop or route an event before notification.
+- [Rewrite labels and enrich context](https://n9e.github.io/docs/events/relabel-enrich.md): Rename or add labels, or call your own service and write what it returns back onto the event.
+- [Conditional routing](https://n9e.github.io/docs/events/routing.md): Send an event to different channels or teams depending on its labels and severity.
+- [Trigger self-healing with ibex / webhook](https://n9e.github.io/docs/events/self-healing.md): Run a script on the affected host through ibex, or call a webhook, when a specific event fires.
+- [Alert subscriptions](https://n9e.github.io/docs/events/subscriptions.md): Let a team receive events from rules they do not own, with their own channel and severity filter.
+- [Try a workflow with a mock event](https://n9e.github.io/docs/events/try-workflow.md): Run a pipeline against a hand-written event and see each processor's output before anything is live.
+
+### faq
+
+Find CPU alerting advice, Prometheus rule imports, subscriptions and data troubleshooting.
+
+- [Frequently asked questions](https://n9e.github.io/docs/faq.md): Find CPU alerting advice, Prometheus rule imports, subscriptions and data troubleshooting.
+- [Should high CPU load trigger an alert?](https://n9e.github.io/docs/faq/cpu-alerting.md): Decide CPU alert conditions, severity and delivery from business impact and a concrete response, then attach a runbook.
+
+### get-started
+
+- [Choose your path](https://n9e.github.io/docs/get-started/choose-your-path.md): Four starting points depending on what you already run. Each one ends with a rule evaluating real data.
+- [I need to monitor a host with Categraf](https://n9e.github.io/docs/get-started/choose-your-path/categraf.md): Install Categraf on a host, point it at Nightingale over Remote Write, and see the machine appear under Targets within a minute.
+- [I already have logs or databases](https://n9e.github.io/docs/get-started/choose-your-path/existing-logs-databases.md): Alert on ElasticSearch, Loki, ClickHouse, MySQL and the other SQL-queried stores using the same rule model as metrics.
+- [I already have Prometheus / VictoriaMetrics](https://n9e.github.io/docs/get-started/choose-your-path/existing-metrics.md): Register the store as a data source, keep scraping exactly as before, and get the first rule evaluating against it — no data moves.
+- [I want to enable Nightingale AI](https://n9e.github.io/docs/get-started/choose-your-path/nightingale-ai.md): Configure an LLM provider, turn on the built-in assistant and the MCP endpoint, and connect a client such as Claude Code.
+- [What Nightingale (n9e) is](https://n9e.github.io/docs/get-started/introduction.md): Nightingale (n9e, 夜莺) is an open-source alerting engine: it evaluates rules on the stores you already run, cuts the noise and delivers to on-call; it stores and collects nothing.
+- [Guided live demo](https://n9e.github.io/docs/get-started/live-demo.md): Sign in to the public demo and walk the path from data source to delivered alert, in the same order as the quick start — no install needed.
+- [Production readiness checklist](https://n9e.github.io/docs/get-started/production-checklist.md): What to change before real traffic: default credentials, external database, TSDB choice, HA, backups and self-monitoring.
+- [Bring up Nightingale in five minutes](https://n9e.github.io/docs/get-started/quick-start.md): One docker compose up -d brings up Nightingale with its dependencies; sign in on port 17000 as root, then register a data source, write a rule and add a channel.
+- [Where it fits in the observability stack](https://n9e.github.io/docs/get-started/where-it-fits.md): Of the six observability layers, Nightingale owns the middle three — rules, noise reduction, routing and delivery; collectors, storage and Grafana stay as they are.
+
+### help
+
+- [Deprecations and EOL policy](https://n9e.github.io/docs/help/deprecations.md): Features, fields and UI items marked deprecated, with their replacements; the project publishes no removal schedule, and GitHub releases are the version record.
+- [Release notes](https://n9e.github.io/docs/help/release-notes.md): Curated notes per release with upgrade impact, in addition to the GitHub changelog.
+
+### install
+
+- [Binary packages](https://n9e.github.io/docs/install/binary.md): Download the Linux amd64 / arm64 tarball from GitHub releases, verify the checksum, point it at your MySQL and Redis, and run n9e under systemd.
+- [Configuration layout](https://n9e.github.io/docs/install/configuration.md): Configuration is a directory: config.toml is read by n9e, alert and pushgw, etc/edge by n9e-edge; environment variables fill in blanks but never override set keys.
+- [MySQL / PostgreSQL / SQLite and Redis](https://n9e.github.io/docs/install/databases.md): The metadata store is MySQL, PostgreSQL or SQLite (testing only); the process creates the schema on first start, and Redis holds runtime state such as heartbeats.
+- [Docker Compose](https://n9e.github.io/docs/install/docker-compose.md): Bring up Nightingale with its database and time-series store in one command; what the bundle contains and how to change it.
+- [Edge data centers](https://n9e.github.io/docs/install/edge.md): A local alerting engine for sites whose link to the center is unreliable, and the one flag that silently breaks it.
+- [Embedded TSDB for onboarding and small scale](https://n9e.github.io/docs/install/embedded-tsdb.md): Use the built-in store to get going with zero extra components; retention, capacity and the single-Center constraint.
+- [External TSDB and dual-write migration](https://n9e.github.io/docs/install/external-tsdb.md): Move from the embedded store to Prometheus or VictoriaMetrics without a gap, using Pushgw dual write.
+- [Helm / Kubernetes](https://n9e.github.io/docs/install/helm.md): A community-maintained Helm chart deploys Nightingale on Kubernetes with MySQL, Redis, Prometheus and Categraf; values can point it at databases outside the cluster.
+- [High availability](https://n9e.github.io/docs/install/high-availability.md): Run multiple Center and Alert instances behind a load balancer, and what still needs to be a singleton.
+- [Offline deployment](https://n9e.github.io/docs/install/offline.md): Install on hosts without internet access: packages, images and integration templates to fetch in advance.
+- [Installation and deployment](https://n9e.github.io/docs/install/overview.md): The ways to run Nightingale — Compose, Docker image, binaries, Helm, n9e-edge — and which fits which situation.
+- [Rollback](https://n9e.github.io/docs/install/rollback.md): Return to the previous version after a failed upgrade, including what to do about schema migrations that already ran.
+- [Uninstall and data retention](https://n9e.github.io/docs/install/uninstall.md): Remove Nightingale cleanly, and what to keep or export before you do.
+- [Upgrade](https://n9e.github.io/docs/install/upgrade.md): Upgrade between minor versions and across v8 → v9: back up first, read the database changes, roll the binaries.
+
+### migration
+
+Coming from another alerting stack, or from Nightingale v8: what maps to what, and how to run both during the switch.
+
+- [Migration and comparison](https://n9e.github.io/docs/migration.md): Coming from another alerting stack, or from Nightingale v8: what maps to what, and how to run both during the switch.
+- [Coexistence and rollback plan](https://n9e.github.io/docs/migration/coexistence.md): Run both systems on the same data during the switch, compare what fires, and cut over channel by channel.
+- [From Prometheus + Alertmanager](https://n9e.github.io/docs/migration/from-alertmanager.md): Keep Prometheus for storage and scraping; move rules, routes, silences and receivers into Nightingale objects.
+- [From Grafana Alerting](https://n9e.github.io/docs/migration/from-grafana-alerting.md): Keep Grafana dashboards; move alert rules and contact points, and what to do about unified alerting state.
+- [From Zabbix](https://n9e.github.io/docs/migration/from-zabbix.md): Moving from Zabbix is a rebuild: hosts map to targets, templates to integrations, triggers to rules; some concepts have no equivalent, and Zabbix never has to stop.
+- [v8 to v9](https://n9e.github.io/docs/migration/v8-to-v9.md): v8 to v9 is a binary swap with the schema migrated on startup, but several new config sections must be added by hand or the new features stay silently off.
+
+### notifications
+
+- [Notification architecture](https://n9e.github.io/docs/notifications/architecture.md): Three objects carry a notification: the rule picks recipients, the media type says how to send, the template says what to send; a missing link makes it vanish.
+- [Callback (generic webhook)](https://n9e.github.io/docs/notifications/callback.md): POST events to any HTTP endpoint: the URL, headers and body template, the variables they can use, and when a call counts as delivered.
+- [Slack / Telegram / Discord / Mattermost](https://n9e.github.io/docs/notifications/chat.md): Webhook-based chat channels, and how to format a message that survives each one's markdown.
+- [Retries and delivery status](https://n9e.github.io/docs/notifications/delivery.md): Failed sends are retried only for connection failures, with parameters per send type; the outcome of every message is in the notification log, kept for seven days.
+- [DingTalk / Feishu / WeCom](https://n9e.github.io/docs/notifications/dingtalk-feishu-wecom.md): Robot webhooks and card messages for the three major Chinese workplace apps.
+- [Email / Phone / SMS](https://n9e.github.io/docs/notifications/email-phone-sms.md): SMTP settings, and voice and SMS through Aliyun and Tencent Cloud.
+- [PagerDuty / FlashDuty / Jira](https://n9e.github.io/docs/notifications/oncall-ticketing.md): Hand events to an on-call platform or open a ticket, with the field mapping each one expects.
+- [Notifications](https://n9e.github.io/docs/notifications/overview.md): How an event reaches a person — media types, message templates and notification rules, and which of them ship configured.
+- [Notification rules](https://n9e.github.io/docs/notifications/rules.md): Match events by label and severity, then pick the media type, the template and the recipients.
+- [Script media type](https://n9e.github.io/docs/notifications/script.md): Hand events to your own program: how the script is stored and run, what arrives on stdin, and how success and failure are recorded.
+- [Templates and variables](https://n9e.github.io/docs/notifications/templates.md): Templates are Go text/template with every variable under $event; a misspelled variable raises no error and just leaves a hole in the message — preview catches it.
+- [Test a notification end to end](https://n9e.github.io/docs/notifications/test.md): Send a test message through a real channel, from rule to phone, before you rely on it at 3 a.m.
+
+### operations
+
+Keeping Nightingale itself healthy: topology, capacity, backups, upgrades, and knowing when it is the one that is broken.
+
+- [Operations](https://n9e.github.io/docs/operations.md): Keeping Nightingale itself healthy: topology, capacity, backups, upgrades, and knowing when it is the one that is broken.
+- [Backup and restore](https://n9e.github.io/docs/operations/backup-restore.md): Only the metadata database and the etc/ directory are irreplaceable: back both up on a schedule and rehearse the restore; embedded TSDB metrics can be re-collected.
+- [Capacity planning](https://n9e.github.io/docs/operations/capacity.md): Load is driven by rule count, series count, event volume and database traffic; measure four numbers to know where to scale — there is deliberately no sizing table.
+- [Logs and diagnostic bundles](https://n9e.github.io/docs/operations/diagnostics.md): Four sources when Nightingale itself misbehaves: the process log, evaluation records, /metrics and pprof — collect all four before opening an issue.
+- [Disaster recovery](https://n9e.github.io/docs/operations/disaster-recovery.md): Rebuild from backups in a new environment, and the order in which to bring components back.
+- [Edge network partition behavior](https://n9e.github.io/docs/operations/edge-partition.md): What n9e-edge does when it loses the center: evaluation continues, notifications go local, and what syncs back later.
+- [Embedded TSDB single-Center limits](https://n9e.github.io/docs/operations/embedded-tsdb-limits.md): The embedded store lives inside one Center process: what that rules out and when to move off it.
+- [Built-in metrics and health checks](https://n9e.github.io/docs/operations/health.md): The /metrics and health endpoints each process exposes, and the handful worth graphing.
+- [High availability and failure domains](https://n9e.github.io/docs/operations/high-availability.md): Which failures a multi-instance deployment survives, which it does not, and how to test it.
+- [Pushgw queue, writers and dual write](https://n9e.github.io/docs/operations/pushgw.md): The write path: queue sizing, backpressure, multiple writers and forwarding to two backends.
+- [Rollback and recovery](https://n9e.github.io/docs/operations/rollback.md): Undo an upgrade or a bad config push, and recover from a corrupted metadata database.
+- [Monitor Nightingale itself](https://n9e.github.io/docs/operations/self-monitoring.md): Rules that page you when the alerting system is the thing that is down.
+- [Production topology](https://n9e.github.io/docs/operations/topology.md): Reference layouts for one team, one company, and multi-site with edge alerting.
+- [Upgrade and database migration](https://n9e.github.io/docs/operations/upgrade.md): How schema migrations run on startup, and how to upgrade a multi-instance deployment in order.
+
+### practice
+
+Choose collection and verification guides for hosts, databases, processes, ports, Java and custom scripts.
+
+- [Monitoring practice](https://n9e.github.io/docs/practice.md): Choose collection and verification guides for hosts, databases, processes, ports, Java and custom scripts.
+- [Custom collector scripts](https://n9e.github.io/docs/practice/exec.md): Run a script with the Categraf exec input, emit Prometheus metrics, and verify permissions, timeouts and service execution.
+- [Monitor Java applications](https://n9e.github.io/docs/practice/java.md): Choose Actuator, Micrometer, JMX Exporter or built-in application metrics, then scrape them with Categraf or Prometheus.
+- [Monitor Linux hosts](https://n9e.github.io/docs/practice/linux.md): Collect Linux metrics with Categraf, distinguish heartbeat metadata from stored samples, and detect missing hosts.
+- [Monitor MySQL](https://n9e.github.io/docs/practice/mysql.md): Collect MySQL runtime metrics with Categraf and distinguish them from business-SQL alerts and Nightingale metadata storage.
+- [Monitor Oracle](https://n9e.github.io/docs/practice/oracle.md): Configure Categraf Oracle instances and SQL collection, map labels and values, and verify database permissions.
+- [Probe ports and HTTP endpoints](https://n9e.github.io/docs/practice/port.md): Configure Categraf TCP, UDP and HTTP probes, then verify result codes, response content and certificate expiry metrics.
+- [Monitor processes](https://n9e.github.io/docs/practice/proc.md): Distinguish system process counts from a service’s resource usage and verify processes, procstat or application metrics.
+- [Monitor Redis](https://n9e.github.io/docs/practice/redis.md): Use the Categraf Redis input or scrape an existing Redis Exporter, then verify the stored runtime metrics.
+
+### prologue
+
+- [Prerequisites for using Nightingale](https://n9e.github.io/docs/prologue/pre-knowledge.md): Learn logs, processes, time-series concepts, PromQL and the data path before diagnosing collection, storage, alerting or delivery.
+- [Video tutorials](https://n9e.github.io/docs/prologue/videos.md): Keep the pre-redesign video catalogue and pair each tutorial with its current documentation.
+
+### query
+
+Look at the data before you alert on it: the metrics and log explorers, built-in views, and dashboards you can share or embed.
+
+- [Query and dashboards](https://n9e.github.io/docs/query.md): Look at the data before you alert on it: the metrics and log explorers, built-in views, and dashboards you can share or embed.
+- [Built-in metric views](https://n9e.github.io/docs/query/built-in-views.md): Pre-built views for hosts, containers and common middleware, and how to add your own.
+- [Build a dashboard](https://n9e.github.io/docs/query/dashboards.md): A dashboard belongs to a business group; build it from an integration template or from scratch with twelve panel types, and export it whole to hand to someone else.
+- [Share, embed and integrate external systems](https://n9e.github.io/docs/query/embedding.md): Embed Nightingale into an existing portal, hide menus selectively, and pass identity through.
+- [Use Grafana with Nightingale](https://n9e.github.io/docs/query/grafana.md): Keep Grafana for visualisation: point it at the same stores, and hand alerting to Nightingale.
+- [Log explorer and index patterns](https://n9e.github.io/docs/query/log-explorer.md): Search ElasticSearch, Loki and VictoriaLogs sources, define index patterns, and pivot from a log line to a rule.
+- [Metrics explorer](https://n9e.github.io/docs/query/metric-explorer.md): Ad-hoc PromQL against any registered source, with the same query editor rules use.
+- [Object quick view](https://n9e.github.io/docs/query/object-view.md): From a host in the target list to its key metrics in one click.
+- [Recording rules](https://n9e.github.io/docs/query/recording-rules.md): Precompute expensive expressions on a schedule and alert on the result instead.
+- [Anonymous time-limited sharing](https://n9e.github.io/docs/query/sharing.md): Share one dashboard through a link that expires, without creating an account for the viewer.
+- [Variables and filters](https://n9e.github.io/docs/query/variables.md): Dashboard variables add dropdowns at the top of a board, populated from label values and chained to each other; pick a host or a cluster and every chart switches.
+
+### reference
+
+- [Built-in metrics](https://n9e.github.io/docs/reference/built-in-metrics.md): What each Nightingale process exposes about itself on /metrics.
+- [CLI reference](https://n9e.github.io/docs/reference/cli.md): The command line is thin: every process takes three flags, configuration lives in the toml files under etc/, and there are no subcommands for managing rules.
+- [Compatibility matrix](https://n9e.github.io/docs/reference/compatibility.md): What is known to work with which versions, and why there is no official support matrix here.
+- [Configuration reference](https://n9e.github.io/docs/reference/configuration.md): Every key in config.toml and etc/edge/edge.toml, with defaults and which process reads it.
+- [Environment variables](https://n9e.github.io/docs/reference/environment-variables.md): The environment variables Nightingale reads, and why config keys cannot be overridden that way.
+- [HTTP API](https://n9e.github.io/docs/reference/http-api.md): The API the UI runs on: authentication, endpoints by object, and why there is no OpenAPI document.
+- [Integration manifest and payload schema](https://n9e.github.io/docs/reference/integration-schema.md): The file layout of an integration template, so you can write and contribute one.
+- [Limits and defaults](https://n9e.github.io/docs/reference/limits.md): Hard limits, soft limits and default sizes: queue lengths, timeouts, retention.
+- [MCP tool reference](https://n9e.github.io/docs/reference/mcp-tools.md): All 74 tools across 13 toolsets with parameters, and which are read versus write.
+- [Notification variables](https://n9e.github.io/docs/reference/notification-variables.md): The event fields and helper functions available inside a message template.
+- [Reference](https://n9e.github.io/docs/reference/overview.md): Lookup material — configuration keys, the HTTP API, MCP tools, notification variables, write protocols and built-in metrics. Generated from the source tree wherever possible.
+- [Permission matrix](https://n9e.github.io/docs/reference/permissions.md): Every permission point, which built-in roles hold it, and the menu or API it guards.
+- [Ports and network flows](https://n9e.github.io/docs/reference/ports.md): Every listening port and every outbound connection, so a firewall rule set can be written from one table.
+- [Data write protocols](https://n9e.github.io/docs/reference/write-protocols.md): Prometheus Remote Write, OpenTSDB, Datadog and Falcon: endpoints, payloads and label handling.
+
+### security
+
+Who can see and change what, and how to harden a deployment that faces more than one team.
+
+- [Users, teams and security](https://n9e.github.io/docs/security.md): Who can see and change what, and how to harden a deployment that faces more than one team.
+- [Business group authorization](https://n9e.github.io/docs/security/business-groups.md): Add teams to a business group with read or write rights, and see the effect on rules and targets.
+- [Security checklist](https://n9e.github.io/docs/security/checklist.md): The short list to run before exposing Nightingale to a wider audience.
+- [Contact methods](https://n9e.github.io/docs/security/contacts.md): Define the contact fields users can fill in, and how a media type picks one of them to decide where each person's notification goes.
+- [Network and TLS hardening](https://n9e.github.io/docs/security/network-tls.md): Terminate TLS, restrict the write endpoints, and which ports must not face the internet.
+- [Roles and permission matrix](https://n9e.github.io/docs/security/roles.md): Built-in roles, custom roles, and which menu and API operations each grants.
+- [Secret management](https://n9e.github.io/docs/security/secrets.md): Keep database passwords, channel tokens and LLM keys out of config files.
+- [SSO / external identity integration](https://n9e.github.io/docs/security/sso.md): OIDC, OAuth2, LDAP, CAS, DingTalk and Feishu login, and mapping external groups to roles.
+- [Tokens and credential rotation](https://n9e.github.io/docs/security/tokens.md): Personal tokens, service accounts for MCP and the API, and rotating them without downtime.
+- [Users and teams](https://n9e.github.io/docs/security/users-teams.md): Create users, group them into teams, and use teams as notification recipients.
+- [Site and user variable settings](https://n9e.github.io/docs/security/variables.md): Site-wide settings and encrypted variables that templates and integrations can reference.
+
+### troubleshooting
+
+Organised by symptom, not by component: find the line that matches what you are seeing.
+
+- [Troubleshooting](https://n9e.github.io/docs/troubleshooting.md): Organised by symptom, not by component: find the line that matches what you are seeing.
+- [Alert fires repeatedly or never recovers](https://n9e.github.io/docs/troubleshooting/alert-flapping.md): Flapping or never-recovering alerts usually come from a threshold sitting on the data, a data gap read as recovery, a changing label set, or no recovery condition.
+- [Query works but the alert does not fire](https://n9e.github.io/docs/troubleshooting/alert-not-firing.md): Query has data but nothing fires: the evaluation records hold the answer — for-duration not met, wrong datasource_queries, group or window mismatch, disabled, muted.
+- [Categraf target is offline](https://n9e.github.io/docs/troubleshooting/categraf-offline.md): A target shows offline when its heartbeat has not reached Redis in time — clock skew, a wrong heartbeat URL or network policy; update time is not a liveness signal.
+- [Edge loses contact with the center](https://n9e.github.io/docs/troubleshooting/edge-disconnected.md): During a partition the edge keeps alerting locally but its events never reach the center — that is expected; an edge that never connected is a misconfiguration.
+- [Embedded TSDB has fragmented or missing data](https://n9e.github.io/docs/troubleshooting/embedded-tsdb-data.md): Gaps in the embedded TSDB rarely raise errors — retention, disk pressure or restarts; three timestamp metrics show whether the gap is on the write or the query side.
+- [Evaluation records are missing or dropped](https://n9e.github.io/docs/troubleshooting/evaluation-missing.md): Missing evaluation records mean one of four things: not recorded, not evaluated, query rejected or cycle skipped; overload and datasource timeouts are the usual causes.
+- [MCP authentication fails](https://n9e.github.io/docs/troubleshooting/mcp-auth.md): MCP authentication fails at the gateway, the token check or OAuth — the status code says which; usual causes: wrong header name, expired token, bad redirect URL.
+- [MCP tools are missing or denied](https://n9e.github.io/docs/troubleshooting/mcp-tools-missing.md): "No such tool" has three shapes — write tools not enabled, toolset disabled, or the token's user lacks the permission — and the tools/list response tells them apart.
+- [Data source connects but queries return no data](https://n9e.github.io/docs/troubleshooting/no-data.md): A source passes its test but returns nothing: check write, store and query in turn — nothing written, time range past the last point, label mismatch, wrong store.
+- [Alert event exists but no notification arrives](https://n9e.github.io/docs/troubleshooting/no-notification.md): Event but no message: in the notification log, no record means a mute or notification rule stopped it; a failure points at the channel, a success at the receiver.
+- [Performance and backlog symptoms](https://n9e.github.io/docs/troubleshooting/performance.md): Late alerts, growing queues and high database CPU each map to one built-in metric that localises the cause; pick the metric by symptom, then work back to the root.
+- [Notification template rendering fails](https://n9e.github.io/docs/troubleshooting/template-errors.md): A message body that is error text, or a field that is empty, is a template rendering problem that still logs as success; preview against a real event to catch it.
+- [Upgrade or database migration fails](https://n9e.github.io/docs/troubleshooting/upgrade-fails.md): Unknown column errors, blank pages or a hung process after an upgrade mean the schema did not fully migrate — usually missing database privileges or an interrupted run.
+- [Workflow Try run succeeds but production execution fails](https://n9e.github.io/docs/troubleshooting/workflow-prod-fails.md): Try run passes, production fails: real events may lack labels the mock had, and the alert process — not the UI — runs the workflow with its own permissions and network.
+- [Event pipeline routes to the wrong destination](https://n9e.github.io/docs/troubleshooting/wrong-routing.md): Wrong recipients usually mean the destination was decided earlier than expected: processor order, a label rewrite before the match, or the two mount points' scopes.
+
+### usage
+
+Find current datasource, query, dashboard, alerting and notification guides from the former usage index.
+
+- [Using Nightingale](https://n9e.github.io/docs/usage.md): Find current datasource, query, dashboard, alerting and notification guides from the former usage index.
+
+### usecase
+
+Find current business-group, API, notification, mute, subscription and workflow guides.
+
+- [Feature guides](https://n9e.github.io/docs/usecase.md): Find current business-group, API, notification, mute, subscription and workflow guides.
