@@ -40,9 +40,11 @@
   --n9e-shadow-card: 0 1px 2px rgb(20 18 28 / 6%), 0 12px 32px -12px rgb(20 18 28 / 14%);
   --n9e-shadow-float: 0 2px 6px rgb(20 18 28 / 8%), 0 24px 56px -20px rgb(20 18 28 / 22%);
 
-  --n9e-font-display: 'Archivo', 'PingFang SC', 'HarmonyOS Sans SC', 'Source Han Sans SC',
+  /* 'Archivo Fallback' / 'JetBrains Mono Fallback' 是 fonts.css 里度量匹配的本地回退字体，
+     放在网络字体之后、系统字体之前：字体没到时西文用它占位，到了再切，几乎不重排 */
+  --n9e-font-display: 'Archivo', 'Archivo Fallback', 'PingFang SC', 'HarmonyOS Sans SC', 'Source Han Sans SC',
     'Noto Sans SC', 'Microsoft YaHei', sans-serif;
-  --n9e-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --n9e-font-mono: 'JetBrains Mono', 'JetBrains Mono Fallback', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --n9e-radius: 10px;
   --n9e-radius-lg: 16px;

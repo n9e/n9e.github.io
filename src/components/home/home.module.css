@@ -1148,8 +1148,10 @@ html[lang='en'] .title {
    高度限得越死，方章形就越小——放宽到 42px 是让两类 logo 视觉体量接近，
    而不是让它们高度相等。 */
 .logoTile img {
-  max-width: 100%;
-  max-height: 42px;
+  /* 显式宽高而不是 max-*：图片到达前格子就占好位，logo 墙不会在加载时跳动（CLS）；
+     object-fit 保证宽字标和方章形各自按比例缩放 */
+  width: 100%;
+  height: 42px;
   object-fit: contain;
 }
 
@@ -1167,7 +1169,7 @@ html[lang='en'] .title {
   }
 
   .logoTile img {
-    max-height: 30px;
+    height: 30px;
   }
 
   .logoGridInner {

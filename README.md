@@ -19,8 +19,15 @@ npm run typecheck
 `npm run build` first runs the data scripts (see [Generated data](#generated-data)). If a fetch
 fails, the build carries on with the data already in the repository. The build also writes
 `robots.txt` (with both locales' sitemaps), `llms.txt` / `llms-full.txt` per locale and a `.md`
-copy of every page next to its HTML (`/docs/x` → `/docs/x.md`) for AI crawlers; fonts are
-self-hosted from `@fontsource`, so nothing is loaded from Google Fonts.
+copy of every page next to its HTML (`/docs/x` → `/docs/x.md`) for AI crawlers.
+
+Fonts are self-hosted: `node scripts/sync-fonts.mjs` copies the `@fontsource` files into
+`static/fonts/` and writes `src/css/fonts.css`, which `docusaurus.config.ts` inlines into `<head>`
+(not `customCss`, so webpack does not rewrite the URLs) together with preloads for the weights used
+above the fold. The CSS also defines metric-matched local fallbacks (`Archivo Fallback`,
+`JetBrains Mono Fallback`, overrides computed with `scripts/font-metrics.py`), so the swap from the
+fallback to the web font does not reflow the page. Lab CLS is ~0 on every page type; keep it that way
+by giving every `<img>` a width and height or a fixed CSS box.
 
 Every doc carries a `last_reviewed: YYYY-MM-DD` front matter field. It is rendered under the
 title, emitted as `article:modified_time` and as `TechArticle.dateModified`, and it is the only

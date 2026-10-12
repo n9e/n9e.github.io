@@ -6,6 +6,9 @@ import { starCount } from './src/lib/format';
 import repo from './src/data/stats.json';
 import { redirectsForLocale } from './scripts/legacy-doc-urls.mjs';
 import robotsTxtPlugin from './scripts/robots-txt-plugin.mjs';
+import { readFileSync } from 'node:fs';
+
+const FONT_FACE_CSS = readFileSync(new URL('./src/css/fonts.css', import.meta.url), 'utf8').replace(/^\/\*.*\*\/\n/, '');
 
 // 域名待定（方案 §6 待拍板项 2）。改这里即可，页面内不硬编码站点地址。
 const SITE_URL = 'https://n9e.github.io';
@@ -89,6 +92,22 @@ const config: Config = {
   },
 
   headTags: [
+    // 首屏用到的字重先行加载：正文 400、小标题 700、大标题 800，以及首页卡片和代码块用的等宽 400。
+    // 字体在首帧前到位，就不会出现「先回退字体、再切 Archivo」的重排（CLS）。
+    ...['archivo-latin-400', 'archivo-latin-700', 'archivo-latin-800', 'jetbrains-mono-latin-400'].map((f) => ({
+      tagName: 'link',
+      attributes: {
+        rel: 'preload',
+        as: 'font',
+        type: 'font/woff2',
+        href: `/fonts/${f}-normal.woff2`,
+        crossorigin: 'anonymous',
+      },
+    })),
+    // @font-face 内联在 <head>：由 scripts/sync-fonts.mjs 生成（static/fonts 里的固定文件名 +
+    // 度量匹配的回退字体）。放在这里而不是 customCss，是为了绕开 webpack 对 url() 的改写，
+    // 让 CSS 里的地址和上面 preload 的地址一致。
+    { tagName: 'style', attributes: {}, innerHTML: FONT_FACE_CSS },
     // 必须在 <head> 里、早于 Docusaurus 自己放在 <body> 开头的主题脚本执行：
     // 这里改写的 docusaurus-theme 参数要被它读到，嵌入属性也要在首帧前就位。
     { tagName: 'script', attributes: {}, innerHTML: EMBED_INLINE_SCRIPT },
@@ -130,8 +149,8 @@ const config: Config = {
           // 按 unicode-range 分片，浏览器只会下载页面用到的 latin 子集。
           // docs-icons.css 由 scripts/scaffold-docs.mjs 生成（侧栏分组图标），不要手改
           customCss: [
-            ...[400, 500, 600, 700, 800].map((w) => require.resolve(`@fontsource/archivo/${w}.css`)),
-            ...[400, 500, 700].map((w) => require.resolve(`@fontsource/jetbrains-mono/${w}.css`)),
+            // 字体的 @font-face 不走这里：webpack 会把 url(/fonts/x.woff2) 改成带哈希的 /assets/fonts/…，
+            // 和 headTags 里 preload 的地址对不上，等于下载两遍。见上面 headTags 里的内联 <style>。
             './src/css/custom.css',
             './src/css/docs-icons.css',
           ],
@@ -216,6 +235,9 @@ const config: Config = {
       logo: {
         alt: 'Nightingale',
         src: 'img/logo-mark.webp',
+        // 原图 452×473；给出尺寸，CSS 只定高度时宽度也能在图片到达前算出来，导航栏不跳
+        width: 25,
+        height: 26,
       },
       items: [
         // 指向 /docs 而不是第一篇正文：那里是任务分流页（调研 §6.1 / §16.5），
