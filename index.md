@@ -223,17 +223,17 @@ COMPARISONS
 
 Each tool has its ground. Keep Prometheus or VictoriaMetrics for storage — Nightingale argues only for owning the alerting layer.
 
-### vs Prometheus + Alertmanager
+### [vs Prometheus + Alertmanager](https://n9e.github.io/comparisons/prometheus-alertmanager.md)
 
-Same data, but rules get a UI, permissions get a model, and channels come built in.
+[Same data, but rules get a UI, permissions get a model, and channels come built in.](https://n9e.github.io/comparisons/prometheus-alertmanager.md)
 
-### vs Zabbix
+### [vs Zabbix](https://n9e.github.io/comparisons/zabbix.md)
 
-No second collection stack. It reads the time-series and log stores you already fill.
+[No second collection stack. It reads the time-series and log stores you already fill.](https://n9e.github.io/comparisons/zabbix.md)
 
-### vs Grafana Alerting
+### [vs Grafana Alerting](https://n9e.github.io/comparisons/grafana-alerting.md)
 
-Grafana is the visualization standard. Nightingale spends everything on the alerting engine.
+[Grafana is the visualization standard. Nightingale spends everything on the alerting engine.](https://n9e.github.io/comparisons/grafana-alerting.md)
 
 [Read the full comparison](https://n9e.github.io/comparisons.md)
 

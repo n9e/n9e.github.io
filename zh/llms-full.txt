@@ -21,6 +21,36 @@ Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告�
 
 - [存储不用换， 换掉的是告警这一层。](https://n9e.github.io/zh/comparisons.md): Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告警这一层，该交给专门做告警的工具。
 
+#### grafana-alerting
+
+夜莺监控（Nightingale，n9e）与 Grafana Alerting 的对比：规则模型、表达式链与 PromQL、通知策略与联系点、静默、无数据状态、电话短信、AI，以及仪表盘留在 Grafana、告警交给夜莺的搭配方式。
+
+- [夜莺 vs Grafana Alerting](https://n9e.github.io/zh/comparisons/grafana-alerting.md): 夜莺监控（Nightingale，n9e）与 Grafana Alerting 的对比：规则模型、表达式链与 PromQL、通知策略与联系点、静默、无数据状态、电话短信、AI，以及仪表盘留在 Grafana、告警交给夜莺的搭配方式。
+
+#### open-source-alerting-platforms
+
+开源告警平台怎么选：先分清告警引擎、告警聚合层和值班分发三类工具，再按数据源、规则配置、降噪、通知与值班、权限、AI 六个维度对比 Alertmanager、Grafana Alerting、夜莺监控（Nightingale）、Keep、Alerta，并按团队画像给出推荐。
+
+- [开源告警平台怎么选](https://n9e.github.io/zh/comparisons/open-source-alerting-platforms.md): 开源告警平台怎么选：先分清告警引擎、告警聚合层和值班分发三类工具，再按数据源、规则配置、降噪、通知与值班、权限、AI 六个维度对比 Alertmanager、Grafana Alerting、夜莺监控（Nightingale）、Keep、Alerta，并按团队画像给出推荐。
+
+#### prometheus-alertmanager
+
+夜莺监控（Nightingale，n9e）与 Prometheus + Alertmanager 的告警能力对比：规则在哪配、降噪怎么做、通知媒介、权限、AI，以及 alertmanager.yml 如何对应到夜莺的对象。Prometheus 继续存数据，只换告警这一层。
+
+- [夜莺 vs Prometheus + Alertmanager](https://n9e.github.io/zh/comparisons/prometheus-alertmanager.md): 夜莺监控（Nightingale，n9e）与 Prometheus + Alertmanager 的告警能力对比：规则在哪配、降噪怎么做、通知媒介、权限、AI，以及 alertmanager.yml 如何对应到夜莺的对象。Prometheus 继续存数据，只换告警这一层。
+
+#### zabbix
+
+夜莺监控（Nightingale，n9e）与 Zabbix 的对比：采集模型、数据存储、触发器与告警规则、通知媒介、权限、Kubernetes 与网络设备支持，以及从 Zabbix 迁移时哪些对象有对应物、哪些没有。
+
+- [夜莺 vs Zabbix](https://n9e.github.io/zh/comparisons/zabbix.md): 夜莺监控（Nightingale，n9e）与 Zabbix 的对比：采集模型、数据存储、触发器与告警规则、通知媒介、权限、Kubernetes 与网络设备支持，以及从 Zabbix 迁移时哪些对象有对应物、哪些没有。
+
+#### zabbix-alternatives
+
+想换掉 Zabbix？按场景对比 Prometheus + Alertmanager、夜莺监控（Nightingale）、Grafana Alerting、Checkmk、Netdata、LibreNMS、SigNoz 七个开源方案的许可证、采集模型、告警能力和维护成本，以及哪些情况下不该换。
+
+- [Zabbix 的开源替代方案：按场景选，不按排行榜选](https://n9e.github.io/zh/comparisons/zabbix-alternatives.md): 想换掉 Zabbix？按场景对比 Prometheus + Alertmanager、夜莺监控（Nightingale）、Grafana Alerting、Checkmk、Netdata、LibreNMS、SigNoz 七个开源方案的许可证、采集模型、告警能力和维护成本，以及哪些情况下不该换。
+
 ### download
 
 这里的每个包都来自打了标签的正式发布，发布在 GitHub 上。先说你要做什么，页面只给这条路上用得到的命令。
@@ -524,7 +554,7 @@ Categraf 走 Prometheus Remote Write 协议推送，因此可以写入夜莺、P
 
 ---
 
-夜莺 vs[Prometheus + Alertmanager](#prometheus)[Zabbix](#zabbix)[Grafana Alerting](#grafana)
+夜莺 vs[Prometheus + Alertmanager](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)[Zabbix](https://n9e.github.io/zh/zh/comparisons/zabbix.md)[Grafana Alerting](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
 
 # 存储不用换，<br /><!-- -->换掉的是告警这一层。
 
@@ -608,59 +638,19 @@ Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告�
 
 规则配在页面上，按业务组分权限。
 
-### 它擅长什么
-
-Prometheus 依然是最好的时序底座之一，Alertmanager 的分组与静默模型设计得很干净。规模不大、团队习惯 GitOps、告警规则数量可控时，这套组合完全够用，而且不用多引入组件。
-
-### 什么时候换夜莺
-
-当告警规则要交给非 SRE 的业务团队维护、需要按业务组分权限、需要电话短信这类媒介，或者数据不只在 Prometheus 里的时候，夜莺更省事——它就是把这几件事做厚的。
-
 ### 换的信号
 
 * 告警规则要交给非 SRE 的业务团队维护
 * 凌晨三点得有人接电话，webhook 叫不醒人
 * 数据已经不全在 Prometheus 里了
 
+[阅读完整对比](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
+
+<!-- -->
+
+[ →](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
+
 迁移文档[从 Prometheus + Alertmanager 迁移<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/from-alertmanager.md)
-
-rules.yml + alertmanager.yml
-
-```
-- alert: MysqlReplicaLag  expr: mysql_slave_lag_seconds > 30  for: 5m  labels: { team: dba }route:  receiver: dba-webhook  group_by: [alertname]
-```
-
-夜莺 · 告警规则
-
-* 名称
-
-  MySQL 副本延迟
-
-* 条件
-
-  mysql\_slave\_lag\_seconds > 30，持续 5m
-
-* 业务组
-
-  DBA
-
-* 通知
-
-  电话、短信、钉钉
-
-* 谁能改
-
-  DBA 组
-
-同一条规则，两种写法
-
-* 你
-
-  一句话创建：mysql-prod 副本延迟超过 30 秒持续 5 分钟，电话通知 DBA 组
-
-* 夜莺 AI
-
-  PromQL 和阈值已生成。业务组我不猜，请从下拉里选一个，选好就创建。
 
 02
 
@@ -674,41 +664,19 @@ rules.yml + alertmanager.yml
 
 直接在你已有的存储上告警，没人采的地方才用 Categraf 补。
 
-### 它擅长什么
-
-Zabbix 二十多年的积累在传统 IT 一体化监控上非常成熟：网络设备、SNMP、agent 采集与自动发现是它的主场，企业里有大量现成经验和人力储备。
-
-### 什么时候换夜莺
-
-如果监控数据已经在 Prometheus、VictoriaMetrics、ES 这类云原生栈里，夜莺接得更直接，不需要把数据再倒进另一套采集体系。
-
 ### 换的信号
 
 * 监控数据已经在 Prometheus、VictoriaMetrics 或 ES 里
 * Kubernetes 和云上服务比网络设备多
 * 为了一条告警，维护着两套采集体系
 
+[阅读完整对比](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
+
+<!-- -->
+
+[ →](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
+
 迁移文档[从 Zabbix 迁移<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/from-zabbix.md)
-
-你已有的存储
-
-![](/zh/img/logos/prometheus.png)Prometheus![](/zh/img/logos/victoriametrics.png)VictoriaMetrics![](/zh/img/logos/elasticsearch.png)ElasticSearch![](/zh/img/logos/ck.png)ClickHouse
-
-![](/zh/img/logo-mark.webp)**夜莺**就地读取，不搬数据
-
-20 种通知媒介
-
-电话 / 短信邮件![](/zh/img/logos/dingtalk.png)钉钉![](/zh/img/logos/feishu.png)飞书+16
-
-没人采的地方，才用 Categraf 补
-
-* 你
-
-  这台主机为什么离线了？
-
-* 夜莺 AI
-
-  agent 3 分钟没有上报，但主机能 ping 通，同网段其他主机正常。更像是 Categraf 进程退出了，不是主机宕机。
 
 03
 
@@ -722,41 +690,19 @@ Zabbix 二十多年的积累在传统 IT 一体化监控上非常成熟：网络
 
 告警就是整个产品，图在哪看都行。
 
-### 它擅长什么
-
-Grafana 是可视化的事实标准，仪表盘生态无可替代。如果告警量不大、团队也已经在用 Grafana，它自带的告警足够顺手，少一个系统就少一份维护。
-
-### 什么时候换夜莺
-
-夜莺把力气全花在告警侧：事件 Pipeline、订阅与协同、告警自愈。两者并不冲突——很多用户用 Grafana 看图、用夜莺告警。
-
 ### 换的信号
 
 * 告警量已经超出按面板配规则能管的范围
 * 需要事件 Pipeline、订阅或告警自愈
 * 值班的人要电话短信，不只是 contact point
 
+[阅读完整对比](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
+
+<!-- -->
+
+[ →](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
+
 迁移文档[从 Grafana Alerting 迁移<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/from-grafana-alerting.md)
-
-Grafana · MySQL 总览
-
-按 URL 嵌进夜莺仪表盘的 Grafana 面板
-
-S1MySQL 副本延迟 > 30s
-
-`ident=mysql-prod``busigroup=DBA`
-
-已送达 · 电话 + 钉钉
-
-图在 Grafana 看，告警在夜莺发
-
-* 你
-
-  分析这个仪表盘
-
-* 夜莺 AI
-
-  40 个面板里有 3 个查询的指标已经不存在，2 个面板最近一小时趋势异常：connections 和 slow\_queries。
 
 ## 不用停掉现在的系统
 
@@ -809,6 +755,695 @@ Alertmanager 的规则能迁过来吗？
 夜莺读的是你现有的存储，装上不影响现在正在跑的告警。
 
 [在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
+
+
+---
+
+1. [产品对比](https://n9e.github.io/zh/zh/comparisons.md)
+2. Grafana Alerting
+
+# 夜莺 vs Grafana Alerting
+
+Grafana 是可视化的事实标准，夜莺不打算取代它。要比的是告警这一层：Grafana 把告警做成可视化平台里的一个模块，夜莺把告警做成整个产品。很多团队的最终答案是两个都用：图在 Grafana 看，告警在夜莺发。
+
+[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
+
+## 30 秒结论
+
+* **继续用 Grafana Alerting，如果**
+
+  告警量不大、规则跟着面板走、联系点用 Slack 或 PagerDuty 就够，团队本来就在 Grafana 里，少一个系统就少一份维护。
+
+* **换夜莺，如果**
+
+  规则数量已经超出按面板管理的范围，需要事件 Pipeline、订阅、自愈，值班的人要电话短信，或者权限要按业务组划分，而不是按文件夹。
+
+* **两个都用，如果**
+
+  仪表盘资产多。Grafana 的数据源可以一键导入夜莺，仪表盘原样留着，夜莺的仪表盘还能按 URL 嵌入 Grafana 面板。
+
+它的路子
+
+告警是可视化平台里的一个模块。
+
+夜莺的路子
+
+告警就是整个产品，图在哪看都行。
+
+## 它擅长什么
+
+Grafana 是可视化的事实标准，仪表盘生态无可替代。如果告警量不大、团队也已经在用 Grafana，它自带的告警足够顺手，少一个系统就少一份维护。
+
+## 什么时候换夜莺
+
+夜莺把力气全花在告警侧：事件 Pipeline、订阅与协同、告警自愈。两者并不冲突——很多用户用 Grafana 看图、用夜莺告警。
+
+## 换的信号
+
+* 告警量已经超出按面板配规则能管的范围
+* 需要事件 Pipeline、订阅或告警自愈
+* 值班的人要电话短信，不只是 contact point
+
+Grafana · MySQL 总览
+
+按 URL 嵌进夜莺仪表盘的 Grafana 面板
+
+S1MySQL 副本延迟 > 30s
+
+`ident=mysql-prod``busigroup=DBA`
+
+已送达 · 电话 + 钉钉
+
+图在 Grafana 看，告警在夜莺发
+
+* 你
+
+  分析这个仪表盘
+
+* 夜莺 AI
+
+  40 个面板里有 3 个查询的指标已经不存在，2 个面板最近一小时趋势异常：connections 和 slow\_queries。
+
+## 逐项对照
+
+| 能力对比                    | 夜莺 v9                                                                      | Grafana Alerting                                                                                |
+| --------------------------- | ---------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| 数据源                      | 内置<!-- -->: 10+ 类型，指标、日志、SQL                                      | 内置<!-- -->: 任何支持告警的 Grafana 数据源                                                     |
+| 规则表达式                  | 内置<!-- -->: Prometheus 类把阈值写进 PromQL；日志与 SQL 类有独立触发条件    | 内置<!-- -->: 查询 + Reduce + Threshold 表达式链                                                |
+| 规则归属与权限              | 内置<!-- -->: 业务组，同时是权限边界                                         | 部分支持或需扩展<!-- -->: 文件夹 + 组织角色；细粒度 RBAC 是企业版                               |
+| 无数据 / 执行错误           | 部分支持或需扩展<!-- -->: 日志与 SQL 类有无数据开关；Prometheus 类要单写规则 | 内置<!-- -->: NoData / Error 状态可配，支持 Keep last state                                     |
+| 通知路由                    | 部分支持或需扩展<!-- -->: 平铺的通知规则，各自匹配各自发                     | 内置<!-- -->: 通知策略树，group\_by、continue                                                   |
+| 通知媒介                    | 内置<!-- -->: 20 种内置，含电话、短信                                        | 部分支持或需扩展<!-- -->: 联系点：Slack、Teams、PagerDuty、钉钉、企业微信等；电话短信要靠第三方 |
+| 值班                        | 部分支持或需扩展<!-- -->: 通知规则 + 订阅规则超时抄送                        | 不支持<!-- -->: OnCall 开源版已于 2026 年 3 月归档，值班在 Cloud 版                             |
+| 静默                        | 内置<!-- -->: 固定与周期屏蔽，可只屏蔽通知                                   | 内置<!-- -->: Silence 与 Mute timing                                                            |
+| 跨规则抑制                  | 部分支持或需扩展<!-- -->: 用事件 Pipeline 改写                               | 不支持<!-- -->: Grafana 托管告警不支持 inhibit                                                  |
+| 事件 Pipeline / 订阅 / 自愈 | 内置<!-- -->: 内置                                                           | 不支持<!-- -->: 无                                                                              |
+| 仪表盘                      | 部分支持或需扩展<!-- -->: 内置仪表盘，可嵌 Grafana 面板                      | 内置<!-- -->: 事实标准                                                                          |
+| AI                          | 内置<!-- -->: 内置助手与 74 个 MCP 工具                                      | 部分支持或需扩展<!-- -->: Assistant 仅 Cloud 版；开源版靠 LLM 插件和独立的 MCP server           |
+| 规则版本与 provisioning     | 部分支持或需扩展<!-- -->: 导出 JSON 进版本库                                 | 内置<!-- -->: 版本历史，文件 / API / Terraform provisioning                                     |
+| 许可证                      | 内置<!-- -->: Apache-2.0                                                     | 部分支持或需扩展<!-- -->: AGPL-3.0                                                              |
+
+* 内置
+* 部分支持或需扩展
+* 不支持
+
+基于各项目 2026 年 8 月开源版本的公开能力，只作选型参考。我们尽量把对方的长处写清楚——选型建议不老实，社区口碑也就没了。
+
+## 对象怎么对应
+
+Grafana 的统一告警拆成夜莺的对象后各自落在哪里。仪表盘、面板、变量一行不动。
+
+| Grafana                  | 夜莺                                                        |
+| ------------------------ | ----------------------------------------------------------- |
+| 数据源                   | 一键导入（集成中心 → 数据源 → 从 Grafana 导入），密钥要补填 |
+| Grafana-managed 告警规则 | 重写：Reduce + Threshold 合成 PromQL                        |
+| Data source-managed 规则 | 就是 Prometheus ruler 规则，走 Alertmanager 那条路          |
+| 通知策略树               | 拍平成通知规则                                              |
+| Contact point            | 通知媒介 + 通知规则                                         |
+| Silence / Mute timing    | 固定时间屏蔽 / 周期时间屏蔽或通知配置的适用时段             |
+| NoData / Error 状态      | 日志与 SQL 类的无数据开关；Prometheus 类单写 up == 0        |
+| runbook\_url             | 规则上的预案链接                                            |
+
+切换时在 Grafana 里把规则暂停而不是删除，要回退一秒就能回来。
+
+[从 Grafana Alerting 迁移<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/from-grafana-alerting.md)[并存与回滚方案<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/coexistence.md)
+
+## 关于这组对比的常见问题
+
+能继续用 Grafana 看图吗？
+
+能，这是最常见的搭配。夜莺读的是同一个 Prometheus 或 Loki，Grafana 面板不受影响；夜莺的仪表盘也能按 URL 嵌入 Grafana 面板。
+
+Grafana 的告警规则能自动导入吗？
+
+规则不能，数据源能。「从 Grafana 导入」会把数据源拉成预览表，勾选后导入，密钥要补填；告警规则因为表达式链和 PromQL 的模型不同，要按迁移文档重写。
+
+Grafana 的 No data 状态在夜莺里怎么处理？
+
+夜莺没有这个状态机。Prometheus 类规则里序列消失等于恢复，想在数据没了时告警，单写一条 up == 0；日志类和 SQL 类规则有「无数据」开关，带自己的级别和自动恢复超时。
+
+夜莺有电话和短信通知吗？
+
+有，内置媒介里包含电话和短信，属于开源版。Grafana 开源版的联系点没有电话短信，Grafana OnCall 开源版已于 2026 年 3 月归档，值班类能力在 Grafana Cloud。
+
+通知策略里的 group\_by 怎么办？
+
+夜莺一次通知只装一个事件，不做标签聚合。如果值班流程依赖「一条消息里看到一组告警」，这是切换前要认下的差异；降噪改靠规则合并、屏蔽规则和订阅规则。
+
+## 其他对比
+
+* [夜莺 vs Prometheus + Alertmanager](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
+  <!-- -->
+  [ →](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
+* [夜莺 vs Zabbix](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
+  <!-- -->
+  [ →](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
+* [产品对比](https://n9e.github.io/zh/zh/comparisons.md)
+  <!-- -->
+  [ →](https://n9e.github.io/zh/zh/comparisons.md)
+
+## 拿不准？两套一起跑。
+
+夜莺读的是你现有的存储，装上不影响现在正在跑的告警。
+
+[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
+
+
+---
+
+# 开源告警平台怎么选
+
+「告警平台」这个词指的是监控里最后一层：拿到数据之后，**谁来判定、怎么降噪、发给谁**。采集和存储不在这页的讨论范围，可视化也不在。这一层的开源选择不多，但差别很大。下面先把工具分成三类，再按六个问题逐个过。
+
+## 先分清三类工具[​](#先分清三类工具 "先分清三类工具的直接链接")
+
+| 类别       | 做什么                                       | 代表                                              |
+| ---------- | -------------------------------------------- | ------------------------------------------------- |
+| 告警引擎   | 自己跑查询、判定、降噪、分发                 | Prometheus + Alertmanager、Grafana Alerting、夜莺 |
+| 告警聚合层 | 接收别的系统已经产生的告警，去重、关联、分发 | Keep、Alerta                                      |
+| 值班分发   | 排班、升级、电话叫醒                         | 多为商业产品；Grafana OnCall 开源版已归档         |
+
+选型第一步是确定你缺的是哪一层。数据还没有告警，要引擎；已经有三套系统各自在报，要聚合层；告警已经够准只是没人接电话，要值班分发。
+
+## 告警规则写在文件里还是页面上？[​](#告警规则写在文件里还是页面上 "告警规则写在文件里还是页面上？的直接链接")
+
+Alertmanager 的世界里规则是 Prometheus 的 YAML，靠 reload 和 GitOps 管理，没有页面编辑，也没有权限模型。Grafana Alerting 和夜莺都在页面上配，也都能导出导入。区别在于归属：Grafana 按文件夹和组织角色，细粒度 RBAC 在企业版；夜莺按业务组，业务组同时是权限边界，谁能看、谁能改、屏蔽作用在哪，都由它决定。如果只有 SRE 维护规则，文件加 GitOps 最省；如果业务团队要自己配，页面和权限边界是硬需求。
+
+## 数据在一个地方还是好几个地方？[​](#数据在一个地方还是好几个地方 "数据在一个地方还是好几个地方？的直接链接")
+
+Alertmanager 只处理 Prometheus 判定出来的告警（Loki 的告警走它自己的 ruler）。Grafana Alerting 能跨它支持告警的任何数据源。夜莺把 Prometheus、VictoriaMetrics、Elasticsearch、Loki、ClickHouse、MySQL 等 <!-- -->10+<!-- --> 种数据源注册进来，指标、日志、SQL 都能写规则。Keep 和 Alerta 不查数据，它们只接收告警。
+
+## 降噪靠什么：分组、抑制、屏蔽、订阅[​](#降噪靠什么分组抑制屏蔽订阅 "降噪靠什么：分组、抑制、屏蔽、订阅的直接链接")
+
+这是三个引擎差别最大的地方。
+
+* **Alertmanager**：按标签分组成一条消息（`group_by`）、跨规则抑制（`inhibit_rules`）、一次性静默、路由上的周期静音。模型很干净，但都在配置文件里。
+* **Grafana Alerting**：内嵌了一个 Alertmanager，分组和静默一致，但 Grafana 托管告警不支持抑制规则。
+* **夜莺**：不做标签分组，一次通知一个事件；降噪靠规则层面的合并（一条规则覆盖查询返回的所有序列）、固定和周期屏蔽（可以只屏蔽通知保留事件）、订阅规则（按条件抄送、超时升级）和事件 Pipeline（处理器改写、丢弃、回调）。跨规则抑制没有声明式写法，要用 Pipeline 改写。
+* **Keep / Alerta**：去重和关联是它们的主业，但前提是告警已经由别的系统产生。
+
+如果值班流程强依赖「一条消息里看到一组告警」，Alertmanager 系更合适；如果需要按业务条件把事件分发给不同的人、并在分发前改写它，夜莺更合适。
+
+## 值班的人怎么被叫醒？[​](#值班的人怎么被叫醒 "值班的人怎么被叫醒？的直接链接")
+
+开源告警引擎里只有夜莺内置电话和短信媒介，另有钉钉、飞书、企业微信、Slack、Telegram 等共 <!-- -->20<!-- --> 种。Alertmanager 的接收器以邮件、Slack、PagerDuty、webhook 为主；Grafana 的联系点覆盖主流 IM，也没有电话短信。三者都没有排班表：值班排班在开源世界基本只能靠商业产品，Grafana OnCall 开源版已于 2026 年 3 月归档。
+
+## 谁能改规则，权限边界在哪？[​](#谁能改规则权限边界在哪 "谁能改规则，权限边界在哪？的直接链接")
+
+Alertmanager 和 Prometheus 没有认证和权限，靠部署层面隔离。Grafana 开源版有组织角色和文件夹权限。夜莺有用户、团队、业务组三层，规则、屏蔽、订阅、设备都归属业务组，数据源可以按业务组授权。多个业务团队共用一套告警平台时，这一条往往是决定性的。
+
+## AI 能帮上什么忙？[​](#ai-能帮上什么忙 "AI 能帮上什么忙？的直接链接")
+
+Alertmanager 没有内置 AI。Grafana 的 Assistant 只在 Cloud 版，开源版靠 LLM 插件和独立的 MCP server。夜莺进程内置 AI 助手和 <!-- -->74<!-- --> 个 MCP 工具，分 <!-- -->13<!-- --> 个工具集，读工具默认开、写工具默认关、没有删除工具；Claude Code、Cursor 这类客户端直接连 `/mcp` 端点，权限跟着用户的 token 走。Keep 把 AI 用在告警关联上。
+
+## 一张表看完[​](#一张表看完 "一张表看完的直接链接")
+
+| 维度           | Prometheus + Alertmanager | Grafana Alerting     | 夜莺                         | Keep                     | Alerta     |
+| -------------- | ------------------------- | -------------------- | ---------------------------- | ------------------------ | ---------- |
+| 类别           | 引擎                      | 引擎                 | 引擎                         | 聚合层                   | 聚合层     |
+| 规则在哪配     | YAML 文件                 | 页面 + provisioning  | 页面 + 导入导出              | 不判定                   | 不判定     |
+| 数据源         | Prometheus                | 支持告警的任意数据源 | 10+<!-- --> 种，指标日志 SQL | 接收告警                 | 接收告警   |
+| 分组成一条消息 | 有                        | 有                   | 无                           | 关联                     | 关联       |
+| 跨规则抑制     | 有                        | 无                   | Pipeline 改写                | 关联规则                 | 关联规则   |
+| 电话短信       | 第三方                    | 第三方               | 内置                         | 第三方                   | 第三方     |
+| 权限模型       | 无                        | 角色 + 文件夹        | 业务组 RBAC                  | 有                       | 有         |
+| 内置 AI        | 无                        | 仅 Cloud             | 助手 + MCP                   | 告警关联                 | 无         |
+| 许可证         | Apache-2.0                | AGPL-3.0             | Apache-2.0                   | 核心开源，另有企业版目录 | Apache-2.0 |
+
+## 按团队画像推荐[​](#按团队画像推荐 "按团队画像推荐的直接链接")
+
+* **小团队，数据全在 Prometheus，习惯 GitOps**：Prometheus + Alertmanager。组件最少，模型最干净。
+* **Grafana 重度用户，告警量中等，联系点够用**：Grafana Alerting。少一个系统。
+* **多种数据源、业务团队自己配规则、要电话短信和国内 IM、想用 AI 排查**：夜莺。完整对比见[夜莺 vs Prometheus + Alertmanager](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)和[夜莺 vs Grafana Alerting](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)。
+* **已经有三套监控各自在报警，想统一收口**：Keep 或 Alerta 这类聚合层。注意夜莺不是聚合层。
+* **从 Zabbix 过来**：先看[Zabbix 替代方案](https://n9e.github.io/zh/zh/comparisons/zabbix-alternatives.md)，再看[夜莺 vs Zabbix](https://n9e.github.io/zh/zh/comparisons/zabbix.md)。
+
+## 常见问题[​](#常见问题 "常见问题的直接链接")
+
+**告警平台和监控系统是一回事吗？**
+
+不是。监控系统通常包含采集、存储、可视化和告警四层；这页说的告警平台只是最后一层：判定、降噪、分发。Prometheus 是存储加判定，Grafana 是可视化加告警模块，夜莺是专做告警这一层的引擎。
+
+**夜莺能接收 Alertmanager 或 Zabbix 发来的告警吗？**
+
+不能。夜莺是告警引擎，自己跑查询判定，没有入站告警接口。要汇聚多个系统已经产生的告警，看 Keep 或 Alerta 这类聚合层。
+
+**开源版有电话和短信通知吗？**
+
+夜莺有，电话和短信是开源版内置媒介。Alertmanager 和 Grafana 开源版都没有电话短信，要接 PagerDuty 这类第三方；Grafana OnCall 开源版已于 2026 年 3 月归档。
+
+***
+
+本页基于各项目 2026 年 10 月的公开文档和开源版本，只作选型参考。夜莺的数字来自构建时数据。发现过时或不准确的描述，请在 [GitHub](https://github.com/n9e/n9e.github.io/issues) 提 issue。
+
+本页目录
+
+* [先分清三类工具](#先分清三类工具)
+* [告警规则写在文件里还是页面上？](#告警规则写在文件里还是页面上)
+* [数据在一个地方还是好几个地方？](#数据在一个地方还是好几个地方)
+* [降噪靠什么：分组、抑制、屏蔽、订阅](#降噪靠什么分组抑制屏蔽订阅)
+* [值班的人怎么被叫醒？](#值班的人怎么被叫醒)
+* [谁能改规则，权限边界在哪？](#谁能改规则权限边界在哪)
+* [AI 能帮上什么忙？](#ai-能帮上什么忙)
+* [一张表看完](#一张表看完)
+* [按团队画像推荐](#按团队画像推荐)
+* [常见问题](#常见问题)
+
+
+---
+
+1. [产品对比](https://n9e.github.io/zh/zh/comparisons.md)
+2. Prometheus + Alertmanager
+
+# 夜莺 vs Prometheus + Alertmanager
+
+Prometheus 不用换，exporter 不用换，Grafana 面板不用换。Alertmanager 是这组对比里唯一真正被替掉的组件：规则从 YAML 挪到页面上，路由树拍平成通知规则，静默变成带业务组边界的屏蔽规则。
+
+[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
+
+## 30 秒结论
+
+* **继续用 Prometheus + Alertmanager，如果**
+
+  团队习惯 GitOps、规则数量能记在脑子里、告警通过 webhook 送进 PagerDuty 这类值班系统就够了。这套组合成熟、省组件，没有理由为换而换。
+
+* **换夜莺，如果**
+
+  规则要交给非 SRE 的业务团队在页面上维护，权限要按业务组划分，值班的人需要电话短信，或者数据已经不只在 Prometheus 里：日志在 ES、业务指标在 MySQL。
+
+* **两套并行，如果**
+
+  想先验证再决定。夜莺把 Prometheus 注册成数据源就能判定同一批规则，Alertmanager 继续发通知，按通知渠道逐个切换，任何一步都能在一分钟内回退。
+
+它的路子
+
+规则写在 YAML 里，靠 GitOps 管。
+
+夜莺的路子
+
+规则配在页面上，按业务组分权限。
+
+## 它擅长什么
+
+Prometheus 依然是最好的时序底座之一，Alertmanager 的分组与静默模型设计得很干净。规模不大、团队习惯 GitOps、告警规则数量可控时，这套组合完全够用，而且不用多引入组件。
+
+## 什么时候换夜莺
+
+当告警规则要交给非 SRE 的业务团队维护、需要按业务组分权限、需要电话短信这类媒介，或者数据不只在 Prometheus 里的时候，夜莺更省事——它就是把这几件事做厚的。
+
+## 换的信号
+
+* 告警规则要交给非 SRE 的业务团队维护
+* 凌晨三点得有人接电话，webhook 叫不醒人
+* 数据已经不全在 Prometheus 里了
+
+rules.yml + alertmanager.yml
+
+```
+- alert: MysqlReplicaLag  expr: mysql_slave_lag_seconds > 30  for: 5m  labels: { team: dba }route:  receiver: dba-webhook  group_by: [alertname]
+```
+
+夜莺 · 告警规则
+
+* 名称
+
+  MySQL 副本延迟
+
+* 条件
+
+  mysql\_slave\_lag\_seconds > 30，持续 5m
+
+* 业务组
+
+  DBA
+
+* 通知
+
+  电话、短信、钉钉
+
+* 谁能改
+
+  DBA 组
+
+同一条规则，两种写法
+
+* 你
+
+  一句话创建：mysql-prod 副本延迟超过 30 秒持续 5 分钟，电话通知 DBA 组
+
+* 夜莺 AI
+
+  PromQL 和阈值已生成。业务组我不猜，请从下拉里选一个，选好就创建。
+
+## 逐项对照
+
+| 能力对比    | 夜莺 v9                                                                          | Prometheus + Alertmanager                                                                                          |
+| ----------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| 数据源      | 内置<!-- -->: 指标、日志、SQL，10+ 类型                                          | 不支持<!-- -->: 只判定 Prometheus 自身的数据                                                                       |
+| 规则在哪配  | 内置<!-- -->: 页面配置，按业务组归属，可整份导入 rules.yml                       | 不支持<!-- -->: YAML 文件 + reload，没有页面编辑                                                                   |
+| 规则语法    | 内置<!-- -->: PromQL 不变，阈值写在表达式里                                      | 内置<!-- -->: PromQL                                                                                               |
+| 通知聚合    | 不支持<!-- -->: 一次通知一个事件，不按标签合并成一条消息                         | 内置<!-- -->: group\_by / group\_wait / group\_interval                                                            |
+| 跨规则抑制  | 部分支持或需扩展<!-- -->: 同一规则多档阈值内置抑制；跨规则要用事件 Pipeline 改写 | 内置<!-- -->: inhibit\_rules                                                                                       |
+| 静默 / 屏蔽 | 内置<!-- -->: 固定时间与周期时间，可只屏蔽通知保留事件，带业务组边界             | 部分支持或需扩展<!-- -->: 一次性 Silence；周期静默靠路由上的 mute\_time\_intervals                                 |
+| 通知媒介    | 内置<!-- -->: 20 种内置，含电话、短信、钉钉、飞书、企业微信                      | 部分支持或需扩展<!-- -->: 邮件、Slack、PagerDuty、Telegram、企业微信、webhook 等；电话、短信、钉钉、飞书要靠第三方 |
+| 订阅与协同  | 内置<!-- -->: 订阅规则、超时抄送、事件 Pipeline 处理器                           | 不支持<!-- -->: 无                                                                                                 |
+| 权限        | 内置<!-- -->: 用户、团队、业务组 RBAC                                            | 不支持<!-- -->: 没有认证和权限模型                                                                                 |
+| 仪表盘      | 部分支持或需扩展<!-- -->: 内置仪表盘，可按 URL 嵌入 Grafana 面板                 | 不支持<!-- -->: 只有表达式浏览器，通常配 Grafana                                                                   |
+| 告警自愈    | 内置<!-- -->: ibex 脚本执行                                                      | 不支持<!-- -->: 无                                                                                                 |
+| AI / MCP    | 内置<!-- -->: 内置助手与 74 个 MCP 工具                                          | 不支持<!-- -->: 无                                                                                                 |
+| 许可证      | 内置<!-- -->: Apache-2.0                                                         | 内置<!-- -->: Apache-2.0，CNCF 毕业项目                                                                            |
+
+* 内置
+* 部分支持或需扩展
+* 不支持
+
+基于各项目 2026 年 8 月开源版本的公开能力，只作选型参考。我们尽量把对方的长处写清楚——选型建议不老实，社区口碑也就没了。
+
+## 对象怎么对应
+
+一份 rules.yml 加一份 alertmanager.yml，拆开后每一项落到哪里。完整的逐条对应、拍平路由树的方法和四个不对称之处，见迁移文档。
+
+| Prometheus / Alertmanager                 | 夜莺                                               |
+| ----------------------------------------- | -------------------------------------------------- |
+| rules.yml 里的告警规则                    | 告警规则，整份粘进「导入 Prometheus 告警规则」     |
+| 记录规则                                  | 不动，继续由 Prometheus 计算                       |
+| receivers\[]                              | 通知媒介 + 通知规则里的通知配置                    |
+| route 路由树                              | 拍平：每条从根到叶的路径 AND 成一份通知配置        |
+| group\_by / group\_wait / group\_interval | 没有对应物，一次通知只装一个事件                   |
+| inhibit\_rules                            | 没有声明式对应物，用事件 Pipeline 的丢弃处理器改写 |
+| Silence                                   | 屏蔽规则，必须属于一个业务组                       |
+| Alertmanager 集群                         | 多个告警引擎实例按规则分片，不需要 gossip          |
+
+两个最容易踩的坑：夜莺通知配置的「适用级别」一个都不勾等于谁都不匹配；事件缺少某个标签时，!= 和 !\~ 也判为不匹配，而 Alertmanager 把缺失标签当空串。
+
+[从 Prometheus + Alertmanager 迁移<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/from-alertmanager.md)[并存与回滚方案<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/coexistence.md)
+
+## 关于这组对比的常见问题
+
+要替换 Prometheus 吗？
+
+不用。夜莺不存时序数据，Prometheus 继续抓取和存储，夜莺把它注册成数据源，按周期发 instant query 做判定。Thanos、Mimir、VictoriaMetrics 同样直接接。
+
+alertmanager.yml 能自动转换吗？
+
+告警规则能：rules.yml 整份粘进「规则管理 → 导入 → 导入 Prometheus 告警规则」。路由、接收器和静默要按迁移文档逐条重建，因为夜莺是平铺的通知规则，不是路由树。
+
+夜莺能接收 Alertmanager 发出的 webhook 吗？
+
+不能。夜莺没有入站告警接口，只有指标写入口，所以不能把 Alertmanager 挂在前面当转发器过渡，规则只能在夜莺里重建。
+
+Alertmanager 的告警分组在夜莺里怎么办？
+
+夜莺一次通知只装一个事件，不按标签把多条告警合并成一条消息。降噪靠规则层面的合并（一条规则覆盖查询返回的所有序列）、屏蔽规则和订阅规则。如果值班流程强依赖分组消息，这是切换前要先认下的差异。
+
+切换要停 Alertmanager 吗？
+
+最后一步才停。前面所有步骤里 Prometheus 和 Alertmanager 都正常运行：夜莺的规则先禁用导入，挑一个业务组做金丝雀，并行比对，最后从 rule\_files 里摘掉告警规则，再停 Alertmanager。
+
+## 其他对比
+
+* [夜莺 vs Zabbix](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
+  <!-- -->
+  [ →](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
+* [夜莺 vs Grafana Alerting](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
+  <!-- -->
+  [ →](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
+* [产品对比](https://n9e.github.io/zh/zh/comparisons.md)
+  <!-- -->
+  [ →](https://n9e.github.io/zh/zh/comparisons.md)
+
+## 拿不准？两套一起跑。
+
+夜莺读的是你现有的存储，装上不影响现在正在跑的告警。
+
+[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
+
+
+---
+
+1. [产品对比](https://n9e.github.io/zh/zh/comparisons.md)
+2. Zabbix
+
+# 夜莺 vs Zabbix
+
+Zabbix 以主机和监控项为中心，自己采、自己存、自己告警；夜莺以查询为中心，在你已有的 Prometheus、VictoriaMetrics、ES 上判定，没人采的地方才用 Categraf 补。这不是同一类产品的优劣之争，而是两种架构各自适合不同的基础设施。
+
+[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
+
+## 30 秒结论
+
+* **继续用 Zabbix，如果**
+
+  监控对象以网络设备、SNMP、IPMI 为主，依赖自动发现和 LLD，团队有多年 Zabbix 经验。这些场景里 Zabbix 二十多年的积累，没有哪个开源替代品能完整覆盖。
+
+* **换夜莺，如果**
+
+  指标已经在 Prometheus 或 VictoriaMetrics 里，日志在 ES 或 Loki 里，Kubernetes 和云上服务比机房设备多，或者你正为了一条告警同时维护着 Zabbix Agent 和 exporter 两套采集。
+
+* **两套并行，如果**
+
+  想分批迁。Categraf 和 Zabbix Agent 可以装在同一台机器上，夜莺先只发到一个专用群，每天对一次两边的触发结果，Zabbix 全程不停。
+
+它的路子
+
+用自己的 agent 把数据采全，再在上面告警。
+
+夜莺的路子
+
+直接在你已有的存储上告警，没人采的地方才用 Categraf 补。
+
+## 它擅长什么
+
+Zabbix 二十多年的积累在传统 IT 一体化监控上非常成熟：网络设备、SNMP、agent 采集与自动发现是它的主场，企业里有大量现成经验和人力储备。
+
+## 什么时候换夜莺
+
+如果监控数据已经在 Prometheus、VictoriaMetrics、ES 这类云原生栈里，夜莺接得更直接，不需要把数据再倒进另一套采集体系。
+
+## 换的信号
+
+* 监控数据已经在 Prometheus、VictoriaMetrics 或 ES 里
+* Kubernetes 和云上服务比网络设备多
+* 为了一条告警，维护着两套采集体系
+
+你已有的存储
+
+![](/zh/img/logos/prometheus.png)Prometheus![](/zh/img/logos/victoriametrics.png)VictoriaMetrics![](/zh/img/logos/elasticsearch.png)ElasticSearch![](/zh/img/logos/ck.png)ClickHouse
+
+![](/zh/img/logo-mark.webp)**夜莺**就地读取，不搬数据
+
+20 种通知媒介
+
+电话 / 短信邮件![](/zh/img/logos/dingtalk.png)钉钉![](/zh/img/logos/feishu.png)飞书+16
+
+没人采的地方，才用 Categraf 补
+
+* 你
+
+  这台主机为什么离线了？
+
+* 夜莺 AI
+
+  agent 3 分钟没有上报，但主机能 ping 通，同网段其他主机正常。更像是 Categraf 进程退出了，不是主机宕机。
+
+## 逐项对照
+
+| 能力对比        | 夜莺 v9                                                                                        | Zabbix                                                                        |
+| --------------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| 采集模型        | 部分支持或需扩展<!-- -->: Categraf 或已有 exporter，按 Remote Write 推送                       | 内置<!-- -->: Zabbix Agent / Agent2、SNMP、IPMI、JMX，自动发现与 LLD          |
+| 数据存储        | 内置<!-- -->: 不自存，直接读 Prometheus、VictoriaMetrics、ES、ClickHouse；小规模可用内置时序库 | 内置<!-- -->: 自带 Server + MySQL / PostgreSQL / TimescaleDB                  |
+| 告警对象        | 内置<!-- -->: 一条规则覆盖查询返回的所有序列                                                   | 部分支持或需扩展<!-- -->: 触发器逐主机生成，一个模板挂 1000 台就是 1000 组    |
+| 规则语法        | 内置<!-- -->: PromQL / SQL / LogQL，随数据源                                                   | 内置<!-- -->: 触发器表达式与函数库                                            |
+| 严重级别        | 部分支持或需扩展<!-- -->: S1 / S2 / S3 三档                                                    | 内置<!-- -->: 六档                                                            |
+| 触发器依赖      | 部分支持或需扩展<!-- -->: 没有声明式依赖，用事件 Pipeline 改写                                 | 内置<!-- -->: 触发器依赖、事件关联                                            |
+| 维护期 / 屏蔽   | 内置<!-- -->: 固定与周期屏蔽，可只屏蔽通知保留事件                                             | 内置<!-- -->: 维护期                                                          |
+| 通知媒介        | 内置<!-- -->: 20 种内置，电话、短信、钉钉、飞书、企业微信开箱即用                              | 部分支持或需扩展<!-- -->: 邮件、脚本和 webhook 媒介类型，国内 IM 多靠社区模板 |
+| 升级阶梯        | 部分支持或需扩展<!-- -->: 订阅规则按持续时长超时抄送                                           | 内置<!-- -->: 多步骤 Escalation                                               |
+| 权限            | 内置<!-- -->: 用户、团队、业务组 RBAC，业务组就是权限边界                                      | 内置<!-- -->: 用户组、角色、主机组权限                                        |
+| Kubernetes      | 内置<!-- -->: 读 Prometheus 数据即可，Categraf 带 K8s 插件                                     | 部分支持或需扩展<!-- -->: 官方 Helm 与模板，需要部署它的 agent                |
+| 网络设备 / SNMP | 部分支持或需扩展<!-- -->: Categraf 有 SNMP 插件，没有自动发现                                  | 内置<!-- -->: 主场：SNMP、自动发现、网络设备模板                              |
+| 日志告警        | 内置<!-- -->: ES、OpenSearch、Loki、VictoriaLogs、ClickHouse                                   | 部分支持或需扩展<!-- -->: 日志监控项加正则，不是查询日志库                    |
+| AI / MCP        | 内置<!-- -->: 内置助手与 74 个 MCP 工具                                                        | 不支持<!-- -->: 无                                                            |
+| 许可证          | 内置<!-- -->: Apache-2.0                                                                       | 部分支持或需扩展<!-- -->: AGPL-3.0（7.0 起）                                  |
+
+* 内置
+* 部分支持或需扩展
+* 不支持
+
+基于各项目 2026 年 8 月开源版本的公开能力，只作选型参考。我们尽量把对方的长处写清楚——选型建议不老实，社区口碑也就没了。
+
+## 对象怎么对应
+
+Zabbix 的每类对象在夜莺里叫什么，哪些根本没有对应物。完整映射表和「全程 Zabbix 不停机」的重建顺序见迁移文档。
+
+| Zabbix              | 夜莺                                         |
+| ------------------- | -------------------------------------------- |
+| Zabbix Server       | 夜莺 + 一个时序库（夜莺不存数据）            |
+| Zabbix Agent        | Categraf，或已有 exporter；两者可同机并存    |
+| Host / Host group   | 设备（ident）/ 业务组，业务组同时是权限边界  |
+| Template            | 模板中心的组件，内置 83 个，导入是一次性拷贝 |
+| Item（监控项）      | 没有对应物，采什么由采集器配置决定           |
+| Trigger             | 告警规则，一条覆盖查询返回的所有对象         |
+| LLD 自动发现        | 没有对应物，查询返回几条序列就是几个对象     |
+| Action + Media type | 通知规则 + 通知媒介 + 消息模板               |
+| Maintenance         | 屏蔽规则                                     |
+
+夜莺没有 Zabbix 模板或触发器的导入器，也读不了它的 XML / YAML。从 Zabbix 过来是重建而不是搬迁；好消息是工作量比想象的小：内置组件顶掉模板的大部分，一条规则顶掉一整组触发器。
+
+[从 Zabbix 迁移<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/from-zabbix.md)[并存与回滚方案<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/coexistence.md)
+
+## 关于这组对比的常见问题
+
+夜莺能直接读 Zabbix 的数据吗？
+
+不能。夜莺的数据源是 Prometheus、VictoriaMetrics、ES 这类查询后端，Zabbix 的 history / trends 表不在其中。历史数据留在 Zabbix 里当只读查询系统即可，不用搬。
+
+Zabbix 的模板能导入夜莺吗？
+
+不能机械转换。夜莺模板中心内置 83 个组件，覆盖操作系统、数据库、中间件、Kubernetes，大部分 Zabbix 标准模板能找到对应的组件；自定义触发器要按归并方法逐条重写。
+
+夜莺能监控交换机和路由器吗？
+
+能采，但不是主场。Categraf 有 SNMP 插件，可以按 OID 采集并在夜莺上告警，但没有 Zabbix 那样的网络设备自动发现和成熟模板库。网络设备为主的环境，建议 Zabbix 继续管设备，夜莺管云上和应用。
+
+Zabbix 的六档严重性怎么对应？
+
+压到三档：Disaster 和 High 对 S1，Average 和 Warning 对 S2，Information 和 Not classified 对 S3。这一步有信息损失，并行期要按这个映射核对两边的级别。
+
+迁移期间 Zabbix 要停吗？
+
+全程不停。顺序是装 Categraf、定存储、导内置模板、翻译剩余触发器、建通知、搬维护期、并行比对，最后先停 Action 再停 Agent。回退只需把夜莺这批规则批量禁用。
+
+## 其他对比
+
+* [夜莺 vs Prometheus + Alertmanager](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
+  <!-- -->
+  [ →](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
+* [夜莺 vs Grafana Alerting](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
+  <!-- -->
+  [ →](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
+* [产品对比](https://n9e.github.io/zh/zh/comparisons.md)
+  <!-- -->
+  [ →](https://n9e.github.io/zh/zh/comparisons.md)
+
+## 拿不准？两套一起跑。
+
+夜莺读的是你现有的存储，装上不影响现在正在跑的告警。
+
+[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
+
+
+---
+
+# Zabbix 的开源替代方案：按场景选，不按排行榜选
+
+搜「Zabbix 替代」出来的多是十个工具的排行榜，每个写两句，谁都能上榜。这页反过来：先说清楚你为什么想换、换了之后数据和对象怎么安置，再给每个候选一段实话，包括它不适合的情况。夜莺（Nightingale，n9e）是我们自己的项目，它只出现在真正合适的格子里。
+
+## 为什么会想换掉 Zabbix[​](#为什么会想换掉-zabbix "为什么会想换掉 Zabbix的直接链接")
+
+三个最常见的原因，和一个常被忽略的反例。
+
+* **数据库成了瓶颈。** `history` 和 `trends` 表随主机数和监控项数线性增长，分区、housekeeper、TimescaleDB 都是在和这件事较劲。指标型的时序库天生就是为这类数据设计的。
+* **环境变成云原生了。** Kubernetes 里 Pod 按分钟出生和消亡，主机加监控项的模型要靠自动发现和 agent 才跟得上；而这些环境的指标往往早就在 Prometheus 或 VictoriaMetrics 里了，再用 Zabbix 采一遍等于维护两套采集。
+* **告警这一层的要求变了。** 降噪、按业务组分权限、钉钉飞书电话短信、告警自愈、AI 排查。Zabbix 做得到一部分，但要靠脚本媒介和外部系统拼起来。
+
+反例也要说清楚：**监控对象以网络设备、SNMP、IPMI 为主，团队有多年 Zabbix 经验，系统运行稳定**，那就没有理由换。这个场景里 Zabbix 二十多年的积累没有完整的开源替代品。
+
+## 换之前先回答三个问题[​](#换之前先回答三个问题 "换之前先回答三个问题的直接链接")
+
+1. **数据现在在哪？** 如果指标已经在 Prometheus、VictoriaMetrics，日志在 Elasticsearch、Loki，那替代品应该直接读这些库，而不是再建一套采集。如果数据只在 Zabbix 里，替代品得自带采集。
+2. **监控对象是什么？** 交换机、路由器、IPMI 带外，和 Kubernetes、云数据库、微服务，是两种世界。前者看自动发现和设备模板，后者看查询语言和多数据源。
+3. **谁维护告警规则？** 只有 SRE 维护，配置文件加 GitOps 就够；业务团队自己维护，就要页面配置和权限边界。
+
+## 按场景选[​](#按场景选 "按场景选的直接链接")
+
+| 你的情况                                             | 更合适的                           | 为什么                                 |
+| ---------------------------------------------------- | ---------------------------------- | -------------------------------------- |
+| 网络设备、SNMP、IPMI 为主                            | 继续 Zabbix；纯网络可看 LibreNMS   | 自动发现和设备模板库是它们的主场       |
+| 指标已在 Prometheus / VictoriaMetrics，Kubernetes 多 | 夜莺，或 Prometheus + Alertmanager | 直接在已有存储上告警，不建第二套采集   |
+| 团队已经在 Grafana 里，告警量不大                    | Grafana Alerting                   | 少一个系统                             |
+| 业务团队要在页面上配规则、按业务组分权限、要电话短信 | 夜莺                               | 这几件事是它做厚的地方                 |
+| 要指标、日志、链路追踪一体化的 APM                   | SigNoz                             | OpenTelemetry 原生                     |
+| 几十台机器，想装完就有图                             | Netdata；或夜莺的内置时序库        | 零配置起步                             |
+| 传统 IT，只是想换个更顺手的界面                      | Checkmk Raw                        | 和 Zabbix 同一类模型，概念迁移成本最低 |
+
+## 七个候选，逐个说清楚[​](#七个候选逐个说清楚 "七个候选，逐个说清楚的直接链接")
+
+### Prometheus + Alertmanager（Apache-2.0）[​](#prometheus--alertmanagerapache-20 "Prometheus + Alertmanager（Apache-2.0）的直接链接")
+
+云原生指标监控的事实标准，拉取模型、exporter 生态、PromQL。告警规则写在 YAML 里由 Prometheus 判定，Alertmanager 负责分组、抑制、静默和路由。它擅长的恰好是 Zabbix 吃力的地方：动态环境、服务发现、高基数标签。代价是没有页面配置、没有权限模型、通知媒介以 webhook 为主，电话短信和国内 IM 要靠第三方。规模不大、团队习惯 GitOps 时是最省的选择。
+
+### 夜莺监控 Nightingale（Apache-2.0）[​](#夜莺监控-nightingaleapache-20 "夜莺监控 Nightingale（Apache-2.0）的直接链接")
+
+开源告警引擎，由中国计算机学会开源发展技术委员会托管。它不存数据，直接把 Prometheus、VictoriaMetrics、Elasticsearch、ClickHouse 等 <!-- -->10+<!-- --> 种数据源注册进来做判定；没人采的地方用 Categraf 补，<!-- -->83<!-- --> 个内置集成模板带采集配置、仪表盘和告警规则。规则在页面上配，业务组是权限边界，<!-- -->20<!-- --> 种通知媒介里电话、短信、钉钉、飞书、企业微信开箱即用，内置 AI 助手和 <!-- -->74<!-- --> 个 MCP 工具。不擅长的：网络设备自动发现、Zabbix 式的多步骤升级阶梯，以及它不是告警聚合层，不能接收别的系统发来的告警。完整对比见[夜莺 vs Zabbix](https://n9e.github.io/zh/zh/comparisons/zabbix.md)。
+
+### Grafana Alerting（AGPL-3.0）[​](#grafana-alertingagpl-30 "Grafana Alerting（AGPL-3.0）的直接链接")
+
+Grafana 自带的统一告警：规则可以跨多种数据源，通知策略是一棵 Alertmanager 式的路由树，联系点覆盖主流 IM。如果团队已经住在 Grafana 里，它是少一个系统的选择。要注意的是开源版的权限粒度（细粒度 RBAC 在企业版）、没有电话短信联系点，以及 Grafana OnCall 开源版已于 2026 年 3 月归档，值班能力在 Cloud。见[夜莺 vs Grafana Alerting](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)。
+
+### Checkmk Raw Edition（GPL-2.0）[​](#checkmk-raw-editiongpl-20 "Checkmk Raw Edition（GPL-2.0）的直接链接")
+
+和 Zabbix 同一代的模型：agent 加服务自动发现，几千个检查插件，SNMP 和传统 IT 覆盖完整，界面比 Zabbix 现代。它是「想换个更顺手的 Zabbix」时概念迁移成本最低的选项。Raw 是开源版，核心的 CMC 引擎和若干功能在商业版。
+
+### Netdata（GPL-3.0）[​](#netdatagpl-30 "Netdata（GPL-3.0）的直接链接")
+
+每秒采集、自动配置仪表盘、单机安装即用，资源占用小。适合几十台机器、想先看到图再说的团队，也常被当作 Zabbix 之外的轻量补充。多节点集中视图和长期保留走 Netdata Cloud，有免费层也有付费层。
+
+### LibreNMS（GPL-3.0）[​](#librenmsgpl-30 "LibreNMS（GPL-3.0）的直接链接")
+
+SNMP 为中心的网络监控：自动发现、设备模板、拓扑、流量图、告警规则。如果你用 Zabbix 主要就是看交换机和路由器，LibreNMS 是最对口的开源替代；它不是通用的指标或日志告警平台。
+
+### SigNoz（Apache-2.0）[​](#signozapache-20 "SigNoz（Apache-2.0）的直接链接")
+
+OpenTelemetry 原生的可观测平台，链路、指标、日志放在 ClickHouse 里，自带告警。它解决的是 APM 一体化，而不是基础设施监控；替代 Zabbix 的说法只在「你其实想要的是 APM」时成立。
+
+## 从 Zabbix 迁到夜莺要做什么[​](#从-zabbix-迁到夜莺要做什么 "从 Zabbix 迁到夜莺要做什么的直接链接")
+
+迁移是重建，不是搬迁：夜莺没有 Zabbix 模板和触发器的导入器。但工作量比想象的小，因为一条夜莺规则覆盖查询返回的所有序列，一个模板挂一千台机器生成的一千组触发器在夜莺里通常是一条规则。顺序是：装 Categraf（Zabbix Agent 不用卸）、定存储、导内置模板、翻译剩余触发器、建通知、搬维护期、两套并行比对、最后先停 Action 再停 Agent。每一步都能单独验证，回退只需把夜莺这批规则批量禁用。逐步说明见[从 Zabbix 迁移](https://n9e.github.io/zh/zh/docs/migration/from-zabbix.md)和[并行运行与回退方案](https://n9e.github.io/zh/zh/docs/migration/coexistence.md)。
+
+## 常见问题[​](#常见问题 "常见问题的直接链接")
+
+**夜莺能直接读 Zabbix 的数据吗？**
+
+不能。夜莺的数据源是 Prometheus、VictoriaMetrics、Elasticsearch 这类查询后端，Zabbix 的 history / trends 表不在其中。历史数据留在 Zabbix 里当只读档案即可，不用搬。
+
+**从 Zabbix 迁出去要多久？**
+
+取决于自定义触发器的数量。内置模板能顶掉标准模板的大部分；真正要逐条重写的是自定义触发器和通知动作。常见做法是按业务组分批，每批两套并行跑一到两周，Zabbix 全程不停。
+
+**有没有既能管网络设备、又能做云原生告警的开源方案？**
+
+没有一个单品两边都是主场。实际落地多是分工：Zabbix 或 LibreNMS 继续管交换机、路由器、IPMI，夜莺或 Prometheus 管 Kubernetes 和应用，告警通知汇到同一批通知媒介。
+
+**Zabbix 的许可证变了吗？**
+
+变了。Zabbix 7.0 起从 GPL-2.0 改为 AGPL-3.0。对自用部署没有影响；把它嵌进对外提供的服务里时，要看一下 AGPL 的网络分发条款。
+
+***
+
+本页基于各项目 2026 年 10 月的公开文档和开源版本，只作选型参考。数字来自夜莺的构建时数据。发现过时或不准确的描述，请在 [GitHub](https://github.com/n9e/n9e.github.io/issues) 提 issue。
+
+本页目录
+
+* [为什么会想换掉 Zabbix](#为什么会想换掉-zabbix)
+
+* [换之前先回答三个问题](#换之前先回答三个问题)
+
+* [按场景选](#按场景选)
+
+* [七个候选，逐个说清楚](#七个候选逐个说清楚)
+
+  * [Prometheus + Alertmanager（Apache-2.0）](#prometheus--alertmanagerapache-20)
+  * [夜莺监控 Nightingale（Apache-2.0）](#夜莺监控-nightingaleapache-20)
+  * [Grafana Alerting（AGPL-3.0）](#grafana-alertingagpl-30)
+  * [Checkmk Raw Edition（GPL-2.0）](#checkmk-raw-editiongpl-20)
+  * [Netdata（GPL-3.0）](#netdatagpl-30)
+  * [LibreNMS（GPL-3.0）](#librenmsgpl-30)
+  * [SigNoz（Apache-2.0）](#signozapache-20)
+
+* [从 Zabbix 迁到夜莺要做什么](#从-zabbix-迁到夜莺要做什么)
+
+* [常见问题](#常见问题)
 
 
 ---
@@ -11072,6 +11707,7 @@ route:
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
+* 还在纠结换不换：[夜莺 vs Prometheus + Alertmanager](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
 * 两边同时跑、怎么对比：[并行运行与回退方案](https://n9e.github.io/zh/zh/docs/migration/coexistence.md)
 * 事件在夜莺里被处理的完整顺序：[降噪与路由模型](https://n9e.github.io/zh/zh/docs/concepts/noise-routing.md)
 * 规则该归哪个业务组：[业务组与数据源范围](https://n9e.github.io/zh/zh/docs/alerting/scope.md)
@@ -11187,6 +11823,7 @@ Grafana 全程不停，随时能退。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
+* 还在纠结换不换：[夜莺 vs Grafana Alerting](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
 * 仪表盘怎么和 Grafana 共存：[配合 Grafana 使用](https://n9e.github.io/zh/zh/docs/query/grafana.md)
 * 路由树拍平的完整方法：[从 Prometheus + Alertmanager 迁移](https://n9e.github.io/zh/zh/docs/migration/from-alertmanager.md)
 * 两边同时跑、怎么切：[并行运行与回退方案](https://n9e.github.io/zh/zh/docs/migration/coexistence.md)
@@ -11292,6 +11929,7 @@ Zabbix 全程不停，每一步都能单独验证。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
+* 还在纠结换不换：[夜莺 vs Zabbix](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
 * 两边同时跑、怎么切：[并行运行与回退方案](https://n9e.github.io/zh/zh/docs/migration/coexistence.md)
 * 规则该归哪个业务组：[业务组与数据源范围](https://n9e.github.io/zh/zh/docs/alerting/scope.md)
 * 采集器怎么配插件：[Categraf 采集插件](https://n9e.github.io/zh/zh/docs/data/categraf/plugins.md)
@@ -21726,17 +22364,17 @@ COMPARISONS
 
 各有所长。夜莺建议你继续用 Prometheus 或 VictoriaMetrics 存数据，把告警这层交给专家。
 
-### vs Prometheus + Alertmanager
+### [vs Prometheus + Alertmanager](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
 
-同样的数据，规则在页面上配、有权限体系，通知媒介不用自己搭。
+[同样的数据，规则在页面上配、有权限体系，通知媒介不用自己搭。](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
 
-### vs Zabbix
+### [vs Zabbix](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
 
-不重做采集体系，接住你已有的时序库与日志库，云原生栈更顺手。
+[不重做采集体系，接住你已有的时序库与日志库，云原生栈更顺手。](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
 
-### vs Grafana Alerting
+### [vs Grafana Alerting](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
 
-Grafana 长于可视化，夜莺把力气全花在告警引擎与事件分发上。
+[Grafana 长于可视化，夜莺把力气全花在告警引擎与事件分发上。](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
 
 [看完整对比](https://n9e.github.io/zh/zh/comparisons.md)
 

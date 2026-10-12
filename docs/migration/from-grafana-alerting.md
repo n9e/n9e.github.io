@@ -106,6 +106,7 @@ After step 7, rolling back means un-pausing the Grafana rules. That is exactly w
 
 ## Next[​](#next "Direct link to Next")
 
+* Deciding whether to switch at all: [Nightingale vs Grafana Alerting](https://n9e.github.io/comparisons/grafana-alerting.md)
 * Living alongside Grafana for charts: [Use Grafana with Nightingale](https://n9e.github.io/docs/query/grafana.md)
 * The full route-tree flattening method: [From Prometheus + Alertmanager](https://n9e.github.io/docs/migration/from-alertmanager.md)
 * Running both and cutting over: [Coexistence and rollback plan](https://n9e.github.io/docs/migration/coexistence.md)

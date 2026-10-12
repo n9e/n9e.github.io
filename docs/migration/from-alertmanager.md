@@ -140,6 +140,7 @@ After step 8, roll back by putting the `rule_files` entries back, reloading Prom
 
 ## Next[​](#next "Direct link to Next")
 
+* Deciding whether to switch at all: [Nightingale vs Prometheus + Alertmanager](https://n9e.github.io/comparisons/prometheus-alertmanager.md)
 * Running both sides and comparing them: [Coexistence and rollback plan](https://n9e.github.io/docs/migration/coexistence.md)
 * The full order events are processed in: [Noise reduction and routing model](https://n9e.github.io/docs/concepts/noise-routing.md)
 * Which business group a rule belongs to: [Scope by business group and data source](https://n9e.github.io/docs/alerting/scope.md)

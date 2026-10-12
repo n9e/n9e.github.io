@@ -21,6 +21,36 @@ Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告�
 
 - [存储不用换， 换掉的是告警这一层。](https://n9e.github.io/zh/comparisons.md): Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告警这一层，该交给专门做告警的工具。
 
+#### grafana-alerting
+
+夜莺监控（Nightingale，n9e）与 Grafana Alerting 的对比：规则模型、表达式链与 PromQL、通知策略与联系点、静默、无数据状态、电话短信、AI，以及仪表盘留在 Grafana、告警交给夜莺的搭配方式。
+
+- [夜莺 vs Grafana Alerting](https://n9e.github.io/zh/comparisons/grafana-alerting.md): 夜莺监控（Nightingale，n9e）与 Grafana Alerting 的对比：规则模型、表达式链与 PromQL、通知策略与联系点、静默、无数据状态、电话短信、AI，以及仪表盘留在 Grafana、告警交给夜莺的搭配方式。
+
+#### open-source-alerting-platforms
+
+开源告警平台怎么选：先分清告警引擎、告警聚合层和值班分发三类工具，再按数据源、规则配置、降噪、通知与值班、权限、AI 六个维度对比 Alertmanager、Grafana Alerting、夜莺监控（Nightingale）、Keep、Alerta，并按团队画像给出推荐。
+
+- [开源告警平台怎么选](https://n9e.github.io/zh/comparisons/open-source-alerting-platforms.md): 开源告警平台怎么选：先分清告警引擎、告警聚合层和值班分发三类工具，再按数据源、规则配置、降噪、通知与值班、权限、AI 六个维度对比 Alertmanager、Grafana Alerting、夜莺监控（Nightingale）、Keep、Alerta，并按团队画像给出推荐。
+
+#### prometheus-alertmanager
+
+夜莺监控（Nightingale，n9e）与 Prometheus + Alertmanager 的告警能力对比：规则在哪配、降噪怎么做、通知媒介、权限、AI，以及 alertmanager.yml 如何对应到夜莺的对象。Prometheus 继续存数据，只换告警这一层。
+
+- [夜莺 vs Prometheus + Alertmanager](https://n9e.github.io/zh/comparisons/prometheus-alertmanager.md): 夜莺监控（Nightingale，n9e）与 Prometheus + Alertmanager 的告警能力对比：规则在哪配、降噪怎么做、通知媒介、权限、AI，以及 alertmanager.yml 如何对应到夜莺的对象。Prometheus 继续存数据，只换告警这一层。
+
+#### zabbix
+
+夜莺监控（Nightingale，n9e）与 Zabbix 的对比：采集模型、数据存储、触发器与告警规则、通知媒介、权限、Kubernetes 与网络设备支持，以及从 Zabbix 迁移时哪些对象有对应物、哪些没有。
+
+- [夜莺 vs Zabbix](https://n9e.github.io/zh/comparisons/zabbix.md): 夜莺监控（Nightingale，n9e）与 Zabbix 的对比：采集模型、数据存储、触发器与告警规则、通知媒介、权限、Kubernetes 与网络设备支持，以及从 Zabbix 迁移时哪些对象有对应物、哪些没有。
+
+#### zabbix-alternatives
+
+想换掉 Zabbix？按场景对比 Prometheus + Alertmanager、夜莺监控（Nightingale）、Grafana Alerting、Checkmk、Netdata、LibreNMS、SigNoz 七个开源方案的许可证、采集模型、告警能力和维护成本，以及哪些情况下不该换。
+
+- [Zabbix 的开源替代方案：按场景选，不按排行榜选](https://n9e.github.io/zh/comparisons/zabbix-alternatives.md): 想换掉 Zabbix？按场景对比 Prometheus + Alertmanager、夜莺监控（Nightingale）、Grafana Alerting、Checkmk、Netdata、LibreNMS、SigNoz 七个开源方案的许可证、采集模型、告警能力和维护成本，以及哪些情况下不该换。
+
 ### download
 
 这里的每个包都来自打了标签的正式发布，发布在 GitHub 上。先说你要做什么，页面只给这条路上用得到的命令。

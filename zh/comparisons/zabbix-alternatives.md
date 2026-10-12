@@ -1,0 +1,109 @@
+# Zabbix 的开源替代方案：按场景选，不按排行榜选
+
+搜「Zabbix 替代」出来的多是十个工具的排行榜，每个写两句，谁都能上榜。这页反过来：先说清楚你为什么想换、换了之后数据和对象怎么安置，再给每个候选一段实话，包括它不适合的情况。夜莺（Nightingale，n9e）是我们自己的项目，它只出现在真正合适的格子里。
+
+## 为什么会想换掉 Zabbix[​](#为什么会想换掉-zabbix "为什么会想换掉 Zabbix的直接链接")
+
+三个最常见的原因，和一个常被忽略的反例。
+
+* **数据库成了瓶颈。** `history` 和 `trends` 表随主机数和监控项数线性增长，分区、housekeeper、TimescaleDB 都是在和这件事较劲。指标型的时序库天生就是为这类数据设计的。
+* **环境变成云原生了。** Kubernetes 里 Pod 按分钟出生和消亡，主机加监控项的模型要靠自动发现和 agent 才跟得上；而这些环境的指标往往早就在 Prometheus 或 VictoriaMetrics 里了，再用 Zabbix 采一遍等于维护两套采集。
+* **告警这一层的要求变了。** 降噪、按业务组分权限、钉钉飞书电话短信、告警自愈、AI 排查。Zabbix 做得到一部分，但要靠脚本媒介和外部系统拼起来。
+
+反例也要说清楚：**监控对象以网络设备、SNMP、IPMI 为主，团队有多年 Zabbix 经验，系统运行稳定**，那就没有理由换。这个场景里 Zabbix 二十多年的积累没有完整的开源替代品。
+
+## 换之前先回答三个问题[​](#换之前先回答三个问题 "换之前先回答三个问题的直接链接")
+
+1. **数据现在在哪？** 如果指标已经在 Prometheus、VictoriaMetrics，日志在 Elasticsearch、Loki，那替代品应该直接读这些库，而不是再建一套采集。如果数据只在 Zabbix 里，替代品得自带采集。
+2. **监控对象是什么？** 交换机、路由器、IPMI 带外，和 Kubernetes、云数据库、微服务，是两种世界。前者看自动发现和设备模板，后者看查询语言和多数据源。
+3. **谁维护告警规则？** 只有 SRE 维护，配置文件加 GitOps 就够；业务团队自己维护，就要页面配置和权限边界。
+
+## 按场景选[​](#按场景选 "按场景选的直接链接")
+
+| 你的情况                                             | 更合适的                           | 为什么                                 |
+| ---------------------------------------------------- | ---------------------------------- | -------------------------------------- |
+| 网络设备、SNMP、IPMI 为主                            | 继续 Zabbix；纯网络可看 LibreNMS   | 自动发现和设备模板库是它们的主场       |
+| 指标已在 Prometheus / VictoriaMetrics，Kubernetes 多 | 夜莺，或 Prometheus + Alertmanager | 直接在已有存储上告警，不建第二套采集   |
+| 团队已经在 Grafana 里，告警量不大                    | Grafana Alerting                   | 少一个系统                             |
+| 业务团队要在页面上配规则、按业务组分权限、要电话短信 | 夜莺                               | 这几件事是它做厚的地方                 |
+| 要指标、日志、链路追踪一体化的 APM                   | SigNoz                             | OpenTelemetry 原生                     |
+| 几十台机器，想装完就有图                             | Netdata；或夜莺的内置时序库        | 零配置起步                             |
+| 传统 IT，只是想换个更顺手的界面                      | Checkmk Raw                        | 和 Zabbix 同一类模型，概念迁移成本最低 |
+
+## 七个候选，逐个说清楚[​](#七个候选逐个说清楚 "七个候选，逐个说清楚的直接链接")
+
+### Prometheus + Alertmanager（Apache-2.0）[​](#prometheus--alertmanagerapache-20 "Prometheus + Alertmanager（Apache-2.0）的直接链接")
+
+云原生指标监控的事实标准，拉取模型、exporter 生态、PromQL。告警规则写在 YAML 里由 Prometheus 判定，Alertmanager 负责分组、抑制、静默和路由。它擅长的恰好是 Zabbix 吃力的地方：动态环境、服务发现、高基数标签。代价是没有页面配置、没有权限模型、通知媒介以 webhook 为主，电话短信和国内 IM 要靠第三方。规模不大、团队习惯 GitOps 时是最省的选择。
+
+### 夜莺监控 Nightingale（Apache-2.0）[​](#夜莺监控-nightingaleapache-20 "夜莺监控 Nightingale（Apache-2.0）的直接链接")
+
+开源告警引擎，由中国计算机学会开源发展技术委员会托管。它不存数据，直接把 Prometheus、VictoriaMetrics、Elasticsearch、ClickHouse 等 <!-- -->10+<!-- --> 种数据源注册进来做判定；没人采的地方用 Categraf 补，<!-- -->83<!-- --> 个内置集成模板带采集配置、仪表盘和告警规则。规则在页面上配，业务组是权限边界，<!-- -->20<!-- --> 种通知媒介里电话、短信、钉钉、飞书、企业微信开箱即用，内置 AI 助手和 <!-- -->74<!-- --> 个 MCP 工具。不擅长的：网络设备自动发现、Zabbix 式的多步骤升级阶梯，以及它不是告警聚合层，不能接收别的系统发来的告警。完整对比见[夜莺 vs Zabbix](https://n9e.github.io/zh/zh/comparisons/zabbix.md)。
+
+### Grafana Alerting（AGPL-3.0）[​](#grafana-alertingagpl-30 "Grafana Alerting（AGPL-3.0）的直接链接")
+
+Grafana 自带的统一告警：规则可以跨多种数据源，通知策略是一棵 Alertmanager 式的路由树，联系点覆盖主流 IM。如果团队已经住在 Grafana 里，它是少一个系统的选择。要注意的是开源版的权限粒度（细粒度 RBAC 在企业版）、没有电话短信联系点，以及 Grafana OnCall 开源版已于 2026 年 3 月归档，值班能力在 Cloud。见[夜莺 vs Grafana Alerting](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)。
+
+### Checkmk Raw Edition（GPL-2.0）[​](#checkmk-raw-editiongpl-20 "Checkmk Raw Edition（GPL-2.0）的直接链接")
+
+和 Zabbix 同一代的模型：agent 加服务自动发现，几千个检查插件，SNMP 和传统 IT 覆盖完整，界面比 Zabbix 现代。它是「想换个更顺手的 Zabbix」时概念迁移成本最低的选项。Raw 是开源版，核心的 CMC 引擎和若干功能在商业版。
+
+### Netdata（GPL-3.0）[​](#netdatagpl-30 "Netdata（GPL-3.0）的直接链接")
+
+每秒采集、自动配置仪表盘、单机安装即用，资源占用小。适合几十台机器、想先看到图再说的团队，也常被当作 Zabbix 之外的轻量补充。多节点集中视图和长期保留走 Netdata Cloud，有免费层也有付费层。
+
+### LibreNMS（GPL-3.0）[​](#librenmsgpl-30 "LibreNMS（GPL-3.0）的直接链接")
+
+SNMP 为中心的网络监控：自动发现、设备模板、拓扑、流量图、告警规则。如果你用 Zabbix 主要就是看交换机和路由器，LibreNMS 是最对口的开源替代；它不是通用的指标或日志告警平台。
+
+### SigNoz（Apache-2.0）[​](#signozapache-20 "SigNoz（Apache-2.0）的直接链接")
+
+OpenTelemetry 原生的可观测平台，链路、指标、日志放在 ClickHouse 里，自带告警。它解决的是 APM 一体化，而不是基础设施监控；替代 Zabbix 的说法只在「你其实想要的是 APM」时成立。
+
+## 从 Zabbix 迁到夜莺要做什么[​](#从-zabbix-迁到夜莺要做什么 "从 Zabbix 迁到夜莺要做什么的直接链接")
+
+迁移是重建，不是搬迁：夜莺没有 Zabbix 模板和触发器的导入器。但工作量比想象的小，因为一条夜莺规则覆盖查询返回的所有序列，一个模板挂一千台机器生成的一千组触发器在夜莺里通常是一条规则。顺序是：装 Categraf（Zabbix Agent 不用卸）、定存储、导内置模板、翻译剩余触发器、建通知、搬维护期、两套并行比对、最后先停 Action 再停 Agent。每一步都能单独验证，回退只需把夜莺这批规则批量禁用。逐步说明见[从 Zabbix 迁移](https://n9e.github.io/zh/zh/docs/migration/from-zabbix.md)和[并行运行与回退方案](https://n9e.github.io/zh/zh/docs/migration/coexistence.md)。
+
+## 常见问题[​](#常见问题 "常见问题的直接链接")
+
+**夜莺能直接读 Zabbix 的数据吗？**
+
+不能。夜莺的数据源是 Prometheus、VictoriaMetrics、Elasticsearch 这类查询后端，Zabbix 的 history / trends 表不在其中。历史数据留在 Zabbix 里当只读档案即可，不用搬。
+
+**从 Zabbix 迁出去要多久？**
+
+取决于自定义触发器的数量。内置模板能顶掉标准模板的大部分；真正要逐条重写的是自定义触发器和通知动作。常见做法是按业务组分批，每批两套并行跑一到两周，Zabbix 全程不停。
+
+**有没有既能管网络设备、又能做云原生告警的开源方案？**
+
+没有一个单品两边都是主场。实际落地多是分工：Zabbix 或 LibreNMS 继续管交换机、路由器、IPMI，夜莺或 Prometheus 管 Kubernetes 和应用，告警通知汇到同一批通知媒介。
+
+**Zabbix 的许可证变了吗？**
+
+变了。Zabbix 7.0 起从 GPL-2.0 改为 AGPL-3.0。对自用部署没有影响；把它嵌进对外提供的服务里时，要看一下 AGPL 的网络分发条款。
+
+***
+
+本页基于各项目 2026 年 10 月的公开文档和开源版本，只作选型参考。数字来自夜莺的构建时数据。发现过时或不准确的描述，请在 [GitHub](https://github.com/n9e/n9e.github.io/issues) 提 issue。
+
+本页目录
+
+* [为什么会想换掉 Zabbix](#为什么会想换掉-zabbix)
+
+* [换之前先回答三个问题](#换之前先回答三个问题)
+
+* [按场景选](#按场景选)
+
+* [七个候选，逐个说清楚](#七个候选逐个说清楚)
+
+  * [Prometheus + Alertmanager（Apache-2.0）](#prometheus--alertmanagerapache-20)
+  * [夜莺监控 Nightingale（Apache-2.0）](#夜莺监控-nightingaleapache-20)
+  * [Grafana Alerting（AGPL-3.0）](#grafana-alertingagpl-30)
+  * [Checkmk Raw Edition（GPL-2.0）](#checkmk-raw-editiongpl-20)
+  * [Netdata（GPL-3.0）](#netdatagpl-30)
+  * [LibreNMS（GPL-3.0）](#librenmsgpl-30)
+  * [SigNoz（Apache-2.0）](#signozapache-20)
+
+* [从 Zabbix 迁到夜莺要做什么](#从-zabbix-迁到夜莺要做什么)
+
+* [常见问题](#常见问题)

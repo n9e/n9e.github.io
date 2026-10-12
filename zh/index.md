@@ -220,17 +220,17 @@ COMPARISONS
 
 各有所长。夜莺建议你继续用 Prometheus 或 VictoriaMetrics 存数据，把告警这层交给专家。
 
-### vs Prometheus + Alertmanager
+### [vs Prometheus + Alertmanager](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
 
-同样的数据，规则在页面上配、有权限体系，通知媒介不用自己搭。
+[同样的数据，规则在页面上配、有权限体系，通知媒介不用自己搭。](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
 
-### vs Zabbix
+### [vs Zabbix](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
 
-不重做采集体系，接住你已有的时序库与日志库，云原生栈更顺手。
+[不重做采集体系，接住你已有的时序库与日志库，云原生栈更顺手。](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
 
-### vs Grafana Alerting
+### [vs Grafana Alerting](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
 
-Grafana 长于可视化，夜莺把力气全花在告警引擎与事件分发上。
+[Grafana 长于可视化，夜莺把力气全花在告警引擎与事件分发上。](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
 
 [看完整对比](https://n9e.github.io/zh/zh/comparisons.md)
 

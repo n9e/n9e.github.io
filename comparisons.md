@@ -1,4 +1,4 @@
-Nightingale vs[Prometheus + Alertmanager](#prometheus)[Zabbix](#zabbix)[Grafana Alerting](#grafana)
+Nightingale vs[Prometheus + Alertmanager](https://n9e.github.io/comparisons/prometheus-alertmanager.md)[Zabbix](https://n9e.github.io/comparisons/zabbix.md)[Grafana Alerting](https://n9e.github.io/comparisons/grafana-alerting.md)
 
 # Keep your storage.<br /><!-- -->Change who owns alerting.
 
@@ -82,59 +82,19 @@ The Nightingale way
 
 Rules live in the UI, scoped by business group.
 
-### Where it shines
-
-Prometheus remains one of the best time-series foundations available, and Alertmanager’s grouping and silencing model is genuinely clean. At moderate scale, with a GitOps-comfortable team and a rule count you can hold in your head, the pair is enough and adds no components.
-
-### When Nightingale fits better
-
-Nightingale earns its place when rules must be maintained by teams who are not SREs, when permissions need to follow business groups, when someone has to be phoned at 3am, or when the data is not all in Prometheus.
-
 ### Signs it is time to switch
 
 * Rules must be maintained by teams who are not SREs
 * Someone has to be phoned at 3am, not just webhooked
 * The data is no longer all in Prometheus
 
+[Read the full comparison](https://n9e.github.io/comparisons/prometheus-alertmanager.md)
+
+<!-- -->
+
+[ →](https://n9e.github.io/comparisons/prometheus-alertmanager.md)
+
 Migration guide[From Prometheus + Alertmanager<!-- --> →](https://n9e.github.io/docs/migration/from-alertmanager.md)
-
-rules.yml + alertmanager.yml
-
-```
-- alert: MysqlReplicaLag  expr: mysql_slave_lag_seconds > 30  for: 5m  labels: { team: dba }route:  receiver: dba-webhook  group_by: [alertname]
-```
-
-Nightingale · alert rule
-
-* Name
-
-  MySQL replica lag
-
-* Condition
-
-  mysql\_slave\_lag\_seconds > 30, for 5m
-
-* Business group
-
-  DBA
-
-* Notify
-
-  Phone, SMS, DingTalk
-
-* Who can edit
-
-  DBA group
-
-One rule, two ways to write it
-
-* You
-
-  Create in one sentence: page the DBA group by phone when mysql-prod replica lag stays above 30s for 5 minutes
-
-* Nightingale AI
-
-  PromQL and threshold drafted. I will not guess the business group; pick one from the list and I will create the rule.
 
 02
 
@@ -148,41 +108,19 @@ The Nightingale way
 
 Alert on the stores you already fill; collect only where nothing does.
 
-### Where it shines
-
-Two decades of work show in traditional IT monitoring: network gear, SNMP, agent-based collection and auto-discovery are its home ground, and the hiring pool knows it well.
-
-### When Nightingale fits better
-
-If your telemetry already lives in Prometheus, VictoriaMetrics or ElasticSearch, Nightingale reads it directly instead of asking you to pour it into a second collection stack.
-
 ### Signs it is time to switch
 
 * Telemetry already lives in Prometheus, VictoriaMetrics or ElasticSearch
 * Kubernetes and cloud services outnumber network gear
 * You maintain two collection stacks to get one alert
 
+[Read the full comparison](https://n9e.github.io/comparisons/zabbix.md)
+
+<!-- -->
+
+[ →](https://n9e.github.io/comparisons/zabbix.md)
+
 Migration guide[From Zabbix<!-- --> →](https://n9e.github.io/docs/migration/from-zabbix.md)
-
-Storage you already run
-
-![](/img/logos/prometheus.png)Prometheus![](/img/logos/victoriametrics.png)VictoriaMetrics![](/img/logos/elasticsearch.png)ElasticSearch![](/img/logos/ck.png)ClickHouse
-
-![](/img/logo-mark.webp)**Nightingale**Reads in place, moves nothing
-
-20 notification channels
-
-Phone / SMSEmail![](/img/logos/dingtalk.png)DingTalk![](/img/logos/slack.png)Slack+16
-
-Categraf fills only the gaps
-
-* You
-
-  Why did this host go offline?
-
-* Nightingale AI
-
-  The agent stopped reporting 3 minutes ago, but the host answers ping and its neighbours are healthy. That points to the Categraf process exiting, not the host going down.
 
 03
 
@@ -196,41 +134,19 @@ The Nightingale way
 
 Alerting as the whole product; chart wherever you like.
 
-### Where it shines
-
-Grafana is the visualization standard and its dashboard ecosystem has no real substitute. If alert volume is modest and Grafana is already in place, its built-in alerting is one system fewer to run.
-
-### When Nightingale fits better
-
-Nightingale puts everything into the alerting side: event pipelines, subscriptions, self-healing. The two are not exclusive — plenty of users chart in Grafana and alert in Nightingale.
-
 ### Signs it is time to switch
 
 * Alert volume has outgrown a panel-level rule model
 * You need event pipelines, subscriptions or self-healing
 * On-call people need phone and SMS, not only contact points
 
+[Read the full comparison](https://n9e.github.io/comparisons/grafana-alerting.md)
+
+<!-- -->
+
+[ →](https://n9e.github.io/comparisons/grafana-alerting.md)
+
 Migration guide[From Grafana Alerting<!-- --> →](https://n9e.github.io/docs/migration/from-grafana-alerting.md)
-
-Grafana · MySQL overview
-
-A Grafana panel embedded by URL in a Nightingale dashboard
-
-S1MySQL replica lag > 30s
-
-`ident=mysql-prod``busigroup=DBA`
-
-Delivered · phone and DingTalk
-
-Chart in Grafana, alert in Nightingale
-
-* You
-
-  Analyze this dashboard
-
-* Nightingale AI
-
-  Of 40 panels, 3 query metrics that no longer exist, and 2 show an abnormal trend in the last hour: connections and slow\_queries.
 
 ## Nothing has to be switched off
 

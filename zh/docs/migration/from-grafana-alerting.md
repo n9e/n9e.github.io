@@ -106,6 +106,7 @@ Grafana 全程不停，随时能退。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
+* 还在纠结换不换：[夜莺 vs Grafana Alerting](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
 * 仪表盘怎么和 Grafana 共存：[配合 Grafana 使用](https://n9e.github.io/zh/zh/docs/query/grafana.md)
 * 路由树拍平的完整方法：[从 Prometheus + Alertmanager 迁移](https://n9e.github.io/zh/zh/docs/migration/from-alertmanager.md)
 * 两边同时跑、怎么切：[并行运行与回退方案](https://n9e.github.io/zh/zh/docs/migration/coexistence.md)

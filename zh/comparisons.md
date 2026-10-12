@@ -1,4 +1,4 @@
-夜莺 vs[Prometheus + Alertmanager](#prometheus)[Zabbix](#zabbix)[Grafana Alerting](#grafana)
+夜莺 vs[Prometheus + Alertmanager](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)[Zabbix](https://n9e.github.io/zh/zh/comparisons/zabbix.md)[Grafana Alerting](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
 
 # 存储不用换，<br /><!-- -->换掉的是告警这一层。
 
@@ -82,59 +82,19 @@ Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告�
 
 规则配在页面上，按业务组分权限。
 
-### 它擅长什么
-
-Prometheus 依然是最好的时序底座之一，Alertmanager 的分组与静默模型设计得很干净。规模不大、团队习惯 GitOps、告警规则数量可控时，这套组合完全够用，而且不用多引入组件。
-
-### 什么时候换夜莺
-
-当告警规则要交给非 SRE 的业务团队维护、需要按业务组分权限、需要电话短信这类媒介，或者数据不只在 Prometheus 里的时候，夜莺更省事——它就是把这几件事做厚的。
-
 ### 换的信号
 
 * 告警规则要交给非 SRE 的业务团队维护
 * 凌晨三点得有人接电话，webhook 叫不醒人
 * 数据已经不全在 Prometheus 里了
 
+[阅读完整对比](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
+
+<!-- -->
+
+[ →](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
+
 迁移文档[从 Prometheus + Alertmanager 迁移<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/from-alertmanager.md)
-
-rules.yml + alertmanager.yml
-
-```
-- alert: MysqlReplicaLag  expr: mysql_slave_lag_seconds > 30  for: 5m  labels: { team: dba }route:  receiver: dba-webhook  group_by: [alertname]
-```
-
-夜莺 · 告警规则
-
-* 名称
-
-  MySQL 副本延迟
-
-* 条件
-
-  mysql\_slave\_lag\_seconds > 30，持续 5m
-
-* 业务组
-
-  DBA
-
-* 通知
-
-  电话、短信、钉钉
-
-* 谁能改
-
-  DBA 组
-
-同一条规则，两种写法
-
-* 你
-
-  一句话创建：mysql-prod 副本延迟超过 30 秒持续 5 分钟，电话通知 DBA 组
-
-* 夜莺 AI
-
-  PromQL 和阈值已生成。业务组我不猜，请从下拉里选一个，选好就创建。
 
 02
 
@@ -148,41 +108,19 @@ rules.yml + alertmanager.yml
 
 直接在你已有的存储上告警，没人采的地方才用 Categraf 补。
 
-### 它擅长什么
-
-Zabbix 二十多年的积累在传统 IT 一体化监控上非常成熟：网络设备、SNMP、agent 采集与自动发现是它的主场，企业里有大量现成经验和人力储备。
-
-### 什么时候换夜莺
-
-如果监控数据已经在 Prometheus、VictoriaMetrics、ES 这类云原生栈里，夜莺接得更直接，不需要把数据再倒进另一套采集体系。
-
 ### 换的信号
 
 * 监控数据已经在 Prometheus、VictoriaMetrics 或 ES 里
 * Kubernetes 和云上服务比网络设备多
 * 为了一条告警，维护着两套采集体系
 
+[阅读完整对比](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
+
+<!-- -->
+
+[ →](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
+
 迁移文档[从 Zabbix 迁移<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/from-zabbix.md)
-
-你已有的存储
-
-![](/zh/img/logos/prometheus.png)Prometheus![](/zh/img/logos/victoriametrics.png)VictoriaMetrics![](/zh/img/logos/elasticsearch.png)ElasticSearch![](/zh/img/logos/ck.png)ClickHouse
-
-![](/zh/img/logo-mark.webp)**夜莺**就地读取，不搬数据
-
-20 种通知媒介
-
-电话 / 短信邮件![](/zh/img/logos/dingtalk.png)钉钉![](/zh/img/logos/feishu.png)飞书+16
-
-没人采的地方，才用 Categraf 补
-
-* 你
-
-  这台主机为什么离线了？
-
-* 夜莺 AI
-
-  agent 3 分钟没有上报，但主机能 ping 通，同网段其他主机正常。更像是 Categraf 进程退出了，不是主机宕机。
 
 03
 
@@ -196,41 +134,19 @@ Zabbix 二十多年的积累在传统 IT 一体化监控上非常成熟：网络
 
 告警就是整个产品，图在哪看都行。
 
-### 它擅长什么
-
-Grafana 是可视化的事实标准，仪表盘生态无可替代。如果告警量不大、团队也已经在用 Grafana，它自带的告警足够顺手，少一个系统就少一份维护。
-
-### 什么时候换夜莺
-
-夜莺把力气全花在告警侧：事件 Pipeline、订阅与协同、告警自愈。两者并不冲突——很多用户用 Grafana 看图、用夜莺告警。
-
 ### 换的信号
 
 * 告警量已经超出按面板配规则能管的范围
 * 需要事件 Pipeline、订阅或告警自愈
 * 值班的人要电话短信，不只是 contact point
 
+[阅读完整对比](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
+
+<!-- -->
+
+[ →](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
+
 迁移文档[从 Grafana Alerting 迁移<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/from-grafana-alerting.md)
-
-Grafana · MySQL 总览
-
-按 URL 嵌进夜莺仪表盘的 Grafana 面板
-
-S1MySQL 副本延迟 > 30s
-
-`ident=mysql-prod``busigroup=DBA`
-
-已送达 · 电话 + 钉钉
-
-图在 Grafana 看，告警在夜莺发
-
-* 你
-
-  分析这个仪表盘
-
-* 夜莺 AI
-
-  40 个面板里有 3 个查询的指标已经不存在，2 个面板最近一小时趋势异常：connections 和 slow\_queries。
 
 ## 不用停掉现在的系统
 

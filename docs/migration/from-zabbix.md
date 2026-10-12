@@ -96,6 +96,7 @@ The full parallel-run and rollback method is in [Coexistence and rollback plan](
 
 ## Next[​](#next "Direct link to Next")
 
+* Deciding whether to switch at all: [Nightingale vs Zabbix](https://n9e.github.io/comparisons/zabbix.md)
 * Running both and cutting over: [Coexistence and rollback plan](https://n9e.github.io/docs/migration/coexistence.md)
 * Which business group a rule belongs to: [Scope by business group and data source](https://n9e.github.io/docs/alerting/scope.md)
 * Configuring collector plugins: [Categraf plugins](https://n9e.github.io/docs/data/categraf/plugins.md)

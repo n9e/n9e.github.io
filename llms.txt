@@ -16,6 +16,36 @@ Prometheus, Zabbix and Grafana each have their ground. Nightingale argues for on
 
 - [Keep your storage. Change who owns alerting.](https://n9e.github.io/comparisons.md): Prometheus, Zabbix and Grafana each have their ground. Nightingale argues for one thing only: the alerting layer should belong to a tool built for it.
 
+### grafana-alerting
+
+Nightingale (n9e, 夜莺) versus Grafana Alerting: rule model, expression chains versus PromQL, notification policies and contact points, silences, no-data states, phone and SMS, AI, and how to keep dashboards in Grafana while Nightingale owns alerting.
+
+- [Nightingale vs Grafana Alerting](https://n9e.github.io/comparisons/grafana-alerting.md): Nightingale (n9e, 夜莺) versus Grafana Alerting: rule model, expression chains versus PromQL, notification policies and contact points, silences, no-data states, phone and SMS, AI, and how to keep dashboards in Grafana while Nightingale owns alerting.
+
+### open-source-alerting-platforms
+
+How to choose an open-source alerting platform. Separate alerting engines, aggregation layers and on-call tools first, then compare Alertmanager, Grafana Alerting, Nightingale (n9e), Keep and Alerta on data sources, rule configuration, noise reduction, delivery and on-call, permissions and AI, with recommendations by team profile.
+
+- [How to choose an open-source alerting platform](https://n9e.github.io/comparisons/open-source-alerting-platforms.md): How to choose an open-source alerting platform. Separate alerting engines, aggregation layers and on-call tools first, then compare Alertmanager, Grafana Alerting, Nightingale (n9e), Keep and Alerta on data sources, rule configuration, noise reduction, delivery and on-call, permissions and AI, with recommendations by team profile.
+
+### prometheus-alertmanager
+
+Nightingale (n9e, 夜莺) versus Prometheus + Alertmanager: where rules live, how noise is cut, notification channels, permissions, AI, and how an alertmanager.yml maps onto Nightingale objects. Prometheus keeps storing; only the alerting layer changes.
+
+- [Nightingale vs Prometheus + Alertmanager](https://n9e.github.io/comparisons/prometheus-alertmanager.md): Nightingale (n9e, 夜莺) versus Prometheus + Alertmanager: where rules live, how noise is cut, notification channels, permissions, AI, and how an alertmanager.yml maps onto Nightingale objects. Prometheus keeps storing; only the alerting layer changes.
+
+### zabbix
+
+Nightingale (n9e, 夜莺) versus Zabbix: collection model, storage, triggers versus alert rules, notification channels, permissions, Kubernetes and network gear, and which Zabbix objects have an equivalent when you migrate.
+
+- [Nightingale vs Zabbix](https://n9e.github.io/comparisons/zabbix.md): Nightingale (n9e, 夜莺) versus Zabbix: collection model, storage, triggers versus alert rules, notification channels, permissions, Kubernetes and network gear, and which Zabbix objects have an equivalent when you migrate.
+
+### zabbix-alternatives
+
+Thinking of replacing Zabbix? Prometheus + Alertmanager, Nightingale (n9e), Grafana Alerting, Checkmk, Netdata, LibreNMS and SigNoz compared by license, collection model, alerting capabilities and upkeep, including the cases where you should not switch.
+
+- [Open-source Zabbix alternatives: pick by scenario, not by ranking](https://n9e.github.io/comparisons/zabbix-alternatives.md): Thinking of replacing Zabbix? Prometheus + Alertmanager, Nightingale (n9e), Grafana Alerting, Checkmk, Netdata, LibreNMS and SigNoz compared by license, collection model, alerting capabilities and upkeep, including the cases where you should not switch.
+
 ## download
 
 Every package here is built from a tagged release and published on GitHub. Say what you are trying to do and the page shows only the commands for that path.
