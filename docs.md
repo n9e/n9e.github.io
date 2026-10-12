@@ -6,7 +6,7 @@ Point Nightingale at the Prometheus, log stores and databases you already run, t
 
 Why isn't my alert rule firing?
 
-[Bring it up in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)[Live demo](http://43.106.19.165/api/n9e/auth/demo-login)
+[Bring it up in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)[Live demo](https://play.n9e.io/api/n9e/auth/demo-login)
 
 ## CONNECTGet your data in, and get a rule evaluating it
 

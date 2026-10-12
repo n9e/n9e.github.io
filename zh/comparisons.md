@@ -4,7 +4,7 @@
 
 Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告警这一层，该交给专门做告警的工具。
 
-[在线体验](http://43.106.19.165/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
+[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
 
 ## 一眼看完
 
@@ -282,4 +282,4 @@ Alertmanager 的规则能迁过来吗？
 
 夜莺读的是你现有的存储，装上不影响现在正在跑的告警。
 
-[在线体验](http://43.106.19.165/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
+[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)

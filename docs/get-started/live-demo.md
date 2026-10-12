@@ -8,7 +8,7 @@ After this page you will have seen, on a running instance, every stop an alert m
 
 ## Sign in[​](#sign-in "Direct link to Sign in")
 
-Open **[the live demo](http://43.106.19.165/api/n9e/auth/demo-login)**. The link signs you in as the shared demo account, so there is no username or password to type.
+Open **[the live demo](https://play.n9e.io/api/n9e/auth/demo-login)**. The link signs you in as the shared demo account, so there is no username or password to type.
 
 Expected result: you land on **Home**, with a **Getting started** checklist at the top. The demo is the open-source edition, so every menu you see here is one you get from the [quick start](https://n9e.github.io/docs/get-started/quick-start.md).
 

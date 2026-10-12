@@ -113,7 +113,7 @@ Event pipeline/workflow management tools for event processing
 
 这个工具集全是只读的。
 
-### `logs`[​](#logs "logs��的直接链接")
+### `logs`[​](#logs "logs的直接链接")
 
 Logs query tools (Loki/Elasticsearch/OpenSearch) via n9e logs-query
 

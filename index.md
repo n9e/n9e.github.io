@@ -7,7 +7,7 @@ Nightingale (n9e) is an open-source alerting engine. Keep your metrics and logs 
 * Built-in AI assistant
 * MCP server
 
-[Try live demo](http://43.106.19.165/api/n9e/auth/demo-login)No sign-up
+[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)No sign-up
 
 [Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)Self-hosted
 

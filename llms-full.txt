@@ -525,7 +525,7 @@ Nightingale vs[Prometheus + Alertmanager](#prometheus)[Zabbix](#zabbix)[Grafana 
 
 Prometheus, Zabbix and Grafana each have their ground. Nightingale argues for one thing only: the alerting layer should belong to a tool built for it.
 
-[Try live demo](http://43.106.19.165/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)
+[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)
 
 ## At a glance
 
@@ -803,7 +803,7 @@ At moderate scale, with a GitOps-comfortable team and a rule count you can hold 
 
 Nightingale reads the storage you already have. Installing it changes nothing about the alerting you run today.
 
-[Try live demo](http://43.106.19.165/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)
+[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)
 
 
 ---
@@ -1041,7 +1041,7 @@ Point Nightingale at the Prometheus, log stores and databases you already run, t
 
 Why isn't my alert rule firing?
 
-[Bring it up in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)[Live demo](http://43.106.19.165/api/n9e/auth/demo-login)
+[Bring it up in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)[Live demo](https://play.n9e.io/api/n9e/auth/demo-login)
 
 ## CONNECTGet your data in, and get a rule evaluating it
 
@@ -9051,7 +9051,7 @@ After this page you will have seen, on a running instance, every stop an alert m
 
 ## Sign in[​](#sign-in "Direct link to Sign in")
 
-Open **[the live demo](http://43.106.19.165/api/n9e/auth/demo-login)**. The link signs you in as the shared demo account, so there is no username or password to type.
+Open **[the live demo](https://play.n9e.io/api/n9e/auth/demo-login)**. The link signs you in as the shared demo account, so there is no username or password to type.
 
 Expected result: you land on **Home**, with a **Getting started** checklist at the top. The demo is the open-source edition, so every menu you see here is one you get from the [quick start](https://n9e.github.io/docs/get-started/quick-start.md).
 

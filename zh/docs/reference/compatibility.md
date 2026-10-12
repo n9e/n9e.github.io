@@ -69,7 +69,7 @@
 
 Go 1.25。前端是 Vite + React，构建脚本见 `n9e/fe` 仓库。
 
-## 相关[​](#相关 "相关的直��接链接")
+## 相关[​](#相关 "相关的直接链接")
 
 * [数据库选型](https://n9e.github.io/zh/zh/docs/install/databases.md)
 * [接入数据](https://n9e.github.io/zh/zh/docs/data/overview.md)

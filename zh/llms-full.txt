@@ -530,7 +530,7 @@ Categraf 走 Prometheus Remote Write 协议推送，因此可以写入夜莺、P
 
 Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告警这一层，该交给专门做告警的工具。
 
-[在线体验](http://43.106.19.165/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
+[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
 
 ## 一眼看完
 
@@ -808,7 +808,7 @@ Alertmanager 的规则能迁过来吗？
 
 夜莺读的是你现有的存储，装上不影响现在正在跑的告警。
 
-[在线体验](http://43.106.19.165/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
+[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
 
 
 ---
@@ -1046,7 +1046,7 @@ NIGHTINGALE DOCSv9.2.0
 
 告警规则为什么没有触发
 
-[5 分钟拉起夜莺](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)[在线体验](http://43.106.19.165/api/n9e/auth/demo-login)
+[5 分钟拉起夜莺](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)
 
 ## CONNECT把数据接进来，让规则跑起来
 
@@ -1448,7 +1448,7 @@ chat id 就是对话地址的最后一段。删除会连同它的消息一起删
 
 所以：不要在开源版里围绕具名 Agent 搭工作流。 别处的页面或截图把 Agent 管理当成一个功能来讲的话，那不是这个版本。
 
-## 想改的东西该去哪改[​](#想改的��东西该去哪改 "想改的东西该去哪改的直接链接")
+## 想改的东西该去哪改[​](#想改的东��西该去哪改 "想改的东西该去哪改的直接链接")
 
 | 你真正想要的             | 去哪做                                                                                                                                |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
@@ -1733,7 +1733,7 @@ Claude Code、Claude Desktop、Cursor 这类客户端用的是同一种 JSON 结
 
 在客户端的「添加自定义连接器 / Remote MCP server」里填 `https://n9e.example.com/mcp`， 剩下的它自己发现。前提是服务端先开好 OAuth，见 [OAuth 2.1 与外部身份源](https://n9e.github.io/zh/zh/docs/ai/oauth.md)——那页还列了地址必须满足的三个条件 （浏览器可达、与 `Issuer` 完全一致、HTTPS）。
 
-## 验证连通的第一条提示词[​](#验证连通的第一条提示词 "验证连通的第一条提示词的直接链接")
+## 验证连通的第一条提示词[​](#验证连通的第一条提示词 "验证连通的第一条提示词的直接链�接")
 
 连上之后，先让它做一件只读、结果你自己一眼能核对的事：
 
@@ -1989,7 +1989,7 @@ Skill 还叠了一层：标成*仅管理团队可见*的 Skill，会从其他人
 
 `/a2a` 是第三个入口：它把**这个助手**包起来，让别的 Agent 平台用自然语言跟它对话， 所以它是需要 LLM 配置的。见 [A2A 端点](https://n9e.github.io/zh/zh/docs/ai/a2a.md)。
 
-## 你的数据去了哪[​](#你�的数据去了哪 "你的数据去了哪的直接链接")
+## 你的数据去了哪[​](#你的�数据去了哪 "你的数据去了哪的直接链接")
 
 LLM 配置里填的那个地址，就是监控数据唯一会去的地方。夜莺没有自己的模型服务， 也没有什么中央 AI 服务——指向局域网里的 Ollama 或 vLLM，数据就完全不出域。
 
@@ -3684,7 +3684,7 @@ recovery_promql    mem_used_percent{ident="{{$labels.ident}}"}
 
 ——恢复通知里就能说出「现在是多少」。查询失败时会写一条 `recovery_promql_error`， 不会因此让恢复失败。
 
-### 在通知里引用[​](#在通知里引用 "在通知里引用的直接链接")
+### 在通知里引用[​](#在通知里引用 "在通知里引用的�直接链接")
 
 事件详情页会自动逐项展示附加信息。想把某一项放进消息，在模板里引用它：
 
@@ -4127,7 +4127,7 @@ mem_used_percent{ident="$hosts"} > $threshold
 
 生效范围之外触发的告警会被**直接丢弃**——不产生事件、不进历史、不通知。 如果你要的是「事件照常记录，只是别叫我」，那是屏蔽规则的「只屏蔽通知」，不是生效时间。
 
-## 用 API 写范围时的三个坑[​](#用-api-写范围时的三个坑 "用 API 写范围时的三个坑的直接链接")
+## 用 API 写范围时的三个坑[​](#用-api-写范围时的三个坑 "用 API 写范�围时的三个坑的直接链接")
 
 用 API、模板导入或脚本建规则时，这三处最容易出错：
 
@@ -6215,7 +6215,7 @@ ClickHouse、Doris、IoTDB 同属 SQL 类数据源：查询结果的数值列成
 
 这三个存的东西不一样——ClickHouse 和 Doris 通常放海量日志和明细， IoTDB 放设备时序——但在夜莺里它们是同一类：**用 SQL 查，查出来的表被当成序列去判定告警**。 这页讲怎么接、SQL 要写成什么形态、以及结果的哪一列变成数值、哪一列变成标签。
 
-## 三者在开源版里能做什么[​](#三者在开源版里�能做什么 "三者在开源版里能做什么的直接链接")
+## 三者在开源版里能做什么[​](#三者在开源版里能�做什么 "三者在开源版里能做什么的直接链接")
 
 它们的能力边界不一样，动手之前先看清楚，免得接完发现在探索器里选不到：
 
@@ -8856,7 +8856,7 @@ VictoriaMetrics、Thanos、Mimir 都实现了 PromQL HTTP API，所以都注册�
 
 保存不会直接跳回列表，而是弹出一个引导：它当场替你回答「这个数据源现在能不能用」， 再给出接下来能做的几件事。
 
-![保存数据源后弹出的引导弹窗](/zh/img/docs/get-started/ds-next-step.zh.webp)![保存数�据源后弹出的引导弹窗](/zh/img/docs/get-started/ds-next-step.zh.dark.webp)
+![保存数据源后弹出的引导弹窗](/zh/img/docs/get-started/ds-next-step.zh.webp)![保存数��据源后弹出的引导弹窗](/zh/img/docs/get-started/ds-next-step.zh.dark.webp)
 
 ### 数据体检[​](#数据体检 "数据体检的直接链接")
 
@@ -9051,7 +9051,7 @@ Apache-2.0 全功能开源。
 
 ## 登录[​](#登录 "登录的直接链接")
 
-打开 **[在线演示环境](http://43.106.19.165/api/n9e/auth/demo-login)**。这个链接会自动以公共演示账号登录，不用输入账号密码。
+打开 **[在线演示环境](https://play.n9e.io/api/n9e/auth/demo-login)**。这个链接会自动以公共演示账号登录，不用输入账号密码。
 
 预期结果：进入 **首页**，顶部是 **新手引导** 清单。演示环境就是开源版，这里看到的每个菜单，按[快速开始](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)装出来的实例里都有。
 
@@ -10116,7 +10116,7 @@ Url = "http://victoriametrics:8428/api/v1/write"
 
 要么装在独立的、专门跑基础设施的集群里，要么就用[二进制包](https://n9e.github.io/zh/zh/docs/install/binary.md)装在集群外的机器上。 这不是 chart 有问题，是拓扑选择问题。
 
-## chart 的版本状况[​](#chart-的版本状况 "chart 的版本状况的直接链接")
+## chart 的版本状况[​](#chart-�的版本状况 "chart 的版本状况的直接链接")
 
 chart 在 [flashcatcloud/n9e-helm](https://github.com/flashcatcloud/n9e-helm)，和夜莺主仓库分开维护。 从 chart `0.4.0` 起，master 分支已经跟到 v9：
 
@@ -11280,7 +11280,7 @@ Zabbix 全程不停，每一步都能单独验证。
 7. **并行跑。** 见下一节。
 8. **下线。** 确认无差异后，先把 Zabbix 的 Action 停掉（只留判定不发通知）， 观察一周再停 Zabbix Agent。
 
-## 并行期怎么比[​](#并行期怎么比 "并行期怎么比的直接链接")
+## 并行期怎么比[​](#�并行期怎么比 "并行期怎么比的直接链接")
 
 两边都在判定、都在发通知，最省事的对法是**先让夜莺只发到一个专用的群或邮箱**， 然后每天比一次：
 
@@ -11309,7 +11309,7 @@ v8 升 v9 换二进制即可，表结构启动时自动迁移；但有几段新�
 
 v8 和 v9 之间**没有需要手工执行的数据迁移**，也没有 API 的破坏性改名。 真正会咬人的是三件事：Redis 版本、几段只存在于新配置文件里的段落、以及启动时的在线建索引。
 
-## 升级前必须先确认的三件事[​](#升级前必须先确认的三件事 "升级前必须先确认的三��件事的直接链接")
+## 升级前必须先确认的三件事[​](#升级前必须先确认的三件事 "升级前必须先确认的三件事的直接链接")
 
 1. **Redis 版本 ≥ 5.0。** v9 的 AI 助手依赖 Redis Streams，5.0 以下起不来。 用 Redis Cluster 的建议上到 7.0+，才能用分片 Pub/Sub。
 2. **多进程部署要一起升。** 跑了 `n9e-edge` 或 `n9e-pushgw` 的， 必须和 `n9e` 同批替换，不要只升中心。
@@ -11368,7 +11368,7 @@ PostgreSQL 上的大库要提前打算：要么放在维护窗口里接受这段
 
 ## 配置文件里要手工处理的三处[​](#配置文件里要手工处理的三处 "配置文件里要手工处理的三处的直接链接")
 
-### 内置时序库：不补就是关的[​](#内置时序库不补就是�关的 "内置时序库：不补就是关的的直接链接")
+### 内置时序库：不补就是关的[​](#内置时序库不补就是关�的 "内置时序库：不补就是关的的直接链接")
 
 ```
 [EmbeddedTSDB]
@@ -12383,7 +12383,7 @@ PagerDuty 的 `dedup_key` 和 JSM 的 `alias` 用的都是夜莺的**事件哈�
 
 表单分三块：**通知配置**（核心）、**基础配置**、**事件处理工作流**（可选）。 先跳过基础配置——名称会在你选完媒介和接收团队之后自动生成。
 
-## 2. 填第一条通知配置[​](#2-填第一条通知配置 "2. 填第��一条通知配置的直接链接")
+## 2. 填第一条通知配置[​](#2-填第一条通知配置 "2. 填第一条通知配置的直接链接")
 
 | 字段              | 说明                                                                                                                          |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -16424,7 +16424,7 @@ make build-cli
 
 Go 1.25。前端是 Vite + React，构建脚本见 `n9e/fe` 仓库。
 
-## 相关[​](#相关 "相关的直��接链接")
+## 相关[​](#相关 "相关的直接链接")
 
 * [数据库选型](https://n9e.github.io/zh/zh/docs/install/databases.md)
 * [接入数据](https://n9e.github.io/zh/zh/docs/data/overview.md)
@@ -17126,7 +17126,7 @@ integrations/MySQL/
 
 真正的硬限制不是这几个数字，而是**它只存在于单个 Center 进程的本地磁盘上**： 多副本部署时每个副本只有一部分数据。适用范围大致到 10 万活跃序列， 再往上换外部时序库。见[内置时序库的单实例限制](https://n9e.github.io/zh/zh/docs/operations/embedded-tsdb-limits.md)。
 
-## 写入与转发[​](#写��入与转发 "写入与转发的直接链接")
+## 写入与转发[​](#写入与转发 "写入与转发的直接链接")
 
 | 项           | 默认    | 配置项                           |
 | ------------ | ------- | -------------------------------- |
@@ -17281,7 +17281,7 @@ Event pipeline/workflow management tools for event processing
 
 这个工具集全是只读的。
 
-### `logs`[​](#logs "logs��的直接链接")
+### `logs`[​](#logs "logs的直接链接")
 
 Logs query tools (Loki/Elasticsearch/OpenSearch) via n9e logs-query
 
@@ -17443,7 +17443,7 @@ User and user group management tools
 
 恢复事件要用 `sub $event.LastEvalTime $event.FirstTriggerTime`。
 
-## 有几类媒介不消费模板[​](#有几类媒介�不消费模板 "有几类媒介不消费模板的直接链接")
+## 有几类媒介不消费模板[​](#有几类媒介��不消费模板 "有几类媒介不消费模板的直接链接")
 
 `callback`、`flashduty`、`pagerduty` 这三类**不走消息模板**—— 它们的请求体直接透传事件 JSON，界面上也不给选模板。 其余媒介**缺模板会整条丢弃**，并写一条失败的通知记录。
 
@@ -19690,7 +19690,7 @@ curl -s --noproxy '*' http://127.0.0.1:17000/metrics | grep -E \
 
 `n9e_pushgw_samples_received_total` 和 `prometheus_tsdb_head_series` 都是 **当前进程**的计数，重启会归零，别把重启当成丢数。
 
-## 三个时间戳指标直接告诉你数据到哪儿了[​](#三个时间戳指标直接告诉你数据到哪儿了 "三个时间戳指标直接告诉你数据到��哪儿了的直接链接")
+## 三个时间戳指标直接告诉你数据到哪儿了[​](#三个时间戳指标直接告诉你数据到哪儿了 "三个时间戳指标直接告诉你数据到哪儿了的直接链接")
 
 内置时序库用的就是 Prometheus 的存储引擎，所以它把自己的边界原样暴露出来了。 **这三个数比翻图快得多**（单位都是毫秒）：
 
@@ -21510,7 +21510,7 @@ THE OPEN-SOURCE ALERTING EXPERT
 
 夜莺监控（Nightingale，n9e）是一款开源告警引擎：接入你已有的 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等 10+ 数据源，统一告警规则、降噪与分发。内置 AI 助手与 MCP Server，不用多部署一个进程。
 
-[在线体验](http://43.106.19.165/api/n9e/auth/demo-login)无需注册
+[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)无需注册
 
 [5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)自托管部署
 

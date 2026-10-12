@@ -4,7 +4,7 @@ THE OPEN-SOURCE ALERTING EXPERT
 
 夜莺监控（Nightingale，n9e）是一款开源告警引擎：接入你已有的 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等 10+ 数据源，统一告警规则、降噪与分发。内置 AI 助手与 MCP Server，不用多部署一个进程。
 
-[在线体验](http://43.106.19.165/api/n9e/auth/demo-login)无需注册
+[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)无需注册
 
 [5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)自托管部署
 

@@ -4,7 +4,7 @@ Nightingale vs[Prometheus + Alertmanager](#prometheus)[Zabbix](#zabbix)[Grafana 
 
 Prometheus, Zabbix and Grafana each have their ground. Nightingale argues for one thing only: the alerting layer should belong to a tool built for it.
 
-[Try live demo](http://43.106.19.165/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)
+[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)
 
 ## At a glance
 
@@ -282,4 +282,4 @@ At moderate scale, with a GitOps-comfortable team and a rule count you can hold 
 
 Nightingale reads the storage you already have. Installing it changes nothing about the alerting you run today.
 
-[Try live demo](http://43.106.19.165/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)
+[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)

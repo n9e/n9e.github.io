@@ -53,7 +53,7 @@ Claude Code、Claude Desktop、Cursor 这类客户端用的是同一种 JSON 结
 
 在客户端的「添加自定义连接器 / Remote MCP server」里填 `https://n9e.example.com/mcp`， 剩下的它自己发现。前提是服务端先开好 OAuth，见 [OAuth 2.1 与外部身份源](https://n9e.github.io/zh/zh/docs/ai/oauth.md)——那页还列了地址必须满足的三个条件 （浏览器可达、与 `Issuer` 完全一致、HTTPS）。
 
-## 验证连通的第一条提示词[​](#验证连通的第一条提示词 "验证连通的第一条提示词的直接链接")
+## 验证连通的第一条提示词[​](#验证连通的第一条提示词 "验证连通的第一条提示词的直接链�接")
 
 连上之后，先让它做一件只读、结果你自己一眼能核对的事：
 

@@ -6,7 +6,7 @@ NIGHTINGALE DOCSv9.2.0
 
 告警规则为什么没有触发
 
-[5 分钟拉起夜莺](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)[在线体验](http://43.106.19.165/api/n9e/auth/demo-login)
+[5 分钟拉起夜莺](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)
 
 ## CONNECT把数据接进来，让规则跑起来
 
