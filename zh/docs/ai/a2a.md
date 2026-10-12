@@ -94,7 +94,7 @@ curl -s -X POST https://n9e.example.com/a2a/message:send \
 
 任务状态存在 Redis 里，TTL 24 小时，多实例共享；过期后 `tasks/get` 返回 task not found， 但对话本身还在数据库里。
 
-## 反向代理和超时[​](#反向代理和超时 "反向�代理和超时的直接链接")
+## 反向代理和超时[​](#反向代理和超时 "反向代理和超时的直接链接")
 
 A2A 在根路径，且是长连接：
 

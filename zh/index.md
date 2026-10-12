@@ -38,7 +38,7 @@ S1CPU 使用率持续高于 90%
 
 已送达![钉钉](/zh/img/logos/dingtalk.png)![飞书](/zh/img/logos/feishu.png)![Slack](/zh/img/logos/slack.png)
 
-13,331GitHub Stars
+13,332GitHub Stars
 
 10+数据源类型
 

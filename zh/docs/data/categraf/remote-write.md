@@ -151,7 +151,7 @@ Url = "http://victoriametrics:8428/api/v1/write"
 
 详见 [VictoriaMetrics](https://n9e.github.io/zh/zh/docs/data/victoriametrics.md) 和[外部时序库与双写迁移](https://n9e.github.io/zh/zh/docs/install/external-tsdb.md)。
 
-## 观测写入本身[​](#观测写入本身 "观测写入本身的直接链接")
+## 观测写入本身[​](#观测写入本身 "观测写入本身的直��接链接")
 
 打开 `self_metrics` 插件（建一个 `conf/input.self_metrics/` 目录即可）， Categraf 会上报自己的运行指标：
 

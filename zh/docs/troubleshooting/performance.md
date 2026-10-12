@@ -61,7 +61,7 @@ grep '^n9e_alert_eval_query_series_count' /tmp/m2.txt | sort -t' ' -k2 -rn | hea
 
 **耗时高 + 曲线数大 = 查询本身太宽**，这是最常见的组合。
 
-## 队列涨：分清是哪一个队列[​](#队列涨分清是哪一个队列 "队列涨：分清是哪一个队列的��直接链接")
+## 队列涨：分清是哪一个队列[​](#队列涨分清是哪一个队列 "队列涨：分清是哪一个队列的直接链接")
 
 三个队列在链路的不同位置，涨的那个直接指出瓶颈在哪一段：
 
@@ -129,7 +129,7 @@ grep -E '^n9e_alert_eval_log_drop_total|^n9e_alert_eval_log_query_reject_total' 
 
 **怎么修**：磁盘跟不上就调 `[Alert.EvalLog]` 的 `MaxDiskGB` 和 `RetentionHours`， 或者用 `PerRuleDailyMB` 限制单条规则的写入量。确实不需要就整节关掉。
 
-## 确认恢复了[​](#确认��恢复了 "确认恢复了的直接链接")
+## 确认恢复了[​](#确认恢复了 "确认恢复了的直接链接")
 
 1. **三个队列都不再持续增长**——隔一分钟取两次 `/metrics`，差值回到 0 附近；
 2. `n9e_alert_rule_eval_duration_ms` 排序后的头部，耗时明显低于各自的执行频率；

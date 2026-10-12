@@ -41,7 +41,7 @@ Fired
 
 Delivered![Slack](/img/logos/slack.png)![PagerDuty](/img/logos/pagerduty.png)![Telegram](/img/logos/telegram.png)
 
-13,331GitHub stars
+13,332GitHub stars
 
 10+Data source types
 

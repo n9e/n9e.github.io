@@ -6,7 +6,7 @@
 
 装完夜莺第一次打开 **集成中心 → 数据源**，列表里已经躺着一条名叫 `embedded-tsdb` 的 Prometheus 类型数据源，右边还带着一个默认标记。这页说清它是谁创建的、什么在往它里面写、 以及它和你自己加的外置 Prometheus 数据源到底差在哪。
 
-![数据源列表，第一条是 embedded-tsdb](/zh/img/docs/data/datasource-list.zh.webp)![数据源列表，第一条是 embedded-tsdb](/zh/img/docs/data/datasource-list.zh.dark.webp)
+![数据源列表，第一条�是 embedded-tsdb](/zh/img/docs/data/datasource-list.zh.webp)![数据源列表，第一条是 embedded-tsdb](/zh/img/docs/data/datasource-list.zh.dark.webp)
 
 ## 它是谁创建的[​](#它是谁创建的 "它是谁创建的的直接链接")
 

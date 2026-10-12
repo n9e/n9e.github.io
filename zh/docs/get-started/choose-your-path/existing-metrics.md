@@ -51,7 +51,7 @@ VictoriaMetrics、Thanos、Mimir 都实现了 PromQL HTTP API，所以都注册�
 
 保存不会直接跳回列表，而是弹出一个引导：它当场替你回答「这个数据源现在能不能用」， 再给出接下来能做的几件事。
 
-![保存数据源后弹出的引导弹窗](/zh/img/docs/get-started/ds-next-step.zh.webp)![保存数��据源后弹出的引导弹窗](/zh/img/docs/get-started/ds-next-step.zh.dark.webp)
+![保存数据源后弹出的引导弹窗](/zh/img/docs/get-started/ds-next-step.zh.webp)![保存数据源后弹出的引导弹窗](/zh/img/docs/get-started/ds-next-step.zh.dark.webp)
 
 ### 数据体检[​](#数据体检 "数据体检的直接链接")
 

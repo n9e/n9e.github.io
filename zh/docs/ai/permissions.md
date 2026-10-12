@@ -52,7 +52,7 @@
 
 **三、「只读工具」不等于「无副作用」。** `logs` 工具集里的 `query_logs` 把查询体原样透传给夜莺的日志查询接口，而这个接口会按你传的数据源类型分发。 如果你注册了 MySQL、PostgreSQL、ClickHouse、Doris、TDengine 这类 SQL 数据源， 那条 SQL 是照写照执行的。这条路径上**有**一层只读校验 （`aiagent/tools/datasource_query.go` 里的 `validateReadOnlySQL`）， 但它是关键字黑名单——语句以 `INSERT`、`UPDATE`、`DELETE`、`DROP`、`ALTER`、`CREATE`、 `TRUNCATE`、`REPLACE`、`GRANT`、`REVOKE` 开头或包含这些词就拒掉。 明显的写操作能挡住，但它不是 SQL 解析器，只能当纵深防御，不能当保证。 **注册了 SQL 数据源、又要开 MCP 的话，用 `MCPToolsets` 把 `logs` 摘掉**， 或者给 AI 账号一个连不到这些数据源的角色。
 
-## 怎么验证边界确实在那儿[​](#怎么验证边界确实在那儿 "怎么验证边界确实在那儿的直接链接")
+## 怎么验证边界确实在那儿[​](#怎么验证边界确实在那儿 "怎么��验证边界确实在那儿的直接链接")
 
 用 AI 账号的 Token 调一个它不该有权限的东西，看是不是被拒：
 

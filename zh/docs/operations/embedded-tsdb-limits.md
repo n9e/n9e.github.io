@@ -68,7 +68,7 @@ BasicAuthPass = "<password>"
 
 配了之后自动注册的数据源地址会从 `127.0.0.1` 换成探测到的本机 IP。
 
-## 限制三：没有在线备份，也没有副本[​](#限制三没有在线备份也没有副本 "限制三：没有在线备份，也没有副本的直接链接")
+## 限制三：没有在线备份，也没有副本[​](#限制三没有在线备份也没有副本 "限制三：没有在线备份�，也没有副本的直接链接")
 
 它不提供 Prometheus 的 snapshot 接口。想留一份就得停进程、拷 `data/tsdb` 目录—— 详见[备份与恢复](https://n9e.github.io/zh/zh/docs/operations/backup-restore.md)。删除数据的 `delete_series` / `clean_tombstones` 两个端点默认根本不注册，要用得先打开 `EnableAdminAPI = true`，并且先配好 BasicAuth。
 

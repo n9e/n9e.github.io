@@ -12,7 +12,7 @@
 
 要么装在独立的、专门跑基础设施的集群里，要么就用[二进制包](https://n9e.github.io/zh/zh/docs/install/binary.md)装在集群外的机器上。 这不是 chart 有问题，是拓扑选择问题。
 
-## chart 的版本状况[​](#chart-�的版本状况 "chart 的版本状况的直接链接")
+## chart 的版本状况[​](#chart-的版本状况 "chart 的版本状况的直接链接")
 
 chart 在 [flashcatcloud/n9e-helm](https://github.com/flashcatcloud/n9e-helm)，和夜莺主仓库分开维护。 从 chart `0.4.0` 起，master 分支已经跟到 v9：
 

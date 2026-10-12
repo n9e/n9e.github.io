@@ -102,7 +102,7 @@ Prometheus 的 `CounterVec` 只有在某个标签组合第一次被记录时才�
 * `/metrics` 只让内网的采集器访问，网关上按路径放行；
 * `/dumper/sync` 本身就只接受本机请求，不用额外处理。
 
-## 相关[​](#相关 "相关的直接链接")
+## 相关[​](#相关 "�相关的直接链接")
 
 * [监控夜莺自身](https://n9e.github.io/zh/zh/docs/operations/self-monitoring.md)
 * [日志与诊断包](https://n9e.github.io/zh/zh/docs/operations/diagnostics.md)

@@ -57,7 +57,7 @@ cd /opt/n9e && ./n9e
 
 这套默认值**不适合生产**，往下继续换掉它们，或者直接照 [上生产前的检查清单](https://n9e.github.io/zh/zh/docs/get-started/production-checklist.md) 走一遍。
 
-## 接已有的 MySQL 和 Redis[​](#接已有的-mysql-和-redis "接已有的 MySQL 和 Redis的直接链接")
+## 接已有的 MySQL 和 Redis[​](#接已有的-mysql-和-redis "接已�有的 MySQL 和 Redis的直接链接")
 
 先建库。表结构不用手工导入——`n9e` 每次启动都会跑一次 AutoMigrate 把表补齐， 所以只要有一个空库和一个能建表改表的账号：
 

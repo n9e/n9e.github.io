@@ -54,7 +54,7 @@ grep -iE "failed to migrate table|failed to create index" /opt/n9e/logs/*.log
 
 **预期结果**：没有输出。有输出的话几乎都是权限问题——`[DB] DSN` 里那个账号能读能写， 但没有 `CREATE` / `ALTER` 权限。补上授权重启，或者按 [v8 升级 v9](https://n9e.github.io/zh/zh/docs/migration/v8-to-v9.md) 里的说法，把 `docker/migratesql/migrate.sql` 里对应版本的段落交给 DBA 执行。
 
-## 先让一个实例把迁移跑完，再滚其余的[​](#先让一个实例把迁移跑完再滚其余的 "先让一个实例把迁移跑完，再滚其余的的直接链接")
+## 先让一个实例把迁移跑完，再滚其余的[​](#先让一个实例把迁移跑完再滚其余�的 "先让一个实例把迁移跑完，再滚其余的的直接链接")
 
 迁移代码里针对「多实例同时启动」写了两处显式防御，这说明这两件事是真会发生的：
 
