@@ -24,9 +24,6 @@ export const SLACK_INVITE =
  * 地址指向演示站的免登录入口（/api/n9e/auth/demo-login）：访客点进去会自动以公共演示账号登录，
  * 不用输入账号密码。
  *
- * ⚠️ 当前是公网 IP 直连，正式 demo 域名定下来后替换；docs/get-started/live-demo.md（中英两份）
- *    里写死了同一个地址，要一起改。
- *    另外它是 http，正式站走 https 后建议 demo 也上 https：虽然普通链接不受
- *    混合内容策略拦截，但浏览器地址栏的安全提示会让人犹豫要不要点。
+ * docs/get-started/live-demo.md（中英两份）里写死了同一个地址，换域名时要一起改。
  */
-export const DEMO_URL = 'http://43.106.19.165/api/n9e/auth/demo-login';
+export const DEMO_URL = 'https://play.n9e.io/api/n9e/auth/demo-login';
