@@ -17,10 +17,10 @@ export default function Compare(): React.ReactElement {
 
         <div className={styles.cardGrid}>
           {compare.cards.map((card) => (
-            <article key={card.title} className={styles.compareCard}>
+            <Link key={card.title} className={styles.compareCard} to={card.href}>
               <h3>{card.title}</h3>
               <p>{card.body}</p>
-            </article>
+            </Link>
           ))}
         </div>
 

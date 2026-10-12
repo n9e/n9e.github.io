@@ -1012,11 +1012,22 @@ html[lang='en'] .title {
 }
 
 .compareCard {
+  display: block;
   padding: 1.5rem 1.5rem 1.6rem;
   border: 1px solid var(--n9e-line);
   border-top: 2px solid var(--n9e-violet);
   border-radius: 4px 4px var(--n9e-radius-lg) var(--n9e-radius-lg);
   background: var(--n9e-paper-raised);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.16s ease;
+}
+
+/* 整张卡是链接，指向各自的完整对比页 */
+.compareCard:hover {
+  border-color: var(--n9e-violet);
+  color: inherit;
+  text-decoration: none;
 }
 
 .compareCard h3 {

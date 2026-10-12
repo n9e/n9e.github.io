@@ -1127,3 +1127,23 @@ html[data-n9e-embed] [class*='docItemCol_'] {
 html[data-n9e-embed] main[class*='docMainContainer_'] > .container {
   padding-block: 1.25rem 2rem !important;
 }
+
+/* ---- MDX 落地页（src/pages/comparisons/*.mdx）：FAQ 的 details 与对比页同一套折叠样式 ---- */
+.mdx-page article details {
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--n9e-line);
+}
+
+.mdx-page article details:last-of-type {
+  border-bottom: 1px solid var(--n9e-line);
+}
+
+.mdx-page article summary {
+  cursor: pointer;
+  font-size: 1.02rem;
+}
+
+.mdx-page article details > p {
+  margin: 0.5rem 0 0.4rem;
+  color: var(--n9e-ink-soft);
+}

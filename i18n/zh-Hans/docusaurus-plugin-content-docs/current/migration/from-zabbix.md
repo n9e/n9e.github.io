@@ -121,6 +121,7 @@ Zabbix 全程不停，每一步都能单独验证。
 
 ## 下一步
 
+- 还在纠结换不换：[夜莺 vs Zabbix](/comparisons/zabbix)
 - 两边同时跑、怎么切：[并行运行与回退方案](./coexistence.md)
 - 规则该归哪个业务组：[业务组与数据源范围](../alerting/scope.md)
 - 采集器怎么配插件：[Categraf 采集插件](../data/categraf/plugins.md)

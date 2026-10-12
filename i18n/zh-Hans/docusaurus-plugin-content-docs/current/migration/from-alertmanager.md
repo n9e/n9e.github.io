@@ -173,6 +173,7 @@ route:
 
 ## 下一步
 
+- 还在纠结换不换：[夜莺 vs Prometheus + Alertmanager](/comparisons/prometheus-alertmanager)
 - 两边同时跑、怎么对比：[并行运行与回退方案](./coexistence.md)
 - 事件在夜莺里被处理的完整顺序：[降噪与路由模型](../concepts/noise-routing.md)
 - 规则该归哪个业务组：[业务组与数据源范围](../alerting/scope.md)

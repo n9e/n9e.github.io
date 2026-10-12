@@ -154,6 +154,8 @@ export interface DeploySection {
 export interface CompareCard {
   title: string;
   body: string;
+  /** 完整对比页，如 /comparisons/zabbix */
+  href: string;
 }
 
 export interface CompareSection {
@@ -304,6 +306,57 @@ export interface FaqItem {
   a: string;
 }
 
+/** 完整对比页里的一行：只有夜莺和这一个对手两列 */
+export interface DetailRow {
+  label: string;
+  us: CapabilityCell;
+  them: CapabilityCell;
+}
+
+/**
+ * 单个对手的完整对比页（/comparisons/<slug>）。hub 上的 Verdict 是它的摘要，
+ * 两者靠 verdictId 对上；页面把 Verdict 的立场、配图和问答，与这里的
+ * 结论、对照表、迁移摘要、FAQ 拼成一页。每页至少一半内容在这里，
+ * 否则搜索引擎会把它当成 hub 的薄复制。
+ */
+export interface ComparisonDetail {
+  /** URL 段 */
+  slug: string;
+  verdictId: string;
+  /** <title>，站点名由 Layout 追加 */
+  metaTitle: string;
+  metaDescription: string;
+  /** H1 */
+  heading: string;
+  lead: string;
+  /** 30 秒结论：谁该选谁 */
+  tldr: { label: string; text: string }[];
+  /** 对手列的列头；夜莺列头用 detailLabels.usColumn */
+  themColumn: string;
+  rows: DetailRow[];
+  migration: {
+    lead: string;
+    fromLabel: string;
+    toLabel: string;
+    rows: { from: string; to: string }[];
+    note: string;
+  };
+  faq: FaqItem[];
+}
+
+/** 完整对比页共用的小标题与按钮文案 */
+export interface ComparisonDetailLabels {
+  /** 面包屑里 hub 的名字 */
+  hub: string;
+  tldrTitle: string;
+  tableTitle: string;
+  usColumn: string;
+  migrationTitle: string;
+  faqTitle: string;
+  othersTitle: string;
+  guidesTitle: string;
+}
+
 export interface ComparisonsPage {
   /** 浏览器标签页与导航里用的短页名；大标题 title 是一句立场，太长不适合做 <title> */
   pageTitle: string;
@@ -336,6 +389,10 @@ export interface ComparisonsPage {
   askYou: string;
   askAi: string;
   verdicts: Verdict[];
+  /** 章节末尾「阅读完整对比」 */
+  readMoreLabel: string;
+  detailLabels: ComparisonDetailLabels;
+  details: ComparisonDetail[];
   ai: AiSection;
   coexist: {
     title: string;

@@ -135,6 +135,7 @@ Nightingale rules**; Zabbix was never touched.
 
 ## Next
 
+- Deciding whether to switch at all: [Nightingale vs Zabbix](/comparisons/zabbix)
 - Running both and cutting over: [Coexistence and rollback plan](./coexistence.md)
 - Which business group a rule belongs to: [Scope by business group and data source](../alerting/scope.md)
 - Configuring collector plugins: [Categraf plugins](../data/categraf/plugins.md)

@@ -9,13 +9,14 @@ import { DEMO_URL } from '@site/src/data/site';
 import repo from '@site/src/data/stats.json';
 import { thousands } from '@site/src/lib/format';
 import AiSection from '@site/src/components/comparisons/AiSection';
-import ChapterVisual, { AskPair } from '@site/src/components/comparisons/ChapterVisual';
 import styles from './comparisons.module.css';
 
 /**
- * 对比页：一页决策书。
- * 结构照业界对比页的共性来：立场标题 → 一眼看完的表 → 数字 → 逐个对手的判词 →
+ * 对比 hub（/comparisons）：一页决策书的目录。
+ * 结构照业界对比页的共性来：立场标题 → 一眼看完的表 → 数字 → 逐个对手的判词摘要 →
  * 拆掉"换的顾虑"（并存）→ FAQ → 结尾 CTA。
+ * 每个对手的完整对比在 /comparisons/<slug>（DetailPage），这里的章节只留立场、换的信号
+ * 和两个链接；#prometheus / #zabbix / #grafana 三个锚点保留，老链接照常落地。
  * 页面上唯一的视觉重音是对比表里的夜莺列，其余全部细线、不套盒子。
  */
 
@@ -66,6 +67,7 @@ export default function Comparisons(): React.ReactElement {
   const chapterIds = useMemo(() => page.verdicts.map((v) => v.id), [page.verdicts]);
   const active = useActiveChapter(chapterIds);
   const levelKeys: CapabilityLevel[] = ['full', 'partial', 'none'];
+  const detailHref = (verdictId: string) => `/comparisons/${page.details.find((d) => d.verdictId === verdictId)?.slug ?? ''}`;
 
   return (
     <Layout title={page.pageTitle} description={page.lead}>
@@ -74,10 +76,11 @@ export default function Comparisons(): React.ReactElement {
           <div className="n9e-container">
             <p className={styles.heroLabel}>
               <span>{page.label}</span>
+              {/* 首屏就给出三个完整对比页的链接：爬虫和读者都不用先滚到章节 */}
               {page.verdicts.map((v) => (
-                <a key={v.id} href={`#${v.id}`}>
+                <Link key={v.id} to={detailHref(v.id)}>
                   {v.title}
-                </a>
+                </Link>
               ))}
             </p>
             {/* 标题里的 \n 是作者指定的换行点：中文在逗号后断、英文在句号后断，比让浏览器随机折行好看 */}
@@ -206,28 +209,22 @@ export default function Comparisons(): React.ReactElement {
 
                   <div className={styles.chapterBody}>
                     <div>
-                      <h3 className={styles.subLabel}>{page.theirsLabel}</h3>
-                      <p className={styles.prose}>{v.theirs}</p>
-
-                      <h3 className={styles.subLabel}>{page.oursLabel}</h3>
-                      <p className={styles.prose}>{v.ours}</p>
-
                       <h3 className={styles.subLabel}>{page.signalsLabel}</h3>
                       <ul className={styles.signals}>
                         {v.signals.map((s) => (
                           <li key={s}>{s}</li>
                         ))}
                       </ul>
+                    </div>
 
+                    <div className={styles.chapterLinks}>
+                      <Link className="n9e-btn n9e-btn--primary" to={detailHref(v.id)}>
+                        {page.readMoreLabel} →
+                      </Link>
                       <p className={styles.guide}>
                         <span>{page.guideLabel}</span>
                         <Link to={v.guide.href}>{v.guide.label} →</Link>
                       </p>
-                    </div>
-
-                    <div className={styles.chapterAside}>
-                      <ChapterVisual visual={v.visual} caption={v.visualCaption} />
-                      <AskPair ask={v.ask} you={page.askYou} ai={page.askAi} />
                     </div>
                   </div>
                 </article>

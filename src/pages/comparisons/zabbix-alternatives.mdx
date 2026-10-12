@@ -1,0 +1,106 @@
+---
+title: Open-Source Zabbix Alternatives, Chosen by Scenario (2026)
+description: Thinking of replacing Zabbix? Prometheus + Alertmanager, Nightingale (n9e), Grafana Alerting, Checkmk, Netdata, LibreNMS and SigNoz compared by license, collection model, alerting capabilities and upkeep, including the cases where you should not switch.
+keywords: [zabbix alternative, zabbix alternatives, open source monitoring, open source alerting, Nightingale, n9e]
+---
+
+import Head from '@docusaurus/Head';
+import { figures } from '@site/src/data/figures';
+
+export const faq = [
+  { q: 'Can Nightingale read Zabbix data directly?', a: 'No. Nightingale data sources are query backends such as Prometheus, VictoriaMetrics and Elasticsearch; the Zabbix history and trends tables are not among them. Leave the history in Zabbix as a read-only archive; nothing has to be moved.' },
+  { q: 'How long does leaving Zabbix take?', a: 'It depends on the number of custom triggers. Built-in templates cover most of the standard ones; custom triggers and notification actions are rewritten one by one. The usual approach is one business group at a time, each running in parallel for a week or two, with Zabbix never stopping.' },
+  { q: 'Is there one open-source tool for both network gear and cloud-native alerting?', a: 'None is home ground on both sides. In practice the work is split: Zabbix or LibreNMS keeps the switches, routers and IPMI, Nightingale or Prometheus takes Kubernetes and applications, and notifications land in the same channels.' },
+  { q: 'Did the Zabbix license change?', a: 'Yes. Zabbix 7.0 moved from GPL-2.0 to AGPL-3.0. Nothing changes for internal deployments; if you embed it in a service offered to others, read the AGPL network clause.' },
+];
+
+<Head>
+  <script type="application/ld+json">
+    {JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map((item) => ({ '@type': 'Question', name: item.q, acceptedAnswer: { '@type': 'Answer', text: item.a } })),
+    })}
+  </script>
+</Head>
+
+# Open-source Zabbix alternatives: pick by scenario, not by ranking
+
+Searching for "Zabbix alternatives" returns ten-item lists with two sentences per tool. This page goes the other way: first why you want to leave, then where your data and objects would go, then one honest paragraph per candidate, including where it does not fit. Nightingale (n9e, 夜莺) is our own project; it appears only in the rows where it genuinely belongs.
+
+## Why people leave Zabbix
+
+Three common reasons, and one counter-example that gets skipped too often.
+
+- **The database becomes the bottleneck.** The `history` and `trends` tables grow with hosts times items; partitioning, the housekeeper and TimescaleDB are all ways of fighting that. Metric time-series stores were built for exactly this data.
+- **The environment went cloud-native.** Kubernetes pods appear and vanish by the minute; a host-and-item model needs discovery and agents to keep up, and the metrics for these environments usually already live in Prometheus or VictoriaMetrics. Collecting them again with Zabbix means running two collection stacks.
+- **The alerting layer has new requirements.** Noise reduction, permissions by business group, phone and SMS, chat tools, self-healing, AI-assisted investigation. Zabbix can do parts of it, but through script media types and outside systems.
+
+The counter-example: **if the estate is mostly network gear, SNMP and IPMI, the team has years of Zabbix experience and the system runs stably, there is no reason to move.** Two decades of work in that space has no complete open-source substitute.
+
+## Three questions before switching
+
+1. **Where is the data now?** If metrics are already in Prometheus or VictoriaMetrics and logs in Elasticsearch or Loki, the replacement should read those stores rather than collect again. If the data exists only inside Zabbix, the replacement needs its own collection.
+2. **What are you monitoring?** Switches, routers and out-of-band IPMI are one world; Kubernetes, cloud databases and microservices are another. The first is about discovery and device templates, the second about query languages and multiple data sources.
+3. **Who maintains the alert rules?** SREs only: config files plus GitOps are enough. Product teams: a UI and a permission boundary are hard requirements.
+
+## Choose by scenario
+
+| Your situation | Better fit | Why |
+|---|---|---|
+| Mostly network gear, SNMP, IPMI | Stay on Zabbix; LibreNMS for pure network | Discovery and device template libraries are their home ground |
+| Metrics already in Prometheus / VictoriaMetrics, lots of Kubernetes | Nightingale, or Prometheus + Alertmanager | Alert on the stores you have; no second collection stack |
+| The team already lives in Grafana, modest alert volume | Grafana Alerting | One system fewer |
+| Product teams configure rules in a UI, permissions by business group, phone and SMS | Nightingale | Those are the things it is built around |
+| Unified APM with traces, metrics and logs | SigNoz | OpenTelemetry-native |
+| A few dozen hosts, want charts right after install | Netdata; or Nightingale with its embedded TSDB | Zero-config start |
+| Traditional IT, just want a nicer interface | Checkmk Raw | Same model family as Zabbix, lowest concept migration cost |
+
+## The seven candidates, one at a time
+
+### Prometheus + Alertmanager (Apache-2.0)
+
+The de facto standard for cloud-native metrics: pull model, exporter ecosystem, PromQL. Rules live in YAML and are evaluated by Prometheus; Alertmanager groups, inhibits, silences and routes. It shines exactly where Zabbix struggles: dynamic environments, service discovery, high-cardinality labels. The price is no UI for rules, no permission model, and webhook-first delivery with phone, SMS and most chat tools left to third parties. At moderate scale with a GitOps-comfortable team it is the leanest choice.
+
+### Nightingale (Apache-2.0)
+
+An open-source alerting engine hosted by the China Computer Federation's open-source committee. It stores nothing: Prometheus, VictoriaMetrics, Elasticsearch, ClickHouse and other sources ({figures.datasourceTypes} types) are registered and queried in place; Categraf fills the gaps, with {figures.integrations} built-in integrations bundling collector config, dashboards and rules. Rules are configured in the UI, business groups are the permission boundary, phone, SMS, DingTalk, Feishu and WeCom are among {figures.notificationChannels} built-in channels, and an AI assistant with {figures.mcpTools} MCP tools runs in-process. Not its ground: network device discovery, Zabbix-style multi-step escalation ladders, and it is not an aggregation layer, so it cannot receive alerts from other systems. Full comparison: [Nightingale vs Zabbix](/comparisons/zabbix).
+
+### Grafana Alerting (AGPL-3.0)
+
+Grafana's built-in unified alerting: rules across many data sources, an Alertmanager-style notification policy tree, contact points for the main chat tools. If the team already lives in Grafana it is the one-system-fewer option. Watch the OSS permission granularity (fine-grained RBAC is Enterprise), the lack of phone and SMS contact points, and the fact that Grafana OnCall OSS was archived in March 2026 with on-call living in Grafana Cloud. See [Nightingale vs Grafana Alerting](/comparisons/grafana-alerting).
+
+### Checkmk Raw Edition (GPL-2.0)
+
+The same generation of model as Zabbix: agents plus automatic service discovery, thousands of check plugins, complete SNMP and traditional-IT coverage, and a more modern interface. It is the lowest-cost move when what you want is "a nicer Zabbix". Raw is the open-source edition; the CMC core and several features are commercial.
+
+### Netdata (GPL-3.0)
+
+Per-second collection, auto-configured dashboards, usable minutes after a single-host install, low footprint. Good for a few dozen machines and teams that want to see charts first; often used alongside Zabbix rather than instead of it. Multi-node views and long retention go through Netdata Cloud, which has free and paid tiers.
+
+### LibreNMS (GPL-3.0)
+
+SNMP-centred network monitoring: discovery, device templates, topology, traffic graphs, alert rules. If Zabbix is mainly your switch-and-router view, LibreNMS is the closest open-source replacement; it is not a general metrics or log alerting platform.
+
+### SigNoz (Apache-2.0)
+
+An OpenTelemetry-native observability platform with traces, metrics and logs in ClickHouse and built-in alerting. It solves unified APM rather than infrastructure monitoring; "Zabbix alternative" only holds when what you really want is APM.
+
+## What moving from Zabbix to Nightingale involves
+
+It is a rebuild, not a move: Nightingale has no importer for Zabbix templates or triggers. The work is smaller than it looks, because one Nightingale rule covers every series its query returns; the thousand trigger sets a template generates on a thousand hosts are usually one rule. The order: install Categraf (the Zabbix agent stays), settle the storage, import built-in templates, translate the remaining triggers, build notifications, move maintenance windows, compare in parallel, then stop Zabbix actions first and agents a week later. Every step verifies on its own; rolling back is disabling the Nightingale rules in bulk. Step by step: [From Zabbix](/docs/migration/from-zabbix) and [Coexistence and rollback plan](/docs/migration/coexistence).
+
+## Questions
+
+<div>
+  {faq.map((item) => (
+    <details key={item.q}>
+      <summary><strong>{item.q}</strong></summary>
+      <p>{item.a}</p>
+    </details>
+  ))}
+</div>
+
+---
+
+Based on each project's public documentation and open-source edition as of October 2026; a guide, not a verdict. Nightingale figures come from build-time data. If something here is out of date, open an issue on [GitHub](https://github.com/n9e/n9e.github.io/issues).

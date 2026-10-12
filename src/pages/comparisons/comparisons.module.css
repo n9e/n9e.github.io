@@ -693,3 +693,200 @@
     transition: none;
   }
 }
+
+/* ---------------- hub 章节：只留信号和两个链接 ---------------- */
+
+.chapterLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding-top: 1.7rem;
+}
+
+.chapterLinks .guide {
+  margin-top: 0.4rem;
+}
+
+/* ---------------- 完整对比页（/comparisons/<slug>） ---------------- */
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0 0 0.9rem;
+  padding: 0;
+  list-style: none;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.76rem;
+  color: var(--n9e-ink-faint);
+}
+
+.crumbs a {
+  color: var(--n9e-ink-soft);
+}
+
+.crumbs li + li::before {
+  content: '/';
+  margin-right: 0.4rem;
+  color: var(--n9e-line-strong);
+}
+
+.detailLead {
+  max-width: 68ch;
+  margin: 1.2rem 0 0;
+  font-size: var(--n9e-hero-lead);
+  line-height: 1.7;
+  color: var(--n9e-ink-soft);
+}
+
+.detailWays {
+  margin-top: 2rem;
+}
+
+/* 30 秒结论：三栏，每栏一个「如果」 */
+.tldr {
+  padding-block: clamp(2.5rem, 4.5vw, 3.75rem);
+  border-bottom: 1px solid var(--n9e-line);
+}
+
+.tldrGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tldrGrid li {
+  padding-top: 1rem;
+  border-top: 1px solid var(--n9e-line-strong);
+}
+
+.tldrGrid b {
+  display: block;
+  margin-bottom: 0.45rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--n9e-violet);
+}
+
+.tldrGrid p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--n9e-ink-soft);
+}
+
+/* 立场 + 配图 + 问答：左文右图，沿用 hub 的 chapterBody */
+.detailStance {
+  padding-block: clamp(2.5rem, 4.5vw, 3.75rem);
+  border-bottom: 1px solid var(--n9e-line);
+}
+
+/* 两列对照表：行头 + 夜莺列 + 对手列 */
+.table.twoCol {
+  min-width: 640px;
+}
+
+.table.twoCol tbody th {
+  width: 26%;
+}
+
+/* 对象映射表：纯文字两列，不打状态图形 */
+.mapping {
+  padding-block: clamp(2.5rem, 4.5vw, 3.75rem);
+  border-bottom: 1px solid var(--n9e-line);
+}
+
+.mappingTable {
+  display: table;
+  width: 100%;
+  margin: 1.5rem 0 0;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.mappingTable th,
+.mappingTable td {
+  padding: 0.75rem 1rem 0.75rem 0;
+  text-align: left;
+  vertical-align: top;
+  border: 0;
+  border-bottom: 1px solid var(--n9e-line);
+  background: transparent;
+  line-height: 1.55;
+}
+
+.mappingTable thead th {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--n9e-ink-soft);
+}
+
+.mappingTable tbody th {
+  width: 34%;
+  font-family: var(--n9e-font-mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--n9e-ink);
+}
+
+.mappingTable tbody td {
+  color: var(--n9e-ink-soft);
+}
+
+.mappingTable thead,
+.mappingTable thead tr,
+.mappingTable tbody tr:nth-child(2n) {
+  background: transparent;
+}
+
+.mappingNote {
+  max-width: 78ch;
+  margin: 1rem 0 0;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--n9e-ink-soft);
+}
+
+.mappingLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 1.4rem 0 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.mappingLinks a {
+  color: var(--n9e-violet);
+}
+
+/* 其他对比的互链 */
+.others {
+  padding-block: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid var(--n9e-line);
+}
+
+.othersList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.75rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.othersList a {
+  color: var(--n9e-violet);
+}
+
+@media (max-width: 760px) {
+  .tldrGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

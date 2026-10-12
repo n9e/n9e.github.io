@@ -198,6 +198,7 @@ the historical data.
 
 ## Next
 
+- Deciding whether to switch at all: [Nightingale vs Prometheus + Alertmanager](/comparisons/prometheus-alertmanager)
 - Running both sides and comparing them: [Coexistence and rollback plan](./coexistence.md)
 - The full order events are processed in: [Noise reduction and routing model](../concepts/noise-routing.md)
 - Which business group a rule belongs to: [Scope by business group and data source](../alerting/scope.md)

@@ -145,6 +145,7 @@ rather than deletes: a deleted rule has to be rebuilt, a paused one comes back i
 
 ## Next
 
+- Deciding whether to switch at all: [Nightingale vs Grafana Alerting](/comparisons/grafana-alerting)
 - Living alongside Grafana for charts: [Use Grafana with Nightingale](../query/grafana.md)
 - The full route-tree flattening method: [From Prometheus + Alertmanager](./from-alertmanager.md)
 - Running both and cutting over: [Coexistence and rollback plan](./coexistence.md)

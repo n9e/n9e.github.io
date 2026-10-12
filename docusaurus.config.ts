@@ -264,6 +264,9 @@ const config: Config = {
           items: [
             { label: '集成生态', to: '/integrations' },
             { label: '产品对比', to: '/comparisons' },
+            // 两个选型落地页（设计稿 §6.2：从页脚链入，长期接搜索流量）
+            { label: 'Zabbix 替代方案', to: '/comparisons/zabbix-alternatives' },
+            { label: '开源告警平台选型', to: '/comparisons/open-source-alerting-platforms' },
             { label: 'MCP Server', href: 'https://github.com/ccfos/nightingale#-mcp-server' },
           ],
         },

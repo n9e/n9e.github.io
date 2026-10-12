@@ -62,5 +62,13 @@
   "copyright": {
     "message": "© 2026 Nightingale Contributors · Apache-2.0 License",
     "description": "The footer copyright"
+  },
+  "link.item.label.Zabbix 替代方案": {
+    "message": "Zabbix alternatives",
+    "description": "The label of footer link with label=Zabbix 替代方案 linking to /comparisons/zabbix-alternatives"
+  },
+  "link.item.label.开源告警平台选型": {
+    "message": "Choosing an alerting platform",
+    "description": "The label of footer link with label=开源告警平台选型 linking to /comparisons/open-source-alerting-platforms"
   }
 }

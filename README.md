@@ -62,6 +62,20 @@ static/img/            Product screenshots, data source and channel logos, the u
                        img/integrations/ holds template icons synced from upstream
 ```
 
+## Comparison pages
+
+`/comparisons` is a hub; each competitor has a full page under `src/pages/comparisons/<slug>.tsx`
+rendered by `src/components/comparisons/DetailPage.tsx` from `comparisonsPage.details` in
+`src/content/{en,zh}.ts` (the hub's `verdicts` supply the stance, visual and Q&A; `details` add
+the verdict, two-column table, migration summary and FAQ). The hub keeps the `#prometheus`,
+`#zabbix` and `#grafana` anchors so old links still land.
+
+The two long-form guides (`zabbix-alternatives`, `open-source-alerting-platforms`) are MDX pages:
+English in `src/pages/comparisons/`, Chinese in
+`i18n/zh-Hans/docusaurus-plugin-content-pages/comparisons/`. Both languages exist for every page
+so the hreflang alternates never point at a 404. Claims about other projects are dated in the
+page footer; keep "where the other tool fits" honest when editing.
+
 ## Editing copy
 
 All visible homepage and landing-page text lives in `src/content/zh.ts` and `en.ts`. Both follow
