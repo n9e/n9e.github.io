@@ -17,7 +17,10 @@ npm run typecheck
 ```
 
 `npm run build` first runs the data scripts (see [Generated data](#generated-data)). If a fetch
-fails, the build carries on with the data already in the repository.
+fails, the build carries on with the data already in the repository. The build also writes
+`robots.txt` (with both locales' sitemaps), `llms.txt` / `llms-full.txt` per locale and a `.md`
+copy of every page next to its HTML (`/docs/x` → `/docs/x.md`) for AI crawlers; fonts are
+self-hosted from `@fontsource`, so nothing is loaded from Google Fonts.
 
 ## Deployment
 
@@ -70,6 +73,11 @@ commit before `54cbdc54`; the older `/docs/install/server` entry is recorded sep
 redirects to the current installation overview rather than retaining an obsolete-architecture article.
 English and Chinese keep their language. Collector and monitoring-practice articles retain
 their original URLs and are registered in the current sidebar.
+
+The old site's non-documentation routes (the blog and the Doks contributor pages) are listed
+separately in the same file as `legacySiteUrls`; they redirect to the locale home, the closest
+current page, or the GitHub contributor graph, which the official plugin cannot target, so
+`postbuild` writes those aliases itself.
 
 The official `@docusaurus/plugin-client-redirects` plugin emits static HTML aliases. `postbuild`
 adds slashless aliases without overwriting current pages, copies the target canonical URL,

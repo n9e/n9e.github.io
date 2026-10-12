@@ -5,6 +5,7 @@ import { SLACK_INVITE, DEMO_URL } from './src/data/site';
 import { starCount } from './src/lib/format';
 import repo from './src/data/stats.json';
 import { redirectsForLocale } from './scripts/legacy-doc-urls.mjs';
+import robotsTxtPlugin from './scripts/robots-txt-plugin.mjs';
 
 // 域名待定（方案 §6 待拍板项 2）。改这里即可，页面内不硬编码站点地址。
 const SITE_URL = 'https://n9e.github.io';
@@ -98,18 +99,6 @@ const config: Config = {
       innerHTML:
         'var _hmt = _hmt || [];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?9d7cc507a7aae60b28b5e04bb995492a";hm.async=true;var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();',
     },
-    {
-      tagName: 'link',
-      attributes: { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-    },
-    {
-      tagName: 'link',
-      attributes: { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'anonymous' },
-    },
-  ],
-
-  stylesheets: [
-    'https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap',
   ],
 
   clientModules: [
@@ -136,12 +125,25 @@ const config: Config = {
         },
         blog: false,
         theme: {
+          // 字体自托管（@fontsource，OFL 许可）：之前从 fonts.googleapis.com 加载，那个样式表挂在
+          // <head> 里会阻塞渲染，大陆网络经常连不上，首屏就一直白着。每个字重一份 CSS，
+          // 按 unicode-range 分片，浏览器只会下载页面用到的 latin 子集。
           // docs-icons.css 由 scripts/scaffold-docs.mjs 生成（侧栏分组图标），不要手改
-          customCss: ['./src/css/custom.css', './src/css/docs-icons.css'],
+          customCss: [
+            ...[400, 500, 600, 700, 800].map((w) => require.resolve(`@fontsource/archivo/${w}.css`)),
+            ...[400, 500, 700].map((w) => require.resolve(`@fontsource/jetbrains-mono/${w}.css`)),
+            './src/css/custom.css',
+            './src/css/docs-icons.css',
+          ],
         },
         sitemap: {
           changefreq: 'weekly',
           priority: 0.5,
+          // 每页 <lastmod> 取源文件最后一次提交的日期；CI 里 checkout 必须 fetch-depth: 0，
+          // 浅克隆下所有页面都会写成构建当天，等于没有
+          lastmod: 'date',
+          // 搜索结果页随 ?q= 变化、空页无内容，不进 sitemap（页面本身也打了 noindex，见 src/theme/SearchPage）
+          ignorePatterns: ['/search', '/zh/search'],
         },
       } satisfies Preset.Options,
     ],
@@ -151,9 +153,34 @@ const config: Config = {
   // 它的 SearchBar 会调 useActiveVersion，所以必须和 docs 插件同开同关——
   // 单独打开这一段而 docs: false 会直接构建失败。
   plugins: [
+    robotsTxtPlugin,
     [
       '@docusaurus/plugin-client-redirects',
       { redirects: redirectsForLocale(isEn ? 'en' : 'zh-Hans') },
+    ],
+    // 给 AI 爬虫/助手的纯文本入口：每种语言各一份 llms.txt（目录 + 一句话摘要）、llms-full.txt（全文），
+    // 以及每个页面同路径的 .md 原文（/docs/x → /docs/x.md）。从构建好的 HTML 转出来，中英文各跑一次。
+    [
+      '@signalwire/docusaurus-plugin-llms-txt',
+      {
+        siteTitle: isEn ? 'Nightingale (n9e)' : '夜莺监控 Nightingale (n9e)',
+        siteDescription: isEn
+          ? 'Open-source alerting engine for Prometheus, VictoriaMetrics, Elasticsearch, ClickHouse and more. Self-hosted, Apache-2.0, with a built-in AI agent and MCP server.'
+          : '开源监控告警引擎：对接 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等数据源，统一告警规则、降噪与分发；自托管，Apache-2.0，内置 AI 助手与 MCP Server。',
+        // 分组深度：目录按 URL 前两段分（docs / get-started）。中文站多一层 /zh/ 前缀，所以多一级
+        depth: isEn ? 2 : 3,
+        content: {
+          includeDocs: true,
+          includePages: true,
+          enableLlmsFullTxt: true,
+          // 文档页只取正文；其它页面取整个 main。默认选择器里的 article 会先命中首页的告警卡片，
+          // 转出来的首页只剩一张卡
+          contentSelectors: ['.theme-doc-markdown', 'main'],
+          // 绝对地址：这些文件是给站外的模型读的，相对路径离开站点就失效
+          relativePaths: false,
+          excludeRoutes: ['**/search', '**/404.html'],
+        },
+      },
     ],
     [
       '@easyops-cn/docusaurus-search-local',
@@ -188,7 +215,7 @@ const config: Config = {
       title: '夜莺',
       logo: {
         alt: 'Nightingale',
-        src: 'img/logo-mark.png',
+        src: 'img/logo-mark.webp',
       },
       items: [
         // 指向 /docs 而不是第一篇正文：那里是任务分流页（调研 §6.1 / §16.5），

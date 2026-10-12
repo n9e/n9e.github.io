@@ -70,7 +70,7 @@ export default function ChapterVisual({ visual, caption }: { visual: Visual; cap
             </div>
             <Arrow />
             <div className={styles.hub}>
-              <img src={withBaseUrl('img/logo-mark.png')} alt="" />
+              <img src={withBaseUrl('img/logo-mark.webp')} alt="" />
               <b>{visual.hub}</b>
               <span>{visual.hubNote}</span>
             </div>

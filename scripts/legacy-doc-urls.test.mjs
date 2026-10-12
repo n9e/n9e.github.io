@@ -42,3 +42,19 @@ test('the retired article is never emitted as a redirect', () => {
     assert(!rules.some((item) => item.from === item.to));
   }
 });
+
+test('old blog and contributor routes keep their language, off-site targets are not prefixed', () => {
+  assert.equal(legacyTarget('/blog/'), '/');
+  assert.equal(legacyTarget('/zh/blog'), '/zh/');
+  assert.equal(legacyTarget('/blog/five-steps-to-build-observability/'), '/docs/get-started/where-it-fits');
+  assert.equal(legacyTarget('/zh/blog/five-steps-to-build-observability'), null);
+  assert.equal(legacyTarget('/contributors/'), 'https://github.com/ccfos/nightingale/graphs/contributors');
+  assert.equal(legacyTarget('/zh/contributors'), 'https://github.com/ccfos/nightingale/graphs/contributors');
+  assert.equal(legacyTarget('/contributors/ulric-qin'), 'https://github.com/ccfos/nightingale/graphs/contributors');
+  assert.equal(legacyTarget('/zh/contributors/henk-verlinde'), null);
+  for (const locale of ['en', 'zh-Hans']) {
+    const rules = redirectsForLocale(locale);
+    assert(rules.some((item) => item.from === '/blog' && item.to === '/'));
+    assert(!rules.some((item) => item.from.startsWith('/contributors')), 'off-site targets must not reach the official plugin');
+  }
+});

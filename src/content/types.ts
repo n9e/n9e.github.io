@@ -30,6 +30,11 @@ export interface Hero {
   ctaPrimaryNote: string;
   /** 可用 \n 指定宽屏下的断行点 */
   title: string;
+  /** <title> 与 og:title，和 H1 分开写：品牌 + 别名（夜莺监控 / n9e）+ 品类词。
+   *  "Nightingale" 单独一个词歧义太大（人名、公司名都叫这个），搜索引擎和 AI 靠这里认出项目 */
+  metaTitle: string;
+  /** <meta name=description> 与 og:description，控制在 160 字符内；lead 是给人看的，可以更长 */
+  metaDescription: string;
   lead: string;
   /** 副标题下单独一行的能力点，按 " · " 拆成一个个小标签，如 "Built-in AI assistant · MCP server"；不填则不渲染 */
   highlights?: string;
@@ -72,6 +77,8 @@ export interface PipelineStep {
   points: string[];
   shot?: string;
   shotAlt?: string;
+  /** 图片原始像素尺寸，写进 <img width/height>，页面不会在图加载时跳动 */
+  shotSize?: [number, number];
   code?: CodeCard;
 }
 
@@ -164,6 +171,8 @@ export interface TrustSection {
   /** 中文站：整墙一张图。README 那 64 家只有这一张合图，没有独立 logo 文件 */
   logoWall?: string;
   logoAlt?: string;
+  /** 合图的原始像素尺寸，同 PipelineStep.shotSize */
+  logoWallSize?: [number, number];
   /** 图太高时裁切并向下渐隐 */
   logoWallCrop?: boolean;
   /** 英文站：逐个 logo，横向滚动。有独立文件才能这么做。

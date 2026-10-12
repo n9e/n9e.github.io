@@ -83,7 +83,10 @@ export default function Comparisons(): React.ReactElement {
             <h1 className={styles.heroTitle}>
               {page.title.split('\n').map((line, i) => (
                 <React.Fragment key={line}>
+                  {/* <br> 后补一个空格：渲染时它在行首被折叠，不可见；但取纯文本（搜索引擎、llms.txt）
+                      时两行不会粘成 "storage.Change" */}
                   {i > 0 && <br />}
+                  {i > 0 && ' '}
                   {line}
                 </React.Fragment>
               ))}

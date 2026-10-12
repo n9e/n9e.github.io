@@ -36,7 +36,13 @@ export default function Trust(): React.ReactElement {
 
         {trust.logoWall && (
           <figure className={clsx(styles.logoWall, trust.logoWallCrop && styles.logoWallCrop)}>
-            <img src={withBaseUrl(trust.logoWall)} alt={trust.logoAlt ?? ''} loading="lazy" />
+            <img
+              src={withBaseUrl(trust.logoWall)}
+              alt={trust.logoAlt ?? ''}
+              width={trust.logoWallSize?.[0]}
+              height={trust.logoWallSize?.[1]}
+              loading="lazy"
+            />
           </figure>
         )}
       </div>

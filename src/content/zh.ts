@@ -13,7 +13,11 @@ export const zh: SiteCopy = {
     demoNote: '无需注册',
     ctaPrimaryNote: '自托管部署',
     title: '开源告警专家',
-    lead: '接入你已有的 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等 10+ 数据源，统一告警规则、降噪与分发。内置 AI 助手与 MCP Server，不用多部署一个进程。',
+    // 「夜莺监控」是中文搜索的品牌主词，H1 没有它，<title> 和首段必须有
+    metaTitle: '夜莺监控 Nightingale (n9e)：开源监控告警引擎',
+    metaDescription:
+      '夜莺监控（Nightingale，n9e）是开源监控告警引擎：对接 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等数据源，统一告警规则、降噪与分发，内置 AI 助手与 MCP Server。自托管，Apache-2.0。',
+    lead: '夜莺监控（Nightingale，n9e）是一款开源告警引擎：接入你已有的 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等 10+ 数据源，统一告警规则、降噪与分发。内置 AI 助手与 MCP Server，不用多部署一个进程。',
     ctaPrimary: { label: '5 分钟安装', href: '/docs/get-started/quick-start' },
     ctaSecondary: { label: 'GitHub', href: 'https://github.com/ccfos/nightingale' },
     installCaption: '本机跑一套完整环境',
@@ -67,7 +71,8 @@ export const zh: SiteCopy = {
         title: '接入已有数据源',
         body: '数据不搬迁。把 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse、Loki 接成数据源，夜莺在其上做告警分析。还没有采集？Categraf 一个 agent 覆盖操作系统、中间件与数据库，按 Prometheus Remote Write 协议直接写入。',
         points: ['10+ 数据源类型，指标、日志、数据库统一接入', '86 个内置集成模板：采集配置、仪表盘、告警规则成套导入'],
-        shot: 'img/step-connect.png',
+        shot: 'img/step-connect.webp',
+        shotSize: [1600, 784],
         shotAlt: '夜莺集成中心的组件模板列表',
       },
       {
@@ -76,7 +81,8 @@ export const zh: SiteCopy = {
         title: '统一告警规则',
         body: '指标、日志、SQL 类数据库用同一套规则体系，不必为每种数据源重学一遍配法。规则在页面上配、按业务组分权限，分 S1 / S2 / S3 三级。装完就带一批常用规则，不用从空白开始。',
         points: ['一条规则可同时作用于多个数据源', '页面或 API 配置规则，不用改 YAML 再 reload'],
-        shot: 'img/step-alert.png',
+        shot: 'img/step-alert.webp',
+        shotSize: [1600, 680],
         shotAlt: '夜莺告警规则管理页面',
       },
       {
@@ -88,7 +94,8 @@ export const zh: SiteCopy = {
           '钉钉、飞书、企业微信、电话、短信、Slack 等 20 种内置媒介',
           '事件 Pipeline：聚合相似告警、改写标签、按条件路由',
         ],
-        shot: 'img/step-automate.png',
+        shot: 'img/step-automate.webp',
+        shotSize: [1600, 654],
         shotAlt: '夜莺告警事件聚合视图',
       },
       {
@@ -239,7 +246,8 @@ export const zh: SiteCopy = {
     eyebrow: 'WHO USES NIGHTINGALE',
     title: '数千家企业的生产环境里跑着夜莺',
     lead: '互联网、金融、车企、制造、医疗——以下为部分授权展示的用户。',
-    logoWall: 'img/user-logos.png',
+    logoWall: 'img/user-logos.webp',
+    logoWallSize: [1800, 1019],
     logoAlt: '夜莺用户企业 logo 墙',
     logoWallCrop: true,
   },
@@ -622,7 +630,7 @@ export const zh: SiteCopy = {
       items: [
         { name: 'Prometheus', logo: 'img/logos/prometheus.png', kind: 'metrics', href: '/docs/data/prometheus' },
         { name: 'VictoriaMetrics', logo: 'img/logos/victoriametrics.png', kind: 'metrics', href: '/docs/data/victoriametrics' },
-        { name: '内置 TSDB', logo: 'img/logo-mark.png', kind: 'metrics', href: '/docs/data/embedded-tsdb' },
+        { name: '内置 TSDB', logo: 'img/logo-mark.webp', kind: 'metrics', href: '/docs/data/embedded-tsdb' },
         { name: 'ElasticSearch', logo: 'img/logos/elasticsearch.png', kind: 'logs', href: '/docs/data/elasticsearch' },
         { name: 'OpenSearch', logo: 'img/logos/opensearch.png', kind: 'logs', href: '/docs/data/elasticsearch' },
         { name: 'Loki', logo: 'img/logos/loki.png', kind: 'logs', href: '/docs/data/loki-victorialogs' },

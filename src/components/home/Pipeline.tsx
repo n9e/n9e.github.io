@@ -52,7 +52,13 @@ export default function Pipeline(): React.ReactElement {
 
                 {step.shot && (
                   <figure className={styles.miniFrame}>
-                    <img src={withBaseUrl(step.shot)} alt={step.shotAlt ?? ''} loading="lazy" />
+                    <img
+                      src={withBaseUrl(step.shot)}
+                      alt={step.shotAlt ?? ''}
+                      width={step.shotSize?.[0]}
+                      height={step.shotSize?.[1]}
+                      loading="lazy"
+                    />
                   </figure>
                 )}
 

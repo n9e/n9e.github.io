@@ -1,28 +1,28 @@
 {
-  "fetchedAt": "2026-09-20",
+  "fetchedAt": "2026-10-12",
   "nightingale": {
-    "tag": "v9.1.1",
-    "publishedAt": "2026-08-18",
-    "notesUrl": "https://github.com/ccfos/nightingale/releases/tag/v9.1.1",
-    "checksumsUrl": "https://github.com/ccfos/nightingale/releases/download/v9.1.1/checksums.txt",
+    "tag": "v9.2.0",
+    "publishedAt": "2026-10-11",
+    "notesUrl": "https://github.com/ccfos/nightingale/releases/tag/v9.2.0",
+    "checksumsUrl": "https://github.com/ccfos/nightingale/releases/download/v9.2.0/checksums.txt",
     "assets": [
       {
-        "name": "n9e-v9.1.1-linux-amd64.tar.gz",
+        "name": "n9e-v9.2.0-linux-amd64.tar.gz",
         "os": "linux",
         "arch": "amd64",
         "variant": "default",
-        "size": 289382476,
-        "url": "https://github.com/ccfos/nightingale/releases/download/v9.1.1/n9e-v9.1.1-linux-amd64.tar.gz",
-        "sha256": "3658184c74c8dffffed5388ef48de56b95f0482228c4bb0292093d128567d00e"
+        "size": 294022506,
+        "url": "https://github.com/ccfos/nightingale/releases/download/v9.2.0/n9e-v9.2.0-linux-amd64.tar.gz",
+        "sha256": "a6c59a63fe428693364a5878d059c4d54c2b56e8eaacf494400cdc66acb0c20b"
       },
       {
-        "name": "n9e-v9.1.1-linux-arm64.tar.gz",
+        "name": "n9e-v9.2.0-linux-arm64.tar.gz",
         "os": "linux",
         "arch": "arm64",
         "variant": "default",
-        "size": 283329344,
-        "url": "https://github.com/ccfos/nightingale/releases/download/v9.1.1/n9e-v9.1.1-linux-arm64.tar.gz",
-        "sha256": "9beb5643c840fbb26926a075db9a18b3895e325685230b7c306508df491a0086"
+        "size": 287675328,
+        "url": "https://github.com/ccfos/nightingale/releases/download/v9.2.0/n9e-v9.2.0-linux-arm64.tar.gz",
+        "sha256": "d9d71b2c5c73b684904b6361eb2b2ba401320441bec22cac4640609a9d240070"
       }
     ]
   },

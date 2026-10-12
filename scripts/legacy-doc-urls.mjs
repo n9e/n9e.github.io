@@ -68,19 +68,65 @@ export const legacyDocUrls = [
   }),
 ];
 
+/** Non-documentation routes from the old Hugo sitemap (2026-05-16 snapshot): the blog and the
+ * Doks contributor pages. They are outside the frozen docs inventory, hence `additional`. */
+export const GITHUB_CONTRIBUTORS = 'https://github.com/ccfos/nightingale/graphs/contributors';
+const site = (path, action, reason, to, extra = {}) => ({
+  path,
+  action,
+  reason,
+  additional: true,
+  ...(to ? { to } : {}),
+  ...extra,
+});
+
+export const legacySiteUrls = [
+  site('/blog', 'redirect', 'The Hugo blog index listed one post and the blog is not rebuilt yet; the index goes to the locale home.', '/', {
+    source: 'blog/_index.md',
+  }),
+  site(
+    '/blog/five-steps-to-build-observability',
+    'redirect',
+    'The only post is an essay on building an observability stack; the closest current page explains where Nightingale fits in that stack. The essay stays in git history (54cbdc54^) for a future on-site blog.',
+    '/docs/get-started/where-it-fits',
+    { locales: ['en'], source: 'blog/how-to-build-observability/index.md' },
+  ),
+  site('/contributors', 'redirect', 'Doks contributor listing; GitHub keeps the authoritative contributor graph.', GITHUB_CONTRIBUTORS, {
+    source: 'contributors/_index.md',
+  }),
+  site('/contributors/ulric-qin', 'redirect', 'Doks author page generated from the blog post taxonomy; see /contributors.', GITHUB_CONTRIBUTORS, {
+    locales: ['en'], source: 'blog/how-to-build-observability/index.md (contributors taxonomy)',
+  }),
+  site('/contributors/henk-verlinde', 'retire', 'Doks theme author page left over from the template; never about this project.', undefined, {
+    locales: ['zh-Hans'], source: 'contributors/henk-verlinde/_index.md',
+  }),
+];
+
+export const legacyUrls = [...legacyDocUrls, ...legacySiteUrls];
+
 export const legacyLocales = [
   { locale: 'en', prefix: '', source: 'en' },
   { locale: 'zh-Hans', prefix: '/zh', source: 'zh' },
 ];
 
+/** GitHub Pages cannot answer with a 301, so an off-site target is still a static alias page. */
+export const isExternalTarget = (to) => /^https?:\/\//.test(to ?? '');
+
 export function entriesForLocale(locale) {
-  return legacyDocUrls.filter((item) => !item.locales || item.locales.includes(locale));
+  return legacyUrls.filter((item) => !item.locales || item.locales.includes(locale));
+}
+
+/** Locale-prefixed destination; `/` becomes the locale home (`/` or `/zh/`). */
+export function targetForLocale(item, prefix) {
+  if (isExternalTarget(item.to)) return item.to;
+  return `${prefix}${item.to ?? item.path}`;
 }
 
 export function redirectsForLocale(locale) {
   return entriesForLocale(locale).flatMap((item) => {
     if (item.action === 'retire') return [];
-    if (item.action === 'redirect') return [{ from: item.path, to: item.to }];
+    // The official plugin only accepts site routes; off-site aliases are written by finalize-legacy-doc-urls.mjs.
+    if (item.action === 'redirect') return isExternalTarget(item.to) ? [] : [{ from: item.path, to: item.to }];
     // Existing canonical .html pages stay untouched; the alias is directory/index.html.
     return [{ from: `${item.path}/`, to: item.path }];
   });
@@ -93,6 +139,6 @@ export function legacyTarget(pathname) {
   const relativePath = pathname.slice(prefix.length).replace(/\/+$/, '');
   const item = entriesForLocale(locale).find((candidate) => candidate.path === relativePath);
   if (!item || item.action === 'retire') return null;
-  const target = `${prefix}${item.to ?? item.path}`;
+  const target = targetForLocale(item, prefix);
   return target === pathname ? null : target;
 }

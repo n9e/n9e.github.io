@@ -21,6 +21,9 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          # sitemap 的 <lastmod> 取自每个源文件的最后一次 git 提交时间；浅克隆下所有页面都会变成构建当天
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:

@@ -16,7 +16,11 @@ export const en: SiteCopy = {
     ctaPrimaryNote: 'Self-hosted',
     // \n 是两栏布局下的断行点：在 Alerting 后断，比自动均衡断出 "…Alerting for / Your…" 读起来顺
     title: 'Open-Source Alerting\nfor Your Existing Stack',
-    lead: 'Keep your metrics and logs where they are. Write and run alert rules across Prometheus, VictoriaMetrics, Elasticsearch, ClickHouse, and more — from one place. Send alerts to Slack, PagerDuty, or whatever your team already uses.',
+    metaTitle: 'Nightingale (n9e) – Open-Source Monitoring & Alerting Engine',
+    metaDescription:
+      'Nightingale (n9e) is an open-source alerting engine for Prometheus, VictoriaMetrics, Elasticsearch and ClickHouse: alert rules, noise reduction and on-call delivery. Apache-2.0.',
+    // 第一句点名项目全称和别名，给搜索引擎和 AI 做实体消歧；后面才是卖点
+    lead: 'Nightingale (n9e) is an open-source alerting engine. Keep your metrics and logs where they are: write and run alert rules across Prometheus, VictoriaMetrics, Elasticsearch, ClickHouse, and more — from one place — and send alerts to Slack, PagerDuty, or whatever your team already uses.',
     highlights: 'Built-in AI assistant · MCP server',
     ctaPrimary: { label: 'Install in 5 minutes', href: '/docs/get-started/quick-start' },
     ctaSecondary: { label: 'GitHub', href: 'https://github.com/ccfos/nightingale' },
@@ -74,7 +78,8 @@ export const en: SiteCopy = {
           '10+ data source types — metrics, logs and databases alike',
           '86 built-in integrations bundle collector config, dashboards and rules',
         ],
-        shot: 'img/step-connect.png',
+        shot: 'img/step-connect.webp',
+        shotSize: [1600, 784],
         shotAlt: 'Nightingale integration templates',
       },
       {
@@ -83,7 +88,8 @@ export const en: SiteCopy = {
         title: 'Write the rule once',
         body: 'Metrics, logs and SQL-queried stores share one rule model, so there is nothing new to learn per data source. Rules are configured in the UI, scoped by business group, and graded S1 / S2 / S3. A library of common rules ships with the install, so you never start from an empty page.',
         points: ['One rule can span several data sources', 'Edit rules in the UI or through the API — no YAML reload cycle'],
-        shot: 'img/step-alert-en.png',
+        shot: 'img/step-alert-en.webp',
+        shotSize: [1600, 680],
         shotAlt: 'Nightingale alert rule management',
       },
       {
@@ -95,7 +101,8 @@ export const en: SiteCopy = {
           'DingTalk, Feishu, WeCom, phone, SMS, Slack and 15 more',
           'Event pipelines group similar alerts, rewrite labels and route conditionally',
         ],
-        shot: 'img/step-automate-en.png',
+        shot: 'img/step-automate-en.webp',
+        shotSize: [1600, 830],
         shotAlt: 'Nightingale aggregated alert events',
       },
       {
@@ -669,7 +676,7 @@ export const en: SiteCopy = {
       items: [
         { name: 'Prometheus', logo: 'img/logos/prometheus.png', kind: 'metrics', href: '/docs/data/prometheus' },
         { name: 'VictoriaMetrics', logo: 'img/logos/victoriametrics.png', kind: 'metrics', href: '/docs/data/victoriametrics' },
-        { name: 'Embedded TSDB', logo: 'img/logo-mark.png', kind: 'metrics', href: '/docs/data/embedded-tsdb' },
+        { name: 'Embedded TSDB', logo: 'img/logo-mark.webp', kind: 'metrics', href: '/docs/data/embedded-tsdb' },
         { name: 'ElasticSearch', logo: 'img/logos/elasticsearch.png', kind: 'logs', href: '/docs/data/elasticsearch' },
         { name: 'OpenSearch', logo: 'img/logos/opensearch.png', kind: 'logs', href: '/docs/data/elasticsearch' },
         { name: 'Loki', logo: 'img/logos/loki.png', kind: 'logs', href: '/docs/data/loki-victorialogs' },

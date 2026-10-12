@@ -108,16 +108,25 @@ export default function Hero(): React.ReactElement {
               <span className={styles.browserDot} />
               <span className={styles.browserUrl}>n9e.example.com/dashboards</span>
             </div>
+            {/* 两张图都在 DOM 里、靠 CSS 按主题显示一张。默认主题是深色：深色版是首屏最大元素，
+                标成高优先级立即加载；浅色版 lazy，display:none 时浏览器根本不会去取，切到浅色才下载。
+                width/height 是原图像素，让布局在图到达前就占好位置。 */}
             <img
               className={clsx(styles.shot, styles.shotLight)}
-              src={withBaseUrl('img/hero-dashboard-light.png')}
+              src={withBaseUrl('img/hero-dashboard-light.webp')}
               alt={hero.shotAlt}
+              width={1600}
+              height={1198}
+              loading="lazy"
             />
             <img
               className={clsx(styles.shot, styles.shotDark)}
-              src={withBaseUrl('img/hero-dashboard-dark.png')}
+              src={withBaseUrl('img/hero-dashboard-dark.webp')}
               alt=""
               aria-hidden="true"
+              width={1600}
+              height={1198}
+              {...{ fetchpriority: 'high' }}
             />
           </div>
 
