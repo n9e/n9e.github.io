@@ -1,0 +1,178 @@
+{
+  "ident": "VictoriaMetrics",
+  "alerts": [
+    {
+      "source": "default",
+      "name": "vm error logging rate 大于0",
+      "name_en": "VictoriaMetrics error logging rate above 0",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "sum by (job, level) (rate(vm_log_messages_total{level!=\"info\"}[5m])) > 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 到对应实例查看日志（journalctl -u victoria-metrics 或容器日志），按 level 过滤看具体报错；\n2) 常见为写入端数据格式错误、标签基数过高被拒、磁盘空间不足；\n3) 基数问题用 /api/v1/status/tsdb 看 topN 的高基数指标并在写入端治理；\n4) 磁盘问题按磁盘空间告警处理。",
+      "action_en": "1) Check the logs on that instance (journalctl -u victoria-metrics or the container logs) and filter by level for the specific error;\n2) Common causes are malformed data from the write side, rejected high-cardinality labels and insufficient disk space;\n3) For cardinality issues, use /api/v1/status/tsdb to see the top offenders and fix them at the write side;\n4) For disk issues, follow the disk space alert path."
+    },
+    {
+      "source": "default",
+      "name": "vm-insert 和 vm-storage 组件之间连接的饱和度大于9",
+      "name_en": "Connection saturation between vm-insert and vm-storage exceeds 9",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "max(rate(vm_rpc_send_duration_seconds_total{job_name=~\".+\"}[5m])) by(addr) / 1000 > 9",
+          "severity": 2
+        }
+      ],
+      "action": "1) 看 vm-storage 侧的 CPU、磁盘 IO 与 vm_slow_row_inserts_total，确认瓶颈在计算还是磁盘；\n2) 用 /api/v1/status/tsdb 看是否有高基数指标导致写入放大；\n3) 短期可减少写入并发或对高基数指标做 relabel 丢弃；\n4) 长期需扩容 vm-storage 节点或换更快的磁盘。",
+      "action_en": "1) Check CPU, disk IO and vm_slow_row_inserts_total on the vm-storage side to see whether the bottleneck is compute or disk;\n2) Use /api/v1/status/tsdb to check whether high-cardinality metrics are amplifying writes;\n3) Short term, reduce write concurrency or relabel-drop the high-cardinality metrics;\n4) Longer term, add vm-storage nodes or move to faster disks."
+    },
+    {
+      "source": "default",
+      "name": "vm-insert 实例端口异常",
+      "name_en": "vm-insert instance port down",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "net_response_result_code{service=\"vm-insert\"}!=0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 从告警标签取实例地址，在采集机上手工 nc -vz <地址> <端口> 复现；\n2) 到该机器确认对应进程是否存活、日志有无 panic 或 OOM；\n3) 进程存活但端口不通的排查防火墙与监听地址配置；\n4) 集群模式下确认剩余节点数是否仍满足读写要求，不足时优先恢复节点而非重启整个集群。",
+      "action_en": "1) Take the instance address from the alert labels and reproduce it on the collector host with nc -vz <address> <port>;\n2) On that machine confirm the process is alive and check the log for a panic or OOM;\n3) If the process is alive but the port is unreachable, check the firewall and the listen address configuration;\n4) In cluster mode, confirm the remaining node count still satisfies read/write requirements — recover the node rather than restarting the whole cluster."
+    },
+    {
+      "source": "default",
+      "name": "vm-select 实例端口异常",
+      "name_en": "vm-select instance port down",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "net_response_result_code{service=\"vm-select\"}!=0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 从告警标签取实例地址，在采集机上手工 nc -vz <地址> <端口> 复现；\n2) 到该机器确认对应进程是否存活、日志有无 panic 或 OOM；\n3) 进程存活但端口不通的排查防火墙与监听地址配置；\n4) 集群模式下确认剩余节点数是否仍满足读写要求，不足时优先恢复节点而非重启整个集群。",
+      "action_en": "1) Take the instance address from the alert labels and reproduce it on the collector host with nc -vz <address> <port>;\n2) On that machine confirm the process is alive and check the log for a panic or OOM;\n3) If the process is alive but the port is unreachable, check the firewall and the listen address configuration;\n4) In cluster mode, confirm the remaining node count still satisfies read/write requirements — recover the node rather than restarting the whole cluster."
+    },
+    {
+      "source": "default",
+      "name": "vm-select请求查询延迟超过15s",
+      "name_en": "vm-select query latency exceeds 15s",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "max(vm_request_duration_seconds{job_name=~\".+\"}) by (path) > 15",
+          "severity": 2
+        }
+      ],
+      "action": "1) 从告警标签取 path 定位是哪类查询慢；\n2) 用 /api/v1/status/top_queries 找出最慢与最频繁的查询；\n3) 常见根因是查询时间跨度过大或高基数标签——在仪表盘上收窄时间范围、减少 group by 维度；\n4) 存储侧确认磁盘 IO 与 CPU 是否打满，必要时扩容 vm-select/vm-storage。",
+      "action_en": "1) Take path from the alert labels to identify which kind of query is slow;\n2) Use /api/v1/status/top_queries to find the slowest and most frequent queries;\n3) The usual root causes are an over-wide time range or high-cardinality labels — narrow the dashboard time range and reduce group by dimensions;\n4) On the storage side, check whether disk IO and CPU are saturated and scale vm-select/vm-storage if needed."
+    },
+    {
+      "source": "default",
+      "name": "vm-storage 实例端口异常",
+      "name_en": "vm-storage instance port down",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "net_response_result_code{service=\"vm-storage\"} != 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 从告警标签取实例地址，在采集机上手工 nc -vz <地址> <端口> 复现；\n2) 到该机器确认对应进程是否存活、日志有无 panic 或 OOM；\n3) 进程存活但端口不通的排查防火墙与监听地址配置；\n4) 集群模式下确认剩余节点数是否仍满足读写要求，不足时优先恢复节点而非重启整个集群。",
+      "action_en": "1) Take the instance address from the alert labels and reproduce it on the collector host with nc -vz <address> <port>;\n2) On that machine confirm the process is alive and check the log for a panic or OOM;\n3) If the process is alive but the port is unreachable, check the firewall and the listen address configuration;\n4) In cluster mode, confirm the remaining node count still satisfies read/write requirements — recover the node rather than restarting the whole cluster."
+    },
+    {
+      "source": "default",
+      "name": "vminsert服务宕机",
+      "name_en": "vminsert service down",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "up{service=~\"vminsert.+\"} < 1",
+          "severity": 2
+        }
+      ],
+      "action": "1) 从告警标签取实例地址，在采集机上手工 nc -vz <地址> <端口> 复现；\n2) 到该机器确认对应进程是否存活、日志有无 panic 或 OOM；\n3) 进程存活但端口不通的排查防火墙与监听地址配置；\n4) 集群模式下确认剩余节点数是否仍满足读写要求，不足时优先恢复节点而非重启整个集群。",
+      "action_en": "1) Take the instance address from the alert labels and reproduce it on the collector host with nc -vz <address> <port>;\n2) On that machine confirm the process is alive and check the log for a panic or OOM;\n3) If the process is alive but the port is unreachable, check the firewall and the listen address configuration;\n4) In cluster mode, confirm the remaining node count still satisfies read/write requirements — recover the node rather than restarting the whole cluster."
+    },
+    {
+      "source": "default",
+      "name": "vmselect服务宕机",
+      "name_en": "vmselect service down",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "up{service=~\"vmselect.+\"} < 1",
+          "severity": 2
+        }
+      ],
+      "action": "1) 从告警标签取实例地址，在采集机上手工 nc -vz <地址> <端口> 复现；\n2) 到该机器确认对应进程是否存活、日志有无 panic 或 OOM；\n3) 进程存活但端口不通的排查防火墙与监听地址配置；\n4) 集群模式下确认剩余节点数是否仍满足读写要求，不足时优先恢复节点而非重启整个集群。",
+      "action_en": "1) Take the instance address from the alert labels and reproduce it on the collector host with nc -vz <address> <port>;\n2) On that machine confirm the process is alive and check the log for a panic or OOM;\n3) If the process is alive but the port is unreachable, check the firewall and the listen address configuration;\n4) In cluster mode, confirm the remaining node count still satisfies read/write requirements — recover the node rather than restarting the whole cluster."
+    },
+    {
+      "source": "default",
+      "name": "vmstorage服务宕机",
+      "name_en": "vmstorage service down",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "up{service=~\"vmstorage.+\"} < 1",
+          "severity": 2
+        }
+      ],
+      "action": "1) 从告警标签取实例地址，在采集机上手工 nc -vz <地址> <端口> 复现；\n2) 到该机器确认对应进程是否存活、日志有无 panic 或 OOM；\n3) 进程存活但端口不通的排查防火墙与监听地址配置；\n4) 集群模式下确认剩余节点数是否仍满足读写要求，不足时优先恢复节点而非重启整个集群。",
+      "action_en": "1) Take the instance address from the alert labels and reproduce it on the collector host with nc -vz <address> <port>;\n2) On that machine confirm the process is alive and check the log for a panic or OOM;\n3) If the process is alive but the port is unreachable, check the firewall and the listen address configuration;\n4) In cluster mode, confirm the remaining node count still satisfies read/write requirements — recover the node rather than restarting the whole cluster."
+    }
+  ],
+  "metrics": [],
+  "dashboards": [
+    {
+      "file": "victoriametrics-cluster.json",
+      "name": "VictoriaMetrics - Cluster",
+      "name_en": "VictoriaMetrics - Cluster",
+      "panels": 56
+    },
+    {
+      "file": "victoriametrics-single.json",
+      "name": "VictoriaMetrics - Single",
+      "name_en": "VictoriaMetrics - Single",
+      "panels": 29
+    }
+  ],
+  "collect": [],
+  "readme": {
+    "zh": true,
+    "en": true
+  }
+}

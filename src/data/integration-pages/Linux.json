@@ -1,0 +1,2351 @@
+{
+  "ident": "Linux",
+  "alerts": [
+    {
+      "source": "categraf",
+      "name": "Conntrack表的使用率超过80%",
+      "name_en": "Conntrack table usage exceeds 80%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "conntrack_ip_conntrack_count / conntrack_ip_conntrack_max > 0.8",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 sysctl net.netfilter.nf_conntrack_count 与 nf_conntrack_max 确认当前水位；\n2) 用 conntrack -L | awk '{print $4}' | sort | uniq -c | sort -rn 看连接集中在哪类协议或来源；\n3) 应急调大：sysctl -w net.netfilter.nf_conntrack_max=<更大值>，并同步调大 nf_conntrack_buckets；\n4) 同时缩短 nf_conntrack_tcp_timeout_time_wait 等超时，或对不需要跟踪的流量用 iptables raw 表 NOTRACK。",
+      "action_en": "1) Run sysctl net.netfilter.nf_conntrack_count and nf_conntrack_max to see the current level;\n2) Run conntrack -L | awk '{print $4}' | sort | uniq -c | sort -rn to see which protocol or source the entries concentrate on;\n3) As an emergency measure raise it: sysctl -w net.netfilter.nf_conntrack_max=<larger value>, raising nf_conntrack_buckets to match;\n4) Also shorten timeouts such as nf_conntrack_tcp_timeout_time_wait, or mark traffic that needs no tracking NOTRACK in the iptables raw table."
+    },
+    {
+      "source": "categraf",
+      "name": "CPU利用率较高",
+      "name_en": "CPU usage high",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "cpu_usage_active>75",
+          "severity": 3
+        },
+        {
+          "promql": "cpu_usage_active>85",
+          "severity": 2
+        },
+        {
+          "promql": "cpu_usage_active>95",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 top -H 或 pidstat 1 找出占用最高的进程与线程；\n2) 用 perf top 或对应语言的 profiler（Java 用 arthas/async-profiler，Go 用 pprof）定位热点函数；\n3) 区分是业务量自然增长还是代码异常（死循环、正则回溯、频繁 GC）；\n4) 业务量增长则扩容或限流，代码问题则修复后发布。",
+      "action_en": "1) Run top -H or pidstat 1 to find the busiest processes and threads;\n2) Use perf top or a language profiler (arthas/async-profiler for Java, pprof for Go) to locate the hot functions;\n3) Tell natural traffic growth apart from a code problem (infinite loop, regex backtracking, frequent GC);\n4) For growth, scale out or rate limit; for a code problem, fix and release."
+    },
+    {
+      "source": "categraf",
+      "name": "HTTP地址探测失败",
+      "name_en": "HTTP probe failed",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "http_response_result_code != 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在采集机上手工 curl -sv <目标URL> 复现，看是连接失败、超时还是状态码不符；\n2) 连接失败则先确认目标端口通、进程活；\n3) 状态码不符则看目标服务日志定位；\n4) 确认探测配置里的超时、期望状态码、证书校验设置是否与实际相符，避免配置导致的误报。",
+      "action_en": "1) Reproduce it by hand on the collector host with curl -sv <target URL> and see whether it is a connection failure, a timeout or an unexpected status code;\n2) For a connection failure, first confirm the target port is reachable and the process is alive;\n3) For an unexpected status code, check the target service logs;\n4) Confirm the probe's timeout, expected status code and certificate verification settings match reality, so the config itself is not causing the alert."
+    },
+    {
+      "source": "categraf",
+      "name": "IO比较繁忙",
+      "name_en": "IO busy",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "rate(diskio_io_time[1m])/10 > 99",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 iostat -x 1 确认是哪块盘、await 与 %util 的具体数值；\n2) 用 iotop -oP 或 pidstat -d 1 找出占用 IO 最高的进程；\n3) 常见元凶是数据库大查询、备份任务、日志刷盘——把可延后的任务错峰执行；\n4) 若是持续高负载而非突发，考虑换 SSD 或把热数据分散到多块盘。",
+      "action_en": "1) Run iostat -x 1 to see which disk it is and the actual await and %util values;\n2) Run iotop -oP or pidstat -d 1 to find the process doing the most IO;\n3) The usual culprits are large database queries, backup jobs and log flushing — move deferrable work off peak;\n4) If it is sustained rather than a spike, consider SSDs or spreading hot data across disks."
+    },
+    {
+      "source": "categraf",
+      "name": "NTP时间偏移太大",
+      "name_en": "NTP time offset too large",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "ntp_offset_ms > 1000 or ntp_offset_ms < -1000",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 chronyc tracking（或 ntpq -p）确认当前偏移量与上游源状态；\n2) 上游不可达则检查网络与防火墙是否放行 123/UDP；\n3) 用 chronyc sources -v 确认是否所有源都被标记为不可用，必要时更换 NTP 服务器；\n4) 偏移过大时 chrony 会拒绝平滑校正，需用 chronyc makestep 强制对时（注意对时间敏感的业务先做好准备）。",
+      "action_en": "1) Run chronyc tracking (or ntpq -p) to see the current offset and upstream source state;\n2) If upstream is unreachable, check the network and whether the firewall allows 123/UDP;\n3) Run chronyc sources -v to see whether every source is marked unusable, and switch NTP servers if needed;\n4) When the offset is large chrony refuses to slew, so use chronyc makestep to step the clock (prepare time-sensitive workloads first)."
+    },
+    {
+      "source": "categraf",
+      "name": "PING地址探测失败",
+      "name_en": "PING probe failed",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "ping_result_code != 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在采集机上手工 ping -c 5 <目标> 复现，再用 mtr -n <目标> 定位丢包出现在哪一跳；\n2) 目标机若存活，确认它是否禁 ICMP（很多安全策略会禁），是则该探测本身不适用，应改用端口探测；\n3) 中间跳丢包的联系网络侧排查；\n4) 确认目标机自身是否宕机或网卡故障。",
+      "action_en": "1) Reproduce it on the collector host with ping -c 5 <target>, then use mtr -n <target> to find which hop is dropping packets;\n2) If the target host is alive, check whether it blocks ICMP (many security policies do) — if so this probe does not apply and you should switch to a port probe;\n3) For loss at an intermediate hop, involve the network team;\n4) Confirm the target host itself is not down or suffering a NIC failure."
+    },
+    {
+      "source": "categraf",
+      "name": "TME_WAIT状态的连接超过2万，可能需要关注",
+      "name_en": "TIME_WAIT connections exceed 20000, worth attention",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "netstat_tcp_time_wait > 20000",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 ss -s 确认各状态连接数分布；\n2) 用 ss -tan state time-wait | awk '{print $4}' | cut -d: -f1 | sort | uniq -c | sort -rn 看集中在哪个目标；\n3) 根因通常是短连接过多——在应用侧改用长连接或连接池，这是最有效的手段；\n4) 应急可开启 net.ipv4.tcp_tw_reuse=1 并调大 net.ipv4.ip_local_port_range（不要开 tcp_tw_recycle，NAT 环境下会丢包）。",
+      "action_en": "1) Run ss -s to see the connection state distribution;\n2) Run ss -tan state time-wait | awk '{print $4}' | cut -d: -f1 | sort | uniq -c | sort -rn to see which peer they concentrate on;\n3) The root cause is usually too many short-lived connections — switching the application to long-lived connections or a pool is by far the most effective fix;\n4) As an emergency measure enable net.ipv4.tcp_tw_reuse=1 and widen net.ipv4.ip_local_port_range (do not enable tcp_tw_recycle — it drops packets behind NAT)."
+    },
+    {
+      "source": "categraf",
+      "name": "内存利用率比较高",
+      "name_en": "Memory usage high",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "mem_available_percent < 25",
+          "severity": 3
+        },
+        {
+          "promql": "mem_available_percent < 15",
+          "severity": 2
+        },
+        {
+          "promql": "mem_available_percent < 5",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 free -h 确认 available 与 swap 使用情况；\n2) 用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；\n3) 内核回收不及时可用 sync; echo 1 > /proc/sys/vm/drop_caches 释放 page cache（生产慎用）；\n4) 确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。",
+      "action_en": "1) Run free -h to check available memory and swap usage;\n2) Run ps aux --sort=-%mem | head to find the largest consumers and compare against their memory history to judge whether it is a leak;\n3) If the kernel is slow to reclaim, sync; echo 1 > /proc/sys/vm/drop_caches frees page cache (use with care in production);\n4) Determine whether it is growth or a process leak — a leak must be located with a heap profile, not just a restart."
+    },
+    {
+      "source": "categraf",
+      "name": "文件句柄使用率超过90%",
+      "name_en": "File handle usage exceeds 90%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "linux_sysctl_fs_file_nr/linux_sysctl_fs_file_max>0.9",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 cat /proc/sys/fs/file-nr 确认已分配与上限；\n2) 用 lsof | awk '{print $2}' | sort | uniq -c | sort -rn | head 找出占用句柄最多的进程；\n3) 应急调大：sysctl -w fs.file-max=<更大值>，并检查该进程的 ulimit -n 与 systemd LimitNOFILE；\n4) 根因通常是连接或文件未关闭，需在应用侧修复泄漏。",
+      "action_en": "1) Run cat /proc/sys/fs/file-nr to see allocated versus the limit;\n2) Run lsof | awk '{print $2}' | sort | uniq -c | sort -rn | head to find the processes holding the most handles;\n3) As an emergency measure raise it with sysctl -w fs.file-max=<larger value>, and check the process's ulimit -n and systemd LimitNOFILE;\n4) The root cause is usually connections or files never closed — fix the leak in the application."
+    },
+    {
+      "source": "categraf",
+      "name": "机器监控 - agent失联超过60秒",
+      "name_en": "Machine monitoring - agent lost for more than 60 seconds",
+      "note": "",
+      "note_en": "",
+      "severity": 0,
+      "for": 0,
+      "queries": [
+        {}
+      ],
+      "action": "1) 先用 ping 与 ssh 确认机器本身是否存活，机器宕机要按宕机处理；\n2) 机器存活则用 systemctl status categraf 确认 agent 进程，看日志 journalctl -u categraf -n 100 定位；\n3) 常见原因是 agent 崩溃、配置错误、或到服务端的网络/认证不通——用 curl 手工打一次服务端的写入接口验证；\n4) 恢复后确认数据已连续，注意盲区期间的故障不会有历史告警。",
+      "action_en": "1) First confirm the machine itself is alive with ping and ssh — if it is down, handle it as a host outage;\n2) If it is alive, run systemctl status categraf to check the agent process and journalctl -u categraf -n 100 to locate the cause;\n3) Common causes are an agent crash, a config error, or network/auth failure to the server — verify by curling the server's write endpoint by hand;\n4) After recovery, confirm the data is continuous, and note that failures during the blind window produced no alerts at all."
+    },
+    {
+      "source": "categraf",
+      "name": "机器监控 - 时间偏移超过3秒，请注意",
+      "name_en": "Machine monitoring - time offset exceeds 3 seconds, attention",
+      "note": "",
+      "note_en": "",
+      "severity": 0,
+      "for": 60,
+      "queries": [
+        {}
+      ],
+      "action": "1) 用 date 与 chronyc tracking 确认本机时间与偏移量；\n2) 确认 chronyd/ntpd 服务是否在运行，未运行则启动并设为开机自启；\n3) 检查到 NTP 服务器的网络是否放行 123/UDP，必要时换用内网 NTP 源；\n4) 偏移过大时用 chronyc makestep 强制对时，对时间敏感的业务先做好准备。",
+      "action_en": "1) Run date and chronyc tracking to check the local time and the offset;\n2) Confirm chronyd/ntpd is running, and if not, start it and enable it at boot;\n3) Check that 123/UDP to the NTP server is allowed, switching to an internal NTP source if needed;\n4) When the offset is large, use chronyc makestep to step the clock, preparing time-sensitive workloads first."
+    },
+    {
+      "source": "categraf",
+      "name": "每个CPU Core的平均负载任务超过3",
+      "name_en": "Average load per CPU core exceeds 3",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "system_load_norm_1>3",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 uptime 看 1/5/15 分钟负载趋势，判断是突发还是持续；\n2) 用 top 看 %wa（IO 等待）——高说明瓶颈在磁盘而非 CPU，按磁盘 IO 处理；\n3) 用 vmstat 1 看 r（运行队列）与 b（阻塞）列区分 CPU 密集与 IO 阻塞；\n4) 定位到具体进程后按 CPU 或 IO 的路径继续排查，必要时扩容。",
+      "action_en": "1) Run uptime to see the 1/5/15 minute load trend and judge spike versus sustained;\n2) Run top and look at %wa (IO wait) — high means the bottleneck is disk rather than CPU, so follow the disk IO path;\n3) Run vmstat 1 and use the r (run queue) and b (blocked) columns to separate CPU-bound from IO-blocked;\n4) Once you have the specific process, continue down the CPU or IO path and scale out if needed."
+    },
+    {
+      "source": "categraf",
+      "name": "硬盘监控 - inode使用率超过90%",
+      "name_en": "Disk monitoring - inode usage exceeds 90%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "disk_inodes_used/disk_inodes_total >0.9",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 df -i 确认是哪个挂载点的 inode 吃紧；\n2) 用 for d in /path/*; do echo \"$(find $d | wc -l) $d\"; done | sort -rn | head 逐层找出小文件最多的目录；\n3) 常见来源是 session 文件、邮件队列、缓存碎片、未清理的容器层——按业务确认后批量删除；\n4) 长期可在格式化时调大 inode 密度，或把小文件业务迁到独立分区。",
+      "action_en": "1) Run df -i to see which mount point is short on inodes;\n2) Drill down with for d in /path/*; do echo \"$(find $d | wc -l) $d\"; done | sort -rn | head to find the directories with the most small files;\n3) Common sources are session files, mail queues, cache fragments and uncleaned container layers — confirm with the owner and bulk delete;\n4) Longer term, raise inode density at format time or move small-file workloads to a dedicated partition."
+    },
+    {
+      "source": "categraf",
+      "name": "硬盘监控 - 大于200G的盘，空间不足了",
+      "name_en": "Disk monitoring - disk larger than 200G is running out of space",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "disk_free/1024/1024/1024 < 20 and disk_total/1024/1024/1024 >= 200",
+          "severity": 3
+        },
+        {
+          "promql": "disk_free/1024/1024/1024 < 10 and disk_total/1024/1024/1024 >= 200",
+          "severity": 2
+        },
+        {
+          "promql": "disk_free/1024/1024/1024 < 2 and disk_total/1024/1024/1024 >= 200",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 df -h 定位挂载点，用 du -x --max-depth=1 <挂载点> | sort -h 找出占用最大的目录；\n2) 清理日志与过期数据，注意用 lsof +L1 检查已删除但未释放的文件；\n3) 评估是否该把数据目录迁到独立磁盘或加盘扩容；\n4) 若是数据库或对象存储的数据盘，按业务侧的归档策略下沉冷数据。",
+      "action_en": "1) Run df -h to find the mount point, then du -x --max-depth=1 <mount> | sort -h to find the largest directories;\n2) Clean up logs and expired data, and use lsof +L1 to check for deleted-but-unreleased files;\n3) Evaluate whether the data directory should move to its own disk or the disk should be expanded;\n4) For a database or object-store data disk, tier cold data off according to the business archiving policy."
+    },
+    {
+      "source": "categraf",
+      "name": "硬盘监控 - 小于200G的盘，空间不足了",
+      "name_en": "Disk monitoring - disk smaller than 200G is running out of space",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "disk_used_percent > 90 and disk_total/1024/1024/1024 < 200",
+          "severity": 3
+        },
+        {
+          "promql": "disk_used_percent > 95 and disk_total/1024/1024/1024 < 200",
+          "severity": 2
+        },
+        {
+          "promql": "disk_used_percent > 99 and disk_total/1024/1024/1024 < 200",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 df -h 定位挂载点，用 du -x --max-depth=1 <挂载点> | sort -h 找出占用最大的目录；\n2) 系统盘常见是 /var/log 与容器镜像层（docker system df 看占用，docker system prune 清理）；\n3) 用 lsof +L1 检查已删除但句柄未释放的文件；\n4) 长期需扩容或把大数据目录迁到独立磁盘。",
+      "action_en": "1) Run df -h to find the mount point, then du -x --max-depth=1 <mount> | sort -h to find the largest directories;\n2) On a system disk the usual suspects are /var/log and container image layers (docker system df to inspect, docker system prune to clean);\n3) Use lsof +L1 to check for deleted-but-unreleased file handles;\n4) Longer term, expand the disk or move large data directories to a dedicated disk."
+    },
+    {
+      "source": "categraf",
+      "name": "硬盘监控 - 设备有报错",
+      "name_en": "Disk monitoring - device errors reported",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "disk_device_error>0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 dmesg -T | grep -iE 'i/o error|ata|scsi' 看内核报的具体错误与设备名；\n2) 用 smartctl -a /dev/sdX 看 SMART 属性，重点关注 Reallocated_Sector_Ct 与 Current_Pending_Sector；\n3) 确认该盘上的数据是否有副本或备份，优先保证数据安全再处理硬件；\n4) 确认为硬件故障的，安排停机换盘，RAID 环境下先确认阵列降级状态再操作。",
+      "action_en": "1) Run dmesg -T | grep -iE 'i/o error|ata|scsi' to see the exact kernel error and device name;\n2) Run smartctl -a /dev/sdX and focus on Reallocated_Sector_Ct and Current_Pending_Sector;\n3) Confirm the data on that disk has a replica or backup — data safety comes before hardware work;\n4) Once confirmed a hardware fault, schedule downtime to swap the disk; in a RAID array, check the degraded state first."
+    },
+    {
+      "source": "categraf",
+      "name": "硬盘监控 - 预测硬盘会在未来4小时内写满",
+      "name_en": "Disk monitoring - disk predicted to be full within 4 hours",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "predict_linear(disk_free[1h], 4*3600) < 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 df -h 确认是哪个挂载点，再用 du -x --max-depth=1 <挂载点> | sort -h 逐层找出增长最快的目录；\n2) 优先清理日志（journalctl --vacuum-size=500M、清 *.log.N）与临时文件，这是最快见效的；\n3) 用 lsof +L1 找出已删除但句柄未释放的文件，重启对应进程才能真正释放空间；\n4) 确认是否有异常写入（应用死循环打日志、备份任务堆积），不解决根因清理只是拖延。",
+      "action_en": "1) Run df -h to identify the mount point, then drill down with du -x --max-depth=1 <mount> | sort -h to find the fastest-growing directory;\n2) Start with logs (journalctl --vacuum-size=500M, rotate out *.log.N) and temporary files — that is the quickest win;\n3) Use lsof +L1 to find deleted files whose handles are still open; the owning process must be restarted to actually free the space;\n4) Confirm whether something abnormal is writing (an application looping on logs, backups piling up) — without fixing the root cause, cleanup only buys time."
+    },
+    {
+      "source": "categraf",
+      "name": "系统有OOM产生",
+      "name_en": "OOM occurred on the system",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 0,
+      "queries": [
+        {
+          "promql": "increase(kernel_vmstat_oom_kill[2m]) > 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 dmesg -T | grep -i 'killed process' 确认被杀的是哪个进程、当时占用多少内存；\n2) 用 free -h 与该进程的内存曲线判断是内存泄漏还是配置的上限过高；\n3) 给关键进程调整 oom_score_adj 降低被杀优先级，同时给次要进程设 cgroup 内存上限；\n4) 根因是泄漏的要在应用侧抓堆定位，只扩内存会反复复发。",
+      "action_en": "1) Run dmesg -T | grep -i 'killed process' to see which process was killed and how much memory it held;\n2) Use free -h and that process's memory history to tell a leak apart from a limit set too high;\n3) Lower oom_score_adj for critical processes and set cgroup memory limits on secondary ones;\n4) If it is a leak, capture a heap profile in the application — adding memory alone will just postpone the recurrence."
+    },
+    {
+      "source": "categraf",
+      "name": "网卡监控 - 入方向有丢包",
+      "name_en": "NIC monitoring - inbound packet loss",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "increase(net_drop_in[1m]) > 0",
+          "severity": 3
+        }
+      ],
+      "action": "1) 用 ip -s link show <网卡> 确认 RX dropped/errors 的增长；\n2) 用 ethtool -S <网卡> 看具体丢包原因（rx_no_buffer、rx_missed_errors 等）；\n3) 环形缓冲区不足可用 ethtool -G <网卡> rx <更大值> 调大，并检查 net.core.netdev_max_backlog；\n4) 若伴随 CPU 软中断偏高（top 里 %si），开启 RPS/RSS 把中断分散到多核。",
+      "action_en": "1) Run ip -s link show <nic> to confirm RX dropped/errors are growing;\n2) Run ethtool -S <nic> to see the specific drop reason (rx_no_buffer, rx_missed_errors, etc.);\n3) If ring buffers are too small, raise them with ethtool -G <nic> rx <larger value> and check net.core.netdev_max_backlog;\n4) If softirq CPU is also high (%si in top), enable RPS/RSS to spread interrupts across cores."
+    },
+    {
+      "source": "categraf",
+      "name": "网卡监控 - 入方向有错包",
+      "name_en": "NIC monitoring - inbound packet errors",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "increase(net_err_in[1m]) > 0",
+          "severity": 3
+        }
+      ],
+      "action": "1) 用 ethtool -S <网卡> 看 rx_crc_errors、rx_frame_errors 等具体计数；\n2) 用 ethtool <网卡> 确认协商的速率与双工模式是否与对端一致（半双工是经典错包源）；\n3) 检查网线/光模块，必要时换线或换口做交叉验证；\n4) 联系网络侧确认交换机对应端口的错包计数。",
+      "action_en": "1) Run ethtool -S <nic> and look at rx_crc_errors, rx_frame_errors and similar counters;\n2) Run ethtool <nic> to confirm the negotiated speed and duplex match the peer (half duplex is the classic source of errors);\n3) Check the cable/optical module, swapping the cable or port to cross-check;\n4) Ask the network team for the error counters on the corresponding switch port."
+    },
+    {
+      "source": "categraf",
+      "name": "网卡监控 - 出方向有丢包",
+      "name_en": "NIC monitoring - outbound packet loss",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "increase(net_drop_out[1m]) > 0",
+          "severity": 3
+        }
+      ],
+      "action": "1) 用 ip -s link show <网卡> 确认 TX dropped/errors 的增长；\n2) 用 ethtool -S <网卡> 看具体计数，并用 tc -s qdisc show dev <网卡> 看队列是否溢出；\n3) 发送队列不足可调大 txqueuelen 与 ethtool -G <网卡> tx；\n4) 确认是否已跑满带宽——是则限流或扩带宽，不是则排查网卡驱动与对端设备。",
+      "action_en": "1) Run ip -s link show <nic> to confirm TX dropped/errors are growing;\n2) Run ethtool -S <nic> for the specific counters and tc -s qdisc show dev <nic> to see whether the queue is overflowing;\n3) If the transmit queue is too small, raise txqueuelen and ethtool -G <nic> tx;\n4) Check whether the link is saturated — if so throttle or add bandwidth, otherwise investigate the NIC driver and peer device."
+    },
+    {
+      "source": "categraf",
+      "name": "网卡监控 - 出方向有错包",
+      "name_en": "NIC monitoring - outbound packet errors",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "increase(net_err_out[1m]) > 0",
+          "severity": 3
+        }
+      ],
+      "action": "1) 用 ethtool -S <网卡> 看 tx_errors、tx_carrier_errors 等具体计数；\n2) 用 ethtool <网卡> 确认速率与双工模式与对端一致；\n3) 检查网线/光模块并做交叉验证；\n4) 确认网卡驱动与固件版本，必要时升级。",
+      "action_en": "1) Run ethtool -S <nic> and look at tx_errors, tx_carrier_errors and similar counters;\n2) Run ethtool <nic> to confirm speed and duplex match the peer;\n3) Check the cable/optical module and cross-check by swapping;\n4) Verify the NIC driver and firmware versions and upgrade if needed."
+    },
+    {
+      "source": "categraf",
+      "name": "网络地址探活失败",
+      "name_en": "Network probe failed",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "net_response_result_code != 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在采集机上手工 telnet <目标> <端口> 或 nc -vz <目标> <端口> 复现；\n2) 到目标机用 ss -lntp | grep <端口> 确认进程是否在监听；\n3) 进程在监听则排查防火墙、安全组、以及是否只绑定了 127.0.0.1；\n4) 进程不在则按该服务自身的恢复流程拉起。",
+      "action_en": "1) Reproduce it on the collector host with telnet <target> <port> or nc -vz <target> <port>;\n2) On the target host, run ss -lntp | grep <port> to confirm a process is listening;\n3) If it is listening, check the firewall, security groups, and whether it is bound only to 127.0.0.1;\n4) If nothing is listening, start the service through its own recovery procedure."
+    },
+    {
+      "source": "categraf",
+      "name": "进程监控-有进程数为0，某进程可能挂了",
+      "name_en": "Process monitoring - a process count is 0, the process may be down",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "procstat_lookup_count == 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 ps -ef | grep <进程关键字> 确认确实不在，排除采集侧的匹配规则写错；\n2) 查该进程的日志与 dmesg -T | grep -i 'killed process'，区分自身崩溃、被 OOM 杀死还是人工停止；\n3) 按服务自身流程拉起，并确认 systemd 的 Restart 策略是否生效；\n4) 若反复退出，先定位根因再拉起，避免陷入重启循环。",
+      "action_en": "1) Run ps -ef | grep <process keyword> to confirm it is really gone and rule out a wrong match rule on the collector side;\n2) Check that process's log and dmesg -T | grep -i 'killed process' to tell a crash, an OOM kill and a manual stop apart;\n3) Start it through the service's own procedure and confirm the systemd Restart policy is effective;\n4) If it keeps exiting, find the root cause before starting it again to avoid a restart loop."
+    },
+    {
+      "source": "categraf",
+      "name": "进程监控-进程句柄限制过小",
+      "name_en": "Process monitoring - process file handle limit too small",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "procstat_rlimit_num_fds_soft < 2048",
+          "severity": 3
+        }
+      ],
+      "action": "1) 用 cat /proc/<pid>/limits 确认 Max open files 的软硬上限；\n2) systemd 管理的服务在 unit 文件里加 LimitNOFILE=65535 后 systemctl daemon-reload 并重启；\n3) 非 systemd 的在启动脚本里加 ulimit -n 65535，或改 /etc/security/limits.conf；\n4) 注意软上限修改后必须重启进程才生效。",
+      "action_en": "1) Run cat /proc/<pid>/limits to see the soft and hard Max open files;\n2) For systemd services, add LimitNOFILE=65535 to the unit file, then systemctl daemon-reload and restart;\n3) For non-systemd, add ulimit -n 65535 to the startup script or edit /etc/security/limits.conf;\n4) Note the process must be restarted for a changed soft limit to take effect."
+    },
+    {
+      "source": "categraf",
+      "name": "进程监控-进程总量超过600",
+      "name_en": "Process monitoring - total processes exceed 600",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "processes_total > 600",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 ps -eo ppid | sort | uniq -c | sort -rn | head 找出 fork 子进程最多的父进程；\n2) 确认是正常的多进程模型（如 php-fpm、nginx worker）还是失控 fork；\n3) 失控的先停掉该父进程止血，再修复代码里的 fork 逻辑；\n4) 正常业务增长则调整 worker 数配置并评估是否需要扩容。",
+      "action_en": "1) Run ps -eo ppid | sort | uniq -c | sort -rn | head to find the parent forking the most children;\n2) Determine whether this is a normal multi-process model (php-fpm, nginx workers) or a runaway fork;\n3) For a runaway, stop that parent to stop the bleeding, then fix the fork logic in the code;\n4) For genuine growth, tune the worker count and evaluate whether to scale out."
+    },
+    {
+      "source": "categraf",
+      "name": "Hard disk - expected to be written full in 4 hours - categraf",
+      "name_en": "Hard disk - expected to be written full in 4 hours - categraf",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "predict_linear(disk_free[1h], 4*3600) < 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 df -h 确认是哪个挂载点，再用 du -x --max-depth=1 <挂载点> | sort -h 逐层找出增长最快的目录；\n2) 优先清理日志（journalctl --vacuum-size=500M、清 *.log.N）与临时文件，这是最快见效的；\n3) 用 lsof +L1 找出已删除但句柄未释放的文件，重启对应进程才能真正释放空间；\n4) 确认是否有异常写入（应用死循环打日志、备份任务堆积），不解决根因清理只是拖延。",
+      "action_en": "1) Run df -h to identify the mount point, then drill down with du -x --max-depth=1 <mount> | sort -h to find the fastest-growing directory;\n2) Start with logs (journalctl --vacuum-size=500M, rotate out *.log.N) and temporary files — that is the quickest win;\n3) Use lsof +L1 to find deleted files whose handles are still open; the owning process must be restarted to actually free the space;\n4) Confirm whether something abnormal is writing (an application looping on logs, backups piling up) — without fixing the root cause, cleanup only buys time."
+    },
+    {
+      "source": "categraf",
+      "name": "Hard disk - IO is a bit busy - categraf",
+      "name_en": "Hard disk - IO is a bit busy - categraf",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "rate(diskio_io_time[1m])/10 > 99",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 iostat -x 1 确认是哪块盘、await 与 %util 的具体数值；\n2) 用 iotop -oP 或 pidstat -d 1 找出占用 IO 最高的进程；\n3) 常见元凶是数据库大查询、备份任务、日志刷盘——把可延后的任务错峰执行；\n4) 若是持续高负载而非突发，考虑换 SSD 或把热数据分散到多块盘。",
+      "action_en": "1) Run iostat -x 1 to see which disk it is and the actual await and %util values;\n2) Run iotop -oP or pidstat -d 1 to find the process doing the most IO;\n3) The usual culprits are large database queries, backup jobs and log flushing — move deferrable work off peak;\n4) If it is sustained rather than a spike, consider SSDs or spreading hot data across disks."
+    },
+    {
+      "source": "categraf",
+      "name": "Lost connection with monitoring target - categraf",
+      "name_en": "Lost connection with monitoring target - categraf",
+      "note": "",
+      "note_en": "",
+      "severity": 0,
+      "for": 0,
+      "queries": [
+        {}
+      ],
+      "action": "1) 先用 ping 与 ssh 确认机器本身是否存活，机器宕机要按宕机处理；\n2) 机器存活则用 systemctl status categraf 确认 agent 进程，看日志 journalctl -u categraf -n 100 定位；\n3) 常见原因是 agent 崩溃、配置错误、或到服务端的网络/认证不通——用 curl 手工打一次服务端的写入接口验证；\n4) 恢复后确认数据已连续，注意盲区期间的故障不会有历史告警。",
+      "action_en": "1) First confirm the machine itself is alive with ping and ssh — if it is down, handle it as a host outage;\n2) If it is alive, run systemctl status categraf to check the agent process and journalctl -u categraf -n 100 to locate the cause;\n3) Common causes are an agent crash, a config error, or network/auth failure to the server — verify by curling the server's write endpoint by hand;\n4) After recovery, confirm the data is continuous, and note that failures during the blind window produced no alerts at all."
+    },
+    {
+      "source": "categraf",
+      "name": "Machine load - high memory, please pay attention - categraf",
+      "name_en": "Machine load - high memory, please pay attention - categraf",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "mem_available_percent < 25",
+          "severity": 3
+        },
+        {
+          "promql": "mem_available_percent < 15",
+          "severity": 2
+        },
+        {
+          "promql": "mem_available_percent < 5",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 free -h 确认 available 与 swap 使用情况；\n2) 用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；\n3) 内核回收不及时可用 sync; echo 1 > /proc/sys/vm/drop_caches 释放 page cache（生产慎用）；\n4) 确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。",
+      "action_en": "1) Run free -h to check available memory and swap usage;\n2) Run ps aux --sort=-%mem | head to find the largest consumers and compare against their memory history to judge whether it is a leak;\n3) If the kernel is slow to reclaim, sync; echo 1 > /proc/sys/vm/drop_caches frees page cache (use with care in production);\n4) Determine whether it is growth or a process leak — a leak must be located with a heap profile, not just a restart."
+    },
+    {
+      "source": "categraf",
+      "name": "number of TME_WAIT exceeds 20,000 - categraf",
+      "name_en": "number of TME_WAIT exceeds 20,000 - categraf",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "netstat_tcp_time_wait > 20000",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 ss -s 确认各状态连接数分布；\n2) 用 ss -tan state time-wait | awk '{print $4}' | cut -d: -f1 | sort | uniq -c | sort -rn 看集中在哪个目标；\n3) 根因通常是短连接过多——在应用侧改用长连接或连接池，这是最有效的手段；\n4) 应急可开启 net.ipv4.tcp_tw_reuse=1 并调大 net.ipv4.ip_local_port_range（不要开 tcp_tw_recycle，NAT 环境下会丢包）。",
+      "action_en": "1) Run ss -s to see the connection state distribution;\n2) Run ss -tan state time-wait | awk '{print $4}' | cut -d: -f1 | sort | uniq -c | sort -rn to see which peer they concentrate on;\n3) The root cause is usually too many short-lived connections — switching the application to long-lived connections or a pool is by far the most effective fix;\n4) As an emergency measure enable net.ipv4.tcp_tw_reuse=1 and widen net.ipv4.ip_local_port_range (do not enable tcp_tw_recycle — it drops packets behind NAT)."
+    },
+    {
+      "source": "categraf",
+      "name": "packet loss in the inbound direction - categraf",
+      "name_en": "packet loss in the inbound direction - categraf",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "increase(net_drop_in[1m]) > 0",
+          "severity": 3
+        }
+      ],
+      "action": "1) 用 ip -s link show <网卡> 确认 RX dropped/errors 的增长；\n2) 用 ethtool -S <网卡> 看具体丢包原因（rx_no_buffer、rx_missed_errors 等）；\n3) 环形缓冲区不足可用 ethtool -G <网卡> rx <更大值> 调大，并检查 net.core.netdev_max_backlog；\n4) 若伴随 CPU 软中断偏高（top 里 %si），开启 RPS/RSS 把中断分散到多核。",
+      "action_en": "1) Run ip -s link show <nic> to confirm RX dropped/errors are growing;\n2) Run ethtool -S <nic> to see the specific drop reason (rx_no_buffer, rx_missed_errors, etc.);\n3) If ring buffers are too small, raise them with ethtool -G <nic> rx <larger value> and check net.core.netdev_max_backlog;\n4) If softirq CPU is also high (%si in top), enable RPS/RSS to spread interrupts across cores."
+    },
+    {
+      "source": "categraf",
+      "name": "packet loss in the outbound direction - categraf",
+      "name_en": "packet loss in the outbound direction - categraf",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "increase(net_drop_out[1m]) > 0",
+          "severity": 3
+        }
+      ],
+      "action": "1) 用 ip -s link show <网卡> 确认 TX dropped/errors 的增长；\n2) 用 ethtool -S <网卡> 看具体计数，并用 tc -s qdisc show dev <网卡> 看队列是否溢出；\n3) 发送队列不足可调大 txqueuelen 与 ethtool -G <网卡> tx；\n4) 确认是否已跑满带宽——是则限流或扩带宽，不是则排查网卡驱动与对端设备。",
+      "action_en": "1) Run ip -s link show <nic> to confirm TX dropped/errors are growing;\n2) Run ethtool -S <nic> for the specific counters and tc -s qdisc show dev <nic> to see whether the queue is overflowing;\n3) If the transmit queue is too small, raise txqueuelen and ethtool -G <nic> tx;\n4) Check whether the link is saturated — if so throttle or add bandwidth, otherwise investigate the NIC driver and peer device."
+    },
+    {
+      "source": "categraf",
+      "name": "大于200G的盘，空间不足了",
+      "name_en": "Disk larger than 200G is running out of space",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "disk_free/1024/1024/1024 < 20 and disk_total/1024/1024/1024 >= 200",
+          "severity": 3
+        },
+        {
+          "promql": "disk_free/1024/1024/1024 < 10 and disk_total/1024/1024/1024 >= 200",
+          "severity": 2
+        },
+        {
+          "promql": "disk_free/1024/1024/1024 < 2 and disk_total/1024/1024/1024 >= 200",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 df -h 定位挂载点，用 du -x --max-depth=1 <挂载点> | sort -h 找出占用最大的目录；\n2) 清理日志与过期数据，注意用 lsof +L1 检查已删除但未释放的文件；\n3) 评估是否该把数据目录迁到独立磁盘或加盘扩容；\n4) 若是数据库或对象存储的数据盘，按业务侧的归档策略下沉冷数据。",
+      "action_en": "1) Run df -h to find the mount point, then du -x --max-depth=1 <mount> | sort -h to find the largest directories;\n2) Clean up logs and expired data, and use lsof +L1 to check for deleted-but-unreleased files;\n3) Evaluate whether the data directory should move to its own disk or the disk should be expanded;\n4) For a database or object-store data disk, tier cold data off according to the business archiving policy."
+    },
+    {
+      "source": "categraf",
+      "name": "小于200G的盘，空间不足了",
+      "name_en": "Disk smaller than 200G is running out of space",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "disk_used_percent > 90 and disk_total/1024/1024/1024 < 200",
+          "severity": 3
+        },
+        {
+          "promql": "disk_used_percent > 95 and disk_total/1024/1024/1024 < 200",
+          "severity": 2
+        },
+        {
+          "promql": "disk_used_percent > 99 and disk_total/1024/1024/1024 < 200",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 df -h 定位挂载点，用 du -x --max-depth=1 <挂载点> | sort -h 找出占用最大的目录；\n2) 系统盘常见是 /var/log 与容器镜像层（docker system df 看占用，docker system prune 清理）；\n3) 用 lsof +L1 检查已删除但句柄未释放的文件；\n4) 长期需扩容或把大数据目录迁到独立磁盘。",
+      "action_en": "1) Run df -h to find the mount point, then du -x --max-depth=1 <mount> | sort -h to find the largest directories;\n2) On a system disk the usual suspects are /var/log and container image layers (docker system df to inspect, docker system prune to clean);\n3) Use lsof +L1 to check for deleted-but-unreleased file handles;\n4) Longer term, expand the disk or move large data directories to a dedicated disk."
+    },
+    {
+      "source": "exporter",
+      "name": "A certain disk is unable to read/write normally",
+      "name_en": "A certain disk is unable to read/write normally",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "(node_filesystem_device_error{mountpoint!~\"/var/lib/.*\",mountpoint!~\"/run.*\"}) > 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 dmesg -T | grep -iE 'i/o error|ata|scsi' 看内核报的具体错误与设备名；\n2) 用 smartctl -a /dev/sdX 看 SMART 属性，重点关注 Reallocated_Sector_Ct 与 Current_Pending_Sector；\n3) 确认该盘上的数据是否有副本或备份，优先保证数据安全再处理硬件；\n4) 确认为硬件故障的，安排停机换盘，RAID 环境下先确认阵列降级状态再操作。",
+      "action_en": "1) Run dmesg -T | grep -iE 'i/o error|ata|scsi' to see the exact kernel error and device name;\n2) Run smartctl -a /dev/sdX and focus on Reallocated_Sector_Ct and Current_Pending_Sector;\n3) Confirm the data on that disk has a replica or backup — data safety comes before hardware work;\n4) Once confirmed a hardware fault, schedule downtime to swap the disk; in a RAID array, check the degraded state first."
+    },
+    {
+      "source": "exporter",
+      "name": "Disk needs to be cleaned - utilization has reached 92% - node exporter",
+      "name_en": "Disk needs to be cleaned - utilization has reached 92% - node exporter",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "(100 - ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes) ) > 92 ",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 df -h 定位挂载点，用 du -x --max-depth=1 <挂载点> | sort -h 找出占用最大的目录；\n2) 系统盘常见是 /var/log 与容器镜像层（docker system df 看占用，docker system prune 清理）；\n3) 用 lsof +L1 检查已删除但句柄未释放的文件；\n4) 长期需扩容或把大数据目录迁到独立磁盘。",
+      "action_en": "1) Run df -h to find the mount point, then du -x --max-depth=1 <mount> | sort -h to find the largest directories;\n2) On a system disk the usual suspects are /var/log and container image layers (docker system df to inspect, docker system prune to clean);\n3) Use lsof +L1 to check for deleted-but-unreleased file handles;\n4) Longer term, expand the disk or move large data directories to a dedicated disk."
+    },
+    {
+      "source": "exporter",
+      "name": "Insufficient computational resources - average load per core of the machine is greater than 10 - node exporter",
+      "name_en": "Insufficient computational resources - average load per core of the machine is greater than 10 - node exporter",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "avg (node_load1) by (instance)/count(count(node_cpu_seconds_total) by (cpu,instance)) by (instance) >10",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 uptime 看 1/5/15 分钟负载趋势，判断是突发还是持续；\n2) 用 top 看 %wa（IO 等待）——高说明瓶颈在磁盘而非 CPU，按磁盘 IO 处理；\n3) 用 vmstat 1 看 r（运行队列）与 b（阻塞）列区分 CPU 密集与 IO 阻塞；\n4) 定位到具体进程后按 CPU 或 IO 的路径继续排查，必要时扩容。",
+      "action_en": "1) Run uptime to see the 1/5/15 minute load trend and judge spike versus sustained;\n2) Run top and look at %wa (IO wait) — high means the bottleneck is disk rather than CPU, so follow the disk IO path;\n3) Run vmstat 1 and use the r (run queue) and b (blocked) columns to separate CPU-bound from IO-blocked;\n4) Once you have the specific process, continue down the CPU or IO path and scale out if needed."
+    },
+    {
+      "source": "exporter",
+      "name": "Insufficient file handles - usage exceeds 90% - node exporter",
+      "name_en": "Insufficient file handles - usage exceeds 90% - node exporter",
+      "note": "You can increase the file handle limit or expand the capacity",
+      "note_en": "You can increase the file handle limit or expand the capacity",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "(node_filefd_allocated/node_filefd_maximum*100) > 90",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 cat /proc/sys/fs/file-nr 确认已分配与上限；\n2) 用 lsof | awk '{print $2}' | sort | uniq -c | sort -rn | head 找出占用句柄最多的进程；\n3) 应急调大：sysctl -w fs.file-max=<更大值>，并检查该进程的 ulimit -n 与 systemd LimitNOFILE；\n4) 根因通常是连接或文件未关闭，需在应用侧修复泄漏。",
+      "action_en": "1) Run cat /proc/sys/fs/file-nr to see allocated versus the limit;\n2) Run lsof | awk '{print $2}' | sort | uniq -c | sort -rn | head to find the processes holding the most handles;\n3) As an emergency measure raise it with sysctl -w fs.file-max=<larger value>, and check the process's ulimit -n and systemd LimitNOFILE;\n4) The root cause is usually connections or files never closed — fix the leak in the application."
+    },
+    {
+      "source": "exporter",
+      "name": "Insufficient inode resources - usage exceeds 90% - node exporter",
+      "name_en": "Insufficient inode resources - usage exceeds 90% - node exporter",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "(100 - ((node_filesystem_files_free * 100) / node_filesystem_files))>90",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 df -i 确认是哪个挂载点的 inode 吃紧；\n2) 用 for d in /path/*; do echo \"$(find $d | wc -l) $d\"; done | sort -rn | head 逐层找出小文件最多的目录；\n3) 常见来源是 session 文件、邮件队列、缓存碎片、未清理的容器层——按业务确认后批量删除；\n4) 长期可在格式化时调大 inode 密度，或把小文件业务迁到独立分区。",
+      "action_en": "1) Run df -i to see which mount point is short on inodes;\n2) Drill down with for d in /path/*; do echo \"$(find $d | wc -l) $d\"; done | sort -rn | head to find the directories with the most small files;\n3) Common sources are session files, mail queues, cache fragments and uncleaned container layers — confirm with the owner and bulk delete;\n4) Longer term, raise inode density at format time or move small-file workloads to a dedicated partition."
+    },
+    {
+      "source": "exporter",
+      "name": "Insufficient memory resources - utilization is greater than 75% - node exporter",
+      "name_en": "Insufficient memory resources - utilization is greater than 75% - node exporter",
+      "note": "Expansion or upgrading of configuration is required",
+      "note_en": "Expansion or upgrading of configuration is required",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "(node_memory_MemTotal_bytes - node_memory_MemFree_bytes - (node_memory_Cached_bytes + node_memory_Buffers_bytes))/node_memory_MemTotal_bytes*100 > 75",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 free -h 确认 available 与 swap 使用情况；\n2) 用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；\n3) 内核回收不及时可用 sync; echo 1 > /proc/sys/vm/drop_caches 释放 page cache（生产慎用）；\n4) 确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。",
+      "action_en": "1) Run free -h to check available memory and swap usage;\n2) Run ps aux --sort=-%mem | head to find the largest consumers and compare against their memory history to judge whether it is a leak;\n3) If the kernel is slow to reclaim, sync; echo 1 > /proc/sys/vm/drop_caches frees page cache (use with care in production);\n4) Determine whether it is growth or a process leak — a leak must be located with a heap profile, not just a restart."
+    },
+    {
+      "source": "exporter",
+      "name": "Insufficient memory resources - utilization is greater than 95% - node exporter",
+      "name_en": "Insufficient memory resources - utilization is greater than 95% - node exporter",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "(node_memory_MemTotal_bytes - node_memory_MemFree_bytes - (node_memory_Cached_bytes + node_memory_Buffers_bytes))/node_memory_MemTotal_bytes*100 > 95",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 free -h 确认 available 与 swap 使用情况；\n2) 用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；\n3) 内核回收不及时可用 sync; echo 1 > /proc/sys/vm/drop_caches 释放 page cache（生产慎用）；\n4) 确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。",
+      "action_en": "1) Run free -h to check available memory and swap usage;\n2) Run ps aux --sort=-%mem | head to find the largest consumers and compare against their memory history to judge whether it is a leak;\n3) If the kernel is slow to reclaim, sync; echo 1 > /proc/sys/vm/drop_caches frees page cache (use with care in production);\n4) Determine whether it is growth or a process leak — a leak must be located with a heap profile, not just a restart."
+    },
+    {
+      "source": "exporter",
+      "name": "Packet loss in the inbound direction of the network card - node exporter",
+      "name_en": "Packet loss in the inbound direction of the network card - node exporter",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "rate(node_network_receive_drop_total{device=~\"e.*\"}[1m]) > 3",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 ip -s link show <网卡> 确认 RX dropped/errors 的增长；\n2) 用 ethtool -S <网卡> 看具体丢包原因（rx_no_buffer、rx_missed_errors 等）；\n3) 环形缓冲区不足可用 ethtool -G <网卡> rx <更大值> 调大，并检查 net.core.netdev_max_backlog；\n4) 若伴随 CPU 软中断偏高（top 里 %si），开启 RPS/RSS 把中断分散到多核。",
+      "action_en": "1) Run ip -s link show <nic> to confirm RX dropped/errors are growing;\n2) Run ethtool -S <nic> to see the specific drop reason (rx_no_buffer, rx_missed_errors, etc.);\n3) If ring buffers are too small, raise them with ethtool -G <nic> rx <larger value> and check net.core.netdev_max_backlog;\n4) If softirq CPU is also high (%si in top), enable RPS/RSS to spread interrupts across cores."
+    },
+    {
+      "source": "exporter",
+      "name": "Packet loss in the outbound direction of the network card - node exporter",
+      "name_en": "Packet loss in the outbound direction of the network card - node exporter",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "rate(node_network_transmit_drop_total{device=~\"e.*\"}[1m]) > 3",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 ip -s link show <网卡> 确认 TX dropped/errors 的增长；\n2) 用 ethtool -S <网卡> 看具体计数，并用 tc -s qdisc show dev <网卡> 看队列是否溢出；\n3) 发送队列不足可调大 txqueuelen 与 ethtool -G <网卡> tx；\n4) 确认是否已跑满带宽——是则限流或扩带宽，不是则排查网卡驱动与对端设备。",
+      "action_en": "1) Run ip -s link show <nic> to confirm TX dropped/errors are growing;\n2) Run ethtool -S <nic> for the specific counters and tc -s qdisc show dev <nic> to see whether the queue is overflowing;\n3) If the transmit queue is too small, raise txqueuelen and ethtool -G <nic> tx;\n4) Check whether the link is saturated — if so throttle or add bandwidth, otherwise investigate the NIC driver and peer device."
+    },
+    {
+      "source": "exporter",
+      "name": "System conntrack needs to be adjusted - usage exceeds 80% - node exporter",
+      "name_en": "System conntrack needs to be adjusted - usage exceeds 80% - node exporter",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "node_nf_conntrack_entries / node_nf_conntrack_entries_limit*100 > 80",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 sysctl net.netfilter.nf_conntrack_count 与 nf_conntrack_max 确认当前水位；\n2) 用 conntrack -L | awk '{print $4}' | sort | uniq -c | sort -rn 看连接集中在哪类协议或来源；\n3) 应急调大：sysctl -w net.netfilter.nf_conntrack_max=<更大值>，并同步调大 nf_conntrack_buckets；\n4) 同时缩短 nf_conntrack_tcp_timeout_time_wait 等超时，或对不需要跟踪的流量用 iptables raw 表 NOTRACK。",
+      "action_en": "1) Run sysctl net.netfilter.nf_conntrack_count and nf_conntrack_max to see the current level;\n2) Run conntrack -L | awk '{print $4}' | sort | uniq -c | sort -rn to see which protocol or source the entries concentrate on;\n3) As an emergency measure raise it: sysctl -w net.netfilter.nf_conntrack_max=<larger value>, raising nf_conntrack_buckets to match;\n4) Also shorten timeouts such as nf_conntrack_tcp_timeout_time_wait, or mark traffic that needs no tracking NOTRACK in the iptables raw table."
+    },
+    {
+      "source": "exporter",
+      "name": "System experiences OOM - node exporter",
+      "name_en": "System experiences OOM - node exporter",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "increase(node_vmstat_oom_kill[1m]) > 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 dmesg -T | grep -i 'killed process' 确认被杀的是哪个进程、当时占用多少内存；\n2) 用 free -h 与该进程的内存曲线判断是内存泄漏还是配置的上限过高；\n3) 给关键进程调整 oom_score_adj 降低被杀优先级，同时给次要进程设 cgroup 内存上限；\n4) 根因是泄漏的要在应用侧抓堆定位，只扩内存会反复复发。",
+      "action_en": "1) Run dmesg -T | grep -i 'killed process' to see which process was killed and how much memory it held;\n2) Use free -h and that process's memory history to tell a leak apart from a limit set too high;\n3) Lower oom_score_adj for critical processes and set cgroup memory limits on secondary ones;\n4) If it is a leak, capture a heap profile in the application — adding memory alone will just postpone the recurrence."
+    },
+    {
+      "source": "exporter",
+      "name": "Too many running processes - exceeding 3000 - node exporter",
+      "name_en": "Too many running processes - exceeding 3000 - node exporter",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "node_procs_running > 3000",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 ps -eo ppid | sort | uniq -c | sort -rn | head 找出 fork 子进程最多的父进程；\n2) 确认是正常的多进程模型（如 php-fpm、nginx worker）还是失控 fork；\n3) 失控的先停掉该父进程止血，再修复代码里的 fork 逻辑；\n4) 正常业务增长则调整 worker 数配置并评估是否需要扩容。",
+      "action_en": "1) Run ps -eo ppid | sort | uniq -c | sort -rn | head to find the parent forking the most children;\n2) Determine whether this is a normal multi-process model (php-fpm, nginx workers) or a runaway fork;\n3) For a runaway, stop that parent to stop the bleeding, then fix the fork logic in the code;\n4) For genuine growth, tune the worker count and evaluate whether to scale out."
+    },
+    {
+      "source": "telegraf",
+      "name": "Address is unreachable by PING, please pay attention - telegraf",
+      "name_en": "Address is unreachable by PING, please pay attention - telegraf",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "ping_result_code != 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 在采集机上手工 ping -c 5 <目标> 复现，再用 mtr -n <目标> 定位丢包出现在哪一跳；\n2) 目标机若存活，确认它是否禁 ICMP（很多安全策略会禁），是则该探测本身不适用，应改用端口探测；\n3) 中间跳丢包的联系网络侧排查；\n4) 确认目标机自身是否宕机或网卡故障。",
+      "action_en": "1) Reproduce it on the collector host with ping -c 5 <target>, then use mtr -n <target> to find which hop is dropping packets;\n2) If the target host is alive, check whether it blocks ICMP (many security policies do) — if so this probe does not apply and you should switch to a port probe;\n3) For loss at an intermediate hop, involve the network team;\n4) Confirm the target host itself is not down or suffering a NIC failure."
+    },
+    {
+      "source": "telegraf",
+      "name": "Hard disk - expected to be written full in 4 hours - telegraf",
+      "name_en": "Hard disk - expected to be written full in 4 hours - telegraf",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "predict_linear(disk_free[1h], 4*3600) < 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 df -h 确认是哪个挂载点，再用 du -x --max-depth=1 <挂载点> | sort -h 逐层找出增长最快的目录；\n2) 优先清理日志（journalctl --vacuum-size=500M、清 *.log.N）与临时文件，这是最快见效的；\n3) 用 lsof +L1 找出已删除但句柄未释放的文件，重启对应进程才能真正释放空间；\n4) 确认是否有异常写入（应用死循环打日志、备份任务堆积），不解决根因清理只是拖延。",
+      "action_en": "1) Run df -h to identify the mount point, then drill down with du -x --max-depth=1 <mount> | sort -h to find the fastest-growing directory;\n2) Start with logs (journalctl --vacuum-size=500M, rotate out *.log.N) and temporary files — that is the quickest win;\n3) Use lsof +L1 to find deleted files whose handles are still open; the owning process must be restarted to actually free the space;\n4) Confirm whether something abnormal is writing (an application looping on logs, backups piling up) — without fixing the root cause, cleanup only buys time."
+    },
+    {
+      "source": "telegraf",
+      "name": "Hard disk - IO is very busy - telegraf",
+      "name_en": "Hard disk - IO is very busy - telegraf",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "rate(diskio_io_time[1m])/10 > 99",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 iostat -x 1 确认是哪块盘、await 与 %util 的具体数值；\n2) 用 iotop -oP 或 pidstat -d 1 找出占用 IO 最高的进程；\n3) 常见元凶是数据库大查询、备份任务、日志刷盘——把可延后的任务错峰执行；\n4) 若是持续高负载而非突发，考虑换 SSD 或把热数据分散到多块盘。",
+      "action_en": "1) Run iostat -x 1 to see which disk it is and the actual await and %util values;\n2) Run iotop -oP or pidstat -d 1 to find the process doing the most IO;\n3) The usual culprits are large database queries, backup jobs and log flushing — move deferrable work off peak;\n4) If it is sustained rather than a spike, consider SSDs or spreading hot data across disks."
+    },
+    {
+      "source": "telegraf",
+      "name": "Lost connection with monitoring target - telegraf",
+      "name_en": "Lost connection with monitoring target - telegraf",
+      "note": "",
+      "note_en": "",
+      "severity": 0,
+      "for": 0,
+      "queries": [
+        {}
+      ],
+      "action": "1) 先用 ping 与 ssh 确认机器本身是否存活，机器宕机要按宕机处理；\n2) 机器存活则用 systemctl status categraf 确认 agent 进程，看日志 journalctl -u categraf -n 100 定位；\n3) 常见原因是 agent 崩溃、配置错误、或到服务端的网络/认证不通——用 curl 手工打一次服务端的写入接口验证；\n4) 恢复后确认数据已连续，注意盲区期间的故障不会有历史告警。",
+      "action_en": "1) First confirm the machine itself is alive with ping and ssh — if it is down, handle it as a host outage;\n2) If it is alive, run systemctl status categraf to check the agent process and journalctl -u categraf -n 100 to locate the cause;\n3) Common causes are an agent crash, a config error, or network/auth failure to the server — verify by curling the server's write endpoint by hand;\n4) After recovery, confirm the data is continuous, and note that failures during the blind window produced no alerts at all."
+    },
+    {
+      "source": "telegraf",
+      "name": "Machine load - high CPU, please pay attention - telegraf",
+      "name_en": "Machine load - high CPU, please pay attention - telegraf",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "cpu_usage_idle{cpu=\"cpu-total\"} < 25",
+          "severity": 3
+        }
+      ],
+      "action": "1) 用 top -H 或 pidstat 1 找出占用最高的进程与线程；\n2) 用 perf top 或对应语言的 profiler（Java 用 arthas/async-profiler，Go 用 pprof）定位热点函数；\n3) 区分是业务量自然增长还是代码异常（死循环、正则回溯、频繁 GC）；\n4) 业务量增长则扩容或限流，代码问题则修复后发布。",
+      "action_en": "1) Run top -H or pidstat 1 to find the busiest processes and threads;\n2) Use perf top or a language profiler (arthas/async-profiler for Java, pprof for Go) to locate the hot functions;\n3) Tell natural traffic growth apart from a code problem (infinite loop, regex backtracking, frequent GC);\n4) For growth, scale out or rate limit; for a code problem, fix and release."
+    },
+    {
+      "source": "telegraf",
+      "name": "Machine load - high memory, please pay attention - telegraf",
+      "name_en": "Machine load - high memory, please pay attention - telegraf",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "mem_available_percent < 25",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 free -h 确认 available 与 swap 使用情况；\n2) 用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；\n3) 内核回收不及时可用 sync; echo 1 > /proc/sys/vm/drop_caches 释放 page cache（生产慎用）；\n4) 确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。",
+      "action_en": "1) Run free -h to check available memory and swap usage;\n2) Run ps aux --sort=-%mem | head to find the largest consumers and compare against their memory history to judge whether it is a leak;\n3) If the kernel is slow to reclaim, sync; echo 1 > /proc/sys/vm/drop_caches frees page cache (use with care in production);\n4) Determine whether it is growth or a process leak — a leak must be located with a heap profile, not just a restart."
+    },
+    {
+      "source": "telegraf",
+      "name": "Network connection - number of TME_WAIT exceeds 20,000 - telegraf",
+      "name_en": "Network connection - number of TME_WAIT exceeds 20,000 - telegraf",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "netstat_tcp_time_wait > 20000",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 ss -s 确认各状态连接数分布；\n2) 用 ss -tan state time-wait | awk '{print $4}' | cut -d: -f1 | sort | uniq -c | sort -rn 看集中在哪个目标；\n3) 根因通常是短连接过多——在应用侧改用长连接或连接池，这是最有效的手段；\n4) 应急可开启 net.ipv4.tcp_tw_reuse=1 并调大 net.ipv4.ip_local_port_range（不要开 tcp_tw_recycle，NAT 环境下会丢包）。",
+      "action_en": "1) Run ss -s to see the connection state distribution;\n2) Run ss -tan state time-wait | awk '{print $4}' | cut -d: -f1 | sort | uniq -c | sort -rn to see which peer they concentrate on;\n3) The root cause is usually too many short-lived connections — switching the application to long-lived connections or a pool is by far the most effective fix;\n4) As an emergency measure enable net.ipv4.tcp_tw_reuse=1 and widen net.ipv4.ip_local_port_range (do not enable tcp_tw_recycle — it drops packets behind NAT)."
+    },
+    {
+      "source": "telegraf",
+      "name": "packet loss in the inbound direction - telegraf",
+      "name_en": "packet loss in the inbound direction - telegraf",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "increase(net_drop_in[1m]) > 0",
+          "severity": 3
+        }
+      ],
+      "action": "1) 用 ip -s link show <网卡> 确认 RX dropped/errors 的增长；\n2) 用 ethtool -S <网卡> 看具体丢包原因（rx_no_buffer、rx_missed_errors 等）；\n3) 环形缓冲区不足可用 ethtool -G <网卡> rx <更大值> 调大，并检查 net.core.netdev_max_backlog；\n4) 若伴随 CPU 软中断偏高（top 里 %si），开启 RPS/RSS 把中断分散到多核。",
+      "action_en": "1) Run ip -s link show <nic> to confirm RX dropped/errors are growing;\n2) Run ethtool -S <nic> to see the specific drop reason (rx_no_buffer, rx_missed_errors, etc.);\n3) If ring buffers are too small, raise them with ethtool -G <nic> rx <larger value> and check net.core.netdev_max_backlog;\n4) If softirq CPU is also high (%si in top), enable RPS/RSS to spread interrupts across cores."
+    },
+    {
+      "source": "telegraf",
+      "name": "packet loss in the outbound direction - telegraf",
+      "name_en": "packet loss in the outbound direction - telegraf",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "increase(net_drop_out[1m]) > 0",
+          "severity": 3
+        }
+      ],
+      "action": "1) 用 ip -s link show <网卡> 确认 TX dropped/errors 的增长；\n2) 用 ethtool -S <网卡> 看具体计数，并用 tc -s qdisc show dev <网卡> 看队列是否溢出；\n3) 发送队列不足可调大 txqueuelen 与 ethtool -G <网卡> tx；\n4) 确认是否已跑满带宽——是则限流或扩带宽，不是则排查网卡驱动与对端设备。",
+      "action_en": "1) Run ip -s link show <nic> to confirm TX dropped/errors are growing;\n2) Run ethtool -S <nic> for the specific counters and tc -s qdisc show dev <nic> to see whether the queue is overflowing;\n3) If the transmit queue is too small, raise txqueuelen and ethtool -G <nic> tx;\n4) Check whether the link is saturated — if so throttle or add bandwidth, otherwise investigate the NIC driver and peer device."
+    },
+    {
+      "source": "telegraf",
+      "name": "Port detection failed, please pay attention - telegraf",
+      "name_en": "Port detection failed, please pay attention - telegraf",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "net_response_result_code != 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 在采集机上手工 telnet <目标> <端口> 或 nc -vz <目标> <端口> 复现；\n2) 到目标机用 ss -lntp | grep <端口> 确认进程是否在监听；\n3) 进程在监听则排查防火墙、安全组、以及是否只绑定了 127.0.0.1；\n4) 进程不在则按该服务自身的恢复流程拉起。",
+      "action_en": "1) Reproduce it on the collector host with telnet <target> <port> or nc -vz <target> <port>;\n2) On the target host, run ss -lntp | grep <port> to confirm a process is listening;\n3) If it is listening, check the firewall, security groups, and whether it is bound only to 127.0.0.1;\n4) If nothing is listening, start the service through its own recovery procedure."
+    },
+    {
+      "source": "telegraf",
+      "name": "process handle limit is too small - telegraf",
+      "name_en": "process handle limit is too small - telegraf",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "procstat_rlimit_num_fds_soft < 2048",
+          "severity": 3
+        }
+      ],
+      "action": "1) 用 cat /proc/<pid>/limits 确认 Max open files 的软硬上限；\n2) systemd 管理的服务在 unit 文件里加 LimitNOFILE=65535 后 systemctl daemon-reload 并重启；\n3) 非 systemd 的在启动脚本里加 ulimit -n 65535，或改 /etc/security/limits.conf；\n4) 注意软上限修改后必须重启进程才生效。",
+      "action_en": "1) Run cat /proc/<pid>/limits to see the soft and hard Max open files;\n2) For systemd services, add LimitNOFILE=65535 to the unit file, then systemctl daemon-reload and restart;\n3) For non-systemd, add ulimit -n 65535 to the startup script or edit /etc/security/limits.conf;\n4) Note the process must be restarted for a changed soft limit to take effect."
+    },
+    {
+      "source": "telegraf",
+      "name": "Process monitoring - lookup failure - telegraf",
+      "name_en": "Process monitoring - lookup failure - telegraf",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "procstat_lookup_result_code != 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 在采集机上按配置的匹配方式手工执行 ps/pgrep 复现；\n2) 进程确实不在则按服务恢复流程处理；\n3) 进程在但探测失败，检查 procstat 配置的 pid_file、exe、pattern 是否写错，以及采集账号是否有权限读取 /proc；\n4) 容器环境下确认 categraf 是否挂载了宿主机的 /proc。",
+      "action_en": "1) Reproduce the configured match by hand on the collector host with ps/pgrep;\n2) If the process is genuinely gone, follow the service's recovery procedure;\n3) If the process exists but the probe fails, check the procstat pid_file / exe / pattern settings and whether the collector account can read /proc;\n4) In containers, confirm categraf mounts the host's /proc."
+    },
+    {
+      "source": "telegraf",
+      "name": "there are processes with 0 count, a certain process may have crashed - telegraf",
+      "name_en": "there are processes with 0 count, a certain process may have crashed - telegraf",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "procstat_lookup_running == 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 ps -ef | grep <进程关键字> 确认确实不在，排除采集侧的匹配规则写错；\n2) 查该进程的日志与 dmesg -T | grep -i 'killed process'，区分自身崩溃、被 OOM 杀死还是人工停止；\n3) 按服务自身流程拉起，并确认 systemd 的 Restart 策略是否生效；\n4) 若反复退出，先定位根因再拉起，避免陷入重启循环。",
+      "action_en": "1) Run ps -ef | grep <process keyword> to confirm it is really gone and rule out a wrong match rule on the collector side;\n2) Check that process's log and dmesg -T | grep -i 'killed process' to tell a crash, an OOM kill and a manual stop apart;\n3) Start it through the service's own procedure and confirm the systemd Restart policy is effective;\n4) If it keeps exiting, find the root cause before starting it again to avoid a restart loop."
+    }
+  ],
+  "metrics": [
+    {
+      "expression": "cpu_usage_guest",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU Guest 时间占比",
+      "name_en": "CPU Guest time ratio",
+      "note": "CPU 为 Guest OS 运行虚拟 CPU 的时间占比。\n\n- 标签 `cpu=\"cpu-total\"`，表示整机的统计值\n- 标签 `cpu=\"0\"`，表示 0 号 CPU 的统计值",
+      "note_en": "The proportion of time the CPU spends running the virtual CPU for the Guest OS. \n \n-Label ` cpu = \"cpu-total\" `, indicating the statistical value of the whole machine \n-Tag ` CPU = \"0\" `, indicating the statistical value of CPU number 0"
+    },
+    {
+      "expression": "cpu_usage_iowait",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU iowait 时间占比",
+      "name_en": "CPU iowait time ratio",
+      "note": "表示 CPU 花费在等待 I/O 操作（输入/输出）完成的时间比例\n\n- 标签 `cpu=\"cpu-total\"`，表示整机的 iowait 占用率\n- 标签 `cpu=\"0\"`，表示 0 号 CPU 的 iowait 占用率",
+      "note_en": "Represents the proportion of time the CPU spends waiting for I/O operations (input/output) to complete \n \n-Tag ` cpu = \"cpu-total\" `, indicating the iowait occupancy rate of the whole machine \n-Tag ` CPU = \"0\" `, indicating iowait usage rate of CPU # 0"
+    },
+    {
+      "expression": "cpu_usage_steal",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU Steal 时间占比",
+      "name_en": "CPU Steal time ratio",
+      "note": "表示虚拟机（Guest OS）CPU 时间被虚拟化管理器（Hypervisor）用于运行其他虚拟机的时间比例。物理机中这个指标值是 0，没有用处；虚拟机中这个指标值长时间大于 10 表示争抢严重。[参考资料](https://mp.weixin.qq.com/s/zlrfMNrDHJVE5lkTVow5zA)\n\n- 标签 `cpu=\"cpu-total\"`，表示整机的统计值\n- 标签 `cpu=\"0\"`，表示 0 号 CPU 的统计值",
+      "note_en": "Represents the proportion of time that the virtual machine (Guest OS) CPU time is used by the virtualization manager (Hypervisor) to run other virtual machines. The value of this indicator in the physical machine is 0, which is useless; If the value of this indicator in the virtual machine is greater than 10 for a long time, it means that the competition is serious. [Reference] (https://mp.weixin.qq.com/s/zlrfMNrDHJVE5lkTVow5zA) \n \n-Label ` cpu = \"cpu-total\" `, indicating the statistical value of the whole machine \n-Tag ` CPU = \"0\" `, indicating the statistical value of CPU number 0"
+    },
+    {
+      "expression": "cpu_usage_nice",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU 低优先级进程的时间占比",
+      "name_en": "Time proportion of CPU low-priority processes",
+      "note": "在Linux系统中，每个进程都有一个“nice”值，这个值的范围通常是从-20到19。默认的 nice 值为0。负的 nice 值表示高优先级（更快的 CPU 访问），而正的 nice 值表示低优先级（更慢的 CPU 访问）。该指标统计 nice 值为 1-19 的进程的时间占比。\n\n- 标签 `cpu=\"cpu-total\"`，表示整机的统计值\n- 标签 `cpu=\"0\"`，表示 0 号 CPU 的统计值",
+      "note_en": "In Linux systems, each process has a \"nice\" value, which usually ranges from-20 to 19. The default nice value is 0. A negative nice value indicates high priority (faster CPU access), while a positive nice value indicates low priority (slower CPU access). This indicator counts the time proportion of processes with nice values of 1-19. \n \n-Tag ` cpu = \"cpu-total\" `, indicating the statistical value of the whole machine \n-Tag ` CPU = \"0\" `, indicating the statistical value of CPU number 0"
+    },
+    {
+      "expression": "cpu_usage_system",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU 内核态时间占比",
+      "name_en": "CPU core mode time ratio",
+      "note": "表示 CPU 内核态的时间占比\n\n- 标签 `cpu=\"cpu-total\"`，表示整机的统计值\n- 标签 `cpu=\"0\"`，表示 0 号 CPU 的统计值",
+      "note_en": "Represents the time ratio of CPU core mode \n \n-Tag ` cpu = \"cpu-total\" `, indicating the statistical value of the whole machine \n-Tag ` CPU = \"0\" `, indicating the statistical value of CPU number 0"
+    },
+    {
+      "expression": "cpu_usage_active",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU 利用率",
+      "name_en": "CPU utilization",
+      "note": "- 标签 `cpu=\"cpu-total\"`，表示整机的 CPU 利用率\n- 标签 `cpu=\"0\"`，表示 0 号 CPU 的单核利用率",
+      "note_en": "-Tag ` CPU = \"CPU-total\" `, indicating the CPU utilization of the whole machine \n-Tag ` CPU = \"0\" `, indicating single-core utilization of CPU # 0"
+    },
+    {
+      "expression": "cpu_usage_user",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU 用户态时间占比",
+      "name_en": "CPU user mode time ratio",
+      "note": "表示 CPU 用户态的时间占比\n\n\n- 标签 `cpu=\"cpu-total\"`，表示整机的统计值\n- 标签 `cpu=\"0\"`，表示 0 号 CPU 的统计值",
+      "note_en": "Indicates the time ratio of CPU user mode \n \n \n-Tag ` cpu = \"cpu-total\" `, indicating the statistical value of the whole machine \n-Tag ` CPU = \"0\" `, indicating the statistical value of CPU number 0"
+    },
+    {
+      "expression": "cpu_usage_irq",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU 硬中断时间占比",
+      "name_en": "CPU hard interrupt time ratio",
+      "note": "表示 CPU 处理硬中断的时间占比\n\n- 标签 `cpu=\"cpu-total\"`，表示整机的统计值\n- 标签 `cpu=\"0\"`，表示 0 号 CPU 的统计值",
+      "note_en": "Indicates the proportion of time spent by the CPU handling hard interrupts \n \n-Tag ` cpu = \"cpu-total\" `, indicating the statistical value of the whole machine \n-Tag ` CPU = \"0\" `, indicating the statistical value of CPU number 0"
+    },
+    {
+      "expression": "cpu_usage_idle",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU 空闲率",
+      "name_en": "CPU idle rate",
+      "note": "- 标签 `cpu=\"cpu-total\"`，表示整机的 CPU 空闲率\n- 标签 `cpu=\"0\"`，表示 0 号 CPU 的单核空闲率",
+      "note_en": "-Tag ` CPU = \"CPU-total\" `, indicating the CPU idle rate of the whole machine \n-Tag ` CPU = \"0\" `, indicating the single core idle rate of CPU # 0"
+    },
+    {
+      "expression": "cpu_usage_softirq",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU 软中断时间占比",
+      "name_en": "CPU soft interrupt time ratio",
+      "note": "表示 CPU 处理软中断的时间占比\n\n- 标签 `cpu=\"cpu-total\"`，表示整机的统计值\n- 标签 `cpu=\"0\"`，表示 0 号 CPU 的统计值",
+      "note_en": "Indicates the proportion of time the CPU takes to process soft interrupts \n \n-Tag ` cpu = \"cpu-total\" `, indicating the statistical value of the whole machine \n-Tag ` CPU = \"0\" `, indicating the statistical value of CPU number 0"
+    },
+    {
+      "expression": "netstat_tcp_established",
+      "type": "",
+      "unit": "none",
+      "name": "ESTABLISHED 状态的网络链接数",
+      "name_en": "Number of network links with ESTABLISHED status",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "netstat_tcp_fin_wait1",
+      "type": "",
+      "unit": "none",
+      "name": "FIN_WAIT1 状态的网络链接数",
+      "name_en": "Number of network links in FIN _ WAIT1 state",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "netstat_tcp_fin_wait2",
+      "type": "",
+      "unit": "none",
+      "name": "FIN_WAIT2 状态的网络链接数",
+      "name_en": "Number of network links in FIN _ WAIT2 state",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "100 * conntrack_ip_conntrack_count / conntrack_ip_conntrack_max",
+      "type": "counter",
+      "unit": "percent",
+      "name": "IP conntrack 使用率",
+      "name_en": "IP conntrack usage",
+      "note": "如果用满了，通常会在系统日志中看到：conntrack table full 这样的报错，可以调整系统最大值解决",
+      "note_en": "If it is full, you will usually see errors such as: conntrack table full in the system log. You can adjust the maximum value of the system to solve the problem"
+    },
+    {
+      "expression": "netstat_tcp_last_ack",
+      "type": "",
+      "unit": "none",
+      "name": "LAST_ACK 状态的网络链接数",
+      "name_en": "Number of network links in LAST _ ACK state",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "netstat_tcp_listen",
+      "type": "",
+      "unit": "none",
+      "name": "LISTEN 状态的网络链接数",
+      "name_en": "Number of network links in LISTEN status",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "100 * conntrack_nf_conntrack_count / conntrack_nf_conntrack_max",
+      "type": "counter",
+      "unit": "percent",
+      "name": "NF conntrack 使用率",
+      "name_en": "NF conntrack usage",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "increase(kernel_vmstat_oom_kill[1m])",
+      "type": "counter",
+      "unit": "none",
+      "name": "1分钟内 OOM 次数统计",
+      "name_en": "OOM number statistics within 1 minute",
+      "note": "取自 `/proc/vmstat`，需要较高版本的内核，没记错的话应该是 4.13 以上版本",
+      "note_en": "Taken from `/proc/vmstat `, requires a higher version of the kernel, if I remember correctly, it should be 4.13 or above"
+    },
+    {
+      "expression": "netstat_tcp_syn_recv",
+      "type": "",
+      "unit": "none",
+      "name": "SYN_RECV 状态的网络链接数",
+      "name_en": "Number of network links in SYN _ RECV state",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "netstat_tcp_syn_sent",
+      "type": "",
+      "unit": "none",
+      "name": "SYN_SENT 状态的网络链接数",
+      "name_en": "Number of network links in SYN _ SENT state",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "netstat_tcp_time_wait",
+      "type": "",
+      "unit": "none",
+      "name": "TIME_WAIT 状态的网络链接数",
+      "name_en": "Number of network links in TIME _ WAIT state",
+      "note": "categraf 配置文件 `conf/input.netstat/netstat.toml` 中 `disable_connection_stats` 默认配置为 true，是因为在网络连接比较多的机器上，获取各个状态的连接数会耗费较多 CPU，所以默认 disable 掉了。",
+      "note_en": "The default configuration of ` disable _ connection _ stats ` in the categraf configuration file ` conf/input.netstat/netstat.toml ` is true because on machines with many network connections, obtaining the number of connections in each state will consume more CPU, so the default disable is dropped."
+    },
+    {
+      "expression": "netstat_tcp_tw",
+      "type": "",
+      "unit": "none",
+      "name": "TIME_WAIT 状态的网络链接数（推荐）",
+      "name_en": "Number of network links in TIME _ WAIT state (recommended)",
+      "note": "读取自 `/proc/net/sockstat`。",
+      "note_en": "Read from `/proc/net/sockstat `."
+    },
+    {
+      "expression": "(mem_swap_total - mem_swap_free)/mem_swap_total * 100 and mem_swap_total > 0",
+      "type": "counter",
+      "unit": "percent",
+      "name": "交换空间使用率",
+      "name_en": "Swap space usage",
+      "note": "交换空间使用率。计算原子取自 `/proc/meminfo`。",
+      "note_en": "Swap space usage. The computational atom is taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "mem_swap_total - mem_swap_free",
+      "type": "counter",
+      "unit": "bytesIEC",
+      "name": "交换空间使用量",
+      "name_en": "Swap space usage",
+      "note": "交换空间使用量。计算原子取自 `/proc/meminfo`。",
+      "note_en": "Swap space usage. The computational atom is taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "mem_swap_total",
+      "type": "counter",
+      "unit": "bytesIEC",
+      "name": "交换空间总量",
+      "name_en": "Total swap space",
+      "note": "交换空间总量。取自 `/proc/meminfo`。",
+      "note_en": "Total amount of swap space. Taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "mem_swap_free",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "交换空间空闲量",
+      "name_en": "Swap space free amount",
+      "note": "交换空间空闲量。取自 `/proc/meminfo`。",
+      "note_en": "Swap space free amount. Taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "mem_buffered",
+      "type": "",
+      "unit": "bytesIEC",
+      "name": "内存 Buffered 量",
+      "name_en": "Memory Buffered amount",
+      "note": "用作缓冲区的内存量。取自 `/proc/meminfo`。",
+      "note_en": "The amount of memory used as a buffer. Taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "mem_cached",
+      "type": "",
+      "unit": "bytesIEC",
+      "name": "内存 Cached 量",
+      "name_en": "Memory Cached amount",
+      "note": "用作文件缓存的内存量。取自 `/proc/meminfo`。",
+      "note_en": "The amount of memory used as a file cache. Taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "mem_used_percent",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "内存使用率",
+      "name_en": "Memory usage",
+      "note": "内存使用率",
+      "note_en": "Memory usage"
+    },
+    {
+      "expression": "100 - mem_available_percent",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "内存使用率（基于MemAvailable）",
+      "name_en": "Memory usage (based on MemAvailable)",
+      "note": "内存使用率。基于 MemAvailable 计算更准确，但是老版本的 Linux 不支持。",
+      "note_en": "Memory usage. Calculation based on MemAvailable is more accurate, but older versions of Linux do not support it."
+    },
+    {
+      "expression": "mem_used",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "内存使用量",
+      "name_en": "Memory usage",
+      "note": "内存使用量 = Total - Free - Buffered - Cached",
+      "note_en": "Memory usage = Total-Free-Buffered-Cached"
+    },
+    {
+      "expression": "mem_available_percent",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "内存可用率",
+      "name_en": "Memory availability",
+      "note": "可以立即分配给进程的可用内存量除以内存总量。分子分母的值均取自 `/proc/meminfo`。",
+      "note_en": "The amount of available memory that can be immediately allocated to the process divided by the total amount of memory. The values of numerator and denominator are taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "mem_available",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "内存可用量",
+      "name_en": "Memory Availability",
+      "note": "可以立即分配给进程的可用内存量。取自 `/proc/meminfo`。",
+      "note_en": "The amount of available memory that can be immediately allocated to a process. Taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "mem_total",
+      "type": "counter",
+      "unit": "bytesIEC",
+      "name": "内存总量",
+      "name_en": "Total memory",
+      "note": "内存总量。取自 `/proc/meminfo`。",
+      "note_en": "Total amount of memory. Taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "mem_active",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "内存活跃量",
+      "name_en": "Memory activity",
+      "note": "这个字段表示当前活跃使用的内存总量，即系统最近访问过并且预计很快会再次使用的内存页面。取自 `/proc/meminfo`。",
+      "note_en": "This field indicates the total amount of memory currently actively used, that is, the memory pages that the system has recently visited and is expected to be used again soon. Taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "mem_free",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "内存空闲量",
+      "name_en": "Free memory amount",
+      "note": "未使用的内存量。取自 `/proc/meminfo`。",
+      "note_en": "Amount of unused memory. Taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "mem_inactive",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "内存非活跃量",
+      "name_en": "Memory inactivity",
+      "note": "在上一采样周期未以某种方式使用的内存量。取自 `/proc/meminfo`。",
+      "note_en": "The amount of memory that was not used in some way in the previous sampling period. Taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "netstat_udp_socket",
+      "type": "",
+      "unit": "none",
+      "name": "当前 UDP 连接数",
+      "name_en": "Number of current UDP connections",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "disk_inodes_used / disk_inodes_total * 100",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "硬盘 inode 使用率",
+      "name_en": "Hard disk inode usage",
+      "note": "如果存储了很多小文件，需要注意 inode 使用情况。",
+      "note_en": "If you store a lot of small files, you need to pay attention to inode usage."
+    },
+    {
+      "expression": "disk_inodes_used",
+      "type": "gauge",
+      "unit": "none",
+      "name": "硬盘 inode 使用量",
+      "name_en": "Hard disk inode usage",
+      "note": "如果存储了很多小文件，需要注意 inode 使用情况。",
+      "note_en": "If you store a lot of small files, you need to pay attention to inode usage."
+    },
+    {
+      "expression": "disk_inodes_free",
+      "type": "gauge",
+      "unit": "none",
+      "name": "硬盘 inode 剩余量",
+      "name_en": "Remaining amount of hard disk inode",
+      "note": "如果存储了很多小文件，需要注意 inode 使用情况。",
+      "note_en": "If you store a lot of small files, you need to pay attention to inode usage."
+    },
+    {
+      "expression": "disk_inodes_total",
+      "type": "counter",
+      "unit": "none",
+      "name": "硬盘 inode 总量",
+      "name_en": "Total amount of hard disk inode",
+      "note": "如果存储了很多小文件，需要注意 inode 使用情况。",
+      "note_en": "If you store a lot of small files, you need to pay attention to inode usage."
+    },
+    {
+      "expression": "irate(diskio_write_time[2m])/irate(diskio_writes[2m])",
+      "type": "gauge",
+      "unit": "milliseconds",
+      "name": "硬盘 IO - 写请求平均耗时",
+      "name_en": "Hard disk IO-Write request average time",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "diskio_write_time",
+      "type": "gauge",
+      "unit": "milliseconds",
+      "name": "硬盘 IO - 写请求等待处理的时间",
+      "name_en": "Hard Drive IO-Time the write request waits to be processed",
+      "note": "写入请求在磁盘上等待的时间。同时等待的多个写入请求会增加该数字。例如，如果 8 个请求均平均等待 1000 毫秒，则报告 8000。",
+      "note_en": "The time a write request waits on disk. Multiple write requests waiting simultaneously increase this number. For example, if 8 requests all wait an average of 1000 milliseconds, 8000 is reported."
+    },
+    {
+      "expression": "diskio_weighted_io_time",
+      "type": "gauge",
+      "unit": "milliseconds",
+      "name": "硬盘 IO - 加权 IO 处理时间",
+      "name_en": "Hard Disk IO-Weighted IO Processing Time",
+      "note": "只要设备在处理 IO，不管同时处理了几个，diskio_io_time 就会递增；同时处理的 IO 数量乘以时间就得到加权的值：diskio_weighted_io_time。",
+      "note_en": "As long as the device is processing IO, no matter how many are processed at the same time, diskio _ IO _ time will be incremented; The number of simultaneously processed IOs is multiplied by time to obtain a weighted value: diskio _ weighted _ IO _ time."
+    },
+    {
+      "expression": "irate(diskio_io_time[2m])/1000*100",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "硬盘 IO - 时间维度 Utilization",
+      "name_en": "Hard Disk IO-Time Dimension Utilization",
+      "note": "在时间维度统计硬盘 IO 时间占比，比如该值是 50%，表示有 50% 的时间是在处理 IO，该值 100%，表示一直在处理 IO，但是注意，现代磁盘设备具备并行处理多个 I/O 请求的能力，所以即便该值是 100%，可能硬盘还是可以接收新的处理请求。\n\n比如某人有两只手，最近 1 分钟一直在用单手劳动，从时间维度来看，利用率是 100%，但即便是 100%，再给他更多的活，他也能干，因为他还有一只手可用。",
+      "note_en": "Count the proportion of hard disk IO time in the time dimension. For example, if the value is 50%, it means that 50% of the time is processing IO, and if the value is 100%, it means that IO has been processing all the time. However, note that modern disk devices have the ability to process multiple I/O requests in parallel, so even if the value is 100%, the hard disk may still be able to receive new processing requests. \n \nFor example, someone has two hands and has been working with one hand in the last minute. From the time dimension, the utilization rate is 100%, but even if it is 100%, he can do it if he is given more work, because he still has one hand available."
+    },
+    {
+      "expression": "irate(diskio_write_bytes[2m])",
+      "type": "gauge",
+      "unit": "bytesSecIEC",
+      "name": "硬盘 IO - 每秒写入字节数量",
+      "name_en": "Hard disk IO-bytes written per second",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "irate(diskio_writes{}[2m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "硬盘 IO - 每秒写次数",
+      "name_en": "Hard drive IO-writes per second",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "irate(diskio_merged_writes[2m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "硬盘 IO - 每秒合并写请求次数",
+      "name_en": "Hard Disk IO-Number of merged write requests per second",
+      "note": "相邻的读取和写入可能会为了效率而被合并。因此，在最终交给磁盘之前，两个4K的读取可能会变成一个8K的读取，因此它将被计数（和排队）为仅有一个I/O。这些字段让你知道这种情况发生的频率。",
+      "note_en": "Adjacent reads and writes may be merged for efficiency. So two 4K reads may turn into an 8K read before finally handing it over to disk, so it will be counted (and queued) to have only one I/O. These fields let you know how often this happens."
+    },
+    {
+      "expression": "irate(diskio_merged_reads[2m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "硬盘 IO - 每秒合并读请求次数",
+      "name_en": "Hard disk IO-merge read requests per second",
+      "note": "相邻的读取和写入可能会为了效率而被合并。因此，在最终交给磁盘之前，两个4K的读取可能会变成一个8K的读取，因此它将被计数（和排队）为仅有一个I/O。这些字段让你知道这种情况发生的频率。",
+      "note_en": "Adjacent reads and writes may be merged for efficiency. So two 4K reads may turn into an 8K read before finally handing it over to disk, so it will be counted (and queued) to have only one I/O. These fields let you know how often this happens."
+    },
+    {
+      "expression": "irate(diskio_read_bytes[2m])",
+      "type": "gauge",
+      "unit": "bytesSecIEC",
+      "name": "硬盘 IO - 每秒读取字节数量",
+      "name_en": "Hard Drive IO-bytes read per second",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "irate(diskio_reads{}[2m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "硬盘 IO - 每秒读次数",
+      "name_en": "Hard drive IO-Reads per second",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "diskio_io_time",
+      "type": "gauge",
+      "unit": "milliseconds",
+      "name": "硬盘 IO - 硬盘在处理 IO 的时间",
+      "name_en": "Hard Disk IO-Time the hard disk takes to process IO",
+      "note": "硬盘在处理 IO 的时间，单位是毫秒。假设最近 1 秒内有 500 毫秒是在处理 IO，这个值就要加 500，这是一个单调递增的 Counter 值，从操作系统启动之后就会一直涨。实际使用的时候，一般使用该指标计算硬盘 IO UTIL（时间维度的百分比）。",
+      "note_en": "The time it takes for the hard disk to process IO, in milliseconds. Assuming that 500 milliseconds are processing IO in the last 1 second, this value will be increased by 500. This is a monotonically increasing Counter value, which will continue to rise after the operating system is started. In actual use, this indicator is generally used to calculate the hard disk IO UTIL (percentage of time dimension)."
+    },
+    {
+      "expression": "diskio_iops_in_progress",
+      "type": "gauge",
+      "unit": "none",
+      "name": "硬盘 IO - 设备驱动程序正在处理的 IO 数量",
+      "name_en": "Hard Disk IO-Number of IO being processed by the device driver",
+      "note": "当前已经分配给设备驱动程序并且尚未完成的请求数量，Gauge 类型。如果 I/O 请求已经进入队列，但是尚未分配给设备驱动程序，则不统计在内。",
+      "note_en": "The number of requests that have been currently assigned to the device driver and have not been completed, Gauge type. If I/O requests have entered the queue, but have not been assigned to the device driver, they are not counted."
+    },
+    {
+      "expression": "irate(diskio_read_time[2m])/irate(diskio_reads[2m])",
+      "type": "gauge",
+      "unit": "milliseconds",
+      "name": "硬盘 IO - 读请求平均耗时",
+      "name_en": "Hard disk IO-Read request average time",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "diskio_read_time",
+      "type": "gauge",
+      "unit": "milliseconds",
+      "name": "硬盘 IO - 读请求等待处理的时间",
+      "name_en": "Hard Drive IO-Time for read requests to be processed",
+      "note": "读取请求在磁盘上等待的时间。同时等待的多个读取请求会增加该数字。例如，如果 5 个请求均平均等待 100 毫秒，则报告 500。",
+      "note_en": "The time the read request waits on disk. Multiple read requests waiting simultaneously increase this number. For example, if 5 requests all wait an average of 100 milliseconds, 500 is reported."
+    },
+    {
+      "expression": "irate(diskio_weighted_io_time[1m])/1000",
+      "type": "gauge",
+      "unit": "none",
+      "name": "硬盘 IO - 队列深度",
+      "name_en": "Hard Disk IO-Queue Depth",
+      "note": "假设过去 1000 毫秒内有 5000 毫秒的加权等待时间，相当于平均有 5 个 IO 请求在等待，即队列深度为 5。",
+      "note_en": "Assuming that there is a weighted waiting time of 5000 ms in the past 1000 ms, it is equivalent to an average of 5 IO requests waiting, that is, the queue depth is 5."
+    },
+    {
+      "expression": "disk_used_percent",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "硬盘使用率",
+      "name_en": "Hard Drive Usage",
+      "note": "硬盘空间使用率。",
+      "note_en": "Hard disk space usage."
+    },
+    {
+      "expression": "disk_used",
+      "type": "gauge",
+      "unit": "bytesSI",
+      "name": "硬盘使用量",
+      "name_en": "Hard drive usage",
+      "note": "使用 SI 标准渲染数据，和 df 命令保持一致。",
+      "note_en": "Use the SI standard to render data, consistent with the df command."
+    },
+    {
+      "expression": "disk_device_error",
+      "type": "gauge",
+      "unit": "none",
+      "name": "硬盘信息读取是否出错",
+      "name_en": "Is there an error in reading hard disk information",
+      "note": "0 表示正常，没有出错；非 0 表示获取硬盘信息出错了。",
+      "note_en": "0 means normal, no error; A non-0 indicates an error occurred in obtaining hard disk information."
+    },
+    {
+      "expression": "disk_free",
+      "type": "gauge",
+      "unit": "bytesSI",
+      "name": "硬盘剩余量",
+      "name_en": "Remaining hard disk",
+      "note": "使用 SI 标准渲染数据，和 df 命令保持一致。",
+      "note_en": "Use the SI standard to render data, consistent with the df command."
+    },
+    {
+      "expression": "disk_total",
+      "type": "counter",
+      "unit": "bytesSI",
+      "name": "硬盘总量",
+      "name_en": "Total hard disk",
+      "note": "使用 SI 标准渲染数据，和 df 命令保持一致。",
+      "note_en": "Use the SI standard to render data, consistent with the df command."
+    },
+    {
+      "expression": "system_n_cpus",
+      "type": "gauge",
+      "unit": "none",
+      "name": "系统 CPU 核数",
+      "name_en": "Number of CPU cores",
+      "note": "CPU 逻辑核的数量。",
+      "note_en": "Number of CPU logical cores."
+    },
+    {
+      "expression": "system_uptime",
+      "type": "gauge",
+      "unit": "seconds",
+      "name": "系统启动时长",
+      "name_en": "System startup time",
+      "note": "操作系统启动了多久，单位：秒。",
+      "note_en": "How long has the operating system been booted, in seconds."
+    },
+    {
+      "expression": "system_load1",
+      "type": "gauge",
+      "unit": "none",
+      "name": "系统平均负载 - 最近 1 分钟",
+      "name_en": "System load average-last 1 minute",
+      "note": "取自 `/proc/loadavg`。",
+      "note_en": "Taken from `/proc/loadavg `."
+    },
+    {
+      "expression": "system_load15",
+      "type": "gauge",
+      "unit": "none",
+      "name": "系统平均负载 - 最近 15 分钟",
+      "name_en": "System load average-last 15 minutes",
+      "note": "取自 `/proc/loadavg`。",
+      "note_en": "Taken from `/proc/loadavg `."
+    },
+    {
+      "expression": "system_load5",
+      "type": "gauge",
+      "unit": "none",
+      "name": "系统平均负载 - 最近 5 分钟",
+      "name_en": "System load average-last 5 minutes",
+      "note": "取自 `/proc/loadavg`。",
+      "note_en": "Taken from `/proc/loadavg `."
+    },
+    {
+      "expression": "system_load_norm_1",
+      "type": "gauge",
+      "unit": "none",
+      "name": "系统平均负载（单核） - 最近 1 分钟",
+      "name_en": "System Load Average (Single Core)-Last 1 Minute",
+      "note": "相当于 `system_load1 / system_n_cpus`",
+      "note_en": "Equivalent to ` system _ load1/system _ n _ cpus `"
+    },
+    {
+      "expression": "system_load_norm_15",
+      "type": "gauge",
+      "unit": "none",
+      "name": "系统平均负载（单核） - 最近 15 分钟",
+      "name_en": "System Load Average (Single Core)-Last 15 Minutes",
+      "note": "相当于 `system_load15 / system_n_cpus`",
+      "note_en": "Equivalent to ` system _ load15/system _ n _ cpus `"
+    },
+    {
+      "expression": "system_load_norm_5",
+      "type": "gauge",
+      "unit": "none",
+      "name": "系统平均负载（单核） - 最近 5 分钟",
+      "name_en": "System Load Average (Single Core)-Last 5 Minutes",
+      "note": "相当于 `system_load5 / system_n_cpus`",
+      "note_en": "Equivalent to ` system _ load5/system _ n _ cpus `"
+    },
+    {
+      "expression": "irate(net_drop_in[2m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "网卡入方向（接收）每秒丢弃的数据包个数",
+      "name_en": "Number of packets dropped per second in the incoming direction (receiving) of the network card",
+      "note": "原始指标 net_drop_in 表示操作系统启动之后各个网卡入方向（接收）丢弃的数据包总数。",
+      "note_en": "The original indicator net _ drop _ in indicates the total number of packets dropped (received) by each network card after the operating system is started."
+    },
+    {
+      "expression": "irate(net_packets_recv[2m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "网卡入方向（接收）每秒数据包数",
+      "name_en": "NIC incoming (receiving) packets per second",
+      "note": "原始指标 net_packets_recv 表示操作系统启动之后各个网卡入方向（接收）数据包总数。",
+      "note_en": "The original indicator net _ packets _ recv indicates the total number of incoming (received) data packets by each network card after the operating system is booted."
+    },
+    {
+      "expression": "irate(net_err_in[2m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "网卡入方向（接收）每秒错包数",
+      "name_en": "Number of wrong packets per second in the incoming direction (receiving) of the network card",
+      "note": "原始指标 net_err_in 表示操作系统启动之后各个网卡入方向（接收）错包总数。",
+      "note_en": "The original indicator net _ err _ in indicates the total number of error packets in (received) by each network card after the operating system is started."
+    },
+    {
+      "expression": "irate(net_drop_out[2m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "网卡出方向（发送）每秒丢弃的数据包个数",
+      "name_en": "Number of packets discarded per second in the outbound direction (sending) of the network card",
+      "note": "原始指标 net_drop_out 表示操作系统启动之后各个网卡出方向（发送）丢弃的数据包总数。",
+      "note_en": "The original indicator net _ drop _ out indicates the total number of packets discarded (sent) by each network card outbound after the operating system is started."
+    },
+    {
+      "expression": "irate(net_packets_sent[2m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "网卡出方向（发送）每秒数据包数",
+      "name_en": "Number of packets per second in the outgoing direction (sent) of the network card",
+      "note": "原始指标 net_packets_sent 表示操作系统启动之后各个网卡出方向（发送）数据包总数。",
+      "note_en": "The original indicator net _ packets _ sent indicates the total number of outbound (sent) data packets from each network card after the operating system is started."
+    },
+    {
+      "expression": "irate(net_err_out[2m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "网卡出方向（发送）每秒错包数",
+      "name_en": "Number of wrong packets per second in the outgoing direction (sending) of the network card",
+      "note": "原始指标 net_err_out 表示操作系统启动之后各个网卡出方向（发送）错包总数。",
+      "note_en": "The original indicator net _ errr _ out indicates the total number of error packets sent out by each network card after the operating system is started."
+    },
+    {
+      "expression": "irate(net_bytes_sent[2m]) * 8",
+      "type": "gauge",
+      "unit": "bitsSecIEC",
+      "name": "网卡每秒发送的 bit 量",
+      "name_en": "The amount of bits sent per second by the network card",
+      "note": "原始指标 net_bytes_sent 表示操作系统启动之后发送的 byte 总量，因为网卡流量习惯使用 bit 作为单位，所以在表达式中做了换算。",
+      "note_en": "The original indicator net _ bytes _ sent represents the total number of bytes sent after the operating system is started. Because the network card traffic is used to using bits as the unit, it is converted in the expression."
+    },
+    {
+      "expression": "irate(net_bytes_recv[2m]) * 8",
+      "type": "gauge",
+      "unit": "bitsSecIEC",
+      "name": "网卡每秒接收的 bit 量",
+      "name_en": "The number of bits received by the network card per second",
+      "note": "原始指标 net_bytes_recv 表示操作系统启动之后接收的 byte 总量，因为网卡流量习惯使用 bit 作为单位，所以在表达式中做了换算。",
+      "note_en": "The original indicator net _ bytes _ recv represents the total number of bytes received after the operating system is started. Because the network card traffic is used to using bits as the unit, it is converted in the expression."
+    },
+    {
+      "expression": "processes_dead",
+      "type": "gauge",
+      "unit": "none",
+      "name": "进程数 - “僵死”状态的进程数",
+      "name_en": "Number of processes-Number of processes in the \"dead\" state",
+      "note": "处于“僵死”状态的进程数，它是由 Linux 上的 X 状态代码表示的。",
+      "note_en": "The number of processes in the \"dead\" state, which is represented by the X status code on Linux."
+    },
+    {
+      "expression": "processes_paging",
+      "type": "gauge",
+      "unit": "none",
+      "name": "进程数 - “分页”状态的进程数",
+      "name_en": "Number of Processes-Number of processes in the \"Paging\" state",
+      "note": "处于“分页”状态的进程数，它是由 Linux 上的 W 状态代码表示的。",
+      "note_en": "The number of processes in the \"paging\" state, which is represented by the W status code on Linux."
+    },
+    {
+      "expression": "processes_stopped",
+      "type": "gauge",
+      "unit": "none",
+      "name": "进程数 - 停止的进程数",
+      "name_en": "Number of Processes-Number of stopped processes",
+      "note": "停止的进程数，由 T 状态代码表示。",
+      "note_en": "The number of processes stopped, represented by the T status code."
+    },
+    {
+      "expression": "processes_zombies",
+      "type": "gauge",
+      "unit": "none",
+      "name": "进程数 - 僵尸进程数",
+      "name_en": "Number of processes-Number of zombie processes",
+      "note": "僵尸进程数，由 Z 状态代码表示。",
+      "note_en": "Number of zombie processes, represented by the Z status code."
+    },
+    {
+      "expression": "processes_total",
+      "type": "counter",
+      "unit": "none",
+      "name": "进程数 - 总数",
+      "name_en": "Number of processes-total",
+      "note": "实例上的总进程数。",
+      "note_en": "The total number of processes on the instance."
+    },
+    {
+      "expression": "processes_unknown",
+      "type": "gauge",
+      "unit": "none",
+      "name": "进程数 - 未知状态的进程数",
+      "name_en": "Number of Processes-Number of processes with unknown status",
+      "note": "未知状态的进程数。",
+      "note_en": "Number of processes with unknown status."
+    },
+    {
+      "expression": "processes_sleeping",
+      "type": "gauge",
+      "unit": "none",
+      "name": "进程数 - 正在睡眠的进程数",
+      "name_en": "Number of processes-Number of processes that are sleeping",
+      "note": "睡眠的进程数，由 S 状态代码表示。",
+      "note_en": "Number of sleeping processes, represented by the S status code."
+    },
+    {
+      "expression": "processes_running",
+      "type": "gauge",
+      "unit": "none",
+      "name": "进程数 - 正在运行的进程数",
+      "name_en": "Number of Processes-Number of processes running",
+      "note": "正在运行的进程数，由 R 状态代码表示。",
+      "note_en": "The number of processes running, represented by the R status code."
+    },
+    {
+      "expression": "processes_idle",
+      "type": "gauge",
+      "unit": "none",
+      "name": "进程数 - 空闲的数量",
+      "name_en": "Number of processes-Number of idle",
+      "note": "处于空闲状态 (睡眠超过 20 秒) 的进程数。",
+      "note_en": "Number of processes that are idle (sleeping for more than 20 seconds)."
+    },
+    {
+      "expression": "processes_total_threads",
+      "type": "gauge",
+      "unit": "none",
+      "name": "进程数 - 线程总数",
+      "name_en": "Number of Processes-Total Threads",
+      "note": "组成进程的总线程数。该指标仅适用于 Linux 实例。",
+      "note_en": "The number of bus threads that make up the process. This metric applies only to Linux instances."
+    },
+    {
+      "expression": "processes_blocked",
+      "type": "gauge",
+      "unit": "none",
+      "name": "进程数 - 被阻止的进程数",
+      "name_en": "Number of processes-Number of blocked processes",
+      "note": "被阻止的进程数量。",
+      "note_en": "Number of blocked processes."
+    },
+    {
+      "expression": "avg without (mode,cpu) ( irate(node_cpu_seconds_total{mode=\"steal\"}[2m]) ) * 100",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU Steal 时间占比（整机平均）",
+      "name_en": "CPU Steal time ratio (average of the whole machine)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "avg without (mode,cpu) ( irate(node_cpu_seconds_total{mode=\"system\"}[2m]) ) * 100",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU 内核态时间占比（整机平均）",
+      "name_en": "CPU core mode time ratio (average of the whole machine)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "avg without (mode,cpu) ( 1 - irate(node_cpu_seconds_total{mode=\"idle\"}[2m]) ) * 100",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU 利用率（整机平均）",
+      "name_en": "CPU utilization (machine average)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "avg without (mode,cpu) ( irate(node_cpu_seconds_total{mode=\"user\"}[2m]) ) * 100",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU 用户态时间占比（整机平均）",
+      "name_en": "CPU user mode time ratio (average of the whole machine)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "avg without (mode,cpu) ( irate(node_cpu_seconds_total{mode=\"irq\"}[2m]) ) * 100",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU 硬中断时间占比（整机平均）",
+      "name_en": "Proportion of CPU hard interrupt time (average of the whole machine)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "avg without (mode,cpu) ( irate(node_cpu_seconds_total{mode=\"idle\"}[2m]) ) * 100",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU 空闲率（整机平均）",
+      "name_en": "CPU idle rate (overall machine average)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "avg without (mode,cpu) ( irate(node_cpu_seconds_total{mode=\"softirq\"}[2m]) ) * 100",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU 软中断时间占比（整机平均）",
+      "name_en": "Proportion of CPU soft interrupt time (average of the whole machine)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "(node_memory_SwapTotal_bytes - node_memory_SwapFree_bytes)/node_memory_SwapTotal_bytes * 100 and node_memory_SwapTotal_bytes > 0",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "交换空间使用率",
+      "name_en": "Swap space usage",
+      "note": "交换空间使用率。计算原子取自 `/proc/meminfo`。",
+      "note_en": "Swap space usage. The computational atom is taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "node_memory_SwapTotal_bytes",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "交换空间总量",
+      "name_en": "Total swap space",
+      "note": "交换空间总量。取自 `/proc/meminfo`。",
+      "note_en": "Total amount of swap space. Taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "node_memory_SwapFree_bytes",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "交换空间空闲量",
+      "name_en": "Swap space free amount",
+      "note": "交换空间空闲量。取自 `/proc/meminfo`。",
+      "note_en": "Exchange space free amount. Taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "node_memory_Buffers_bytes",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "内存 Buffered 量",
+      "name_en": "Memory Buffered amount",
+      "note": "用作缓冲区的内存量。取自 `/proc/meminfo`。",
+      "note_en": "The amount of memory used as a buffer. Taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "node_memory_Cached_bytes",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "内存 Cached 量",
+      "name_en": "Memory Cached amount",
+      "note": "用作文件缓存的内存量。取自 `/proc/meminfo`。",
+      "note_en": "The amount of memory used as file cache. Taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "(1 - (node_memory_MemAvailable_bytes{} / node_memory_MemTotal_bytes{})) * 100",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "内存使用率（基于MemAvailable）",
+      "name_en": "Memory usage (based on MemAvailable)",
+      "note": "内存使用率。基于 MemAvailable 计算更准确，但是老版本的 Linux 不支持。",
+      "note_en": "Memory usage. Calculation based on MemAvailable is more accurate, but older versions of Linux do not support it."
+    },
+    {
+      "expression": "node_memory_MemAvailable_bytes",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "内存可用量",
+      "name_en": "Memory Availability",
+      "note": "可以立即分配给进程的可用内存量。取自 `/proc/meminfo`。",
+      "note_en": "The amount of available memory that can be immediately allocated to a process. Taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "node_memory_MemTotal_bytes",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "内存总量",
+      "name_en": "Total memory",
+      "note": "内存总量。取自 `/proc/meminfo`。",
+      "note_en": "Total amount of memory. Taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "node_memory_MemFree_bytes",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "内存空闲量",
+      "name_en": "Free memory amount",
+      "note": "未使用的内存量。取自 `/proc/meminfo`。",
+      "note_en": "Amount of unused memory. Taken from `/proc/meminfo `."
+    },
+    {
+      "expression": "node_filefd_allocated / node_filefd_maximum * 100",
+      "type": "",
+      "unit": "percent",
+      "name": "文件句柄 - 已分配占比",
+      "name_en": "File handle-allocated proportion",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "node_filefd_allocated",
+      "type": "",
+      "unit": "sishort",
+      "name": "文件句柄 - 已分配量",
+      "name_en": "File Handle-Amount Allocated",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "node_filefd_maximum",
+      "type": "gauge",
+      "unit": "sishort",
+      "name": "文件句柄 - 总可分配量",
+      "name_en": "File handle-total allocable quantity",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "irate(node_disk_io_time_seconds_total[2m]) * 100",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "硬盘 IO - 时间维度 Utilization",
+      "name_en": "Hard Disk IO-Time Dimension Utilization",
+      "note": "在时间维度统计硬盘 IO 时间占比，比如该值是 50%，表示有 50% 的时间是在处理 IO，该值 100%，表示一直在处理 IO，但是注意，现代磁盘设备具备并行处理多个 I/O 请求的能力，所以即便该值是 100%，可能硬盘还是可以接收新的处理请求。\n\n比如某人有两只手，最近 1 分钟一直在用单手劳动，从时间维度来看，利用率是 100%，但即便是 100%，再给他更多的活，他也能干，因为他还有一只手可用。",
+      "note_en": "Count the proportion of hard disk IO time in the time dimension. For example, if the value is 50%, it means that 50% of the time is processing IO, and if the value is 100%, it means that IO has been processing all the time. However, note that modern disk devices have the ability to process multiple I/O requests in parallel, so even if the value is 100%, the hard disk may still be able to receive new processing requests. \n \nFor example, someone has two hands and has been working with one hand in the last minute. From the time dimension, the utilization rate is 100%, but even if it is 100%, he can do it if he is given more work, because he still has one hand available."
+    },
+    {
+      "expression": "irate(node_disk_written_bytes_total[2m])",
+      "type": "gauge",
+      "unit": "bytesSecIEC",
+      "name": "硬盘 IO - 每秒写入字节数量",
+      "name_en": "Hard disk IO-bytes written per second",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "irate(node_disk_writes_completed_total{}[2m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "硬盘 IO - 每秒写次数",
+      "name_en": "Hard drive IO-writes per second",
+      "note": "每秒写次数",
+      "note_en": "Writes per second"
+    },
+    {
+      "expression": "irate(node_disk_read_bytes_total[2m])",
+      "type": "gauge",
+      "unit": "bytesSecIEC",
+      "name": "硬盘 IO - 每秒读取字节数量",
+      "name_en": "Hard Drive IO-bytes read per second",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "irate(node_disk_reads_completed_total{}[2m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "硬盘 IO - 每秒读次数",
+      "name_en": "Hard drive IO-Reads per second",
+      "note": "每秒读次数",
+      "note_en": "Reads per second"
+    },
+    {
+      "expression": "100 - ((node_filesystem_avail_bytes{} * 100) / node_filesystem_size_bytes{})",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "硬盘使用率",
+      "name_en": "Hard Drive Usage",
+      "note": "硬盘空间使用率。",
+      "note_en": "Hard disk space usage."
+    },
+    {
+      "expression": "node_filesystem_free_bytes",
+      "type": "gauge",
+      "unit": "bytesSI",
+      "name": "硬盘剩余量",
+      "name_en": "Remaining hard disk",
+      "note": "使用 SI 标准渲染数据，和 df 命令保持一致。",
+      "note_en": "Use the SI standard to render data, consistent with the df command."
+    },
+    {
+      "expression": "node_filesystem_avail_bytes",
+      "type": "gauge",
+      "unit": "bytesSI",
+      "name": "硬盘可用量",
+      "name_en": "Hard Drive Availability",
+      "note": "使用 SI 标准渲染数据，和 df 命令保持一致。",
+      "note_en": "Use the SI standard to render data, consistent with the df command."
+    },
+    {
+      "expression": "node_filesystem_size_bytes",
+      "type": "gauge",
+      "unit": "bytesSI",
+      "name": "硬盘总量",
+      "name_en": "Total hard disk",
+      "note": "使用 SI 标准渲染数据，和 df 命令保持一致。",
+      "note_en": "Use the SI standard to render data, consistent with the df command."
+    },
+    {
+      "expression": "count(node_cpu_seconds_total{mode=\"idle\"}) without (cpu, mode)",
+      "type": "counter",
+      "unit": "none",
+      "name": "系统 CPU 核数",
+      "name_en": "Number of CPU cores",
+      "note": "CPU 逻辑核的数量。",
+      "note_en": "Number of CPU logical cores."
+    },
+    {
+      "expression": "node_load1",
+      "type": "gauge",
+      "unit": "none",
+      "name": "系统平均负载 - 最近 1 分钟",
+      "name_en": "System load average-last 1 minute",
+      "note": "取自 `/proc/loadavg`。",
+      "note_en": "Taken from `/proc/loadavg `."
+    },
+    {
+      "expression": "node_load15",
+      "type": "gauge",
+      "unit": "none",
+      "name": "系统平均负载 - 最近 15 分钟",
+      "name_en": "System load average-last 15 minutes",
+      "note": "取自 `/proc/loadavg`。",
+      "note_en": "Taken from `/proc/loadavg `."
+    },
+    {
+      "expression": "node_load5",
+      "type": "gauge",
+      "unit": "none",
+      "name": "系统平均负载 - 最近 5 分钟",
+      "name_en": "System load average-last 5 minutes",
+      "note": "取自 `/proc/loadavg`。",
+      "note_en": "Taken from `/proc/loadavg `."
+    },
+    {
+      "expression": "node_load1 / count(node_cpu_seconds_total{mode=\"idle\"}) without (cpu, mode)",
+      "type": "counter",
+      "unit": "none",
+      "name": "系统平均负载（单核） - 最近 1 分钟",
+      "name_en": "System Load Average (Single Core)-Last 1 Minute",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "node_load15 / count(node_cpu_seconds_total{mode=\"idle\"}) without (cpu, mode)",
+      "type": "counter",
+      "unit": "none",
+      "name": "系统平均负载（单核） - 最近 15 分钟",
+      "name_en": "System Load Average (Single Core)-Last 15 Minutes",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "node_load5 / count(node_cpu_seconds_total{mode=\"idle\"}) without (cpu, mode)",
+      "type": "counter",
+      "unit": "none",
+      "name": "系统平均负载（单核） - 最近 5 分钟",
+      "name_en": "System Load Average (Single Core)-Last 5 Minutes",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "irate(node_network_receive_drop_total[2m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "网卡入方向（接收）每秒丢弃的数据包个数",
+      "name_en": "Number of packets dropped per second in the incoming direction (receiving) of the network card",
+      "note": "原始指标 node_network_receive_drop_total 表示操作系统启动之后各个网卡入方向（接收）丢弃的数据包总数。",
+      "note_en": "The original indicator node _ network _ receive _ drop _ total indicates the total number of packets dropped (received) by each network card after the operating system starts."
+    },
+    {
+      "expression": "irate(node_network_receive_packets_total[2m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "网卡入方向（接收）每秒数据包数",
+      "name_en": "NIC incoming (receiving) packets per second",
+      "note": "原始指标 node_network_receive_packets_total 表示操作系统启动之后各个网卡入方向（接收）数据包总数。",
+      "note_en": "The original indicator node _ network _ receive _ packets _ total indicates the total number of data packets incoming (received) by each network card after the operating system is booted."
+    },
+    {
+      "expression": "irate(node_network_receive_errs_total[2m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "网卡入方向（接收）每秒错包数",
+      "name_en": "Number of wrong packets per second in the incoming direction (receiving) of the network card",
+      "note": "原始指标 node_network_receive_errs_total 表示操作系统启动之后各个网卡入方向（接收）错包总数。",
+      "note_en": "The original indicator node _ network _ receive _ errs _ total indicates the total number of error packets incoming (received) by each network card after the operating system is started."
+    },
+    {
+      "expression": "irate(node_network_transmit_drop_total[2m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "网卡出方向（发送）每秒丢弃的数据包个数",
+      "name_en": "Number of packets discarded per second in the outbound direction (sending) of the network card",
+      "note": "原始指标 node_network_transmit_drop_total 表示操作系统启动之后各个网卡出方向（发送）丢弃的数据包总数。",
+      "note_en": "The original indicator node _ network _ transmit _ drop _ total indicates the total number of packets discarded (sent) by each network card after the operating system starts."
+    },
+    {
+      "expression": "irate(node_network_transmit_packets_total[2m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "网卡出方向（发送）每秒数据包数",
+      "name_en": "Number of packets per second in the outgoing direction (sent) of the network card",
+      "note": "原始指标 node_network_transmit_packets_total 表示操作系统启动之后各个网卡出方向（发送）数据包总数。",
+      "note_en": "The original indicator node _ network _ transmit _ packets _ total indicates the total number of outbound (sent) data packets from each network card after the operating system is started."
+    },
+    {
+      "expression": "irate(node_network_transmit_errs_total[2m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "网卡出方向（发送）每秒错包数",
+      "name_en": "Number of wrong packets per second in the outgoing direction (sending) of the network card",
+      "note": "原始指标 node_network_transmit_errs_total 表示操作系统启动之后各个网卡出方向（发送）错包总数。",
+      "note_en": "The original indicator node _ network _ transmit _ errs _ total indicates the total number of error packets sent out (sent) by each network card after the operating system is started."
+    },
+    {
+      "expression": "irate(node_network_transmit_bytes_total[2m]) * 8",
+      "type": "gauge",
+      "unit": "bitsSecIEC",
+      "name": "网卡每秒发送的 bit 量",
+      "name_en": "The amount of bits sent per second by the network card",
+      "note": "原始指标 node_network_transmit_bytes_total 表示操作系统启动之后发送的 byte 总量，因为网卡流量习惯使用 bit 作为单位，所以在表达式中做了换算。",
+      "note_en": "The original indicator node _ network _ transmit _ bytes _ total represents the total number of bytes sent after the operating system starts. Because the network card traffic is used to using bits as a unit, it is converted in the expression."
+    },
+    {
+      "expression": "irate(node_network_receive_bytes_total[2m]) * 8",
+      "type": "gauge",
+      "unit": "bitsSecIEC",
+      "name": "网卡每秒接收的 bit 量",
+      "name_en": "The number of bits received by the network card per second",
+      "note": "原始指标 node_network_receive_bytes_total 表示操作系统启动之后接收的 byte 总量，因为网卡流量习惯使用 bit 作为单位，所以在表达式中做了换算。",
+      "note_en": "The original indicator node _ network _ received _ bytes _ total represents the total number of bytes received after the operating system is started. Because the network card traffic is used to using bits as a unit, it is converted in the expression."
+    }
+  ],
+  "dashboards": [
+    {
+      "file": "categraf-detail.json",
+      "name": "机器常用指标（如果只想看当前业务组内的机器修改大盘变量 ident 的变量类型为机器标识即可）",
+      "name_en": "Common Machine Metrics (to only see machines of the current business group, change the dashboard variable ident to the host-ident type)",
+      "panels": 22
+    },
+    {
+      "file": "categraf-overview.json",
+      "name": "机器台账表格视图（使用 Categraf 作为采集器）",
+      "name_en": "Machine Inventory Table View (Categraf as collector)",
+      "panels": 3
+    },
+    {
+      "file": "categraf-processes.json",
+      "name": "机器进程数量统计（使用 Categraf 作为采集器）",
+      "name_en": "Machine Process Count (Categraf as collector)",
+      "panels": 4
+    },
+    {
+      "file": "categraf-table-ng.json",
+      "name": "Host Table NG",
+      "name_en": "Host Table NG",
+      "panels": 1
+    },
+    {
+      "file": "exporter-detail.json",
+      "name": "机器常用指标（使用 NodeExporter 作为采集器）",
+      "name_en": "Common Machine Metrics (NodeExporter as collector)",
+      "panels": 41
+    }
+  ],
+  "collect": [
+    {
+      "plugin": "arp_packet",
+      "file": "arp_packet.toml",
+      "readme": true,
+      "content": "# # collect interval\n# interval = 15\n\n[[instances]]\n#eth_device=\"ens192\""
+    },
+    {
+      "plugin": "kernel_vmstat",
+      "file": "kernel_vmstat.toml",
+      "readme": true,
+      "content": "# # collect interval\n# interval = 15\n\n# file: /proc/vmstat\n[white_list]\noom_kill = 1\nnr_free_pages = 0\nnr_alloc_batch = 0\nnr_inactive_anon = 0\nnr_active_anon = 0\nnr_inactive_file = 0\nnr_active_file = 0\nnr_unevictable = 0\nnr_mlock = 0\nnr_anon_pages = 0\nnr_mapped = 0\nnr_file_pages = 0\nnr_dirty = 0\nnr_writeback = 0\nnr_slab_reclaimable = 0\nnr_slab_unreclaimable = 0\nnr_page_table_pages = 0\nnr_kernel_stack = 0\nnr_unstable = 0\nnr_bounce = 0\nnr_vmscan_write = 0\nnr_vmscan_immediate_reclaim = 0\nnr_writeback_temp = 0\nnr_isolated_anon = 0\nnr_isolated_file = 0\nnr_shmem = 0\nnr_dirtied = 0\nnr_written = 0\nnuma_hit = 0\nnuma_miss = 0\nnuma_foreign = 0\nnuma_interleave = 0\nnuma_local = 0\nnuma_other = 0\nworkingset_refault = 0\nworkingset_activate = 0\nworkingset_nodereclaim = 0\nnr_anon_transparent_hugepages = 0\nnr_free_cma = 0\nnr_dirty_threshold = 0\nnr_dirty_background_threshold = 0\npgpgin = 0\npgpgout = 0\npswpin = 0\npswpout = 0\npgalloc_dma = 0\npgalloc_dma32 = 0\npgalloc_normal = 0\npgalloc_movable = 0\npgfree = 0\npgactivate = 0\npgdeactivate = 0\npgfault = 0\npgmajfault = 0\npglazyfreed = 0\npgrefill_dma = 0\npgrefill_dma32 = 0\npgrefill_normal = 0\npgrefill_movable = 0\npgsteal_kswapd_dma = 0\npgsteal_kswapd_dma32 = 0\npgsteal_kswapd_normal = 0\npgsteal_kswapd_movable = 0\npgsteal_direct_dma = 0\npgsteal_direct_dma32 = 0\npgsteal_direct_normal = 0\npgsteal_direct_movable = 0\npgscan_kswapd_dma = 0\npgscan_kswapd_dma32 = 0\npgscan_kswapd_normal = 0\npgscan_kswapd_movable = 0\npgscan_direct_dma = 0\npgscan_direct_dma32 = 0\npgscan_direct_normal = 0\npgscan_direct_movable = 0\npgscan_direct_throttle = 0\nzone_reclaim_failed = 0\npginodesteal = 0\nslabs_scanned = 0\nkswapd_inodesteal = 0\nkswapd_low_wmark_hit_quickly = 0\nkswapd_high_wmark_hit_quickly = 0\npageoutrun = 0\nallocstall = 0\npgrotated = 0\ndrop_pagecache = 0\ndrop_slab = 0\nnuma_pte_updates = 0\nnuma_huge_pte_updates = 0\nnuma_hint_faults = 0\nnuma_hint_faults_local = 0\nnuma_pages_migrated = 0\npgmigrate_success = 0\npgmigrate_fail = 0\ncompact_migrate_scanned = 0\ncompact_free_scanned = 0\ncompact_isolated = 0\ncompact_stall = 0\ncompact_fail = 0\ncompact_success = 0\nhtlb_buddy_alloc_success = 0\nhtlb_buddy_alloc_fail = 0\nunevictable_pgs_culled = 0\nunevictable_pgs_scanned = 0\nunevictable_pgs_rescued = 0\nunevictable_pgs_mlocked = 0\nunevictable_pgs_munlocked = 0\nunevictable_pgs_cleared = 0\nunevictable_pgs_stranded = 0\nthp_fault_alloc = 0\nthp_fault_fallback = 0\nthp_collapse_alloc = 0\nthp_collapse_alloc_failed = 0\nthp_split = 0\nthp_zero_page_alloc = 0\nthp_zero_page_alloc_failed = 0\nballoon_inflate = 0\nballoon_deflate = 0\nballoon_migrate = 0\n"
+    },
+    {
+      "plugin": "logs-agent",
+      "file": "logs-agent.toml",
+      "readme": false,
+      "content": "[logs]\n## just a placholder\napi_key = \"\"\n## enable log collect or not\nenable = true\n## the server receive logs, http/tcp/kafka, only kafka brokers can be multiple ip:ports with concatenation character \",\"\nsend_to = \"127.0.0.1:17878\"\n## send logs with protocol: http/tcp/kafka\nsend_type = \"http\"\ntopic = \"flashcatcloud\"\n## send logs with compression or not \nuse_compress = false\n## use ssl or not\nsend_with_tls = false\n## send logs in batchs\nbatch_wait = 5\n## save offset in this path \nrun_path = \"/opt/categraf/run\"\n## max files can be open \nopen_files_limit = 100\n## scan config file in 10 seconds\nscan_period = 10\n## read buffer of udp \nframe_size = 9000\n\n## channal size, default 100\n## 读取日志缓冲区，行数\nchan_size = 1000\n## pipeline num , default 4\n## 有多少线程处理日志\npipeline=4\n## configuration for kafka\n## 指定kafka版本\nkafka_version=\"3.3.2\"\n# 默认0 表示串行,如果对日志顺序有要求,保持默认配置\nbatch_max_concurrence = 0\n# 最大并发批次, 默认100\nbatch_max_size=100\n# 每次最大发送的内容上限 默认1000000\nbatch_max_content_size=1000000\n# client timeout in seconds\nproducer_timeout= 10\n\n# 是否开启sasl模式\nsasl_enable = false\nsasl_user = \"admin\"\nsasl_password = \"admin\"\n# PLAIN\nsasl_mechanism= \"PLAIN\"\n# v1\nsasl_version=1\n# set true\nsasl_handshake = true\n# optional\n# sasl_auth_identity=\"\"\n#\n##\n# v0.3.39以上版本新增,是否开启pod日志采集\nenable_collect_container=false\n\n# 是否采集所有pod的stdout stderr\ncollect_container_all = true\n  ## glog processing rules\n  # [[logs.Processing_rules]]\n  ## single log configure\n  [[logs.items]]\n  ## file/journald/tcp/udp\n  type = \"file\"\n  ## type=file, path is required; type=journald/tcp/udp, port is required\n  path = \"/opt/tomcat/logs/*.txt\"\n  source = \"tomcat\"\n  service = \"my_service\"\n"
+    },
+    {
+      "plugin": "netstat",
+      "file": "netstat.toml",
+      "readme": true,
+      "content": "# # collect interval\n# interval = 15\n\ndisable_summary_stats = false\n## if machine has many network connections, use this plugin may exhaust your cpu resource, disable connection stat to avoid this\ndisable_connection_stats = true\n\ntcp_ext = false\nip_ext = false\n"
+    },
+    {
+      "plugin": "node_exporter",
+      "file": "node_exporter.toml",
+      "readme": true,
+      "content": "#collectors=[\n#    \"--path.procfs=/hostfs/proc\",\n#    \"--path.sysfs=/hostfs/sys\",\n#    \"--path.rootfs=/hostfs\",\n#    \"--collector.arp\",\n#    \"--collector.bcache\",\n#    \"--collector.bonding\",\n#    \"--collector.btrfs\",\n#    \"--collector.conntrack\",\n#    \"--collector.cpu\",\n#    \"--collector.cpufreq\",\n#    \"--collector.diskstats\",\n#    \"--collector.dmi\",\n#    \"--collector.edac\",\n#    \"--collector.entropy\",\n#    \"--collector.fibrechannel\",\n#    \"--collector.filefd\",\n#    \"--collector.filesystem\",\n#    \"--collector.hwmon\",\n#    \"--collector.infiniband\",\n#    \"--collector.ipvs\",\n#    \"--collector.loadavg\",\n#    \"--collector.mdadm\",\n#    \"--collector.meminfo\",\n#    \"--collector.netclass\",\n#    \"--collector.netdev\",\n#    \"--collector.netstat\",\n#    \"--collector.nfs\",\n#    \"--collector.nfsd\",\n#    \"--collector.nvme\",\n#    \"--collector.os\",\n#    \"--collector.powersupplyclass\",\n#    \"--collector.pressure\",\n#    \"--collector.rapl\",\n#    \"--collector.schedstat\",\n#    \"--collector.selinux\",\n#    \"--collector.sockstat\",\n#    \"--collector.softnet\",\n#    \"--collector.stat\",\n#    \"--collector.tapestats\",\n#    \"--collector.textfile\",\n#    \"--collector.thermal_zone\",\n#    \"--collector.time\",\n#    \"--collector.timex\",\n#    \"--collector.udp_queues\",\n#    \"--collector.uname\",\n#    \"--collector.vmstat\",\n#    \"--collector.xfs\",\n#    \"--collector.zfs\",\n#    \"--collector.processes\"\n#]\n#[[relabel_configs]]\n#source_labels = [\"agent_hostname\"]\n#target_label = \"instance\"\n#action = \"replace\"\ncollectors=[]"
+    },
+    {
+      "plugin": "ntp",
+      "file": "ntp.toml",
+      "readme": true,
+      "content": "# # collect interval\n# interval = 15\n\n# # ntp servers\n# ntp_servers = [\"ntp.aliyun.com\"]\n\n# # response time out seconds\n# timeout = 5"
+    },
+    {
+      "plugin": "processes",
+      "file": "processes.toml",
+      "readme": true,
+      "content": "# # collect interval\n# interval = 15\n\n# # force use ps command to gather\n# force_ps = false\n\n# # force use /proc to gather\n# force_proc = false"
+    },
+    {
+      "plugin": "sshd",
+      "file": "sshd.toml",
+      "readme": false,
+      "content": "# interval = 15\n\n#[[instances]]\n# # append labels\n# labels = { region=\"cloud\", product=\"n9e\" }\n\n# # whether to enable username label in metrics\n# # when enabled, metrics will include username labels for detailed tracking\n# # default: false\n# enable_username = false\n\n# # whether to enable client_ip label in metrics\n# # when enabled, metrics will include client_ip labels for detailed tracking\n# # default: false\n# enable_ip = false"
+    },
+    {
+      "plugin": "supervisor",
+      "file": "supervisor.toml",
+      "readme": true,
+      "content": "# Gathers information about processes that running under supervisor using XML-RPC API\n[[instances]]\n## Url of supervisor's XML-RPC endpoint if basic auth enabled in supervisor http server,\n## than you have to add credentials to url (ex. http://login:pass@localhost:9001/RPC2)\n# url = \"http://login:pass@localhost:9001/RPC2\"\n## With settings below you can manage gathering additional information about processes\n## If both of them empty, then all additional information will be collected.\n## Currently supported supported additional metrics are: pid, rc\n# metrics_include = []\n# metrics_exclude = [\"pid\", \"rc\"]"
+    }
+  ],
+  "readme": {
+    "zh": true,
+    "en": true
+  }
+}

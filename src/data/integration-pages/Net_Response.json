@@ -1,0 +1,68 @@
+{
+  "ident": "Net_Response",
+  "alerts": [
+    {
+      "source": "categraf",
+      "name": "Network address probe failed",
+      "name_en": "Network address probe failed",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "net_response_result_code != 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在采集机上手工 nc -vz <目标> <端口> 或 telnet <目标> <端口> 复现；\n2) 到目标机用 ss -lntp | grep <端口> 确认进程是否在监听；\n3) 在监听则排查防火墙、安全组、以及是否只绑定了 127.0.0.1；\n4) 未监听则按该服务自身流程拉起，并确认上游负载均衡已把它摘除。",
+      "action_en": "1) Reproduce it on the collector host with nc -vz <target> <port> or telnet <target> <port>;\n2) On the target host run ss -lntp | grep <port> to confirm a process is listening;\n3) If it is listening, check the firewall, security groups and whether it is bound only to 127.0.0.1;\n4) If nothing is listening, start the service through its own procedure and confirm the upstream load balancer has taken it out of rotation."
+    }
+  ],
+  "metrics": [
+    {
+      "expression": "net_response_result_code",
+      "type": "",
+      "unit": "none",
+      "name": "NET 探测结果状态码",
+      "name_en": "NET Probe Result Status Code",
+      "note": "0 值表示正常，大于 0 就是异常，各个值的含义如下：\n\n- 0: Success\n- 1: Timeout\n- 2: ConnectionFailed\n- 3: ReadFailed\n- 4: StringMismatch",
+      "note_en": "A value of 0 means normal, and a value greater than 0 means abnormal. The meanings of each value are as follows: \n \n-0: Success \n1: Timeout \n2: ConnectionFailed \n-3: ReadFailed \n4: StringMismatch"
+    },
+    {
+      "expression": "net_response_response_time",
+      "type": "",
+      "unit": "seconds",
+      "name": "NET 探测耗时",
+      "name_en": "NET probe time-consuming",
+      "note": "",
+      "note_en": ""
+    }
+  ],
+  "dashboards": [
+    {
+      "file": "dashboard-by-ziv.json",
+      "name": "Net Response Dashboard",
+      "name_en": "Net Response Dashboard",
+      "panels": 2
+    },
+    {
+      "file": "net_response_by_categraf.json",
+      "name": "TCP detection by UlricQin",
+      "name_en": "TCP detection by UlricQin",
+      "panels": 1
+    }
+  ],
+  "collect": [
+    {
+      "plugin": "net_response",
+      "file": "net_response.toml",
+      "readme": true,
+      "content": "# # collect interval\n# interval = 15\n\n[mappings]\n# \"127.0.0.1:22\"= {region=\"local\",ssh=\"test\"}\n# \"127.0.0.1:22\"= {region=\"local\",ssh=\"redis\"}\n\n[[instances]]\ntargets = [\n#     \"127.0.0.1:22\",\n#     \"localhost:6379\",\n#     \":9090\"\n]\n\n# # append some labels for series\n# labels = { region=\"cloud\", product=\"n9e\" }\n\n# # interval = global.interval * interval_times\n# interval_times = 1\n\n## Protocol, must be \"tcp\" or \"udp\"\n## NOTE: because the \"udp\" protocol does not respond to requests, it requires\n## a send/expect string pair (see below).\n# protocol = \"tcp\"\n\n## Set timeout\n# timeout = \"1s\"\n\n## Set read timeout (only used if expecting a response)\n# read_timeout = \"1s\"\n\n## The following options are required for UDP checks. For TCP, they are\n## optional. The plugin will send the given string to the server and then\n## expect to receive the given 'expect' string back.\n## string sent to the server\n# send = \"ssh\"\n## expected string in answer\n# expect = \"ssh\"\n"
+    }
+  ],
+  "readme": {
+    "zh": true,
+    "en": true
+  }
+}

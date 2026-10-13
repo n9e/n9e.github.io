@@ -1,0 +1,899 @@
+---
+title: "用夜莺监控华为云"
+sidebar_label: "Huawei Cloud"
+description: "用华为云 cloudeye-exporter 把云监控（CES）指标转成 Prometheus 格式后抓取，模板覆盖 ECS、RDS、DCS、ELB、Kafka、RocketMQ、CSS 和 WAF。"
+last_reviewed: 2026-10-13
+custom_edit_url: https://github.com/ccfos/nightingale/tree/main/integrations/Huawei
+toc_max_heading_level: 2
+mdx:
+  format: md
+---
+
+华为云的指标来自云监控服务（Cloud Eye）。华为云官方维护的 `cloudeye-exporter` 会按产品 namespace 把 CES 指标转成 `huaweicloud_sys_<service>_<metric>` 形式的 Prometheus 指标，用 Categraf 的 `prometheus` 插件抓取即可。
+
+模板按产品分：ECS 主机、RDS（MySQL、PostgreSQL）、DCS Redis 的实例与代理节点、ELB、分布式消息（Kafka、RabbitMQ、RocketMQ）、云搜索（CSS/ES）和 WAF，每种一张仪表盘。规则覆盖 ECS CPU 与内存、RDS 连接与磁盘、DCS 内存与命中率、ELB 后端异常；指标说明逐条解释各产品的指标含义。
+
+## 模板里有什么
+
+- **14 张仪表盘**，共 330 个面板
+- **35 条告警规则**，每条附处置步骤
+- **286 条指标说明**
+
+## 怎么接入
+
+部署 [cloudeye-exporter](https://github.com/huaweicloud/cloudeye-exporter)，在它的配置里填 IAM 账号的 AK/SK、项目和要采集的 namespace。确认 `http://<exporter>:8087/metrics?services=SYS.ECS` 有输出后，用 Categraf 的 `prometheus` 插件按 namespace 抓取：
+
+```toml
+# conf/input.prometheus/huaweicloud.toml
+interval = 120
+
+[[instances]]
+urls = ["http://<exporter>:8087/metrics?services=SYS.ECS,SYS.RDS,SYS.DCS,SYS.ELB"]
+labels = { job = "huaweicloud" }
+```
+
+云监控指标粒度通常是 60 秒以上，采集周期不要短于它。
+
+1. 在夜莺「集成中心」里找到 Huawei Cloud，把仪表盘和告警规则[导入到业务组](/docs/data/integrations/import)。
+1. 导入的告警规则默认是停用的。先[确认指标已经入库](/docs/data/integrations/verify)，再按自己环境的阈值逐条启用。
+
+## 内置仪表盘
+
+| 仪表盘 | 面板数 |
+| --- | ---: |
+| 华为云-云搜索服务(CSS/ES) | 25 |
+| 华为云-分布式缓存服务(DCS) | 13 |
+| 华为云-弹性负载均衡（ELB） | 24 |
+| 华为云ECS主机监控仪表盘 | 13 |
+| 华为云-分布式消息服务(Kafka) | 26 |
+| 华为云 RDS for MySQL实例 | 22 |
+| 华为云 RDS for PostgreSQL实例 | 21 |
+| 华为云-数据库(RDS) | 22 |
+| 华为云-Rabbitmq | 53 |
+| 华为云-Redis实例监控仪表盘 | 35 |
+| 华为云-Redis Proxy节点实例监控仪表盘 | 12 |
+| 华为云-Redis数据节点实例监控仪表盘 | 35 |
+| Huawei-RocketMQ监控 | 16 |
+| 华为云-Web应用防火墙(WAF) | 13 |
+
+## 内置告警规则
+
+共 35 条。每条给出触发条件（PromQL）和告警后的处置步骤，导入后可以直接改阈值。
+
+### 华为云ecs cpu使用率大于80%
+
+S2 警告 · 持续 1 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_agt_cpu_usage >80
+```
+
+处置步骤:
+
+1. SSH 登录用 top -H 定位占用最高的进程与线程；
+1. 用 perf top 或对应语言的 profiler 找热点函数；
+1. 区分业务增长与代码异常（死循环、频繁 GC）；
+1. 业务增长则在控制台变更为更高规格或做水平扩容。
+
+### 华为云ecs inode已使用占比大于80%
+
+S2 警告 · 持续 1 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_agt_SlAsH_disk_inodesUsedPercent >80
+```
+
+处置步骤:
+
+1. 用 df -i 确认挂载点；
+1. 逐层统计文件数找出小文件最多的目录；
+1. 常见来源是日志碎片、session 文件、容器层，确认后批量清理；
+1. 长期考虑把小文件业务迁到独立分区。
+
+### 华为云ecs NTP偏移量大于1秒
+
+S2 警告 · 持续 1 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_agt_ntp_offset > 1000
+```
+
+处置步骤:
+
+1. 用 chronyc tracking 确认偏移与上游源状态；
+1. 华为云 ECS 建议使用内网 NTP（ntp.myhuaweicloud.com），确认已配置；
+1. chronyd 未运行的启动并设开机自启；
+1. 偏移过大用 chronyc makestep 强制对时。
+
+### 华为云ecs TME_WAIT状态的连接超过2万
+
+S2 警告 · 持续 1 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_agt_net_tcp_close > 20000
+```
+
+处置步骤:
+
+1. 用 ss -s 看各状态连接数的真实分布；
+1. 用 ss -tan | awk '\{print $5\}' | cut -d: -f1 | sort | uniq -c | sort -rn 定位连接对端；
+1. 根因通常是短连接过多，应用侧改用长连接或连接池；
+1. 应急可开启 net.ipv4.tcp_tw_reuse 并调大 ip_local_port_range。
+
+### 华为云ecs 僵死进程数大于0
+
+S2 警告 · 持续 1 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_agt_proc_zombie_count >0
+```
+
+处置步骤:
+
+1. 用 ps -ef | awk '$2 ~ /Z/ || $8 ~ /Z/' 或 ps aux | grep 'Z' 找出僵尸进程及其父进程 PPID；
+1. 定位父进程后，问题在于它没有调用 wait()，需要在代码里修复；
+1. 应急可重启父进程，僵尸会被 init 收养并清理；
+1. 数量持续增长的必须修代码，重启只是临时手段。
+
+### 华为云ecs 可用内存低于20%
+
+S2 警告 · 持续 1 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_agt_mem_available < 20
+```
+
+处置步骤:
+
+1. 用 free -h 确认 available 与 swap 使用；
+1. 用 ps aux --sort=-%mem | head 找出占用最高的进程并判断是否泄漏；
+1. 泄漏的在应用侧抓堆定位，不能只靠重启；
+1. 业务增长的在控制台变更为更大内存规格。
+
+### 华为云ecs 发送丢包率大于50%
+
+S2 警告 · 持续 1 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_agt_net_dropout > 50
+```
+
+处置步骤:
+
+1. 用 ip -s link show 确认 TX dropped 的增长；
+1. 确认是否已跑满实例规格的带宽上限——云主机带宽是按规格限制的，超限即丢包；
+1. 超限的在控制台调整带宽或变更规格；
+1. 未超限的排查安全组、内核发送队列与应用发送逻辑。
+
+### 华为云ecs 发送误包率大于50%
+
+S2 警告 · 持续 1 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_agt_net_errout > 50
+```
+
+处置步骤:
+
+1. 用 ip -s link show 与 ethtool -S 确认错包计数；
+1. 云环境下物理层由平台负责，错包率异常应优先提工单给华为云；
+1. 同时确认是否为实例规格带宽超限导致；
+1. 有冗余的先把流量切走，避免持续影响业务。
+
+### 华为云ecs 块设备使用率大于80%
+
+S2 警告 · 持续 1 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_agt_SlAsH_disk_usedPercent > 80
+```
+
+处置步骤:
+
+1. 用 df -h 定位挂载点，用 du -x --max-depth=1 找出占用最大的目录；
+1. 优先清理日志与临时文件，用 lsof +L1 检查已删除但未释放的文件；
+1. 在控制台对云硬盘做在线扩容，再用 growpart + resize2fs/xfs_growfs 扩展文件系统；
+1. 长期评估是否需要把数据目录迁到独立云盘。
+
+### 华为云ecs 接收丢包率大于50%
+
+S2 警告 · 持续 1 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_agt_net_dropin > 50
+```
+
+处置步骤:
+
+1. 用 ip -s link show 确认 RX dropped 的增长；
+1. 确认是否跑满实例规格的带宽或 PPS 上限——云主机两者都有限制；
+1. 超限的在控制台调整带宽或变更规格；
+1. 未超限的用 ethtool -G 调大接收环形缓冲区，并检查是否需要开启 RPS。
+
+### 华为云ecs 接收误包率大于50%
+
+S2 警告 · 持续 1 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_agt_net_errin > 50
+```
+
+处置步骤:
+
+1. 用 ip -s link show 与 ethtool -S 确认错包计数；
+1. 云环境物理层由平台负责，错包率异常应优先提工单给华为云；
+1. 同时确认是否为规格带宽/PPS 超限；
+1. 有冗余的先把流量切走。
+
+### 华为云ecs 磁盘写IOPS过高
+
+S2 警告 · 持续 1 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_agt_SlAsH_disk_agt_write_requests_rate > 99
+```
+
+处置步骤:
+
+1. 用 iostat -x 1 确认实际 IOPS 与 await；
+1. 用 iotop -oP 找出写入最多的进程；
+1. 对照该云硬盘规格的 IOPS 上限判断是否已触顶——超高性能盘与通用型盘差异很大；
+1. 触顶的在控制台升级磁盘类型或扩容（IOPS 通常随容量线性增长），未触顶的优化应用写入模式。
+
+### 华为云ecs 磁盘读IOPS过高
+
+S2 警告 · 持续 1 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_agt_SlAsH_disk_agt_read_requests_rate > 99
+```
+
+处置步骤:
+
+1. 用 iostat -x 1 确认实际 IOPS 与 await；
+1. 用 iotop -oP 找出读取最多的进程；
+1. 对照云硬盘规格的 IOPS 上限判断是否触顶；
+1. 触顶的升级磁盘类型或扩容，未触顶的通过加缓存、补索引减少磁盘读。
+
+### 华为云负载均衡4层入带宽使用率大于80%
+
+S2 警告 · 持续 2 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_elb_l4_in_bps_usage > 80
+```
+
+处置步骤:
+
+1. 在华为云控制台看该 ELB 的带宽监控曲线，确认是持续增长还是突发；
+1. 确认是正常业务增长还是异常流量（爬虫、攻击）；
+1. 正常增长的在控制台调整 ELB 规格或带宽上限；
+1. 异常流量的配合 WAF/DDoS 防护做限流或封禁。
+
+### 华为云负载均衡4层出带宽使用率大于80%
+
+S2 警告 · 持续 2 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_elb_l4_out_bps_usage > 80
+```
+
+处置步骤:
+
+1. 在华为云控制台看该 ELB 的带宽监控曲线，确认是持续增长还是突发；
+1. 确认是正常业务增长还是异常流量（爬虫、攻击）；
+1. 正常增长的在控制台调整 ELB 规格或带宽上限；
+1. 异常流量的配合 WAF/DDoS 防护做限流或封禁。
+
+### 华为云负载均衡4层并发连接数使用率大于80%
+
+S2 警告 · 持续 2 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_elb_l4_con_usage > 80
+```
+
+处置步骤:
+
+1. 在控制台看该 ELB 的连接数监控，确认增长趋势；
+1. 确认后端服务是否响应变慢导致连接堆积——连接数高常常是后端慢的表征而非原因；
+1. 后端正常的按业务增长在控制台升级 ELB 规格；
+1. 检查客户端是否未复用连接。
+
+### 华为云负载均衡4层新建连接数使用率大于80%
+
+S2 警告 · 持续 2 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_elb_l4_ncps_usage > 80
+```
+
+处置步骤:
+
+1. 在控制台看该 ELB 的连接数监控，确认增长趋势；
+1. 确认后端服务是否响应变慢导致连接堆积——连接数高常常是后端慢的表征而非原因；
+1. 后端正常的按业务增长在控制台升级 ELB 规格；
+1. 检查客户端是否未复用连接。
+
+### 华为云负载均衡7层入带宽使用率大于80%
+
+S2 警告 · 持续 2 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_elb_l7_in_bps_usage > 80
+```
+
+处置步骤:
+
+1. 在华为云控制台看该 ELB 的带宽监控曲线，确认是持续增长还是突发；
+1. 确认是正常业务增长还是异常流量（爬虫、攻击）；
+1. 正常增长的在控制台调整 ELB 规格或带宽上限；
+1. 异常流量的配合 WAF/DDoS 防护做限流或封禁。
+
+### 华为云负载均衡7层出带宽使用率大于80%
+
+S2 警告 · 持续 2 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_elb_l7_out_bps_usage > 80
+```
+
+处置步骤:
+
+1. 在华为云控制台看该 ELB 的带宽监控曲线，确认是持续增长还是突发；
+1. 确认是正常业务增长还是异常流量（爬虫、攻击）；
+1. 正常增长的在控制台调整 ELB 规格或带宽上限；
+1. 异常流量的配合 WAF/DDoS 防护做限流或封禁。
+
+### 华为云负载均衡7层并发连接数使用率大于80%
+
+S2 警告 · 持续 2 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_elb_l7_con_usage > 80
+```
+
+处置步骤:
+
+1. 在控制台看该 ELB 的连接数监控，确认增长趋势；
+1. 确认后端服务是否响应变慢导致连接堆积——连接数高常常是后端慢的表征而非原因；
+1. 后端正常的按业务增长在控制台升级 ELB 规格；
+1. 检查客户端是否未复用连接。
+
+### 华为云负载均衡7层新建连接数使用率大于80%
+
+S2 警告 · 持续 2 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_elb_l7_ncps_usage > 80
+```
+
+处置步骤:
+
+1. 在控制台看该 ELB 的连接数监控，确认增长趋势；
+1. 确认后端服务是否响应变慢导致连接堆积——连接数高常常是后端慢的表征而非原因；
+1. 后端正常的按业务增长在控制台升级 ELB 规格；
+1. 检查客户端是否未复用连接。
+
+### 华为云负载均衡异常主机数大于0
+
+S2 警告 · 持续 2 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_elb_m9_abnormal_servers > 0
+```
+
+处置步骤:
+
+1. 在控制台的后端服务器组里定位健康检查失败的实例；
+1. 登录该实例确认应用进程与端口存活；
+1. 应用正常则核对健康检查配置（路径、端口、超时、间隔）是否与实际相符；
+1. 确认后端组剩余健康实例数是否足够承载流量，不足时立即扩容。
+
+### 华为云负载均衡查询速率使用率大于80%
+
+S2 警告 · 持续 2 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_elb_l7_qps_usage > 80
+```
+
+处置步骤:
+
+1. 在华为云控制台看该 ELB 的带宽监控曲线，确认是持续增长还是突发；
+1. 确认是正常业务增长还是异常流量（爬虫、攻击）；
+1. 正常增长的在控制台调整 ELB 规格或带宽上限；
+1. 异常流量的配合 WAF/DDoS 防护做限流或封禁。
+
+### 华为云RedisCPU平均使用率大于80%
+
+该指标对于统计周期内的测量对象的CPU使用率进行多次采样，表示多次采样的平均值。仅单机/主备/读写分离实例支持。
+
+S2 警告 · 持续 2 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_dcs_cpu_avg_usage > 80
+```
+
+处置步骤:
+
+1. 用 SLOWLOG GET 10 找耗时最高的命令；
+1. 重点排查 KEYS、HGETALL、SMEMBERS 等 O(N) 命令与大 key 操作，改用 SCAN 或分批；
+1. 确认是否正在做 RDB/AOF 持久化导致 CPU 尖峰；
+1. 优化命令后仍高的在控制台升级实例规格。
+
+### 华为云Redis内存利用率大于80%
+
+S1 紧急 · 持续 2 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_dcs_memory_usage > 80
+```
+
+处置步骤:
+
+1. 用 redis-cli --bigkeys 定位大 key 并拆分或补 TTL；
+1. 用 INFO memory 确认碎片率，碎片高可开启 activedefrag；
+1. 检查是否有未设过期时间的 key 持续堆积；
+1. 确认 maxmemory-policy 后在控制台扩容规格。
+
+### 华为云Redis存在慢日志
+
+S2 警告 · 持续 1 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_dcs_is_slow_log_exist == 1
+```
+
+处置步骤:
+
+1. 用 SLOWLOG GET 10 看具体慢命令与耗时；
+1. 重点排查 O(N) 命令与大 key 操作；
+1. 改用 SCAN 分批、拆分大 key 是根本解法；
+1. 若慢命令来自定时任务，改到低峰期执行。
+
+### 华为云Redis带宽使用率大于90%
+
+该指标对于统计周期内的测量对象的CPU使用率进行多次采样，表示多次采样的平均值。仅单机/主备/读写分离实例支持。
+
+S2 警告 · 持续 2 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_dcs_bandwidth_usage > 90
+```
+
+处置步骤:
+
+1. 用 INFO stats 看 instantaneous_input_kbps / output_kbps 确认方向；
+1. 用 redis-cli --bigkeys 找大 key——读写大 key 是带宽被打满的最常见原因；
+1. 拆分大 key、减少一次性批量读取；
+1. 确实需要更高带宽的在控制台升级规格。
+
+### 华为云Redis新建连接数大于10000
+
+单机和主备实例，最大连接数限制为10000，可以根据业务情况对阈值进行调整。
+
+S3 提醒 · 持续 2 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_dcs_total_connections_received > 10000
+```
+
+处置步骤:
+
+1. 用 CLIENT LIST 按来源统计，定位频繁重连的客户端；
+1. 应用侧改用连接池并复用连接，这是根本解法；
+1. 检查客户端是否设置了过短的连接超时导致反复重连；
+1. 确认没有触发流控或内存告警导致连接被服务端断开。
+
+### 华为云Redis最大CPU使用率大于80%
+
+S2 警告 · 持续 2 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_dcs_cpu_usage > 80
+```
+
+处置步骤:
+
+1. 在控制台定位是哪个节点 CPU 高；
+1. 集群模式下通常是数据倾斜——某个 slot 有热 key，用 --hotkeys 定位；
+1. 热 key 可通过本地缓存或拆分 key 缓解；
+1. 均衡后仍高的升级规格。
+
+### 华为云Redis活跃的客户端数量大于8000
+
+单机和主备实例，最大连接数限制为10000，可以根据业务情况对阈值进行调整。
+
+S2 警告 · 持续 2 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_dcs_connected_clients > 8000
+```
+
+处置步骤:
+
+1. 在华为云控制台看该 DCS 实例的监控曲线确认趋势；
+1. 用 redis-cli 连上实例执行 INFO 确认对应指标的真实情况；
+1. 定位到具体原因后按 Redis 常规路径处理（大 key、慢命令、连接泄漏）；
+1. 容量不足的在控制台变更实例规格。
+
+### 华为云Redis流控次数大于0
+
+结合规格限制、网络瞬时输入流量和网络瞬时输出流量，查看是否扩容解决。
+Redis 4.0以上版本的实例才支持该指标，Redis 3.0实例不支持。
+
+S2 警告 · 持续 1 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_dcs_rx_controlled > 0
+```
+
+处置步骤:
+
+1. 在控制台看流控发生的时间点，对照带宽与 QPS 曲线确认是哪一项超限；
+1. 带宽超限的用 --bigkeys 找大 key 并拆分；
+1. QPS 超限的在应用侧加本地缓存或合并请求；
+1. 确实需要更高规格的在控制台变更实例。
+
+### 华为云RedisProxy节点活跃的客户端数量大于20000
+
+单机和主备实例，最大连接数限制为10000，可以根据业务情况对阈值进行调整。
+
+S2 警告 · 持续 2 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_dcs_p_connected_clients > 20000
+```
+
+处置步骤:
+
+1. 在华为云控制台看该 DCS 实例的监控曲线确认趋势；
+1. 用 redis-cli 连上实例执行 INFO 确认对应指标的真实情况；
+1. 定位到具体原因后按 Redis 常规路径处理（大 key、慢命令、连接泄漏）；
+1. 容量不足的在控制台变更实例规格。
+
+### RocketMQ broker down
+
+S1 紧急 · 持续 1 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_dms_broker_alive == 0
+```
+
+处置步骤:
+
+1. 在华为云控制台确认实例与 broker 状态；
+1. 确认客户端是否已自动切换到其他 broker——多 broker 部署时部分分区不可用；
+1. 控制台无异常但客户端报错的，检查网络与安全组、以及客户端的 nameserver 地址配置；
+1. 持续不可用的提工单给华为云。
+
+### RocketMQ CPU核均负载大于1.5
+
+S1 紧急 · 持续 3 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_dms_broker_cpu_core_load > 1.5
+```
+
+处置步骤:
+
+1. 在控制台看该 broker 的 TPS 与消息堆积曲线，确认是生产还是消费侧压力；
+1. 消费堆积严重的先扩消费者实例；
+1. 生产量突增的评估是否需要升级实例规格；
+1. 确认没有大消息或大批量发送把 broker 压住。
+
+### RocketMQ 内存使用率大于85%
+
+S1 紧急 · 持续 3 分钟 · 触发条件:
+
+```promql
+huaweicloud_sys_dms_broker_memory_usage > 85
+```
+
+处置步骤:
+
+1. 在控制台看消息堆积量——堆积会显著占用内存；
+1. 优先恢复消费把堆积清掉，这是最直接的止血；
+1. 确认消息保留时长配置是否过长；
+1. 长期需求增长的升级实例规格。
+
+## 指标说明
+
+共 286 条，和仪表盘、告警规则里用到的指标一一对应。
+
+| 指标 | 含义 | 单位 |
+| --- | --- | --- |
+| `huaweicloud_sys_dcs_auth_errors` | 认证失败次数 — 统计实例的认证失败次数。仅单机/主备实例支持。 |  |
+| `huaweicloud_sys_dcs_blocked_clients` | 阻塞的客户端数量 — 该指标用于被阻塞操作挂起的客户端的数量。阻塞操作如BLPOP，BRPOP，BRPOPLPUSH。 |  |
+| `huaweicloud_sys_dcs_client_biggest_in_buf` | 客户端最大输入缓冲 — 该指标用于统计客户端所有现存连接的最大输入数据长度。 | bytes |
+| `huaweicloud_sys_dcs_client_longest_out_list` | 客户端最长输出列表 — 该指标用于统计客户端所有现存连接的最长输出列表。 |  |
+| `huaweicloud_sys_dcs_command_max_delay` | 命令最大时延 — 统计实例的命令最大时延。 | ms |
+| `huaweicloud_sys_dcs_connected_clients` | 活跃的客户端数量 — 该指标用于统计已连接的客户端数量，包括系统监控、配置同步和业务相关的连接数。 |  |
+| `huaweicloud_sys_dcs_cpu_usage` | 最大CPU使用率 — 该指标对于统计周期内的测量对象的CPU使用率进行多次采样，表示多次采样的最高值。如果是单机/主备实例，该指标为主节点的CPU值。如果是Proxy集群实例，该指标为各个Proxy节点的平均值。 | % |
+| `huaweicloud_sys_dcs_evicted_keys` | 已逐出的键数量 — 该指标用于统计周期内因为内存不足被删除的键数量。 |  |
+| `huaweicloud_sys_dcs_expired_keys` | 已过期的键数量 — 该指标用于统计周期内因过期而被删除的键数量 |  |
+| `huaweicloud_sys_dcs_instantaneous_input_kbps` | 网络瞬时输入流量 — 该指标用于统计瞬时的输入流量。 | bit/s |
+| `huaweicloud_sys_dcs_instantaneous_ops` | 每秒并发操作数 — 该指标用于统计每秒处理的命令数。 |  |
+| `huaweicloud_sys_dcs_instantaneous_output_kbps` | 网络瞬时输出流量 — 该指标用于统计瞬时的输出流量。 | bit/s |
+| `huaweicloud_sys_dcs_is_slow_log_exist` | 是否存在慢日志 — 统计实例是否存在慢日志。该监控不统计由migrate、slaveof、config、bgsave、bgrewriteaof命令导致的慢日志。仅单机/主备实例支持。 |  |
+| `huaweicloud_sys_dcs_keys` | 缓存键总数 — 该指标用于统计Redis缓存中键总数。仅单机/主备实例支持。 |  |
+| `huaweicloud_sys_dcs_keyspace_hits` | Keyspace命中次数 — 该指标用于统计周期内在主字典中查找命中次数。 |  |
+| `huaweicloud_sys_dcs_keyspace_hits_perc` | 缓存命中率 — 该指标用于统计Redis的缓存命中率，其命中率算法为：keyspace_hits/(keyspace_hits+keyspace_misses) | % |
+| `huaweicloud_sys_dcs_keyspace_misses` | Keyspace错过次数 — 该指标用于统计周期内在主字典中查找不命中次数。 |  |
+| `huaweicloud_sys_dcs_memory_frag_ratio` | 内存碎片率 — 该指标用于统计当前的内存碎片率。其数值上等于used_memory_rss / used_memory。 |  |
+| `huaweicloud_sys_dcs_memory_usage` | 内存利用率 — 该指标用于统计测量对象的内存利用率（内存利用率统计是扣除预留内存的）。 | % |
+| `huaweicloud_sys_dcs_net_in_throughput` | 网络输入吞吐量 — 该指标用于统计网口平均每秒的输入流量。 | bytes/s |
+| `huaweicloud_sys_dcs_net_out_throughput` | 网络输出吞吐量 — 该指标用于统计网口平均每秒的输出流量。 | bytes/s |
+| `huaweicloud_sys_dcs_pubsub_channels` | Pubsub通道个数 — 该指标用于统计Pub/Sub通道个数。 |  |
+| `huaweicloud_sys_dcs_pubsub_patterns` | Pubsub模式个数 — 该指标用于统计Pub/Sub模式个数。 |  |
+| `huaweicloud_sys_dcs_rejected_connections` | 已拒绝的连接数 — 该指标用于统计周期内因为超过maxclients而拒绝的连接数量。 |  |
+| `huaweicloud_sys_dcs_total_commands_processed` | 处理的命令数 — 该指标用于统计周期内处理的命令数。 |  |
+| `huaweicloud_sys_dcs_total_connections_received` | 新建连接数 — 该指标用于统计周期内新建的连接数。 |  |
+| `huaweicloud_sys_dcs_total_net_input_bytes` | 网络收到字节数 — 该指标用于统计周期内收到的字节数。 | bytes |
+| `huaweicloud_sys_dcs_total_net_output_bytes` | 网络发送字节数 — 该指标用于统计周期内发送的字节数。 | bytes |
+| `huaweicloud_sys_dcs_used_memory` | 已用内存 — 该指标用于统计Redis已使用的内存字节数。 | bytes |
+| `huaweicloud_sys_dcs_used_memory_lua` | Lua已用内存 — 该指标用于统计Lua引擎已使用的内存字节。 | bytes |
+| `huaweicloud_sys_dcs_used_memory_peak` | 已用内存峰值 — 该指标用于统计Redis服务器启动以来使用内存的峰值。 | bytes |
+| `huaweicloud_sys_dcs_used_memory_rss` | 已用内存RSS — 该指标用于统计Redis已使用的RSS内存。即实际驻留“在内存中”的内存数。包含堆内存，但不包括换出的内存。 | bytes |
+| `huaweicloud_sys_dcs_command_avg_rt` | 平均时延 — 节点从接收命令到发出响应的时延平均值。 | μs |
+| `huaweicloud_sys_dcs_command_max_rt` | 最大时延 — 节点从接收命令到发出响应的时延最大值。 | μs |
+| `huaweicloud_sys_dcs_command_p99_rt` | P99时延 — 执行时延99%的水位线。 | ms |
+| `huaweicloud_sys_dcs_connected_clients` | 活跃的客户端数量 — 该指标用于统计已连接的客户端数量，包括系统监控、配置同步和业务相关的连接数。 |  |
+| `huaweicloud_sys_dcs_connections_usage` | 连接数使用率 — 该指标用于统计当前连接数与最大连接数限制的百分比。 | % |
+| `huaweicloud_sys_dcs_cpu_avg_usage` | CPU平均使用率 — 该指标对于统计周期内的测量对象的CPU使用率进行多次采样，表示多次采样的平均值。 | % |
+| `huaweicloud_sys_dcs_cpu_usage` | 最大CPU使用率 — 该指标对于统计周期内的测量对象的CPU使用率进行多次采样，表示多次采样的最高值。 | % |
+| `huaweicloud_sys_dcs_instantaneous_input_kbps` | 网络瞬时输入流量 — 该指标用于统计瞬时的输入流量。 | bit/s |
+| `huaweicloud_sys_dcs_instantaneous_ops` | 每秒并发操作数 — 该指标用于统计每秒处理的命令数。 |  |
+| `huaweicloud_sys_dcs_instantaneous_output_kbps` | 网络瞬时输出流量 — 该指标用于统计瞬时的输出流量。 | bit/s |
+| `huaweicloud_sys_dcs_memory_usage` | 内存利用率 — 该指标用于统计测量对象的内存利用率。 | % |
+| `huaweicloud_sys_dcs_node_status` | 实例节点状态 — 显示Proxy节点状态是否正常。 |  |
+| `huaweicloud_sys_dcs_total_net_input_bytes` | 网络收到字节数 — 该指标用于统计周期内收到的字节数。 | bytes |
+| `huaweicloud_sys_dcs_total_net_output_bytes` | 网络发送字节数 — 该指标用于统计周期内发送的字节数。 | bytes |
+| `huaweicloud_sys_agt_SlAsH_disk_agt_read_bytes_rate` | (Agent) 磁盘读速率 — 该指标用于统计每秒从测量对象读出数据量。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第六列数据的变化得出磁盘读速率。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：使用WMI中Win32_PerfFormattedData_PerfDisk_LogicalDisk对象获取磁盘I/O数据，每采集周期读取一次该对象，读取该对象返回的瞬时值代表该采集周期的指标值。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。高CPU情况下存在获取超时的现象，会导致无法获取监控数据。 | bytes/s |
+| `huaweicloud_sys_agt_SlAsH_disk_agt_read_requests_rate` | (Agent) 磁盘读操作速率 — 该指标用于统计每秒从测量对象读取数据的请求次数。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第四列数据的变化得出磁盘读操作速率。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：使用WMI中Win32_PerfFormattedData_PerfDisk_LogicalDisk对象获取磁盘I/O数据，每采集周期读取一次该对象，读取该对象返回的瞬时值代表该采集周期的指标值。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。高CPU情况下存在获取超时的现象，会导致无法获取监控数据。 |  |
+| `huaweicloud_sys_agt_SlAsH_disk_agt_write_bytes_rate` | (Agent) 磁盘写速率 — 该指标用于统计每秒写到测量对象的数据量。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第十列数据的变化得出磁盘写速率。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：使用WMI中Win32_PerfFormattedData_PerfDisk_LogicalDisk对象获取磁盘I/O数据，每采集周期读取一次该对象，读取该对象返回的瞬时值代表该采集周期的指标值。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。高CPU情况下存在获取超时的现象，会导致无法获取监控数据。 | bytes/s |
+| `huaweicloud_sys_agt_SlAsH_disk_agt_write_requests_rate` | (Agent) 磁盘写操作速率 — 该指标用于统计每秒向测量对象写数据的请求次数。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第八列数据的变化得出磁盘写操作速率。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：使用WMI中Win32_PerfFormattedData_PerfDisk_LogicalDisk对象获取磁盘I/O数据，每采集周期读取一次该对象，读取该对象返回的瞬时值代表该采集周期的指标值。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。高CPU情况下存在获取超时的现象，会导致无法获取监控数据。 |  |
+| `huaweicloud_sys_agt_SlAsH_disk_device_used_percent` | 块设备使用率 — 该指标用于统计测量对象物理磁盘使用率，以百分比为单位。计算方式为: 所有已挂载磁盘分区已用存储量/磁盘存储总量。采集方式（Linux）：通过汇总每个挂载点的磁盘使用量，再通过磁盘扇区大小和扇区数量计算出磁盘总大小，计算出整体磁盘使用率采集方式（Windows）：暂不支持。 | % |
+| `huaweicloud_sys_agt_SlAsH_disk_fs_rwstate` | (Agent) 文件系统读写状态 — 该指标用于统计测量对象挂载文件系统的读写状态。状态分为：可读写（0）/只读（1）。采集方式（Linux）：通过读取/proc/mounts中第四列文件系统挂载参数获得。 |  |
+| `huaweicloud_sys_agt_SlAsH_disk_inodesTotal` | (Agent) inode空间大小 — 该指标用于统计测量对象当前磁盘的inode空间量。采集方式（Linux）：执行df -i命令，查看Inodes列数据。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。 |  |
+| `huaweicloud_sys_agt_SlAsH_disk_inodesUsed` | (Agent) inode已使用空间 — 该指标用于统计测量对象当前磁盘已使用的inode空间量。采集方式（Linux）：执行df -i命令，查看IUsed列数据。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。 |  |
+| `huaweicloud_sys_agt_SlAsH_disk_inodesUsedPercent` | (Agent) inode已使用占比 — 该指标用于统计测量对象当前磁盘已使用的inode占比。采集方式（Linux）：执行df -i命令，查看IUse%列数据。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。 | % |
+| `huaweicloud_sys_agt_SlAsH_disk_ioUtils` | (Agent) 磁盘I/O使用率 — 该指标用于统计测量对象磁盘I/O使用率。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第十三列数据的变化得出磁盘I/O使用率。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：暂不支持。 | % |
+| `huaweicloud_sys_agt_SlAsH_disk_io_svctm` | (Agent) 平均I/O服务时长 — 该指标用于统计指定时间段内，平均每个读或写I/O的操作时长。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第十三列数据的变化与第四列数据和第八列数据和的变化相除得出磁盘平均I/O时长。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：暂不支持。 |  |
+| `huaweicloud_sys_agt_SlAsH_disk_queue_length` | (Agent) 平均队列长度 — 该指标反映指定时间段内磁盘的繁忙程度，可用于评估磁盘I/O性能，指标值越大代表磁盘越繁忙，I/O性能越差。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第十四列数据的变化与指标采集周期时间相除得出指标的值。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：暂不支持。 |  |
+| `huaweicloud_sys_agt_SlAsH_disk_readTime` | (Agent) 读操作平均耗时 — 该指标用于统计测量对象磁盘读操作平均耗时。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第七列数据的变化得出磁盘读操作平均耗时。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：暂不支持。 |  |
+| `huaweicloud_sys_agt_SlAsH_disk_read_bytes_per_operation` | (Agent) 平均读操作大小 — 该指标用于统计指定时间段内，平均每个读I/O操作传输的字节数。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第六列数据的变化与第四列数据的变化相除得出磁盘平均读操作大小。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：暂不支持。 |  |
+| `huaweicloud_sys_agt_SlAsH_disk_writeTime` | (Agent) 写操作平均耗时 — 该指标用于统计测量对象磁盘写操作平均耗时。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第十一列数据的变化得出磁盘写操作平均耗时。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：暂不支持。 |  |
+| `huaweicloud_sys_agt_SlAsH_disk_write_bytes_per_operation` | (Agent) 平均写操作大小 — 该指标用于统计指定时间段内，平均每个写I/O操作传输的字节数。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第十列数据的变化与第八列数据的变化相除得出磁盘平均写操作大小。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：暂不支持。 |  |
+| `huaweicloud_sys_agt_cpu_usage` | (Agent) CPU使用率 — 该指标用于统计测量对象当前CPU使用率。采集方式（Linux）：通过计算采集周期内/proc/stat中的变化得出cpu使用率。用户可以通过top命令查看 %Cpu(s)值。采集方式（Windows）：通过WindowsAPI GetSystemTimes获取。 | % |
+| `huaweicloud_sys_agt_cpu_usage_idle` | (Agent) CPU空闲时间占比 — 该指标用于统计测量对象当前CPU空闲时间占比。采集方式（Linux）：通过计算采集周期内/proc/stat中的变化得出CPU空闲时间占比。采集方式（Windows）：通过WindowsAPI GetSystemTimes获取。 | % |
+| `huaweicloud_sys_agt_cpu_usage_iowait` | (Agent) iowait状态占比 — 该指标用于统计测量对象当前iowait状态占用CPU的比率。采集方式（Linux）：通过计算采集周期内/proc/stat中的变化得出iowait状态占比。用户可以通过top命令查看 %Cpu(s) wa值。采集方式（Windows）：暂不支持。 | % |
+| `huaweicloud_sys_agt_cpu_usage_irq` | (Agent) CPU中断时间占比 — 该指标用于统计测量对象当前CPU处理中断用时占用CPU时间的比率。采集方式（Linux）：通过计算采集周期内/proc/stat中的变化得出CPU中断时间占比。用户可以通过top命令查看 %Cpu(s) hi值。采集方式（Windows）：暂不支持。 | % |
+| `huaweicloud_sys_agt_cpu_usage_nice` | (Agent) Nice进程CPU使用率 — 该指标用于统计测量对象当前Nice进程CPU使用率。采集方式（Linux）：通过计算采集周期内/proc/stat中的变化得出Nice进程CPU使用率。用户可以通过top命令查看 %Cpu(s) ni值。采集方式（Windows）：暂不支持。 | % |
+| `huaweicloud_sys_agt_cpu_usage_other` | (Agent) 其他CPU使用率 — 该指标用于统计测量对象其他占用CPU使用率。采集方式（Linux）：其他CPU使用率=1- 空闲CPU使用率（%）- 内核空间CPU使用率- 用户空间CPU使用率。采集方式（Windows）：其他CPU使用率=1- 空闲CPU使用率（%）- 内核空间CPU使用率- 用户空间CPU使用率。 | % |
+| `huaweicloud_sys_agt_cpu_usage_softirq` | (Agent) CPU软中断时间占比 — 该指标用于统计测量对象当前CPU处理软中断时间占用CPU时间的比率。采集方式（Linux）：通过计算采集周期内/proc/stat中的变化得出CPU软中断时间占比。用户可以通过top命令查看 %Cpu(s) si值。采集方式（Windows）：暂不支持。 | % |
+| `huaweicloud_sys_agt_cpu_usage_system` | (Agent) 内核空间CPU使用率 — 该指标用于统计测量对象当前内核空间占用CPU使用率。采集方式（Linux）：通过计算采集周期内/proc/stat中的变化得出内核空间CPU使用率。用户可以通过top命令查看 %Cpu(s) sy值。采集方式（Windows）：通过WindowsAPI GetSystemTimes获取。 | % |
+| `huaweicloud_sys_agt_cpu_usage_user` | (Agent) 用户空间CPU使用率 — 该指标用于统计测量对象当前用户空间占用CPU使用率。采集方式（Linux）：通过计算采集周期内/proc/stat中的变化得出cpu使用率。用户可以通过top命令查看 %Cpu(s) us值。采集方式（Windows）：通过WindowsAPI GetSystemTimes获取。 | % |
+| `huaweicloud_sys_agt_load_average1` | (Agent) 1分钟平均负载 — 该指标用于统计测量对象过去1分钟的CPU平均负载。采集方式（Linux）：通过/proc/loadavg中load1/逻辑CPU个数得到。用户可以通过top命令查看load1值。 |  |
+| `huaweicloud_sys_agt_load_average15` | (Agent) 15分钟平均负载 — 该指标用于统计测量对象过去15分钟的CPU平均负载。采集方式（Linux）：通过/proc/loadavg中load15/逻辑CPU个数得到。用户可以通过top命令查看load15值。 |  |
+| `huaweicloud_sys_agt_load_average5` | (Agent) 5分钟平均负载 — 该指标用于统计测量对象过去5分钟的CPU平均负载。采集方式（Linux）：通过/proc/loadavg中load5/逻辑CPU个数得到。用户可以通过top命令查看load5值。 |  |
+| `huaweicloud_sys_agt_mem_available` | (Agent) 可用内存 — 该指标用于统计测量对象的可用内存。采集方式（Linux）：通过/proc/meminfo文件获取，若/proc/meminfo中显示MemAvailable，则直接可得若/proc/meminfo中不显示MemAvailable，则MemAvailable=MemFree+Buffers+Cached采集方式（Windows）：计算方法为（内存总量-已用内存量）。通过WindowsAPI GlobalMemoryStatusEx获取。 |  |
+| `huaweicloud_sys_agt_mem_buffers` | (Agent) Buffers占用量 — 该指标用于统计测量对象的Buffers内存量。采集方式（Linux）：通过/proc/meminfo获取。用户可以通过top命令查看 KiB Mem:buffers值。采集方式（Windows）：暂不支持。 |  |
+| `huaweicloud_sys_agt_mem_cached` | (Agent) Cache占用量 — 该指标用于统计测量对象Cache内存量。采集方式（Linux）：通过/proc/meminfo获取。用户可以通过top命令查看 KiB Swap:cached Mem值。采集方式（Windows）：暂不支持。 |  |
+| `huaweicloud_sys_agt_mem_free` | (Agent) 空闲内存量 — 该指标用于统计测量对象的空闲内存量。采集方式（Linux）：通过/proc/meminfo获取。采集方式（Windows）：暂不支持。 |  |
+| `huaweicloud_sys_agt_mem_usedPercent` | (Agent) 内存使用率 — 该指标用于统计测量对象的内存使用率。采集方式（Linux）：通过/proc/meminfo文件获取，(MemTotal-MemAvailable)/MemTotal若/proc/meminfo中显示MemAvailable，则MemUsedPercent=(MemTotal-MemAvailable)/MemTotal若/proc/meminfo中不显示MemAvailable，则MemUsedPercent=(MemTotal-MemFree-Buffers-Cached)/MemTotal采集方式（Windows）：计算方法为（ 已用内存量/内存总量*100%）。 | % |
+| `huaweicloud_sys_agt_net_bitRecv` | (Agent) 出网带宽 — 该指标用于统计测量对象网卡每秒发送的比特数。采集方式（Linux）：通过计算采集周期内/proc/net/dev中的变化得出。采集方式（Windows）：使用WMI中MibIfRow对象获取网络指标数据。 |  |
+| `huaweicloud_sys_agt_net_bitSent` | (Agent) 入网带宽 — 该指标用于统计测量对象网卡每秒接收的比特数。采集方式（Linux）：通过计算采集周期内/proc/net/dev中的变化得出。采集方式（Windows）：使用WMI中MibIfRow对象获取网络指标数据。 |  |
+| `huaweicloud_sys_agt_net_dropin` | (Agent) 接收丢包率 — 该指标用于统计测量对象网卡每秒接收并已丢弃的数据包数量占所接收的数据包的比率采集方式（Linux）：通过计算采集周期内/proc/net/dev中的变化得出。采集方式（Windows）：暂不支持。 | % |
+| `huaweicloud_sys_agt_net_dropout` | (Agent) 发送丢包率 — 该指标用于统计测量对象网卡每秒发送并已丢弃的数据包数量占所发送的数据包的比率。采集方式（Linux）：通过计算采集周期内/proc/net/dev中的变化得出。采集方式（Windows）：暂不支持。 | % |
+| `huaweicloud_sys_agt_net_errin` | (Agent) 接收误包率 — 该指标用于统计测量对象网卡每秒接收的错误数据包数量占所接收的数据包的比率。采集方式（Linux）：通过计算采集周期内/proc/net/dev中的变化得出。采集方式（Windows）：暂不支持。 | % |
+| `huaweicloud_sys_agt_net_errout` | (Agent) 发送误包率 — 该指标用于统计测量对象网卡每秒发送的错误数据包数量占所发送的数据包的比率。采集方式（Linux）：通过计算采集周期内/proc/net/dev中的变化得出。采集方式（Windows）：暂不支持。 | % |
+| `huaweicloud_sys_agt_net_packetRecv` | (Agent) 网卡包接收速率 — 该指标用于统计测量对象网卡每秒接收的数据包数。采集方式（Linux）：通过计算采集周期内/proc/net/dev中的变化得出。采集方式（Windows）：使用WMI中MibIfRow对象获取网络指标数据。 |  |
+| `huaweicloud_sys_agt_net_packetSent` | (Agent) 网卡包发送速率 — 该指标用于统计测量对象网卡每秒发送的数据包数。采集方式（Linux）：通过计算采集周期内/proc/net/dev中的变化得出。采集方式（Windows）：使用WMI中MibIfRow对象获取网络指标数据。 |  |
+| `huaweicloud_sys_agt_net_tcp_close` | (Agent) TCP CLOSE — 该指标用于统计测量对象关闭的或未打开的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。 |  |
+| `huaweicloud_sys_agt_net_tcp_close_wait` | (Agent) TCP CLOSE_WAIT — 该指标用于统计测量对象处于CLOSE_WAIT状态的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。 |  |
+| `huaweicloud_sys_agt_net_tcp_closing` | (Agent) TCP CLOSING — 该指标用于统计测量对象处于服务端和客户端同时主动关闭状态的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。 |  |
+| `huaweicloud_sys_agt_net_tcp_established` | (Agent) TCP ESTABLISHED — 该指标用于统计测量对象处于ESTABLISHED状态的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。 |  |
+| `huaweicloud_sys_agt_net_tcp_fin_wait1` | (Agent) TCP FIN_WAIT1 — 该指标用于统计测量对象客户端主动关闭且没有收到服务端ACK的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。 |  |
+| `huaweicloud_sys_agt_net_tcp_fin_wait2` | (Agent) TCP FIN_WAIT2 — 该指标用于统计测量对象处于FIN_WAIT2状态的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。 |  |
+| `huaweicloud_sys_agt_net_tcp_last_ack` | (Agent) TCP LAST_ACK — 该指标用于统计测量对象被动关闭等待ACK报文的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。 |  |
+| `huaweicloud_sys_agt_net_tcp_listen` | (Agent) TCP LISTEN — 该指标用于统计测量对象处于LISTEN状态的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。 |  |
+| `huaweicloud_sys_agt_net_tcp_retrans` | (Agent) TCP重传率 — 该指标用于统计测量对象重新发送的报文数与总发送的报文数之间的比值。采集方式（Linux）：通过从/proc/net/snmp文件中获取对应的数据，计算采集周期内重传包数和发送包数的比值得出。采集方式（Windows）：重传率通过WindowsAPI GetTcpStatistics获取 | % |
+| `huaweicloud_sys_agt_net_tcp_sys_recv` | (Agent) TCP SYS_RECV — 该指标用于统计测量对象服务器端收到的请求连接的TCP数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。 |  |
+| `huaweicloud_sys_agt_net_tcp_sys_sent` | (Agent) TCP SYS_SENT — 该指标用于统计测量对象处于请求连接状态的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。 |  |
+| `huaweicloud_sys_agt_net_tcp_time_wait` | (Agent) TCP TIME_WAIT — 该指标用于统计测量对象处于TIME_WAIT状态的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。 |  |
+| `huaweicloud_sys_agt_net_tcp_total` | (Agent) TCP TOTAL — 该指标用于统计测量对象所有状态的TCP连接数总和。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。 |  |
+| `huaweicloud_sys_agt_ntp_offset` | (Agent) NTP偏移量 — 该指标用于统计测量对象当前NTP偏移量。采集方式（Linux）：执行chronyc sources -v命令，获取偏移量。采集方式（Windows）：暂不支持。 | ms |
+| `huaweicloud_sys_agt_proc_blocked_count` | (Agent) 阻塞进程数 — 该指标用于统计测量对象被阻塞的进程数。采集方式（Linux）：通过统计 /proc/pid/status 中Status值获取每个进程的状态，进而统计各个状态进程总数。采集方式（Windows）：暂不支持。 |  |
+| `huaweicloud_sys_agt_proc_idle_count` | (Agent) 空闲进程数 — 该指标用于统计测量对象处于空闲状态的进程数。采集方式（Linux）：通过统计 /proc/pid/status 中Status值获取每个进程的状态，进而统计各个状态进程总数。采集方式（Windows）：暂不支持。 |  |
+| `huaweicloud_sys_agt_proc_pHashId_cpu` | (Agent) 进程CPU使用率 — 进程消耗的CPU百分比，pHashId是（进程名+进程ID）的md5值。采集方式（Linux）：通过计算/proc/pid/stat的变化得出。采集方式（Windows）：通过Windows API GetProcessTimes获取进程CPU使用率。 | % |
+| `huaweicloud_sys_agt_proc_pHashId_file` | (Agent) 进程打开文件数 — 进程打开文件数，pHashId是（进程名+进程ID）的md5值。采集方式（Linux）：通过执行ls -l /proc/pid/fd 可以查看数量。采集方式（Windows）：暂不支持。 |  |
+| `huaweicloud_sys_agt_proc_pHashId_mem` | (Agent) 进程内存使用率 — 进程消耗的内存百分比，pHashId是（进程名+进程ID）的md5值。采集方式（Linux）：RSS*PAGESIZE/MemTotalRSS: 通过获取/proc/pid/statm第二列得到PAGESIZE: 通过命令getconf PAGESIZE获取MemTotal：通过/proc/meminfo获取采集方式（Windows）：使用Windows API procGlobalMemoryStatusEx获取内存总量，通过GetProcessMemoryInfo获取内存已使用量，计算两者比值得到内存使用率。 | % |
+| `huaweicloud_sys_agt_proc_running_count` | (Agent) 运行中进程数 — 该指标用于统计测量对象处于运行状态的进程数。采集方式（Linux）：通过统计 /proc/pid/status 中Status值获取每个进程的状态，进而统计各个状态进程总数。采集方式（Windows）：暂不支持。 |  |
+| `huaweicloud_sys_agt_proc_sleeping_count` | (Agent) 睡眠进程数 — 该指标用于统计测量对象处于睡眠状态的进程数。采集方式（Linux）：通过统计 /proc/pid/status 中Status值获取每个进程的状态，进而统计各个状态进程总数。采集方式（Windows）：暂不支持。 |  |
+| `huaweicloud_sys_agt_proc_specified_count` | (Agent) 指定进程数 — 该指标用于统计测量对象指定的进程数。采集方式（Linux）：通过统计 /proc/pid/status 中Status值获取每个进程的状态，进而统计各个状态进程总数。采集方式（Windows）：通过psapi.dll系统进程状态支持模块得到进程总数。 |  |
+| `huaweicloud_sys_agt_proc_total_count` | (Agent) 系统进程数 — 该指标用于统计测量对象的总进程数。采集方式（Linux）：通过统计 /proc/pid/status 中Status值获取每个进程的状态，进而统计各个状态进程总数。采集方式（Windows）：通过psapi.dll系统进程状态支持模块得到进程总数。 |  |
+| `huaweicloud_sys_agt_proc_zombie_count` | (Agent) 僵死进程数 — 该指标用于统计测量对象处于僵死状态的进程数。采集方式（Linux）：通过统计 /proc/pid/status 中Status值获取每个进程的状态，进而统计各个状态进程总数。采集方式（Windows）：暂不支持。 |  |
+| `huaweicloud_sys_agt_specified_process_file` | (Agent) 指定进程打开文件数 — 该指标用于统计测量对象指定进程打开的文件数。采集方式（Linux）：通过执行ls -l /proc/pid/fd 可以查看数量。采集方式（Windows）：暂不支持。 |  |
+| `huaweicloud_sys_agt_total_open_files` | (Agent) 文件句柄总数 — 该指标用于统计测量对象的所有进程使用的句柄总和。采集方式（Linux）：通过/proc/\{pid\}/fd文件汇总所有进程使用的句柄数。采集方式（Windows）：暂不支持。 |  |
+| `huaweicloud_sys_elb_client_tls_negotiation_error` | 客户端发起TLS握手失败次数 — 客户端每秒发起TLS会话失败的次数。支持的协议：HTTPS/TLS/QUIC | 次/秒 |
+| `huaweicloud_sys_elb_dropped_connections` | 丢弃连接数 — 测量对象每秒丢弃连接的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_dropped_packets` | 丢弃数据包 — 测量对象每秒丢弃数据报文的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_dropped_traffic` | 丢弃网络带宽 — 测量对象丢弃网络带宽。 |  |
+| `huaweicloud_sys_elb_elb_http_2xx` | 负载均衡响应状态码(2XX) — 负载均衡每秒返回2XX响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_elb_http_3xx` | 负载均衡响应状态码(3XX) — 负载均衡每秒返回3XX响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_elb_http_400` | 负载均衡响应状态码400 — 负载均衡每秒返回400响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_elb_http_404` | 负载均衡响应状态码404 — 负载均衡每秒返回404响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_elb_http_408` | 负载均衡响应状态码408 — 负载均衡每秒返回408响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_elb_http_499` | 负载均衡响应状态码499 — 负载均衡每秒返回499响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_elb_http_4xx` | 负载均衡响应状态码(4XX) — 负载均衡每秒返回4XX响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_elb_http_502` | 负载均衡响应状态码502 — 负载均衡每秒返回502响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_elb_http_503` | 负载均衡响应状态码503 — 负载均衡每秒返回503响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_elb_http_504` | 负载均衡响应状态码504 — 负载均衡每秒返回504响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_elb_http_5xx` | 负载均衡响应状态码(5XX) — 负载均衡每秒返回5XX响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_ipgroup_blocked_packets` | 黑白名单每秒阻断数据报文的个数 — 每秒黑白名单阻断流入测量对象数据报文的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_ipgroup_blocked_traffic` | 黑白名单阻断的网络带宽 — 黑白名单阻断流入测量对象的网络带宽。 |  |
+| `huaweicloud_sys_elb_l4_con_usage` | 4层并发连接使用率 — 4层的ELB实例并发连接数使用率。 | % |
+| `huaweicloud_sys_elb_l4_in_bps_usage` | 4层入带宽使用率 — 4层的ELB实例入带宽使用率。注意：若入带宽使用率达到100%，说明已经超出ELB规格所提供的性能保障，您的业务可以继续使用更高带宽，但对于带宽超出的部分，ELB无法承诺服务可用性指标。 | % |
+| `huaweicloud_sys_elb_l4_ncps_usage` | 4层新建连接数使用率 — 4层的ELB实例新建连接数使用率。 | % |
+| `huaweicloud_sys_elb_l4_out_bps_usage` | 4层出带宽使用率 — 4层的ELB实例出带宽使用率。注意：若出带宽使用率达到100%，说明已经超出ELB规格所提供的性能保障，您的业务可以继续使用更高带宽，但对于带宽超出的部分，ELB无法承诺服务可用性指标。 | % |
+| `huaweicloud_sys_elb_l7_2xx_ratio` | 七层2XX请求占比 — 七层2XX响应状态码的个数占比。 | % |
+| `huaweicloud_sys_elb_l7_4xx_ratio` | 七层4XX请求占比 — 七层4XX响应状态码的个数占比。 | % |
+| `huaweicloud_sys_elb_l7_5xx_ratio` | 七层5XX请求占比 — 七层5XX响应状态码的个数占比。 | % |
+| `huaweicloud_sys_elb_l7_con_usage` | 7层并发连接使用率 — 7层的ELB实例并发连接数使用率。 | % |
+| `huaweicloud_sys_elb_l7_in_bps_usage` | 7层入带宽使用率 — 7层的ELB实例入带宽使用率。注意：若入带宽使用率达到100%，说明已经超出ELB规格所提供的性能保障，您的业务可以继续使用更高带宽，但对于带宽超出的部分，ELB无法承诺服务可用性指标。 | % |
+| `huaweicloud_sys_elb_l7_ncps_usage` | 7层新建连接数使用率 — 7层的ELB实例新建连接数使用率。 | % |
+| `huaweicloud_sys_elb_l7_out_bps_usage` | 7层出带宽使用率 — 7层的ELB实例出带宽使用率。注意：若出带宽使用率达到100%，说明已经超出ELB规格所提供的性能保障，您的业务可以继续使用更高带宽，但对于带宽超出的部分，ELB无法承诺服务可用性指标。 | % |
+| `huaweicloud_sys_elb_l7_qps_usage` | 7层查询速率使用率 — 7层的ELB实例查询速率使用率。 | % |
+| `huaweicloud_sys_elb_l7_upstream_101` | 7层后端响应状态码101 — 测量对象的后端服务器每秒返回7层101响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_l7_upstream_400` | 7层后端响应状态码400 — 测量对象的后端服务器每秒返回7层400响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_l7_upstream_403` | 7层后端响应状态码403 — 测量对象的后端服务器每秒返回7层403响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_l7_upstream_404` | 7层后端响应状态码404 — 测量对象的后端服务器每秒返回7层404响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_l7_upstream_500` | 7层后端响应状态码500 — 测量对象的后端服务器每秒返回7层500响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_l7_upstream_501` | 7层后端响应状态码501 — 测量对象的后端服务器每秒返回7层501响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_l7_upstream_502` | 7层后端响应状态码502 — 测量对象的后端服务器每秒返回7层502响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_l7_upstream_503` | 7层后端响应状态码503 — 测量对象的后端服务器每秒返回7层503响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_l7_upstream_504` | 7层后端响应状态码504 — 测量对象的后端服务器每秒返回7层504响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_l7_upstream_other_status` | 7层后端响应状态码（Others） — 测量对象的后端服务器每秒返回7层后端其他响应状态码的个数。不包含：101、2XX、3XX、400、403、404、500、501、502、503、504。 | 次/秒 |
+| `huaweicloud_sys_elb_m10_l7_http_other_status` | 7层协议响应状态码(Others) — 测量对象每秒返回7层其他响应状态码的个数。不包含：2XX、3XX、404、499、502。 | 次/秒 |
+| `huaweicloud_sys_elb_m11_l7_http_404` | 7层协议响应状态码404 — 测量对象每秒返回7层404响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_m12_l7_http_499` | 7层协议响应状态码499 — 测量对象每秒返回7层499响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_m13_l7_http_502` | 7层协议响应状态码502 — 测量对象每秒返回7层502响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_m14_l7_rt` | 7层协议RT平均值 — 测量对象7层平均响应时间。从测量对象收到客户端请求开始，到测量对象将所有响应返回给客户端为止。 说明：websocket场景下RT平均值可能会非常大，此时该指标无法作为时延指标参考。 | ms |
+| `huaweicloud_sys_elb_m15_l7_upstream_4xx` | 7层后端响应状态码(4XX) — 测量对象的后端服务器每秒返回7层4XX系列响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_m16_l7_upstream_5xx` | 7层后端响应状态码(5XX) — 测量对象的后端服务器每秒返回7层5XX系列响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_m17_l7_upstream_rt` | 7层后端的RT平均值 — 测量对象7层后端平均响应时间。从测量对象将请求转发给后端服务器开始，到测量对象收到后端服务器返回响应为止。 说明：websocket场景下RT平均值可能会非常大，此时该指标无法作为时延指标参考。 | ms |
+| `huaweicloud_sys_elb_m18_l7_upstream_2xx` | 7层后端响应状态码(2XX) — 测量对象的后端服务器每秒返回7层2XX系列响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_m19_l7_upstream_3xx` | 7层后端响应状态码(3XX) — 测量对象的后端服务器每秒返回7层3XX系列响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_m1_cps` | 并发连接数 — 在四层负载均衡器中，指从测量对象到后端服务器建立的所有TCP和UDP连接的个数。在七层负载均衡器中，指从客户端到ELB建立的所有TCP连接的个数。 |  |
+| `huaweicloud_sys_elb_m1a_l7_upstream_rt_max` | 7层后端的RT最大值 — 测量对象7层后端最大响应时间。从测量对象将请求转发给后端服务器开始，到测量对象收到后端服务器返回响应为止。 | ms |
+| `huaweicloud_sys_elb_m1b_l7_upstream_rt_min` | 7层后端的RT最小值 — 测量对象7层后端最小响应时间。从测量对象将请求转发给后端服务器开始，到测量对象收到后端服务器返回响应为止。 | ms |
+| `huaweicloud_sys_elb_m1c_l7_rt_max` | 7层协议的RT最大值 — 测量对象7层最大响应时间。从测量对象收到客户端请求开始，到测量对象将所有响应返回给客户端为止。 | ms |
+| `huaweicloud_sys_elb_m1d_l7_rt_min` | 7层协议的RT最小值 — 测量对象7层最小响应时间。从测量对象收到客户端请求开始，到测量对象将所有响应返回给客户端为止。 | ms |
+| `huaweicloud_sys_elb_m1e_server_rps` | 后端服务器每秒重置报文个数 — 测量后端服务器每秒发送至客户端的重置（RST）报文个数。重置报文由后端服务器生成，然后由负载均衡器转发。支持协议：TCP | 次/秒 |
+| `huaweicloud_sys_elb_m1f_lvs_rps` | 负载均衡器每秒重置报文个数 — 测量负载均衡器每秒生成的重置（RST）报文个数。支持协议：TCP | 次/秒 |
+| `huaweicloud_sys_elb_m21_client_rps` | 客户端每秒重置报文个数 — 测量客户端每秒发送至后端服务器的重置（RST）报文个数。重置报文由客户端生成，然后由负载均衡器转发。支持协议：TCP | 次/秒 |
+| `huaweicloud_sys_elb_m22_in_bandwidth` | 入网带宽 — 测量对象入网带宽。 |  |
+| `huaweicloud_sys_elb_m23_out_bandwidth` | 出网带宽 — 测量对象出网带宽。 |  |
+| `huaweicloud_sys_elb_m24_l7_req_Bps` | 7层请求带宽 — 测量对象后端服务器的七层请求接收带宽。 说明：当监听器开启HTTP/2时，该指标无法作为参考。 |  |
+| `huaweicloud_sys_elb_m25_l7_resp_Bps` | 7层响应带宽 — 测量对象后端服务器的七层响应发送带宽。 说明：当监听器开启HTTP/2时，该指标无法作为参考。 |  |
+| `huaweicloud_sys_elb_m26_in_bandwidth_ipv6` | IPv6入网带宽 — 流入测量对象的IPv6网络带宽。 |  |
+| `huaweicloud_sys_elb_m27_out_bandwidth_ipv6` | IPv6出网带宽 — 流出测量对象的IPv6网络带宽。 |  |
+| `huaweicloud_sys_elb_m2_act_conn` | 活跃连接数 — 从测量对象到后端服务器建立的活跃TCP和UDP连接的个数。Windows和Linux服务器都可以使用如下命令查看。netstat -an |  |
+| `huaweicloud_sys_elb_m3_inact_conn` | 非活跃连接数 — 从测量对象到后端服务器建立的非活跃TCP和UDP连接的个数。Windows和Linux服务器都可以使用如下命令查看。netstat -an |  |
+| `huaweicloud_sys_elb_m4_ncps` | 新建连接数 — 从客户端到测量对象每秒新建立的连接数。 | 次/秒 |
+| `huaweicloud_sys_elb_m5_in_pps` | 流入数据包数 — 测量对象每秒接收到数据包的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_m6_out_pps` | 流出数据包数 — 测量对象每秒发出数据包的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_m7_in_Bps` | 网络流入速率 — 从外部访问测量对象的网络速率。 |  |
+| `huaweicloud_sys_elb_m8_out_Bps` | 网络流出速率 — 测量对象访问外部的网络速率。 |  |
+| `huaweicloud_sys_elb_m9_abnormal_servers` | 异常主机数 — 测量对象中健康检查异常的后端服务器个数。 |  |
+| `huaweicloud_sys_elb_ma_normal_servers` | 正常主机数 — 测量对象中健康检查正常的后端服务器个数。 |  |
+| `huaweicloud_sys_elb_mb_l7_qps` | 7层查询速率 — 测量对象7层查询速率。 | 次/秒 |
+| `huaweicloud_sys_elb_mc_l7_http_2xx` | 7层协议响应状态码（2XX） — 测量对象每秒返回7层2XX系列响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_md_l7_http_3xx` | 7层协议响应状态码（3XX） — 测量对象每秒返回7层3XX系列响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_me_l7_http_4xx` | 7层协议响应状态码（4XX） — 测量对象每秒返回7层4XX系列响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_mf_l7_http_5xx` | 7层协议响应状态码（5XX） — 测量对象每秒返回7层5XX系列响应状态码的个数。 | 次/秒 |
+| `huaweicloud_sys_elb_mirror_in_packets` | 入方向流量镜像的报文速率 — 测量对象入方向流量镜像的报文速率。 | 次/秒 |
+| `huaweicloud_sys_elb_mirror_in_traffic` | 入方向流量镜像的带宽 — 测量对象入方向流量镜像的带宽。 |  |
+| `huaweicloud_sys_elb_mirror_out_packets` | 出方向流量镜像的报文速率 — 测量对象出方向流量镜像的报文速率。 | 次/秒 |
+| `huaweicloud_sys_elb_mirror_out_traffic` | 出方向流量镜像的带宽 — 测量对象出方向流量镜像的带宽。 |  |
+| `huaweicloud_sys_elb_upstream_tls_negotiation_error` | 负载均衡器向后端服务器TLS握手失败 — 负载均衡器向后端服务器每秒发起TLS会话失败的次数。支持的协议：HTTPS/TLS/QUIC | 次/秒 |
+| `huaweicloud_sys_rds_active_connections` | 活跃连接数 — 该指标为统计数据库当前活跃连接数。 |  |
+| `huaweicloud_sys_rds_cpu_sys_usage` | 内核态CPU时间占比 — 该指标为统计内核态CPU时间占比。 | % |
+| `huaweicloud_sys_rds_cpu_user_usage` | 用户态CPU时间占比 — 该指标为统计用户态CPU时间占比。 | % |
+| `huaweicloud_sys_rds_cpu_wait_usage` | 硬盘IO等待时间占比 — 该指标为统计硬盘IO等待时间占比。 | % |
+| `huaweicloud_sys_rds_data_disk_inode_used` | inode数 — 数据盘已使用的inode数。 |  |
+| `huaweicloud_sys_rds_db_max_age` | 最大数据库年龄 — 该指标为统计当前数据库的最大数据库年龄(获取表pg_database中max(age(datfrozenxid))值)。 |  |
+| `huaweicloud_sys_rds_dbuser_passwd_deadline` | 数据库用户最快过期时间 — 查询数据库用户密码过期时间，返回过期时间减去当前时间的最小值。 说明：如果没有设置用户密码过期时间，这个指标采集不到。 |  |
+| `huaweicloud_sys_rds_disk_io_usage` | 磁盘IO使用率 — 该指标为统计磁盘IO使用率。磁盘IO使用率是指磁盘正在处理IO请求的时间与总时间的百分比。 说明：当磁盘IO使用率达到100%，只能说明在统计时间段内，磁盘一直有数据写入，磁盘性能还需要结合IOPS、磁盘的吞吐量、读写时延等多个指标共同决定。 | % |
+| `huaweicloud_sys_rds_flush_lsn_replication_latency_size` | 主备间wal日志落盘延迟 — 该指标为获取备机刷入到磁盘的wal日志的延迟大小。 |  |
+| `huaweicloud_sys_rds_idle_transaction_connections` | 事务空闲连接数 — 该指标为统计数据库当前空闲连接数。 |  |
+| `huaweicloud_sys_rds_inactive_logical_replication_slot` | 非活跃逻辑复制槽数量 — 该指标用于统计当前数据库中存在的非活跃逻辑复制槽数量。 |  |
+| `huaweicloud_sys_rds_io_read_delay` | IO读响应延迟 — 该指标为统计磁盘读响应平均延迟（以毫秒为单位）。 | ms |
+| `huaweicloud_sys_rds_io_write_delay` | IO写响应延迟 — 该指标为统计磁盘写响应平均延迟（以毫秒为单位）。 | ms |
+| `huaweicloud_sys_rds_lock_waiting_sessions` | 等待锁的会话数 — 该指标为统计当前处于阻塞状态的会话个数。 |  |
+| `huaweicloud_sys_rds_long_transactions_active_five_second` | 已开启5s的事务数 — 该指标为统计数据库开启时长5秒以上的长事务个数。 |  |
+| `huaweicloud_sys_rds_long_transactions_active_one_second` | 已开启1s的事务数 — 该指标为统计数据库开启时长1秒以上的长事务个数。 |  |
+| `huaweicloud_sys_rds_long_transactions_active_three_second` | 已开启3s的事务数 — 该指标为统计数据库开启时长3秒以上的长事务个数。 |  |
+| `huaweicloud_sys_rds_long_transactions_idle_five_second` | 已空闲5s的事务数 — 该指标为统计数据库空闲时长5秒以上的长事务个数。 |  |
+| `huaweicloud_sys_rds_long_transactions_idle_one_second` | 已空闲1s的事务数 — 该指标为统计数据库空闲时长1秒以上的长事务个数。 |  |
+| `huaweicloud_sys_rds_long_transactions_idle_three_second` | 已空闲3s的事务数 — 该指标为统计数据库空闲时长3秒以上的长事务个数。 |  |
+| `huaweicloud_sys_rds_long_transactions_two_pc_five_second` | 已执行5s的两阶段事务 — 该指标为统计数据库两阶段执行时长5秒以上的长事务个数。 |  |
+| `huaweicloud_sys_rds_long_transactions_two_pc_one_second` | 已执行1s的两阶段事务 — 该指标为统计数据库两阶段执行时长1秒以上的长事务个数。 |  |
+| `huaweicloud_sys_rds_long_transactions_two_pc_three_second` | 已执行3s的两阶段事务 — 该指标为统计数据库两阶段执行时长3秒以上的长事务个数。 |  |
+| `huaweicloud_sys_rds_oldest_transaction_duration` | 最长事务存活时长 — 该指标为统计当前数据库中存在的最长事务存活时长。 | ms |
+| `huaweicloud_sys_rds_oldest_transaction_duration_2pc` | 最长未决事务存活时长 — 该指标为统计当前数据库存在的最长未决事务存活时长。 | ms |
+| `huaweicloud_sys_rds_os_cpu_process_autovacuum` | autovacuum进程cpu使用率 — 该指标为统计autovacuum进程cpu使用率。 | % |
+| `huaweicloud_sys_rds_os_cpu_process_bgwriter` | bgwriter进程cpu使用率 — 该指标为统计bgwriter进程cpu使用率。 | % |
+| `huaweicloud_sys_rds_os_cpu_process_checkpoint` | checkpoint进程cpu使用率 — 该指标为统计checkpoint进程cpu使用率。 | % |
+| `huaweicloud_sys_rds_os_cpu_process_logger` | logger进程cpu使用率 — 该指标为统计logger进程cpu使用率。 | % |
+| `huaweicloud_sys_rds_os_cpu_process_postmaster` | postmaster进程cpu使用率 — 该指标为统计postmaster进程cpu使用率。 | % |
+| `huaweicloud_sys_rds_os_cpu_process_walwriter` | walwriter进程cpu使用率 — 该指标为统计walwriter进程cpu使用率。 | % |
+| `huaweicloud_sys_rds_os_fs_size_base_dir` | 数据文件大小（不包含日志和wal） — 该指标为统计数据文件大小（不包含日志和wal）。 |  |
+| `huaweicloud_sys_rds_os_iothroughput_total` | 磁盘读写吞吐量 — 该指标为统计磁盘读写吞吐量。 |  |
+| `huaweicloud_sys_rds_os_mem_size_cache` | page cache内存使用量 — 该指标为统计page cache内存使用量。 |  |
+| `huaweicloud_sys_rds_os_mem_size_hugetlb_usage_2m` | 2M大页使用量 — 该指标为统计2M大页使用量（内存32G规格以上存在）。 |  |
+| `huaweicloud_sys_rds_os_mem_size_mapped_file` | 共享内存使用量 — 该指标为统计共享内存使用量。 |  |
+| `huaweicloud_sys_rds_os_mem_size_spec` | 规格内存大小 — 该指标为统计规格内存大小。 |  |
+| `huaweicloud_sys_rds_os_mem_size_used` | 内存使用量 — 该指标为统计内存使用量。 |  |
+| `huaweicloud_sys_rds_os_mem_usage_process_autovacuum` | autovacuum进程内存使用量 — 该指标为统计autovacuum进程内存使用量。 |  |
+| `huaweicloud_sys_rds_os_mem_usage_process_bgwriter` | bgwriter进程内存使用量 — 该指标为统计bgwriter进程内存使用量。 |  |
+| `huaweicloud_sys_rds_os_mem_usage_process_checkpoint` | checkpoint进程内存使用量 — 该指标为统计checkpoint进程内存使用量。 |  |
+| `huaweicloud_sys_rds_os_mem_usage_process_logger` | logger进程内存使用量 — 该指标为统计logger进程内存使用量。 |  |
+| `huaweicloud_sys_rds_os_mem_usage_process_postmaster` | postmaster进程内存使用量 — 该指标为统计postmaster进程内存使用量。 |  |
+| `huaweicloud_sys_rds_os_mem_usage_process_walsender` | walsender进程内存使用量 — 该指标为统计walsender进程内存使用量。 |  |
+| `huaweicloud_sys_rds_os_mem_usage_process_walwriter` | walwriter进程内存使用量 — 该指标为统计walwriter进程内存使用量。 |  |
+| `huaweicloud_sys_rds_packet_loss_rate` | 主机与灾备机间丢包率 — 该指标为统计数据库主机与灾备机间丢包率。 | % |
+| `huaweicloud_sys_rds_pg_dr_repl_stat` | 灾备节点复制状态 — 灾备状态状况。各数字含义如下：异常：0startup：1catchup：2streaming：3backup：4stopping：5 |  |
+| `huaweicloud_sys_rds_pg_dr_wal_delay` | 主机与灾备机间lsn延迟 — 该指标为统计数据库主机当前lsn和灾备机replay lsn的延迟。 |  |
+| `huaweicloud_sys_rds_pgaudit_log_size` | 审计日志大小 — 该指标为获取当前审计日志的大小。 |  |
+| `huaweicloud_sys_rds_rds001_cpu_util` | CPU使用率 — 该指标用于统计测量对象的CPU使用率，以比率为单位。 | % |
+| `huaweicloud_sys_rds_rds002_mem_util` | 内存使用率 — 该指标用于统计测量对象的内存使用率，以比率为单位。 | % |
+| `huaweicloud_sys_rds_rds003_iops` | IOPS — 该指标用于统计当前实例，单位时间内系统处理的I/O请求数量（平均值）。 |  |
+| `huaweicloud_sys_rds_rds004_bytes_in` | 网络输入吞吐量 — 该指标用于统计平均每秒从测量对象的所有网络适配器输入的流量。 | bit/s |
+| `huaweicloud_sys_rds_rds005_bytes_out` | 网络输出吞吐量 — 该指标用于统计平均每秒从测量对象的所有网络适配器输出的流量。 | bit/s |
+| `huaweicloud_sys_rds_rds039_disk_util` | 磁盘利用率 — 该指标用于统计测量对象的磁盘利用率，以比率为单位。 | % |
+| `huaweicloud_sys_rds_rds040_transaction_logs_usage` | 事务日志使用量 — 事务日志所占用的磁盘容量。 |  |
+| `huaweicloud_sys_rds_rds041_replication_slot_usage` | 复制插槽使用量 — 复制插槽文件所占磁盘容量。 |  |
+| `huaweicloud_sys_rds_rds042_database_connections` | 数据库连接数 — 当前连接到数据库的后端量。 |  |
+| `huaweicloud_sys_rds_rds043_maximum_used_transaction_ids` | 事务最大已使用ID数 — 事务最大已使用ID。 |  |
+| `huaweicloud_sys_rds_rds044_transaction_logs_generations` | 事务日志生成速率 — 平均每秒生成的事务日志大小。 |  |
+| `huaweicloud_sys_rds_rds045_oldest_replication_slot_lag` | 最滞后副本滞后量 — 多个副本中最滞后副本（依据接收到的WAL数据）滞后量。 |  |
+| `huaweicloud_sys_rds_rds046_replication_lag` | 复制时延 — 副本滞后时延。 | ms |
+| `huaweicloud_sys_rds_rds047_disk_total_size` | 磁盘总大小 — 该指标用于统计测量对象的磁盘总大小。 |  |
+| `huaweicloud_sys_rds_rds048_disk_used_size` | 磁盘使用量 — 该指标用于统计测量对象的磁盘使用大小。 |  |
+| `huaweicloud_sys_rds_rds049_disk_read_throughput` | 硬盘读吞吐量 — 该指标用于统计每秒从硬盘读取的字节数。 |  |
+| `huaweicloud_sys_rds_rds050_disk_write_throughput` | 硬盘写吞吐量 — 该指标用于统计每秒写入硬盘的字节数。 |  |
+| `huaweicloud_sys_rds_rds082_tps` | TPS — 该指标用于统计每秒事务执行次数，含提交和回退的次数。 |  |
+| `huaweicloud_sys_rds_rds083_conn_usage` | 连接数使用率 — 该指标用于统计当前已用的PgSQL连接数占总连接数的百分比。 | % |
+| `huaweicloud_sys_rds_read_count_per_second` | 读IOPS — 该指标用于统计当前实例，单位时间内系统处理的读I/O请求数量（平均值）。 |  |
+| `huaweicloud_sys_rds_replay_lsn_replication_latency_size` | 主备间wal日志回放延迟 — 该指标为获取备机回放wal日志的延迟大小。 |  |
+| `huaweicloud_sys_rds_round_trip_time` | 主机与灾备机间网络延迟 — 该指标为统计数据库主机与灾备机间往返时延。 | ms |
+| `huaweicloud_sys_rds_row_per_second` | 操作行数 — 实例每秒增删改查操作的行数。 |  |
+| `huaweicloud_sys_rds_sent_lsn_replication_latency_size` | 主备间wal日志发送延迟 — 该指标为获取主机待发送wal日志延迟大小。 |  |
+| `huaweicloud_sys_rds_slave_replication_status` | 备机流复制状态 — 该指标为获取备机流复制状态，0：备机异常，1：备机正常，2：该实例为主机。此处备机也包括只读实例。 |  |
+| `huaweicloud_sys_rds_slow_sql_five_second` | 已执行5s的SQL数 — 该指标为统计数据库执行时长5秒以上的慢SQL个数。该指标为采集时刻的瞬时值，并不是一分钟内的累计值。 |  |
+| `huaweicloud_sys_rds_slow_sql_log_min_duration_statement` | 已执行log_min_duration_statement时长的SQL数 — 该指标为统计数据库执行时长比参数log_min_duration_statement大的慢SQL个数，该参数大小可根据业务需要进行更改。该指标为采集时刻的瞬时值，并不是一分钟内的累计值。 |  |
+| `huaweicloud_sys_rds_slow_sql_one_second` | 已执行1s的SQL数 — 该指标为统计数据库执行时长1秒以上的慢SQL个数。该指标为采集时刻的瞬时值，并不是一分钟内的累计值。 |  |
+| `huaweicloud_sys_rds_slow_sql_three_second` | 已执行3s的SQL数 — 该指标为统计数据库执行时长3秒以上的慢SQL个数。该指标为采集时刻的瞬时值，并不是一分钟内的累计值。 |  |
+| `huaweicloud_sys_rds_swap_in_rate` | swap in速率 — 该指标为统计每秒从交换区写到内存的大小。 |  |
+| `huaweicloud_sys_rds_swap_out_rate` | swap out速率 — 该指标为统计每秒写入交换区的内存的大小。 |  |
+| `huaweicloud_sys_rds_swap_total_size` | 交换区总容量大小 — 该指标为统计交换区总量。 |  |
+| `huaweicloud_sys_rds_swap_usage` | 交换区容量使用率 — 该指标为统计交换区使用率。 | % |
+| `huaweicloud_sys_rds_synchronous_replication_blocking_time` | 同步复制阻塞时间 — 该指标为获取同步复制主备机间复制阻塞的时长。 |  |
+| `huaweicloud_sys_rds_sys_memory_hit_rate` | 内存命中率 — 该指标为统计内存命中率。 | % |
+| `huaweicloud_sys_rds_temporary_files_generation_num` | 每分钟临时文件生成数量 — 该指标为获取临时文件在1分钟内生成的数量。 | 次/分 |
+| `huaweicloud_sys_rds_temporary_files_generation_size` | 每分钟临时文件生成大小 — 该指标为获取临时文件在1分钟内生成的大小。 |  |
+| `huaweicloud_sys_rds_user_active_connections` | 用户活跃连接数 — 该指标为统计用户实际使用的活跃连接数（不包括监控运维使用的内置活跃连接）。 |  |
+| `huaweicloud_sys_rds_user_current_connections` | 用户使用连接数 — 该指标为统计用户实际使用的连接数（不包括监控运维使用的内置连接）。 |  |
+| `huaweicloud_sys_rds_wal_size` | WAL日志占用空间大小 — 该指标为获取当前WAL日志所占空间大小。 |  |
+| `huaweicloud_sys_rds_write_count_per_second` | 写IOPS — 该指标用于统计当前实例，单位时间内系统处理的写I/O请求数量（平均值）。 |  |
+| `huaweicloud_sys_rds_write_lsn_replication_latency_size` | 主备间wal日志写入延迟 — 该指标为获取备机写入到磁盘的wal日志的延迟大小。 |  |
+
+## 相关链接
+
+- [Huawei Cloud 模板源文件](https://github.com/ccfos/nightingale/tree/main/integrations/Huawei）：仪表盘、规则和采集配置的 JSON 原文，欢迎提 PR。
+- [导入仪表盘和告警规则](/docs/data/integrations/import)
+- [核对指标是否入库](/docs/data/integrations/verify)
+- [全部集成目录](/integrations)

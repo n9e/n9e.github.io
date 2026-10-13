@@ -192,6 +192,20 @@ const config: Config = {
         },
       },
     ],
+    // 集成独立页：/integrations/<slug>，第二个 docs 实例。正文由 scripts/integration-pages/generate.mjs
+    // 从上游模板数据生成（中英各一份），不手改。目录页 /integrations 仍是 src/pages 里的那张，
+    // 两者不冲突：没有 slug 为 / 的文档时，这个实例只占 /integrations/ 下面的路径。
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'integrations',
+        path: 'integrations',
+        routeBasePath: 'integrations',
+        sidebarPath: './sidebars-integrations.ts',
+        // 「编辑此页」指向上游模板目录（页面 front matter 的 custom_edit_url），这里不设 editUrl
+        breadcrumbs: true,
+      },
+    ],
     // 给 AI 爬虫/助手的纯文本入口：每种语言各一份 llms.txt（目录 + 一句话摘要）、llms-full.txt（全文），
     // 以及每个页面同路径的 .md 原文（/docs/x → /docs/x.md）。从构建好的 HTML 转出来，中英文各跑一次。
     [
@@ -225,6 +239,9 @@ const config: Config = {
         hashed: true,
         indexBlog: false,
         indexPages: true,
+        // 两个 docs 实例都进索引：主文档和集成独立页
+        docsRouteBasePath: ['docs', 'integrations'],
+        docsDir: ['docs', 'integrations'],
         // 关掉输入框右侧那两个 ⌘/K 小方块。快捷键本身仍然可用，
         // 只是不再占视觉位置——提示改写进 placeholder（见 i18n/*/code.json）。
         searchBarShortcutHint: false,

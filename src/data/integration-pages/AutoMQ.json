@@ -1,0 +1,794 @@
+{
+  "ident": "AutoMQ",
+  "alerts": [
+    {
+      "source": "default",
+      "name": "Kafka active controller 数目异常",
+      "name_en": "Kafka active controller count abnormal",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "sum(kafka_controller_active_count) by (job) != 1",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在各 broker 上确认进程存活与到 controller quorum 的网络连通性；\n2) KRaft 模式下用 kafka-metadata-quorum.sh --bootstrap-server <broker> describe --status 看 quorum 状态；\n3) 为 0 时先恢复宕掉的 controller 节点，恢复多数派后会自动选举；\n4) 大于 1 时排查网络分区，确认后停掉少数派一侧让集群重新收敛。",
+      "action_en": "1) On each broker confirm the process is alive and can reach the controller quorum;\n2) In KRaft mode run kafka-metadata-quorum.sh --bootstrap-server <broker> describe --status to check the quorum;\n3) When the count is 0, restore the failed controller nodes first — the cluster elects automatically once the majority is back;\n4) When it is above 1, investigate the network partition and then stop the minority side so the cluster reconverges."
+    },
+    {
+      "source": "default",
+      "name": "Kafka Broker 连接数过多",
+      "name_en": "Kafka broker has too many connections",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "sum(kafka_server_connection_count) by (job, instance) > 1000",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 ss -tn state established '( sport = :9092 )' | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -rn 看连接来自哪些客户端；\n2) 区分是客户端实例增多还是连接泄漏（未复用 producer/consumer）；\n3) 应急调大 broker 的文件句柄上限；\n4) 根因侧让客户端复用连接，并确认没有短连接式的反复建连。",
+      "action_en": "1) Run ss -tn state established '( sport = :9092 )' | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -rn to see which clients the connections come from;\n2) Tell more client instances apart from a connection leak (producers/consumers not being reused);\n3) As an emergency measure raise the broker's file handle limit;\n4) For the root cause, make clients reuse connections and confirm there is no short-lived reconnect pattern."
+    },
+    {
+      "source": "default",
+      "name": "Kafka Fetch 请求高延迟",
+      "name_en": "Kafka fetch request latency high",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "kafka_request_time_99p_milliseconds{type=\"Fetch\"} > 1000",
+          "severity": 2
+        }
+      ],
+      "action": "1) 看 broker 的磁盘 IO 与 page cache 命中——Fetch 慢通常是读到了冷数据要落盘；\n2) 确认是否有消费者在从很早的 offset 重新消费，把冷数据大量读入；\n3) 检查网络带宽是否打满；\n4) 持续存在则考虑扩容 broker 或增加内存提升 page cache 命中率。",
+      "action_en": "1) Check broker disk IO and page cache hit rate — slow Fetch usually means cold data being read from disk;\n2) Check whether a consumer is replaying from a very old offset and pulling large amounts of cold data;\n3) Check whether network bandwidth is saturated;\n4) If it persists, add brokers or memory to raise the page cache hit rate."
+    },
+    {
+      "source": "default",
+      "name": "Kafka Partition 数量过多",
+      "name_en": "Kafka partition count too high",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "kafka_partition_count > 5000",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 kafka-topics.sh --bootstrap-server <broker> --describe 统计各 topic 的分区数，找出分区数明显偏大的 topic；\n2) 确认分区数是否与实际吞吐匹配——很多 topic 的分区是拍脑袋定的；\n3) 分区只能增不能减，需要收敛的只能新建 topic 后迁移数据；\n4) 清理长期无流量的废弃 topic，这是最快见效的。",
+      "action_en": "1) Run kafka-topics.sh --bootstrap-server <broker> --describe to count partitions per topic and find the ones that are clearly oversized;\n2) Check whether the partition count matches actual throughput — many topics are sized by guesswork;\n3) Partitions can only be added, never removed, so shrinking means creating a new topic and migrating;\n4) Delete long-idle abandoned topics — that is the quickest win."
+    },
+    {
+      "source": "default",
+      "name": "Kafka Produce 请求高延迟",
+      "name_en": "Kafka produce request latency high",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "kafka_request_time_99p_milliseconds{type=\"Produce\"} > 100",
+          "severity": 2
+        }
+      ],
+      "action": "1) 看 broker 的磁盘写入延迟与网络带宽是否打满；\n2) 确认 acks 配置——acks=all 时延迟受最慢副本影响，检查是否有副本落后；\n3) 用 kafka-topics.sh --describe --under-replicated-partitions 确认副本同步是否正常；\n4) 存储侧瓶颈明显的扩容 broker 或换更快的磁盘。",
+      "action_en": "1) Check broker disk write latency and whether network bandwidth is saturated;\n2) Check the acks setting — with acks=all latency follows the slowest replica, so look for lagging replicas;\n3) Run kafka-topics.sh --describe --under-replicated-partitions to confirm replication is healthy;\n4) If the storage side is clearly the bottleneck, add brokers or move to faster disks."
+    },
+    {
+      "source": "default",
+      "name": "Kafka 每秒 Fetch 请求超过1000",
+      "name_en": "Kafka fetch requests exceed 1000 per second",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "sum(rate(kafka_request_count_total{type=\"Fetch\"}[1m])) by (job, instance) > 1000",
+          "severity": 2
+        }
+      ],
+      "action": "1) 确认消费者数量与 fetch.min.bytes / fetch.max.wait.ms 配置——这两个值过小会导致空转式高频拉取；\n2) 调大 fetch.min.bytes 让消费者攒批拉取，能显著降低请求数；\n3) 确认是否有消费者处于空转（无数据仍高频拉取）；\n4) 结合 broker CPU 判断是否需要扩容。",
+      "action_en": "1) Check the consumer count together with fetch.min.bytes / fetch.max.wait.ms — values that are too small cause busy high-frequency polling;\n2) Raising fetch.min.bytes makes consumers batch their fetches and significantly reduces request count;\n3) Check whether consumers are spinning (polling frequently with no data);\n4) Combine with broker CPU to judge whether to scale out."
+    },
+    {
+      "source": "default",
+      "name": "Kafka 每秒 Produce 请求超过1000",
+      "name_en": "Kafka produce requests exceed 1000 per second",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "sum(rate(kafka_request_count_total{type=\"Produce\"}[1m])) by (job, instance) > 1000",
+          "severity": 2
+        }
+      ],
+      "action": "1) 检查生产端的 batch.size 与 linger.ms——过小会导致每条消息一个请求；\n2) 调大 linger.ms 让生产端攒批发送，能大幅降低请求数；\n3) 确认是否有生产者未开启压缩（compression.type）；\n4) 结合 broker CPU 判断是否需要扩容。",
+      "action_en": "1) Check the producer's batch.size and linger.ms — values that are too small mean one request per message;\n2) Raising linger.ms lets the producer batch and dramatically reduces the request count;\n3) Check whether producers have compression enabled (compression.type);\n4) Combine with broker CPU to judge whether to scale out."
+    },
+    {
+      "source": "default",
+      "name": "Kafka 消费延迟较高",
+      "name_en": "Kafka consumer lag high",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "sum(max(kafka_log_end_offset) by (job, topic, partition)) by (job, topic)\n- on (topic) group_left (consumer_group)\nsum(max(kafka_group_commit_offset) by (job, consumer_group, topic, partition)) by (job, consumer_group, topic) > 10000",
+          "severity": 2
+        }
+      ],
+      "action": "1) 从告警标签取 topic 与 consumer_group，用 kafka-consumer-groups.sh --describe --group <group> 看各分区 LAG 分布；\n2) 积压集中在个别分区说明数据倾斜，检查生产端分区键；\n3) 均匀积压则是消费者处理慢——先看消费端日志有无异常重试，再扩 consumer 实例（不超过分区数）；\n4) 确认消费者没有全部掉线。",
+      "action_en": "1) Take topic and consumer_group from the alert labels and run kafka-consumer-groups.sh --describe --group <group> to see the LAG distribution per partition;\n2) Lag concentrated on a few partitions means data skew — check the producer's partition key;\n3) Evenly spread lag means slow consumers: check the consumer logs for abnormal retries, then add consumer instances (never beyond the partition count);\n4) Confirm the consumers have not all dropped out."
+    },
+    {
+      "source": "default",
+      "name": "Kafka 请求 S3 失败率较高",
+      "name_en": "Kafka S3 request failure rate high",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "sum(rate(kafka_stream_operation_latency_count{operation_type=\"S3Request\", status=\"failed\"}[1m])) by (job, operation_name) > 0.1",
+          "severity": 1
+        }
+      ],
+      "action": "1) 从告警标签取 operation_name 确认是哪类操作失败（上传、下载、删除）；\n2) 在 broker 日志里找对应的 S3 错误码，区分权限（403）、限流（503 SlowDown）、网络超时；\n3) 限流的联系对象存储侧提配额，或降低写入并发；\n4) 权限类的核对 AK/SK 与 bucket 策略，网络类的检查到对象存储的连通性与带宽。",
+      "action_en": "1) Take operation_name from the alert labels to identify which operation is failing (upload, download, delete);\n2) Find the matching S3 error code in the broker log and separate permissions (403), throttling (503 SlowDown) and network timeouts;\n3) For throttling, ask the object storage side to raise the quota or reduce write concurrency;\n4) For permissions, verify the AK/SK and bucket policy; for network issues, check connectivity and bandwidth to the object store."
+    },
+    {
+      "source": "default",
+      "name": "Kafka 请求错误率过高",
+      "name_en": "Kafka request error rate too high",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "sum(rate(kafka_request_error_count_total{error!=\"NONE\"}[1m])) by (job, instance, error) > 0.1",
+          "severity": 1
+        }
+      ],
+      "action": "1) 从告警标签取 error 字段确认错误类型；\n2) NOT_LEADER_OR_FOLLOWER 类多为分区 leader 正在切换，确认集群是否在做再平衡；\n3) REQUEST_TIMED_OUT 类看 broker 负载与磁盘 IO；\n4) 认证授权类错误核对客户端的 ACL 与凭据配置。",
+      "action_en": "1) Take the error field from the alert labels to identify the error type;\n2) NOT_LEADER_OR_FOLLOWER usually means partition leaders are moving — check whether the cluster is rebalancing;\n3) For REQUEST_TIMED_OUT, check broker load and disk IO;\n4) For authentication/authorization errors, verify the client's ACLs and credentials."
+    },
+    {
+      "source": "default",
+      "name": "Kafka 集群入向网络流量较高",
+      "name_en": "Kafka cluster inbound network traffic high",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "sum(rate(kafka_broker_network_io_bytes_total{direction=\"in\"}[1m])) by (job) > 50 * 1024 * 1024",
+          "severity": 2
+        },
+        {
+          "promql": "sum(rate(kafka_broker_network_io_bytes_total{direction=\"in\"}[1m])) by (job) > 20 * 1024 * 1024",
+          "severity": 3
+        }
+      ],
+      "action": "1) 用 kafka-topics.sh 结合 topic 级流量指标找出流量最大的 topic；\n2) 确认是业务量自然增长还是有客户端在异常重发；\n3) 生产端未开压缩的开启 compression.type=lz4/zstd，通常能立竿见影降低带宽；\n4) 确认后按需扩容 broker 或提升网卡带宽。",
+      "action_en": "1) Use kafka-topics.sh together with per-topic traffic metrics to find the highest-traffic topic;\n2) Determine whether it is natural growth or a client resending abnormally;\n3) If producers have no compression, enable compression.type=lz4/zstd — that usually cuts bandwidth immediately;\n4) Once confirmed, add brokers or NIC bandwidth as needed."
+    },
+    {
+      "source": "default",
+      "name": "Kafka 集群出向网络流量较高",
+      "name_en": "Kafka cluster outbound network traffic high",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "sum(rate(kafka_broker_network_io_bytes_total{direction=\"out\"}[1m])) by (job) > 50 * 1024 * 1024",
+          "severity": 2
+        },
+        {
+          "promql": "sum(rate(kafka_broker_network_io_bytes_total{direction=\"out\"}[1m])) by (job) > 20 * 1024 * 1024",
+          "severity": 3
+        }
+      ],
+      "action": "1) 找出消费流量最大的 topic 与消费组；\n2) 确认是否有消费组在做全量回溯消费（从头重新消费），这是出向流量突增的常见原因；\n3) 确认消费者数量是否远超实际需要，重复消费同一 topic 的消费组是否可以合并；\n4) 按需扩容 broker 或提升网卡带宽。",
+      "action_en": "1) Identify the topics and consumer groups with the highest consume traffic;\n2) Check whether a consumer group is doing a full replay from the beginning — this is the most common cause of an outbound traffic spike;\n3) Check whether there are far more consumers than needed, and whether groups consuming the same topic can be merged;\n4) Add brokers or NIC bandwidth as needed."
+    }
+  ],
+  "metrics": [
+    {
+      "expression": "sum by(job, instance) (rate(kafka_network_io_bytes_total{direction=\"in\"}[1m]))",
+      "type": "gauge",
+      "unit": "bytesSecSI",
+      "name": "Broker节点入站网络IO速率",
+      "name_en": "Broker node inbound network IO rate",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, instance) (rate(kafka_network_io_bytes_total{direction=\"out\"}[1m]))",
+      "type": "gauge",
+      "unit": "bytesSecSI",
+      "name": "Broker节点出站网络IO速率",
+      "name_en": "Broker node outbound network IO rate",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "kafka_partition_count",
+      "type": "counter",
+      "unit": "sishort",
+      "name": "Broker节点当前分配的分区数量",
+      "name_en": "The number of partitions currently allocated to the Broker node",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, instance) (rate(kafka_message_count_total[1m]))",
+      "type": "gauge",
+      "unit": "sishort",
+      "name": "Broker节点每秒消息吞吐量",
+      "name_en": "Broker node message throughput per second",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, consumer_group, topic) (max by(job, consumer_group, topic, partition) (kafka_group_commit_offset))",
+      "type": "",
+      "unit": "none",
+      "name": "Consumer Group提交偏移量总和",
+      "name_en": "Consumer Group Commit Offset Sum",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, consumer_group, topic, partition) (rate(kafka_group_commit_offset[1m]))",
+      "type": "gauge",
+      "unit": "none",
+      "name": "Consumer Group提交偏移量速率（每个实例）",
+      "name_en": "Consumer Group commit offset rate (per instance)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by (job) (kafka_group_count)",
+      "type": "",
+      "unit": "sishort",
+      "name": "Consumer Group数量总和",
+      "name_en": "Consumer Group Quantity Sum",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "max by(job, consumer_group, topic, partition) (kafka_group_commit_offset)",
+      "type": "gauge",
+      "unit": "none",
+      "name": "Consumer Group最大提交偏移量",
+      "name_en": "Consumer Group Maximum commit offset",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "kafka_request_time_50p_milliseconds",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "Fetch请求处理时间的50分位数",
+      "name_en": "50th quantile of Fetch request processing time",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "kafka_request_time_99p_milliseconds",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "Fetch请求处理时间的99分位数",
+      "name_en": "99th quantile of Fetch request processing time",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "avg by(job, instance) (kafka_request_time_99p_milliseconds)",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "Fetch请求处理时间的99分位数（每个实例）",
+      "name_en": "99th quantile of Fetch request processing time (per instance)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "kafka_request_time_mean_milliseconds",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "Fetch请求处理时间的平均值",
+      "name_en": "Average of Fetch request processing time",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "kafka_request_time_max_milliseconds",
+      "type": "gauge",
+      "unit": "milliseconds",
+      "name": "Fetch请求处理时间的最大值",
+      "name_en": "Maximum Fetch request processing time",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, instance) (rate(kafka_topic_request_failed_total[1m]))",
+      "type": "gauge",
+      "unit": "reqps",
+      "name": "Fetch请求失败速率（每个实例）",
+      "name_en": "Fetch request failure rate (per instance)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job) (kafka_controller_active_count)",
+      "type": "",
+      "unit": "sishort",
+      "name": "Kafka Controller活跃状态计数",
+      "name_en": "Kafka Controller active status count",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "kafka_request_time_50p_milliseconds",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "Produce请求处理时间的50分位数",
+      "name_en": "50th Quantile of Processing Time for Produce requests",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "kafka_request_time_99p_milliseconds",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "Produce请求处理时间的99分位数",
+      "name_en": "99th quantile of processing time for Produce requests",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "avg by(job, instance) (kafka_request_time_99p_milliseconds)",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "Produce请求处理时间的99分位数（每个实例）",
+      "name_en": "99th quantile of Produce request processing time (per instance)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "kafka_request_time_mean_milliseconds",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "Produce请求处理时间的平均值",
+      "name_en": "Average Produce request processing time",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "kafka_request_time_max_milliseconds",
+      "type": "gauge",
+      "unit": "milliseconds",
+      "name": "Produce请求处理时间的最大值",
+      "name_en": "The maximum processing time of the Produce request",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, instance) (rate(kafka_topic_request_failed_total[1m]))",
+      "type": "gauge",
+      "unit": "reqps",
+      "name": "Produce请求失败速率（每个实例）",
+      "name_en": "Produce request failure rate (per instance)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "max by(job, consumer_group, topic, partition) (kafka_group_commit_offset)",
+      "type": "gauge",
+      "unit": "none",
+      "name": "各个Consumer Group和Topic的最大提交偏移量",
+      "name_en": "Maximum commit offsets for each Consumer Group and Topic",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "max by(job, topic, partition) (kafka_log_end_offset)",
+      "type": "gauge",
+      "unit": "none",
+      "name": "各个Topic分区的最大日志结束偏移量",
+      "name_en": "Maximum end of log offset for each Topic partition",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, instance, topic) (rate(kafka_request_count_total[1m]))",
+      "type": "gauge",
+      "unit": "reqps",
+      "name": "实例的Fetch请求速率",
+      "name_en": "Fetch request rate of an instance",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, instance, topic) (rate(kafka_request_count_total[1m]))",
+      "type": "gauge",
+      "unit": "reqps",
+      "name": "实例的Produce请求速率",
+      "name_en": "Instance's Produce request rate",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by (job) (kafka_group_dead_count)",
+      "type": "",
+      "unit": "sishort",
+      "name": "已死亡的Consumer Group数量总和",
+      "name_en": "Total number of dead Consumer Groups",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by (job) (max by(job, topic, partition) (kafka_log_size))",
+      "type": "",
+      "unit": "bytesSI",
+      "name": "日志大小总和",
+      "name_en": "Sum of log sizes",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, topic) (max by(job, topic, partition) (kafka_log_end_offset{}))\n- on(job, topic) group_left(consumer_group)\nsum by(job, consumer_group, topic) (max by(job, consumer_group, topic, partition) (kafka_group_commit_offset{}))",
+      "type": "",
+      "unit": "none",
+      "name": "日志消费延迟 lag",
+      "name_en": "Log consumption delay lag",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, topic) (max by(job, topic, partition) (kafka_log_end_offset))",
+      "type": "",
+      "unit": "none",
+      "name": "日志结束偏移量总和",
+      "name_en": "End of log offset sum",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "max by(job, topic, partition) (kafka_log_end_offset)",
+      "type": "gauge",
+      "unit": "none",
+      "name": "日志结束最大偏移量",
+      "name_en": "End of Log Max Offset",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by (job) (kafka_group_preparing_rebalance_count)",
+      "type": "",
+      "unit": "sishort",
+      "name": "正在准备进行rebalance的Consumer Group数量总和",
+      "name_en": "Sum number of Consumer Groups in preparation for rebalance",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by (job) (kafka_group_completing_rebalance_count)",
+      "type": "",
+      "unit": "sishort",
+      "name": "正在等待Leader进行状态分配的Consumer Group数量总和",
+      "name_en": "Sum number of Consumer Groups waiting for status allocation by Leader",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, topic) (rate(kafka_network_io_bytes_total{direction=\"in\"}[1m]))",
+      "type": "gauge",
+      "unit": "bytesSecSI",
+      "name": "每个Topic的Broker节点入站网络IO速率sum by(topic)",
+      "name_en": "Broker node inbound network IO rate per topic sum by (topic)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, topic, instance) (rate(kafka_network_io_bytes_total{direction=\"in\"}[1m]))",
+      "type": "gauge",
+      "unit": "bytesSecSI",
+      "name": "每个Topic的Broker节点入站网络IO速率sum by(topic, instance)",
+      "name_en": "Broker node inbound network IO rate per topic sum by (topic, instance)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, topic) (rate(kafka_network_io_bytes_total{direction=\"out\"}[1m]))",
+      "type": "gauge",
+      "unit": "bytesSecSI",
+      "name": "每个Topic的Broker节点出站网络IO速率sum by(topic)",
+      "name_en": "Broker node outbound network IO rate per topic sum by (topic)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, topic, instance) (rate(kafka_network_io_bytes_total{direction=\"out\"}[1m]))",
+      "type": "gauge",
+      "unit": "bytesSecSI",
+      "name": "每个Topic的Broker节点出站网络IO速率sum by(topic, instance)",
+      "name_en": "Broker node outbound network IO rate per topic sum by (topic, instance)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, topic, partition) (rate(kafka_network_io_bytes_total{direction=\"out\"}[1m]))",
+      "type": "gauge",
+      "unit": "bytesSecSI",
+      "name": "每个Topic的Broker节点出站网络IO速率sum by(topic, partition)",
+      "name_en": "Broker node outbound network IO rate per topic sum by (topic, partition)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, topic) (rate(kafka_message_count_total{direction=\"in\"}[1m]))",
+      "type": "gauge",
+      "unit": "mps",
+      "name": "每个Topic的Broker节点消息吞吐量（入站）sum by(topic)",
+      "name_en": "Broker node message throughput per topic (inbound) sum by (topic)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, topic, instance) (rate(kafka_message_count_total{direction=\"in\"}[1m]))",
+      "type": "gauge",
+      "unit": "mps",
+      "name": "每个Topic的Broker节点消息吞吐量（入站）sum by(topic, instance)",
+      "name_en": "Broker node message throughput per topic (inbound) sum by (topic, instance)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job) (rate(kafka_network_io_bytes_total[1m]))",
+      "type": "gauge",
+      "unit": "bytesSecSI",
+      "name": "每个Topic的Broker节点网络IO速率（集群级别）",
+      "name_en": "Broker node network IO rate per Topic (cluster level)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, topic) (kafka_log_size)",
+      "type": "",
+      "unit": "bytesSI",
+      "name": "每个Topic的日志大小",
+      "name_en": "Log size per Topic",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, topic, type) (rate(kafka_message_count_total[1m]))",
+      "type": "gauge",
+      "unit": "mps",
+      "name": "每个Topic的消息吞吐量sum by(topic, type)",
+      "name_en": "Message throughput per topic sum by (topic, type)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, topic, type) (rate(kafka_topic_request_count_total[1m]))",
+      "type": "gauge",
+      "unit": "reqps",
+      "name": "每个Topic的请求计数sum by(topic, type)",
+      "name_en": "Request count per topic sum by (topic, type)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, instance) (rate(kafka_network_io_bytes_total{direction=\"out\"}[1m]))",
+      "type": "gauge",
+      "unit": "bytesSecSI",
+      "name": "每个实例的Broker节点出站网络IO速率(实例级别)",
+      "name_en": "Broker node outbound network IO rate per instance (instance level)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, instance) (kafka_partition_count)",
+      "type": "",
+      "unit": "sishort",
+      "name": "每个实例的Broker节点分区数量",
+      "name_en": "Number of Broker node partitions per instance",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, instance) (rate(kafka_message_count_total{direction=\"in\"}[1m]))",
+      "type": "gauge",
+      "unit": "mps",
+      "name": "每个实例的Broker节点消息吞吐量（入站）",
+      "name_en": "Broker node message throughput per instance (inbound)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, instance) (rate(kafka_request_count_total{type=\"Fetch\"}[1m]))",
+      "type": "gauge",
+      "unit": "reqps",
+      "name": "每个实例的Fetch请求速率",
+      "name_en": "Fetch request rate per instance",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, instance) (rate(kafka_request_count_total{type=\"Produce\"}[1m]))",
+      "type": "gauge",
+      "unit": "reqps",
+      "name": "每个实例的Produce请求速率",
+      "name_en": "Produce request rate per instance",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, instance) (kafka_server_connection_count)",
+      "type": "",
+      "unit": "sishort",
+      "name": "每个实例的节点当前建立的连接数",
+      "name_en": "Number of connections currently established by nodes per instance",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "kafka_broker_active_count",
+      "type": "counter",
+      "unit": "sishort",
+      "name": "活跃Broker数量",
+      "name_en": "Number of active brokers",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by (job) (kafka_group_stable_count)",
+      "type": "",
+      "unit": "sishort",
+      "name": "稳定状态的Consumer Group数量总和",
+      "name_en": "Sum of the number of steady-state Consumer Groups",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by (job) (kafka_group_empty_count)",
+      "type": "",
+      "unit": "sishort",
+      "name": "空的Consumer Group数量总和",
+      "name_en": "Sum number of empty Consumer Groups",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "kafka_server_connection_count",
+      "type": "counter",
+      "unit": "sishort",
+      "name": "节点当前建立的连接数",
+      "name_en": "Number of connections currently established by the node",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "kafka_broker_fenced_count",
+      "type": "counter",
+      "unit": "sishort",
+      "name": "被fence的Broker数量",
+      "name_en": "Number of Brokers fenced",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by (job) (rate(kafka_request_error_count_total[1m]))",
+      "type": "gauge",
+      "unit": "sishort",
+      "name": "请求错误计数总和",
+      "name_en": "Request error count sum",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "rate(kafka_request_error_count_total[1m])",
+      "type": "gauge",
+      "unit": "sishort",
+      "name": "请求错误计数率",
+      "name_en": "Request error count rate",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum by(job, instance) (rate(kafka_request_error_count_total[1m]))",
+      "type": "gauge",
+      "unit": "reqps",
+      "name": "请求错误计数率（每个实例）",
+      "name_en": "Request error count rate (per instance)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "kafka_topic_count",
+      "type": "counter",
+      "unit": "sishort",
+      "name": "集群Topic总数",
+      "name_en": "Total number of cluster topics",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "kafka_partition_total_count",
+      "type": "counter",
+      "unit": "sishort",
+      "name": "集群分区总数",
+      "name_en": "Total number of cluster partitions",
+      "note": "",
+      "note_en": ""
+    }
+  ],
+  "dashboards": [
+    {
+      "file": "broker_metrics.json",
+      "name": "Broker Metrics",
+      "name_en": "Broker Metrics",
+      "panels": 13
+    },
+    {
+      "file": "cluster_overview.json",
+      "name": "Cluster Overview",
+      "name_en": "Cluster Overview",
+      "panels": 12
+    },
+    {
+      "file": "detailed_metrics.json",
+      "name": "Detailed  Metrics",
+      "name_en": "Detailed  Metrics",
+      "panels": 60
+    },
+    {
+      "file": "group_metrics.json",
+      "name": "Group Metrics",
+      "name_en": "Group Metrics",
+      "panels": 2
+    },
+    {
+      "file": "topic_metrics.json",
+      "name": "Topic Metrics",
+      "name_en": "Topic Metrics",
+      "panels": 10
+    }
+  ],
+  "collect": [
+    {
+      "plugin": "prometheus",
+      "file": "采集OTEL-COLLECTOR的样例.toml",
+      "readme": true,
+      "content": "interval = 15\n\n[[instances]]\nurls = [\n     \"http://<automq-or-otel-collector>:8890/metrics\"\n]\n\n# AutoMQ metrics already contain an instance label; do not overwrite it.\nurl_label_key = \"otel_collector\"\nurl_label_value = \"{{.Host}}\"\nlabels = { source = \"automq\" }\n"
+    }
+  ],
+  "readme": {
+    "zh": false,
+    "en": true
+  }
+}

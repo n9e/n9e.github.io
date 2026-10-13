@@ -1,0 +1,278 @@
+{
+  "ident": "IPMI",
+  "alerts": [
+    {
+      "source": "default",
+      "name": "CPU温度超过90",
+      "name_en": "CPU temperature exceeds 90",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "ipmi_cpu1_temp{} > 90 or ipmi_cpu2_temp{} > 90",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 ipmitool sdr type temperature 确认各温度传感器的实际读数与门限；\n2) 检查机箱风扇是否全部正常转动（ipmitool sdr type fan）、滤网与散热片是否积灰；\n3) 确认机房空调与冷通道温度是否正常，同机柜其他机器是否同样高温；\n4) 短期可降低该机负载或迁走关键业务，为停机除尘/换风扇争取时间。",
+      "action_en": "1) Run ipmitool sdr type temperature to see the actual readings and thresholds of each temperature sensor;\n2) Check that all chassis fans are spinning (ipmitool sdr type fan) and that filters and heatsinks are not clogged with dust;\n3) Confirm the room air conditioning and cold aisle temperature are normal and whether other machines in the same rack are also hot;\n4) Short term, reduce load on this machine or move critical workloads off to buy time for a dust-clean or fan replacement."
+    },
+    {
+      "source": "default",
+      "name": "CPU电压异常",
+      "name_en": "Abnormal CPU voltage",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "count by (agent_hostname, server) ({__name__=~\"ipmi_vcpu[0-9]+\", status_code=~\"lcr|ucr\"}) > 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 ipmitool sdr type voltage 看各电压传感器的读数与上下门限，确认偏离方向；\n2) 检查电源模块状态（ipmitool sdr type 'Power Supply'），双电源机型确认是否有一路失效；\n3) 检查供电线路与 PDU 输出是否稳定，同机柜是否有其他机器同时报警；\n4) 确认为电源模块故障的安排更换，期间把关键业务迁走。",
+      "action_en": "1) Run ipmitool sdr type voltage to see each voltage sensor's reading against its upper and lower thresholds and which way it deviates;\n2) Check the power supply status (ipmitool sdr type 'Power Supply'); on dual-PSU machines confirm whether one feed has failed;\n3) Check the power line and PDU output stability, and whether other machines in the same rack are alarming at the same time;\n4) If a PSU is confirmed faulty, schedule a replacement and move critical workloads off meanwhile."
+    },
+    {
+      "source": "default",
+      "name": "风扇转速异常",
+      "name_en": "Abnormal fan speed",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "count by (agent_hostname, server) ({__name__=~\"ipmi_fan[0-9]+\", status_code=~\"lcr|lnc|unc|ucr\"}) > 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 ipmitool sdr type fan 看每个风扇的转速与门限，定位是哪一颗异常；\n2) 转速为 0 或远低于同型号其他风扇的，基本可判定风扇故障，安排更换；\n3) 全部风扇都在高转速则说明进风温度或负载过高，检查机房温度、滤网积灰与风道遮挡；\n4) 换风扇前先用 ipmitool sdr type temperature 确认温度是否已经上来，必要时先迁走业务。",
+      "action_en": "1) Run ipmitool sdr type fan to see each fan's speed and thresholds and identify the faulty one;\n2) A fan reading 0 or far below its peers is almost certainly failed — schedule a replacement;\n3) If every fan is running fast, intake temperature or load is too high: check room temperature, dust in the filters and any airflow obstruction;\n4) Before swapping fans, run ipmitool sdr type temperature to see whether temperatures have already risen, and move workloads off if needed."
+    },
+    {
+      "source": "default",
+      "name": "主板温度超过90",
+      "name_en": "Motherboard temperature exceeds 90",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "ipmi_system_temp > 90 or ipmi_pch_temp > 90",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 ipmitool sdr type temperature 确认是哪个传感器高温及其门限；\n2) 检查机箱风扇与风道，重点看主板区域是否有线缆遮挡进风；\n3) 确认机房空调与机柜内温度，以及机器是否被塞在密闭位置；\n4) 除尘并整理线缆后复测，仍不下降则联系厂商检查散热组件。",
+      "action_en": "1) Run ipmitool sdr type temperature to identify which sensor is hot and what its threshold is;\n2) Check the chassis fans and airflow, especially whether cabling is blocking intake around the motherboard;\n3) Confirm the room air conditioning and in-rack temperature, and whether the machine is wedged into an enclosed spot;\n4) Clean the dust, tidy the cabling and re-measure; if it still does not drop, contact the vendor to inspect the heatsink assembly."
+    }
+  ],
+  "metrics": [
+    {
+      "expression": "ipmi_bmc_info",
+      "type": "gauge",
+      "unit": "",
+      "name": "IPMI BMC 信息",
+      "name_en": "IPMI BMC Info",
+      "note": "包含BMC固件版本、制造商ID、系统固件版本等信息的常量指标。",
+      "note_en": "A constant metric containing information such as BMC firmware revision, manufacturer ID, and system firmware version."
+    },
+    {
+      "expression": "ipmi_chassis_cooling_fault_state",
+      "type": "gauge",
+      "unit": "",
+      "name": "IPMI 机箱冷却故障状态",
+      "name_en": "IPMI Chassis Cooling Fault State",
+      "note": "机箱冷却/风扇故障状态，1为无故障，0为有故障。",
+      "note_en": "Indicates the chassis cooling/fan fault state, 1 for no fault, 0 for fault."
+    },
+    {
+      "expression": "ipmi_chassis_drive_fault_state",
+      "type": "gauge",
+      "unit": "",
+      "name": "IPMI 机箱磁盘故障状态",
+      "name_en": "IPMI Chassis Drive Fault State",
+      "note": "磁盘故障状态，1为无故障，0为有故障。",
+      "note_en": "Indicates the drive fault state, 1 for no fault, 0 for fault (may be reversed in native Go implementation)."
+    },
+    {
+      "expression": "ipmi_chassis_power_state",
+      "type": "gauge",
+      "unit": "",
+      "name": "IPMI 机箱电源状态",
+      "name_en": "IPMI Chassis Power State",
+      "note": "表示机箱电源状态，1为电源开启，0为电源关闭。",
+      "note_en": "Indicates the chassis power state, 1 for power on, 0 for power off."
+    },
+    {
+      "expression": "ipmi_current_amperes",
+      "type": "",
+      "unit": "A",
+      "name": "IPMI 电流（安培）",
+      "name_en": "IPMI Current (Amperes)",
+      "note": "电流传感器测量的电流值，单位为安培。",
+      "note_en": "Current measured by current sensors, in Amperes."
+    },
+    {
+      "expression": "ipmi_current_state",
+      "type": "gauge",
+      "unit": "",
+      "name": "IPMI 电流传感器状态",
+      "name_en": "IPMI Current Sensor State",
+      "note": "电流传感器的状态，0为正常，1为警告，2为临界，NaN为不可用。",
+      "note_en": "State of current sensors, 0 for nominal, 1 for warning, 2 for critical, NaN for N/A."
+    },
+    {
+      "expression": "ipmi_dcmi_power_consumption_watts",
+      "type": "",
+      "unit": "W",
+      "name": "IPMI DCMI 功率消耗（瓦特）",
+      "name_en": "IPMI DCMI Power Consumption (Watts)",
+      "note": "通过DCMI收集的当前功率消耗值，单位为瓦特。",
+      "note_en": "Current power consumption collected via DCMI, in Watts."
+    },
+    {
+      "expression": "ipmi_fan_speed_rpm",
+      "type": "",
+      "unit": "RPM",
+      "name": "IPMI 风扇转速（转/分钟）",
+      "name_en": "IPMI Fan Speed (RPM)",
+      "note": "风扇转速传感器测量的转速值，单位为转/分钟。",
+      "note_en": "Speed measured by fan speed sensors, in rotations per minute."
+    },
+    {
+      "expression": "ipmi_fan_speed_state",
+      "type": "gauge",
+      "unit": "",
+      "name": "IPMI 风扇转速传感器状态",
+      "name_en": "IPMI Fan Speed Sensor State",
+      "note": "风扇转速传感器的状态，0为正常，1为警告，2为临界，NaN为不可用。",
+      "note_en": "State of fan speed sensors, 0 for nominal, 1 for warning, 2 for critical, NaN for N/A."
+    },
+    {
+      "expression": "ipmi_power_state",
+      "type": "gauge",
+      "unit": "",
+      "name": "IPMI 功率传感器状态",
+      "name_en": "IPMI Power Sensor State",
+      "note": "功率传感器的状态，0为正常，1为警告，2为临界，NaN为不可用。",
+      "note_en": "State of power sensors, 0 for nominal, 1 for warning, 2 for critical, NaN for N/A."
+    },
+    {
+      "expression": "ipmi_scrape_duration_seconds",
+      "type": "gauge",
+      "unit": "s",
+      "name": "IPMI 抓取持续时间（秒）",
+      "name_en": "IPMI Scrape Duration (Seconds)",
+      "note": "抓取IPMI数据所花费的时间，单位为秒。",
+      "note_en": "The time taken to retrieve IPMI data, in seconds."
+    },
+    {
+      "expression": "ipmi_sel_free_space_bytes",
+      "type": "gauge",
+      "unit": "bytes",
+      "name": "IPMI SEL 剩余空间（字节）",
+      "name_en": "IPMI SEL Free Space (Bytes)",
+      "note": "系统事件日志（SEL）的剩余可用空间，单位为字节。",
+      "note_en": "Free space remaining for new entries in the System Event Log (SEL), in bytes."
+    },
+    {
+      "expression": "ipmi_sel_logs_count",
+      "type": "counter",
+      "unit": "",
+      "name": "IPMI SEL 日志数量",
+      "name_en": "IPMI SEL Logs Count",
+      "note": "系统事件日志（SEL）中的事件日志条目总数。",
+      "note_en": "Total number of event log entries in the System Event Log (SEL)."
+    },
+    {
+      "expression": "ipmi_sensor_state",
+      "type": "gauge",
+      "unit": "",
+      "name": "IPMI 传感器状态",
+      "name_en": "IPMI Sensor State",
+      "note": "未明确分类的通用传感器的状态，0为正常，1为警告，2为临界，NaN为不可用。",
+      "note_en": "State of generic unclassified sensors, 0 for nominal, 1 for warning, 2 for critical, NaN for N/A."
+    },
+    {
+      "expression": "ipmi_temperature_celsius",
+      "type": "gauge",
+      "unit": "°C",
+      "name": "IPMI 温度（摄氏度）",
+      "name_en": "IPMI Temperature (Celsius)",
+      "note": "温度传感器测量的温度值，单位为摄氏度。",
+      "note_en": "Temperature measured by temperature sensors, in degrees Celsius."
+    },
+    {
+      "expression": "ipmi_temperature_state",
+      "type": "gauge",
+      "unit": "",
+      "name": "IPMI 温度传感器状态",
+      "name_en": "IPMI Temperature Sensor State",
+      "note": "温度传感器的状态，0为正常，1为警告，2为临界，NaN为不可用。",
+      "note_en": "State of temperature sensors, 0 for nominal, 1 for warning, 2 for critical, NaN for N/A."
+    },
+    {
+      "expression": "ipmi_up",
+      "type": "gauge",
+      "unit": "",
+      "name": "IPMI 收集器状态",
+      "name_en": "IPMI Collector Status",
+      "note": "指示指定收集器是否成功从远程主机获取数据，1为成功，0为失败。",
+      "note_en": "Indicates if the specified collector successfully retrieved data from the remote host, 1 for success, 0 for failure."
+    },
+    {
+      "expression": "ipmi_up",
+      "type": "gauge",
+      "unit": "",
+      "name": "IPMI 采集状态",
+      "name_en": "IPMI Collection Status",
+      "note": "抓取元数据指标，1表示抓取成功，0表示失败。",
+      "note_en": "Scrape metadata metric. 1 indicates successful collection, 0 indicates failure."
+    },
+    {
+      "expression": "ipmi_voltage_state",
+      "type": "gauge",
+      "unit": "",
+      "name": "IPMI 电压传感器状态",
+      "name_en": "IPMI Voltage Sensor State",
+      "note": "电压传感器的状态，0为正常，1为警告，2为临界，NaN为不可用。",
+      "note_en": "State of voltage sensors, 0 for nominal, 1 for warning, 2 for critical, NaN for N/A."
+    }
+  ],
+  "dashboards": [
+    {
+      "file": "IPMI.json",
+      "name": "IPMI",
+      "name_en": "IPMI",
+      "panels": 12
+    },
+    {
+      "file": "IPMI_by_categraf.json",
+      "name": "IPMI by Categraf",
+      "name_en": "IPMI by Categraf",
+      "panels": 12
+    },
+    {
+      "file": "IPMI_by_prometheus.json",
+      "name": "IPMI for Prometheus",
+      "name_en": "IPMI for Prometheus",
+      "panels": 7
+    }
+  ],
+  "collect": [
+    {
+      "plugin": "ipmi",
+      "file": "conf.toml",
+      "readme": true,
+      "content": "# Read metrics from the bare metal servers via freeipmi\n[[instances]]\n# target指定是本地采集还是远程采集\n#target=\"localhost\"\n# 指定采集的用户名和密码，这里务必保证ipmi命令能获取正确输出，不是网上查到一个用户名 密码就可以。\n#user = \"user\"\n#pass = \"1234\"\n\n# ipmi协议版本，支持1.5 和 2.0\n#driver = \"LAN_2_0\"\n\n# 指定特权用户名\n#privilege = \"user\"\n\n## session-timeout, ms\n#timeout = 100000\n\n# 支持的采集器  bmc, bmc-watchdog, ipmi, chassis, dcmi, sel，sm-lan-mode\n# 默认使用 bmc, ipmi, chassis和dcmi，建议保持下列配置便于仪表盘更好的展示\ncollectors = [ \"bmc\", \"ipmi\", \"chassis\", \"sel\", \"dcmi\"]\n\n# 不关注的传感器，指定id 排除掉\n#exclude_sensor_ids = [ 2, 29, 32, 50, 52, 55 ]\n\n# 如果你想使用定制化的参数覆盖内置的命令，可以修改以下内容； 建议保持注释\n#[instances.collector_cmd]\n#ipmi = \"sudo\"\n#sel = \"sudo\"\n#[instances.default_args]\n#ipmi = [ \"--bridge-sensors\" ]\n#[instances.custom_args]\n#ipmi = [ \"--bridge-sensors\" ]\n#sel = [ \"ipmi-sel\" ]"
+    }
+  ],
+  "readme": {
+    "zh": true,
+    "en": true
+  }
+}

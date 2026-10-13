@@ -1,0 +1,121 @@
+{
+  "ident": "Oracle",
+  "alerts": [
+    {
+      "source": "default",
+      "name": "Oracle: 数据库归档日志量大于100",
+      "name_en": "Oracle: archived log volume exceeds 100",
+      "note": "Job:{{$labels.job}};Address:{{$labels.address}};Region:{{$labels.region}};",
+      "note_en": "Job:{{$labels.job}};Address:{{$labels.address}};Region:{{$labels.region}};",
+      "severity": 2,
+      "for": 300,
+      "queries": [
+        {
+          "promql": "oracle_archivelog_count>100",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 SELECT * FROM V$RECOVERY_FILE_DEST 确认 FRA 的配额与已用空间；\n2) 用 RMAN 的 crosscheck archivelog all; delete expired archivelog all; 清理已备份的归档；\n3) 确认归档备份任务是否正常执行——归档堆积通常是备份失败导致的；\n4) 长期需调大 db_recovery_file_dest_size 或把归档目录迁到更大的存储。",
+      "action_en": "1) Run SELECT * FROM V$RECOVERY_FILE_DEST to check the FRA quota and used space;\n2) Use RMAN's crosscheck archivelog all; delete expired archivelog all; to clear already-backed-up archives;\n3) Confirm the archive backup job is running — a pile-up of archives is usually caused by failed backups;\n4) Longer term, raise db_recovery_file_dest_size or move the archive destination to larger storage."
+    },
+    {
+      "source": "default",
+      "name": "Oracle: 数据库总连接数大于500",
+      "name_en": "Oracle: total database connections exceed 500",
+      "note": "Job:{{$labels.job}};Address:{{$labels.address}};Region:{{$labels.region}};",
+      "note_en": "Job:{{$labels.job}};Address:{{$labels.address}};Region:{{$labels.region}};",
+      "severity": 2,
+      "for": 300,
+      "queries": [
+        {
+          "promql": "oracle_process_count > 500",
+          "severity": 2
+        },
+        {
+          "promql": "oracle_process_count > 800",
+          "severity": 3
+        }
+      ],
+      "action": "1) 用 SELECT COUNT(*) FROM V$PROCESS 与 SHOW PARAMETER processes 对比当前水位与上限；\n2) 用 SELECT machine, program, COUNT(*) FROM V$SESSION GROUP BY 1,2 ORDER BY 3 DESC 找出连接数异常的应用；\n3) 区分业务增长与应用连接池泄漏（大量 INACTIVE 会话堆积）；\n4) 应急可调大 processes 参数（需重启实例），根因侧收敛应用连接池上限。",
+      "action_en": "1) Compare SELECT COUNT(*) FROM V$PROCESS against SHOW PARAMETER processes to see the current level versus the limit;\n2) Run SELECT machine, program, COUNT(*) FROM V$SESSION GROUP BY 1,2 ORDER BY 3 DESC to find the application with an abnormal connection count;\n3) Tell business growth apart from an application connection pool leak (many INACTIVE sessions piling up);\n4) As an emergency measure raise the processes parameter (requires an instance restart); for the root cause, cap the application connection pool."
+    },
+    {
+      "source": "default",
+      "name": "Oracle: 数据库活跃连接数大于100",
+      "name_en": "Oracle: active database connections exceed 100",
+      "note": "Job:{{$labels.job}};Address:{{$labels.address}};Region:{{$labels.region}};",
+      "note_en": "Job:{{$labels.job}};Address:{{$labels.address}};Region:{{$labels.region}};",
+      "severity": 2,
+      "for": 300,
+      "queries": [
+        {
+          "promql": "sum by (instance) (oracle_sessions_value{status='ACTIVE',type='USER'}) > 100",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 SELECT sid, serial#, sql_id, event, seconds_in_wait FROM V$SESSION WHERE status='ACTIVE' AND type='USER' ORDER BY seconds_in_wait DESC 看活跃会话在等什么；\n2) 等待事件集中在某类（如 enq: TX - row lock contention）说明有锁冲突，顺着 blocking_session 找源头；\n3) 用 sql_id 查 V$SQL 定位慢 SQL，必要时 ALTER SYSTEM KILL SESSION 止血；\n4) 定位后补索引或改写 SQL，并排查上游是否有突发流量。",
+      "action_en": "1) Run SELECT sid, serial#, sql_id, event, seconds_in_wait FROM V$SESSION WHERE status='ACTIVE' AND type='USER' ORDER BY seconds_in_wait DESC to see what the active sessions are waiting on;\n2) If the wait events cluster on one type (such as enq: TX - row lock contention) there is lock contention — follow blocking_session to the source;\n3) Use the sql_id against V$SQL to find the slow statement, and ALTER SYSTEM KILL SESSION to stop the bleeding if needed;\n4) Once located, add indexes or rewrite the SQL, and check upstream for a traffic spike."
+    },
+    {
+      "source": "default",
+      "name": "Oracle: 监控数据采集失败，可能已经挂了",
+      "name_en": "Oracle: metric collection failed, instance may be down",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 90,
+      "queries": [
+        {
+          "promql": "oracle_up != 1",
+          "severity": 1
+        }
+      ],
+      "action": "1) 登录主机确认 pmon 进程与监听器状态（ps -ef | grep pmon、lsnrctl status）；\n2) 进程存活则用 sqlplus 手工连一次，区分实例夯住与监听/账号问题；\n3) 进程不在则看 alert_<SID>.log 尾部定位原因（ORA-00600、归档满、磁盘满）再拉起；\n4) 有 Data Guard 的立即评估是否需要 failover。",
+      "action_en": "1) Log in to the host and check the pmon process and listener state (ps -ef | grep pmon, lsnrctl status);\n2) If they are alive, connect by hand with sqlplus to tell a hung instance from a listener or account problem;\n3) If not running, read the tail of alert_<SID>.log to identify the cause (ORA-00600, full FRA, full disk) before starting it;\n4) If Data Guard is in place, immediately assess whether to fail over."
+    },
+    {
+      "source": "default",
+      "name": "Oracle: 表空间使用率大于95%",
+      "name_en": "Oracle: tablespace usage exceeds 95%",
+      "note": "Job:{{$labels.job}};Address:{{$labels.address}};Tablespace:{{$labels.tablespace}};Region:{{$labels.region}};",
+      "note_en": "Job:{{$labels.job}};Address:{{$labels.address}};Tablespace:{{$labels.tablespace}};Region:{{$labels.region}};",
+      "severity": 2,
+      "for": 180,
+      "queries": [
+        {
+          "promql": "oracle_tablespace_bytes/oracle_tablespace_max_bytes*100>95",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 SELECT tablespace_name, bytes/1024/1024 mb FROM DBA_DATA_FILES 与 DBA_FREE_SPACE 确认是哪个表空间、数据文件是否已达最大；\n2) 应急扩容：ALTER DATABASE DATAFILE '<path>' RESIZE <更大值>，或 ADD DATAFILE 新增文件；\n3) 确认是否有大表或历史数据可归档删除，删除后需 shrink 或 move 才能真正释放；\n4) 检查数据文件是否开了 AUTOEXTEND 及其 MAXSIZE 设置。",
+      "action_en": "1) Use SELECT tablespace_name, bytes/1024/1024 mb FROM DBA_DATA_FILES together with DBA_FREE_SPACE to identify the tablespace and whether the data file has reached its maximum;\n2) Expand it: ALTER DATABASE DATAFILE '<path>' RESIZE <larger value>, or ADD DATAFILE;\n3) Check whether large tables or historical data can be archived and deleted — after deletion you still need shrink or move to actually release space;\n4) Check whether the data file has AUTOEXTEND enabled and what its MAXSIZE is."
+    }
+  ],
+  "metrics": [],
+  "dashboards": [
+    {
+      "file": "oracle_by_categraf.json",
+      "name": "Oracle by categraf",
+      "name_en": "Oracle by categraf",
+      "panels": 26
+    }
+  ],
+  "collect": [
+    {
+      "plugin": "oracle",
+      "file": "metric.toml",
+      "readme": true,
+      "content": "[[metrics]]\nmesurement = \"sessions\"\nlabel_fields = [ \"status\", \"type\" ]\nmetric_fields = [ \"value\" ]\ntimeout = \"3s\"\nrequest = '''\nSELECT status, type, COUNT(*) as value FROM v$session GROUP BY status, type\n'''\n\n[[metrics]]\nmesurement = \"lock\"\nmetric_fields = [ \"cnt\" ]\ntimeout = \"3s\"\nrequest = '''\nSELECT COUNT(*) AS cnt\n  FROM ALL_OBJECTS A, V$LOCKED_OBJECT B, SYS.GV_$SESSION C\n WHERE A.OBJECT_ID = B.OBJECT_ID\n   AND B.PROCESS = C.PROCESS\n'''\n\n[[metrics]]\nmesurement = \"slow_queries\"\nmetric_fields = [ \"p95_time_usecs\", \"p99_time_usecs\" ]\ntimeout = \"3s\"\nrequest = '''\nSELECT percentile_disc(0.95) WITHIN GROUP (ORDER BY elapsed_time) AS p95_time_usecs,\n       percentile_disc(0.99) WITHIN GROUP (ORDER BY elapsed_time) AS p99_time_usecs\nFROM v$sql\nWHERE last_active_time >= sysdate - 5/(24*60)\n'''\n\n[[metrics]]\nmesurement = \"resource\"\nlabel_fields = [ \"resource_name\" ]\nmetric_fields = [ \"current_utilization\", \"limit_value\" ]\ntimeout = \"3s\"\nrequest = '''\nSELECT resource_name,\n       current_utilization,\n       CASE WHEN TRIM(limit_value) = 'UNLIMITED' THEN '-1' ELSE TRIM(limit_value) END AS limit_value\nFROM v$resource_limit\n'''\n\n[[metrics]]\nmesurement = \"asm_diskgroup\"\nlabel_fields = [ \"name\" ]\nmetric_fields = [ \"total\", \"free\" ]\ntimeout = \"3s\"\nignore_zero_result = true\nrequest = '''\nSELECT name,\n       total_mb * 1024 * 1024 AS total,\n       free_mb * 1024 * 1024 AS free\nFROM v$asm_diskgroup_stat\nWHERE EXISTS (SELECT 1 FROM v$datafile WHERE name LIKE '+%')\n'''\n\n[[metrics]]\nmesurement = \"activity\"\nmetric_fields = [ \"value\" ]\nfield_to_append = \"name\"\ntimeout = \"3s\"\nrequest = '''\nSELECT name, value\nFROM v$sysstat\nWHERE name IN ('parse count (total)', 'execute count', 'user commits', 'user rollbacks')\n'''\n\n[[metrics]]\nmesurement = \"process\"\nmetric_fields = [ \"count\" ]\ntimeout = \"3s\"\nrequest = \"SELECT COUNT(*) AS count FROM v$process\"\n\n[[metrics]]\nmesurement = \"wait_time\"\nmetric_fields = [ \"value\" ]\nlabel_fields = [ \"wait_class\" ]\ntimeout = \"3s\"\nrequest = '''\nSELECT n.wait_class AS wait_class,\n       ROUND(m.time_waited / m.INTSIZE_CSEC, 3) AS value\nFROM v$waitclassmetric m, v$system_wait_class n\nWHERE m.wait_class_id = n.wait_class_id\n  AND n.wait_class != 'Idle'\n'''\n\n[[metrics]]\nmesurement = \"tablespace\"\nlabel_fields = [ \"tablespace\", \"type\" ]\nmetric_fields = [ \"bytes\", \"max_bytes\", \"free\" ]\ntimeout = \"3s\"\nrequest = '''\nSELECT dt.tablespace_name AS tablespace,\n       dt.contents AS type,\n       dt.block_size * dtum.used_space AS bytes,\n       dt.block_size * dtum.tablespace_size AS max_bytes,\n       dt.block_size * (dtum.tablespace_size - dtum.used_space) AS free\nFROM dba_tablespace_usage_metrics dtum, dba_tablespaces dt\nWHERE dtum.tablespace_name = dt.tablespace_name\nORDER BY tablespace\n'''\n\n[[metrics]]\nmesurement = \"sysmetric\"\nmetric_fields = [ \"value\" ]\nfield_to_append = \"metric_name\"\ntimeout = \"3s\"\nrequest = '''\nSELECT metric_name, value\nFROM v$sysmetric\nWHERE group_id = 2\n'''\n\n[[metrics]]\nmesurement = \"applylag\"\nmetric_fields = [ \"value\" ]\ntimeout = \"3s\"\nignore_zero_result = true\nrequest = '''\nSELECT ROUND(\n         EXTRACT(DAY FROM TO_DSINTERVAL(value)) * 86400\n       + EXTRACT(HOUR FROM TO_DSINTERVAL(value)) * 3600\n       + EXTRACT(MINUTE FROM TO_DSINTERVAL(value)) * 60\n       + EXTRACT(SECOND FROM TO_DSINTERVAL(value))\n       ) AS value\nFROM v$dataguard_stats\nWHERE name = 'apply lag'\n'''\n"
+    },
+    {
+      "plugin": "oracle",
+      "file": "oracle.toml",
+      "readme": true,
+      "content": "# # collect interval\n# interval = 15\n\n#[[instances]]\n# address = \"10.1.2.3:1521/orcl\"\n# username = \"monitor\"\n# password = \"<password>\"\n# is_sys_dba = false\n# is_sys_oper = false\n# disable_connection_pool = false\n# max_open_connections = 5\n# # interval = global.interval * interval_times\n# interval_times = 1\n# labels = { region=\"cloud\" }\n\n# [[instances.metrics]]\n# mesurement = \"sessions\"\n# label_fields = [ \"status\", \"type\" ]\n# metric_fields = [ \"value\" ]\n# timeout = \"3s\"\n# request = '''\n# SELECT status, type, COUNT(*) as value FROM v$session GROUP BY status, type\n# '''\n\n# [[instances]]\n# address = \"192.168.10.10:1521/orcl\"\n# username = \"monitor\"\n# password = \"<password>\"\n# is_sys_dba = false\n# is_sys_oper = false\n# disable_connection_pool = false\n# max_open_connections = 5\n# # labels = { region=\"local\" }\n"
+    }
+  ],
+  "readme": {
+    "zh": true,
+    "en": true
+  }
+}

@@ -1,0 +1,899 @@
+---
+title: "Monitor Huawei Cloud with Nightingale"
+sidebar_label: "Huawei Cloud"
+description: "Scrape Cloud Eye (CES) metrics converted to Prometheus format by the cloudeye-exporter; templates cover ECS, RDS, DCS, ELB, Kafka, RocketMQ, CSS and WAF."
+last_reviewed: 2026-10-13
+custom_edit_url: https://github.com/ccfos/nightingale/tree/main/integrations/Huawei
+toc_max_heading_level: 2
+mdx:
+  format: md
+---
+
+Huawei Cloud metrics come from the Cloud Eye service (CES). The `cloudeye-exporter` maintained by Huawei Cloud converts CES metrics per product namespace into Prometheus metrics named `huaweicloud_sys_<service>_<metric>`, which the Categraf `prometheus` input scrapes.
+
+The templates are split by product: ECS hosts, RDS (MySQL and PostgreSQL), DCS Redis instances and proxy nodes, ELB, distributed messaging (Kafka, RabbitMQ, RocketMQ), Cloud Search (CSS/ES) and WAF, one dashboard each. The rules cover ECS CPU and memory, RDS connections and disk, DCS memory and hit ratio, ELB backend health; the metric reference explains each product's metrics one by one.
+
+## What's in the template
+
+- **14 dashboards**, 330 panels in total
+- **35 alert rules**, each with runbook steps
+- **286 metric descriptions**
+
+## How to connect
+
+Deploy the [cloudeye-exporter](https://github.com/huaweicloud/cloudeye-exporter) and configure it with an IAM account's AK/SK, the project and the namespaces to collect. Once `http://<exporter>:8087/metrics?services=SYS.ECS` responds, scrape it per namespace with the Categraf `prometheus` input:
+
+```toml
+# conf/input.prometheus/huaweicloud.toml
+interval = 120
+
+[[instances]]
+urls = ["http://<exporter>:8087/metrics?services=SYS.ECS,SYS.RDS,SYS.DCS,SYS.ELB"]
+labels = { job = "huaweicloud" }
+```
+
+Cloud Eye metrics are at 60-second granularity or coarser, so do not collect more often than that.
+
+1. Open the integration center in Nightingale, find Huawei Cloud, and [import the dashboards and alert rules](/docs/data/integrations/import) into a business group.
+1. Imported rules start disabled. [Check that the metrics are arriving](/docs/data/integrations/verify) first, then enable the rules one by one with thresholds that fit your environment.
+
+## Bundled dashboards
+
+| Dashboard | Panels |
+| --- | ---: |
+| Huawei Cloud Search Service (CSS/ES) | 25 |
+| Huawei Cloud Distributed Cache Service (DCS) | 13 |
+| Huawei Cloud Elastic Load Balance (ELB) | 24 |
+| Huawei Cloud ECS Host Monitoring Dashboard | 13 |
+| Huawei Cloud Distributed Message Service (Kafka) | 26 |
+| Huawei Cloud RDS for MySQL instance | 22 |
+| Huawei Cloud RDS for PostgreSQL instance | 21 |
+| Huawei Cloud Database (RDS) | 22 |
+| Huawei Cloud RabbitMQ | 53 |
+| Huawei Cloud Redis Instance Monitoring Dashboard | 35 |
+| Huawei Cloud Redis Proxy Node Monitoring Dashboard | 12 |
+| Huawei Cloud Redis Data Node Monitoring Dashboard | 35 |
+| Huawei RocketMQ Monitoring | 16 |
+| Huawei Cloud WAF | 13 |
+
+## Bundled alert rules
+
+35 rules. Each lists its trigger condition (PromQL) and the steps to take when it fires. Thresholds are meant to be adjusted after import.
+
+### Huawei Cloud ECS CPU usage exceeds 80%
+
+S2 Warning · for 1 min · Trigger:
+
+```promql
+huaweicloud_sys_agt_cpu_usage >80
+```
+
+Runbook:
+
+1. SSH in and use top -H to find the busiest processes and threads;
+1. Use perf top or a language profiler to find the hot functions;
+1. Tell business growth apart from a code fault (infinite loop, frequent GC);
+1. For growth, change to a larger flavour in the console or scale out horizontally.
+
+### Huawei Cloud ECS inode usage exceeds 80%
+
+S2 Warning · for 1 min · Trigger:
+
+```promql
+huaweicloud_sys_agt_SlAsH_disk_inodesUsedPercent >80
+```
+
+Runbook:
+
+1. Run df -i to find the mount point;
+1. Count files level by level to find the directories with the most small files;
+1. Common sources are log fragments, session files and container layers — confirm and bulk delete;
+1. Longer term, consider moving small-file workloads to a dedicated partition.
+
+### Huawei Cloud ECS NTP offset exceeds 1 second
+
+S2 Warning · for 1 min · Trigger:
+
+```promql
+huaweicloud_sys_agt_ntp_offset > 1000
+```
+
+Runbook:
+
+1. Run chronyc tracking to check the offset and upstream source state;
+1. Huawei Cloud ECS should use the internal NTP service (ntp.myhuaweicloud.com) — confirm it is configured;
+1. Start chronyd if it is not running and enable it at boot;
+1. For a large offset, use chronyc makestep to step the clock.
+
+### Huawei Cloud ECS TIME_WAIT connections exceed 20000
+
+S2 Warning · for 1 min · Trigger:
+
+```promql
+huaweicloud_sys_agt_net_tcp_close > 20000
+```
+
+Runbook:
+
+1. Run ss -s to see the real connection state distribution;
+1. Run ss -tan | awk '\{print $5\}' | cut -d: -f1 | sort | uniq -c | sort -rn to find the peers;
+1. The root cause is usually too many short-lived connections — switch the application to long-lived connections or a pool;
+1. As an emergency measure enable net.ipv4.tcp_tw_reuse and widen ip_local_port_range.
+
+### Huawei Cloud ECS zombie processes above 0
+
+S2 Warning · for 1 min · Trigger:
+
+```promql
+huaweicloud_sys_agt_proc_zombie_count >0
+```
+
+Runbook:
+
+1. Run ps -ef | awk '$2 ~ /Z/ || $8 ~ /Z/' or ps aux | grep 'Z' to find the zombie processes and their parent PPIDs;
+1. Once you have the parent, the problem is that it never calls wait() — this must be fixed in code;
+1. As an emergency measure restart the parent so init reaps the zombies;
+1. If the count keeps growing, the code fix is mandatory — restarting is only a stopgap.
+
+### Huawei Cloud ECS available memory below 20%
+
+S2 Warning · for 1 min · Trigger:
+
+```promql
+huaweicloud_sys_agt_mem_available < 20
+```
+
+Runbook:
+
+1. Run free -h to check available memory and swap;
+1. Run ps aux --sort=-%mem | head to find the largest consumer and judge whether it is leaking;
+1. For a leak, capture a heap in the application — a restart alone is not enough;
+1. For growth, change to a larger memory flavour in the console.
+
+### Huawei Cloud ECS outbound packet loss rate exceeds 50%
+
+S2 Warning · for 1 min · Trigger:
+
+```promql
+huaweicloud_sys_agt_net_dropout > 50
+```
+
+Runbook:
+
+1. Run ip -s link show to confirm TX dropped is growing;
+1. Confirm whether the instance flavour's bandwidth cap is saturated — cloud bandwidth is capped per flavour and exceeding it drops packets;
+1. If capped, adjust bandwidth or change the flavour in the console;
+1. If not capped, check security groups, the kernel transmit queue and the application's send logic.
+
+### Huawei Cloud ECS outbound packet error rate exceeds 50%
+
+S2 Warning · for 1 min · Trigger:
+
+```promql
+huaweicloud_sys_agt_net_errout > 50
+```
+
+Runbook:
+
+1. Run ip -s link show and ethtool -S to confirm the error counters;
+1. In the cloud the physical layer is the provider's responsibility, so an abnormal error rate should go to a Huawei Cloud support ticket first;
+1. At the same time confirm whether the instance flavour's bandwidth cap was exceeded;
+1. If redundancy exists, move traffic away to stop the impact.
+
+### Huawei Cloud ECS block device usage exceeds 80%
+
+S2 Warning · for 1 min · Trigger:
+
+```promql
+huaweicloud_sys_agt_SlAsH_disk_usedPercent > 80
+```
+
+Runbook:
+
+1. Run df -h to find the mount point and du -x --max-depth=1 for the largest directories;
+1. Clean logs and temporary files first, and use lsof +L1 for deleted-but-unreleased files;
+1. Expand the EVS disk online in the console, then use growpart plus resize2fs/xfs_growfs to grow the filesystem;
+1. Longer term, evaluate moving the data directory to a dedicated cloud disk.
+
+### Huawei Cloud ECS inbound packet loss rate exceeds 50%
+
+S2 Warning · for 1 min · Trigger:
+
+```promql
+huaweicloud_sys_agt_net_dropin > 50
+```
+
+Runbook:
+
+1. Run ip -s link show to confirm RX dropped is growing;
+1. Confirm whether the instance flavour's bandwidth or PPS cap is saturated — cloud instances limit both;
+1. If capped, adjust bandwidth or change the flavour in the console;
+1. If not capped, raise the receive ring buffer with ethtool -G and consider enabling RPS.
+
+### Huawei Cloud ECS inbound packet error rate exceeds 50%
+
+S2 Warning · for 1 min · Trigger:
+
+```promql
+huaweicloud_sys_agt_net_errin > 50
+```
+
+Runbook:
+
+1. Run ip -s link show and ethtool -S to confirm the error counters;
+1. In the cloud the physical layer is the provider's responsibility, so an abnormal error rate should go to a Huawei Cloud support ticket first;
+1. At the same time confirm whether the flavour's bandwidth/PPS cap was exceeded;
+1. If redundancy exists, move traffic away.
+
+### Huawei Cloud ECS disk write IOPS too high
+
+S2 Warning · for 1 min · Trigger:
+
+```promql
+huaweicloud_sys_agt_SlAsH_disk_agt_write_requests_rate > 99
+```
+
+Runbook:
+
+1. Run iostat -x 1 to check actual IOPS and await;
+1. Run iotop -oP to find the process writing the most;
+1. Compare against the EVS disk type's IOPS ceiling to see whether it has topped out — ultra-high performance and general purpose disks differ greatly;
+1. If it has, upgrade the disk type or expand it in the console (IOPS usually scales linearly with capacity); if not, optimise the application's write pattern.
+
+### Huawei Cloud ECS disk read IOPS too high
+
+S2 Warning · for 1 min · Trigger:
+
+```promql
+huaweicloud_sys_agt_SlAsH_disk_agt_read_requests_rate > 99
+```
+
+Runbook:
+
+1. Run iostat -x 1 to check actual IOPS and await;
+1. Run iotop -oP to find the process reading the most;
+1. Compare against the EVS disk type's IOPS ceiling to see whether it has topped out;
+1. If it has, upgrade the disk type or expand it; if not, reduce disk reads with caching and better indexes.
+
+### Huawei Cloud ELB L4 inbound bandwidth usage exceeds 80%
+
+S2 Warning · for 2 min · Trigger:
+
+```promql
+huaweicloud_sys_elb_l4_in_bps_usage > 80
+```
+
+Runbook:
+
+1. Check that ELB's bandwidth monitoring curve in the console to tell sustained growth from a spike;
+1. Determine whether it is normal business growth or abnormal traffic (crawlers, attacks);
+1. For genuine growth, adjust the ELB specification or bandwidth cap in the console;
+1. For abnormal traffic, use WAF/DDoS protection to rate limit or block.
+
+### Huawei Cloud ELB L4 outbound bandwidth usage exceeds 80%
+
+S2 Warning · for 2 min · Trigger:
+
+```promql
+huaweicloud_sys_elb_l4_out_bps_usage > 80
+```
+
+Runbook:
+
+1. Check that ELB's bandwidth monitoring curve in the console to tell sustained growth from a spike;
+1. Determine whether it is normal business growth or abnormal traffic (crawlers, attacks);
+1. For genuine growth, adjust the ELB specification or bandwidth cap in the console;
+1. For abnormal traffic, use WAF/DDoS protection to rate limit or block.
+
+### Huawei Cloud ELB L4 concurrent connection usage exceeds 80%
+
+S2 Warning · for 2 min · Trigger:
+
+```promql
+huaweicloud_sys_elb_l4_con_usage > 80
+```
+
+Runbook:
+
+1. Check that ELB's connection count monitoring in the console for the growth trend;
+1. Check whether the backend is responding more slowly and causing connections to pile up — a high connection count is often a symptom of a slow backend rather than the cause;
+1. If the backend is fine, upgrade the ELB specification for the growth;
+1. Check whether clients are failing to reuse connections.
+
+### Huawei Cloud ELB L4 new connection usage exceeds 80%
+
+S2 Warning · for 2 min · Trigger:
+
+```promql
+huaweicloud_sys_elb_l4_ncps_usage > 80
+```
+
+Runbook:
+
+1. Check that ELB's connection count monitoring in the console for the growth trend;
+1. Check whether the backend is responding more slowly and causing connections to pile up — a high connection count is often a symptom of a slow backend rather than the cause;
+1. If the backend is fine, upgrade the ELB specification for the growth;
+1. Check whether clients are failing to reuse connections.
+
+### Huawei Cloud ELB L7 inbound bandwidth usage exceeds 80%
+
+S2 Warning · for 2 min · Trigger:
+
+```promql
+huaweicloud_sys_elb_l7_in_bps_usage > 80
+```
+
+Runbook:
+
+1. Check that ELB's bandwidth monitoring curve in the console to tell sustained growth from a spike;
+1. Determine whether it is normal business growth or abnormal traffic (crawlers, attacks);
+1. For genuine growth, adjust the ELB specification or bandwidth cap in the console;
+1. For abnormal traffic, use WAF/DDoS protection to rate limit or block.
+
+### Huawei Cloud ELB L7 outbound bandwidth usage exceeds 80%
+
+S2 Warning · for 2 min · Trigger:
+
+```promql
+huaweicloud_sys_elb_l7_out_bps_usage > 80
+```
+
+Runbook:
+
+1. Check that ELB's bandwidth monitoring curve in the console to tell sustained growth from a spike;
+1. Determine whether it is normal business growth or abnormal traffic (crawlers, attacks);
+1. For genuine growth, adjust the ELB specification or bandwidth cap in the console;
+1. For abnormal traffic, use WAF/DDoS protection to rate limit or block.
+
+### Huawei Cloud ELB L7 concurrent connection usage exceeds 80%
+
+S2 Warning · for 2 min · Trigger:
+
+```promql
+huaweicloud_sys_elb_l7_con_usage > 80
+```
+
+Runbook:
+
+1. Check that ELB's connection count monitoring in the console for the growth trend;
+1. Check whether the backend is responding more slowly and causing connections to pile up — a high connection count is often a symptom of a slow backend rather than the cause;
+1. If the backend is fine, upgrade the ELB specification for the growth;
+1. Check whether clients are failing to reuse connections.
+
+### Huawei Cloud ELB L7 new connection usage exceeds 80%
+
+S2 Warning · for 2 min · Trigger:
+
+```promql
+huaweicloud_sys_elb_l7_ncps_usage > 80
+```
+
+Runbook:
+
+1. Check that ELB's connection count monitoring in the console for the growth trend;
+1. Check whether the backend is responding more slowly and causing connections to pile up — a high connection count is often a symptom of a slow backend rather than the cause;
+1. If the backend is fine, upgrade the ELB specification for the growth;
+1. Check whether clients are failing to reuse connections.
+
+### Huawei Cloud ELB unhealthy hosts above 0
+
+S2 Warning · for 2 min · Trigger:
+
+```promql
+huaweicloud_sys_elb_m9_abnormal_servers > 0
+```
+
+Runbook:
+
+1. In the console's backend server group, find the instances failing the health check;
+1. Log in to that instance and confirm the application process and port are alive;
+1. If the application is fine, verify the health check configuration (path, port, timeout, interval) matches reality;
+1. Confirm the remaining healthy instances can carry the traffic and scale out immediately if not.
+
+### Huawei Cloud ELB query rate usage exceeds 80%
+
+S2 Warning · for 2 min · Trigger:
+
+```promql
+huaweicloud_sys_elb_l7_qps_usage > 80
+```
+
+Runbook:
+
+1. Check that ELB's bandwidth monitoring curve in the console to tell sustained growth from a spike;
+1. Determine whether it is normal business growth or abnormal traffic (crawlers, attacks);
+1. For genuine growth, adjust the ELB specification or bandwidth cap in the console;
+1. For abnormal traffic, use WAF/DDoS protection to rate limit or block.
+
+### Huawei Cloud Redis average CPU usage exceeds 80%
+
+This metric samples the CPU usage of the measured object multiple times within the statistics period and reports the average. Only single-node/primary-standby/read-write-splitting instances are supported.
+
+S2 Warning · for 2 min · Trigger:
+
+```promql
+huaweicloud_sys_dcs_cpu_avg_usage > 80
+```
+
+Runbook:
+
+1. Run SLOWLOG GET 10 to find the slowest commands;
+1. Focus on O(N) commands such as KEYS, HGETALL and SMEMBERS and on big-key operations, switching to SCAN or batching;
+1. Check whether an RDB/AOF persistence run is causing the CPU spike;
+1. If it stays high after tuning, upgrade the instance flavour in the console.
+
+### Huawei Cloud Redis memory usage exceeds 80%
+
+S1 Critical · for 2 min · Trigger:
+
+```promql
+huaweicloud_sys_dcs_memory_usage > 80
+```
+
+Runbook:
+
+1. Use redis-cli --bigkeys to find large keys and split them or add TTLs;
+1. Use INFO memory to check the fragmentation ratio and enable activedefrag if it is high;
+1. Check whether keys without an expiry keep accumulating;
+1. Confirm maxmemory-policy, then expand the flavour in the console.
+
+### Huawei Cloud Redis slow log detected
+
+S2 Warning · for 1 min · Trigger:
+
+```promql
+huaweicloud_sys_dcs_is_slow_log_exist == 1
+```
+
+Runbook:
+
+1. Run SLOWLOG GET 10 for the specific slow commands and their timings;
+1. Focus on O(N) commands and big-key operations;
+1. Switching to SCAN with batching and splitting large keys is the real fix;
+1. If the slow commands come from a scheduled job, move it to off-peak hours.
+
+### Huawei Cloud Redis bandwidth usage exceeds 90%
+
+This metric samples the CPU usage of the measured object multiple times within the statistics period and reports the average. Only single-node/primary-standby/read-write-splitting instances are supported.
+
+S2 Warning · for 2 min · Trigger:
+
+```promql
+huaweicloud_sys_dcs_bandwidth_usage > 90
+```
+
+Runbook:
+
+1. Use INFO stats to check instantaneous_input_kbps / output_kbps and determine the direction;
+1. Use redis-cli --bigkeys to find large keys — reading and writing large keys is the most common cause of saturated bandwidth;
+1. Split large keys and reduce one-shot bulk reads;
+1. If you genuinely need more bandwidth, upgrade the flavour in the console.
+
+### Huawei Cloud Redis new connections exceed 10000
+
+For single-node and primary-standby instances the connection limit is 10000; adjust the threshold to your workload.
+
+S3 Info · for 2 min · Trigger:
+
+```promql
+huaweicloud_sys_dcs_total_connections_received > 10000
+```
+
+Runbook:
+
+1. Use CLIENT LIST grouped by source to find the clients reconnecting frequently;
+1. Switching the application to a connection pool with reused connections is the real fix;
+1. Check whether the client's connection timeout is set too short and causing repeated reconnects;
+1. Confirm no throttling or memory alarm is causing the server to close connections.
+
+### Huawei Cloud Redis max CPU usage exceeds 80%
+
+S2 Warning · for 2 min · Trigger:
+
+```promql
+huaweicloud_sys_dcs_cpu_usage > 80
+```
+
+Runbook:
+
+1. Identify the node with high CPU in the console;
+1. In cluster mode this is usually data skew — a hot key in one slot, findable with --hotkeys;
+1. Hot keys can be mitigated with a local cache or by splitting the key;
+1. If it stays high after rebalancing, upgrade the flavour.
+
+### Huawei Cloud Redis active clients exceed 8000
+
+For single-node and primary-standby instances the connection limit is 10000; adjust the threshold to your workload.
+
+S2 Warning · for 2 min · Trigger:
+
+```promql
+huaweicloud_sys_dcs_connected_clients > 8000
+```
+
+Runbook:
+
+1. Check that DCS instance's monitoring curves in the Huawei Cloud console;
+1. Connect with redis-cli and run INFO to confirm the real state of the relevant metric;
+1. Once the cause is identified, follow the usual Redis path (big keys, slow commands, connection leaks);
+1. If capacity is short, change the instance flavour in the console.
+
+### Huawei Cloud Redis flow control count above 0
+
+Check spec limits together with instantaneous inbound/outbound traffic to decide whether scaling up resolves it.
+Only Redis 4.0+ instances support this metric; Redis 3.0 instances do not.
+
+S2 Warning · for 1 min · Trigger:
+
+```promql
+huaweicloud_sys_dcs_rx_controlled > 0
+```
+
+Runbook:
+
+1. Check when the throttling occurred in the console and compare against the bandwidth and QPS curves to see which limit was exceeded;
+1. For bandwidth, use --bigkeys to find and split large keys;
+1. For QPS, add a local cache or batch requests on the application side;
+1. If you genuinely need more capacity, change the instance flavour in the console.
+
+### Huawei Cloud Redis Proxy node active clients exceed 20000
+
+For single-node and primary-standby instances the connection limit is 10000; adjust the threshold to your workload.
+
+S2 Warning · for 2 min · Trigger:
+
+```promql
+huaweicloud_sys_dcs_p_connected_clients > 20000
+```
+
+Runbook:
+
+1. Check that DCS instance's monitoring curves in the Huawei Cloud console;
+1. Connect with redis-cli and run INFO to confirm the real state of the relevant metric;
+1. Once the cause is identified, follow the usual Redis path (big keys, slow commands, connection leaks);
+1. If capacity is short, change the instance flavour in the console.
+
+### RocketMQ broker down
+
+S1 Critical · for 1 min · Trigger:
+
+```promql
+huaweicloud_sys_dms_broker_alive == 0
+```
+
+Runbook:
+
+1. Confirm the instance and broker state in the Huawei Cloud console;
+1. Confirm clients have failed over to other brokers — with multiple brokers only some partitions are unavailable;
+1. If the console looks fine but clients report errors, check the network and security groups plus the client's nameserver address;
+1. If it stays unavailable, open a ticket with Huawei Cloud.
+
+### RocketMQ per-core CPU load exceeds 1.5
+
+S1 Critical · for 3 min · Trigger:
+
+```promql
+huaweicloud_sys_dms_broker_cpu_core_load > 1.5
+```
+
+Runbook:
+
+1. Check that broker's TPS and message backlog curves in the console to tell producer-side from consumer-side pressure;
+1. For a heavy consume backlog, scale out consumers first;
+1. For a produce spike, evaluate upgrading the instance flavour;
+1. Confirm no oversized messages or huge batch sends are overwhelming the broker.
+
+### RocketMQ memory usage exceeds 85%
+
+S1 Critical · for 3 min · Trigger:
+
+```promql
+huaweicloud_sys_dms_broker_memory_usage > 85
+```
+
+Runbook:
+
+1. Check the message backlog in the console — a backlog consumes significant memory;
+1. Restoring consumption to drain the backlog is the most direct fix;
+1. Check whether the message retention period is set too long;
+1. For sustained growth, upgrade the instance flavour.
+
+## Metric reference
+
+286 metrics, the ones the dashboards and rules above are built on.
+
+| Metric | Meaning | Unit |
+| --- | --- | --- |
+| `huaweicloud_sys_dcs_auth_errors` | Authentication Failures — Counts the number of authentication failures on the instance. Only single-node and master/standby instances are supported. |  |
+| `huaweicloud_sys_dcs_blocked_clients` | Blocked Clients — This metric measures the number of clients suspended by blocking operations, such as BLPOP, BRPOP, and BRPOPLPUSH. |  |
+| `huaweicloud_sys_dcs_client_biggest_in_buf` | Biggest Client Input Buffer — This metric measures the maximum input data length among all current client connections. | bytes |
+| `huaweicloud_sys_dcs_client_longest_out_list` | Longest Client Output List — This metric measures the longest output list among all current client connections. |  |
+| `huaweicloud_sys_dcs_command_max_delay` | Maximum Command Latency — Measures the maximum command latency of the instance. | ms |
+| `huaweicloud_sys_dcs_connected_clients` | Connected Clients — This metric counts the number of connected clients, including connections for system monitoring, configuration synchronization, and service traffic. |  |
+| `huaweicloud_sys_dcs_cpu_usage` | Maximum CPU Usage — This metric samples the CPU usage of the monitored object multiple times within the statistics period and reports the highest sampled value. For single-node and master/standby instances, this metric is the CPU usage of the master node. For Proxy Cluster instances, this metric is the average value across all proxy nodes. | % |
+| `huaweicloud_sys_dcs_evicted_keys` | Evicted Keys — This metric counts the number of keys deleted due to insufficient memory during the period. |  |
+| `huaweicloud_sys_dcs_expired_keys` | Expired Keys — This metric counts the number of keys deleted due to expiration during the period. |  |
+| `huaweicloud_sys_dcs_instantaneous_input_kbps` | Instantaneous Network Input Traffic — This metric measures the instantaneous input traffic. | bit/s |
+| `huaweicloud_sys_dcs_instantaneous_ops` | Ops per Second — This metric counts the number of commands processed per second. |  |
+| `huaweicloud_sys_dcs_instantaneous_output_kbps` | Instantaneous Network Output Traffic — This metric measures the instantaneous output traffic. | bit/s |
+| `huaweicloud_sys_dcs_is_slow_log_exist` | Slow Log Existence — Indicates whether slow logs exist on the instance. Slow logs caused by the migrate, slaveof, config, bgsave, and bgrewriteaof commands are not counted. Only single-node and master/standby instances are supported. |  |
+| `huaweicloud_sys_dcs_keys` | Total Keys — This metric counts the total number of keys in the Redis cache. Only single-node and master/standby instances are supported. |  |
+| `huaweicloud_sys_dcs_keyspace_hits` | Keyspace Hits — This metric counts the number of successful lookups in the main dictionary during the period. |  |
+| `huaweicloud_sys_dcs_keyspace_hits_perc` | Cache Hit Ratio — This metric measures the cache hit ratio of Redis, calculated as: keyspace_hits/(keyspace_hits+keyspace_misses) | % |
+| `huaweicloud_sys_dcs_keyspace_misses` | Keyspace Misses — This metric counts the number of failed lookups in the main dictionary during the period. |  |
+| `huaweicloud_sys_dcs_memory_frag_ratio` | Memory Fragmentation Ratio — This metric measures the current memory fragmentation ratio, which equals used_memory_rss / used_memory. |  |
+| `huaweicloud_sys_dcs_memory_usage` | Memory Usage — This metric measures the memory usage of the monitored object (reserved memory is excluded from the calculation). | % |
+| `huaweicloud_sys_dcs_net_in_throughput` | Network Input Throughput — This metric measures the average inbound traffic per second on the network port. | bytes/s |
+| `huaweicloud_sys_dcs_net_out_throughput` | Network Output Throughput — This metric measures the average outbound traffic per second on the network port. | bytes/s |
+| `huaweicloud_sys_dcs_pubsub_channels` | Pub/Sub Channels — This metric counts the number of Pub/Sub channels. |  |
+| `huaweicloud_sys_dcs_pubsub_patterns` | Pub/Sub Patterns — This metric counts the number of Pub/Sub patterns. |  |
+| `huaweicloud_sys_dcs_rejected_connections` | Rejected Connections — This metric counts the number of connections rejected during the period because the maxclients limit was exceeded. |  |
+| `huaweicloud_sys_dcs_total_commands_processed` | Commands Processed — This metric counts the number of commands processed during the period. |  |
+| `huaweicloud_sys_dcs_total_connections_received` | New Connections — This metric counts the number of connections created during the period. |  |
+| `huaweicloud_sys_dcs_total_net_input_bytes` | Network Input Bytes — This metric counts the number of bytes received during the period. | bytes |
+| `huaweicloud_sys_dcs_total_net_output_bytes` | Network Output Bytes — This metric counts the number of bytes sent during the period. | bytes |
+| `huaweicloud_sys_dcs_used_memory` | Used Memory — This metric measures the number of bytes of memory used by Redis. | bytes |
+| `huaweicloud_sys_dcs_used_memory_lua` | Used Memory (Lua) — This metric measures the number of memory bytes used by the Lua engine. | bytes |
+| `huaweicloud_sys_dcs_used_memory_peak` | Used Memory Peak — This metric measures the peak memory usage of Redis since the server started. | bytes |
+| `huaweicloud_sys_dcs_used_memory_rss` | Used Memory RSS — This metric measures the RSS memory used by Redis, that is, the amount of memory actually resident in RAM, including heap memory but excluding swapped-out memory. | bytes |
+| `huaweicloud_sys_dcs_command_avg_rt` | Average Latency — Average latency from when the node receives a command to when it sends a response. | μs |
+| `huaweicloud_sys_dcs_command_max_rt` | Maximum Latency — Maximum latency from when the node receives a command to when it sends a response. | μs |
+| `huaweicloud_sys_dcs_command_p99_rt` | P99 Latency — 99th percentile of command execution latency. | ms |
+| `huaweicloud_sys_dcs_connected_clients` | Connected Clients — Number of connected clients, including connections for system monitoring, configuration synchronization, and services. |  |
+| `huaweicloud_sys_dcs_connections_usage` | Connection Usage — Percentage of the current number of connections to the maximum number of connections allowed. | % |
+| `huaweicloud_sys_dcs_cpu_avg_usage` | Average CPU Usage — The CPU usage of the monitored object is sampled multiple times within each monitoring period. This metric indicates the average of the sampled values. | % |
+| `huaweicloud_sys_dcs_cpu_usage` | Maximum CPU Usage — The CPU usage of the monitored object is sampled multiple times within each monitoring period. This metric indicates the maximum of the sampled values. | % |
+| `huaweicloud_sys_dcs_instantaneous_input_kbps` | Instantaneous Network Input Traffic — Instantaneous input traffic. | bit/s |
+| `huaweicloud_sys_dcs_instantaneous_ops` | Ops per Second — Number of commands processed per second. |  |
+| `huaweicloud_sys_dcs_instantaneous_output_kbps` | Instantaneous Network Output Traffic — Instantaneous output traffic. | bit/s |
+| `huaweicloud_sys_dcs_memory_usage` | Memory Usage — Memory usage of the monitored object. | % |
+| `huaweicloud_sys_dcs_node_status` | Instance Node Status — Indicates whether the Proxy node status is normal. |  |
+| `huaweicloud_sys_dcs_total_net_input_bytes` | Network Input Bytes — Number of bytes received during the monitoring period. | bytes |
+| `huaweicloud_sys_dcs_total_net_output_bytes` | Network Output Bytes — Number of bytes sent during the monitoring period. | bytes |
+| `huaweicloud_sys_agt_SlAsH_disk_agt_read_bytes_rate` | (Agent) Disk Read Rate — This metric measures the volume of data read from the monitored object per second. Collection method (Linux): The disk read rate is calculated from the change in the sixth column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Disk I/O data is obtained from the WMI Win32_PerfFormattedData_PerfDisk_LogicalDisk object. The object is read once per collection period, and the instantaneous value it returns represents the metric value for that period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Under high CPU usage, the query may time out, and monitoring data may fail to be collected. | bytes/s |
+| `huaweicloud_sys_agt_SlAsH_disk_agt_read_requests_rate` | (Agent) Disk Read IOPS — This metric measures the number of read requests from the monitored object per second. Collection method (Linux): The disk read IOPS is calculated from the change in the fourth column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Disk I/O data is obtained from the WMI Win32_PerfFormattedData_PerfDisk_LogicalDisk object. The object is read once per collection period, and the instantaneous value it returns represents the metric value for that period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Under high CPU usage, the query may time out, and monitoring data may fail to be collected. |  |
+| `huaweicloud_sys_agt_SlAsH_disk_agt_write_bytes_rate` | (Agent) Disk Write Rate — This metric measures the volume of data written to the monitored object per second. Collection method (Linux): The disk write rate is calculated from the change in the tenth column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Disk I/O data is obtained from the WMI Win32_PerfFormattedData_PerfDisk_LogicalDisk object. The object is read once per collection period, and the instantaneous value it returns represents the metric value for that period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Under high CPU usage, the query may time out, and monitoring data may fail to be collected. | bytes/s |
+| `huaweicloud_sys_agt_SlAsH_disk_agt_write_requests_rate` | (Agent) Disk Write IOPS — This metric measures the number of write requests to the monitored object per second. Collection method (Linux): The disk write IOPS is calculated from the change in the eighth column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Disk I/O data is obtained from the WMI Win32_PerfFormattedData_PerfDisk_LogicalDisk object. The object is read once per collection period, and the instantaneous value it returns represents the metric value for that period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Under high CPU usage, the query may time out, and monitoring data may fail to be collected. |  |
+| `huaweicloud_sys_agt_SlAsH_disk_device_used_percent` | Block Device Usage — This metric measures the physical disk usage of the monitored object, in percent. It is calculated as: used storage of all mounted disk partitions / total disk storage. Collection method (Linux): The disk usage of each mount point is summed up, the total disk size is calculated from the disk sector size and sector count, and the overall disk usage is then derived. Collection method (Windows): Not supported yet. | % |
+| `huaweicloud_sys_agt_SlAsH_disk_fs_rwstate` | (Agent) File System Read/Write Status — This metric indicates the read/write status of the file systems mounted on the monitored object. Status values: read/write (0) or read-only (1). Collection method (Linux): Obtained from the file system mount parameters in the fourth column of /proc/mounts. |  |
+| `huaweicloud_sys_agt_SlAsH_disk_inodesTotal` | (Agent) Total inodes — This metric measures the total inode space of the current disk on the monitored object. Collection method (Linux): Run the df -i command and check the Inodes column. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. |  |
+| `huaweicloud_sys_agt_SlAsH_disk_inodesUsed` | (Agent) Used inodes — This metric measures the used inode space of the current disk on the monitored object. Collection method (Linux): Run the df -i command and check the IUsed column. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. |  |
+| `huaweicloud_sys_agt_SlAsH_disk_inodesUsedPercent` | (Agent) inode Usage — This metric measures the percentage of used inodes on the current disk of the monitored object. Collection method (Linux): Run the df -i command and check the IUse% column. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. | % |
+| `huaweicloud_sys_agt_SlAsH_disk_ioUtils` | (Agent) Disk I/O Usage — This metric measures the disk I/O usage of the monitored object. Collection method (Linux): The disk I/O usage is calculated from the change in the thirteenth column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet. | % |
+| `huaweicloud_sys_agt_SlAsH_disk_io_svctm` | (Agent) Average I/O Service Time — This metric measures the average duration of each read or write I/O operation in the specified period. Collection method (Linux): The average I/O service time is calculated by dividing the change in the thirteenth column of the corresponding device in /proc/diskstats during the collection period by the sum of the changes in the fourth and eighth columns. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet. |  |
+| `huaweicloud_sys_agt_SlAsH_disk_queue_length` | (Agent) Average Queue Length — This metric reflects how busy the disk is in the specified period and can be used to evaluate disk I/O performance. A larger value indicates a busier disk and poorer I/O performance. Collection method (Linux): The metric value is calculated by dividing the change in the fourteenth column of the corresponding device in /proc/diskstats during the collection period by the collection period duration. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet. |  |
+| `huaweicloud_sys_agt_SlAsH_disk_readTime` | (Agent) Average Read Time — This metric measures the average time taken by disk read operations on the monitored object. Collection method (Linux): The average disk read time is calculated from the change in the seventh column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet. |  |
+| `huaweicloud_sys_agt_SlAsH_disk_read_bytes_per_operation` | (Agent) Average Read Operation Size — This metric measures the average number of bytes transferred per read I/O operation in the specified period. Collection method (Linux): The average read operation size is calculated by dividing the change in the sixth column of the corresponding device in /proc/diskstats during the collection period by the change in the fourth column. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet. |  |
+| `huaweicloud_sys_agt_SlAsH_disk_writeTime` | (Agent) Average Write Time — This metric measures the average time taken by disk write operations on the monitored object. Collection method (Linux): The average disk write time is calculated from the change in the eleventh column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet. |  |
+| `huaweicloud_sys_agt_SlAsH_disk_write_bytes_per_operation` | (Agent) Average Write Operation Size — This metric measures the average number of bytes transferred per write I/O operation in the specified period. Collection method (Linux): The average write operation size is calculated by dividing the change in the tenth column of the corresponding device in /proc/diskstats during the collection period by the change in the eighth column. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet. |  |
+| `huaweicloud_sys_agt_cpu_usage` | (Agent) CPU Usage — This metric measures the current CPU usage of the monitored object. Collection method (Linux): The CPU usage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) value with the top command. Collection method (Windows): Obtained through the Windows API GetSystemTimes. | % |
+| `huaweicloud_sys_agt_cpu_usage_idle` | (Agent) Idle CPU Usage — This metric measures the percentage of time the CPU of the monitored object is currently idle. Collection method (Linux): The idle CPU time percentage is calculated from the change in /proc/stat during the collection period. Collection method (Windows): Obtained through the Windows API GetSystemTimes. | % |
+| `huaweicloud_sys_agt_cpu_usage_iowait` | (Agent) iowait CPU Usage — This metric measures the percentage of CPU time currently occupied by the iowait state on the monitored object. Collection method (Linux): The iowait percentage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) wa value with the top command. Collection method (Windows): Not supported yet. | % |
+| `huaweicloud_sys_agt_cpu_usage_irq` | (Agent) CPU Interrupt Usage — This metric measures the percentage of CPU time currently spent handling interrupts on the monitored object. Collection method (Linux): The CPU interrupt time percentage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) hi value with the top command. Collection method (Windows): Not supported yet. | % |
+| `huaweicloud_sys_agt_cpu_usage_nice` | (Agent) Nice Process CPU Usage — This metric measures the current CPU usage of nice processes on the monitored object. Collection method (Linux): The nice process CPU usage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) ni value with the top command. Collection method (Windows): Not supported yet. | % |
+| `huaweicloud_sys_agt_cpu_usage_other` | (Agent) Other CPU Usage — This metric measures the CPU usage of other consumers on the monitored object. Collection method (Linux): Other CPU usage = 1 - idle CPU usage (%) - kernel space CPU usage - user space CPU usage. Collection method (Windows): Other CPU usage = 1 - idle CPU usage (%) - kernel space CPU usage - user space CPU usage. | % |
+| `huaweicloud_sys_agt_cpu_usage_softirq` | (Agent) CPU Soft Interrupt Usage — This metric measures the percentage of CPU time currently spent handling soft interrupts on the monitored object. Collection method (Linux): The CPU soft interrupt time percentage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) si value with the top command. Collection method (Windows): Not supported yet. | % |
+| `huaweicloud_sys_agt_cpu_usage_system` | (Agent) Kernel Space CPU Usage — This metric measures the current kernel space CPU usage of the monitored object. Collection method (Linux): The kernel space CPU usage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) sy value with the top command. Collection method (Windows): Obtained through the Windows API GetSystemTimes. | % |
+| `huaweicloud_sys_agt_cpu_usage_user` | (Agent) User Space CPU Usage — This metric measures the current user space CPU usage of the monitored object. Collection method (Linux): The CPU usage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) us value with the top command. Collection method (Windows): Obtained through the Windows API GetSystemTimes. | % |
+| `huaweicloud_sys_agt_load_average1` | (Agent) 1-Minute Load Average — This metric measures the average CPU load of the monitored object over the past 1 minute. Collection method (Linux): Obtained by dividing load1 in /proc/loadavg by the number of logical CPUs. You can check the load1 value with the top command. |  |
+| `huaweicloud_sys_agt_load_average15` | (Agent) 15-Minute Load Average — This metric measures the average CPU load of the monitored object over the past 15 minutes. Collection method (Linux): Obtained by dividing load15 in /proc/loadavg by the number of logical CPUs. You can check the load15 value with the top command. |  |
+| `huaweicloud_sys_agt_load_average5` | (Agent) 5-Minute Load Average — This metric measures the average CPU load of the monitored object over the past 5 minutes. Collection method (Linux): Obtained by dividing load5 in /proc/loadavg by the number of logical CPUs. You can check the load5 value with the top command. |  |
+| `huaweicloud_sys_agt_mem_available` | (Agent) Available Memory — This metric measures the available memory of the monitored object. Collection method (Linux): Obtained from the /proc/meminfo file. If MemAvailable is present in /proc/meminfo, it is used directly; otherwise, MemAvailable = MemFree + Buffers + Cached. Collection method (Windows): Calculated as (total memory - used memory), obtained through the Windows API GlobalMemoryStatusEx. |  |
+| `huaweicloud_sys_agt_mem_buffers` | (Agent) Buffers — This metric measures the amount of buffers memory on the monitored object. Collection method (Linux): Obtained from /proc/meminfo. You can check the KiB Mem: buffers value with the top command. Collection method (Windows): Not supported yet. |  |
+| `huaweicloud_sys_agt_mem_cached` | (Agent) Cached Memory — This metric measures the amount of cache memory on the monitored object. Collection method (Linux): Obtained from /proc/meminfo. You can check the KiB Swap: cached Mem value with the top command. Collection method (Windows): Not supported yet. |  |
+| `huaweicloud_sys_agt_mem_free` | (Agent) Free Memory — This metric measures the amount of free memory on the monitored object. Collection method (Linux): Obtained from /proc/meminfo. Collection method (Windows): Not supported yet. |  |
+| `huaweicloud_sys_agt_mem_usedPercent` | (Agent) Memory Usage — This metric measures the memory usage of the monitored object. Collection method (Linux): Obtained from the /proc/meminfo file as (MemTotal - MemAvailable)/MemTotal. If MemAvailable is present in /proc/meminfo, MemUsedPercent = (MemTotal - MemAvailable)/MemTotal; otherwise, MemUsedPercent = (MemTotal - MemFree - Buffers - Cached)/MemTotal. Collection method (Windows): Calculated as (used memory / total memory * 100%). | % |
+| `huaweicloud_sys_agt_net_bitRecv` | (Agent) Outbound Bandwidth — This metric measures the number of bits sent by the NIC of the monitored object per second. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Network metric data is obtained from the WMI MibIfRow object. |  |
+| `huaweicloud_sys_agt_net_bitSent` | (Agent) Inbound Bandwidth — This metric measures the number of bits received by the NIC of the monitored object per second. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Network metric data is obtained from the WMI MibIfRow object. |  |
+| `huaweicloud_sys_agt_net_dropin` | (Agent) Receive Packet Loss Rate — This metric measures the percentage of packets received and discarded by the NIC of the monitored object per second, relative to the total packets received. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Not supported yet. | % |
+| `huaweicloud_sys_agt_net_dropout` | (Agent) Send Packet Loss Rate — This metric measures the percentage of packets sent and discarded by the NIC of the monitored object per second, relative to the total packets sent. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Not supported yet. | % |
+| `huaweicloud_sys_agt_net_errin` | (Agent) Receive Error Rate — This metric measures the percentage of error packets received by the NIC of the monitored object per second, relative to the total packets received. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Not supported yet. | % |
+| `huaweicloud_sys_agt_net_errout` | (Agent) Send Error Rate — This metric measures the percentage of error packets sent by the NIC of the monitored object per second, relative to the total packets sent. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Not supported yet. | % |
+| `huaweicloud_sys_agt_net_packetRecv` | (Agent) NIC Packet Receive Rate — This metric measures the number of packets received by the NIC of the monitored object per second. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Network metric data is obtained from the WMI MibIfRow object. |  |
+| `huaweicloud_sys_agt_net_packetSent` | (Agent) NIC Packet Send Rate — This metric measures the number of packets sent by the NIC of the monitored object per second. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Network metric data is obtained from the WMI MibIfRow object. |  |
+| `huaweicloud_sys_agt_net_tcp_close` | (Agent) TCP CLOSE — This metric counts the number of closed or not-open TCP connections on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2. |  |
+| `huaweicloud_sys_agt_net_tcp_close_wait` | (Agent) TCP CLOSE_WAIT — This metric counts the number of TCP connections in the CLOSE_WAIT state on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2. |  |
+| `huaweicloud_sys_agt_net_tcp_closing` | (Agent) TCP CLOSING — This metric counts the number of TCP connections on the monitored object that are being actively closed by both the server and the client at the same time. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2. |  |
+| `huaweicloud_sys_agt_net_tcp_established` | (Agent) TCP ESTABLISHED — This metric counts the number of TCP connections in the ESTABLISHED state on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2. |  |
+| `huaweicloud_sys_agt_net_tcp_fin_wait1` | (Agent) TCP FIN_WAIT1 — This metric counts the number of TCP connections on the monitored object where the client has actively closed the connection but has not received the ACK from the server. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2. |  |
+| `huaweicloud_sys_agt_net_tcp_fin_wait2` | (Agent) TCP FIN_WAIT2 — This metric counts the number of TCP connections in the FIN_WAIT2 state on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2. |  |
+| `huaweicloud_sys_agt_net_tcp_last_ack` | (Agent) TCP LAST_ACK — This metric counts the number of TCP connections on the monitored object that are passively closed and waiting for the ACK packet. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2. |  |
+| `huaweicloud_sys_agt_net_tcp_listen` | (Agent) TCP LISTEN — This metric counts the number of TCP connections in the LISTEN state on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2. |  |
+| `huaweicloud_sys_agt_net_tcp_retrans` | (Agent) TCP Retransmission Rate — This metric measures the ratio of retransmitted packets to the total packets sent by the monitored object. Collection method (Linux): The corresponding data is obtained from the /proc/net/snmp file, and the ratio of retransmitted packets to sent packets during the collection period is calculated. Collection method (Windows): The retransmission rate is obtained through the Windows API GetTcpStatistics. | % |
+| `huaweicloud_sys_agt_net_tcp_sys_recv` | (Agent) TCP SYS_RECV — This metric counts the number of TCP connection requests received by the server side of the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2. |  |
+| `huaweicloud_sys_agt_net_tcp_sys_sent` | (Agent) TCP SYS_SENT — This metric counts the number of TCP connections on the monitored object that are in the connection-requesting state. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2. |  |
+| `huaweicloud_sys_agt_net_tcp_time_wait` | (Agent) TCP TIME_WAIT — This metric counts the number of TCP connections in the TIME_WAIT state on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2. |  |
+| `huaweicloud_sys_agt_net_tcp_total` | (Agent) TCP TOTAL — This metric counts the total number of TCP connections in all states on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2. |  |
+| `huaweicloud_sys_agt_ntp_offset` | (Agent) NTP Offset — This metric measures the current NTP offset of the monitored object. Collection method (Linux): Run the chronyc sources -v command to obtain the offset. Collection method (Windows): Not supported yet. | ms |
+| `huaweicloud_sys_agt_proc_blocked_count` | (Agent) Blocked Processes — This metric counts the number of blocked processes on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): Not supported yet. |  |
+| `huaweicloud_sys_agt_proc_idle_count` | (Agent) Idle Processes — This metric counts the number of processes in the idle state on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): Not supported yet. |  |
+| `huaweicloud_sys_agt_proc_pHashId_cpu` | (Agent) Process CPU Usage — The percentage of CPU consumed by a process. pHashId is the md5 hash of (process name + process ID). Collection method (Linux): Calculated from the change in /proc/pid/stat. Collection method (Windows): Process CPU usage is obtained through the Windows API GetProcessTimes. | % |
+| `huaweicloud_sys_agt_proc_pHashId_file` | (Agent) Process Open Files — The number of files opened by a process. pHashId is the md5 hash of (process name + process ID). Collection method (Linux): Run ls -l /proc/pid/fd to view the count. Collection method (Windows): Not supported yet. |  |
+| `huaweicloud_sys_agt_proc_pHashId_mem` | (Agent) Process Memory Usage — The percentage of memory consumed by a process. pHashId is the md5 hash of (process name + process ID). Collection method (Linux): RSS*PAGESIZE/MemTotal, where RSS is obtained from the second column of /proc/pid/statm, PAGESIZE is obtained with the getconf PAGESIZE command, and MemTotal is obtained from /proc/meminfo. Collection method (Windows): The total memory is obtained through the Windows API GlobalMemoryStatusEx, the used memory is obtained through GetProcessMemoryInfo, and the memory usage is calculated as the ratio of the two. | % |
+| `huaweicloud_sys_agt_proc_running_count` | (Agent) Running Processes — This metric counts the number of processes in the running state on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): Not supported yet. |  |
+| `huaweicloud_sys_agt_proc_sleeping_count` | (Agent) Sleeping Processes — This metric counts the number of processes in the sleeping state on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): Not supported yet. |  |
+| `huaweicloud_sys_agt_proc_specified_count` | (Agent) Specified Processes — This metric counts the number of specified processes on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): The total number of processes is obtained through the psapi.dll system process status support module. |  |
+| `huaweicloud_sys_agt_proc_total_count` | (Agent) Total Processes — This metric counts the total number of processes on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): The total number of processes is obtained through the psapi.dll system process status support module. |  |
+| `huaweicloud_sys_agt_proc_zombie_count` | (Agent) Zombie Processes — This metric counts the number of zombie processes on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): Not supported yet. |  |
+| `huaweicloud_sys_agt_specified_process_file` | (Agent) Open Files of Specified Process — This metric counts the number of files opened by the specified process on the monitored object. Collection method (Linux): Run ls -l /proc/pid/fd to view the count. Collection method (Windows): Not supported yet. |  |
+| `huaweicloud_sys_agt_total_open_files` | (Agent) Total File Handles — This metric counts the total number of handles used by all processes on the monitored object. Collection method (Linux): The number of handles used by all processes is summed up from the /proc/\{pid\}/fd files. Collection method (Windows): Not supported yet. |  |
+| `huaweicloud_sys_elb_client_tls_negotiation_error` | Client TLS Handshake Failures — Number of failed TLS handshakes initiated by clients per second. Supported protocols: HTTPS/TLS/QUIC | /s |
+| `huaweicloud_sys_elb_dropped_connections` | Dropped Connections — Number of connections dropped by the monitored object per second. | /s |
+| `huaweicloud_sys_elb_dropped_packets` | Dropped Packets — Number of data packets dropped by the monitored object per second. | /s |
+| `huaweicloud_sys_elb_dropped_traffic` | Dropped Bandwidth — Network bandwidth dropped by the monitored object. |  |
+| `huaweicloud_sys_elb_elb_http_2xx` | Load Balancer Status Codes (2XX) — Number of 2XX status codes returned by the load balancer per second. | /s |
+| `huaweicloud_sys_elb_elb_http_3xx` | Load Balancer Status Codes (3XX) — Number of 3XX status codes returned by the load balancer per second. | /s |
+| `huaweicloud_sys_elb_elb_http_400` | Load Balancer Status Code 400 — Number of 400 status codes returned by the load balancer per second. | /s |
+| `huaweicloud_sys_elb_elb_http_404` | Load Balancer Status Code 404 — Number of 404 status codes returned by the load balancer per second. | /s |
+| `huaweicloud_sys_elb_elb_http_408` | Load Balancer Status Code 408 — Number of 408 status codes returned by the load balancer per second. | /s |
+| `huaweicloud_sys_elb_elb_http_499` | Load Balancer Status Code 499 — Number of 499 status codes returned by the load balancer per second. | /s |
+| `huaweicloud_sys_elb_elb_http_4xx` | Load Balancer Status Codes (4XX) — Number of 4XX status codes returned by the load balancer per second. | /s |
+| `huaweicloud_sys_elb_elb_http_502` | Load Balancer Status Code 502 — Number of 502 status codes returned by the load balancer per second. | /s |
+| `huaweicloud_sys_elb_elb_http_503` | Load Balancer Status Code 503 — Number of 503 status codes returned by the load balancer per second. | /s |
+| `huaweicloud_sys_elb_elb_http_504` | Load Balancer Status Code 504 — Number of 504 status codes returned by the load balancer per second. | /s |
+| `huaweicloud_sys_elb_elb_http_5xx` | Load Balancer Status Codes (5XX) — Number of 5XX status codes returned by the load balancer per second. | /s |
+| `huaweicloud_sys_elb_ipgroup_blocked_packets` | Packets Blocked by Blacklist/Whitelist — Number of data packets destined for the monitored object that are blocked by the blacklist/whitelist per second. | /s |
+| `huaweicloud_sys_elb_ipgroup_blocked_traffic` | Bandwidth Blocked by Blacklist/Whitelist — Network bandwidth destined for the monitored object that is blocked by the blacklist/whitelist. |  |
+| `huaweicloud_sys_elb_l4_con_usage` | Layer-4 Concurrent Connection Usage — Concurrent connection usage of the Layer-4 ELB instance. | % |
+| `huaweicloud_sys_elb_l4_in_bps_usage` | Layer-4 Inbound Bandwidth Usage — Inbound bandwidth usage of the Layer-4 ELB instance. Note: If the inbound bandwidth usage reaches 100%, the performance guaranteed by the ELB specification has been exceeded. Your services can continue to use higher bandwidth, but ELB cannot guarantee the service availability SLA for the excess bandwidth. | % |
+| `huaweicloud_sys_elb_l4_ncps_usage` | Layer-4 New Connection Usage — New connection usage of the Layer-4 ELB instance. | % |
+| `huaweicloud_sys_elb_l4_out_bps_usage` | Layer-4 Outbound Bandwidth Usage — Outbound bandwidth usage of the Layer-4 ELB instance. Note: If the outbound bandwidth usage reaches 100%, the performance guaranteed by the ELB specification has been exceeded. Your services can continue to use higher bandwidth, but ELB cannot guarantee the service availability SLA for the excess bandwidth. | % |
+| `huaweicloud_sys_elb_l7_2xx_ratio` | Layer-7 2XX Request Ratio — Percentage of Layer-7 2XX status codes. | % |
+| `huaweicloud_sys_elb_l7_4xx_ratio` | Layer-7 4XX Request Ratio — Percentage of Layer-7 4XX status codes. | % |
+| `huaweicloud_sys_elb_l7_5xx_ratio` | Layer-7 5XX Request Ratio — Percentage of Layer-7 5XX status codes. | % |
+| `huaweicloud_sys_elb_l7_con_usage` | Layer-7 Concurrent Connection Usage — Concurrent connection usage of the Layer-7 ELB instance. | % |
+| `huaweicloud_sys_elb_l7_in_bps_usage` | Layer-7 Inbound Bandwidth Usage — Inbound bandwidth usage of the Layer-7 ELB instance. Note: If the inbound bandwidth usage reaches 100%, the performance guaranteed by the ELB specification has been exceeded. Your services can continue to use higher bandwidth, but ELB cannot guarantee the service availability SLA for the excess bandwidth. | % |
+| `huaweicloud_sys_elb_l7_ncps_usage` | Layer-7 New Connection Usage — New connection usage of the Layer-7 ELB instance. | % |
+| `huaweicloud_sys_elb_l7_out_bps_usage` | Layer-7 Outbound Bandwidth Usage — Outbound bandwidth usage of the Layer-7 ELB instance. Note: If the outbound bandwidth usage reaches 100%, the performance guaranteed by the ELB specification has been exceeded. Your services can continue to use higher bandwidth, but ELB cannot guarantee the service availability SLA for the excess bandwidth. | % |
+| `huaweicloud_sys_elb_l7_qps_usage` | Layer-7 Query Rate Usage — Query rate usage of the Layer-7 ELB instance. | % |
+| `huaweicloud_sys_elb_l7_upstream_101` | Layer-7 Backend Status Code 101 — Number of Layer-7 101 status codes returned by the backend servers of the monitored object per second. | /s |
+| `huaweicloud_sys_elb_l7_upstream_400` | Layer-7 Backend Status Code 400 — Number of Layer-7 400 status codes returned by the backend servers of the monitored object per second. | /s |
+| `huaweicloud_sys_elb_l7_upstream_403` | Layer-7 Backend Status Code 403 — Number of Layer-7 403 status codes returned by the backend servers of the monitored object per second. | /s |
+| `huaweicloud_sys_elb_l7_upstream_404` | Layer-7 Backend Status Code 404 — Number of Layer-7 404 status codes returned by the backend servers of the monitored object per second. | /s |
+| `huaweicloud_sys_elb_l7_upstream_500` | Layer-7 Backend Status Code 500 — Number of Layer-7 500 status codes returned by the backend servers of the monitored object per second. | /s |
+| `huaweicloud_sys_elb_l7_upstream_501` | Layer-7 Backend Status Code 501 — Number of Layer-7 501 status codes returned by the backend servers of the monitored object per second. | /s |
+| `huaweicloud_sys_elb_l7_upstream_502` | Layer-7 Backend Status Code 502 — Number of Layer-7 502 status codes returned by the backend servers of the monitored object per second. | /s |
+| `huaweicloud_sys_elb_l7_upstream_503` | Layer-7 Backend Status Code 503 — Number of Layer-7 503 status codes returned by the backend servers of the monitored object per second. | /s |
+| `huaweicloud_sys_elb_l7_upstream_504` | Layer-7 Backend Status Code 504 — Number of Layer-7 504 status codes returned by the backend servers of the monitored object per second. | /s |
+| `huaweicloud_sys_elb_l7_upstream_other_status` | Layer-7 Backend Status Codes (Others) — Number of Layer-7 other status codes returned by the backend servers of the monitored object per second. Excluding: 101, 2XX, 3XX, 400, 403, 404, 500, 501, 502, 503, and 504. | /s |
+| `huaweicloud_sys_elb_m10_l7_http_other_status` | Layer-7 Status Codes (Others) — Number of Layer-7 other status codes returned by the monitored object per second. Excluding: 2XX, 3XX, 404, 499, and 502. | /s |
+| `huaweicloud_sys_elb_m11_l7_http_404` | Layer-7 Status Code 404 — Number of Layer-7 404 status codes returned by the monitored object per second. | /s |
+| `huaweicloud_sys_elb_m12_l7_http_499` | Layer-7 Status Code 499 — Number of Layer-7 499 status codes returned by the monitored object per second. | /s |
+| `huaweicloud_sys_elb_m13_l7_http_502` | Layer-7 Status Code 502 — Number of Layer-7 502 status codes returned by the monitored object per second. | /s |
+| `huaweicloud_sys_elb_m14_l7_rt` | Average Layer-7 Response Time — Average Layer-7 response time of the monitored object, measured from when the monitored object receives a client request to when it returns all responses to the client. Note: In WebSocket scenarios, the average RT may be very large and cannot be used as a latency reference. | ms |
+| `huaweicloud_sys_elb_m15_l7_upstream_4xx` | Layer-7 Backend Status Codes (4XX) — Number of Layer-7 4XX series status codes returned by the backend servers of the monitored object per second. | /s |
+| `huaweicloud_sys_elb_m16_l7_upstream_5xx` | Layer-7 Backend Status Codes (5XX) — Number of Layer-7 5XX series status codes returned by the backend servers of the monitored object per second. | /s |
+| `huaweicloud_sys_elb_m17_l7_upstream_rt` | Average Layer-7 Backend Response Time — Average Layer-7 backend response time of the monitored object, measured from when the monitored object forwards a request to a backend server to when it receives the response from the backend server. Note: In WebSocket scenarios, the average RT may be very large and cannot be used as a latency reference. | ms |
+| `huaweicloud_sys_elb_m18_l7_upstream_2xx` | Layer-7 Backend Status Codes (2XX) — Number of Layer-7 2XX series status codes returned by the backend servers of the monitored object per second. | /s |
+| `huaweicloud_sys_elb_m19_l7_upstream_3xx` | Layer-7 Backend Status Codes (3XX) — Number of Layer-7 3XX series status codes returned by the backend servers of the monitored object per second. | /s |
+| `huaweicloud_sys_elb_m1_cps` | Concurrent Connections — For Layer-4 load balancers, the total number of TCP and UDP connections established from the monitored object to backend servers. For Layer-7 load balancers, the total number of TCP connections established from clients to the ELB. |  |
+| `huaweicloud_sys_elb_m1a_l7_upstream_rt_max` | Maximum Layer-7 Backend Response Time — Maximum Layer-7 backend response time of the monitored object, measured from when the monitored object forwards a request to a backend server to when it receives the response from the backend server. | ms |
+| `huaweicloud_sys_elb_m1b_l7_upstream_rt_min` | Minimum Layer-7 Backend Response Time — Minimum Layer-7 backend response time of the monitored object, measured from when the monitored object forwards a request to a backend server to when it receives the response from the backend server. | ms |
+| `huaweicloud_sys_elb_m1c_l7_rt_max` | Maximum Layer-7 Response Time — Maximum Layer-7 response time of the monitored object, measured from when the monitored object receives a client request to when it returns all responses to the client. | ms |
+| `huaweicloud_sys_elb_m1d_l7_rt_min` | Minimum Layer-7 Response Time — Minimum Layer-7 response time of the monitored object, measured from when the monitored object receives a client request to when it returns all responses to the client. | ms |
+| `huaweicloud_sys_elb_m1e_server_rps` | Reset Packets from Backend Servers — Number of reset (RST) packets sent from backend servers to clients per second. Reset packets are generated by backend servers and forwarded by the load balancer. Supported protocol: TCP | /s |
+| `huaweicloud_sys_elb_m1f_lvs_rps` | Reset Packets from Load Balancer — Number of reset (RST) packets generated by the load balancer per second. Supported protocol: TCP | /s |
+| `huaweicloud_sys_elb_m21_client_rps` | Reset Packets from Clients — Number of reset (RST) packets sent from clients to backend servers per second. Reset packets are generated by clients and forwarded by the load balancer. Supported protocol: TCP | /s |
+| `huaweicloud_sys_elb_m22_in_bandwidth` | Inbound Bandwidth — Inbound bandwidth of the monitored object. |  |
+| `huaweicloud_sys_elb_m23_out_bandwidth` | Outbound Bandwidth — Outbound bandwidth of the monitored object. |  |
+| `huaweicloud_sys_elb_m24_l7_req_Bps` | Layer-7 Request Bandwidth — Bandwidth of Layer-7 requests received by the backend servers of the monitored object. Note: This metric cannot be used as a reference when HTTP/2 is enabled on the listener. |  |
+| `huaweicloud_sys_elb_m25_l7_resp_Bps` | Layer-7 Response Bandwidth — Bandwidth of Layer-7 responses sent by the backend servers of the monitored object. Note: This metric cannot be used as a reference when HTTP/2 is enabled on the listener. |  |
+| `huaweicloud_sys_elb_m26_in_bandwidth_ipv6` | IPv6 Inbound Bandwidth — IPv6 network bandwidth flowing into the monitored object. |  |
+| `huaweicloud_sys_elb_m27_out_bandwidth_ipv6` | IPv6 Outbound Bandwidth — IPv6 network bandwidth flowing out of the monitored object. |  |
+| `huaweicloud_sys_elb_m2_act_conn` | Active Connections — Number of active TCP and UDP connections established from the monitored object to backend servers. You can run the following command on both Windows and Linux servers to view them: netstat -an |  |
+| `huaweicloud_sys_elb_m3_inact_conn` | Inactive Connections — Number of inactive TCP and UDP connections established from the monitored object to backend servers. You can run the following command on both Windows and Linux servers to view them: netstat -an |  |
+| `huaweicloud_sys_elb_m4_ncps` | New Connections — Number of new connections established from clients to the monitored object per second. | /s |
+| `huaweicloud_sys_elb_m5_in_pps` | Incoming Packets — Number of data packets received by the monitored object per second. | /s |
+| `huaweicloud_sys_elb_m6_out_pps` | Outgoing Packets — Number of data packets sent by the monitored object per second. | /s |
+| `huaweicloud_sys_elb_m7_in_Bps` | Network Inbound Rate — Network rate of traffic accessing the monitored object from external sources. |  |
+| `huaweicloud_sys_elb_m8_out_Bps` | Network Outbound Rate — Network rate at which the monitored object accesses external sources. |  |
+| `huaweicloud_sys_elb_m9_abnormal_servers` | Unhealthy Servers — Number of backend servers in the monitored object that fail health checks. |  |
+| `huaweicloud_sys_elb_ma_normal_servers` | Healthy Servers — Number of backend servers in the monitored object that pass health checks. |  |
+| `huaweicloud_sys_elb_mb_l7_qps` | Layer-7 Query Rate — Layer-7 query rate of the monitored object. | /s |
+| `huaweicloud_sys_elb_mc_l7_http_2xx` | Layer-7 Status Codes (2XX) — Number of Layer-7 2XX series status codes returned by the monitored object per second. | /s |
+| `huaweicloud_sys_elb_md_l7_http_3xx` | Layer-7 Status Codes (3XX) — Number of Layer-7 3XX series status codes returned by the monitored object per second. | /s |
+| `huaweicloud_sys_elb_me_l7_http_4xx` | Layer-7 Status Codes (4XX) — Number of Layer-7 4XX series status codes returned by the monitored object per second. | /s |
+| `huaweicloud_sys_elb_mf_l7_http_5xx` | Layer-7 Status Codes (5XX) — Number of Layer-7 5XX series status codes returned by the monitored object per second. | /s |
+| `huaweicloud_sys_elb_mirror_in_packets` | Inbound Traffic Mirroring Packet Rate — Packet rate of inbound traffic mirroring on the monitored object. | /s |
+| `huaweicloud_sys_elb_mirror_in_traffic` | Inbound Traffic Mirroring Bandwidth — Bandwidth of inbound traffic mirroring on the monitored object. |  |
+| `huaweicloud_sys_elb_mirror_out_packets` | Outbound Traffic Mirroring Packet Rate — Packet rate of outbound traffic mirroring on the monitored object. | /s |
+| `huaweicloud_sys_elb_mirror_out_traffic` | Outbound Traffic Mirroring Bandwidth — Bandwidth of outbound traffic mirroring on the monitored object. |  |
+| `huaweicloud_sys_elb_upstream_tls_negotiation_error` | Backend TLS Handshake Failures — Number of failed TLS sessions initiated by the load balancer to backend servers per second. Supported protocols: HTTPS/TLS/QUIC | /s |
+| `huaweicloud_sys_rds_active_connections` | Active Connections — Number of active connections to the database. |  |
+| `huaweicloud_sys_rds_cpu_sys_usage` | Kernel-Mode CPU Time Percentage — Percentage of CPU time spent in kernel mode. | % |
+| `huaweicloud_sys_rds_cpu_user_usage` | User-Mode CPU Time Percentage — Percentage of CPU time spent in user mode. | % |
+| `huaweicloud_sys_rds_cpu_wait_usage` | Disk I/O Wait Time Percentage — Percentage of CPU time spent waiting for disk I/O. | % |
+| `huaweicloud_sys_rds_data_disk_inode_used` | Used Inodes — Number of inodes used on the data disk. |  |
+| `huaweicloud_sys_rds_db_max_age` | Maximum Database Age — Maximum database age of the current instance, obtained as max(age(datfrozenxid)) from the pg_database table. |  |
+| `huaweicloud_sys_rds_dbuser_passwd_deadline` | Earliest Database User Password Expiration Time — Queries database user password expiration times and returns the minimum value of expiration time minus the current time. Note: If no user password expiration time is set, this metric cannot be collected. |  |
+| `huaweicloud_sys_rds_disk_io_usage` | Disk I/O Utilization — Disk I/O utilization, which is the percentage of time the disk spends processing I/O requests out of the total time. Note: A disk I/O utilization of 100% only indicates that data was continuously written to the disk during the statistical period. Disk performance should be evaluated together with other metrics such as IOPS, disk throughput, and read/write latency. | % |
+| `huaweicloud_sys_rds_flush_lsn_replication_latency_size` | Primary/Standby WAL Flush Latency — Latency of WAL logs flushed to disk on the standby node. |  |
+| `huaweicloud_sys_rds_idle_transaction_connections` | Idle-in-Transaction Connections — Number of idle connections in the database. |  |
+| `huaweicloud_sys_rds_inactive_logical_replication_slot` | Inactive Logical Replication Slots — Number of inactive logical replication slots in the current database. |  |
+| `huaweicloud_sys_rds_io_read_delay` | I/O Read Latency — Average disk read response latency, in milliseconds. | ms |
+| `huaweicloud_sys_rds_io_write_delay` | I/O Write Latency — Average disk write response latency, in milliseconds. | ms |
+| `huaweicloud_sys_rds_lock_waiting_sessions` | Sessions Waiting for Locks — Number of sessions currently in a blocked state. |  |
+| `huaweicloud_sys_rds_long_transactions_active_five_second` | Transactions Active for Over 5s — Number of long transactions that have been active for more than 5 seconds. |  |
+| `huaweicloud_sys_rds_long_transactions_active_one_second` | Transactions Active for Over 1s — Number of long transactions that have been active for more than 1 second. |  |
+| `huaweicloud_sys_rds_long_transactions_active_three_second` | Transactions Active for Over 3s — Number of long transactions that have been active for more than 3 seconds. |  |
+| `huaweicloud_sys_rds_long_transactions_idle_five_second` | Transactions Idle for Over 5s — Number of long transactions that have been idle for more than 5 seconds. |  |
+| `huaweicloud_sys_rds_long_transactions_idle_one_second` | Transactions Idle for Over 1s — Number of long transactions that have been idle for more than 1 second. |  |
+| `huaweicloud_sys_rds_long_transactions_idle_three_second` | Transactions Idle for Over 3s — Number of long transactions that have been idle for more than 3 seconds. |  |
+| `huaweicloud_sys_rds_long_transactions_two_pc_five_second` | Two-Phase Transactions Running for Over 5s — Number of long two-phase transactions that have been executing for more than 5 seconds. |  |
+| `huaweicloud_sys_rds_long_transactions_two_pc_one_second` | Two-Phase Transactions Running for Over 1s — Number of long two-phase transactions that have been executing for more than 1 second. |  |
+| `huaweicloud_sys_rds_long_transactions_two_pc_three_second` | Two-Phase Transactions Running for Over 3s — Number of long two-phase transactions that have been executing for more than 3 seconds. |  |
+| `huaweicloud_sys_rds_oldest_transaction_duration` | Longest Transaction Duration — Duration of the longest-running transaction in the current database. | ms |
+| `huaweicloud_sys_rds_oldest_transaction_duration_2pc` | Longest Prepared Transaction Duration — Duration of the longest-running prepared (two-phase) transaction in the current database. | ms |
+| `huaweicloud_sys_rds_os_cpu_process_autovacuum` | autovacuum Process CPU Usage — CPU usage of the autovacuum process. | % |
+| `huaweicloud_sys_rds_os_cpu_process_bgwriter` | bgwriter Process CPU Usage — CPU usage of the bgwriter process. | % |
+| `huaweicloud_sys_rds_os_cpu_process_checkpoint` | checkpoint Process CPU Usage — CPU usage of the checkpoint process. | % |
+| `huaweicloud_sys_rds_os_cpu_process_logger` | logger Process CPU Usage — CPU usage of the logger process. | % |
+| `huaweicloud_sys_rds_os_cpu_process_postmaster` | postmaster Process CPU Usage — CPU usage of the postmaster process. | % |
+| `huaweicloud_sys_rds_os_cpu_process_walwriter` | walwriter Process CPU Usage — CPU usage of the walwriter process. | % |
+| `huaweicloud_sys_rds_os_fs_size_base_dir` | Data File Size (Excluding Logs and WAL) — Size of data files, excluding logs and WAL. |  |
+| `huaweicloud_sys_rds_os_iothroughput_total` | Disk Read/Write Throughput — Total disk read and write throughput. |  |
+| `huaweicloud_sys_rds_os_mem_size_cache` | Page Cache Memory Usage — Memory used by the page cache. |  |
+| `huaweicloud_sys_rds_os_mem_size_hugetlb_usage_2m` | 2 MB Huge Page Usage — Usage of 2 MB huge pages (available on instances with 32 GB of memory or more). |  |
+| `huaweicloud_sys_rds_os_mem_size_mapped_file` | Shared Memory Usage — Shared memory usage. |  |
+| `huaweicloud_sys_rds_os_mem_size_spec` | Flavor Memory Size — Memory size defined by the instance flavor. |  |
+| `huaweicloud_sys_rds_os_mem_size_used` | Memory Usage — Amount of memory used. |  |
+| `huaweicloud_sys_rds_os_mem_usage_process_autovacuum` | autovacuum Process Memory Usage — Memory usage of the autovacuum process. |  |
+| `huaweicloud_sys_rds_os_mem_usage_process_bgwriter` | bgwriter Process Memory Usage — Memory usage of the bgwriter process. |  |
+| `huaweicloud_sys_rds_os_mem_usage_process_checkpoint` | checkpoint Process Memory Usage — Memory usage of the checkpoint process. |  |
+| `huaweicloud_sys_rds_os_mem_usage_process_logger` | logger Process Memory Usage — Memory usage of the logger process. |  |
+| `huaweicloud_sys_rds_os_mem_usage_process_postmaster` | postmaster Process Memory Usage — Memory usage of the postmaster process. |  |
+| `huaweicloud_sys_rds_os_mem_usage_process_walsender` | walsender Process Memory Usage — Memory usage of the walsender process. |  |
+| `huaweicloud_sys_rds_os_mem_usage_process_walwriter` | walwriter Process Memory Usage — Memory usage of the walwriter process. |  |
+| `huaweicloud_sys_rds_packet_loss_rate` | Packet Loss Rate Between Primary and DR Host — Packet loss rate between the primary database host and the disaster recovery host. | % |
+| `huaweicloud_sys_rds_pg_dr_repl_stat` | DR Node Replication Status — Disaster recovery replication status. Values: 0: abnormal; 1: startup; 2: catchup; 3: streaming; 4: backup; 5: stopping. |  |
+| `huaweicloud_sys_rds_pg_dr_wal_delay` | LSN Lag Between Primary and DR Host — Lag between the current LSN on the primary database host and the replay LSN on the disaster recovery host. |  |
+| `huaweicloud_sys_rds_pgaudit_log_size` | Audit Log Size — Size of the current audit logs. |  |
+| `huaweicloud_sys_rds_rds001_cpu_util` | CPU Usage — CPU usage of the monitored object, expressed as a percentage. | % |
+| `huaweicloud_sys_rds_rds002_mem_util` | Memory Usage — Memory usage of the monitored object, expressed as a percentage. | % |
+| `huaweicloud_sys_rds_rds003_iops` | IOPS — Average number of I/O requests processed by the system per unit time for the current instance. |  |
+| `huaweicloud_sys_rds_rds004_bytes_in` | Network Input Throughput — Average inbound traffic per second across all network adapters of the monitored object. | bit/s |
+| `huaweicloud_sys_rds_rds005_bytes_out` | Network Output Throughput — Average outbound traffic per second across all network adapters of the monitored object. | bit/s |
+| `huaweicloud_sys_rds_rds039_disk_util` | Disk Utilization — Disk utilization of the monitored object, expressed as a percentage. | % |
+| `huaweicloud_sys_rds_rds040_transaction_logs_usage` | Transaction Log Usage — Disk space used by transaction logs. |  |
+| `huaweicloud_sys_rds_rds041_replication_slot_usage` | Replication Slot Usage — Disk space used by replication slot files. |  |
+| `huaweicloud_sys_rds_rds042_database_connections` | Database Connections — Number of backends currently connected to the database. |  |
+| `huaweicloud_sys_rds_rds043_maximum_used_transaction_ids` | Maximum Used Transaction IDs — Maximum number of transaction IDs used. |  |
+| `huaweicloud_sys_rds_rds044_transaction_logs_generations` | Transaction Log Generation Rate — Average size of transaction logs generated per second. |  |
+| `huaweicloud_sys_rds_rds045_oldest_replication_slot_lag` | Oldest Replication Slot Lag — Lag of the most lagging replica among multiple replicas, based on the WAL data received. |  |
+| `huaweicloud_sys_rds_rds046_replication_lag` | Replication Lag — Replica lag time. | ms |
+| `huaweicloud_sys_rds_rds047_disk_total_size` | Total Disk Size — Total disk size of the monitored object. |  |
+| `huaweicloud_sys_rds_rds048_disk_used_size` | Used Disk Size — Used disk space of the monitored object. |  |
+| `huaweicloud_sys_rds_rds049_disk_read_throughput` | Disk Read Throughput — Number of bytes read from the disk per second. |  |
+| `huaweicloud_sys_rds_rds050_disk_write_throughput` | Disk Write Throughput — Number of bytes written to the disk per second. |  |
+| `huaweicloud_sys_rds_rds082_tps` | TPS — Number of transactions executed per second, including commits and rollbacks. |  |
+| `huaweicloud_sys_rds_rds083_conn_usage` | Connection Usage — Percentage of PgSQL connections in use relative to the total number of connections. | % |
+| `huaweicloud_sys_rds_read_count_per_second` | Read IOPS — Average number of read I/O requests processed by the system per unit time for the current instance. |  |
+| `huaweicloud_sys_rds_replay_lsn_replication_latency_size` | Primary/Standby WAL Replay Latency — Latency of WAL logs replayed on the standby node. |  |
+| `huaweicloud_sys_rds_round_trip_time` | Network Latency Between Primary and DR Host — Round-trip time between the primary database host and the disaster recovery host. | ms |
+| `huaweicloud_sys_rds_row_per_second` | Rows Operated per Second — Number of rows inserted, deleted, updated, and queried per second on the instance. |  |
+| `huaweicloud_sys_rds_sent_lsn_replication_latency_size` | Primary/Standby WAL Send Latency — Latency of WAL logs pending to be sent from the primary node. |  |
+| `huaweicloud_sys_rds_slave_replication_status` | Standby Streaming Replication Status — Streaming replication status of the standby node. 0: standby abnormal; 1: standby normal; 2: this instance is the primary. Standby here also includes read replicas. |  |
+| `huaweicloud_sys_rds_slow_sql_five_second` | SQL Statements Running for Over 5s — Number of slow SQL statements that have been executing for more than 5 seconds. This is an instantaneous value at collection time, not a cumulative value over one minute. |  |
+| `huaweicloud_sys_rds_slow_sql_log_min_duration_statement` | SQL Statements Running Longer Than log_min_duration_statement — Number of slow SQL statements whose execution time exceeds the log_min_duration_statement parameter, which can be adjusted based on service requirements. This is an instantaneous value at collection time, not a cumulative value over one minute. |  |
+| `huaweicloud_sys_rds_slow_sql_one_second` | SQL Statements Running for Over 1s — Number of slow SQL statements that have been executing for more than 1 second. This is an instantaneous value at collection time, not a cumulative value over one minute. |  |
+| `huaweicloud_sys_rds_slow_sql_three_second` | SQL Statements Running for Over 3s — Number of slow SQL statements that have been executing for more than 3 seconds. This is an instantaneous value at collection time, not a cumulative value over one minute. |  |
+| `huaweicloud_sys_rds_swap_in_rate` | Swap-In Rate — Amount of data written from swap space to memory per second. |  |
+| `huaweicloud_sys_rds_swap_out_rate` | Swap-Out Rate — Amount of memory written to swap space per second. |  |
+| `huaweicloud_sys_rds_swap_total_size` | Total Swap Size — Total swap space size. |  |
+| `huaweicloud_sys_rds_swap_usage` | Swap Usage — Swap space usage. | % |
+| `huaweicloud_sys_rds_synchronous_replication_blocking_time` | Synchronous Replication Blocking Time — Duration of replication blocking between the primary and standby nodes in synchronous replication. |  |
+| `huaweicloud_sys_rds_sys_memory_hit_rate` | Memory Hit Ratio — Memory hit ratio. | % |
+| `huaweicloud_sys_rds_temporary_files_generation_num` | Temporary Files Generated per Minute — Number of temporary files generated within one minute. | /min |
+| `huaweicloud_sys_rds_temporary_files_generation_size` | Temporary File Size Generated per Minute — Size of temporary files generated within one minute. |  |
+| `huaweicloud_sys_rds_user_active_connections` | User Active Connections — Number of active connections actually used by users (excluding built-in active connections used for monitoring and O&M). |  |
+| `huaweicloud_sys_rds_user_current_connections` | User Connections — Number of connections actually used by users (excluding built-in connections used for monitoring and O&M). |  |
+| `huaweicloud_sys_rds_wal_size` | WAL Space Usage — Space currently occupied by WAL logs. |  |
+| `huaweicloud_sys_rds_write_count_per_second` | Write IOPS — Average number of write I/O requests processed by the system per unit time for the current instance. |  |
+| `huaweicloud_sys_rds_write_lsn_replication_latency_size` | Primary/Standby WAL Write Latency — Latency of WAL logs written to disk on the standby node. |  |
+
+## Related
+
+- [Huawei Cloud template source](https://github.com/ccfos/nightingale/tree/main/integrations/Huawei): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
+- [Import dashboards and alert rules](/docs/data/integrations/import)
+- [Verify that metrics are stored](/docs/data/integrations/verify)
+- [All integrations](/integrations)

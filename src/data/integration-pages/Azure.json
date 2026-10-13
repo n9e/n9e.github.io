@@ -1,0 +1,18 @@
+{
+  "ident": "Azure",
+  "alerts": [],
+  "metrics": [],
+  "dashboards": [],
+  "collect": [
+    {
+      "plugin": "azure",
+      "file": "azure.toml",
+      "readme": false,
+      "content": "# Gather Azure resources metrics from Azure Monitor API\n# 每2m查询一次azure monitor, 查询时间范围也为2m\ninterval = \"2m\"\n[[instances]]\n# can be found under Overview->Essentials in the Azure portal for your application/service\nsubscription_id = \"\"\n# can be obtained by registering an application under Azure Active Directory\nclient_id = \"\"\n# can be obtained by registering an application under Azure Active Directory.\n# If not specified Default Azure Credentials chain will be attempted:\n# - Environment credentials (AZURE_*)\n# - Workload Identity in Kubernetes cluster\n# - Managed Identity\n# - Azure CLI auth\n# - Developer Azure CLI auth\nclient_secret = \"\"\n# can be found under Azure Active Directory->Properties\ntenant_id = \"\"\n# Define the optional Azure cloud option e.g. AzureChina, AzureGovernment or AzurePublic. The default is AzurePublic.\n# cloud_option = \"AzurePublic\"\n\n\n# 聚合粒度\n# 比如我采集周期是10m, 指标上报周期是30s, 那么在10m内会有20个原始点\n# 经过该参数的聚合处理后，比如聚合粒度是1m, 那么就会获取到10个点\n# 注意，最小值是1m\n# 支持的值为1m,5m,15m,30m,1h,6h,12h,1d\n# 且aggregation_interval不能大于interval\naggregation_interval = \"1m\"\n\n## 以下为采集目标配置，有三种方式，分别是指定资源、指定资源组、指定订阅\n## 三种方法可同时使用\n# 方式一：指定具体的资源, 比如某台具体的主机\n# [[instances.resource_target]]\n# can be found under Overview->Essentials->JSON View in the Azure portal for your application/service\n# must start with 'resourceGroups/...' ('/subscriptions/xxxxxxxx-xxxx-xxxx-xxx-xxxxxxxxxxxx'\n# must be removed from the beginning of Resource ID property value)\n# resource_id = \"resourceGroups/flashcat/providers/Microsoft.Compute/virtualMachines/lfn-test\"\n\n# the metric names to collect\n# leave the array empty to use all metrics available to this resource\n# metrics = [ \"<<METRIC>>\", \"<<METRIC>>\" ]\n# metrics aggregation type value to collect\n# can be 'Total', 'Count', 'Average', 'Minimum', 'Maximum'\n# leave the array empty to collect all aggregation types values for each metric\n# aggregations = [ \"<<AGGREGATION>>\", \"<<AGGREGATION>>\" ]\n\n\n# 方式二：指定资源组\n# # resource group target #1 to collect metrics from resources under it with resource type\n# [[instances.resource_group_target]]\n# # the resource group name\n# resource_group = \"flashcat\"\n#\n# # defines the resources to collect metrics from\n# [[instances.resource_group_target.resource]]\n# # the resource type\n# resource_type = \"Microsoft.Compute/virtualMachines\"\n# metrics = [ \"<<METRIC>>\", \"<<METRIC>>\" ]\n# aggregations = [ \"<<AGGREGATION>>\", \"<<AGGREGATION>>\" ]\n\n\n# 方式三：指定订阅ID\n# # subscription target #1 to collect metrics from resources under it with resource type\n# [[instances.subscription_target]]\n# resource_type = \"<<RESOURCE_TYPE>>\"\n# metrics = [ \"<<METRIC>>\", \"<<METRIC>>\" ]\n# aggregations = [ \"<<AGGREGATION>>\", \"<<AGGREGATION>>\" ]\n\n"
+    }
+  ],
+  "readme": {
+    "zh": false,
+    "en": true
+  }
+}

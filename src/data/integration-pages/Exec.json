@@ -1,0 +1,18 @@
+{
+  "ident": "Exec",
+  "alerts": [],
+  "metrics": [],
+  "dashboards": [],
+  "collect": [
+    {
+      "plugin": "exec",
+      "file": "exec.toml",
+      "readme": true,
+      "content": "# # collect interval\n# interval = 15\n\n[[instances]]\n# # commands, support glob\ncommands = [\n#     \"/opt/categraf/scripts/*.sh\"\n]\n\n# # timeout for each command to complete\n# timeout = 5\n\n# # interval = global.interval * interval_times\n# interval_times = 1\n\n# # choices: influx prometheus falcon\n# # influx stdout example: measurement,labelkey1=labelval1,labelkey2=labelval2 field1=1.2,field2=2.3\n# data_format = \"influx\"\n"
+    }
+  ],
+  "readme": {
+    "zh": true,
+    "en": true
+  }
+}

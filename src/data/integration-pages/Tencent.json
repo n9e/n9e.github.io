@@ -1,0 +1,54 @@
+{
+  "ident": "Tencent",
+  "alerts": [],
+  "metrics": [],
+  "dashboards": [
+    {
+      "file": "CVM.json",
+      "name": "CVM",
+      "name_en": "CVM",
+      "panels": 15
+    },
+    {
+      "file": "Ckafka.json",
+      "name": "Ckafka",
+      "name_en": "Ckafka",
+      "panels": 10
+    },
+    {
+      "file": "Postgres.json",
+      "name": "Postgres",
+      "name_en": "Postgres",
+      "panels": 51
+    },
+    {
+      "file": "Redis_内存版.json",
+      "name": "Redis-内存版",
+      "name_en": "Redis - Memory Edition",
+      "panels": 16
+    },
+    {
+      "file": "TDSQL-C-Mysql.json",
+      "name": "TDSQL-C(Mysql)",
+      "name_en": "TDSQL-C(Mysql)",
+      "panels": 11
+    },
+    {
+      "file": "负载均衡-公网.json",
+      "name": "负载均衡【公网】",
+      "name_en": "Load Balancer (Public)",
+      "panels": 17
+    },
+    {
+      "file": "负载均衡-内网.json",
+      "name": "负载均衡【内网】",
+      "name_en": "Load Balancer (Private)",
+      "panels": 17
+    }
+  ],
+  "collect": [],
+  "readme": {
+    "zh": false,
+    "en": true
+  }
+}

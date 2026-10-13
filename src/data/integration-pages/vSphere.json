@@ -1,0 +1,117 @@
+{
+  "ident": "vSphere",
+  "alerts": [
+    {
+      "source": "default",
+      "name": "ESXi实例CPU使用率大于70%",
+      "name_en": "ESXi host CPU usage exceeds 70%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "(sum(vsphere_host_cpu_usage_average{}) by(esxhostname)/count(vsphere_host_cpu_usage_average{}) by(esxhostname)) > 70",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在 vCenter 上定位该 ESXi 主机，看是哪些虚拟机贡献了主要负载；\n2) 用 vSphere DRS 或手工 vMotion 把部分虚拟机迁到负载较低的主机；\n3) 确认没有虚拟机因配置过高（vCPU 超配）而挤占资源；\n4) 若整个集群水位都高，则需要扩容物理主机。",
+      "action_en": "1) Locate the ESXi host in vCenter and see which virtual machines contribute most of the load;\n2) Use vSphere DRS or a manual vMotion to move some VMs to a less loaded host;\n3) Confirm no VM is squeezing the others through over-provisioned vCPUs;\n4) If the whole cluster is running hot, add physical hosts."
+    },
+    {
+      "source": "default",
+      "name": "ESXi实例内存使用率大于70%",
+      "name_en": "ESXi host memory usage exceeds 70%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "(sum(vsphere_host_mem_usage_average{}) by(esxhostname)/count(vsphere_host_mem_usage_average{}) by(esxhostname)) > 70",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在 vCenter 上定位该 ESXi 主机，看是哪些虚拟机贡献了主要负载；\n2) 用 vSphere DRS 或手工 vMotion 把部分虚拟机迁到负载较低的主机；\n3) 确认没有虚拟机因配置过高（vCPU 超配）而挤占资源；\n4) 若整个集群水位都高，则需要扩容物理主机。",
+      "action_en": "1) Locate the ESXi host in vCenter and see which virtual machines contribute most of the load;\n2) Use vSphere DRS or a manual vMotion to move some VMs to a less loaded host;\n3) Confirm no VM is squeezing the others through over-provisioned vCPUs;\n4) If the whole cluster is running hot, add physical hosts."
+    },
+    {
+      "source": "default",
+      "name": "VM虚拟机CPU使用率大于70%",
+      "name_en": "VM CPU usage exceeds 70%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "(sum(vsphere_vm_cpu_usage_average{}) by(vmname)/count(vsphere_vm_cpu_usage_average{}) by(vmname))>70",
+          "severity": 2
+        }
+      ],
+      "action": "1) 登录该虚拟机内部，用 top/任务管理器定位占用最高的进程；\n2) 区分业务量增长与程序异常（死循环、频繁 GC）；\n3) 在 vCenter 看该虚机的 CPU Ready 值——高说明是宿主机争抢而非虚机自身不够；\n4) 确认后按需给虚机加 vCPU，或把它迁到负载更低的宿主机。",
+      "action_en": "1) Log in to the VM and use top or Task Manager to find the busiest process;\n2) Tell traffic growth apart from a program fault (infinite loop, frequent GC);\n3) Check the VM's CPU Ready value in vCenter — high means host contention rather than the VM being undersized;\n4) Add vCPUs once confirmed, or migrate the VM to a less loaded host."
+    },
+    {
+      "source": "default",
+      "name": "VM虚拟机内存使用率大于70%",
+      "name_en": "VM memory usage exceeds 70%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "(sum(vsphere_vm_mem_usage_average{}) by(vmname)/count(vsphere_vm_mem_usage_average{}) by(vmname))>70",
+          "severity": 2
+        }
+      ],
+      "action": "1) 登录该虚拟机内部，定位占用最高的进程并判断是否内存泄漏；\n2) 在 vCenter 看该虚机的 Balloon 与 Swapped 指标——不为 0 说明宿主机在回收它的内存；\n3) 宿主机紧张的先迁虚机或扩宿主机；\n4) 虚机自身不够的按需加内存，泄漏的在应用侧定位。",
+      "action_en": "1) Log in to the VM and find the largest memory consumer, judging whether it is a leak;\n2) In vCenter check the VM's Balloon and Swapped metrics — non-zero means the host is reclaiming its memory;\n3) If the host is tight, migrate VMs or expand the host first;\n4) If the VM itself is short, add memory; if it is a leak, locate it in the application."
+    },
+    {
+      "source": "default",
+      "name": "VSphere磁盘使用率大于70%",
+      "name_en": "vSphere disk usage exceeds 70%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 15,
+      "queries": [
+        {
+          "promql": "sum(vsphere_datastore_disk_used_latest{vcenter=~\".+\"}/vsphere_datastore_disk_capacity_latest{vcenter=~\".+\"}) by(source)*100 > 70",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在 vCenter 定位该 Datastore，按容量排序找出占用最大的虚拟机与快照；\n2) 优先清理遗留快照——快照是 Datastore 被吃满最常见的原因；\n3) 清理无用的 ISO、模板与已下线虚机的残留文件；\n4) 用 Storage vMotion 把部分虚机迁到余量充足的存储，长期需扩容。",
+      "action_en": "1) Locate the datastore in vCenter and sort by capacity to find the largest VMs and snapshots;\n2) Clean up leftover snapshots first — snapshots are the most common reason a datastore fills up;\n3) Remove unused ISOs, templates and leftover files from decommissioned VMs;\n4) Use Storage vMotion to move some VMs to a datastore with headroom, and expand capacity longer term."
+    }
+  ],
+  "metrics": [],
+  "dashboards": [
+    {
+      "file": "vmware_by_vsphere-monitor.json",
+      "name": "VMware by vSphere-monitor",
+      "name_en": "VMware by vSphere-monitor",
+      "panels": 50
+    },
+    {
+      "file": "vsphere.json",
+      "name": "Vsphere",
+      "name_en": "Vsphere",
+      "panels": 24
+    }
+  ],
+  "collect": [
+    {
+      "plugin": "vsphere",
+      "file": "vsphere.toml",
+      "readme": true,
+      "content": "# # collect interval\n# interval = 15\n\n# Read metrics from one or many vCenters\n[[instances]]\n  ##  vCenter URLs to be monitored. These three lines must be uncommented\n  ## and edited for the plugin to work.\n  #vcenter = \"https://vcenter.local/sdk\"\n  #username = \"user@corp.local\"\n  #password = \"secret\"\n\n  ## VMs\n  ## Typical VM metrics (if omitted or empty, all metrics are collected)\n  # vm_include = [ \"/*/vm/**\"] # Inventory path to VMs to collect (by default all are collected)\n  # vm_exclude = [] # Inventory paths to exclude\n  vm_metric_include = [\n    \"cpu.demand.average\",\n    \"cpu.idle.summation\",\n    \"cpu.latency.average\",\n    \"cpu.readiness.average\",\n    \"cpu.ready.summation\",\n    \"cpu.run.summation\",\n    \"cpu.usagemhz.average\",\n    \"cpu.used.summation\",\n    \"cpu.wait.summation\",\n    \"mem.active.average\",\n    \"mem.granted.average\",\n    \"mem.latency.average\",\n    \"mem.swapin.average\",\n    \"mem.swapinRate.average\",\n    \"mem.swapout.average\",\n    \"mem.swapoutRate.average\",\n    \"mem.usage.average\",\n    \"mem.vmmemctl.average\",\n    \"net.bytesRx.average\",\n    \"net.bytesTx.average\",\n    \"net.droppedRx.summation\",\n    \"net.droppedTx.summation\",\n    \"net.usage.average\",\n    \"power.power.average\",\n    \"virtualDisk.numberReadAveraged.average\",\n    \"virtualDisk.numberWriteAveraged.average\",\n    \"virtualDisk.read.average\",\n    \"virtualDisk.readOIO.latest\",\n    \"virtualDisk.throughput.usage.average\",\n    \"virtualDisk.totalReadLatency.average\",\n    \"virtualDisk.totalWriteLatency.average\",\n    \"virtualDisk.write.average\",\n    \"virtualDisk.writeOIO.latest\",\n    \"sys.uptime.latest\",\n  ]\n  # vm_metric_exclude = [] ## Nothing is excluded by default\n  # vm_instances = true ## true by default\n\n  ## Hosts\n  ## Typical host metrics (if omitted or empty, all metrics are collected)\n  # host_include = [ \"/*/host/**\"] # Inventory path to hosts to collect (by default all are collected)\n  # host_exclude [] # Inventory paths to exclude\n  host_metric_include = [\n    \"cpu.coreUtilization.average\",\n    \"cpu.costop.summation\",\n    \"cpu.demand.average\",\n    \"cpu.idle.summation\",\n    \"cpu.latency.average\",\n    \"cpu.readiness.average\",\n    \"cpu.ready.summation\",\n    \"cpu.swapwait.summation\",\n    \"cpu.usage.average\",\n    \"cpu.usagemhz.average\",\n    \"cpu.used.summation\",\n    \"cpu.utilization.average\",\n    \"cpu.wait.summation\",\n    \"disk.deviceReadLatency.average\",\n    \"disk.deviceWriteLatency.average\",\n    \"disk.kernelReadLatency.average\",\n    \"disk.kernelWriteLatency.average\",\n    \"disk.numberReadAveraged.average\",\n    \"disk.numberWriteAveraged.average\",\n    \"disk.read.average\",\n    \"disk.totalReadLatency.average\",\n    \"disk.totalWriteLatency.average\",\n    \"disk.write.average\",\n    \"mem.active.average\",\n    \"mem.latency.average\",\n    \"mem.state.latest\",\n    \"mem.swapin.average\",\n    \"mem.swapinRate.average\",\n    \"mem.swapout.average\",\n    \"mem.swapoutRate.average\",\n    \"mem.totalCapacity.average\",\n    \"mem.usage.average\",\n    \"mem.vmmemctl.average\",\n    \"net.bytesRx.average\",\n    \"net.bytesTx.average\",\n    \"net.droppedRx.summation\",\n    \"net.droppedTx.summation\",\n    \"net.errorsRx.summation\",\n    \"net.errorsTx.summation\",\n    \"net.usage.average\",\n    \"power.power.average\",\n    \"storageAdapter.numberReadAveraged.average\",\n    \"storageAdapter.numberWriteAveraged.average\",\n    \"storageAdapter.read.average\",\n    \"storageAdapter.write.average\",\n    \"sys.uptime.latest\",\n  ]\n\n\n  # host_instances = true ## true by default\n  # host_include = [] ## Nothing included by default\n  # host_exclude = [] ## Nothing excluded by default\n  # host_metric_include = [] ## Nothing included by default\n  # host_metric_exclude = [] ## Nothing excluded by default\n\n\n  ## Clusters\n  # cluster_include = [ \"/*/host/**\"] # Inventory path to clusters to collect (by default all are collected)\n  # cluster_exclude = [] # Inventory paths to exclude\n  # cluster_metric_include = [] ## if omitted or empty, all metrics are collected\n  # cluster_metric_exclude = [] ## Nothing excluded by default\n  # cluster_instances = false ## false by default\n\n  ## Resource Pools\n  # resoucepool_include = [ \"/*/host/**\"] # Inventory path to datastores to collect (by default all are collected)\n  # resoucepool_exclude = [] # Inventory paths to exclude\n  # resoucepool_metric_include = [] ## if omitted or empty, all metrics are collected\n  # resoucepool_metric_exclude = [] ## Nothing excluded by default\n  # resoucepool_instances = false ## false by default\n\n  ## Datastores\n  # datastore_include = [ \"/*/datastore/**\"] # Inventory path to datastores to collect (by default all are collected)\n  # datastore_exclude = [] # Inventory paths to exclude\n  # datastore_metric_include = [] ## if omitted or empty, all metrics are collected\n  # datastore_metric_exclude = [] ## Nothing excluded by default\n  # datastore_instances = false ## false by default\n\n  ## Datacenters\n  # datacenter_include = [ \"/*/host/**\"] # Inventory path to clusters to collect (by default all are collected)\n  # datacenter_exclude = [] # Inventory paths to exclude\n  # datacenter_metric_include = [] ## if omitted or empty, all metrics are collected\n  # datacenter_metric_exclude = [ \"*\" ] ## Datacenters are not collected by default.\n  # datacenter_instances = false ## false by default\n\n  ## Plugin Settings\n  ## separator character to use for measurement and field names (default: \"_\")\n  # separator = \"_\"\n\n   ## Collect IP addresses? Valid values are \"ipv4\" and \"ipv6\"\n  # ip_addresses = [\"ipv6\", \"ipv4\" ]\n\n  ## When set to true, all samples are sent as integers. This makes the output\n  ## data types backwards compatible with Telegraf 1.9 or lower. Normally all\n  ## samples from vCenter, with the exception of percentages, are integer\n  ## values, but under some conditions, some averaging takes place internally in\n  ## the plugin. Setting this flag to \"false\" will send values as floats to\n  ## preserve the full precision when averaging takes place.\n  # use_int_samples = true\n\n  ## Custom attributes from vCenter can be very useful for queries in order to slice the\n  ## metrics along different dimension and for forming ad-hoc relationships. They are disabled\n  ## by default, since they can add a considerable amount of tags to the resulting metrics. To\n  ## enable, simply set custom_attribute_exclude to [] (empty set) and use custom_attribute_include\n  ## to select the attributes you want to include.\n  ## By default, since they can add a considerable amount of tags to the resulting metrics. To\n  ## enable, simply set custom_attribute_exclude to [] (empty set) and use custom_attribute_include\n  ## to select the attributes you want to include.\n  # custom_attribute_include = []\n  # custom_attribute_exclude = [\"*\"]\n\n\n  ## The number of vSphere 5 minute metric collection cycles to look back for non-realtime metrics. In\n  ## some versions (6.7, 7.0 and possible more), certain metrics, such as cluster metrics, may be reported\n  ## with a significant delay (>30min). If this happens, try increasing this number. Please note that increasing\n  ## it too much may cause performance issues.\n  # metric_lookback = 3\n\n  ## number of objects to retrieve per query for realtime resources (vms and hosts)\n  ## set to 64 for vCenter 5.5 and 6.0 (default: 256)\n  # max_query_objects = 256\n\n  ## number of metrics to retrieve per query for non-realtime resources (clusters and datastores)\n  ## set to 64 for vCenter 5.5 and 6.0 (default: 256)\n  # max_query_metrics = 256\n\n  ## number of go routines to use for collection and discovery of objects and metrics\n  # collect_concurrency = 1\n  # discover_concurrency = 1\n\n  ## the interval before (re)discovering objects subject to metrics collection (default: 300s)\n  # object_discovery_interval = \"300s\"\n\n  ## timeout applies to any of the api request made to vcenter\n  # timeout = \"60s\"\n\n  ## Optional SSL Config\n  # use_tls = false\n  # tls_ca = \"/path/to/cafile\"\n  # tls_cert = \"/path/to/certfile\"\n  # tls_key = \"/path/to/keyfile\"\n  ## Use SSL but skip chain & host verification\n  # insecure_skip_verify = false\n\n  ## The Historical Interval value must match EXACTLY the interval in the daily\n  # \"Interval Duration\" found on the VCenter server under Configure > General > Statistics > Statistic intervals\n  # historical_interval = \"5m\"\n"
+    }
+  ],
+  "readme": {
+    "zh": true,
+    "en": true
+  }
+}

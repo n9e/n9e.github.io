@@ -1,0 +1,534 @@
+{
+  "ident": "cAdvisor",
+  "alerts": [
+    {
+      "source": "categraf",
+      "name": "容器内存使用率接近上限",
+      "name_en": "Container memory approaching its limit",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 300,
+      "queries": [
+        {
+          "promql": "container_memory_working_set_bytes{name!=\"\"} / (container_spec_memory_limit_bytes{name!=\"\"} > 0) * 100 > 90",
+          "severity": 1
+        }
+      ],
+      "action": "1) 从告警标签取 name，执行 docker stats <name> 或 kubectl top pod 确认实时占用；\n2) 进入容器用应用自带的内存分析手段定位（Java 用 jmap -histo:live，Go 看 pprof heap），区分是正常增长还是泄漏；\n3) 确认是 limit 配小了则调大 limit 并重新部署，注意同步调整应用自身的堆上限（如 -Xmx 要留出堆外空间）；\n4) 确认是泄漏的先按内存增长速度评估还能撑多久，必要时先加自动重启兜底再排查代码。",
+      "action_en": "1) Take name from the alert labels and run docker stats <name> or kubectl top pod to confirm live usage;\n2) Use the application's own memory analysis inside the container (jmap -histo:live for Java, pprof heap for Go) to separate normal growth from a leak;\n3) If the limit is simply too small, raise it and redeploy, adjusting the application's own heap ceiling to match (-Xmx must leave room for off-heap memory);\n4) If it is a leak, estimate the remaining runway from the growth rate and add an automatic restart as a stopgap while you investigate the code."
+    },
+    {
+      "source": "categraf",
+      "name": "容器发生 OOM",
+      "name_en": "Container OOM killed",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "increase(container_oom_events_total{name!=\"\"}[10m]) > 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 从告警标签取 name，执行 docker inspect <name> 看输出中 State.OOMKilled 字段，或 kubectl describe pod 确认 OOMKilled 状态；\n2) 执行 dmesg -T | grep -i 'killed process' 找到被杀进程与当时的内存用量；\n3) 对比该用量与 limit，limit 明显偏小的直接调大；\n4) 用量异常的按内存泄漏排查，Java 应用注意 -Xmx 必须小于容器 limit 并给堆外留出空间，否则一定会被 OOM。",
+      "action_en": "1) Take name from the alert labels and confirm the OOMKilled state via the State.OOMKilled field in docker inspect <name> output or with kubectl describe pod;\n2) Run dmesg -T | grep -i 'killed process' to find the killed process and its memory usage at the time;\n3) Compare that usage against the limit and raise the limit if it is clearly too small;\n4) If usage looks abnormal, investigate it as a memory leak; for Java, -Xmx must be smaller than the container limit with room for off-heap memory or an OOM is guaranteed."
+    },
+    {
+      "source": "categraf",
+      "name": "容器 CPU 被严重限流",
+      "name_en": "Container CPU heavily throttled",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 300,
+      "queries": [
+        {
+          "promql": "rate(container_cpu_cfs_throttled_periods_total{name!=\"\"}[5m]) / (rate(container_cpu_cfs_periods_total{name!=\"\"}[5m]) > 0) * 100 > 25",
+          "severity": 2
+        }
+      ],
+      "action": "1) 从告警标签取 name，执行 cat /sys/fs/cgroup/cpu.stat（cgroup v2）确认 nr_throttled 与 throttled_usec 的增长；\n2) 对比容器实际 CPU 使用率与 limit，使用率没到 limit 却被限流的，通常是瞬时突发被 100ms 周期切碎，适当调大 limit 或调小 CPU 周期内的并发；\n3) 常见诱因是 JVM/Go 按宿主机核数创建线程池，需显式设置 GOMAXPROCS 或 -XX:ActiveProcessorCount 与 limit 对齐；\n4) 确实需要更多算力的直接调大 CPU limit 并观察限流比例是否回落。",
+      "action_en": "1) Take name from the alert labels and confirm the growth of nr_throttled and throttled_usec with cat /sys/fs/cgroup/cpu.stat (cgroup v2);\n2) Compare actual CPU usage against the limit; being throttled while below the limit usually means bursts are being sliced up by the 100 ms period, so raise the limit slightly or lower in-period concurrency;\n3) A common trigger is a JVM or Go runtime sizing thread pools from the host core count; set GOMAXPROCS or -XX:ActiveProcessorCount to match the limit;\n4) If more compute is genuinely needed, raise the CPU limit and watch the throttling ratio fall."
+    },
+    {
+      "source": "categraf",
+      "name": "容器文件系统使用率过高",
+      "name_en": "Container filesystem usage too high",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 300,
+      "queries": [
+        {
+          "promql": "container_fs_usage_bytes{name!=\"\"} / (container_fs_limit_bytes{name!=\"\"} > 0) * 100 > 85",
+          "severity": 2
+        }
+      ],
+      "action": "1) 从告警标签取 name 与 device，执行 docker exec <name> du -sh /* 2>/dev/null | sort -rh | head 找出占用大头；\n2) 绝大多数情况是应用日志没有轮转，配置 logrotate 或把日志改为输出到 stdout 由运行时统一轮转；\n3) 容器可写层被写满的，把需要持久化的目录改挂 volume，不要写进可写层；\n4) 应急可执行 docker system prune 清理无用镜像与停止的容器释放宿主机空间。",
+      "action_en": "1) Take name and device from the alert labels and run docker exec <name> du -sh /* 2>/dev/null | sort -rh | head to find the biggest consumers;\n2) In the vast majority of cases application logs are not being rotated: configure logrotate or switch to writing to stdout and let the runtime rotate them;\n3) If the writable layer is filling up, mount a volume for directories that need persistence rather than writing into the layer;\n4) As an emergency measure run docker system prune to reclaim host space from unused images and stopped containers."
+    },
+    {
+      "source": "categraf",
+      "name": "容器频繁重启",
+      "name_en": "Container restarting repeatedly",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 300,
+      "queries": [
+        {
+          "promql": "changes(container_start_time_seconds{name!=\"\"}[1h]) > 3",
+          "severity": 2
+        }
+      ],
+      "action": "1) 从告警标签取 name，执行 docker logs --tail 200 <name> 或 kubectl logs --previous 看上一次退出前的日志；\n2) 执行 docker inspect <name> 看输出中 State.ExitCode 与 State.OOMKilled，区分是 OOM、应用主动退出还是健康检查失败；\n3) OOMKilled 的按内存告警处理；退出码非 0 的按应用日志定位启动失败原因（配置缺失、依赖未就绪）；\n4) 健康检查导致的确认探针的初始延迟是否小于应用真实启动时间，需要时调大 start period。",
+      "action_en": "1) Take name from the alert labels and run docker logs --tail 200 <name> or kubectl logs --previous to read the logs from before the last exit;\n2) Run docker inspect <name> and check State.ExitCode and State.OOMKilled in the output to distinguish an OOM, a deliberate application exit, and a failing health check;\n3) Handle OOMKilled as a memory alert; for a non-zero exit code, find the start-up failure in the application logs (missing configuration, dependency not ready);\n4) If a health check is the cause, confirm the probe's initial delay is longer than the real start-up time and raise the start period if needed."
+    },
+    {
+      "source": "categraf",
+      "name": "容器网络接收丢包",
+      "name_en": "Container network receive packet drops",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 300,
+      "queries": [
+        {
+          "promql": "rate(container_network_receive_packets_dropped_total{name!=\"\"}[5m]) > 1",
+          "severity": 3
+        }
+      ],
+      "action": "1) 从告警标签取 name，执行 docker exec <name> cat /proc/net/dev 与 ss -s 确认丢包与队列情况；\n2) 接收队列溢出的调大内核 net.core.netdev_max_backlog 与应用的 accept 队列（somaxconn）；\n3) 检查宿主机网卡是否也有丢包（ethtool -S <网卡> | grep -i drop），是宿主机层面的问题就不要在容器上折腾；\n4) 流量确实超过容器网络能力的，评估是否需要改用 host 网络或提升带宽配额。",
+      "action_en": "1) Take name from the alert labels and run docker exec <name> cat /proc/net/dev plus ss -s to check drops and queue state;\n2) If the receive queue is overflowing, raise the kernel's net.core.netdev_max_backlog and the application's accept queue (somaxconn);\n3) Check whether the host NIC is also dropping packets (ethtool -S <nic> | grep -i drop); if the problem is at the host level, do not chase it inside the container;\n4) If traffic genuinely exceeds the container's networking capacity, evaluate switching to host networking or raising the bandwidth allocation."
+    }
+  ],
+  "metrics": [
+    {
+      "expression": "irate(container_cpu_system_seconds_total{image!=\"\", image!~\".*pause.*\"}[3m]) * 100",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "容器 CPU 利用率（system）",
+      "name_en": "Container CPU utilization (system)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "irate(container_cpu_user_seconds_total{image!=\"\", image!~\".*pause.*\"}[3m]) * 100",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "容器 CPU 利用率（user）",
+      "name_en": "Container CPU utilization (user)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum(\n  irate(container_cpu_usage_seconds_total{image!=\"\", image!~\".*pause.*\"}[3m])\n) by (pod,namespace,container,image)\n/\nsum(\n  container_spec_cpu_quota/container_spec_cpu_period\n) by (pod,namespace,container,image)",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "容器 CPU 利用率（整体，值不会大于 100）",
+      "name_en": "Container CPU utilization (overall, the value will not be greater than 100)",
+      "note": "只有设置了 limit 的容器才能计算此利用率",
+      "note_en": "Only containers with limit set can calculate this utilization"
+    },
+    {
+      "expression": "irate(container_cpu_usage_seconds_total{image!=\"\", image!~\".*pause.*\"}[3m]) * 100",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "容器 CPU 利用率（整体，值可能大于 100）",
+      "name_en": "Container CPU utilization (overall, value may be greater than 100)",
+      "note": "如果是 200% 表示占用了 2 个核",
+      "note_en": "If 200%, it means that 2 cores are occupied"
+    },
+    {
+      "expression": "irate(container_cpu_cfs_periods_total{}[3m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "容器 CPU 每秒有多少 period",
+      "name_en": "How many periods does the container CPU have per second",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "irate(container_cpu_cfs_throttled_periods_total{}[3m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "容器 CPU 每秒被 throttle 的 period 量",
+      "name_en": "The amount of periods that the container CPU is throttle per second",
+      "note": "如果容器限制了 CPU，而 app 所需算法过多， 会被抑制使用，container_cpu_cfs_throttled_periods_total 统计总共有多少个 period 被抑制了，如果近期发生抑制是需要关注的，一些延迟敏感的 app 受影响尤为明显。出现被抑制的情况，大概率是需要升配了。",
+      "note_en": "If the container limits the CPU and the app requires too many algorithms, it will be suppressed. container _ CPU _ cfs _ throttled _ periods _ total counts how many periods have been suppressed in total. If suppression occurs recently, it needs attention. Some delay-sensitive apps are particularly affected. If it is suppressed, there is a high probability that it needs to be upgraded."
+    },
+    {
+      "expression": "irate(container_cpu_cfs_throttled_periods_total{}[3m]) / irate(container_cpu_cfs_periods_total{}[3m]) * 100",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "容器 CPU 被 throttle 的比例",
+      "name_en": "The proportion of container CPU being throttle",
+      "note": "这个值大于 0 就要注意",
+      "note_en": "If this value is greater than 0, pay attention"
+    },
+    {
+      "expression": "container_fs_usage_bytes / container_fs_limit_bytes * 100",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "容器 filesystem 使用率",
+      "name_en": "Container filesystem usage",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "container_fs_usage_bytes",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "容器 filesystem 使用量",
+      "name_en": "Container filesystem usage",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "container_fs_io_current",
+      "type": "gauge",
+      "unit": "none",
+      "name": "容器 filesystem 当前 IO 次数",
+      "name_en": "Container filesystem Current IO times",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "container_fs_limit_bytes",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "容器 filesystem 总量",
+      "name_en": "Container filesystem Total",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "container_fs_inodes_free",
+      "type": "gauge",
+      "unit": "sishort",
+      "name": "容器 inode free 量",
+      "name_en": "Container inode free amount",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "container_fs_inodes_total",
+      "type": "counter",
+      "unit": "sishort",
+      "name": "容器 inode total 量",
+      "name_en": "Container inode total",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "100 - container_fs_inodes_free / container_fs_inodes_total * 100",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "容器 inode 使用率",
+      "name_en": "Container inode usage",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum(irate(container_fs_writes_bytes_total[3m])) by (namespace, pod)",
+      "type": "gauge",
+      "unit": "bytesSecIEC",
+      "name": "容器 IO 每秒写入 byte 量",
+      "name_en": "Container IO writes bytes per second",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum(irate(container_fs_reads_bytes_total[3m])) by (namespace, pod)",
+      "type": "gauge",
+      "unit": "bytesSecIEC",
+      "name": "容器 IO 每秒读取 byte 量",
+      "name_en": "Container IO reads bytes per second",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "container_memory_cache{image!=\"\", image!~\".*pause.*\"}",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "容器 memory cache 量",
+      "name_en": "Container memory cache amount",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "100 * container_memory_usage_bytes/container_spec_memory_limit_bytes\nand\ncontainer_spec_memory_limit_bytes != 0",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "容器 memory 使用率（Usage）",
+      "name_en": "Container memory Usage (Usage)",
+      "note": "如果有大量文件 IO，有大量 container_memory_cache，container_memory_usage_bytes 和 container_memory_working_set_bytes 的大小会有差异",
+      "note_en": "If there is a large number of file IO and a large number of container _ memory _ cache, the size of container _ memory _ usage _ bytes and container _ memory _ working _ set _ bytes will be different"
+    },
+    {
+      "expression": "100 * container_memory_working_set_bytes/container_spec_memory_limit_bytes\nand\ncontainer_spec_memory_limit_bytes != 0",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "容器 memory 使用率（Working Set）",
+      "name_en": "Container memory usage rate (Working Set)",
+      "note": "如果有大量文件 IO，有大量 container_memory_cache，container_memory_usage_bytes 和 container_memory_working_set_bytes 的大小会有差异",
+      "note_en": "If there is a large number of file IO and a large number of container _ memory _ cache, the size of container _ memory _ usage _ bytes and container _ memory _ working _ set _ bytes will be different"
+    },
+    {
+      "expression": "container_memory_mapped_file{image!=\"\", image!~\".*pause.*\"}",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "容器 memory 使用量（mapped_file）",
+      "name_en": "Container memory usage (mapped _ file)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "container_memory_rss{image!=\"\", image!~\".*pause.*\"}",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "容器 memory 使用量（RSS）",
+      "name_en": "Container memory usage (RSS)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "container_memory_swap{image!=\"\", image!~\".*pause.*\"}",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "容器 memory 使用量（Swap）",
+      "name_en": "Container memory usage (Swap)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "container_memory_usage_bytes{image!=\"\", image!~\".*pause.*\"}",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "容器 memory 使用量（Usage）",
+      "name_en": "Container memory Usage",
+      "note": "如果有大量文件 IO，有大量 container_memory_cache，container_memory_usage_bytes 和 container_memory_working_set_bytes 的大小会有差异",
+      "note_en": "If there is a large number of file IO and a large number of container _ memory _ cache, the size of container _ memory _ usage _ bytes and container _ memory _ working _ set _ bytes will be different"
+    },
+    {
+      "expression": "container_memory_working_set_bytes{image!=\"\", image!~\".*pause.*\"}",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "容器 memory 使用量（Working Set）",
+      "name_en": "Container memory usage (Working Set)",
+      "note": "如果有大量文件 IO，有大量 container_memory_cache，container_memory_usage_bytes 和 container_memory_working_set_bytes 的大小会有差异",
+      "note_en": "If there is a large number of file IO and a large number of container _ memory _ cache, the size of container _ memory _ usage _ bytes and container _ memory _ working _ set _ bytes will be different"
+    },
+    {
+      "expression": "rate(container_memory_failures_total{}[3m])",
+      "type": "gauge",
+      "unit": "none",
+      "name": "容器 memory 分配失败次数（每秒）",
+      "name_en": "Container memory allocation failures (per second)",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "container_spec_memory_limit_bytes{image!=\"\", image!~\".*pause.*\"}",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "容器 memory 限制量",
+      "name_en": "Container memory limit",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum(irate(container_network_transmit_bytes_total[3m])) by (namespace, pod) * 8",
+      "type": "gauge",
+      "unit": "bitsSecIEC",
+      "name": "容器 net 每秒发送 bit 量",
+      "name_en": "Container net sends bits per second",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum(irate(container_network_transmit_bytes_total[3m])) by (namespace, pod)",
+      "type": "gauge",
+      "unit": "bytesSecIEC",
+      "name": "容器 net 每秒发送 byte 量",
+      "name_en": "Container net sends bytes per second",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "irate(container_network_transmit_packets_total[3m])",
+      "type": "gauge",
+      "unit": "sishort",
+      "name": "容器 net 每秒发送数据包数量",
+      "name_en": "Number of packets sent per second by container net",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "irate(container_network_transmit_packets_dropped_total[3m])",
+      "type": "gauge",
+      "unit": "sishort",
+      "name": "容器 net 每秒发送时 drop 包数量",
+      "name_en": "Number of drop packets sent by container net per second",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "irate(container_network_transmit_errors_total[3m])",
+      "type": "gauge",
+      "unit": "sishort",
+      "name": "容器 net 每秒发送错包数",
+      "name_en": "Number of wrong packets sent by container net per second",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum(irate(container_network_receive_bytes_total[3m])) by (namespace, pod) * 8",
+      "type": "gauge",
+      "unit": "bitsSecIEC",
+      "name": "容器 net 每秒接收 bit 量",
+      "name_en": "The amount of bits received by the container net per second",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "sum(irate(container_network_receive_bytes_total[3m])) by (namespace, pod)",
+      "type": "gauge",
+      "unit": "bytesSecIEC",
+      "name": "容器 net 每秒接收 byte 量",
+      "name_en": "Container net receives bytes per second",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "irate(container_network_receive_packets_total[3m])",
+      "type": "gauge",
+      "unit": "sishort",
+      "name": "容器 net 每秒接收数据包数量",
+      "name_en": "Number of packets received per second by container net",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "irate(container_network_receive_packets_dropped_total[3m])",
+      "type": "gauge",
+      "unit": "sishort",
+      "name": "容器 net 每秒接收时 drop 包数量",
+      "name_en": "Number of drop packets received by container net per second",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "irate(container_network_receive_errors_total[3m])",
+      "type": "gauge",
+      "unit": "sishort",
+      "name": "容器 net 每秒接收错包数",
+      "name_en": "Number of wrong packets received by container net per second",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "container_threads_max{image!=\"\", image!~\".*pause.*\"}",
+      "type": "gauge",
+      "unit": "none",
+      "name": "容器允许运行的最大线程数",
+      "name_en": "The maximum number of threads the container is allowed to run",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "container_ulimits_soft{image!=\"\", image!~\".*pause.*\"}",
+      "type": "gauge",
+      "unit": "none",
+      "name": "容器内 1 号进程 soft ulimit 值",
+      "name_en": "Process No. 1 soft ulimit value in container",
+      "note": "容器内1号进程的软 ulimit 值。如果为-1，则无限制。",
+      "note_en": "Soft ulimit value for process # 1 inside the container. If-1, there is no limit."
+    },
+    {
+      "expression": "container_start_time_seconds{image!=\"\", image!~\".*pause.*\"}",
+      "type": "",
+      "unit": "seconds",
+      "name": "容器已经运行的时间",
+      "name_en": "How long the container has been running",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "container_sockets{image!=\"\", image!~\".*pause.*\"}",
+      "type": "",
+      "unit": "none",
+      "name": "容器当前打开套接字数量",
+      "name_en": "Number of currently open sockets in the container",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "container_file_descriptors{image!=\"\", image!~\".*pause.*\"}",
+      "type": "",
+      "unit": "none",
+      "name": "容器当前打开文件句柄数量",
+      "name_en": "Container Number of currently open file handles",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "container_threads{image!=\"\", image!~\".*pause.*\"}",
+      "type": "gauge",
+      "unit": "none",
+      "name": "容器当前运行的线程数",
+      "name_en": "Number of threads currently running in the container",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "container_processes{image!=\"\", image!~\".*pause.*\"}",
+      "type": "gauge",
+      "unit": "none",
+      "name": "容器当前运行的进程数",
+      "name_en": "Number of processes currently running in the container",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "container_accelerator_memory_total_bytes",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "容器总 GPU 加速卡可用内存量",
+      "name_en": "Container Total GPU Accelerator Available Memory",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "container_accelerator_memory_used_bytes",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "容器正在使用的 GPU 加速卡内存量",
+      "name_en": "The amount of GPU accelerator card memory the container is using",
+      "note": "",
+      "note_en": ""
+    }
+  ],
+  "dashboards": [
+    {
+      "file": "dashboard.json",
+      "name": "cAdvisor",
+      "name_en": "cAdvisor",
+      "panels": 5
+    }
+  ],
+  "collect": [
+    {
+      "plugin": "cadvisor",
+      "file": "cadvisor.toml",
+      "readme": true,
+      "content": "# # collect interval\n# interval = 15\n\n[[instances]]\n# url = \"https://1.2.3.4:10250\"\n# type = \"kubelet\"\n## url = \"http://1.2.3.4:8080/metrics\"\n## type = \"cadvisor\"\n\n# url_label_key = \"instance\"\n# url_label_value = \"{{.Host}}\"\n# bearer_token_string = \"eyJlonglongxxxx.eyJlonglongyyyy.oQsXlonglongZZZ\"\n## bearer_token_file = \"/path/to/token/file\"\n\n# ignore_label_keys = [\"id\",\"name\", \"container_label*\"]\n## choose_label_keys = [\"id\"]\n\n# timeout = \"3s\"\n\n# use_tls = true\n## tls_min_version = \"1.2\"\n## tls_ca = \"/etc/categraf/ca.pem\"\n## tls_cert = \"/etc/categraf/cert.pem\"\n## tls_key = \"/etc/categraf/key.pem\"\n## Use TLS but skip chain & host verification\n## insecure_skip_verify = true"
+    }
+  ],
+  "readme": {
+    "zh": true,
+    "en": true
+  }
+}

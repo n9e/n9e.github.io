@@ -6,8 +6,9 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
-    "prebuild": "node scripts/fetch-stats.mjs || echo '⚠ 数字未刷新，沿用仓库中已有数值继续构建'; node scripts/fetch-releases.mjs || echo '⚠ 发布信息未刷新，沿用仓库中已有数据继续构建'; node scripts/fetch-integrations.mjs || echo '⚠ 集成目录未刷新，沿用仓库中已有数据继续构建'",
+    "prebuild": "node scripts/fetch-stats.mjs || echo '⚠ 数字未刷新，沿用仓库中已有数值继续构建'; node scripts/fetch-releases.mjs || echo '⚠ 发布信息未刷新，沿用仓库中已有数据继续构建'; node scripts/fetch-integrations.mjs || echo '⚠ 集成目录未刷新，沿用仓库中已有数据继续构建'; node scripts/integration-pages/fetch.mjs || echo '⚠ 集成页素材未刷新，沿用仓库中已有数据继续构建'; node scripts/integration-pages/generate.mjs",
     "integrations": "node scripts/fetch-integrations.mjs",
+    "integrations:pages": "node scripts/integration-pages/fetch.mjs && node scripts/integration-pages/generate.mjs",
     "releases": "node scripts/fetch-releases.mjs",
     "stats": "node scripts/fetch-stats.mjs",
     "build": "docusaurus build",

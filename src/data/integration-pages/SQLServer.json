@@ -1,0 +1,213 @@
+{
+  "ident": "SQLServer",
+  "alerts": [
+    {
+      "source": "categraf",
+      "name": "SQL Server 实例不可达",
+      "name_en": "SQL Server instance unreachable",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "sqlserver_up == 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 在数据库主机执行 systemctl status mssql-server（Linux）或 Get-Service MSSQLSERVER（Windows）确认服务状态；\n2) 服务在跑则用 sqlcmd -S <host>,1433 -U <user> 手工连一次，区分是网络不通、端口没监听还是账号被锁；\n3) 服务没起来则查看 /var/opt/mssql/log/errorlog（Linux）或 SQL Server 错误日志，常见原因是磁盘满、tempdb 无法创建、证书过期；\n4) 恢复后执行 SELECT name, state_desc FROM sys.databases 确认所有库都回到 ONLINE。",
+      "action_en": "1) On the database host run systemctl status mssql-server (Linux) or Get-Service MSSQLSERVER (Windows) to check the service;\n2) If the service is running, connect by hand with sqlcmd -S <host>,1433 -U <user> to separate a network problem, a port not listening, and a locked account;\n3) If the service is down, check /var/opt/mssql/log/errorlog (Linux) or the SQL Server error log; a full disk, tempdb creation failure, or an expired certificate are common causes;\n4) After recovery run SELECT name, state_desc FROM sys.databases to confirm every database is back ONLINE."
+    },
+    {
+      "source": "categraf",
+      "name": "SQL Server 存在 SUSPECT 状态的数据库",
+      "name_en": "SQL Server has a database in SUSPECT state",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "sqlserver_server_properties_db_suspect > 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 执行 SELECT name, state_desc FROM sys.databases WHERE state_desc <> 'ONLINE' 确认是哪个库；\n2) 查看 SQL Server 错误日志里该库最近的报错，确认是 IO 错误还是日志损坏；\n3) 优先用最近一次可用备份做还原（RESTORE DATABASE），这是数据损失最小的路径；\n4) 无可用备份时才考虑 EMERGENCY 模式 + DBCC CHECKDB(..., REPAIR_ALLOW_DATA_LOSS)，该操作会丢数据，务必先做文件级快照。",
+      "action_en": "1) Run SELECT name, state_desc FROM sys.databases WHERE state_desc <> 'ONLINE' to identify the database;\n2) Look for the most recent errors for that database in the SQL Server error log to tell an IO error from log corruption;\n3) Restoring from the most recent good backup (RESTORE DATABASE) is the path with the least data loss and should be preferred;\n4) Only if no backup exists should you use EMERGENCY mode plus DBCC CHECKDB(..., REPAIR_ALLOW_DATA_LOSS); that operation loses data, so take a file-level snapshot first."
+    },
+    {
+      "source": "categraf",
+      "name": "SQL Server 存在 OFFLINE 状态的数据库",
+      "name_en": "SQL Server has a database in OFFLINE state",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 180,
+      "queries": [
+        {
+          "promql": "sqlserver_server_properties_db_offline > 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 执行 SELECT name, state_desc FROM sys.databases WHERE state_desc = 'OFFLINE' 列出离线的库；\n2) 确认是否是计划内的维护或迁移操作，核对变更单；\n3) 非计划的执行 ALTER DATABASE [库名] SET ONLINE 尝试上线，失败则看错误日志里的具体原因；\n4) 上线后执行 DBCC CHECKDB([库名]) WITH NO_INFOMSGS 确认数据一致性。",
+      "action_en": "1) Run SELECT name, state_desc FROM sys.databases WHERE state_desc = 'OFFLINE' to list the offline databases;\n2) Confirm against the change record whether this is planned maintenance or a migration;\n3) If unplanned, try ALTER DATABASE [db] SET ONLINE and read the error log for the exact reason if it fails;\n4) Once online run DBCC CHECKDB([db]) WITH NO_INFOMSGS to confirm data consistency."
+    },
+    {
+      "source": "categraf",
+      "name": "SQL Server 数据卷剩余空间不足",
+      "name_en": "SQL Server data volume free space low",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 300,
+      "queries": [
+        {
+          "promql": "sqlserver_volume_space_available_space_bytes / (sqlserver_volume_space_total_space_bytes > 0) * 100 < 10",
+          "severity": 1
+        }
+      ],
+      "action": "1) 从告警标签取 volume_mount_point，执行 SELECT DB_NAME(database_id), name, size*8/1024 AS size_mb FROM sys.master_files ORDER BY size DESC 找出占用最大的文件；\n2) 日志文件异常大的先执行 BACKUP LOG 截断再 DBCC SHRINKFILE，注意完整恢复模式下不备份日志是缩不掉的；\n3) 数据文件确实需要这么大的，清理历史分区或归档冷数据；\n4) 应急可先把 tempdb 或备份文件迁到其他卷腾出空间，长期需要扩容磁盘。",
+      "action_en": "1) Take volume_mount_point from the alert labels and run SELECT DB_NAME(database_id), name, size*8/1024 AS size_mb FROM sys.master_files ORDER BY size DESC to find the largest files;\n2) For an oversized log file, run BACKUP LOG to truncate it first and then DBCC SHRINKFILE; under the full recovery model it cannot shrink without a log backup;\n3) If the data files genuinely need that space, clean up historical partitions or archive cold data;\n4) As an emergency measure move tempdb or backup files to another volume, but plan a disk expansion."
+    },
+    {
+      "source": "categraf",
+      "name": "SQL Server 事务日志使用率过高",
+      "name_en": "SQL Server transaction log usage too high",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 300,
+      "queries": [
+        {
+          "promql": "sqlserver_performance_value{counter=\"Percent Log Used\", instance!=\"_Total\", instance!=\"Total\"} > 85",
+          "severity": 1
+        }
+      ],
+      "action": "1) 从告警标签取 instance（数据库名），执行 SELECT name, log_reuse_wait_desc FROM sys.databases WHERE name = '<库名>' 看日志为什么不能重用；\n2) log_reuse_wait_desc 为 LOG_BACKUP 的立刻执行 BACKUP LOG [库名] TO DISK='...'，这是最常见的原因；\n3) 为 ACTIVE_TRANSACTION 的执行 DBCC OPENTRAN 找出长事务并评估是否 KILL；\n4) 为 REPLICATION 或 AVAILABILITY_REPLICA 的去查复制/AlwaysOn 的同步是否卡住，先修复同步链路。",
+      "action_en": "1) Take instance (the database name) from the alert labels and run SELECT name, log_reuse_wait_desc FROM sys.databases WHERE name = '<db>' to see why the log cannot be reused;\n2) For LOG_BACKUP, run BACKUP LOG [db] TO DISK='...' immediately; this is by far the most common cause;\n3) For ACTIVE_TRANSACTION, run DBCC OPENTRAN to find the long transaction and decide whether to KILL it;\n4) For REPLICATION or AVAILABILITY_REPLICA, investigate whether replication/AlwaysOn synchronisation is stuck and repair the replication link first."
+    },
+    {
+      "source": "categraf",
+      "name": "SQL Server 页面生命周期过短",
+      "name_en": "SQL Server page life expectancy too low",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 300,
+      "queries": [
+        {
+          "promql": "sqlserver_performance_value{counter=\"Page life expectancy\", object=\"SQLServer:Buffer Manager\"} < 300",
+          "severity": 2
+        }
+      ],
+      "action": "1) 执行 SELECT * FROM sys.dm_os_performance_counters WHERE counter_name LIKE '%Page life%' 确认实时值；\n2) 执行 SELECT TOP 20 * FROM sys.dm_exec_query_stats ORDER BY total_logical_reads DESC，找出逻辑读最大的语句，通常是缺索引导致的全表扫描；\n3) 用 sys.dm_db_missing_index_details 拿到建议索引并评估后创建，这比加内存见效快；\n4) 确认查询已优化仍不足的，检查 max server memory 配置是否过小或被其他进程挤占，再考虑扩内存。",
+      "action_en": "1) Run SELECT * FROM sys.dm_os_performance_counters WHERE counter_name LIKE '%Page life%' to confirm the live value;\n2) Run SELECT TOP 20 * FROM sys.dm_exec_query_stats ORDER BY total_logical_reads DESC to find the statements with the highest logical reads, usually full scans caused by missing indexes;\n3) Take the suggestions from sys.dm_db_missing_index_details, review them, and create the indexes; this pays off faster than adding memory;\n4) If queries are already optimised and it is still low, check whether max server memory is set too small or is being squeezed by other processes before adding RAM."
+    },
+    {
+      "source": "categraf",
+      "name": "SQL Server 存在等待内存授予的查询",
+      "name_en": "SQL Server has queries waiting for memory grants",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 180,
+      "queries": [
+        {
+          "promql": "sqlserver_performance_value{counter=\"Memory Grants Pending\"} > 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 执行 SELECT session_id, requested_memory_kb, granted_memory_kb, wait_time_ms FROM sys.dm_exec_query_memory_grants 查看谁在等、谁占着；\n2) 对占用巨大的会话用 sys.dm_exec_sql_text 取出语句，通常是大排序或大哈希连接，缺索引会显著放大内存需求；\n3) 应急可 KILL 掉占用最大的会话释放内存；\n4) 长期按 dm_db_missing_index_details 建索引、拆分大查询，或调大 max server memory。",
+      "action_en": "1) Run SELECT session_id, requested_memory_kb, granted_memory_kb, wait_time_ms FROM sys.dm_exec_query_memory_grants to see who is waiting and who is holding;\n2) For sessions with huge grants, pull the statement with sys.dm_exec_sql_text; it is usually a large sort or hash join, and a missing index amplifies the memory requirement significantly;\n3) As an emergency measure KILL the largest consumer to release memory;\n4) Longer term add the indexes suggested by dm_db_missing_index_details, split large queries, or raise max server memory."
+    },
+    {
+      "source": "categraf",
+      "name": "SQL Server 阻塞进程数过高",
+      "name_en": "SQL Server blocked process count too high",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 180,
+      "queries": [
+        {
+          "promql": "sqlserver_performance_value{counter=\"Processes blocked\"} > 5",
+          "severity": 2
+        }
+      ],
+      "action": "1) 执行 SELECT blocking_session_id, session_id, wait_type, wait_time, wait_resource FROM sys.dm_exec_requests WHERE blocking_session_id <> 0 找出阻塞链的源头；\n2) 对源头 session 用 DBCC INPUTBUFFER(<spid>) 或 sys.dm_exec_sql_text 看它在执行什么；\n3) 确认是失控的长事务后执行 KILL <spid> 先止血；\n4) 事后检查该事务是否缺少索引导致锁范围过大，或应用侧忘记提交事务，必要时评估启用 READ_COMMITTED_SNAPSHOT 降低读写互斥。",
+      "action_en": "1) Run SELECT blocking_session_id, session_id, wait_type, wait_time, wait_resource FROM sys.dm_exec_requests WHERE blocking_session_id <> 0 to find the head of the blocking chain;\n2) For the head session use DBCC INPUTBUFFER(<spid>) or sys.dm_exec_sql_text to see what it is running;\n3) Once confirmed as a runaway long transaction, run KILL <spid> to stop the bleeding;\n4) Afterwards check whether that transaction lacks an index (widening the lock range) or the application forgot to commit, and consider enabling READ_COMMITTED_SNAPSHOT to reduce reader/writer conflict."
+    },
+    {
+      "source": "categraf",
+      "name": "SQL Server 发生死锁",
+      "name_en": "SQL Server deadlock occurred",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "increase(sqlserver_performance_value{counter=\"Number of Deadlocks/sec\"}[10m]) > 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 执行 system_health 扩展事件查询死锁图：SELECT XEvent.query('.') FROM (SELECT CAST(target_data AS XML) AS TargetData FROM sys.dm_xe_session_targets ...) 取出 xml_deadlock_report；\n2) 从死锁图里看两个事务的加锁顺序与涉及的索引；\n3) 最常见的修法是统一业务代码里多表更新的顺序，以及给参与的查询补索引缩小锁范围；\n4) 短期可在应用侧对死锁错误号 1205 做自动重试，但不能替代根因修复。",
+      "action_en": "1) Query the system_health extended event session for the deadlock graph: SELECT XEvent.query('.') FROM (SELECT CAST(target_data AS XML) AS TargetData FROM sys.dm_xe_session_targets ...) and extract xml_deadlock_report;\n2) Read the lock acquisition order and the indexes involved from the graph;\n3) The usual fix is to make multi-table updates follow the same order everywhere in the application code, plus indexes on the participating queries to narrow the lock range;\n4) In the short term the application can retry on error 1205, but that does not replace fixing the root cause."
+    },
+    {
+      "source": "categraf",
+      "name": "SQL Server 数据文件读延迟过高",
+      "name_en": "SQL Server data file read latency too high",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 300,
+      "queries": [
+        {
+          "promql": "rate(sqlserver_database_io_read_latency_ms[5m]) / (rate(sqlserver_database_io_reads[5m]) > 0) > 50",
+          "severity": 2
+        }
+      ],
+      "action": "1) 从告警标签取 database_name 与 logical_filename，定位是哪个库的哪个文件慢；\n2) 在主机侧执行 iostat -x 1（Linux）或用性能监视器看 Avg. Disk sec/Read，确认是存储本身慢还是 SQL Server 读放大；\n3) 存储正常则按 Page Life Expectancy 的思路优化查询、补索引，减少物理读；\n4) 存储确实慢的，考虑把该文件迁到 SSD、拆分文件组分散 IO，或排查是否与备份任务错峰不当。",
+      "action_en": "1) Take database_name and logical_filename from the alert labels to identify the slow file;\n2) On the host run iostat -x 1 (Linux) or watch Avg. Disk sec/Read in Performance Monitor to tell slow storage from read amplification inside SQL Server;\n3) If the storage is fine, optimise queries and add indexes as for page life expectancy to reduce physical reads;\n4) If the storage really is slow, consider moving the file to SSD, splitting filegroups to spread IO, or checking whether backup jobs overlap the business peak."
+    },
+    {
+      "source": "categraf",
+      "name": "SQL Server 数据文件写延迟过高",
+      "name_en": "SQL Server data file write latency too high",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 300,
+      "queries": [
+        {
+          "promql": "rate(sqlserver_database_io_write_latency_ms[5m]) / (rate(sqlserver_database_io_writes[5m]) > 0) > 50",
+          "severity": 2
+        }
+      ],
+      "action": "1) 从告警标签取 database_name 与 file_type，file_type=LOG 的优先处理，日志写慢会直接卡住所有提交；\n2) 主机侧用 iostat -x 1 看该磁盘的 await 与 %util，确认是否已打满；\n3) 日志文件与数据文件放在同一块盘的，把日志迁到独立的低延迟磁盘；\n4) 检查是否有备份、DBCC CHECKDB、索引重建等重 IO 任务与业务高峰重叠，调整到低峰执行。",
+      "action_en": "1) Take database_name and file_type from the alert labels and handle file_type=LOG first, since slow log writes stall every commit;\n2) On the host run iostat -x 1 and check that disk's await and %util to see whether it is saturated;\n3) If the log file shares a disk with the data files, move the log to a dedicated low-latency disk;\n4) Check whether backups, DBCC CHECKDB, or index rebuilds overlap the business peak and move them to off-peak hours."
+    }
+  ],
+  "metrics": [],
+  "dashboards": [
+    {
+      "file": "sqlserver.json",
+      "name": "SQLServer",
+      "name_en": "SQLServer",
+      "panels": 10
+    }
+  ],
+  "collect": [
+    {
+      "plugin": "sqlserver",
+      "file": "sqlserver.toml",
+      "readme": true,
+      "content": "# # collect interval\n# interval = 15\n\n[[instances]]\n\n## Specify instances to monitor with a list of connection strings.\n## All connection parameters are optional.\n## By default, the host is localhost, listening on default port, TCP 1433.\n##   for Windows, the user is the currently running AD user (SSO).\n##   See https://github.com/denisenkom/go-mssqldb for detailed connection\n##   parameters, in particular, tls connections can be created like so:\n##   \"encrypt=true;certificate=<cert>;hostNameInCertificate=<SqlServer host fqdn>\"\n# servers = [\"Server=server.xxx.com;Port=1433;User Id=monitor;Password=xxxxxx;app name=categraf;log=1;\"]\n# servers = [ ]\n\n## Authentication method\n## valid methods: \"connection_string\", \"AAD\"\n# auth_method = \"connection_string\"\n\n## \"database_type\" enables a specific set of queries depending on the database type. If specified, it replaces azuredb = true/false and query_version = 2\n## In the config file, the sql server plugin section should be repeated each with a set of servers for a specific database_type.\n## Possible values for database_type are - \"SQLServer\" or \"AzureSQLDB\" or \"AzureSQLManagedInstance\" or \"AzureSQLPool\"\n\ndatabase_type = \"SQLServer\"\n\n## A list of queries to include. If not specified, all the below listed queries are used.\ninclude_query = []\n\n## A list of queries to explicitly ignore.\nexclude_query = [\"SQLServerAvailabilityReplicaStates\", \"SQLServerDatabaseReplicaStates\"]\n\n## Queries enabled by default for database_type = \"SQLServer\" are -\n## SQLServerPerformanceCounters, SQLServerWaitStatsCategorized, SQLServerDatabaseIO, SQLServerProperties, SQLServerMemoryClerks,\n## SQLServerSchedulers, SQLServerRequests, SQLServerVolumeSpace, SQLServerCpu, SQLServerAvailabilityReplicaStates, SQLServerDatabaseReplicaStates,\n## SQLServerRecentBackups\n\n\n\n## Following are old config settings\n## You may use them only if you are using the earlier flavor of queries, however it is recommended to use\n## the new mechanism of identifying the database_type there by use it's corresponding queries\n\n## Optional parameter, setting this to 2 will use a new version\n## of the collection queries that break compatibility with the original\n## dashboards.\n## Version 2 - is compatible from SQL Server 2012 and later versions and also for SQL Azure DB\n# query_version = 2\n\n## Toggling this to true will emit an additional metric called \"sqlserver_telegraf_health\".\n## This metric tracks the count of attempted queries and successful queries for each SQL instance specified in \"servers\".\n## The purpose of this metric is to assist with identifying and diagnosing any connectivity or query issues.\n## This setting/metric is optional and is disabled by default.\n# health_metric = false\n\n## Possible queries across different versions of the collectors\n## Queries enabled by default for specific Database Type\n\n## database_type =  SQLServer by default collects the following queries\n## - SQLServerPerformanceCounters\n## - SQLServerWaitStatsCategorized\n## - SQLServerDatabaseIO\n## - SQLServerProperties\n## - SQLServerMemoryClerks\n## - SQLServerSchedulers\n## - SQLServerRequests\n## - SQLServerVolumeSpace\n## - SQLServerCpu\n## - SQLServerRecentBackups\n## and following as optional (if mentioned in the include_query list)\n## - SQLServerAvailabilityReplicaStates\n## - SQLServerDatabaseReplicaStates\n\n## Version 2 by default collects the following queries\n## Version 2 is being deprecated, please consider using database_type.\n## - PerformanceCounters\n## - WaitStatsCategorized\n## - DatabaseIO\n## - ServerProperties\n## - MemoryClerk\n## - Schedulers\n## - SqlRequests\n## - VolumeSpace\n## - Cpu\n\n## Version 1 by default collects the following queries\n## Version 1 is deprecated, please consider using database_type.\n## - PerformanceCounters\n## - WaitStatsCategorized\n## - CPUHistory\n## - DatabaseIO\n## - DatabaseSize\n## - DatabaseStats\n## - DatabaseProperties\n## - MemoryClerk\n## - VolumeSpace\n## - PerformanceMetrics"
+    }
+  ],
+  "readme": {
+    "zh": true,
+    "en": true
+  }
+}

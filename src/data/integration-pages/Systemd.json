@@ -1,0 +1,186 @@
+{
+  "ident": "Systemd",
+  "alerts": [
+    {
+      "source": "default",
+      "name": "服务状态异常",
+      "name_en": "Service state abnormal",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 180,
+      "queries": [
+        {
+          "promql": "systemd_unit_state{state!=\"active\"} == 1",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 systemctl --failed 列出所有异常单元，再用 systemctl status <unit> 看具体状态与最近日志；\n2) 用 journalctl -u <unit> -n 100 --no-pager 定位退出原因；\n3) 配置问题先修复配置再 systemctl restart <unit>；\n4) 反复失败的用 systemctl show <unit> -p NRestarts 确认是否已陷入重启循环，先定位根因不要盲目重启。",
+      "action_en": "1) Run systemctl --failed to list every failed unit, then systemctl status <unit> for its state and recent logs;\n2) Use journalctl -u <unit> -n 100 --no-pager to find the exit reason;\n3) For configuration problems, fix the config before systemctl restart <unit>;\n4) For repeated failures, check systemctl show <unit> -p NRestarts for a restart loop and find the root cause before restarting again."
+    },
+    {
+      "source": "default",
+      "name": "服务频繁重启",
+      "name_en": "Service restarting frequently",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 180,
+      "queries": [
+        {
+          "promql": "increase(systemd_service_restart_total[5m]) > 3",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 journalctl -u <unit> -n 200 --no-pager 看每次退出前的报错；\n2) 检查退出码与是否被 OOM 杀死（dmesg -T | grep -i 'killed process'）；\n3) 依赖未就绪导致的（连不上数据库、挂载未完成），在 unit 里补 After=/Requires= 并修复依赖；\n4) 定位期间可临时 systemctl stop 该服务，避免持续刷日志占满磁盘。",
+      "action_en": "1) Run journalctl -u <unit> -n 200 --no-pager to see the error before each exit;\n2) Check the exit code and whether it was OOM-killed (dmesg -T | grep -i 'killed process');\n3) If an unready dependency is the cause (cannot reach the database, mount not finished), add After=/Requires= to the unit and fix the dependency;\n4) While investigating you can systemctl stop the service so it does not flood the disk with logs."
+    },
+    {
+      "source": "default",
+      "name": "系统状态异常",
+      "name_en": "System state abnormal",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 180,
+      "queries": [
+        {
+          "promql": "systemd_system_running == 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 systemctl status 看整体状态，再用 systemctl --failed 列出失败的单元；\n2) 逐个用 journalctl -u <unit> 定位失败原因并修复；\n3) 确认失败单元是否影响关键业务——有些是无关的一次性任务，可用 systemctl reset-failed 清理状态；\n4) 修复后再次确认 systemctl is-system-running 返回 running。",
+      "action_en": "1) Run systemctl status for the overall state, then systemctl --failed to list the failed units;\n2) Use journalctl -u <unit> on each to find and fix the failure;\n3) Confirm whether the failed units affect critical services — some are unrelated one-shot jobs whose state can be cleared with systemctl reset-failed;\n4) After fixing, confirm systemctl is-system-running returns running."
+    }
+  ],
+  "metrics": [
+    {
+      "expression": "systemd_service_restart_total",
+      "type": "counter",
+      "unit": "none",
+      "name": "服务重启总次数",
+      "name_en": "Total Service Restarts",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "systemd_socket_accepted_connections_total",
+      "type": "counter",
+      "unit": "none",
+      "name": "socket 接受的连接总数",
+      "name_en": "Total Accepted Socket Connections",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "systemd_socket_current_connections",
+      "type": "gauge",
+      "unit": "none",
+      "name": "socket 当前连接数",
+      "name_en": "Current Socket Connections",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "systemd_socket_refused_connections_total",
+      "type": "counter",
+      "unit": "none",
+      "name": "socket 拒绝的连接总数",
+      "name_en": "Total Refused Socket Connections",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "systemd_system_running",
+      "type": "gauge",
+      "unit": "none",
+      "name": "服务运行状态",
+      "name_en": "System Running State",
+      "note": "系统是否处于运行状态（1=运行，0=非运行）",
+      "note_en": "Whether the system is in running state (1 = running, 0 = not running)"
+    },
+    {
+      "expression": "systemd_timer_last_trigger_seconds",
+      "type": "",
+      "unit": "none",
+      "name": "timer 上次触发时间戳",
+      "name_en": "Timer Last Trigger Timestamp",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "systemd_unit_start_time_seconds",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "unit 启动时间戳",
+      "name_en": "Unit Start Timestamp",
+      "note": "Unix时间戳",
+      "note_en": "Unix timestamp"
+    },
+    {
+      "expression": "systemd_unit_state",
+      "type": "gauge",
+      "unit": "none",
+      "name": "unit 的状态信息",
+      "name_en": "Unit State",
+      "note": "state值为activating| active| deactivating| failed| inactive",
+      "note_en": "The state value is one of activating | active | deactivating | failed | inactive"
+    },
+    {
+      "expression": "systemd_unit_tasks_current",
+      "type": "gauge",
+      "unit": "none",
+      "name": "当前任务数量",
+      "name_en": "Current Task Count",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "systemd_unit_tasks_max",
+      "type": "gauge",
+      "unit": "none",
+      "name": "最大任务数量限制",
+      "name_en": "Maximum Task Limit",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "systemd_units",
+      "type": "",
+      "unit": "none",
+      "name": "systemd_units",
+      "name_en": "Systemd Units",
+      "note": "各状态下的 unit 总数.\nstate状态为activating|active|deactivating|failed|inactive",
+      "note_en": "Total number of units in each state.\nThe state is one of activating | active | deactivating | failed | inactive"
+    },
+    {
+      "expression": "systemd_version",
+      "type": "gauge",
+      "unit": "none",
+      "name": "systemd 版本信息",
+      "name_en": "Systemd Version Information",
+      "note": "",
+      "note_en": ""
+    }
+  ],
+  "dashboards": [
+    {
+      "file": "system_by_categraf.json",
+      "name": "Sytemd 监控仪表盘",
+      "name_en": "Systemd Monitoring Dashboard",
+      "panels": 7
+    }
+  ],
+  "collect": [
+    {
+      "plugin": "systemd",
+      "file": "systemd.toml",
+      "readme": true,
+      "content": "# # collect interval\n# interval = 15\n\n# 是否启用 systemd 插件\nenable = true\n\n# 包含的 unit 正则表达式，默认为 \".+\"（所有unit）\nunit_include = '''.+'''\n\n# 排除的 unit 正则表达式，默认排除 automount、device、mount、scope、slice 类型\nunit_exclude = '''.+\\.(automount|device|mount|scope|slice)'''\n\n# 是否采集 service unit 的启动时间信息（单位：秒）\nenable_start_time_metrics = true\n\n# 是否采集 service unit task 的 metrics\nenable_task_metrics = true\n\n# 是否采集 service unit 重启次数信息\nenable_restarts_metrics = true\n\n# 是否使用私有 systemd 连接\nsystemd_private = true"
+    }
+  ],
+  "readme": {
+    "zh": true,
+    "en": true
+  }
+}

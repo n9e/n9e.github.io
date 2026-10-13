@@ -8,6 +8,7 @@ import { useCopy } from '@site/src/content';
 import type { IntegrationCategoryId, Plural } from '@site/src/content/types';
 import ChannelIcon from '@site/src/components/home/ChannelIcon';
 import catalog from '@site/src/data/integrations.json';
+import pages from '@site/src/data/integration-pages/index.json';
 import homeStyles from '@site/src/components/home/home.module.css';
 import pageStyles from './pages.module.css';
 import styles from './integrations.module.css';
@@ -38,7 +39,10 @@ function plural([one, other]: Plural, n: number): string {
   return (n === 1 ? one : other).replace('{n}', String(n));
 }
 
-/** 卡片点开去 GitHub 上该模板的 README；当前语言没有就退到另一种，都没有就到目录 */
+/** 有独立页（/integrations/<slug>）的集成，卡片进站内页；slug 由 scripts/integration-pages/fetch.mjs 写入 */
+const PAGE_SLUG = new Map(pages.pages.map((p) => [p.ident, p.slug]));
+
+/** 没有独立页的，卡片点开去 GitHub 上该模板的 README；当前语言没有就退到另一种，都没有就到目录 */
 function readmeUrl(item: Template, locale: string): string {
   const base = `${catalog.sourceUrl.replace('/tree/', '/blob/')}/${item.ident}`;
   const preferEn = locale === 'en';
@@ -139,7 +143,10 @@ export default function IntegrationsPage(): React.ReactElement {
     ].filter(Boolean) as string[];
     return (
       <li key={item.ident}>
-        <Link className={styles.card} to={readmeUrl(item, i18n.currentLocale)}>
+        <Link
+          className={styles.card}
+          to={PAGE_SLUG.has(item.ident) ? `/integrations/${PAGE_SLUG.get(item.ident)}` : readmeUrl(item, i18n.currentLocale)}
+        >
           <span className={styles.cardIcon}>
             {item.icon ? (
               <img src={withBaseUrl(`img/integrations/${item.icon.file}`)} alt={`${item.name} logo`} loading="lazy" />

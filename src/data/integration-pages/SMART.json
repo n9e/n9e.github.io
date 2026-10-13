@@ -1,0 +1,255 @@
+{
+  "ident": "SMART",
+  "alerts": [
+    {
+      "source": "default",
+      "name": "SMART设备健康状态异常",
+      "name_en": "SMART device health status abnormal",
+      "note": "硬盘自身检测的整体健康状态为不健康，存在严重故障风险，需立即处理",
+      "note_en": "Disk self-assessed overall health is FAILED, serious failure risk, handle immediately",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "smart_device_health_ok == 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 smartctl -a /dev/sdX 看完整属性，重点关注 Reallocated_Sector_Ct、Current_Pending_Sector、Offline_Uncorrectable；\n2) 立即确认该盘上的数据有副本或已备份——这是最优先的动作；\n3) RAID 环境下确认阵列状态，先让阵列把该盘踢出并用热备重建；\n4) 安排停机换盘，不要继续往这块盘写数据。",
+      "action_en": "1) Run smartctl -a /dev/sdX for the full attribute list, focusing on Reallocated_Sector_Ct, Current_Pending_Sector and Offline_Uncorrectable;\n2) Immediately confirm the data on this disk has a replica or backup — this is the highest priority action;\n3) In a RAID array, check the array state and let it evict this disk and rebuild onto a hot spare;\n4) Schedule downtime to replace the disk and stop writing to it."
+    },
+    {
+      "source": "default",
+      "name": "SSD介质磨损百分比≥90%",
+      "name_en": "SSD media wearout >= 90%",
+      "note": "SSD闪存芯片磨损程度接近耗尽，随时可能发生故障，需立即备份数据并更换硬盘",
+      "note_en": "SSD flash wearout is nearly exhausted and may fail at any time; back up data and replace the drive immediately",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "smart_attribute_media_wear_percentage >= 90",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 smartctl -a /dev/sdX 确认 Media_Wearout_Indicator / Percentage_Used 与 Total_LBAs_Written；\n2) 结合写入速率估算剩余寿命，据此排换盘窗口；\n3) 确认该盘上的数据有副本，并提前准备迁移方案；\n4) 复盘写入放大来源（日志级别、频繁小写入、无 TRIM），避免新盘重蹈覆辙。",
+      "action_en": "1) Run smartctl -a /dev/sdX and check Media_Wearout_Indicator / Percentage_Used together with Total_LBAs_Written;\n2) Combine with the write rate to estimate remaining life and plan the replacement window;\n3) Confirm the data on this disk has a replica and prepare the migration plan in advance;\n4) Review the source of write amplification (log level, frequent small writes, no TRIM) so the replacement does not repeat it."
+    },
+    {
+      "source": "default",
+      "name": "硬盘温度超过65℃",
+      "name_en": "Disk temperature exceeds 65 Celsius",
+      "note": "硬盘运行温度过高，会加速硬件老化甚至导致直接故障，需立即检查散热",
+      "note_en": "Disk operating temperature too high, which accelerates aging or causes outright failure; check cooling immediately",
+      "severity": 1,
+      "for": 180,
+      "queries": [
+        {
+          "promql": "smart_device_temp_c > 65",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 smartctl -a /dev/sdX 确认温度与厂商标称的工作温度上限；\n2) 检查机箱风道、风扇转速与滤网积灰，机房环境温度是否正常；\n3) 确认盘位安装位置是否过于密集、相邻盘是否同样高温；\n4) 短期可降低该盘的 IO 压力（错峰备份、迁移热数据）为处理争取时间。",
+      "action_en": "1) Run smartctl -a /dev/sdX and compare the temperature against the vendor's rated maximum;\n2) Check chassis airflow, fan speeds and dust in the filters, plus the room's ambient temperature;\n3) Check whether the bay layout is too dense and whether neighbouring disks are equally hot;\n4) Short term, reduce IO pressure on this disk (shift backups off peak, move hot data) to buy time."
+    },
+    {
+      "source": "default",
+      "name": "CRC错误计数1小时内持续增长",
+      "name_en": "CRC error count keeps growing within 1 hour",
+      "note": "数据传输链路CRC校验失败次数增加，可能是接口、线缆或硬盘控制器故障前兆",
+      "note_en": "Growing CRC failures on the data link, a possible precursor of interface, cable or disk controller failure",
+      "severity": 1,
+      "for": 3600,
+      "queries": [
+        {
+          "promql": "increase(smart_attribute_crc_error_count[1h]) > 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 smartctl -a /dev/sdX 确认 UDMA_CRC_Error_Count 的增长速度；\n2) 停机检查并重新插拔 SATA/SAS 数据线与电源线，优先直接换一根线；\n3) 换线后观察计数是否停止增长——SMART 计数不会自动归零，看增量而非绝对值；\n4) 换线无效则怀疑背板或 HBA 卡，逐个替换定位。",
+      "action_en": "1) Run smartctl -a /dev/sdX and check how fast UDMA_CRC_Error_Count is growing;\n2) Take the machine down, reseat the SATA/SAS data and power cables, and preferably just replace the cable;\n3) After replacing the cable, watch whether the counter stops growing — SMART counters never reset, so judge by the delta, not the absolute value;\n4) If a new cable does not help, suspect the backplane or HBA and swap them one at a time."
+    },
+    {
+      "source": "default",
+      "name": "SSD擦除失败计数增长",
+      "name_en": "SSD erase fail count growing",
+      "note": "SSD闪存块擦除失败，意味着闪存芯片老化，存在数据写入故障风险",
+      "note_en": "SSD flash block erase failures indicate aging flash chips and a risk of write failures",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "increase(smart_attribute_erase_fail_count[1h]) > 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 smartctl -a /dev/sdX 确认 Erase_Fail_Count 与 Reallocated/Available_Reservd_Space 的剩余余量；\n2) 备用块余量下降说明盘已接近寿命终点，立即确认数据有副本；\n3) 排换盘计划，不要等到写入完全失败；\n4) 换盘前降低该盘写入压力，避免加速恶化。",
+      "action_en": "1) Run smartctl -a /dev/sdX and check Erase_Fail_Count together with the remaining Reallocated/Available_Reservd_Space;\n2) A shrinking spare block pool means the disk is near end of life — confirm the data has a replica immediately;\n3) Schedule a replacement rather than waiting for writes to fail outright;\n4) Reduce write pressure on the disk beforehand so it does not degrade faster."
+    },
+    {
+      "source": "default",
+      "name": "SSD编程失败计数增长",
+      "name_en": "SSD program fail count growing",
+      "note": "SSD闪存块写入失败，闪存芯片健康度急剧下降，需立即备份数据",
+      "note_en": "SSD flash block program failures; flash chip health is degrading rapidly, back up data immediately",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "increase(smart_attribute_program_fail_count[1h]) > 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 smartctl -a /dev/sdX 确认 Program_Fail_Count 与备用块剩余比例；\n2) 立即确认该盘数据有副本或备份，这是最优先动作；\n3) 尽快排换盘，编程失败通常伴随数据静默损坏风险；\n4) 换盘前把该盘设为只读或迁走热数据，避免继续写入。",
+      "action_en": "1) Run smartctl -a /dev/sdX and check Program_Fail_Count together with the remaining spare block ratio;\n2) Immediately confirm the data on this disk has a replica or backup — this is the highest priority action;\n3) Schedule a replacement soon: program failures often come with a risk of silent data corruption;\n4) Before replacing it, make the disk read-only or move hot data off to stop further writes."
+    }
+  ],
+  "metrics": [
+    {
+      "expression": "smart_attribute_crc_error_count",
+      "type": "counter",
+      "unit": "",
+      "name": "CRC错误计数",
+      "name_en": "SMART CRC Error Count",
+      "note": "硬盘数据传输过程中循环冗余校验（CRC）失败的次数。",
+      "note_en": "The number of Cyclic Redundancy Check (CRC) failures during hard disk data transmission, reflecting the reliability of the data transmission link."
+    },
+    {
+      "expression": "smart_attribute_end_to_end_error_detection_count",
+      "type": "counter",
+      "unit": "",
+      "name": "端到端错误检测计数",
+      "name_en": "SMART End-to-End Error Detection Count",
+      "note": "硬盘内部数据传输的端到端校验失败次数，关联固件或物理存储单元健康度。",
+      "note_en": "The number of end-to-end verification failures in internal hard disk data transmission, associated with the health of hard disk firmware or physical storage units."
+    },
+    {
+      "expression": "smart_attribute_erase_fail_count",
+      "type": "counter",
+      "unit": "",
+      "name": "擦除失败计数",
+      "name_en": "SMART Erase Fail Count",
+      "note": "固态硬盘（SSD）擦除闪存块时失败的次数，预示闪存芯片老化。",
+      "note_en": "The number of failures when a Solid State Drive (SSD) erases flash memory blocks; an excessive number may indicate flash chip aging or an increase in bad blocks."
+    },
+    {
+      "expression": "smart_attribute_host_reads",
+      "type": "",
+      "unit": "",
+      "name": "主机读取次数",
+      "name_en": "SMART Host Reads Count",
+      "note": "操作系统从硬盘读取数据的总次数，属于硬盘使用量统计指标。",
+      "note_en": "The total number of times the operating system reads data from the hard disk, which is a statistical indicator of hard disk usage with no direct fault warning significance."
+    },
+    {
+      "expression": "smart_attribute_media_wear_percentage",
+      "type": "gauge",
+      "unit": "%",
+      "name": "介质磨损百分比",
+      "name_en": "SMART Media Wear Percentage",
+      "note": "固态硬盘（SSD）专用指标，反映闪存芯片的磨损程度，100%表示完全磨损。",
+      "note_en": "A core indicator dedicated to Solid State Drives (SSDs) that reflects the wear level of flash memory chips; the closer the value is to 100%, the shorter the lifespan."
+    },
+    {
+      "expression": "smart_attribute_pll_lock_loss_count",
+      "type": "counter",
+      "unit": "",
+      "name": "PLL失锁计数",
+      "name_en": "SMART PLL Lock Loss Count",
+      "note": "锁相环（PLL）时钟同步失锁的次数，异常可能导致数据传输不稳定。",
+      "note_en": "The number of times the hard disk clock synchronization module (Phase-Locked Loop, PLL) loses lock, which can cause data transmission timing errors."
+    },
+    {
+      "expression": "smart_attribute_program_fail_count",
+      "type": "counter",
+      "unit": "",
+      "name": "编程失败计数",
+      "name_en": "SMART Program Fail Count",
+      "note": "固态硬盘（SSD）向闪存块写入数据时失败的次数，反映闪存寿命。",
+      "note_en": "The number of failures when a Solid State Drive (SSD) writes data (program operation) to flash memory blocks, which is a core indicator of flash memory health."
+    },
+    {
+      "expression": "smart_attribute_retry_buffer_overflow_count",
+      "type": "counter",
+      "unit": "",
+      "name": "重试缓冲区溢出计数",
+      "name_en": "SMART Retry Buffer Overflow Count",
+      "note": "硬盘读写失败后重试时，缓冲区溢出的次数，预示读写性能下降。",
+      "note_en": "The number of times the data buffer overflows when the hard disk automatically retries after a read/write failure, indicating a decline in hard disk read/write performance or hardware failure."
+    },
+    {
+      "expression": "smart_attribute_thermal_throttle_status",
+      "type": "gauge",
+      "unit": "",
+      "name": "热节流状态",
+      "name_en": "SMART Thermal Throttle Status",
+      "note": "硬盘因温度过高触发自动降速保护的状态，1为已触发，0为未触发。",
+      "note_en": "The state where the hard disk triggers automatic speed reduction protection due to high temperature (1=triggered, 0=not triggered), which will cause slow read/write speeds after triggering."
+    },
+    {
+      "expression": "smart_attribute_timed_workload_timer",
+      "type": "gauge",
+      "unit": "s",
+      "name": "定时工作负载计时器",
+      "name_en": "SMART Timed Workload Timer",
+      "note": "记录硬盘在特定负载模式下的运行累计时间，评估硬盘工作强度。",
+      "note_en": "Accumulates the operating time of the hard disk in a preset load mode, used to evaluate the long-term working intensity of the hard disk and assist in judging the wear rate."
+    },
+    {
+      "expression": "smart_attribute_wear_leveling_count",
+      "type": "counter",
+      "unit": "",
+      "name": "磨损均衡计数",
+      "name_en": "SMART Wear Leveling Count",
+      "note": "固态硬盘（SSD）磨损均衡算法的执行次数，延长硬盘整体寿命。",
+      "note_en": "An indicator dedicated to Solid State Drives (SSDs) that records the number of executions of the wear leveling algorithm to ensure uniform wear of flash memory blocks and extend lifespan."
+    },
+    {
+      "expression": "smart_device_exit_status",
+      "type": "gauge",
+      "unit": "",
+      "name": "设备退出状态",
+      "name_en": "SMART Device Exit Status",
+      "note": "硬盘SMART检测的退出状态码，0为正常完成，非0为检测异常。",
+      "note_en": "The exit status code of the hard disk SMART self-test; 0 means the self-test is completed normally, and a non-zero value indicates self-test interruption or abnormality."
+    },
+    {
+      "expression": "smart_device_health_ok",
+      "type": "",
+      "unit": "",
+      "name": "设备健康状态",
+      "name_en": "SMART Device Health Status",
+      "note": "硬盘整体健康状态标识，1为健康，0为不健康。",
+      "note_en": "The overall health status identifier of the hard disk; 1=healthy (no fault warning), 0=unhealthy (potential faults exist)."
+    },
+    {
+      "expression": "smart_device_temp_c",
+      "type": "",
+      "unit": "℃",
+      "name": "设备温度",
+      "name_en": "SMART Device Temperature",
+      "note": "硬盘当前运行温度，主流硬盘安全工作范围为0-60℃。",
+      "note_en": "The current operating temperature of the hard disk (in ℃); the safe operating range for mainstream hard disks is 0-60℃, and prolonged overheating will accelerate hardware aging."
+    }
+  ],
+  "dashboards": [
+    {
+      "file": "smart.json",
+      "name": "S.M.A.R.T Dashboard",
+      "name_en": "S.M.A.R.T Dashboard",
+      "panels": 20
+    }
+  ],
+  "collect": [
+    {
+      "plugin": "smart",
+      "file": "smart.toml",
+      "readme": true,
+      "content": "# Read metrics from storage devices supporting S.M.A.R.T.\n[[instances]]\n    ## Optionally specify the path to the smartctl executable\n    # path_smartctl = \"/usr/bin/smartctl\"\n\n    ## Optionally specify the path to the nvme-cli executable\n    # path_nvme = \"/usr/bin/nvme\"\n\n    ## Optionally specify if vendor specific attributes should be propagated for NVMe disk case\n    ## [\"auto-on\"] - automatically find and enable additional vendor specific disk info\n    ## [\"vendor1\", \"vendor2\", ...] - e.g. \"Intel\" enable additional Intel specific disk info\n    #  enable_extensions = [\"auto-on\"]\n\n    ## On most platforms used cli utilities requires root access.\n    ## Setting 'use_sudo' to true will make use of sudo to run smartctl or nvme-cli.\n    ## Sudo must be configured to allow the telegraf user to run smartctl or nvme-cli\n    ## without a password.\n    # use_sudo = true\n\n    ## Skip checking disks in this power mode. Defaults to\n    ## \"standby\" to not wake up disks that have stopped rotating.\n    ## See --nocheck in the man pages for smartctl.\n    ## smartctl version 5.41 and 5.42 have faulty detection of\n    ## power mode and might require changing this value to\n    ## \"never\" depending on your disks.\n    # nocheck = \"standby\"\n\n    ## Gather all returned S.M.A.R.T. attribute metrics and the detailed\n    ## information from each drive into the 'smart_attribute' measurement.\n    # attributes = true\n\n    ## Optionally specify devices to exclude from reporting if disks auto-discovery is performed.\n    # excludes = [ \"/dev/pass6\" ]\n\n    ## Optionally specify devices and device type, if unset\n    ## a scan (smartctl --scan and smartctl --scan -d nvme) for S.M.A.R.T. devices will be done\n    ## and all found will be included except for the excluded in excludes.\n    # devices = [ \"/dev/ada0 -d atacam\", \"/dev/nvme0\"]\n    # devices = [\"dev/nvme0 -d nvme\", \"/dev/nvme0\"]\n\n    ## Timeout for the cli command to complete.\n      timeout = \"30s\"\n\n    ## Optionally call smartctl and nvme-cli with a specific concurrency policy.\n    ## By default, smartctl and nvme-cli are called in separate threads (goroutines) to gather disk attributes.\n    ## Some devices (e.g. disks in RAID arrays) may have access limitations that require sequential reading of\n    ## SMART data - one individual array drive at the time. In such case please set this configuration option\n    ## to \"sequential\" to get readings for all drives.\n    ## valid options: concurrent, sequential\n    # read_method = \"concurrent\"\n"
+    }
+  ],
+  "readme": {
+    "zh": true,
+    "en": true
+  }
+}

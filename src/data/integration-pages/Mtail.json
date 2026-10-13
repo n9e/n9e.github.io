@@ -1,0 +1,18 @@
+{
+  "ident": "Mtail",
+  "alerts": [],
+  "metrics": [],
+  "dashboards": [],
+  "collect": [
+    {
+      "plugin": "mtail",
+      "file": "mtail.toml",
+      "readme": false,
+      "content": "[[instances]]\n# progs = \"/path/to/prog1\" # prog dir1\n# logs = [\"/path/to/a.log\", \"path/to/b.log\"]\n# override_timezone = \"Asia/Shanghai\"\n# emit_metric_timestamp = \"true\" #string type\n\n# [[instances]]\n# progs = \"/path/to/prog2\" # prog dir2\n# logs = [\"/path/to/logdir/\"]\n# override_timezone = \"Asia/Shanghai\"\n# emit_metric_timestamp = \"true\" # string type\n"
+    }
+  ],
+  "readme": {
+    "zh": true,
+    "en": true
+  }
+}

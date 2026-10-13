@@ -1,0 +1,3267 @@
+{
+  "ident": "Huawei",
+  "alerts": [
+    {
+      "source": "default",
+      "name": "华为云ecs cpu使用率大于80%",
+      "name_en": "Huawei Cloud ECS CPU usage exceeds 80%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_agt_cpu_usage >80",
+          "severity": 2
+        }
+      ],
+      "action": "1) SSH 登录用 top -H 定位占用最高的进程与线程；\n2) 用 perf top 或对应语言的 profiler 找热点函数；\n3) 区分业务增长与代码异常（死循环、频繁 GC）；\n4) 业务增长则在控制台变更为更高规格或做水平扩容。",
+      "action_en": "1) SSH in and use top -H to find the busiest processes and threads;\n2) Use perf top or a language profiler to find the hot functions;\n3) Tell business growth apart from a code fault (infinite loop, frequent GC);\n4) For growth, change to a larger flavour in the console or scale out horizontally."
+    },
+    {
+      "source": "default",
+      "name": "华为云ecs inode已使用占比大于80%",
+      "name_en": "Huawei Cloud ECS inode usage exceeds 80%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_agt_SlAsH_disk_inodesUsedPercent >80",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 df -i 确认挂载点；\n2) 逐层统计文件数找出小文件最多的目录；\n3) 常见来源是日志碎片、session 文件、容器层，确认后批量清理；\n4) 长期考虑把小文件业务迁到独立分区。",
+      "action_en": "1) Run df -i to find the mount point;\n2) Count files level by level to find the directories with the most small files;\n3) Common sources are log fragments, session files and container layers — confirm and bulk delete;\n4) Longer term, consider moving small-file workloads to a dedicated partition."
+    },
+    {
+      "source": "default",
+      "name": "华为云ecs NTP偏移量大于1秒",
+      "name_en": "Huawei Cloud ECS NTP offset exceeds 1 second",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_agt_ntp_offset > 1000",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 chronyc tracking 确认偏移与上游源状态；\n2) 华为云 ECS 建议使用内网 NTP（ntp.myhuaweicloud.com），确认已配置；\n3) chronyd 未运行的启动并设开机自启；\n4) 偏移过大用 chronyc makestep 强制对时。",
+      "action_en": "1) Run chronyc tracking to check the offset and upstream source state;\n2) Huawei Cloud ECS should use the internal NTP service (ntp.myhuaweicloud.com) — confirm it is configured;\n3) Start chronyd if it is not running and enable it at boot;\n4) For a large offset, use chronyc makestep to step the clock."
+    },
+    {
+      "source": "default",
+      "name": "华为云ecs TME_WAIT状态的连接超过2万",
+      "name_en": "Huawei Cloud ECS TIME_WAIT connections exceed 20000",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_agt_net_tcp_close > 20000",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 ss -s 看各状态连接数的真实分布；\n2) 用 ss -tan | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -rn 定位连接对端；\n3) 根因通常是短连接过多，应用侧改用长连接或连接池；\n4) 应急可开启 net.ipv4.tcp_tw_reuse 并调大 ip_local_port_range。",
+      "action_en": "1) Run ss -s to see the real connection state distribution;\n2) Run ss -tan | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -rn to find the peers;\n3) The root cause is usually too many short-lived connections — switch the application to long-lived connections or a pool;\n4) As an emergency measure enable net.ipv4.tcp_tw_reuse and widen ip_local_port_range."
+    },
+    {
+      "source": "default",
+      "name": "华为云ecs 僵死进程数大于0",
+      "name_en": "Huawei Cloud ECS zombie processes above 0",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_agt_proc_zombie_count >0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 ps -ef | awk '$2 ~ /Z/ || $8 ~ /Z/' 或 ps aux | grep 'Z' 找出僵尸进程及其父进程 PPID；\n2) 定位父进程后，问题在于它没有调用 wait()，需要在代码里修复；\n3) 应急可重启父进程，僵尸会被 init 收养并清理；\n4) 数量持续增长的必须修代码，重启只是临时手段。",
+      "action_en": "1) Run ps -ef | awk '$2 ~ /Z/ || $8 ~ /Z/' or ps aux | grep 'Z' to find the zombie processes and their parent PPIDs;\n2) Once you have the parent, the problem is that it never calls wait() — this must be fixed in code;\n3) As an emergency measure restart the parent so init reaps the zombies;\n4) If the count keeps growing, the code fix is mandatory — restarting is only a stopgap."
+    },
+    {
+      "source": "default",
+      "name": "华为云ecs 可用内存低于20%",
+      "name_en": "Huawei Cloud ECS available memory below 20%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_agt_mem_available < 20",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 free -h 确认 available 与 swap 使用；\n2) 用 ps aux --sort=-%mem | head 找出占用最高的进程并判断是否泄漏；\n3) 泄漏的在应用侧抓堆定位，不能只靠重启；\n4) 业务增长的在控制台变更为更大内存规格。",
+      "action_en": "1) Run free -h to check available memory and swap;\n2) Run ps aux --sort=-%mem | head to find the largest consumer and judge whether it is leaking;\n3) For a leak, capture a heap in the application — a restart alone is not enough;\n4) For growth, change to a larger memory flavour in the console."
+    },
+    {
+      "source": "default",
+      "name": "华为云ecs 发送丢包率大于50%",
+      "name_en": "Huawei Cloud ECS outbound packet loss rate exceeds 50%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_agt_net_dropout > 50",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 ip -s link show 确认 TX dropped 的增长；\n2) 确认是否已跑满实例规格的带宽上限——云主机带宽是按规格限制的，超限即丢包；\n3) 超限的在控制台调整带宽或变更规格；\n4) 未超限的排查安全组、内核发送队列与应用发送逻辑。",
+      "action_en": "1) Run ip -s link show to confirm TX dropped is growing;\n2) Confirm whether the instance flavour's bandwidth cap is saturated — cloud bandwidth is capped per flavour and exceeding it drops packets;\n3) If capped, adjust bandwidth or change the flavour in the console;\n4) If not capped, check security groups, the kernel transmit queue and the application's send logic."
+    },
+    {
+      "source": "default",
+      "name": "华为云ecs 发送误包率大于50%",
+      "name_en": "Huawei Cloud ECS outbound packet error rate exceeds 50%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_agt_net_errout > 50",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 ip -s link show 与 ethtool -S 确认错包计数；\n2) 云环境下物理层由平台负责，错包率异常应优先提工单给华为云；\n3) 同时确认是否为实例规格带宽超限导致；\n4) 有冗余的先把流量切走，避免持续影响业务。",
+      "action_en": "1) Run ip -s link show and ethtool -S to confirm the error counters;\n2) In the cloud the physical layer is the provider's responsibility, so an abnormal error rate should go to a Huawei Cloud support ticket first;\n3) At the same time confirm whether the instance flavour's bandwidth cap was exceeded;\n4) If redundancy exists, move traffic away to stop the impact."
+    },
+    {
+      "source": "default",
+      "name": "华为云ecs 块设备使用率大于80%",
+      "name_en": "Huawei Cloud ECS block device usage exceeds 80%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_agt_SlAsH_disk_usedPercent > 80",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 df -h 定位挂载点，用 du -x --max-depth=1 找出占用最大的目录；\n2) 优先清理日志与临时文件，用 lsof +L1 检查已删除但未释放的文件；\n3) 在控制台对云硬盘做在线扩容，再用 growpart + resize2fs/xfs_growfs 扩展文件系统；\n4) 长期评估是否需要把数据目录迁到独立云盘。",
+      "action_en": "1) Run df -h to find the mount point and du -x --max-depth=1 for the largest directories;\n2) Clean logs and temporary files first, and use lsof +L1 for deleted-but-unreleased files;\n3) Expand the EVS disk online in the console, then use growpart plus resize2fs/xfs_growfs to grow the filesystem;\n4) Longer term, evaluate moving the data directory to a dedicated cloud disk."
+    },
+    {
+      "source": "default",
+      "name": "华为云ecs 接收丢包率大于50%",
+      "name_en": "Huawei Cloud ECS inbound packet loss rate exceeds 50%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_agt_net_dropin > 50",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 ip -s link show 确认 RX dropped 的增长；\n2) 确认是否跑满实例规格的带宽或 PPS 上限——云主机两者都有限制；\n3) 超限的在控制台调整带宽或变更规格；\n4) 未超限的用 ethtool -G 调大接收环形缓冲区，并检查是否需要开启 RPS。",
+      "action_en": "1) Run ip -s link show to confirm RX dropped is growing;\n2) Confirm whether the instance flavour's bandwidth or PPS cap is saturated — cloud instances limit both;\n3) If capped, adjust bandwidth or change the flavour in the console;\n4) If not capped, raise the receive ring buffer with ethtool -G and consider enabling RPS."
+    },
+    {
+      "source": "default",
+      "name": "华为云ecs 接收误包率大于50%",
+      "name_en": "Huawei Cloud ECS inbound packet error rate exceeds 50%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_agt_net_errin > 50",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 ip -s link show 与 ethtool -S 确认错包计数；\n2) 云环境物理层由平台负责，错包率异常应优先提工单给华为云；\n3) 同时确认是否为规格带宽/PPS 超限；\n4) 有冗余的先把流量切走。",
+      "action_en": "1) Run ip -s link show and ethtool -S to confirm the error counters;\n2) In the cloud the physical layer is the provider's responsibility, so an abnormal error rate should go to a Huawei Cloud support ticket first;\n3) At the same time confirm whether the flavour's bandwidth/PPS cap was exceeded;\n4) If redundancy exists, move traffic away."
+    },
+    {
+      "source": "default",
+      "name": "华为云ecs 磁盘写IOPS过高",
+      "name_en": "Huawei Cloud ECS disk write IOPS too high",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_agt_SlAsH_disk_agt_write_requests_rate > 99",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 iostat -x 1 确认实际 IOPS 与 await；\n2) 用 iotop -oP 找出写入最多的进程；\n3) 对照该云硬盘规格的 IOPS 上限判断是否已触顶——超高性能盘与通用型盘差异很大；\n4) 触顶的在控制台升级磁盘类型或扩容（IOPS 通常随容量线性增长），未触顶的优化应用写入模式。",
+      "action_en": "1) Run iostat -x 1 to check actual IOPS and await;\n2) Run iotop -oP to find the process writing the most;\n3) Compare against the EVS disk type's IOPS ceiling to see whether it has topped out — ultra-high performance and general purpose disks differ greatly;\n4) If it has, upgrade the disk type or expand it in the console (IOPS usually scales linearly with capacity); if not, optimise the application's write pattern."
+    },
+    {
+      "source": "default",
+      "name": "华为云ecs 磁盘读IOPS过高",
+      "name_en": "Huawei Cloud ECS disk read IOPS too high",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_agt_SlAsH_disk_agt_read_requests_rate > 99",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 iostat -x 1 确认实际 IOPS 与 await；\n2) 用 iotop -oP 找出读取最多的进程；\n3) 对照云硬盘规格的 IOPS 上限判断是否触顶；\n4) 触顶的升级磁盘类型或扩容，未触顶的通过加缓存、补索引减少磁盘读。",
+      "action_en": "1) Run iostat -x 1 to check actual IOPS and await;\n2) Run iotop -oP to find the process reading the most;\n3) Compare against the EVS disk type's IOPS ceiling to see whether it has topped out;\n4) If it has, upgrade the disk type or expand it; if not, reduce disk reads with caching and better indexes."
+    },
+    {
+      "source": "default",
+      "name": "华为云负载均衡4层入带宽使用率大于80%",
+      "name_en": "Huawei Cloud ELB L4 inbound bandwidth usage exceeds 80%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_elb_l4_in_bps_usage > 80",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在华为云控制台看该 ELB 的带宽监控曲线，确认是持续增长还是突发；\n2) 确认是正常业务增长还是异常流量（爬虫、攻击）；\n3) 正常增长的在控制台调整 ELB 规格或带宽上限；\n4) 异常流量的配合 WAF/DDoS 防护做限流或封禁。",
+      "action_en": "1) Check that ELB's bandwidth monitoring curve in the console to tell sustained growth from a spike;\n2) Determine whether it is normal business growth or abnormal traffic (crawlers, attacks);\n3) For genuine growth, adjust the ELB specification or bandwidth cap in the console;\n4) For abnormal traffic, use WAF/DDoS protection to rate limit or block."
+    },
+    {
+      "source": "default",
+      "name": "华为云负载均衡4层出带宽使用率大于80%",
+      "name_en": "Huawei Cloud ELB L4 outbound bandwidth usage exceeds 80%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_elb_l4_out_bps_usage > 80",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在华为云控制台看该 ELB 的带宽监控曲线，确认是持续增长还是突发；\n2) 确认是正常业务增长还是异常流量（爬虫、攻击）；\n3) 正常增长的在控制台调整 ELB 规格或带宽上限；\n4) 异常流量的配合 WAF/DDoS 防护做限流或封禁。",
+      "action_en": "1) Check that ELB's bandwidth monitoring curve in the console to tell sustained growth from a spike;\n2) Determine whether it is normal business growth or abnormal traffic (crawlers, attacks);\n3) For genuine growth, adjust the ELB specification or bandwidth cap in the console;\n4) For abnormal traffic, use WAF/DDoS protection to rate limit or block."
+    },
+    {
+      "source": "default",
+      "name": "华为云负载均衡4层并发连接数使用率大于80%",
+      "name_en": "Huawei Cloud ELB L4 concurrent connection usage exceeds 80%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_elb_l4_con_usage > 80",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在控制台看该 ELB 的连接数监控，确认增长趋势；\n2) 确认后端服务是否响应变慢导致连接堆积——连接数高常常是后端慢的表征而非原因；\n3) 后端正常的按业务增长在控制台升级 ELB 规格；\n4) 检查客户端是否未复用连接。",
+      "action_en": "1) Check that ELB's connection count monitoring in the console for the growth trend;\n2) Check whether the backend is responding more slowly and causing connections to pile up — a high connection count is often a symptom of a slow backend rather than the cause;\n3) If the backend is fine, upgrade the ELB specification for the growth;\n4) Check whether clients are failing to reuse connections."
+    },
+    {
+      "source": "default",
+      "name": "华为云负载均衡4层新建连接数使用率大于80%",
+      "name_en": "Huawei Cloud ELB L4 new connection usage exceeds 80%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_elb_l4_ncps_usage > 80",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在控制台看该 ELB 的连接数监控，确认增长趋势；\n2) 确认后端服务是否响应变慢导致连接堆积——连接数高常常是后端慢的表征而非原因；\n3) 后端正常的按业务增长在控制台升级 ELB 规格；\n4) 检查客户端是否未复用连接。",
+      "action_en": "1) Check that ELB's connection count monitoring in the console for the growth trend;\n2) Check whether the backend is responding more slowly and causing connections to pile up — a high connection count is often a symptom of a slow backend rather than the cause;\n3) If the backend is fine, upgrade the ELB specification for the growth;\n4) Check whether clients are failing to reuse connections."
+    },
+    {
+      "source": "default",
+      "name": "华为云负载均衡7层入带宽使用率大于80%",
+      "name_en": "Huawei Cloud ELB L7 inbound bandwidth usage exceeds 80%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_elb_l7_in_bps_usage > 80",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在华为云控制台看该 ELB 的带宽监控曲线，确认是持续增长还是突发；\n2) 确认是正常业务增长还是异常流量（爬虫、攻击）；\n3) 正常增长的在控制台调整 ELB 规格或带宽上限；\n4) 异常流量的配合 WAF/DDoS 防护做限流或封禁。",
+      "action_en": "1) Check that ELB's bandwidth monitoring curve in the console to tell sustained growth from a spike;\n2) Determine whether it is normal business growth or abnormal traffic (crawlers, attacks);\n3) For genuine growth, adjust the ELB specification or bandwidth cap in the console;\n4) For abnormal traffic, use WAF/DDoS protection to rate limit or block."
+    },
+    {
+      "source": "default",
+      "name": "华为云负载均衡7层出带宽使用率大于80%",
+      "name_en": "Huawei Cloud ELB L7 outbound bandwidth usage exceeds 80%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_elb_l7_out_bps_usage > 80",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在华为云控制台看该 ELB 的带宽监控曲线，确认是持续增长还是突发；\n2) 确认是正常业务增长还是异常流量（爬虫、攻击）；\n3) 正常增长的在控制台调整 ELB 规格或带宽上限；\n4) 异常流量的配合 WAF/DDoS 防护做限流或封禁。",
+      "action_en": "1) Check that ELB's bandwidth monitoring curve in the console to tell sustained growth from a spike;\n2) Determine whether it is normal business growth or abnormal traffic (crawlers, attacks);\n3) For genuine growth, adjust the ELB specification or bandwidth cap in the console;\n4) For abnormal traffic, use WAF/DDoS protection to rate limit or block."
+    },
+    {
+      "source": "default",
+      "name": "华为云负载均衡7层并发连接数使用率大于80%",
+      "name_en": "Huawei Cloud ELB L7 concurrent connection usage exceeds 80%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_elb_l7_con_usage > 80",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在控制台看该 ELB 的连接数监控，确认增长趋势；\n2) 确认后端服务是否响应变慢导致连接堆积——连接数高常常是后端慢的表征而非原因；\n3) 后端正常的按业务增长在控制台升级 ELB 规格；\n4) 检查客户端是否未复用连接。",
+      "action_en": "1) Check that ELB's connection count monitoring in the console for the growth trend;\n2) Check whether the backend is responding more slowly and causing connections to pile up — a high connection count is often a symptom of a slow backend rather than the cause;\n3) If the backend is fine, upgrade the ELB specification for the growth;\n4) Check whether clients are failing to reuse connections."
+    },
+    {
+      "source": "default",
+      "name": "华为云负载均衡7层新建连接数使用率大于80%",
+      "name_en": "Huawei Cloud ELB L7 new connection usage exceeds 80%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_elb_l7_ncps_usage > 80",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在控制台看该 ELB 的连接数监控，确认增长趋势；\n2) 确认后端服务是否响应变慢导致连接堆积——连接数高常常是后端慢的表征而非原因；\n3) 后端正常的按业务增长在控制台升级 ELB 规格；\n4) 检查客户端是否未复用连接。",
+      "action_en": "1) Check that ELB's connection count monitoring in the console for the growth trend;\n2) Check whether the backend is responding more slowly and causing connections to pile up — a high connection count is often a symptom of a slow backend rather than the cause;\n3) If the backend is fine, upgrade the ELB specification for the growth;\n4) Check whether clients are failing to reuse connections."
+    },
+    {
+      "source": "default",
+      "name": "华为云负载均衡异常主机数大于0",
+      "name_en": "Huawei Cloud ELB unhealthy hosts above 0",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_elb_m9_abnormal_servers > 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在控制台的后端服务器组里定位健康检查失败的实例；\n2) 登录该实例确认应用进程与端口存活；\n3) 应用正常则核对健康检查配置（路径、端口、超时、间隔）是否与实际相符；\n4) 确认后端组剩余健康实例数是否足够承载流量，不足时立即扩容。",
+      "action_en": "1) In the console's backend server group, find the instances failing the health check;\n2) Log in to that instance and confirm the application process and port are alive;\n3) If the application is fine, verify the health check configuration (path, port, timeout, interval) matches reality;\n4) Confirm the remaining healthy instances can carry the traffic and scale out immediately if not."
+    },
+    {
+      "source": "default",
+      "name": "华为云负载均衡查询速率使用率大于80%",
+      "name_en": "Huawei Cloud ELB query rate usage exceeds 80%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_elb_l7_qps_usage > 80",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在华为云控制台看该 ELB 的带宽监控曲线，确认是持续增长还是突发；\n2) 确认是正常业务增长还是异常流量（爬虫、攻击）；\n3) 正常增长的在控制台调整 ELB 规格或带宽上限；\n4) 异常流量的配合 WAF/DDoS 防护做限流或封禁。",
+      "action_en": "1) Check that ELB's bandwidth monitoring curve in the console to tell sustained growth from a spike;\n2) Determine whether it is normal business growth or abnormal traffic (crawlers, attacks);\n3) For genuine growth, adjust the ELB specification or bandwidth cap in the console;\n4) For abnormal traffic, use WAF/DDoS protection to rate limit or block."
+    },
+    {
+      "source": "default",
+      "name": "华为云RedisCPU平均使用率大于80%",
+      "name_en": "Huawei Cloud Redis average CPU usage exceeds 80%",
+      "note": "该指标对于统计周期内的测量对象的CPU使用率进行多次采样，表示多次采样的平均值。仅单机/主备/读写分离实例支持。",
+      "note_en": "This metric samples the CPU usage of the measured object multiple times within the statistics period and reports the average. Only single-node/primary-standby/read-write-splitting instances are supported.",
+      "severity": 2,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_dcs_cpu_avg_usage > 80",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 SLOWLOG GET 10 找耗时最高的命令；\n2) 重点排查 KEYS、HGETALL、SMEMBERS 等 O(N) 命令与大 key 操作，改用 SCAN 或分批；\n3) 确认是否正在做 RDB/AOF 持久化导致 CPU 尖峰；\n4) 优化命令后仍高的在控制台升级实例规格。",
+      "action_en": "1) Run SLOWLOG GET 10 to find the slowest commands;\n2) Focus on O(N) commands such as KEYS, HGETALL and SMEMBERS and on big-key operations, switching to SCAN or batching;\n3) Check whether an RDB/AOF persistence run is causing the CPU spike;\n4) If it stays high after tuning, upgrade the instance flavour in the console."
+    },
+    {
+      "source": "default",
+      "name": "华为云Redis内存利用率大于80%",
+      "name_en": "Huawei Cloud Redis memory usage exceeds 80%",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_dcs_memory_usage > 80",
+          "severity": 1
+        }
+      ],
+      "action": "1) 用 redis-cli --bigkeys 定位大 key 并拆分或补 TTL；\n2) 用 INFO memory 确认碎片率，碎片高可开启 activedefrag；\n3) 检查是否有未设过期时间的 key 持续堆积；\n4) 确认 maxmemory-policy 后在控制台扩容规格。",
+      "action_en": "1) Use redis-cli --bigkeys to find large keys and split them or add TTLs;\n2) Use INFO memory to check the fragmentation ratio and enable activedefrag if it is high;\n3) Check whether keys without an expiry keep accumulating;\n4) Confirm maxmemory-policy, then expand the flavour in the console."
+    },
+    {
+      "source": "default",
+      "name": "华为云Redis存在慢日志",
+      "name_en": "Huawei Cloud Redis slow log detected",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_dcs_is_slow_log_exist == 1",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 SLOWLOG GET 10 看具体慢命令与耗时；\n2) 重点排查 O(N) 命令与大 key 操作；\n3) 改用 SCAN 分批、拆分大 key 是根本解法；\n4) 若慢命令来自定时任务，改到低峰期执行。",
+      "action_en": "1) Run SLOWLOG GET 10 for the specific slow commands and their timings;\n2) Focus on O(N) commands and big-key operations;\n3) Switching to SCAN with batching and splitting large keys is the real fix;\n4) If the slow commands come from a scheduled job, move it to off-peak hours."
+    },
+    {
+      "source": "default",
+      "name": "华为云Redis带宽使用率大于90%",
+      "name_en": "Huawei Cloud Redis bandwidth usage exceeds 90%",
+      "note": "该指标对于统计周期内的测量对象的CPU使用率进行多次采样，表示多次采样的平均值。仅单机/主备/读写分离实例支持。",
+      "note_en": "This metric samples the CPU usage of the measured object multiple times within the statistics period and reports the average. Only single-node/primary-standby/read-write-splitting instances are supported.",
+      "severity": 2,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_dcs_bandwidth_usage > 90",
+          "severity": 2
+        }
+      ],
+      "action": "1) 用 INFO stats 看 instantaneous_input_kbps / output_kbps 确认方向；\n2) 用 redis-cli --bigkeys 找大 key——读写大 key 是带宽被打满的最常见原因；\n3) 拆分大 key、减少一次性批量读取；\n4) 确实需要更高带宽的在控制台升级规格。",
+      "action_en": "1) Use INFO stats to check instantaneous_input_kbps / output_kbps and determine the direction;\n2) Use redis-cli --bigkeys to find large keys — reading and writing large keys is the most common cause of saturated bandwidth;\n3) Split large keys and reduce one-shot bulk reads;\n4) If you genuinely need more bandwidth, upgrade the flavour in the console."
+    },
+    {
+      "source": "default",
+      "name": "华为云Redis新建连接数大于10000",
+      "name_en": "Huawei Cloud Redis new connections exceed 10000",
+      "note": "单机和主备实例，最大连接数限制为10000，可以根据业务情况对阈值进行调整。",
+      "note_en": "For single-node and primary-standby instances the connection limit is 10000; adjust the threshold to your workload.",
+      "severity": 3,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_dcs_total_connections_received > 10000",
+          "severity": 3
+        }
+      ],
+      "action": "1) 用 CLIENT LIST 按来源统计，定位频繁重连的客户端；\n2) 应用侧改用连接池并复用连接，这是根本解法；\n3) 检查客户端是否设置了过短的连接超时导致反复重连；\n4) 确认没有触发流控或内存告警导致连接被服务端断开。",
+      "action_en": "1) Use CLIENT LIST grouped by source to find the clients reconnecting frequently;\n2) Switching the application to a connection pool with reused connections is the real fix;\n3) Check whether the client's connection timeout is set too short and causing repeated reconnects;\n4) Confirm no throttling or memory alarm is causing the server to close connections."
+    },
+    {
+      "source": "default",
+      "name": "华为云Redis最大CPU使用率大于80%",
+      "name_en": "Huawei Cloud Redis max CPU usage exceeds 80%",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_dcs_cpu_usage > 80",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在控制台定位是哪个节点 CPU 高；\n2) 集群模式下通常是数据倾斜——某个 slot 有热 key，用 --hotkeys 定位；\n3) 热 key 可通过本地缓存或拆分 key 缓解；\n4) 均衡后仍高的升级规格。",
+      "action_en": "1) Identify the node with high CPU in the console;\n2) In cluster mode this is usually data skew — a hot key in one slot, findable with --hotkeys;\n3) Hot keys can be mitigated with a local cache or by splitting the key;\n4) If it stays high after rebalancing, upgrade the flavour."
+    },
+    {
+      "source": "default",
+      "name": "华为云Redis活跃的客户端数量大于8000",
+      "name_en": "Huawei Cloud Redis active clients exceed 8000",
+      "note": "单机和主备实例，最大连接数限制为10000，可以根据业务情况对阈值进行调整。",
+      "note_en": "For single-node and primary-standby instances the connection limit is 10000; adjust the threshold to your workload.",
+      "severity": 2,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_dcs_connected_clients > 8000",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在华为云控制台看该 DCS 实例的监控曲线确认趋势；\n2) 用 redis-cli 连上实例执行 INFO 确认对应指标的真实情况；\n3) 定位到具体原因后按 Redis 常规路径处理（大 key、慢命令、连接泄漏）；\n4) 容量不足的在控制台变更实例规格。",
+      "action_en": "1) Check that DCS instance's monitoring curves in the Huawei Cloud console;\n2) Connect with redis-cli and run INFO to confirm the real state of the relevant metric;\n3) Once the cause is identified, follow the usual Redis path (big keys, slow commands, connection leaks);\n4) If capacity is short, change the instance flavour in the console."
+    },
+    {
+      "source": "default",
+      "name": "华为云Redis流控次数大于0",
+      "name_en": "Huawei Cloud Redis flow control count above 0",
+      "note": "结合规格限制、网络瞬时输入流量和网络瞬时输出流量，查看是否扩容解决。\nRedis 4.0以上版本的实例才支持该指标，Redis 3.0实例不支持。",
+      "note_en": "Check spec limits together with instantaneous inbound/outbound traffic to decide whether scaling up resolves it.\nOnly Redis 4.0+ instances support this metric; Redis 3.0 instances do not.",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_dcs_rx_controlled > 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在控制台看流控发生的时间点，对照带宽与 QPS 曲线确认是哪一项超限；\n2) 带宽超限的用 --bigkeys 找大 key 并拆分；\n3) QPS 超限的在应用侧加本地缓存或合并请求；\n4) 确实需要更高规格的在控制台变更实例。",
+      "action_en": "1) Check when the throttling occurred in the console and compare against the bandwidth and QPS curves to see which limit was exceeded;\n2) For bandwidth, use --bigkeys to find and split large keys;\n3) For QPS, add a local cache or batch requests on the application side;\n4) If you genuinely need more capacity, change the instance flavour in the console."
+    },
+    {
+      "source": "default",
+      "name": "华为云RedisProxy节点活跃的客户端数量大于20000",
+      "name_en": "Huawei Cloud Redis Proxy node active clients exceed 20000",
+      "note": "单机和主备实例，最大连接数限制为10000，可以根据业务情况对阈值进行调整。",
+      "note_en": "For single-node and primary-standby instances the connection limit is 10000; adjust the threshold to your workload.",
+      "severity": 2,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_dcs_p_connected_clients > 20000",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在华为云控制台看该 DCS 实例的监控曲线确认趋势；\n2) 用 redis-cli 连上实例执行 INFO 确认对应指标的真实情况；\n3) 定位到具体原因后按 Redis 常规路径处理（大 key、慢命令、连接泄漏）；\n4) 容量不足的在控制台变更实例规格。",
+      "action_en": "1) Check that DCS instance's monitoring curves in the Huawei Cloud console;\n2) Connect with redis-cli and run INFO to confirm the real state of the relevant metric;\n3) Once the cause is identified, follow the usual Redis path (big keys, slow commands, connection leaks);\n4) If capacity is short, change the instance flavour in the console."
+    },
+    {
+      "source": "default",
+      "name": "RocketMQ broker down",
+      "name_en": "RocketMQ broker down",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_dms_broker_alive == 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 在华为云控制台确认实例与 broker 状态；\n2) 确认客户端是否已自动切换到其他 broker——多 broker 部署时部分分区不可用；\n3) 控制台无异常但客户端报错的，检查网络与安全组、以及客户端的 nameserver 地址配置；\n4) 持续不可用的提工单给华为云。",
+      "action_en": "1) Confirm the instance and broker state in the Huawei Cloud console;\n2) Confirm clients have failed over to other brokers — with multiple brokers only some partitions are unavailable;\n3) If the console looks fine but clients report errors, check the network and security groups plus the client's nameserver address;\n4) If it stays unavailable, open a ticket with Huawei Cloud."
+    },
+    {
+      "source": "default",
+      "name": "RocketMQ CPU核均负载大于1.5",
+      "name_en": "RocketMQ per-core CPU load exceeds 1.5",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 180,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_dms_broker_cpu_core_load > 1.5",
+          "severity": 1
+        }
+      ],
+      "action": "1) 在控制台看该 broker 的 TPS 与消息堆积曲线，确认是生产还是消费侧压力；\n2) 消费堆积严重的先扩消费者实例；\n3) 生产量突增的评估是否需要升级实例规格；\n4) 确认没有大消息或大批量发送把 broker 压住。",
+      "action_en": "1) Check that broker's TPS and message backlog curves in the console to tell producer-side from consumer-side pressure;\n2) For a heavy consume backlog, scale out consumers first;\n3) For a produce spike, evaluate upgrading the instance flavour;\n4) Confirm no oversized messages or huge batch sends are overwhelming the broker."
+    },
+    {
+      "source": "default",
+      "name": "RocketMQ 内存使用率大于85%",
+      "name_en": "RocketMQ memory usage exceeds 85%",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 180,
+      "queries": [
+        {
+          "promql": "huaweicloud_sys_dms_broker_memory_usage > 85",
+          "severity": 1
+        }
+      ],
+      "action": "1) 在控制台看消息堆积量——堆积会显著占用内存；\n2) 优先恢复消费把堆积清掉，这是最直接的止血；\n3) 确认消息保留时长配置是否过长；\n4) 长期需求增长的升级实例规格。",
+      "action_en": "1) Check the message backlog in the console — a backlog consumes significant memory;\n2) Restoring consumption to drain the backlog is the most direct fix;\n3) Check whether the message retention period is set too long;\n4) For sustained growth, upgrade the instance flavour."
+    }
+  ],
+  "metrics": [
+    {
+      "expression": "huaweicloud_sys_dcs_auth_errors",
+      "type": "counter",
+      "unit": "none",
+      "name": "认证失败次数",
+      "name_en": "Authentication Failures",
+      "note": "统计实例的认证失败次数。仅单机/主备实例支持。",
+      "note_en": "Counts the number of authentication failures on the instance. Only single-node and master/standby instances are supported."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_blocked_clients",
+      "type": "",
+      "unit": "none",
+      "name": "阻塞的客户端数量",
+      "name_en": "Blocked Clients",
+      "note": "该指标用于被阻塞操作挂起的客户端的数量。阻塞操作如BLPOP，BRPOP，BRPOPLPUSH。",
+      "note_en": "This metric measures the number of clients suspended by blocking operations, such as BLPOP, BRPOP, and BRPOPLPUSH."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_client_biggest_in_buf",
+      "type": "",
+      "unit": "bytesIEC",
+      "name": "客户端最大输入缓冲",
+      "name_en": "Biggest Client Input Buffer",
+      "note": "该指标用于统计客户端所有现存连接的最大输入数据长度。",
+      "note_en": "This metric measures the maximum input data length among all current client connections."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_client_longest_out_list",
+      "type": "",
+      "unit": "none",
+      "name": "客户端最长输出列表",
+      "name_en": "Longest Client Output List",
+      "note": "该指标用于统计客户端所有现存连接的最长输出列表。",
+      "note_en": "This metric measures the longest output list among all current client connections."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_command_max_delay",
+      "type": "gauge",
+      "unit": "milliseconds",
+      "name": "命令最大时延",
+      "name_en": "Maximum Command Latency",
+      "note": "统计实例的命令最大时延。",
+      "note_en": "Measures the maximum command latency of the instance."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_connected_clients",
+      "type": "",
+      "unit": "none",
+      "name": "活跃的客户端数量",
+      "name_en": "Connected Clients",
+      "note": "该指标用于统计已连接的客户端数量，包括系统监控、配置同步和业务相关的连接数。",
+      "note_en": "This metric counts the number of connected clients, including connections for system monitoring, configuration synchronization, and service traffic."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_cpu_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "最大CPU使用率",
+      "name_en": "Maximum CPU Usage",
+      "note": "该指标对于统计周期内的测量对象的CPU使用率进行多次采样，表示多次采样的最高值。如果是单机/主备实例，该指标为主节点的CPU值。如果是Proxy集群实例，该指标为各个Proxy节点的平均值。",
+      "note_en": "This metric samples the CPU usage of the monitored object multiple times within the statistics period and reports the highest sampled value. For single-node and master/standby instances, this metric is the CPU usage of the master node. For Proxy Cluster instances, this metric is the average value across all proxy nodes."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_evicted_keys",
+      "type": "",
+      "unit": "none",
+      "name": "已逐出的键数量",
+      "name_en": "Evicted Keys",
+      "note": "该指标用于统计周期内因为内存不足被删除的键数量。",
+      "note_en": "This metric counts the number of keys deleted due to insufficient memory during the period."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_expired_keys",
+      "type": "",
+      "unit": "none",
+      "name": "已过期的键数量",
+      "name_en": "Expired Keys",
+      "note": "该指标用于统计周期内因过期而被删除的键数量",
+      "note_en": "This metric counts the number of keys deleted due to expiration during the period."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_instantaneous_input_kbps",
+      "type": "",
+      "unit": "bitsSecIEC",
+      "name": "网络瞬时输入流量",
+      "name_en": "Instantaneous Network Input Traffic",
+      "note": "该指标用于统计瞬时的输入流量。",
+      "note_en": "This metric measures the instantaneous input traffic."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_instantaneous_ops",
+      "type": "",
+      "unit": "none",
+      "name": "每秒并发操作数",
+      "name_en": "Ops per Second",
+      "note": "该指标用于统计每秒处理的命令数。",
+      "note_en": "This metric counts the number of commands processed per second."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_instantaneous_output_kbps",
+      "type": "",
+      "unit": "bitsSecIEC",
+      "name": "网络瞬时输出流量",
+      "name_en": "Instantaneous Network Output Traffic",
+      "note": "该指标用于统计瞬时的输出流量。",
+      "note_en": "This metric measures the instantaneous output traffic."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_is_slow_log_exist",
+      "type": "",
+      "unit": "none",
+      "name": "是否存在慢日志",
+      "name_en": "Slow Log Existence",
+      "note": "统计实例是否存在慢日志。该监控不统计由migrate、slaveof、config、bgsave、bgrewriteaof命令导致的慢日志。仅单机/主备实例支持。",
+      "note_en": "Indicates whether slow logs exist on the instance. Slow logs caused by the migrate, slaveof, config, bgsave, and bgrewriteaof commands are not counted. Only single-node and master/standby instances are supported."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_keys",
+      "type": "",
+      "unit": "none",
+      "name": "缓存键总数",
+      "name_en": "Total Keys",
+      "note": "该指标用于统计Redis缓存中键总数。仅单机/主备实例支持。",
+      "note_en": "This metric counts the total number of keys in the Redis cache. Only single-node and master/standby instances are supported."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_keyspace_hits",
+      "type": "",
+      "unit": "none",
+      "name": "Keyspace命中次数",
+      "name_en": "Keyspace Hits",
+      "note": "该指标用于统计周期内在主字典中查找命中次数。",
+      "note_en": "This metric counts the number of successful lookups in the main dictionary during the period."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_keyspace_hits_perc",
+      "type": "",
+      "unit": "percent",
+      "name": "缓存命中率",
+      "name_en": "Cache Hit Ratio",
+      "note": "该指标用于统计Redis的缓存命中率，其命中率算法为：keyspace_hits/(keyspace_hits+keyspace_misses)",
+      "note_en": "This metric measures the cache hit ratio of Redis, calculated as: keyspace_hits/(keyspace_hits+keyspace_misses)"
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_keyspace_misses",
+      "type": "",
+      "unit": "none",
+      "name": "Keyspace错过次数",
+      "name_en": "Keyspace Misses",
+      "note": "该指标用于统计周期内在主字典中查找不命中次数。",
+      "note_en": "This metric counts the number of failed lookups in the main dictionary during the period."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_memory_frag_ratio",
+      "type": "gauge",
+      "unit": "none",
+      "name": "内存碎片率",
+      "name_en": "Memory Fragmentation Ratio",
+      "note": "该指标用于统计当前的内存碎片率。其数值上等于used_memory_rss / used_memory。",
+      "note_en": "This metric measures the current memory fragmentation ratio, which equals used_memory_rss / used_memory."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_memory_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "内存利用率",
+      "name_en": "Memory Usage",
+      "note": "该指标用于统计测量对象的内存利用率（内存利用率统计是扣除预留内存的）。",
+      "note_en": "This metric measures the memory usage of the monitored object (reserved memory is excluded from the calculation)."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_net_in_throughput",
+      "type": "",
+      "unit": "bytesSecIEC",
+      "name": "网络输入吞吐量",
+      "name_en": "Network Input Throughput",
+      "note": "该指标用于统计网口平均每秒的输入流量。",
+      "note_en": "This metric measures the average inbound traffic per second on the network port."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_net_out_throughput",
+      "type": "",
+      "unit": "bytesSecIEC",
+      "name": "网络输出吞吐量",
+      "name_en": "Network Output Throughput",
+      "note": "该指标用于统计网口平均每秒的输出流量。",
+      "note_en": "This metric measures the average outbound traffic per second on the network port."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_pubsub_channels",
+      "type": "",
+      "unit": "none",
+      "name": "Pubsub通道个数",
+      "name_en": "Pub/Sub Channels",
+      "note": "该指标用于统计Pub/Sub通道个数。",
+      "note_en": "This metric counts the number of Pub/Sub channels."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_pubsub_patterns",
+      "type": "",
+      "unit": "none",
+      "name": "Pubsub模式个数",
+      "name_en": "Pub/Sub Patterns",
+      "note": "该指标用于统计Pub/Sub模式个数。",
+      "note_en": "This metric counts the number of Pub/Sub patterns."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_rejected_connections",
+      "type": "gauge",
+      "unit": "none",
+      "name": "已拒绝的连接数",
+      "name_en": "Rejected Connections",
+      "note": "该指标用于统计周期内因为超过maxclients而拒绝的连接数量。",
+      "note_en": "This metric counts the number of connections rejected during the period because the maxclients limit was exceeded."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_total_commands_processed",
+      "type": "counter",
+      "unit": "none",
+      "name": "处理的命令数",
+      "name_en": "Commands Processed",
+      "note": "该指标用于统计周期内处理的命令数。",
+      "note_en": "This metric counts the number of commands processed during the period."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_total_connections_received",
+      "type": "gauge",
+      "unit": "none",
+      "name": "新建连接数",
+      "name_en": "New Connections",
+      "note": "该指标用于统计周期内新建的连接数。",
+      "note_en": "This metric counts the number of connections created during the period."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_total_net_input_bytes",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "网络收到字节数",
+      "name_en": "Network Input Bytes",
+      "note": "该指标用于统计周期内收到的字节数。",
+      "note_en": "This metric counts the number of bytes received during the period."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_total_net_output_bytes",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "网络发送字节数",
+      "name_en": "Network Output Bytes",
+      "note": "该指标用于统计周期内发送的字节数。",
+      "note_en": "This metric counts the number of bytes sent during the period."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_used_memory",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "已用内存",
+      "name_en": "Used Memory",
+      "note": "该指标用于统计Redis已使用的内存字节数。",
+      "note_en": "This metric measures the number of bytes of memory used by Redis."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_used_memory_lua",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "Lua已用内存",
+      "name_en": "Used Memory (Lua)",
+      "note": "该指标用于统计Lua引擎已使用的内存字节。",
+      "note_en": "This metric measures the number of memory bytes used by the Lua engine."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_used_memory_peak",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "已用内存峰值",
+      "name_en": "Used Memory Peak",
+      "note": "该指标用于统计Redis服务器启动以来使用内存的峰值。",
+      "note_en": "This metric measures the peak memory usage of Redis since the server started."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_used_memory_rss",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "已用内存RSS",
+      "name_en": "Used Memory RSS",
+      "note": "该指标用于统计Redis已使用的RSS内存。即实际驻留“在内存中”的内存数。包含堆内存，但不包括换出的内存。",
+      "note_en": "This metric measures the RSS memory used by Redis, that is, the amount of memory actually resident in RAM, including heap memory but excluding swapped-out memory."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_command_avg_rt",
+      "type": "",
+      "unit": "microseconds",
+      "name": "平均时延",
+      "name_en": "Average Latency",
+      "note": "节点从接收命令到发出响应的时延平均值。",
+      "note_en": "Average latency from when the node receives a command to when it sends a response."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_command_max_rt",
+      "type": "gauge",
+      "unit": "microseconds",
+      "name": "最大时延",
+      "name_en": "Maximum Latency",
+      "note": "节点从接收命令到发出响应的时延最大值。",
+      "note_en": "Maximum latency from when the node receives a command to when it sends a response."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_command_p99_rt",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "P99时延",
+      "name_en": "P99 Latency",
+      "note": "执行时延99%的水位线。",
+      "note_en": "99th percentile of command execution latency."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_connected_clients",
+      "type": "",
+      "unit": "none",
+      "name": "活跃的客户端数量",
+      "name_en": "Connected Clients",
+      "note": "该指标用于统计已连接的客户端数量，包括系统监控、配置同步和业务相关的连接数。",
+      "note_en": "Number of connected clients, including connections for system monitoring, configuration synchronization, and services."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_connections_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "连接数使用率",
+      "name_en": "Connection Usage",
+      "note": "该指标用于统计当前连接数与最大连接数限制的百分比。",
+      "note_en": "Percentage of the current number of connections to the maximum number of connections allowed."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_cpu_avg_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU平均使用率",
+      "name_en": "Average CPU Usage",
+      "note": "该指标对于统计周期内的测量对象的CPU使用率进行多次采样，表示多次采样的平均值。",
+      "note_en": "The CPU usage of the monitored object is sampled multiple times within each monitoring period. This metric indicates the average of the sampled values."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_cpu_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "最大CPU使用率",
+      "name_en": "Maximum CPU Usage",
+      "note": "该指标对于统计周期内的测量对象的CPU使用率进行多次采样，表示多次采样的最高值。",
+      "note_en": "The CPU usage of the monitored object is sampled multiple times within each monitoring period. This metric indicates the maximum of the sampled values."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_instantaneous_input_kbps",
+      "type": "",
+      "unit": "bitsSecIEC",
+      "name": "网络瞬时输入流量",
+      "name_en": "Instantaneous Network Input Traffic",
+      "note": "该指标用于统计瞬时的输入流量。",
+      "note_en": "Instantaneous input traffic."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_instantaneous_ops",
+      "type": "",
+      "unit": "none",
+      "name": "每秒并发操作数",
+      "name_en": "Ops per Second",
+      "note": "该指标用于统计每秒处理的命令数。",
+      "note_en": "Number of commands processed per second."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_instantaneous_output_kbps",
+      "type": "",
+      "unit": "bitsSecIEC",
+      "name": "网络瞬时输出流量",
+      "name_en": "Instantaneous Network Output Traffic",
+      "note": "该指标用于统计瞬时的输出流量。",
+      "note_en": "Instantaneous output traffic."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_memory_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "内存利用率",
+      "name_en": "Memory Usage",
+      "note": "该指标用于统计测量对象的内存利用率。",
+      "note_en": "Memory usage of the monitored object."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_node_status",
+      "type": "gauge",
+      "unit": "none",
+      "name": "实例节点状态",
+      "name_en": "Instance Node Status",
+      "note": "显示Proxy节点状态是否正常。",
+      "note_en": "Indicates whether the Proxy node status is normal."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_total_net_input_bytes",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "网络收到字节数",
+      "name_en": "Network Input Bytes",
+      "note": "该指标用于统计周期内收到的字节数。",
+      "note_en": "Number of bytes received during the monitoring period."
+    },
+    {
+      "expression": "huaweicloud_sys_dcs_total_net_output_bytes",
+      "type": "gauge",
+      "unit": "bytesIEC",
+      "name": "网络发送字节数",
+      "name_en": "Network Output Bytes",
+      "note": "该指标用于统计周期内发送的字节数。",
+      "note_en": "Number of bytes sent during the monitoring period."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_SlAsH_disk_agt_read_bytes_rate",
+      "type": "gauge",
+      "unit": "bytesSecIEC",
+      "name": "(Agent) 磁盘读速率",
+      "name_en": "(Agent) Disk Read Rate",
+      "note": "该指标用于统计每秒从测量对象读出数据量。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第六列数据的变化得出磁盘读速率。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：使用WMI中Win32_PerfFormattedData_PerfDisk_LogicalDisk对象获取磁盘I/O数据，每采集周期读取一次该对象，读取该对象返回的瞬时值代表该采集周期的指标值。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。高CPU情况下存在获取超时的现象，会导致无法获取监控数据。",
+      "note_en": "This metric measures the volume of data read from the monitored object per second. Collection method (Linux): The disk read rate is calculated from the change in the sixth column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Disk I/O data is obtained from the WMI Win32_PerfFormattedData_PerfDisk_LogicalDisk object. The object is read once per collection period, and the instantaneous value it returns represents the metric value for that period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Under high CPU usage, the query may time out, and monitoring data may fail to be collected."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_SlAsH_disk_agt_read_requests_rate",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 磁盘读操作速率",
+      "name_en": "(Agent) Disk Read IOPS",
+      "note": "该指标用于统计每秒从测量对象读取数据的请求次数。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第四列数据的变化得出磁盘读操作速率。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：使用WMI中Win32_PerfFormattedData_PerfDisk_LogicalDisk对象获取磁盘I/O数据，每采集周期读取一次该对象，读取该对象返回的瞬时值代表该采集周期的指标值。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。高CPU情况下存在获取超时的现象，会导致无法获取监控数据。",
+      "note_en": "This metric measures the number of read requests from the monitored object per second. Collection method (Linux): The disk read IOPS is calculated from the change in the fourth column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Disk I/O data is obtained from the WMI Win32_PerfFormattedData_PerfDisk_LogicalDisk object. The object is read once per collection period, and the instantaneous value it returns represents the metric value for that period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Under high CPU usage, the query may time out, and monitoring data may fail to be collected."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_SlAsH_disk_agt_write_bytes_rate",
+      "type": "gauge",
+      "unit": "bytesSecIEC",
+      "name": "(Agent) 磁盘写速率",
+      "name_en": "(Agent) Disk Write Rate",
+      "note": "该指标用于统计每秒写到测量对象的数据量。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第十列数据的变化得出磁盘写速率。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：使用WMI中Win32_PerfFormattedData_PerfDisk_LogicalDisk对象获取磁盘I/O数据，每采集周期读取一次该对象，读取该对象返回的瞬时值代表该采集周期的指标值。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。高CPU情况下存在获取超时的现象，会导致无法获取监控数据。",
+      "note_en": "This metric measures the volume of data written to the monitored object per second. Collection method (Linux): The disk write rate is calculated from the change in the tenth column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Disk I/O data is obtained from the WMI Win32_PerfFormattedData_PerfDisk_LogicalDisk object. The object is read once per collection period, and the instantaneous value it returns represents the metric value for that period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Under high CPU usage, the query may time out, and monitoring data may fail to be collected."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_SlAsH_disk_agt_write_requests_rate",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 磁盘写操作速率",
+      "name_en": "(Agent) Disk Write IOPS",
+      "note": "该指标用于统计每秒向测量对象写数据的请求次数。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第八列数据的变化得出磁盘写操作速率。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：使用WMI中Win32_PerfFormattedData_PerfDisk_LogicalDisk对象获取磁盘I/O数据，每采集周期读取一次该对象，读取该对象返回的瞬时值代表该采集周期的指标值。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。高CPU情况下存在获取超时的现象，会导致无法获取监控数据。",
+      "note_en": "This metric measures the number of write requests to the monitored object per second. Collection method (Linux): The disk write IOPS is calculated from the change in the eighth column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Disk I/O data is obtained from the WMI Win32_PerfFormattedData_PerfDisk_LogicalDisk object. The object is read once per collection period, and the instantaneous value it returns represents the metric value for that period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Under high CPU usage, the query may time out, and monitoring data may fail to be collected."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_SlAsH_disk_device_used_percent",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "块设备使用率",
+      "name_en": "Block Device Usage",
+      "note": "该指标用于统计测量对象物理磁盘使用率，以百分比为单位。计算方式为: 所有已挂载磁盘分区已用存储量/磁盘存储总量。采集方式（Linux）：通过汇总每个挂载点的磁盘使用量，再通过磁盘扇区大小和扇区数量计算出磁盘总大小，计算出整体磁盘使用率采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the physical disk usage of the monitored object, in percent. It is calculated as: used storage of all mounted disk partitions / total disk storage. Collection method (Linux): The disk usage of each mount point is summed up, the total disk size is calculated from the disk sector size and sector count, and the overall disk usage is then derived. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_SlAsH_disk_fs_rwstate",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 文件系统读写状态",
+      "name_en": "(Agent) File System Read/Write Status",
+      "note": "该指标用于统计测量对象挂载文件系统的读写状态。状态分为：可读写（0）/只读（1）。采集方式（Linux）：通过读取/proc/mounts中第四列文件系统挂载参数获得。",
+      "note_en": "This metric indicates the read/write status of the file systems mounted on the monitored object. Status values: read/write (0) or read-only (1). Collection method (Linux): Obtained from the file system mount parameters in the fourth column of /proc/mounts."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_SlAsH_disk_inodesTotal",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) inode空间大小",
+      "name_en": "(Agent) Total inodes",
+      "note": "该指标用于统计测量对象当前磁盘的inode空间量。采集方式（Linux）：执行df -i命令，查看Inodes列数据。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。",
+      "note_en": "This metric measures the total inode space of the current disk on the monitored object. Collection method (Linux): Run the df -i command and check the Inodes column. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_SlAsH_disk_inodesUsed",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) inode已使用空间",
+      "name_en": "(Agent) Used inodes",
+      "note": "该指标用于统计测量对象当前磁盘已使用的inode空间量。采集方式（Linux）：执行df -i命令，查看IUsed列数据。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。",
+      "note_en": "This metric measures the used inode space of the current disk on the monitored object. Collection method (Linux): Run the df -i command and check the IUsed column. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_SlAsH_disk_inodesUsedPercent",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "(Agent) inode已使用占比",
+      "name_en": "(Agent) inode Usage",
+      "note": "该指标用于统计测量对象当前磁盘已使用的inode占比。采集方式（Linux）：执行df -i命令，查看IUse%列数据。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。",
+      "note_en": "This metric measures the percentage of used inodes on the current disk of the monitored object. Collection method (Linux): Run the df -i command and check the IUse% column. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_SlAsH_disk_ioUtils",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "(Agent) 磁盘I/O使用率",
+      "name_en": "(Agent) Disk I/O Usage",
+      "note": "该指标用于统计测量对象磁盘I/O使用率。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第十三列数据的变化得出磁盘I/O使用率。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the disk I/O usage of the monitored object. Collection method (Linux): The disk I/O usage is calculated from the change in the thirteenth column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_SlAsH_disk_io_svctm",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 平均I/O服务时长",
+      "name_en": "(Agent) Average I/O Service Time",
+      "note": "该指标用于统计指定时间段内，平均每个读或写I/O的操作时长。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第十三列数据的变化与第四列数据和第八列数据和的变化相除得出磁盘平均I/O时长。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the average duration of each read or write I/O operation in the specified period. Collection method (Linux): The average I/O service time is calculated by dividing the change in the thirteenth column of the corresponding device in /proc/diskstats during the collection period by the sum of the changes in the fourth and eighth columns. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_SlAsH_disk_queue_length",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 平均队列长度",
+      "name_en": "(Agent) Average Queue Length",
+      "note": "该指标反映指定时间段内磁盘的繁忙程度，可用于评估磁盘I/O性能，指标值越大代表磁盘越繁忙，I/O性能越差。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第十四列数据的变化与指标采集周期时间相除得出指标的值。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric reflects how busy the disk is in the specified period and can be used to evaluate disk I/O performance. A larger value indicates a busier disk and poorer I/O performance. Collection method (Linux): The metric value is calculated by dividing the change in the fourteenth column of the corresponding device in /proc/diskstats during the collection period by the collection period duration. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_SlAsH_disk_readTime",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 读操作平均耗时",
+      "name_en": "(Agent) Average Read Time",
+      "note": "该指标用于统计测量对象磁盘读操作平均耗时。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第七列数据的变化得出磁盘读操作平均耗时。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the average time taken by disk read operations on the monitored object. Collection method (Linux): The average disk read time is calculated from the change in the seventh column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_SlAsH_disk_read_bytes_per_operation",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 平均读操作大小",
+      "name_en": "(Agent) Average Read Operation Size",
+      "note": "该指标用于统计指定时间段内，平均每个读I/O操作传输的字节数。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第六列数据的变化与第四列数据的变化相除得出磁盘平均读操作大小。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the average number of bytes transferred per read I/O operation in the specified period. Collection method (Linux): The average read operation size is calculated by dividing the change in the sixth column of the corresponding device in /proc/diskstats during the collection period by the change in the fourth column. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_SlAsH_disk_writeTime",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 写操作平均耗时",
+      "name_en": "(Agent) Average Write Time",
+      "note": "该指标用于统计测量对象磁盘写操作平均耗时。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第十一列数据的变化得出磁盘写操作平均耗时。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the average time taken by disk write operations on the monitored object. Collection method (Linux): The average disk write time is calculated from the change in the eleventh column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_SlAsH_disk_write_bytes_per_operation",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 平均写操作大小",
+      "name_en": "(Agent) Average Write Operation Size",
+      "note": "该指标用于统计指定时间段内，平均每个写I/O操作传输的字节数。采集方式（Linux）：通过计算采集周期内/proc/diskstats中对应设备第十列数据的变化与第八列数据的变化相除得出磁盘平均写操作大小。挂载点前缀路径长度不能超过64个字符，必须以字母开头，只能包含0-9/a-z/A-Z/-/./~。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the average number of bytes transferred per write I/O operation in the specified period. Collection method (Linux): The average write operation size is calculated by dividing the change in the tenth column of the corresponding device in /proc/diskstats during the collection period by the change in the eighth column. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_cpu_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "(Agent) CPU使用率",
+      "name_en": "(Agent) CPU Usage",
+      "note": "该指标用于统计测量对象当前CPU使用率。采集方式（Linux）：通过计算采集周期内/proc/stat中的变化得出cpu使用率。用户可以通过top命令查看 %Cpu(s)值。采集方式（Windows）：通过WindowsAPI GetSystemTimes获取。",
+      "note_en": "This metric measures the current CPU usage of the monitored object. Collection method (Linux): The CPU usage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) value with the top command. Collection method (Windows): Obtained through the Windows API GetSystemTimes."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_cpu_usage_idle",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "(Agent) CPU空闲时间占比",
+      "name_en": "(Agent) Idle CPU Usage",
+      "note": "该指标用于统计测量对象当前CPU空闲时间占比。采集方式（Linux）：通过计算采集周期内/proc/stat中的变化得出CPU空闲时间占比。采集方式（Windows）：通过WindowsAPI GetSystemTimes获取。",
+      "note_en": "This metric measures the percentage of time the CPU of the monitored object is currently idle. Collection method (Linux): The idle CPU time percentage is calculated from the change in /proc/stat during the collection period. Collection method (Windows): Obtained through the Windows API GetSystemTimes."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_cpu_usage_iowait",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "(Agent) iowait状态占比",
+      "name_en": "(Agent) iowait CPU Usage",
+      "note": "该指标用于统计测量对象当前iowait状态占用CPU的比率。采集方式（Linux）：通过计算采集周期内/proc/stat中的变化得出iowait状态占比。用户可以通过top命令查看 %Cpu(s) wa值。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the percentage of CPU time currently occupied by the iowait state on the monitored object. Collection method (Linux): The iowait percentage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) wa value with the top command. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_cpu_usage_irq",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "(Agent) CPU中断时间占比",
+      "name_en": "(Agent) CPU Interrupt Usage",
+      "note": "该指标用于统计测量对象当前CPU处理中断用时占用CPU时间的比率。采集方式（Linux）：通过计算采集周期内/proc/stat中的变化得出CPU中断时间占比。用户可以通过top命令查看 %Cpu(s) hi值。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the percentage of CPU time currently spent handling interrupts on the monitored object. Collection method (Linux): The CPU interrupt time percentage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) hi value with the top command. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_cpu_usage_nice",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "(Agent) Nice进程CPU使用率",
+      "name_en": "(Agent) Nice Process CPU Usage",
+      "note": "该指标用于统计测量对象当前Nice进程CPU使用率。采集方式（Linux）：通过计算采集周期内/proc/stat中的变化得出Nice进程CPU使用率。用户可以通过top命令查看 %Cpu(s) ni值。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the current CPU usage of nice processes on the monitored object. Collection method (Linux): The nice process CPU usage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) ni value with the top command. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_cpu_usage_other",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "(Agent) 其他CPU使用率",
+      "name_en": "(Agent) Other CPU Usage",
+      "note": "该指标用于统计测量对象其他占用CPU使用率。采集方式（Linux）：其他CPU使用率=1- 空闲CPU使用率（%）- 内核空间CPU使用率- 用户空间CPU使用率。采集方式（Windows）：其他CPU使用率=1- 空闲CPU使用率（%）- 内核空间CPU使用率- 用户空间CPU使用率。",
+      "note_en": "This metric measures the CPU usage of other consumers on the monitored object. Collection method (Linux): Other CPU usage = 1 - idle CPU usage (%) - kernel space CPU usage - user space CPU usage. Collection method (Windows): Other CPU usage = 1 - idle CPU usage (%) - kernel space CPU usage - user space CPU usage."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_cpu_usage_softirq",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "(Agent) CPU软中断时间占比",
+      "name_en": "(Agent) CPU Soft Interrupt Usage",
+      "note": "该指标用于统计测量对象当前CPU处理软中断时间占用CPU时间的比率。采集方式（Linux）：通过计算采集周期内/proc/stat中的变化得出CPU软中断时间占比。用户可以通过top命令查看 %Cpu(s) si值。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the percentage of CPU time currently spent handling soft interrupts on the monitored object. Collection method (Linux): The CPU soft interrupt time percentage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) si value with the top command. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_cpu_usage_system",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "(Agent) 内核空间CPU使用率",
+      "name_en": "(Agent) Kernel Space CPU Usage",
+      "note": "该指标用于统计测量对象当前内核空间占用CPU使用率。采集方式（Linux）：通过计算采集周期内/proc/stat中的变化得出内核空间CPU使用率。用户可以通过top命令查看 %Cpu(s) sy值。采集方式（Windows）：通过WindowsAPI GetSystemTimes获取。",
+      "note_en": "This metric measures the current kernel space CPU usage of the monitored object. Collection method (Linux): The kernel space CPU usage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) sy value with the top command. Collection method (Windows): Obtained through the Windows API GetSystemTimes."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_cpu_usage_user",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "(Agent) 用户空间CPU使用率",
+      "name_en": "(Agent) User Space CPU Usage",
+      "note": "该指标用于统计测量对象当前用户空间占用CPU使用率。采集方式（Linux）：通过计算采集周期内/proc/stat中的变化得出cpu使用率。用户可以通过top命令查看 %Cpu(s) us值。采集方式（Windows）：通过WindowsAPI GetSystemTimes获取。",
+      "note_en": "This metric measures the current user space CPU usage of the monitored object. Collection method (Linux): The CPU usage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) us value with the top command. Collection method (Windows): Obtained through the Windows API GetSystemTimes."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_load_average1",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 1分钟平均负载",
+      "name_en": "(Agent) 1-Minute Load Average",
+      "note": "该指标用于统计测量对象过去1分钟的CPU平均负载。采集方式（Linux）：通过/proc/loadavg中load1/逻辑CPU个数得到。用户可以通过top命令查看load1值。",
+      "note_en": "This metric measures the average CPU load of the monitored object over the past 1 minute. Collection method (Linux): Obtained by dividing load1 in /proc/loadavg by the number of logical CPUs. You can check the load1 value with the top command."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_load_average15",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 15分钟平均负载",
+      "name_en": "(Agent) 15-Minute Load Average",
+      "note": "该指标用于统计测量对象过去15分钟的CPU平均负载。采集方式（Linux）：通过/proc/loadavg中load15/逻辑CPU个数得到。用户可以通过top命令查看load15值。",
+      "note_en": "This metric measures the average CPU load of the monitored object over the past 15 minutes. Collection method (Linux): Obtained by dividing load15 in /proc/loadavg by the number of logical CPUs. You can check the load15 value with the top command."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_load_average5",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 5分钟平均负载",
+      "name_en": "(Agent) 5-Minute Load Average",
+      "note": "该指标用于统计测量对象过去5分钟的CPU平均负载。采集方式（Linux）：通过/proc/loadavg中load5/逻辑CPU个数得到。用户可以通过top命令查看load5值。",
+      "note_en": "This metric measures the average CPU load of the monitored object over the past 5 minutes. Collection method (Linux): Obtained by dividing load5 in /proc/loadavg by the number of logical CPUs. You can check the load5 value with the top command."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_mem_available",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 可用内存",
+      "name_en": "(Agent) Available Memory",
+      "note": "该指标用于统计测量对象的可用内存。采集方式（Linux）：通过/proc/meminfo文件获取，若/proc/meminfo中显示MemAvailable，则直接可得若/proc/meminfo中不显示MemAvailable，则MemAvailable=MemFree+Buffers+Cached采集方式（Windows）：计算方法为（内存总量-已用内存量）。通过WindowsAPI GlobalMemoryStatusEx获取。",
+      "note_en": "This metric measures the available memory of the monitored object. Collection method (Linux): Obtained from the /proc/meminfo file. If MemAvailable is present in /proc/meminfo, it is used directly; otherwise, MemAvailable = MemFree + Buffers + Cached. Collection method (Windows): Calculated as (total memory - used memory), obtained through the Windows API GlobalMemoryStatusEx."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_mem_buffers",
+      "type": "",
+      "unit": "none",
+      "name": "(Agent) Buffers占用量",
+      "name_en": "(Agent) Buffers",
+      "note": "该指标用于统计测量对象的Buffers内存量。采集方式（Linux）：通过/proc/meminfo获取。用户可以通过top命令查看 KiB Mem:buffers值。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the amount of buffers memory on the monitored object. Collection method (Linux): Obtained from /proc/meminfo. You can check the KiB Mem: buffers value with the top command. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_mem_cached",
+      "type": "",
+      "unit": "none",
+      "name": "(Agent) Cache占用量",
+      "name_en": "(Agent) Cached Memory",
+      "note": "该指标用于统计测量对象Cache内存量。采集方式（Linux）：通过/proc/meminfo获取。用户可以通过top命令查看 KiB Swap:cached Mem值。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the amount of cache memory on the monitored object. Collection method (Linux): Obtained from /proc/meminfo. You can check the KiB Swap: cached Mem value with the top command. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_mem_free",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 空闲内存量",
+      "name_en": "(Agent) Free Memory",
+      "note": "该指标用于统计测量对象的空闲内存量。采集方式（Linux）：通过/proc/meminfo获取。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the amount of free memory on the monitored object. Collection method (Linux): Obtained from /proc/meminfo. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_mem_usedPercent",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "(Agent) 内存使用率",
+      "name_en": "(Agent) Memory Usage",
+      "note": "该指标用于统计测量对象的内存使用率。采集方式（Linux）：通过/proc/meminfo文件获取，(MemTotal-MemAvailable)/MemTotal若/proc/meminfo中显示MemAvailable，则MemUsedPercent=(MemTotal-MemAvailable)/MemTotal若/proc/meminfo中不显示MemAvailable，则MemUsedPercent=(MemTotal-MemFree-Buffers-Cached)/MemTotal采集方式（Windows）：计算方法为（ 已用内存量/内存总量*100%）。",
+      "note_en": "This metric measures the memory usage of the monitored object. Collection method (Linux): Obtained from the /proc/meminfo file as (MemTotal - MemAvailable)/MemTotal. If MemAvailable is present in /proc/meminfo, MemUsedPercent = (MemTotal - MemAvailable)/MemTotal; otherwise, MemUsedPercent = (MemTotal - MemFree - Buffers - Cached)/MemTotal. Collection method (Windows): Calculated as (used memory / total memory * 100%)."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_bitRecv",
+      "type": "",
+      "unit": "none",
+      "name": "(Agent) 出网带宽",
+      "name_en": "(Agent) Outbound Bandwidth",
+      "note": "该指标用于统计测量对象网卡每秒发送的比特数。采集方式（Linux）：通过计算采集周期内/proc/net/dev中的变化得出。采集方式（Windows）：使用WMI中MibIfRow对象获取网络指标数据。",
+      "note_en": "This metric measures the number of bits sent by the NIC of the monitored object per second. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Network metric data is obtained from the WMI MibIfRow object."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_bitSent",
+      "type": "",
+      "unit": "none",
+      "name": "(Agent) 入网带宽",
+      "name_en": "(Agent) Inbound Bandwidth",
+      "note": "该指标用于统计测量对象网卡每秒接收的比特数。采集方式（Linux）：通过计算采集周期内/proc/net/dev中的变化得出。采集方式（Windows）：使用WMI中MibIfRow对象获取网络指标数据。",
+      "note_en": "This metric measures the number of bits received by the NIC of the monitored object per second. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Network metric data is obtained from the WMI MibIfRow object."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_dropin",
+      "type": "",
+      "unit": "percent",
+      "name": "(Agent) 接收丢包率",
+      "name_en": "(Agent) Receive Packet Loss Rate",
+      "note": "该指标用于统计测量对象网卡每秒接收并已丢弃的数据包数量占所接收的数据包的比率采集方式（Linux）：通过计算采集周期内/proc/net/dev中的变化得出。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the percentage of packets received and discarded by the NIC of the monitored object per second, relative to the total packets received. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_dropout",
+      "type": "",
+      "unit": "percent",
+      "name": "(Agent) 发送丢包率",
+      "name_en": "(Agent) Send Packet Loss Rate",
+      "note": "该指标用于统计测量对象网卡每秒发送并已丢弃的数据包数量占所发送的数据包的比率。采集方式（Linux）：通过计算采集周期内/proc/net/dev中的变化得出。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the percentage of packets sent and discarded by the NIC of the monitored object per second, relative to the total packets sent. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_errin",
+      "type": "",
+      "unit": "percent",
+      "name": "(Agent) 接收误包率",
+      "name_en": "(Agent) Receive Error Rate",
+      "note": "该指标用于统计测量对象网卡每秒接收的错误数据包数量占所接收的数据包的比率。采集方式（Linux）：通过计算采集周期内/proc/net/dev中的变化得出。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the percentage of error packets received by the NIC of the monitored object per second, relative to the total packets received. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_errout",
+      "type": "",
+      "unit": "percent",
+      "name": "(Agent) 发送误包率",
+      "name_en": "(Agent) Send Error Rate",
+      "note": "该指标用于统计测量对象网卡每秒发送的错误数据包数量占所发送的数据包的比率。采集方式（Linux）：通过计算采集周期内/proc/net/dev中的变化得出。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the percentage of error packets sent by the NIC of the monitored object per second, relative to the total packets sent. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_packetRecv",
+      "type": "",
+      "unit": "none",
+      "name": "(Agent) 网卡包接收速率",
+      "name_en": "(Agent) NIC Packet Receive Rate",
+      "note": "该指标用于统计测量对象网卡每秒接收的数据包数。采集方式（Linux）：通过计算采集周期内/proc/net/dev中的变化得出。采集方式（Windows）：使用WMI中MibIfRow对象获取网络指标数据。",
+      "note_en": "This metric measures the number of packets received by the NIC of the monitored object per second. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Network metric data is obtained from the WMI MibIfRow object."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_packetSent",
+      "type": "counter",
+      "unit": "none",
+      "name": "(Agent) 网卡包发送速率",
+      "name_en": "(Agent) NIC Packet Send Rate",
+      "note": "该指标用于统计测量对象网卡每秒发送的数据包数。采集方式（Linux）：通过计算采集周期内/proc/net/dev中的变化得出。采集方式（Windows）：使用WMI中MibIfRow对象获取网络指标数据。",
+      "note_en": "This metric measures the number of packets sent by the NIC of the monitored object per second. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Network metric data is obtained from the WMI MibIfRow object."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_tcp_close",
+      "type": "",
+      "unit": "none",
+      "name": "(Agent) TCP CLOSE",
+      "name_en": "(Agent) TCP CLOSE",
+      "note": "该指标用于统计测量对象关闭的或未打开的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。",
+      "note_en": "This metric counts the number of closed or not-open TCP connections on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_tcp_close_wait",
+      "type": "",
+      "unit": "none",
+      "name": "(Agent) TCP CLOSE_WAIT",
+      "name_en": "(Agent) TCP CLOSE_WAIT",
+      "note": "该指标用于统计测量对象处于CLOSE_WAIT状态的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。",
+      "note_en": "This metric counts the number of TCP connections in the CLOSE_WAIT state on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_tcp_closing",
+      "type": "",
+      "unit": "none",
+      "name": "(Agent) TCP CLOSING",
+      "name_en": "(Agent) TCP CLOSING",
+      "note": "该指标用于统计测量对象处于服务端和客户端同时主动关闭状态的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。",
+      "note_en": "This metric counts the number of TCP connections on the monitored object that are being actively closed by both the server and the client at the same time. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_tcp_established",
+      "type": "",
+      "unit": "none",
+      "name": "(Agent) TCP ESTABLISHED",
+      "name_en": "(Agent) TCP ESTABLISHED",
+      "note": "该指标用于统计测量对象处于ESTABLISHED状态的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。",
+      "note_en": "This metric counts the number of TCP connections in the ESTABLISHED state on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_tcp_fin_wait1",
+      "type": "",
+      "unit": "none",
+      "name": "(Agent) TCP FIN_WAIT1",
+      "name_en": "(Agent) TCP FIN_WAIT1",
+      "note": "该指标用于统计测量对象客户端主动关闭且没有收到服务端ACK的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。",
+      "note_en": "This metric counts the number of TCP connections on the monitored object where the client has actively closed the connection but has not received the ACK from the server. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_tcp_fin_wait2",
+      "type": "",
+      "unit": "none",
+      "name": "(Agent) TCP FIN_WAIT2",
+      "name_en": "(Agent) TCP FIN_WAIT2",
+      "note": "该指标用于统计测量对象处于FIN_WAIT2状态的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。",
+      "note_en": "This metric counts the number of TCP connections in the FIN_WAIT2 state on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_tcp_last_ack",
+      "type": "",
+      "unit": "none",
+      "name": "(Agent) TCP LAST_ACK",
+      "name_en": "(Agent) TCP LAST_ACK",
+      "note": "该指标用于统计测量对象被动关闭等待ACK报文的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。",
+      "note_en": "This metric counts the number of TCP connections on the monitored object that are passively closed and waiting for the ACK packet. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_tcp_listen",
+      "type": "",
+      "unit": "none",
+      "name": "(Agent) TCP LISTEN",
+      "name_en": "(Agent) TCP LISTEN",
+      "note": "该指标用于统计测量对象处于LISTEN状态的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。",
+      "note_en": "This metric counts the number of TCP connections in the LISTEN state on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_tcp_retrans",
+      "type": "",
+      "unit": "percent",
+      "name": "(Agent) TCP重传率",
+      "name_en": "(Agent) TCP Retransmission Rate",
+      "note": "该指标用于统计测量对象重新发送的报文数与总发送的报文数之间的比值。采集方式（Linux）：通过从/proc/net/snmp文件中获取对应的数据，计算采集周期内重传包数和发送包数的比值得出。采集方式（Windows）：重传率通过WindowsAPI GetTcpStatistics获取",
+      "note_en": "This metric measures the ratio of retransmitted packets to the total packets sent by the monitored object. Collection method (Linux): The corresponding data is obtained from the /proc/net/snmp file, and the ratio of retransmitted packets to sent packets during the collection period is calculated. Collection method (Windows): The retransmission rate is obtained through the Windows API GetTcpStatistics."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_tcp_sys_recv",
+      "type": "",
+      "unit": "none",
+      "name": "(Agent) TCP SYS_RECV",
+      "name_en": "(Agent) TCP SYS_RECV",
+      "note": "该指标用于统计测量对象服务器端收到的请求连接的TCP数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。",
+      "note_en": "This metric counts the number of TCP connection requests received by the server side of the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_tcp_sys_sent",
+      "type": "",
+      "unit": "none",
+      "name": "(Agent) TCP SYS_SENT",
+      "name_en": "(Agent) TCP SYS_SENT",
+      "note": "该指标用于统计测量对象处于请求连接状态的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。",
+      "note_en": "This metric counts the number of TCP connections on the monitored object that are in the connection-requesting state. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_tcp_time_wait",
+      "type": "",
+      "unit": "none",
+      "name": "(Agent) TCP TIME_WAIT",
+      "name_en": "(Agent) TCP TIME_WAIT",
+      "note": "该指标用于统计测量对象处于TIME_WAIT状态的TCP连接数量。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。",
+      "note_en": "This metric counts the number of TCP connections in the TIME_WAIT state on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_net_tcp_total",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) TCP TOTAL",
+      "name_en": "(Agent) TCP TOTAL",
+      "note": "该指标用于统计测量对象所有状态的TCP连接数总和。采集方式（Linux）：通过/proc/net/tcp文件获取到所有状态的TCP连接，再统计每个状态的连接数量。采集方式（Windows）：通过WindowsAPI GetTcpTable2获取。",
+      "note_en": "This metric counts the total number of TCP connections in all states on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_ntp_offset",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "(Agent) NTP偏移量",
+      "name_en": "(Agent) NTP Offset",
+      "note": "该指标用于统计测量对象当前NTP偏移量。采集方式（Linux）：执行chronyc sources -v命令，获取偏移量。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric measures the current NTP offset of the monitored object. Collection method (Linux): Run the chronyc sources -v command to obtain the offset. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_proc_blocked_count",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 阻塞进程数",
+      "name_en": "(Agent) Blocked Processes",
+      "note": "该指标用于统计测量对象被阻塞的进程数。采集方式（Linux）：通过统计 /proc/pid/status 中Status值获取每个进程的状态，进而统计各个状态进程总数。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric counts the number of blocked processes on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_proc_idle_count",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 空闲进程数",
+      "name_en": "(Agent) Idle Processes",
+      "note": "该指标用于统计测量对象处于空闲状态的进程数。采集方式（Linux）：通过统计 /proc/pid/status 中Status值获取每个进程的状态，进而统计各个状态进程总数。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric counts the number of processes in the idle state on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_proc_pHashId_cpu",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "(Agent) 进程CPU使用率",
+      "name_en": "(Agent) Process CPU Usage",
+      "note": "进程消耗的CPU百分比，pHashId是（进程名+进程ID）的md5值。采集方式（Linux）：通过计算/proc/pid/stat的变化得出。采集方式（Windows）：通过Windows API GetProcessTimes获取进程CPU使用率。",
+      "note_en": "The percentage of CPU consumed by a process. pHashId is the md5 hash of (process name + process ID). Collection method (Linux): Calculated from the change in /proc/pid/stat. Collection method (Windows): Process CPU usage is obtained through the Windows API GetProcessTimes."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_proc_pHashId_file",
+      "type": "",
+      "unit": "none",
+      "name": "(Agent) 进程打开文件数",
+      "name_en": "(Agent) Process Open Files",
+      "note": "进程打开文件数，pHashId是（进程名+进程ID）的md5值。采集方式（Linux）：通过执行ls -l /proc/pid/fd 可以查看数量。采集方式（Windows）：暂不支持。",
+      "note_en": "The number of files opened by a process. pHashId is the md5 hash of (process name + process ID). Collection method (Linux): Run ls -l /proc/pid/fd to view the count. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_proc_pHashId_mem",
+      "type": "",
+      "unit": "percent",
+      "name": "(Agent) 进程内存使用率",
+      "name_en": "(Agent) Process Memory Usage",
+      "note": "进程消耗的内存百分比，pHashId是（进程名+进程ID）的md5值。采集方式（Linux）：RSS*PAGESIZE/MemTotalRSS: 通过获取/proc/pid/statm第二列得到PAGESIZE: 通过命令getconf PAGESIZE获取MemTotal：通过/proc/meminfo获取采集方式（Windows）：使用Windows API procGlobalMemoryStatusEx获取内存总量，通过GetProcessMemoryInfo获取内存已使用量，计算两者比值得到内存使用率。",
+      "note_en": "The percentage of memory consumed by a process. pHashId is the md5 hash of (process name + process ID). Collection method (Linux): RSS*PAGESIZE/MemTotal, where RSS is obtained from the second column of /proc/pid/statm, PAGESIZE is obtained with the getconf PAGESIZE command, and MemTotal is obtained from /proc/meminfo. Collection method (Windows): The total memory is obtained through the Windows API GlobalMemoryStatusEx, the used memory is obtained through GetProcessMemoryInfo, and the memory usage is calculated as the ratio of the two."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_proc_running_count",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 运行中进程数",
+      "name_en": "(Agent) Running Processes",
+      "note": "该指标用于统计测量对象处于运行状态的进程数。采集方式（Linux）：通过统计 /proc/pid/status 中Status值获取每个进程的状态，进而统计各个状态进程总数。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric counts the number of processes in the running state on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_proc_sleeping_count",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 睡眠进程数",
+      "name_en": "(Agent) Sleeping Processes",
+      "note": "该指标用于统计测量对象处于睡眠状态的进程数。采集方式（Linux）：通过统计 /proc/pid/status 中Status值获取每个进程的状态，进而统计各个状态进程总数。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric counts the number of processes in the sleeping state on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_proc_specified_count",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 指定进程数",
+      "name_en": "(Agent) Specified Processes",
+      "note": "该指标用于统计测量对象指定的进程数。采集方式（Linux）：通过统计 /proc/pid/status 中Status值获取每个进程的状态，进而统计各个状态进程总数。采集方式（Windows）：通过psapi.dll系统进程状态支持模块得到进程总数。",
+      "note_en": "This metric counts the number of specified processes on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): The total number of processes is obtained through the psapi.dll system process status support module."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_proc_total_count",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 系统进程数",
+      "name_en": "(Agent) Total Processes",
+      "note": "该指标用于统计测量对象的总进程数。采集方式（Linux）：通过统计 /proc/pid/status 中Status值获取每个进程的状态，进而统计各个状态进程总数。采集方式（Windows）：通过psapi.dll系统进程状态支持模块得到进程总数。",
+      "note_en": "This metric counts the total number of processes on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): The total number of processes is obtained through the psapi.dll system process status support module."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_proc_zombie_count",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 僵死进程数",
+      "name_en": "(Agent) Zombie Processes",
+      "note": "该指标用于统计测量对象处于僵死状态的进程数。采集方式（Linux）：通过统计 /proc/pid/status 中Status值获取每个进程的状态，进而统计各个状态进程总数。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric counts the number of zombie processes on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_specified_process_file",
+      "type": "",
+      "unit": "none",
+      "name": "(Agent) 指定进程打开文件数",
+      "name_en": "(Agent) Open Files of Specified Process",
+      "note": "该指标用于统计测量对象指定进程打开的文件数。采集方式（Linux）：通过执行ls -l /proc/pid/fd 可以查看数量。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric counts the number of files opened by the specified process on the monitored object. Collection method (Linux): Run ls -l /proc/pid/fd to view the count. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_agt_total_open_files",
+      "type": "gauge",
+      "unit": "none",
+      "name": "(Agent) 文件句柄总数",
+      "name_en": "(Agent) Total File Handles",
+      "note": "该指标用于统计测量对象的所有进程使用的句柄总和。采集方式（Linux）：通过/proc/{pid}/fd文件汇总所有进程使用的句柄数。采集方式（Windows）：暂不支持。",
+      "note_en": "This metric counts the total number of handles used by all processes on the monitored object. Collection method (Linux): The number of handles used by all processes is summed up from the /proc/{pid}/fd files. Collection method (Windows): Not supported yet."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_client_tls_negotiation_error",
+      "type": "",
+      "unit": "cps",
+      "name": "客户端发起TLS握手失败次数",
+      "name_en": "Client TLS Handshake Failures",
+      "note": "客户端每秒发起TLS会话失败的次数。支持的协议：HTTPS/TLS/QUIC",
+      "note_en": "Number of failed TLS handshakes initiated by clients per second. Supported protocols: HTTPS/TLS/QUIC"
+    },
+    {
+      "expression": "huaweicloud_sys_elb_dropped_connections",
+      "type": "gauge",
+      "unit": "cps",
+      "name": "丢弃连接数",
+      "name_en": "Dropped Connections",
+      "note": "测量对象每秒丢弃连接的个数。",
+      "note_en": "Number of connections dropped by the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_dropped_packets",
+      "type": "counter",
+      "unit": "cps",
+      "name": "丢弃数据包",
+      "name_en": "Dropped Packets",
+      "note": "测量对象每秒丢弃数据报文的个数。",
+      "note_en": "Number of data packets dropped by the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_dropped_traffic",
+      "type": "",
+      "unit": "none",
+      "name": "丢弃网络带宽",
+      "name_en": "Dropped Bandwidth",
+      "note": "测量对象丢弃网络带宽。",
+      "note_en": "Network bandwidth dropped by the monitored object."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_elb_http_2xx",
+      "type": "",
+      "unit": "cps",
+      "name": "负载均衡响应状态码(2XX)",
+      "name_en": "Load Balancer Status Codes (2XX)",
+      "note": "负载均衡每秒返回2XX响应状态码的个数。",
+      "note_en": "Number of 2XX status codes returned by the load balancer per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_elb_http_3xx",
+      "type": "",
+      "unit": "cps",
+      "name": "负载均衡响应状态码(3XX)",
+      "name_en": "Load Balancer Status Codes (3XX)",
+      "note": "负载均衡每秒返回3XX响应状态码的个数。",
+      "note_en": "Number of 3XX status codes returned by the load balancer per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_elb_http_400",
+      "type": "",
+      "unit": "cps",
+      "name": "负载均衡响应状态码400",
+      "name_en": "Load Balancer Status Code 400",
+      "note": "负载均衡每秒返回400响应状态码的个数。",
+      "note_en": "Number of 400 status codes returned by the load balancer per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_elb_http_404",
+      "type": "",
+      "unit": "cps",
+      "name": "负载均衡响应状态码404",
+      "name_en": "Load Balancer Status Code 404",
+      "note": "负载均衡每秒返回404响应状态码的个数。",
+      "note_en": "Number of 404 status codes returned by the load balancer per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_elb_http_408",
+      "type": "",
+      "unit": "cps",
+      "name": "负载均衡响应状态码408",
+      "name_en": "Load Balancer Status Code 408",
+      "note": "负载均衡每秒返回408响应状态码的个数。",
+      "note_en": "Number of 408 status codes returned by the load balancer per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_elb_http_499",
+      "type": "",
+      "unit": "cps",
+      "name": "负载均衡响应状态码499",
+      "name_en": "Load Balancer Status Code 499",
+      "note": "负载均衡每秒返回499响应状态码的个数。",
+      "note_en": "Number of 499 status codes returned by the load balancer per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_elb_http_4xx",
+      "type": "",
+      "unit": "cps",
+      "name": "负载均衡响应状态码(4XX)",
+      "name_en": "Load Balancer Status Codes (4XX)",
+      "note": "负载均衡每秒返回4XX响应状态码的个数。",
+      "note_en": "Number of 4XX status codes returned by the load balancer per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_elb_http_502",
+      "type": "",
+      "unit": "cps",
+      "name": "负载均衡响应状态码502",
+      "name_en": "Load Balancer Status Code 502",
+      "note": "负载均衡每秒返回502响应状态码的个数。",
+      "note_en": "Number of 502 status codes returned by the load balancer per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_elb_http_503",
+      "type": "",
+      "unit": "cps",
+      "name": "负载均衡响应状态码503",
+      "name_en": "Load Balancer Status Code 503",
+      "note": "负载均衡每秒返回503响应状态码的个数。",
+      "note_en": "Number of 503 status codes returned by the load balancer per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_elb_http_504",
+      "type": "",
+      "unit": "cps",
+      "name": "负载均衡响应状态码504",
+      "name_en": "Load Balancer Status Code 504",
+      "note": "负载均衡每秒返回504响应状态码的个数。",
+      "note_en": "Number of 504 status codes returned by the load balancer per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_elb_http_5xx",
+      "type": "",
+      "unit": "cps",
+      "name": "负载均衡响应状态码(5XX)",
+      "name_en": "Load Balancer Status Codes (5XX)",
+      "note": "负载均衡每秒返回5XX响应状态码的个数。",
+      "note_en": "Number of 5XX status codes returned by the load balancer per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_ipgroup_blocked_packets",
+      "type": "counter",
+      "unit": "cps",
+      "name": "黑白名单每秒阻断数据报文的个数",
+      "name_en": "Packets Blocked by Blacklist/Whitelist",
+      "note": "每秒黑白名单阻断流入测量对象数据报文的个数。",
+      "note_en": "Number of data packets destined for the monitored object that are blocked by the blacklist/whitelist per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_ipgroup_blocked_traffic",
+      "type": "",
+      "unit": "none",
+      "name": "黑白名单阻断的网络带宽",
+      "name_en": "Bandwidth Blocked by Blacklist/Whitelist",
+      "note": "黑白名单阻断流入测量对象的网络带宽。",
+      "note_en": "Network bandwidth destined for the monitored object that is blocked by the blacklist/whitelist."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l4_con_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "4层并发连接使用率",
+      "name_en": "Layer-4 Concurrent Connection Usage",
+      "note": "4层的ELB实例并发连接数使用率。",
+      "note_en": "Concurrent connection usage of the Layer-4 ELB instance."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l4_in_bps_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "4层入带宽使用率",
+      "name_en": "Layer-4 Inbound Bandwidth Usage",
+      "note": "4层的ELB实例入带宽使用率。注意：若入带宽使用率达到100%，说明已经超出ELB规格所提供的性能保障，您的业务可以继续使用更高带宽，但对于带宽超出的部分，ELB无法承诺服务可用性指标。",
+      "note_en": "Inbound bandwidth usage of the Layer-4 ELB instance. Note: If the inbound bandwidth usage reaches 100%, the performance guaranteed by the ELB specification has been exceeded. Your services can continue to use higher bandwidth, but ELB cannot guarantee the service availability SLA for the excess bandwidth."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l4_ncps_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "4层新建连接数使用率",
+      "name_en": "Layer-4 New Connection Usage",
+      "note": "4层的ELB实例新建连接数使用率。",
+      "note_en": "New connection usage of the Layer-4 ELB instance."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l4_out_bps_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "4层出带宽使用率",
+      "name_en": "Layer-4 Outbound Bandwidth Usage",
+      "note": "4层的ELB实例出带宽使用率。注意：若出带宽使用率达到100%，说明已经超出ELB规格所提供的性能保障，您的业务可以继续使用更高带宽，但对于带宽超出的部分，ELB无法承诺服务可用性指标。",
+      "note_en": "Outbound bandwidth usage of the Layer-4 ELB instance. Note: If the outbound bandwidth usage reaches 100%, the performance guaranteed by the ELB specification has been exceeded. Your services can continue to use higher bandwidth, but ELB cannot guarantee the service availability SLA for the excess bandwidth."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l7_2xx_ratio",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "七层2XX请求占比",
+      "name_en": "Layer-7 2XX Request Ratio",
+      "note": "七层2XX响应状态码的个数占比。",
+      "note_en": "Percentage of Layer-7 2XX status codes."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l7_4xx_ratio",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "七层4XX请求占比",
+      "name_en": "Layer-7 4XX Request Ratio",
+      "note": "七层4XX响应状态码的个数占比。",
+      "note_en": "Percentage of Layer-7 4XX status codes."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l7_5xx_ratio",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "七层5XX请求占比",
+      "name_en": "Layer-7 5XX Request Ratio",
+      "note": "七层5XX响应状态码的个数占比。",
+      "note_en": "Percentage of Layer-7 5XX status codes."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l7_con_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "7层并发连接使用率",
+      "name_en": "Layer-7 Concurrent Connection Usage",
+      "note": "7层的ELB实例并发连接数使用率。",
+      "note_en": "Concurrent connection usage of the Layer-7 ELB instance."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l7_in_bps_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "7层入带宽使用率",
+      "name_en": "Layer-7 Inbound Bandwidth Usage",
+      "note": "7层的ELB实例入带宽使用率。注意：若入带宽使用率达到100%，说明已经超出ELB规格所提供的性能保障，您的业务可以继续使用更高带宽，但对于带宽超出的部分，ELB无法承诺服务可用性指标。",
+      "note_en": "Inbound bandwidth usage of the Layer-7 ELB instance. Note: If the inbound bandwidth usage reaches 100%, the performance guaranteed by the ELB specification has been exceeded. Your services can continue to use higher bandwidth, but ELB cannot guarantee the service availability SLA for the excess bandwidth."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l7_ncps_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "7层新建连接数使用率",
+      "name_en": "Layer-7 New Connection Usage",
+      "note": "7层的ELB实例新建连接数使用率。",
+      "note_en": "New connection usage of the Layer-7 ELB instance."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l7_out_bps_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "7层出带宽使用率",
+      "name_en": "Layer-7 Outbound Bandwidth Usage",
+      "note": "7层的ELB实例出带宽使用率。注意：若出带宽使用率达到100%，说明已经超出ELB规格所提供的性能保障，您的业务可以继续使用更高带宽，但对于带宽超出的部分，ELB无法承诺服务可用性指标。",
+      "note_en": "Outbound bandwidth usage of the Layer-7 ELB instance. Note: If the outbound bandwidth usage reaches 100%, the performance guaranteed by the ELB specification has been exceeded. Your services can continue to use higher bandwidth, but ELB cannot guarantee the service availability SLA for the excess bandwidth."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l7_qps_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "7层查询速率使用率",
+      "name_en": "Layer-7 Query Rate Usage",
+      "note": "7层的ELB实例查询速率使用率。",
+      "note_en": "Query rate usage of the Layer-7 ELB instance."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l7_upstream_101",
+      "type": "",
+      "unit": "cps",
+      "name": "7层后端响应状态码101",
+      "name_en": "Layer-7 Backend Status Code 101",
+      "note": "测量对象的后端服务器每秒返回7层101响应状态码的个数。",
+      "note_en": "Number of Layer-7 101 status codes returned by the backend servers of the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l7_upstream_400",
+      "type": "",
+      "unit": "cps",
+      "name": "7层后端响应状态码400",
+      "name_en": "Layer-7 Backend Status Code 400",
+      "note": "测量对象的后端服务器每秒返回7层400响应状态码的个数。",
+      "note_en": "Number of Layer-7 400 status codes returned by the backend servers of the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l7_upstream_403",
+      "type": "",
+      "unit": "cps",
+      "name": "7层后端响应状态码403",
+      "name_en": "Layer-7 Backend Status Code 403",
+      "note": "测量对象的后端服务器每秒返回7层403响应状态码的个数。",
+      "note_en": "Number of Layer-7 403 status codes returned by the backend servers of the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l7_upstream_404",
+      "type": "",
+      "unit": "cps",
+      "name": "7层后端响应状态码404",
+      "name_en": "Layer-7 Backend Status Code 404",
+      "note": "测量对象的后端服务器每秒返回7层404响应状态码的个数。",
+      "note_en": "Number of Layer-7 404 status codes returned by the backend servers of the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l7_upstream_500",
+      "type": "",
+      "unit": "cps",
+      "name": "7层后端响应状态码500",
+      "name_en": "Layer-7 Backend Status Code 500",
+      "note": "测量对象的后端服务器每秒返回7层500响应状态码的个数。",
+      "note_en": "Number of Layer-7 500 status codes returned by the backend servers of the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l7_upstream_501",
+      "type": "",
+      "unit": "cps",
+      "name": "7层后端响应状态码501",
+      "name_en": "Layer-7 Backend Status Code 501",
+      "note": "测量对象的后端服务器每秒返回7层501响应状态码的个数。",
+      "note_en": "Number of Layer-7 501 status codes returned by the backend servers of the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l7_upstream_502",
+      "type": "",
+      "unit": "cps",
+      "name": "7层后端响应状态码502",
+      "name_en": "Layer-7 Backend Status Code 502",
+      "note": "测量对象的后端服务器每秒返回7层502响应状态码的个数。",
+      "note_en": "Number of Layer-7 502 status codes returned by the backend servers of the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l7_upstream_503",
+      "type": "",
+      "unit": "cps",
+      "name": "7层后端响应状态码503",
+      "name_en": "Layer-7 Backend Status Code 503",
+      "note": "测量对象的后端服务器每秒返回7层503响应状态码的个数。",
+      "note_en": "Number of Layer-7 503 status codes returned by the backend servers of the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l7_upstream_504",
+      "type": "",
+      "unit": "cps",
+      "name": "7层后端响应状态码504",
+      "name_en": "Layer-7 Backend Status Code 504",
+      "note": "测量对象的后端服务器每秒返回7层504响应状态码的个数。",
+      "note_en": "Number of Layer-7 504 status codes returned by the backend servers of the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_l7_upstream_other_status",
+      "type": "gauge",
+      "unit": "cps",
+      "name": "7层后端响应状态码（Others）",
+      "name_en": "Layer-7 Backend Status Codes (Others)",
+      "note": "测量对象的后端服务器每秒返回7层后端其他响应状态码的个数。不包含：101、2XX、3XX、400、403、404、500、501、502、503、504。",
+      "note_en": "Number of Layer-7 other status codes returned by the backend servers of the monitored object per second. Excluding: 101, 2XX, 3XX, 400, 403, 404, 500, 501, 502, 503, and 504."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m10_l7_http_other_status",
+      "type": "gauge",
+      "unit": "cps",
+      "name": "7层协议响应状态码(Others)",
+      "name_en": "Layer-7 Status Codes (Others)",
+      "note": "测量对象每秒返回7层其他响应状态码的个数。不包含：2XX、3XX、404、499、502。",
+      "note_en": "Number of Layer-7 other status codes returned by the monitored object per second. Excluding: 2XX, 3XX, 404, 499, and 502."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m11_l7_http_404",
+      "type": "",
+      "unit": "cps",
+      "name": "7层协议响应状态码404",
+      "name_en": "Layer-7 Status Code 404",
+      "note": "测量对象每秒返回7层404响应状态码的个数。",
+      "note_en": "Number of Layer-7 404 status codes returned by the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m12_l7_http_499",
+      "type": "",
+      "unit": "cps",
+      "name": "7层协议响应状态码499",
+      "name_en": "Layer-7 Status Code 499",
+      "note": "测量对象每秒返回7层499响应状态码的个数。",
+      "note_en": "Number of Layer-7 499 status codes returned by the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m13_l7_http_502",
+      "type": "",
+      "unit": "cps",
+      "name": "7层协议响应状态码502",
+      "name_en": "Layer-7 Status Code 502",
+      "note": "测量对象每秒返回7层502响应状态码的个数。",
+      "note_en": "Number of Layer-7 502 status codes returned by the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m14_l7_rt",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "7层协议RT平均值",
+      "name_en": "Average Layer-7 Response Time",
+      "note": "测量对象7层平均响应时间。从测量对象收到客户端请求开始，到测量对象将所有响应返回给客户端为止。 说明：websocket场景下RT平均值可能会非常大，此时该指标无法作为时延指标参考。",
+      "note_en": "Average Layer-7 response time of the monitored object, measured from when the monitored object receives a client request to when it returns all responses to the client. Note: In WebSocket scenarios, the average RT may be very large and cannot be used as a latency reference."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m15_l7_upstream_4xx",
+      "type": "",
+      "unit": "cps",
+      "name": "7层后端响应状态码(4XX)",
+      "name_en": "Layer-7 Backend Status Codes (4XX)",
+      "note": "测量对象的后端服务器每秒返回7层4XX系列响应状态码的个数。",
+      "note_en": "Number of Layer-7 4XX series status codes returned by the backend servers of the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m16_l7_upstream_5xx",
+      "type": "",
+      "unit": "cps",
+      "name": "7层后端响应状态码(5XX)",
+      "name_en": "Layer-7 Backend Status Codes (5XX)",
+      "note": "测量对象的后端服务器每秒返回7层5XX系列响应状态码的个数。",
+      "note_en": "Number of Layer-7 5XX series status codes returned by the backend servers of the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m17_l7_upstream_rt",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "7层后端的RT平均值",
+      "name_en": "Average Layer-7 Backend Response Time",
+      "note": "测量对象7层后端平均响应时间。从测量对象将请求转发给后端服务器开始，到测量对象收到后端服务器返回响应为止。 说明：websocket场景下RT平均值可能会非常大，此时该指标无法作为时延指标参考。",
+      "note_en": "Average Layer-7 backend response time of the monitored object, measured from when the monitored object forwards a request to a backend server to when it receives the response from the backend server. Note: In WebSocket scenarios, the average RT may be very large and cannot be used as a latency reference."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m18_l7_upstream_2xx",
+      "type": "",
+      "unit": "cps",
+      "name": "7层后端响应状态码(2XX)",
+      "name_en": "Layer-7 Backend Status Codes (2XX)",
+      "note": "测量对象的后端服务器每秒返回7层2XX系列响应状态码的个数。",
+      "note_en": "Number of Layer-7 2XX series status codes returned by the backend servers of the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m19_l7_upstream_3xx",
+      "type": "",
+      "unit": "cps",
+      "name": "7层后端响应状态码(3XX)",
+      "name_en": "Layer-7 Backend Status Codes (3XX)",
+      "note": "测量对象的后端服务器每秒返回7层3XX系列响应状态码的个数。",
+      "note_en": "Number of Layer-7 3XX series status codes returned by the backend servers of the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m1_cps",
+      "type": "",
+      "unit": "none",
+      "name": "并发连接数",
+      "name_en": "Concurrent Connections",
+      "note": "在四层负载均衡器中，指从测量对象到后端服务器建立的所有TCP和UDP连接的个数。在七层负载均衡器中，指从客户端到ELB建立的所有TCP连接的个数。",
+      "note_en": "For Layer-4 load balancers, the total number of TCP and UDP connections established from the monitored object to backend servers. For Layer-7 load balancers, the total number of TCP connections established from clients to the ELB."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m1a_l7_upstream_rt_max",
+      "type": "gauge",
+      "unit": "milliseconds",
+      "name": "7层后端的RT最大值",
+      "name_en": "Maximum Layer-7 Backend Response Time",
+      "note": "测量对象7层后端最大响应时间。从测量对象将请求转发给后端服务器开始，到测量对象收到后端服务器返回响应为止。",
+      "note_en": "Maximum Layer-7 backend response time of the monitored object, measured from when the monitored object forwards a request to a backend server to when it receives the response from the backend server."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m1b_l7_upstream_rt_min",
+      "type": "gauge",
+      "unit": "milliseconds",
+      "name": "7层后端的RT最小值",
+      "name_en": "Minimum Layer-7 Backend Response Time",
+      "note": "测量对象7层后端最小响应时间。从测量对象将请求转发给后端服务器开始，到测量对象收到后端服务器返回响应为止。",
+      "note_en": "Minimum Layer-7 backend response time of the monitored object, measured from when the monitored object forwards a request to a backend server to when it receives the response from the backend server."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m1c_l7_rt_max",
+      "type": "gauge",
+      "unit": "milliseconds",
+      "name": "7层协议的RT最大值",
+      "name_en": "Maximum Layer-7 Response Time",
+      "note": "测量对象7层最大响应时间。从测量对象收到客户端请求开始，到测量对象将所有响应返回给客户端为止。",
+      "note_en": "Maximum Layer-7 response time of the monitored object, measured from when the monitored object receives a client request to when it returns all responses to the client."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m1d_l7_rt_min",
+      "type": "gauge",
+      "unit": "milliseconds",
+      "name": "7层协议的RT最小值",
+      "name_en": "Minimum Layer-7 Response Time",
+      "note": "测量对象7层最小响应时间。从测量对象收到客户端请求开始，到测量对象将所有响应返回给客户端为止。",
+      "note_en": "Minimum Layer-7 response time of the monitored object, measured from when the monitored object receives a client request to when it returns all responses to the client."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m1e_server_rps",
+      "type": "",
+      "unit": "cps",
+      "name": "后端服务器每秒重置报文个数",
+      "name_en": "Reset Packets from Backend Servers",
+      "note": "测量后端服务器每秒发送至客户端的重置（RST）报文个数。重置报文由后端服务器生成，然后由负载均衡器转发。支持协议：TCP",
+      "note_en": "Number of reset (RST) packets sent from backend servers to clients per second. Reset packets are generated by backend servers and forwarded by the load balancer. Supported protocol: TCP"
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m1f_lvs_rps",
+      "type": "",
+      "unit": "cps",
+      "name": "负载均衡器每秒重置报文个数",
+      "name_en": "Reset Packets from Load Balancer",
+      "note": "测量负载均衡器每秒生成的重置（RST）报文个数。支持协议：TCP",
+      "note_en": "Number of reset (RST) packets generated by the load balancer per second. Supported protocol: TCP"
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m21_client_rps",
+      "type": "",
+      "unit": "cps",
+      "name": "客户端每秒重置报文个数",
+      "name_en": "Reset Packets from Clients",
+      "note": "测量客户端每秒发送至后端服务器的重置（RST）报文个数。重置报文由客户端生成，然后由负载均衡器转发。支持协议：TCP",
+      "note_en": "Number of reset (RST) packets sent from clients to backend servers per second. Reset packets are generated by clients and forwarded by the load balancer. Supported protocol: TCP"
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m22_in_bandwidth",
+      "type": "",
+      "unit": "none",
+      "name": "入网带宽",
+      "name_en": "Inbound Bandwidth",
+      "note": "测量对象入网带宽。",
+      "note_en": "Inbound bandwidth of the monitored object."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m23_out_bandwidth",
+      "type": "",
+      "unit": "none",
+      "name": "出网带宽",
+      "name_en": "Outbound Bandwidth",
+      "note": "测量对象出网带宽。",
+      "note_en": "Outbound bandwidth of the monitored object."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m24_l7_req_Bps",
+      "type": "",
+      "unit": "none",
+      "name": "7层请求带宽",
+      "name_en": "Layer-7 Request Bandwidth",
+      "note": "测量对象后端服务器的七层请求接收带宽。 说明：当监听器开启HTTP/2时，该指标无法作为参考。",
+      "note_en": "Bandwidth of Layer-7 requests received by the backend servers of the monitored object. Note: This metric cannot be used as a reference when HTTP/2 is enabled on the listener."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m25_l7_resp_Bps",
+      "type": "",
+      "unit": "none",
+      "name": "7层响应带宽",
+      "name_en": "Layer-7 Response Bandwidth",
+      "note": "测量对象后端服务器的七层响应发送带宽。 说明：当监听器开启HTTP/2时，该指标无法作为参考。",
+      "note_en": "Bandwidth of Layer-7 responses sent by the backend servers of the monitored object. Note: This metric cannot be used as a reference when HTTP/2 is enabled on the listener."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m26_in_bandwidth_ipv6",
+      "type": "",
+      "unit": "none",
+      "name": "IPv6入网带宽",
+      "name_en": "IPv6 Inbound Bandwidth",
+      "note": "流入测量对象的IPv6网络带宽。",
+      "note_en": "IPv6 network bandwidth flowing into the monitored object."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m27_out_bandwidth_ipv6",
+      "type": "",
+      "unit": "none",
+      "name": "IPv6出网带宽",
+      "name_en": "IPv6 Outbound Bandwidth",
+      "note": "流出测量对象的IPv6网络带宽。",
+      "note_en": "IPv6 network bandwidth flowing out of the monitored object."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m2_act_conn",
+      "type": "",
+      "unit": "none",
+      "name": "活跃连接数",
+      "name_en": "Active Connections",
+      "note": "从测量对象到后端服务器建立的活跃TCP和UDP连接的个数。Windows和Linux服务器都可以使用如下命令查看。netstat -an",
+      "note_en": "Number of active TCP and UDP connections established from the monitored object to backend servers. You can run the following command on both Windows and Linux servers to view them: netstat -an"
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m3_inact_conn",
+      "type": "",
+      "unit": "none",
+      "name": "非活跃连接数",
+      "name_en": "Inactive Connections",
+      "note": "从测量对象到后端服务器建立的非活跃TCP和UDP连接的个数。Windows和Linux服务器都可以使用如下命令查看。netstat -an",
+      "note_en": "Number of inactive TCP and UDP connections established from the monitored object to backend servers. You can run the following command on both Windows and Linux servers to view them: netstat -an"
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m4_ncps",
+      "type": "",
+      "unit": "cps",
+      "name": "新建连接数",
+      "name_en": "New Connections",
+      "note": "从客户端到测量对象每秒新建立的连接数。",
+      "note_en": "Number of new connections established from clients to the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m5_in_pps",
+      "type": "",
+      "unit": "cps",
+      "name": "流入数据包数",
+      "name_en": "Incoming Packets",
+      "note": "测量对象每秒接收到数据包的个数。",
+      "note_en": "Number of data packets received by the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m6_out_pps",
+      "type": "",
+      "unit": "cps",
+      "name": "流出数据包数",
+      "name_en": "Outgoing Packets",
+      "note": "测量对象每秒发出数据包的个数。",
+      "note_en": "Number of data packets sent by the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m7_in_Bps",
+      "type": "",
+      "unit": "none",
+      "name": "网络流入速率",
+      "name_en": "Network Inbound Rate",
+      "note": "从外部访问测量对象的网络速率。",
+      "note_en": "Network rate of traffic accessing the monitored object from external sources."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m8_out_Bps",
+      "type": "",
+      "unit": "none",
+      "name": "网络流出速率",
+      "name_en": "Network Outbound Rate",
+      "note": "测量对象访问外部的网络速率。",
+      "note_en": "Network rate at which the monitored object accesses external sources."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_m9_abnormal_servers",
+      "type": "",
+      "unit": "none",
+      "name": "异常主机数",
+      "name_en": "Unhealthy Servers",
+      "note": "测量对象中健康检查异常的后端服务器个数。",
+      "note_en": "Number of backend servers in the monitored object that fail health checks."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_ma_normal_servers",
+      "type": "",
+      "unit": "none",
+      "name": "正常主机数",
+      "name_en": "Healthy Servers",
+      "note": "测量对象中健康检查正常的后端服务器个数。",
+      "note_en": "Number of backend servers in the monitored object that pass health checks."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_mb_l7_qps",
+      "type": "",
+      "unit": "cps",
+      "name": "7层查询速率",
+      "name_en": "Layer-7 Query Rate",
+      "note": "测量对象7层查询速率。",
+      "note_en": "Layer-7 query rate of the monitored object."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_mc_l7_http_2xx",
+      "type": "",
+      "unit": "cps",
+      "name": "7层协议响应状态码（2XX）",
+      "name_en": "Layer-7 Status Codes (2XX)",
+      "note": "测量对象每秒返回7层2XX系列响应状态码的个数。",
+      "note_en": "Number of Layer-7 2XX series status codes returned by the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_md_l7_http_3xx",
+      "type": "",
+      "unit": "cps",
+      "name": "7层协议响应状态码（3XX）",
+      "name_en": "Layer-7 Status Codes (3XX)",
+      "note": "测量对象每秒返回7层3XX系列响应状态码的个数。",
+      "note_en": "Number of Layer-7 3XX series status codes returned by the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_me_l7_http_4xx",
+      "type": "",
+      "unit": "cps",
+      "name": "7层协议响应状态码（4XX）",
+      "name_en": "Layer-7 Status Codes (4XX)",
+      "note": "测量对象每秒返回7层4XX系列响应状态码的个数。",
+      "note_en": "Number of Layer-7 4XX series status codes returned by the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_mf_l7_http_5xx",
+      "type": "",
+      "unit": "cps",
+      "name": "7层协议响应状态码（5XX）",
+      "name_en": "Layer-7 Status Codes (5XX)",
+      "note": "测量对象每秒返回7层5XX系列响应状态码的个数。",
+      "note_en": "Number of Layer-7 5XX series status codes returned by the monitored object per second."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_mirror_in_packets",
+      "type": "counter",
+      "unit": "cps",
+      "name": "入方向流量镜像的报文速率",
+      "name_en": "Inbound Traffic Mirroring Packet Rate",
+      "note": "测量对象入方向流量镜像的报文速率。",
+      "note_en": "Packet rate of inbound traffic mirroring on the monitored object."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_mirror_in_traffic",
+      "type": "",
+      "unit": "none",
+      "name": "入方向流量镜像的带宽",
+      "name_en": "Inbound Traffic Mirroring Bandwidth",
+      "note": "测量对象入方向流量镜像的带宽。",
+      "note_en": "Bandwidth of inbound traffic mirroring on the monitored object."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_mirror_out_packets",
+      "type": "counter",
+      "unit": "cps",
+      "name": "出方向流量镜像的报文速率",
+      "name_en": "Outbound Traffic Mirroring Packet Rate",
+      "note": "测量对象出方向流量镜像的报文速率。",
+      "note_en": "Packet rate of outbound traffic mirroring on the monitored object."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_mirror_out_traffic",
+      "type": "",
+      "unit": "none",
+      "name": "出方向流量镜像的带宽",
+      "name_en": "Outbound Traffic Mirroring Bandwidth",
+      "note": "测量对象出方向流量镜像的带宽。",
+      "note_en": "Bandwidth of outbound traffic mirroring on the monitored object."
+    },
+    {
+      "expression": "huaweicloud_sys_elb_upstream_tls_negotiation_error",
+      "type": "",
+      "unit": "cps",
+      "name": "负载均衡器向后端服务器TLS握手失败",
+      "name_en": "Backend TLS Handshake Failures",
+      "note": "负载均衡器向后端服务器每秒发起TLS会话失败的次数。支持的协议：HTTPS/TLS/QUIC",
+      "note_en": "Number of failed TLS sessions initiated by the load balancer to backend servers per second. Supported protocols: HTTPS/TLS/QUIC"
+    },
+    {
+      "expression": "huaweicloud_sys_rds_active_connections",
+      "type": "gauge",
+      "unit": "none",
+      "name": "活跃连接数",
+      "name_en": "Active Connections",
+      "note": "该指标为统计数据库当前活跃连接数。",
+      "note_en": "Number of active connections to the database."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_cpu_sys_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "内核态CPU时间占比",
+      "name_en": "Kernel-Mode CPU Time Percentage",
+      "note": "该指标为统计内核态CPU时间占比。",
+      "note_en": "Percentage of CPU time spent in kernel mode."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_cpu_user_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "用户态CPU时间占比",
+      "name_en": "User-Mode CPU Time Percentage",
+      "note": "该指标为统计用户态CPU时间占比。",
+      "note_en": "Percentage of CPU time spent in user mode."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_cpu_wait_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "硬盘IO等待时间占比",
+      "name_en": "Disk I/O Wait Time Percentage",
+      "note": "该指标为统计硬盘IO等待时间占比。",
+      "note_en": "Percentage of CPU time spent waiting for disk I/O."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_data_disk_inode_used",
+      "type": "gauge",
+      "unit": "none",
+      "name": "inode数",
+      "name_en": "Used Inodes",
+      "note": "数据盘已使用的inode数。",
+      "note_en": "Number of inodes used on the data disk."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_db_max_age",
+      "type": "gauge",
+      "unit": "none",
+      "name": "最大数据库年龄",
+      "name_en": "Maximum Database Age",
+      "note": "该指标为统计当前数据库的最大数据库年龄(获取表pg_database中max(age(datfrozenxid))值)。",
+      "note_en": "Maximum database age of the current instance, obtained as max(age(datfrozenxid)) from the pg_database table."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_dbuser_passwd_deadline",
+      "type": "",
+      "unit": "none",
+      "name": "数据库用户最快过期时间",
+      "name_en": "Earliest Database User Password Expiration Time",
+      "note": "查询数据库用户密码过期时间，返回过期时间减去当前时间的最小值。 说明：如果没有设置用户密码过期时间，这个指标采集不到。",
+      "note_en": "Queries database user password expiration times and returns the minimum value of expiration time minus the current time. Note: If no user password expiration time is set, this metric cannot be collected."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_disk_io_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "磁盘IO使用率",
+      "name_en": "Disk I/O Utilization",
+      "note": "该指标为统计磁盘IO使用率。磁盘IO使用率是指磁盘正在处理IO请求的时间与总时间的百分比。 说明：当磁盘IO使用率达到100%，只能说明在统计时间段内，磁盘一直有数据写入，磁盘性能还需要结合IOPS、磁盘的吞吐量、读写时延等多个指标共同决定。",
+      "note_en": "Disk I/O utilization, which is the percentage of time the disk spends processing I/O requests out of the total time. Note: A disk I/O utilization of 100% only indicates that data was continuously written to the disk during the statistical period. Disk performance should be evaluated together with other metrics such as IOPS, disk throughput, and read/write latency."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_flush_lsn_replication_latency_size",
+      "type": "gauge",
+      "unit": "none",
+      "name": "主备间wal日志落盘延迟",
+      "name_en": "Primary/Standby WAL Flush Latency",
+      "note": "该指标为获取备机刷入到磁盘的wal日志的延迟大小。",
+      "note_en": "Latency of WAL logs flushed to disk on the standby node."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_idle_transaction_connections",
+      "type": "gauge",
+      "unit": "none",
+      "name": "事务空闲连接数",
+      "name_en": "Idle-in-Transaction Connections",
+      "note": "该指标为统计数据库当前空闲连接数。",
+      "note_en": "Number of idle connections in the database."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_inactive_logical_replication_slot",
+      "type": "gauge",
+      "unit": "none",
+      "name": "非活跃逻辑复制槽数量",
+      "name_en": "Inactive Logical Replication Slots",
+      "note": "该指标用于统计当前数据库中存在的非活跃逻辑复制槽数量。",
+      "note_en": "Number of inactive logical replication slots in the current database."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_io_read_delay",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "IO读响应延迟",
+      "name_en": "I/O Read Latency",
+      "note": "该指标为统计磁盘读响应平均延迟（以毫秒为单位）。",
+      "note_en": "Average disk read response latency, in milliseconds."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_io_write_delay",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "IO写响应延迟",
+      "name_en": "I/O Write Latency",
+      "note": "该指标为统计磁盘写响应平均延迟（以毫秒为单位）。",
+      "note_en": "Average disk write response latency, in milliseconds."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_lock_waiting_sessions",
+      "type": "gauge",
+      "unit": "none",
+      "name": "等待锁的会话数",
+      "name_en": "Sessions Waiting for Locks",
+      "note": "该指标为统计当前处于阻塞状态的会话个数。",
+      "note_en": "Number of sessions currently in a blocked state."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_long_transactions_active_five_second",
+      "type": "gauge",
+      "unit": "none",
+      "name": "已开启5s的事务数",
+      "name_en": "Transactions Active for Over 5s",
+      "note": "该指标为统计数据库开启时长5秒以上的长事务个数。",
+      "note_en": "Number of long transactions that have been active for more than 5 seconds."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_long_transactions_active_one_second",
+      "type": "gauge",
+      "unit": "none",
+      "name": "已开启1s的事务数",
+      "name_en": "Transactions Active for Over 1s",
+      "note": "该指标为统计数据库开启时长1秒以上的长事务个数。",
+      "note_en": "Number of long transactions that have been active for more than 1 second."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_long_transactions_active_three_second",
+      "type": "gauge",
+      "unit": "none",
+      "name": "已开启3s的事务数",
+      "name_en": "Transactions Active for Over 3s",
+      "note": "该指标为统计数据库开启时长3秒以上的长事务个数。",
+      "note_en": "Number of long transactions that have been active for more than 3 seconds."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_long_transactions_idle_five_second",
+      "type": "gauge",
+      "unit": "none",
+      "name": "已空闲5s的事务数",
+      "name_en": "Transactions Idle for Over 5s",
+      "note": "该指标为统计数据库空闲时长5秒以上的长事务个数。",
+      "note_en": "Number of long transactions that have been idle for more than 5 seconds."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_long_transactions_idle_one_second",
+      "type": "gauge",
+      "unit": "none",
+      "name": "已空闲1s的事务数",
+      "name_en": "Transactions Idle for Over 1s",
+      "note": "该指标为统计数据库空闲时长1秒以上的长事务个数。",
+      "note_en": "Number of long transactions that have been idle for more than 1 second."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_long_transactions_idle_three_second",
+      "type": "gauge",
+      "unit": "none",
+      "name": "已空闲3s的事务数",
+      "name_en": "Transactions Idle for Over 3s",
+      "note": "该指标为统计数据库空闲时长3秒以上的长事务个数。",
+      "note_en": "Number of long transactions that have been idle for more than 3 seconds."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_long_transactions_two_pc_five_second",
+      "type": "",
+      "unit": "none",
+      "name": "已执行5s的两阶段事务",
+      "name_en": "Two-Phase Transactions Running for Over 5s",
+      "note": "该指标为统计数据库两阶段执行时长5秒以上的长事务个数。",
+      "note_en": "Number of long two-phase transactions that have been executing for more than 5 seconds."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_long_transactions_two_pc_one_second",
+      "type": "",
+      "unit": "none",
+      "name": "已执行1s的两阶段事务",
+      "name_en": "Two-Phase Transactions Running for Over 1s",
+      "note": "该指标为统计数据库两阶段执行时长1秒以上的长事务个数。",
+      "note_en": "Number of long two-phase transactions that have been executing for more than 1 second."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_long_transactions_two_pc_three_second",
+      "type": "",
+      "unit": "none",
+      "name": "已执行3s的两阶段事务",
+      "name_en": "Two-Phase Transactions Running for Over 3s",
+      "note": "该指标为统计数据库两阶段执行时长3秒以上的长事务个数。",
+      "note_en": "Number of long two-phase transactions that have been executing for more than 3 seconds."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_oldest_transaction_duration",
+      "type": "gauge",
+      "unit": "milliseconds",
+      "name": "最长事务存活时长",
+      "name_en": "Longest Transaction Duration",
+      "note": "该指标为统计当前数据库中存在的最长事务存活时长。",
+      "note_en": "Duration of the longest-running transaction in the current database."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_oldest_transaction_duration_2pc",
+      "type": "gauge",
+      "unit": "milliseconds",
+      "name": "最长未决事务存活时长",
+      "name_en": "Longest Prepared Transaction Duration",
+      "note": "该指标为统计当前数据库存在的最长未决事务存活时长。",
+      "note_en": "Duration of the longest-running prepared (two-phase) transaction in the current database."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_cpu_process_autovacuum",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "autovacuum进程cpu使用率",
+      "name_en": "autovacuum Process CPU Usage",
+      "note": "该指标为统计autovacuum进程cpu使用率。",
+      "note_en": "CPU usage of the autovacuum process."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_cpu_process_bgwriter",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "bgwriter进程cpu使用率",
+      "name_en": "bgwriter Process CPU Usage",
+      "note": "该指标为统计bgwriter进程cpu使用率。",
+      "note_en": "CPU usage of the bgwriter process."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_cpu_process_checkpoint",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "checkpoint进程cpu使用率",
+      "name_en": "checkpoint Process CPU Usage",
+      "note": "该指标为统计checkpoint进程cpu使用率。",
+      "note_en": "CPU usage of the checkpoint process."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_cpu_process_logger",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "logger进程cpu使用率",
+      "name_en": "logger Process CPU Usage",
+      "note": "该指标为统计logger进程cpu使用率。",
+      "note_en": "CPU usage of the logger process."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_cpu_process_postmaster",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "postmaster进程cpu使用率",
+      "name_en": "postmaster Process CPU Usage",
+      "note": "该指标为统计postmaster进程cpu使用率。",
+      "note_en": "CPU usage of the postmaster process."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_cpu_process_walwriter",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "walwriter进程cpu使用率",
+      "name_en": "walwriter Process CPU Usage",
+      "note": "该指标为统计walwriter进程cpu使用率。",
+      "note_en": "CPU usage of the walwriter process."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_fs_size_base_dir",
+      "type": "gauge",
+      "unit": "none",
+      "name": "数据文件大小（不包含日志和wal）",
+      "name_en": "Data File Size (Excluding Logs and WAL)",
+      "note": "该指标为统计数据文件大小（不包含日志和wal）。",
+      "note_en": "Size of data files, excluding logs and WAL."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_iothroughput_total",
+      "type": "counter",
+      "unit": "none",
+      "name": "磁盘读写吞吐量",
+      "name_en": "Disk Read/Write Throughput",
+      "note": "该指标为统计磁盘读写吞吐量。",
+      "note_en": "Total disk read and write throughput."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_mem_size_cache",
+      "type": "gauge",
+      "unit": "none",
+      "name": "page cache内存使用量",
+      "name_en": "Page Cache Memory Usage",
+      "note": "该指标为统计page cache内存使用量。",
+      "note_en": "Memory used by the page cache."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_mem_size_hugetlb_usage_2m",
+      "type": "gauge",
+      "unit": "none",
+      "name": "2M大页使用量",
+      "name_en": "2 MB Huge Page Usage",
+      "note": "该指标为统计2M大页使用量（内存32G规格以上存在）。",
+      "note_en": "Usage of 2 MB huge pages (available on instances with 32 GB of memory or more)."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_mem_size_mapped_file",
+      "type": "gauge",
+      "unit": "none",
+      "name": "共享内存使用量",
+      "name_en": "Shared Memory Usage",
+      "note": "该指标为统计共享内存使用量。",
+      "note_en": "Shared memory usage."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_mem_size_spec",
+      "type": "gauge",
+      "unit": "none",
+      "name": "规格内存大小",
+      "name_en": "Flavor Memory Size",
+      "note": "该指标为统计规格内存大小。",
+      "note_en": "Memory size defined by the instance flavor."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_mem_size_used",
+      "type": "gauge",
+      "unit": "none",
+      "name": "内存使用量",
+      "name_en": "Memory Usage",
+      "note": "该指标为统计内存使用量。",
+      "note_en": "Amount of memory used."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_mem_usage_process_autovacuum",
+      "type": "gauge",
+      "unit": "none",
+      "name": "autovacuum进程内存使用量",
+      "name_en": "autovacuum Process Memory Usage",
+      "note": "该指标为统计autovacuum进程内存使用量。",
+      "note_en": "Memory usage of the autovacuum process."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_mem_usage_process_bgwriter",
+      "type": "gauge",
+      "unit": "none",
+      "name": "bgwriter进程内存使用量",
+      "name_en": "bgwriter Process Memory Usage",
+      "note": "该指标为统计bgwriter进程内存使用量。",
+      "note_en": "Memory usage of the bgwriter process."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_mem_usage_process_checkpoint",
+      "type": "gauge",
+      "unit": "none",
+      "name": "checkpoint进程内存使用量",
+      "name_en": "checkpoint Process Memory Usage",
+      "note": "该指标为统计checkpoint进程内存使用量。",
+      "note_en": "Memory usage of the checkpoint process."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_mem_usage_process_logger",
+      "type": "gauge",
+      "unit": "none",
+      "name": "logger进程内存使用量",
+      "name_en": "logger Process Memory Usage",
+      "note": "该指标为统计logger进程内存使用量。",
+      "note_en": "Memory usage of the logger process."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_mem_usage_process_postmaster",
+      "type": "gauge",
+      "unit": "none",
+      "name": "postmaster进程内存使用量",
+      "name_en": "postmaster Process Memory Usage",
+      "note": "该指标为统计postmaster进程内存使用量。",
+      "note_en": "Memory usage of the postmaster process."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_mem_usage_process_walsender",
+      "type": "gauge",
+      "unit": "none",
+      "name": "walsender进程内存使用量",
+      "name_en": "walsender Process Memory Usage",
+      "note": "该指标为统计walsender进程内存使用量。",
+      "note_en": "Memory usage of the walsender process."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_os_mem_usage_process_walwriter",
+      "type": "gauge",
+      "unit": "none",
+      "name": "walwriter进程内存使用量",
+      "name_en": "walwriter Process Memory Usage",
+      "note": "该指标为统计walwriter进程内存使用量。",
+      "note_en": "Memory usage of the walwriter process."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_packet_loss_rate",
+      "type": "",
+      "unit": "percent",
+      "name": "主机与灾备机间丢包率",
+      "name_en": "Packet Loss Rate Between Primary and DR Host",
+      "note": "该指标为统计数据库主机与灾备机间丢包率。",
+      "note_en": "Packet loss rate between the primary database host and the disaster recovery host."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_pg_dr_repl_stat",
+      "type": "",
+      "unit": "none",
+      "name": "灾备节点复制状态",
+      "name_en": "DR Node Replication Status",
+      "note": "灾备状态状况。各数字含义如下：异常：0startup：1catchup：2streaming：3backup：4stopping：5",
+      "note_en": "Disaster recovery replication status. Values: 0: abnormal; 1: startup; 2: catchup; 3: streaming; 4: backup; 5: stopping."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_pg_dr_wal_delay",
+      "type": "",
+      "unit": "none",
+      "name": "主机与灾备机间lsn延迟",
+      "name_en": "LSN Lag Between Primary and DR Host",
+      "note": "该指标为统计数据库主机当前lsn和灾备机replay lsn的延迟。",
+      "note_en": "Lag between the current LSN on the primary database host and the replay LSN on the disaster recovery host."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_pgaudit_log_size",
+      "type": "gauge",
+      "unit": "none",
+      "name": "审计日志大小",
+      "name_en": "Audit Log Size",
+      "note": "该指标为获取当前审计日志的大小。",
+      "note_en": "Size of the current audit logs."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds001_cpu_util",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "CPU使用率",
+      "name_en": "CPU Usage",
+      "note": "该指标用于统计测量对象的CPU使用率，以比率为单位。",
+      "note_en": "CPU usage of the monitored object, expressed as a percentage."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds002_mem_util",
+      "type": "",
+      "unit": "percent",
+      "name": "内存使用率",
+      "name_en": "Memory Usage",
+      "note": "该指标用于统计测量对象的内存使用率，以比率为单位。",
+      "note_en": "Memory usage of the monitored object, expressed as a percentage."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds003_iops",
+      "type": "",
+      "unit": "none",
+      "name": "IOPS",
+      "name_en": "IOPS",
+      "note": "该指标用于统计当前实例，单位时间内系统处理的I/O请求数量（平均值）。",
+      "note_en": "Average number of I/O requests processed by the system per unit time for the current instance."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds004_bytes_in",
+      "type": "gauge",
+      "unit": "bitsSecIEC",
+      "name": "网络输入吞吐量",
+      "name_en": "Network Input Throughput",
+      "note": "该指标用于统计平均每秒从测量对象的所有网络适配器输入的流量。",
+      "note_en": "Average inbound traffic per second across all network adapters of the monitored object."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds005_bytes_out",
+      "type": "gauge",
+      "unit": "bitsSecIEC",
+      "name": "网络输出吞吐量",
+      "name_en": "Network Output Throughput",
+      "note": "该指标用于统计平均每秒从测量对象的所有网络适配器输出的流量。",
+      "note_en": "Average outbound traffic per second across all network adapters of the monitored object."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds039_disk_util",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "磁盘利用率",
+      "name_en": "Disk Utilization",
+      "note": "该指标用于统计测量对象的磁盘利用率，以比率为单位。",
+      "note_en": "Disk utilization of the monitored object, expressed as a percentage."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds040_transaction_logs_usage",
+      "type": "gauge",
+      "unit": "none",
+      "name": "事务日志使用量",
+      "name_en": "Transaction Log Usage",
+      "note": "事务日志所占用的磁盘容量。",
+      "note_en": "Disk space used by transaction logs."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds041_replication_slot_usage",
+      "type": "gauge",
+      "unit": "none",
+      "name": "复制插槽使用量",
+      "name_en": "Replication Slot Usage",
+      "note": "复制插槽文件所占磁盘容量。",
+      "note_en": "Disk space used by replication slot files."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds042_database_connections",
+      "type": "gauge",
+      "unit": "none",
+      "name": "数据库连接数",
+      "name_en": "Database Connections",
+      "note": "当前连接到数据库的后端量。",
+      "note_en": "Number of backends currently connected to the database."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds043_maximum_used_transaction_ids",
+      "type": "gauge",
+      "unit": "none",
+      "name": "事务最大已使用ID数",
+      "name_en": "Maximum Used Transaction IDs",
+      "note": "事务最大已使用ID。",
+      "note_en": "Maximum number of transaction IDs used."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds044_transaction_logs_generations",
+      "type": "gauge",
+      "unit": "none",
+      "name": "事务日志生成速率",
+      "name_en": "Transaction Log Generation Rate",
+      "note": "平均每秒生成的事务日志大小。",
+      "note_en": "Average size of transaction logs generated per second."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds045_oldest_replication_slot_lag",
+      "type": "",
+      "unit": "none",
+      "name": "最滞后副本滞后量",
+      "name_en": "Oldest Replication Slot Lag",
+      "note": "多个副本中最滞后副本（依据接收到的WAL数据）滞后量。",
+      "note_en": "Lag of the most lagging replica among multiple replicas, based on the WAL data received."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds046_replication_lag",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "复制时延",
+      "name_en": "Replication Lag",
+      "note": "副本滞后时延。",
+      "note_en": "Replica lag time."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds047_disk_total_size",
+      "type": "gauge",
+      "unit": "none",
+      "name": "磁盘总大小",
+      "name_en": "Total Disk Size",
+      "note": "该指标用于统计测量对象的磁盘总大小。",
+      "note_en": "Total disk size of the monitored object."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds048_disk_used_size",
+      "type": "gauge",
+      "unit": "none",
+      "name": "磁盘使用量",
+      "name_en": "Used Disk Size",
+      "note": "该指标用于统计测量对象的磁盘使用大小。",
+      "note_en": "Used disk space of the monitored object."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds049_disk_read_throughput",
+      "type": "gauge",
+      "unit": "none",
+      "name": "硬盘读吞吐量",
+      "name_en": "Disk Read Throughput",
+      "note": "该指标用于统计每秒从硬盘读取的字节数。",
+      "note_en": "Number of bytes read from the disk per second."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds050_disk_write_throughput",
+      "type": "gauge",
+      "unit": "none",
+      "name": "硬盘写吞吐量",
+      "name_en": "Disk Write Throughput",
+      "note": "该指标用于统计每秒写入硬盘的字节数。",
+      "note_en": "Number of bytes written to the disk per second."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds082_tps",
+      "type": "",
+      "unit": "none",
+      "name": "TPS",
+      "name_en": "TPS",
+      "note": "该指标用于统计每秒事务执行次数，含提交和回退的次数。",
+      "note_en": "Number of transactions executed per second, including commits and rollbacks."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_rds083_conn_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "连接数使用率",
+      "name_en": "Connection Usage",
+      "note": "该指标用于统计当前已用的PgSQL连接数占总连接数的百分比。",
+      "note_en": "Percentage of PgSQL connections in use relative to the total number of connections."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_read_count_per_second",
+      "type": "",
+      "unit": "none",
+      "name": "读IOPS",
+      "name_en": "Read IOPS",
+      "note": "该指标用于统计当前实例，单位时间内系统处理的读I/O请求数量（平均值）。",
+      "note_en": "Average number of read I/O requests processed by the system per unit time for the current instance."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_replay_lsn_replication_latency_size",
+      "type": "gauge",
+      "unit": "none",
+      "name": "主备间wal日志回放延迟",
+      "name_en": "Primary/Standby WAL Replay Latency",
+      "note": "该指标为获取备机回放wal日志的延迟大小。",
+      "note_en": "Latency of WAL logs replayed on the standby node."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_round_trip_time",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "主机与灾备机间网络延迟",
+      "name_en": "Network Latency Between Primary and DR Host",
+      "note": "该指标为统计数据库主机与灾备机间往返时延。",
+      "note_en": "Round-trip time between the primary database host and the disaster recovery host."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_row_per_second",
+      "type": "",
+      "unit": "none",
+      "name": "操作行数",
+      "name_en": "Rows Operated per Second",
+      "note": "实例每秒增删改查操作的行数。",
+      "note_en": "Number of rows inserted, deleted, updated, and queried per second on the instance."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_sent_lsn_replication_latency_size",
+      "type": "gauge",
+      "unit": "none",
+      "name": "主备间wal日志发送延迟",
+      "name_en": "Primary/Standby WAL Send Latency",
+      "note": "该指标为获取主机待发送wal日志延迟大小。",
+      "note_en": "Latency of WAL logs pending to be sent from the primary node."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_slave_replication_status",
+      "type": "gauge",
+      "unit": "none",
+      "name": "备机流复制状态",
+      "name_en": "Standby Streaming Replication Status",
+      "note": "该指标为获取备机流复制状态，0：备机异常，1：备机正常，2：该实例为主机。此处备机也包括只读实例。",
+      "note_en": "Streaming replication status of the standby node. 0: standby abnormal; 1: standby normal; 2: this instance is the primary. Standby here also includes read replicas."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_slow_sql_five_second",
+      "type": "",
+      "unit": "none",
+      "name": "已执行5s的SQL数",
+      "name_en": "SQL Statements Running for Over 5s",
+      "note": "该指标为统计数据库执行时长5秒以上的慢SQL个数。该指标为采集时刻的瞬时值，并不是一分钟内的累计值。",
+      "note_en": "Number of slow SQL statements that have been executing for more than 5 seconds. This is an instantaneous value at collection time, not a cumulative value over one minute."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_slow_sql_log_min_duration_statement",
+      "type": "gauge",
+      "unit": "none",
+      "name": "已执行log_min_duration_statement时长的SQL数",
+      "name_en": "SQL Statements Running Longer Than log_min_duration_statement",
+      "note": "该指标为统计数据库执行时长比参数log_min_duration_statement大的慢SQL个数，该参数大小可根据业务需要进行更改。该指标为采集时刻的瞬时值，并不是一分钟内的累计值。",
+      "note_en": "Number of slow SQL statements whose execution time exceeds the log_min_duration_statement parameter, which can be adjusted based on service requirements. This is an instantaneous value at collection time, not a cumulative value over one minute."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_slow_sql_one_second",
+      "type": "",
+      "unit": "none",
+      "name": "已执行1s的SQL数",
+      "name_en": "SQL Statements Running for Over 1s",
+      "note": "该指标为统计数据库执行时长1秒以上的慢SQL个数。该指标为采集时刻的瞬时值，并不是一分钟内的累计值。",
+      "note_en": "Number of slow SQL statements that have been executing for more than 1 second. This is an instantaneous value at collection time, not a cumulative value over one minute."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_slow_sql_three_second",
+      "type": "",
+      "unit": "none",
+      "name": "已执行3s的SQL数",
+      "name_en": "SQL Statements Running for Over 3s",
+      "note": "该指标为统计数据库执行时长3秒以上的慢SQL个数。该指标为采集时刻的瞬时值，并不是一分钟内的累计值。",
+      "note_en": "Number of slow SQL statements that have been executing for more than 3 seconds. This is an instantaneous value at collection time, not a cumulative value over one minute."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_swap_in_rate",
+      "type": "",
+      "unit": "none",
+      "name": "swap in速率",
+      "name_en": "Swap-In Rate",
+      "note": "该指标为统计每秒从交换区写到内存的大小。",
+      "note_en": "Amount of data written from swap space to memory per second."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_swap_out_rate",
+      "type": "",
+      "unit": "none",
+      "name": "swap out速率",
+      "name_en": "Swap-Out Rate",
+      "note": "该指标为统计每秒写入交换区的内存的大小。",
+      "note_en": "Amount of memory written to swap space per second."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_swap_total_size",
+      "type": "gauge",
+      "unit": "none",
+      "name": "交换区总容量大小",
+      "name_en": "Total Swap Size",
+      "note": "该指标为统计交换区总量。",
+      "note_en": "Total swap space size."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_swap_usage",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "交换区容量使用率",
+      "name_en": "Swap Usage",
+      "note": "该指标为统计交换区使用率。",
+      "note_en": "Swap space usage."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_synchronous_replication_blocking_time",
+      "type": "",
+      "unit": "none",
+      "name": "同步复制阻塞时间",
+      "name_en": "Synchronous Replication Blocking Time",
+      "note": "该指标为获取同步复制主备机间复制阻塞的时长。",
+      "note_en": "Duration of replication blocking between the primary and standby nodes in synchronous replication."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_sys_memory_hit_rate",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "内存命中率",
+      "name_en": "Memory Hit Ratio",
+      "note": "该指标为统计内存命中率。",
+      "note_en": "Memory hit ratio."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_temporary_files_generation_num",
+      "type": "gauge",
+      "unit": "cpm",
+      "name": "每分钟临时文件生成数量",
+      "name_en": "Temporary Files Generated per Minute",
+      "note": "该指标为获取临时文件在1分钟内生成的数量。",
+      "note_en": "Number of temporary files generated within one minute."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_temporary_files_generation_size",
+      "type": "gauge",
+      "unit": "none",
+      "name": "每分钟临时文件生成大小",
+      "name_en": "Temporary File Size Generated per Minute",
+      "note": "该指标为获取临时文件在1分钟内生成的大小。",
+      "note_en": "Size of temporary files generated within one minute."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_user_active_connections",
+      "type": "gauge",
+      "unit": "none",
+      "name": "用户活跃连接数",
+      "name_en": "User Active Connections",
+      "note": "该指标为统计用户实际使用的活跃连接数（不包括监控运维使用的内置活跃连接）。",
+      "note_en": "Number of active connections actually used by users (excluding built-in active connections used for monitoring and O&M)."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_user_current_connections",
+      "type": "gauge",
+      "unit": "none",
+      "name": "用户使用连接数",
+      "name_en": "User Connections",
+      "note": "该指标为统计用户实际使用的连接数（不包括监控运维使用的内置连接）。",
+      "note_en": "Number of connections actually used by users (excluding built-in connections used for monitoring and O&M)."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_wal_size",
+      "type": "gauge",
+      "unit": "none",
+      "name": "WAL日志占用空间大小",
+      "name_en": "WAL Space Usage",
+      "note": "该指标为获取当前WAL日志所占空间大小。",
+      "note_en": "Space currently occupied by WAL logs."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_write_count_per_second",
+      "type": "",
+      "unit": "none",
+      "name": "写IOPS",
+      "name_en": "Write IOPS",
+      "note": "该指标用于统计当前实例，单位时间内系统处理的写I/O请求数量（平均值）。",
+      "note_en": "Average number of write I/O requests processed by the system per unit time for the current instance."
+    },
+    {
+      "expression": "huaweicloud_sys_rds_write_lsn_replication_latency_size",
+      "type": "gauge",
+      "unit": "none",
+      "name": "主备间wal日志写入延迟",
+      "name_en": "Primary/Standby WAL Write Latency",
+      "note": "该指标为获取备机写入到磁盘的wal日志的延迟大小。",
+      "note_en": "Latency of WAL logs written to disk on the standby node."
+    }
+  ],
+  "dashboards": [
+    {
+      "file": "Huawei-CSS_ES.json",
+      "name": "华为云-云搜索服务(CSS/ES)",
+      "name_en": "Huawei Cloud Search Service (CSS/ES)",
+      "panels": 25
+    },
+    {
+      "file": "Huawei-DCS.json",
+      "name": "华为云-分布式缓存服务(DCS)",
+      "name_en": "Huawei Cloud Distributed Cache Service (DCS)",
+      "panels": 13
+    },
+    {
+      "file": "Huawei-ELB.json",
+      "name": "华为云-弹性负载均衡（ELB）",
+      "name_en": "Huawei Cloud Elastic Load Balance (ELB)",
+      "panels": 24
+    },
+    {
+      "file": "Huawei-Ecs_AGT.json",
+      "name": "华为云ECS主机监控仪表盘",
+      "name_en": "Huawei Cloud ECS Host Monitoring Dashboard",
+      "panels": 13
+    },
+    {
+      "file": "Huawei-Kafka.json",
+      "name": "华为云-分布式消息服务(Kafka)",
+      "name_en": "Huawei Cloud Distributed Message Service (Kafka)",
+      "panels": 26
+    },
+    {
+      "file": "Huawei-MySQL.json",
+      "name": "华为云 RDS for MySQL实例",
+      "name_en": "Huawei Cloud RDS for MySQL instance",
+      "panels": 22
+    },
+    {
+      "file": "Huawei-PostgreSQL.json",
+      "name": "华为云 RDS for PostgreSQL实例",
+      "name_en": "Huawei Cloud RDS for PostgreSQL instance",
+      "panels": 21
+    },
+    {
+      "file": "Huawei-RDS.json",
+      "name": "华为云-数据库(RDS)",
+      "name_en": "Huawei Cloud Database (RDS)",
+      "panels": 22
+    },
+    {
+      "file": "Huawei-Rabbitmq.json",
+      "name": "华为云-Rabbitmq",
+      "name_en": "Huawei Cloud RabbitMQ",
+      "panels": 53
+    },
+    {
+      "file": "Huawei-Redis.json",
+      "name": "华为云-Redis实例监控仪表盘",
+      "name_en": "Huawei Cloud Redis Instance Monitoring Dashboard",
+      "panels": 35
+    },
+    {
+      "file": "Huawei-Redis_Proxy.json",
+      "name": "华为云-Redis Proxy节点实例监控仪表盘",
+      "name_en": "Huawei Cloud Redis Proxy Node Monitoring Dashboard",
+      "panels": 12
+    },
+    {
+      "file": "Huawei-Redis_datanode.json",
+      "name": "华为云-Redis数据节点实例监控仪表盘",
+      "name_en": "Huawei Cloud Redis Data Node Monitoring Dashboard",
+      "panels": 35
+    },
+    {
+      "file": "Huawei-RocketMQ.json",
+      "name": "Huawei-RocketMQ监控",
+      "name_en": "Huawei RocketMQ Monitoring",
+      "panels": 16
+    },
+    {
+      "file": "Huawei-WAF.json",
+      "name": "华为云-Web应用防火墙(WAF)",
+      "name_en": "Huawei Cloud WAF",
+      "panels": 13
+    }
+  ],
+  "collect": [],
+  "readme": {
+    "zh": false,
+    "en": false
+  }
+}

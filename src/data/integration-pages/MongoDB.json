@@ -1,0 +1,168 @@
+{
+  "ident": "MongoDB",
+  "alerts": [
+    {
+      "source": "exporter",
+      "name": "MongoDB average operation latency exceeds 250ms - exporter",
+      "name_en": "MongoDB average operation latency exceeds 250ms - exporter",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 600,
+      "queries": [
+        {
+          "promql": "rate(mongodb_mongod_op_latencies_latency_total[5m]) / rate(mongodb_mongod_op_latencies_ops_total[5m]) > 250000",
+          "severity": 2
+        }
+      ],
+      "action": "1) db.currentOp({\"secs_running\":{$gt:5}}) 找当前长时间运行的操作，必要时 db.killOp(opid) 止血；\n2) 开 profiler 定位慢查询：db.setProfilingLevel(1,100) 后 db.system.profile.find().sort({millis:-1}).limit(10)；\n3) 对慢查询执行 explain(\"executionStats\")，看是否走了 COLLSCAN 全表扫描并补索引；\n4) 排查是否有大批量写入或索引重建正在占住磁盘 IO。",
+      "action_en": "1) Run db.currentOp({\"secs_running\":{$gt:5}}) to find long-running operations and db.killOp(opid) to stop the bleeding if needed;\n2) Enable the profiler to find slow queries: db.setProfilingLevel(1,100), then db.system.profile.find().sort({millis:-1}).limit(10);\n3) Run explain(\"executionStats\") on the slow queries to see whether they do a COLLSCAN and add indexes;\n4) Check whether a bulk write or an index rebuild is saturating disk IO."
+    },
+    {
+      "source": "exporter",
+      "name": "Mongo connection number has exceeded 80% - exporter",
+      "name_en": "Mongo connection number has exceeded 80% - exporter",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 120,
+      "queries": [
+        {
+          "promql": "avg by (instance) (mongodb_connections{state=\"current\"}) / (avg by (instance) (mongodb_connections{state=\"current\"}) + avg by (instance) (mongodb_connections{state=\"available\"})) * 100 > 80",
+          "severity": 2
+        }
+      ],
+      "action": "1) db.serverStatus().connections 确认 current 与 available 的真实水位；\n2) db.currentOp(true) 按 client 分组，找出连接数异常的应用；\n3) 区分业务增长与驱动连接池泄漏（应用侧 maxPoolSize 配置过大或没有复用 MongoClient）；\n4) 应急可调大 mongod 的 net.maxIncomingConnections，同时核对系统 ulimit -n 是否足够。",
+      "action_en": "1) Run db.serverStatus().connections to see the real current and available levels;\n2) Run db.currentOp(true) and group by client to find the application with an abnormal connection count;\n3) Tell business growth apart from a driver connection pool leak (maxPoolSize set too high, or the MongoClient is not reused);\n4) As an emergency measure raise net.maxIncomingConnections on mongod, and confirm the system ulimit -n is high enough."
+    },
+    {
+      "source": "exporter",
+      "name": "Mongo has encountered an Assert error - exporter",
+      "name_en": "Mongo has encountered an Assert error - exporter",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 1800,
+      "queries": [
+        {
+          "promql": "rate(mongodb_asserts_total{type=~\"regular|message\"}[5m]) > 0",
+          "severity": 3
+        }
+      ],
+      "action": "1) 用 db.adminCommand({getLog:\"global\"}) 看日志中 assert 的上下文；\n2) db.serverStatus().asserts 确认是 regular 还是 message 类在涨；\n3) regular 多为存储层异常，检查磁盘健康与数据文件完整性；message 多为协议或驱动不匹配，核对驱动版本；\n4) 确认是否与近期升级、schema 变更的时间吻合。",
+      "action_en": "1) Run db.adminCommand({getLog:\"global\"}) to see the context of the asserts in the log;\n2) Run db.serverStatus().asserts to see whether the regular or message counter is growing;\n3) Regular asserts usually point to the storage layer — check disk health and data file integrity; message asserts usually mean a protocol or driver mismatch, so verify the driver version;\n4) Check whether it lines up with a recent upgrade or schema change."
+    },
+    {
+      "source": "exporter",
+      "name": "Mongo has encountered cursor timeout - exporter",
+      "name_en": "Mongo has encountered cursor timeout - exporter",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 1800,
+      "queries": [
+        {
+          "promql": "rate(mongodb_mongod_metrics_cursor_timed_out_total[5m]) > 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) db.serverStatus().metrics.cursor 看 timedOut 与 open.total 的变化；\n2) 应用侧确认游标用完是否 close()，批处理单批耗时是否过长；\n3) 长耗时遍历改用 noCursorTimeout 并自行管理生命周期，或调小 batchSize 加快消费；\n4) 检查是否有慢查询把游标撑过了 cursorTimeoutMillis（默认 10 分钟）。",
+      "action_en": "1) Run db.serverStatus().metrics.cursor and watch timedOut against open.total;\n2) On the application side, confirm cursors are close()d after use and that a single batch does not take too long;\n3) For long traversals use noCursorTimeout and manage the lifecycle yourself, or lower batchSize to consume faster;\n4) Check whether a slow query is holding a cursor past cursorTimeoutMillis (10 minutes by default)."
+    },
+    {
+      "source": "exporter",
+      "name": "Mongo has encountered page fault interrupt - exporter",
+      "name_en": "Mongo has encountered page fault interrupt - exporter",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 1800,
+      "queries": [
+        {
+          "promql": "rate(mongodb_extra_info_page_faults_total[5m]) > 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) db.serverStatus().wiredTiger.cache 看 \"bytes currently in the cache\" 与配置上限的比值；\n2) 用 db.stats() 和索引大小对比物理内存，评估工作集是否已超内存；\n3) 优先删除无用索引、归档冷数据来缩小工作集；\n4) 确认宿主机没有 swap 抖动，必要时扩内存或做分片。",
+      "action_en": "1) Run db.serverStatus().wiredTiger.cache and compare \"bytes currently in the cache\" against the configured limit;\n2) Compare db.stats() and index sizes against physical memory to judge whether the working set exceeds RAM;\n3) Start by dropping unused indexes and archiving cold data to shrink the working set;\n4) Confirm the host is not swapping, and add memory or shard if necessary."
+    },
+    {
+      "source": "exporter",
+      "name": "Mongo has just restarted, please pay attention - exporter",
+      "name_en": "Mongo has just restarted, please pay attention - exporter",
+      "note": "",
+      "note_en": "",
+      "severity": 3,
+      "for": 0,
+      "queries": [
+        {
+          "promql": "mongodb_instance_uptime_seconds < 60",
+          "severity": 3
+        }
+      ],
+      "action": "1) 看 mongod 日志尾部确认是崩溃、被 OOM kill 还是人工重启；\n2) 若是 OOM，核对 wiredTigerCacheSizeGB 与宿主机内存后调小；\n3) 副本集场景用 rs.status() 确认是否已自动选出新主、应用是否已重连；\n4) 非计划内重启要检查 systemd 或容器编排是否在反复拉起。",
+      "action_en": "1) Read the tail of the mongod log to tell a crash, an OOM kill and a manual restart apart;\n2) If it was an OOM, compare wiredTigerCacheSizeGB against host memory and lower it;\n3) For a replica set, run rs.status() to confirm a new primary was elected automatically and applications reconnected;\n4) For an unplanned restart, check whether systemd or the container orchestrator is repeatedly restarting it."
+    },
+    {
+      "source": "exporter",
+      "name": "Mongo instance has crashed - exporter",
+      "name_en": "Mongo instance has crashed - exporter",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 0,
+      "queries": [
+        {
+          "promql": "mongodb_up == 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 登录主机用 systemctl status mongod 或 docker ps 确认进程是否存活；\n2) 进程存活则用 mongosh 手工连一次，区分实例夯住与网络/认证问题；\n3) 进程不在则先看日志尾部定位原因（OOM、磁盘满、数据文件损坏）再拉起，不要盲目重启；\n4) 副本集场景立即执行 rs.status() 确认是否已完成主从切换，并确认应用已摘除该节点。",
+      "action_en": "1) Log in to the host and run systemctl status mongod or docker ps to confirm the process is alive;\n2) If it is alive, connect by hand with mongosh to tell a hung instance apart from a network or authentication problem;\n3) If it is not running, read the tail of the log to identify the cause (OOM, full disk, corrupted data files) before starting it — do not blindly restart;\n4) For a replica set, run rs.status() immediately to confirm failover completed and that the application has taken this node out of rotation."
+    },
+    {
+      "source": "exporter",
+      "name": "Mongo replica set master-slave delay exceeds 30 seconds - exporter",
+      "name_en": "Mongo replica set master-slave delay exceeds 30 seconds - exporter",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "(max by (rs_nm) (mongodb_rs_members_optimeDate) - min by (rs_nm) (mongodb_rs_members_optimeDate)) / 1000 > 30",
+          "severity": 1
+        }
+      ],
+      "action": "1) 在主节点执行 rs.status()，对比各成员的 optimeDate 与 lastHeartbeat 定位落后的成员；\n2) 到落后节点看 mongod 日志是否有 oplog 拉取报错或磁盘 IO 瓶颈；\n3) 主节点用 db.currentOp() 确认是否有大批量写入把 oplog 灌满导致从节点追不上；\n4) 落后超过 oplog 窗口时从节点需要重新初始同步（initial sync），期间先把读流量切走。",
+      "action_en": "1) Run rs.status() on the primary and compare optimeDate and lastHeartbeat across members to find the lagging one;\n2) On the lagging node, check the mongod log for oplog fetch errors or disk IO bottlenecks;\n3) On the primary, run db.currentOp() to check whether a bulk write is flooding the oplog faster than the secondary can apply;\n4) If it falls behind the oplog window the secondary needs a fresh initial sync — move read traffic away first."
+    }
+  ],
+  "metrics": [],
+  "dashboards": [
+    {
+      "file": "mongo_by_exporter.json",
+      "name": "MongoDB Overview by exporter",
+      "name_en": "MongoDB Overview by exporter",
+      "panels": 23
+    }
+  ],
+  "collect": [
+    {
+      "plugin": "mongodb",
+      "file": "mongodb.toml",
+      "readme": true,
+      "content": "[[instances]]\n# log level, enum: panic, fatal, error, warn, warning, info, debug, trace, defaults to info.\nlog_level = \"info\"\n# append some const labels to metrics\n# NOTICE! the instance label is required for dashboards\nlabels = { instance=\"mongo-cluster-01\" }\n\n# mongodb dsn, see https://www.mongodb.com/docs/manual/reference/connection-string/\n# mongodb_uri = \"mongodb://127.0.0.1:27017\"\nmongodb_uri = \"\"\n# if you don't specify the username or password in the mongodb_uri, you can set here. \n# This will overwrite the dsn, it would be helpful when special characters existing in the username or password and you don't want to encode them.\n# NOTICE! this user must be granted enough rights to query needed stats, see ../inputs/mongodb/README.md\n# username = \"<username>\"\n# password = \"<password>\"\n# if set to true, use the direct connection way\n# direct_connect = true\n\n# collect all means you collect all the metrics, if set, all below enable_xxx flags in this section will be ignored\ncollect_all = true\n# if set to true, collect databases metrics\n# enable_db_stats = true\n# if set to true, collect getDiagnosticData metrics\n# enable_diagnostic_data = true\n# if set to true, collect replSetGetStatus metrics\n# enable_replicaset_status = true\n# if set to true, collect top metrics by admin command\n# enable_top_metrics = true\n# if set to true, collect index metrics. You should specify one of the coll_stats_namespaces and the discovering_mode flags.\n# enable_index_stats = true\n# if set to true, collect collections metrics. You should specify one of the coll_stats_namespaces and the discovering_mode flags.\n# enable_coll_stats = true\n\n# Only get stats for the collections matching this list of namespaces. if none set, discovering_mode will be enabled.\n# Example: db1.col1,db.col1\n# coll_stats_namespaces = []\n# Only get stats for index with the collections matching this list of namespaces.\n# Example: db1.col1,db.col1\n# index_stats_collections = []\n# if set to true, replace -1 to DESC for label key_name of the descending_index metrics\n# enable_override_descending_index = true\n\n# The bundled dashboard uses the 0.1x-compatible mongodb_ss_* metric names.\ncompatible_mode = true\n\n\n# [[instances]]\n# # interval = global.interval * interval_times\n# interval_times = 1\n\n# log_level = \"error\"\n\n# append some labels to metrics\n# labels = { instance=\"mongo-cluster-02\" }\n# mongodb_uri = \"mongodb://username:password@127.0.0.1:27017\"\n# collect_all = true\n# compatible_mode = true\n"
+    },
+    {
+      "plugin": "mongodb_cluster",
+      "file": "mongodb_cluster.toml",
+      "readme": false,
+      "content": "[[instances]]\n# 日志级别，枚举值：panic, fatal, error, warn, warning, info, debug, trace，默认为 info。\nlog_level = \"info\"\n\n# 为指标附加一些常量标签\n# 注意！instance 标签是仪表板所必需的\nlabels = { instance=\"mongo-cluster-02\" }\n\n# MongoDB 的数据源名称（DSN），请参考 https://www.mongodb.com/docs/manual/reference/connection-string/\nmongodb_uri = \"mongodb://127.0.0.1:27017\"\n#mongodb_uri = \"\"\n# 如果你没有在 mongodb_uri 中指定用户名或密码，可以在这里设置。\n# 这将覆盖 dsn，当用户名或密码中存在特殊字符时，设置这里会很有用，避免手动编码它们。\n# 注意！该用户必须被授予足够的权限来查询所需的统计数据，详见 ../inputs/mongodb/README.md\n#username = \"root\"\n#password = \"<password>\"\n# 如果设置为 true，将使用直接连接方式。\n# 如果希望采集集群每个实例的 mongodb_rs_myState 指标，需要开启 direct_connect\ndirect_connect = true\n\n# 如果设置为 true，则采集所有指标。 如果设置此项，下面所有的 enable_xxx 标志将会被忽略。\ncollect_all = true\n\n# 如果设置为 true，采集数据库的统计数据\n#enable_db_stats = true\n\n# 如果设置为 true，采集 MongoDB 的诊断数据\nenable_diagnostic_data = true\n\n# 如果设置为 true，采集副本集状态的相关指标\n#enable_replicaset_status = true\n\n# 如果设置为 true，采集通过 admin 命令获得的 top 相关指标\n#enable_top_metrics = true\n\n# 如果设置为 true，采集与索引相关的指标。需要指定集合的命名空间和发现模式。你需要指定其中一个 coll_stats_namespaces 和 discovering_mode 标志。\n#enable_index_stats = true\n\n# 如果设置为 true，采集集合相关的指标。你需要指定其中一个 coll_stats_namespaces 和 discovering_mode 标志。\n#enable_coll_stats = true\n\n# 仅获取与此列表匹配的集合统计信息。如果未设置，将启用 discovering_mode。\n# 示例：db1.col1,db.col1\n# coll_stats_namespaces = []\n\n# 仅获取与此列表匹配的集合中的索引统计信息。\n# 示例：db1.col1,db.col1\n# index_stats_collections = []\n\n# 如果设置为 true，将在降序索引的 label key_name 中用 DESC 替代 -1\n# enable_override_descending_index = true\n\n# 启用兼容模式，暴露的指标名称符合 0.1x 版本的兼容性命名规则，简化了从旧版本到当前版本的迁移。\n# compatible_mode = true\n"
+    }
+  ],
+  "readme": {
+    "zh": true,
+    "en": true
+  }
+}

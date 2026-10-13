@@ -1,0 +1,128 @@
+{
+  "ident": "Docker",
+  "alerts": [
+    {
+      "source": "categraf",
+      "name": "Docker daemon 不可达",
+      "name_en": "Docker daemon unreachable",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "docker_up == 0",
+          "severity": 1
+        }
+      ],
+      "action": "1) 登录主机执行 systemctl status docker 确认 daemon 是否存活；\n2) 执行 docker ps 手工验证，若卡住不返回说明 daemon 夯死，用 journalctl -u docker -n 200 查看日志定位；\n3) 确认 /var/run/docker.sock 权限与采集账号是否匹配；\n4) 确认磁盘（尤其 /var/lib/docker 所在分区）未写满，磁盘满是 daemon 夯死的常见原因。",
+      "action_en": "1) Log in to the host and run systemctl status docker to confirm the daemon is alive;\n2) Run docker ps to verify by hand — if it hangs without returning, the daemon is stuck, use journalctl -u docker -n 200 to locate the cause;\n3) Confirm the permissions on /var/run/docker.sock match the collector account;\n4) Confirm the disk (especially the partition holding /var/lib/docker) is not full, a full disk is a common cause of a stuck daemon."
+    },
+    {
+      "source": "categraf",
+      "name": "Docker 容器健康检查失败",
+      "name_en": "Docker container health check failing",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 180,
+      "queries": [
+        {
+          "promql": "docker_container_health_status == 2",
+          "severity": 1
+        }
+      ],
+      "action": "1) 从告警标签取 container_name，执行 docker inspect <容器名>，看输出中 State.Health 字段里最近几次健康检查的输出；\n2) 执行 docker logs --tail 200 <容器名> 定位应用报错；\n3) 按健康检查命令手工复现（docker exec <容器名> <健康检查命令>）确认是应用故障还是检查命令本身写错；\n4) 应用故障且短期修不好时，先把该实例从上游负载均衡摘除再排查。",
+      "action_en": "1) Take container_name from the alert labels and run docker inspect <container> and check the State.Health field in the output for the last few health check results;\n2) Run docker logs --tail 200 <container> to locate the application error;\n3) Reproduce the health check by hand (docker exec <container> <health check command>) to tell an application failure apart from a wrongly written check;\n4) If the application is broken and cannot be fixed quickly, first remove the instance from the upstream load balancer, then investigate."
+    },
+    {
+      "source": "categraf",
+      "name": "Docker 容器被 OOM Kill",
+      "name_en": "Docker container OOM killed",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 0,
+      "queries": [
+        {
+          "promql": "docker_container_status_oomkilled == 1",
+          "severity": 1
+        }
+      ],
+      "action": "1) 从告警标签取 container_name，执行 docker inspect <容器名> | grep -i memory 确认当前 limit；\n2) 对照 docker_container_mem_max_usage 的历史峰值，判断是 limit 设太小还是应用内存泄漏；\n3) limit 偏小则调大 --memory 后重建容器；\n4) 疑似泄漏则在应用侧抓堆（Java 用 jmap、Go 用 pprof）定位，不要只靠调大 limit 掩盖问题。",
+      "action_en": "1) Take container_name from the alert labels and run docker inspect <container> | grep -i memory to confirm the current limit;\n2) Compare with the historical peak of docker_container_mem_max_usage to tell a too-small limit apart from an application memory leak;\n3) If the limit is too small, raise --memory and recreate the container;\n4) If a leak is suspected, capture a heap profile on the application side (jmap for Java, pprof for Go) instead of just raising the limit to hide the problem."
+    },
+    {
+      "source": "categraf",
+      "name": "Docker 容器反复重启",
+      "name_en": "Docker container restart loop",
+      "note": "",
+      "note_en": "",
+      "severity": 1,
+      "for": 0,
+      "queries": [
+        {
+          "promql": "increase(docker_container_status_restart_count[10m]) > 3",
+          "severity": 1
+        }
+      ],
+      "action": "1) 从告警标签取 container_name，执行 docker logs --tail 200 <容器名> 看每次退出前的报错；\n2) 执行 docker inspect <容器名>，看输出中 State.ExitCode 退出码（137 通常是 OOM 或被 kill，1/2 多为应用自身启动失败）；\n3) 配置或依赖问题（连不上数据库、配置文件缺失）先修复依赖再拉起；\n4) 为避免持续刷日志占满磁盘，定位期间可先 docker stop 该容器并从负载均衡摘除。",
+      "action_en": "1) Take container_name from the alert labels and run docker logs --tail 200 <container> to see the error before each exit;\n2) Run docker inspect <container> and read the State.ExitCode exit code in the output (137 usually means OOM or killed; 1 or 2 usually means the application failed to start);\n3) For configuration or dependency problems (cannot reach the database, missing config file), fix the dependency before starting it again;\n4) To keep the restart loop from filling the disk with logs, docker stop the container and remove it from the load balancer while you investigate."
+    },
+    {
+      "source": "categraf",
+      "name": "Docker 容器内存使用率逼近上限",
+      "name_en": "Docker container memory approaching its limit",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 300,
+      "queries": [
+        {
+          "promql": "docker_container_mem_usage_percent > 90",
+          "severity": 2
+        }
+      ],
+      "action": "1) 从告警标签取 container_name，执行 docker stats --no-stream <容器名> 确认当前用量与 limit；\n2) 对照历史曲线判断是持续爬升（疑似泄漏）还是业务高峰的正常波动；\n3) 正常波动则调大 --memory 并预留 20% 余量后重建；\n4) 持续爬升则在应用侧抓堆定位泄漏点，同时先把 limit 调高争取排查时间。",
+      "action_en": "1) Take container_name from the alert labels and run docker stats --no-stream <container> to confirm current usage against the limit;\n2) Check the history curve to tell a steady climb (likely a leak) apart from a normal traffic peak;\n3) For normal peaks, raise --memory leaving 20% headroom and recreate the container;\n4) For a steady climb, capture a heap profile on the application side to find the leak, and raise the limit meanwhile to buy investigation time."
+    },
+    {
+      "source": "categraf",
+      "name": "Docker 容器 CPU 被限流",
+      "name_en": "Docker container CPU throttled",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 300,
+      "queries": [
+        {
+          "promql": "rate(docker_container_cpu_throttling_throttled_periods[5m]) / rate(docker_container_cpu_throttling_periods[5m]) > 0.25",
+          "severity": 2
+        }
+      ],
+      "action": "1) 从告警标签取 container_name，执行 docker inspect <容器名> | grep -iE 'cpuquota|cpuperiod|nanocpus' 确认当前配额；\n2) 对照 docker_container_cpu_usage_percent 判断是业务量上涨还是应用出现忙等/死循环；\n3) 业务量上涨则调大 --cpus 后重建容器，或水平扩容多个实例分摊；\n4) 用量异常则在应用侧抓 CPU profile 定位热点函数。",
+      "action_en": "1) Take container_name from the alert labels and run docker inspect <container> | grep -iE 'cpuquota|cpuperiod|nanocpus' to confirm the current quota;\n2) Compare with docker_container_cpu_usage_percent to tell a traffic increase apart from a busy loop in the application;\n3) If traffic grew, raise --cpus and recreate the container, or scale out to several instances;\n4) If usage looks abnormal, capture a CPU profile on the application side to find the hot functions."
+    }
+  ],
+  "metrics": [],
+  "dashboards": [
+    {
+      "file": "docker_dashboard.json",
+      "name": "Docker Dashboard",
+      "name_en": "Docker Dashboard",
+      "panels": 16
+    }
+  ],
+  "collect": [
+    {
+      "plugin": "docker",
+      "file": "docker.toml",
+      "readme": true,
+      "content": "# # collect interval\n# interval = 15\n\n[[instances]]\n# # append some labels for series\n# labels = { region=\"cloud\", product=\"n9e\" }\n\n# # interval = global.interval * interval_times\n# interval_times = 1\n\n## Docker Endpoint\n##   To use TCP, set endpoint = \"tcp://[ip]:[port]\"\n##   To use environment variables (ie, docker-machine), set endpoint = \"ENV\"\n# endpoint = \"unix:///var/run/docker.sock\"\nendpoint = \"\"\n\n## Set to true to collect Swarm metrics(desired_replicas, running_replicas)\ngather_services = false\ngather_extend_memstats = false\n\ncontainer_id_label_enable = true\ncontainer_id_label_short_style = false\n\n## Containers to include and exclude. Globs accepted.\n## Note that an empty array for both will include all containers\ncontainer_name_include = []\ncontainer_name_exclude = []\n\n## Container states to include and exclude. Globs accepted.\n## When empty only containers in the \"running\" state will be captured.\n## example: container_state_include = [\"created\", \"restarting\", \"running\", \"removing\", \"paused\", \"exited\", \"dead\"]\n## example: container_state_exclude = [\"created\", \"restarting\", \"running\", \"removing\", \"paused\", \"exited\", \"dead\"]\n# container_state_include = []\n# container_state_exclude = []\n\n## Timeout for docker list, info, and stats commands\ntimeout = \"5s\"\n\n## Specifies for which classes a per-device metric should be issued\n## Possible values are 'cpu' (cpu0, cpu1, ...), 'blkio' (8:0, 8:1, ...) and 'network' (eth0, eth1, ...)\n## Please note that this setting has no effect if 'perdevice' is set to 'true'\nperdevice_include = []\n\n## Specifies for which classes a total metric should be issued. Total is an aggregated of the 'perdevice' values.\n## Possible values are 'cpu', 'blkio' and 'network'\n## Total 'cpu' is reported directly by Docker daemon, and 'network' and 'blkio' totals are aggregated by this plugin.\n## Please note that this setting has no effect if 'total' is set to 'false'\ntotal_include = [\"cpu\", \"blkio\", \"network\"]\n\n## Which environment variables should we use as a tag\n##tag_env = [\"JAVA_HOME\", \"HEAP_SIZE\"]\n\n## docker labels to include and exclude as tags. Globs accepted.\n## Note that an empty array for both will include all labels as tags\ndocker_label_include = []\ndocker_label_exclude = [\"annotation*\", \"io.kubernetes*\", \"*description*\", \"*maintainer*\", \"*hash\", \"*author*\", \"*org_*\", \"*date*\", \"*url*\", \"*docker_compose*\"]\n\n## Optional TLS Config\n# use_tls = false\n# tls_ca = \"/etc/telegraf/ca.pem\"\n# tls_cert = \"/etc/telegraf/cert.pem\"\n# tls_key = \"/etc/telegraf/key.pem\"\n## Use TLS but skip chain & host verification\n# insecure_skip_verify = false\n"
+    }
+  ],
+  "readme": {
+    "zh": true,
+    "en": true
+  }
+}

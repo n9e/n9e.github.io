@@ -1,0 +1,133 @@
+{
+  "ident": "Dns_Query",
+  "alerts": [
+    {
+      "source": "categraf",
+      "name": "DNS 响应状态码异常",
+      "name_en": "DNS response status code abnormal",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "dns_query_rcode_value != 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在采集机上手工 dig @<DNS服务器> <域名> 复现，看 status 与耗时；\n2) 换用公共 DNS（如 dig @223.5.5.5）对比，区分是 DNS 服务器问题还是域名本身问题；\n3) 自建 DNS 的检查服务进程、上游转发配置与网络连通性；\n4) 确认探测配置里的域名、记录类型、超时设置是否合理，避免配置导致误报。",
+      "action_en": "1) Reproduce it on the collector host with dig @<DNS server> <domain> and check the status and elapsed time;\n2) Compare against a public resolver (e.g. dig @223.5.5.5) to tell a DNS server problem from a problem with the domain itself;\n3) For a self-hosted resolver, check the service process, upstream forwarding config and network connectivity;\n4) Verify the probe's domain, record type and timeout settings are sensible so the config itself is not causing the alert."
+    },
+    {
+      "source": "categraf",
+      "name": "DNS查询响应时间大于5秒",
+      "name_en": "DNS query response time exceeds 5 seconds",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "dns_query_time_ms > 5000",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在采集机上手工 dig @<DNS服务器> <域名> 复现，看 status 与耗时；\n2) 换用公共 DNS（如 dig @223.5.5.5）对比，区分是 DNS 服务器问题还是域名本身问题；\n3) 自建 DNS 的检查服务进程、上游转发配置与网络连通性；\n4) 确认探测配置里的域名、记录类型、超时设置是否合理，避免配置导致误报。",
+      "action_en": "1) Reproduce it on the collector host with dig @<DNS server> <domain> and check the status and elapsed time;\n2) Compare against a public resolver (e.g. dig @223.5.5.5) to tell a DNS server problem from a problem with the domain itself;\n3) For a self-hosted resolver, check the service process, upstream forwarding config and network connectivity;\n4) Verify the probe's domain, record type and timeout settings are sensible so the config itself is not causing the alert."
+    },
+    {
+      "source": "categraf",
+      "name": "DNS 查询超时",
+      "name_en": "DNS query timeout",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "dns_query_result_value == 1",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在采集机上手工 dig @<DNS服务器> <域名> 复现，看 status 与耗时；\n2) 换用公共 DNS（如 dig @223.5.5.5）对比，区分是 DNS 服务器问题还是域名本身问题；\n3) 自建 DNS 的检查服务进程、上游转发配置与网络连通性；\n4) 确认探测配置里的域名、记录类型、超时设置是否合理，避免配置导致误报。",
+      "action_en": "1) Reproduce it on the collector host with dig @<DNS server> <domain> and check the status and elapsed time;\n2) Compare against a public resolver (e.g. dig @223.5.5.5) to tell a DNS server problem from a problem with the domain itself;\n3) For a self-hosted resolver, check the service process, upstream forwarding config and network connectivity;\n4) Verify the probe's domain, record type and timeout settings are sensible so the config itself is not causing the alert."
+    },
+    {
+      "source": "categraf",
+      "name": "DNS 查询异常",
+      "name_en": "DNS query failure",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "dns_query_result_value == 2",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在采集机上手工 dig @<DNS服务器> <域名> 复现，看 status 与耗时；\n2) 换用公共 DNS（如 dig @223.5.5.5）对比，区分是 DNS 服务器问题还是域名本身问题；\n3) 自建 DNS 的检查服务进程、上游转发配置与网络连通性；\n4) 确认探测配置里的域名、记录类型、超时设置是否合理，避免配置导致误报。",
+      "action_en": "1) Reproduce it on the collector host with dig @<DNS server> <domain> and check the status and elapsed time;\n2) Compare against a public resolver (e.g. dig @223.5.5.5) to tell a DNS server problem from a problem with the domain itself;\n3) For a self-hosted resolver, check the service process, upstream forwarding config and network connectivity;\n4) Verify the probe's domain, record type and timeout settings are sensible so the config itself is not causing the alert."
+    }
+  ],
+  "metrics": [
+    {
+      "expression": "dns_query_rcode_value",
+      "type": "",
+      "unit": "none",
+      "name": "DNS 响应中的状态码",
+      "name_en": "DNS Response Code (RCODE)",
+      "note": "0 (NOERROR)：查询成功，没有错误\n1 (FORMERR)：格式错误，DNS 服务器无法理解查询请求\n2 (SERVFAIL)：服务器失败，DNS 服务器遇到内部错误\n3 (NXDOMAIN)：域名不存在\n4 (NOTIMP)：查询类型不被支持\n5 (REFUSED)：查询被拒绝，通常是策略原因 在监控中，RCODE 为 0 表示查询成功，其他值通常表示存在问题需要关注",
+      "note_en": "0 (NOERROR): the query succeeded with no error\n1 (FORMERR): format error, the DNS server could not understand the query\n2 (SERVFAIL): server failure, the DNS server encountered an internal error\n3 (NXDOMAIN): the domain name does not exist\n4 (NOTIMP): the query type is not supported\n5 (REFUSED): the query was refused, usually for policy reasons. In monitoring, RCODE 0 means the query succeeded, while other values usually indicate an issue that needs attention"
+    },
+    {
+      "expression": "dns_query_result_value",
+      "type": "",
+      "unit": "none",
+      "name": "自定义的查询结果",
+      "name_en": "Custom Query Result",
+      "note": "0表示成功，1表示超时，2表示出错.",
+      "note_en": "0 means success, 1 means timeout, 2 means error."
+    },
+    {
+      "expression": "dns_query_status_change",
+      "type": "gauge",
+      "unit": "none",
+      "name": "DNS解析状态变更",
+      "name_en": "DNS Resolution Status Change",
+      "note": "当expect_query_ips配置了对应的域名后， categraf会对比响应的IP列表与配置的IP列表, 此时会产生这个指标,0 表示响应的IP与期望的IP一致， 1表示响应的IP与期望的IP出现差异.",
+      "note_en": "When expect_query_ips is configured for the corresponding domain, categraf compares the IP list in the response with the configured IP list and emits this metric. 0 means the responded IPs match the expected IPs, 1 means the responded IPs differ from the expected IPs."
+    },
+    {
+      "expression": "dns_query_status_change_detail",
+      "type": "gauge",
+      "unit": "none",
+      "name": "DNS解析变更详情",
+      "name_en": "DNS Resolution Change Detail",
+      "note": "0 表示响应的IP与期望的IP一致， 1表示响应的IP与期望的IP出现差异。\n{ips=\"响应的IP列表\", diff=\"响应IP列表-期望IP列表\"}",
+      "note_en": "0 means the responded IPs match the expected IPs, 1 means the responded IPs differ from the expected IPs.\n{ips=\"responded IP list\", diff=\"responded IP list minus expected IP list\"}"
+    },
+    {
+      "expression": "dns_query_time_ms",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "查询的响应时间",
+      "name_en": "Query Response Time",
+      "note": "",
+      "note_en": ""
+    }
+  ],
+  "dashboards": [],
+  "collect": [
+    {
+      "plugin": "dns_query",
+      "file": "dns_query.toml",
+      "readme": true,
+      "content": "# # collect interval\n# interval = 15\n\n[[instances]]\n# # append some labels for series\n# labels = { region=\"cloud\", product=\"n9e\" }\n\n# # interval = global.interval * interval_times\n# interval_times = 1\n\n# # \nauto_detect_local_dns_server  = false\n\n## servers to query\n# servers = [\"8.8.8.8\"]\nservers = []\n\n## Network is the network protocol name.\n# network = \"udp\"\n\n## Domains or subdomains to query.\n# domains = [\".\"]\n\n## Query record type.\n## Possible values: A, AAAA, CNAME, MX, NS, PTR, TXT, SOA, SPF, SRV.\n# record_type = \"A\"\n\n## Dns server port.\n# port = 53\n\n## Query timeout in seconds.\n# timeout = 2"
+    }
+  ],
+  "readme": {
+    "zh": true,
+    "en": true
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "ident": "Java",
+  "alerts": [],
+  "metrics": [],
+  "dashboards": [
+    {
+      "file": "jmx_by_exporter.json",
+      "name": "JMX",
+      "name_en": "JMX",
+      "panels": 26
+    },
+    {
+      "file": "jmx_by_kubernetes.json",
+      "name": "JMX - Kubernetes",
+      "name_en": "JMX - Kubernetes",
+      "panels": 26
+    },
+    {
+      "file": "jvm_by_opentelementry.json",
+      "name": "JVM by OpenTelementry",
+      "name_en": "JVM by OpenTelementry",
+      "panels": 22
+    }
+  ],
+  "collect": [],
+  "readme": {
+    "zh": true,
+    "en": true
+  }
+}

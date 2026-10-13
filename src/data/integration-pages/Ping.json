@@ -1,0 +1,104 @@
+{
+  "ident": "Ping",
+  "alerts": [
+    {
+      "source": "categraf",
+      "name": "PING address detection failed",
+      "name_en": "PING address detection failed",
+      "note": "",
+      "note_en": "",
+      "severity": 2,
+      "for": 60,
+      "queries": [
+        {
+          "promql": "ping_result_code != 0",
+          "severity": 2
+        }
+      ],
+      "action": "1) 在采集机上手工 ping -c 5 <目标> 复现，再用 mtr -n <目标> 定位丢包在哪一跳；\n2) 目标机存活则确认它是否禁 ICMP——很多安全策略会禁，此时该探测不适用，应改用端口探测；\n3) 中间跳丢包联系网络侧排查；\n4) 确认目标机是否宕机或网卡故障。",
+      "action_en": "1) Reproduce it on the collector host with ping -c 5 <target>, then use mtr -n <target> to find which hop drops packets;\n2) If the target is alive, check whether it blocks ICMP — many security policies do, in which case this probe does not apply and you should switch to a port probe;\n3) For loss at an intermediate hop, involve the network team;\n4) Confirm the target host is not down or suffering a NIC failure."
+    }
+  ],
+  "metrics": [
+    {
+      "expression": "ping_ttl",
+      "type": "",
+      "unit": "seconds",
+      "name": "Ping ttl 时间",
+      "name_en": "Ping ttl time",
+      "note": "Time To Live，指的是报文在网络中能够“存活”的限制时间",
+      "note_en": "Time To Live refers to the limited time that a packet can \"survive\" in the network"
+    },
+    {
+      "expression": "ping_percent_packet_loss",
+      "type": "gauge",
+      "unit": "percent",
+      "name": "Ping 丢包率",
+      "name_en": "Ping packet loss rate",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "ping_average_response_ms",
+      "type": "",
+      "unit": "milliseconds",
+      "name": "Ping 平均耗时",
+      "name_en": "Ping average time consumed",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "ping_result_code",
+      "type": "",
+      "unit": "none",
+      "name": "Ping 探测结果状态码",
+      "name_en": "Ping probe result status code",
+      "note": "值为 0 就是正常，非 0 值就是异常。如果 Ping 失败，Categraf 日志中理应会有异常日志",
+      "note_en": "A value of 0 is normal, and a non-0 value is abnormal. If the Ping fails, there should be an exception log in the Categraf log"
+    },
+    {
+      "expression": "ping_maximum_response_ms",
+      "type": "gauge",
+      "unit": "milliseconds",
+      "name": "Ping 最大耗时",
+      "name_en": "Ping maximum time consumption",
+      "note": "",
+      "note_en": ""
+    },
+    {
+      "expression": "ping_minimum_response_ms",
+      "type": "gauge",
+      "unit": "milliseconds",
+      "name": "Ping 最小耗时",
+      "name_en": "Ping minimum time consumption",
+      "note": "",
+      "note_en": ""
+    }
+  ],
+  "dashboards": [
+    {
+      "file": "ping_by_categraf_a.json",
+      "name": "PING detection by UlricQin",
+      "name_en": "PING detection by UlricQin",
+      "panels": 1
+    },
+    {
+      "file": "ping_by_categraf_b.json",
+      "name": "PING大盘2.0",
+      "name_en": "PING Dashboard 2.0",
+      "panels": 5
+    }
+  ],
+  "collect": [
+    {
+      "plugin": "ping",
+      "file": "ping.toml",
+      "readme": true,
+      "content": "# # collect interval\n# interval = 15\n\n[[instances]]\n# send ping packets to\ntargets = [\n#     \"www.baidu.com\",\n#     \"127.0.0.1\",\n#     \"10.4.5.6\",\n#     \"10.4.5.7\"\n]\n\n# # append some labels for series\n# labels = { region=\"cloud\", product=\"n9e\" }\n\n# # interval = global.interval * interval_times\n# interval_times = 1\n\n## Number of ping packets to send per interval.  Corresponds to the \"-c\"\n## option of the ping command.\n# count = 1\n\n## Time to wait between sending ping packets in seconds.  Operates like the\n## \"-i\" option of the ping command.\n# ping_interval = 1.0\n\n## If set, the time to wait for a ping response in seconds.  Operates like\n## the \"-W\" option of the ping command.\n# timeout = 3.0\n\n## Interface or source address to send ping from.  Operates like the -I or -S\n## option of the ping command.\n# interface = \"\"\n\n## Use only IPv6 addresses when resolving a hostname.\n# ipv6 = false\n\n## Number of data bytes to be sent. Corresponds to the \"-s\"\n## option of the ping command.\n# size = 56\n\n# max concurrency coroutine\n# concurrency = 50\n"
+    }
+  ],
+  "readme": {
+    "zh": true,
+    "en": true
+  }
+}

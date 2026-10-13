@@ -1,0 +1,547 @@
+{
+  "fetchedAt": "2026-10-13",
+  "treeSha": "d90ed969ee9fe906aaa16bc30b986d5cd0fa44f4",
+  "sourceUrl": "https://github.com/ccfos/nightingale/tree/main/integrations",
+  "pages": [
+    {
+      "ident": "Linux",
+      "slug": "linux",
+      "name": "Linux",
+      "category": "host",
+      "alerts": 60,
+      "metrics": 132,
+      "dashboards": 5,
+      "collect": 9
+    },
+    {
+      "ident": "Windows",
+      "slug": "windows",
+      "name": "Windows",
+      "category": "host",
+      "alerts": 14,
+      "metrics": 0,
+      "dashboards": 6,
+      "collect": 0
+    },
+    {
+      "ident": "Systemd",
+      "slug": "systemd",
+      "name": "Systemd",
+      "category": "host",
+      "alerts": 3,
+      "metrics": 12,
+      "dashboards": 1,
+      "collect": 1
+    },
+    {
+      "ident": "SMART",
+      "slug": "smart",
+      "name": "SMART",
+      "category": "host",
+      "alerts": 6,
+      "metrics": 14,
+      "dashboards": 1,
+      "collect": 1
+    },
+    {
+      "ident": "IPMI",
+      "slug": "ipmi",
+      "name": "IPMI",
+      "category": "host",
+      "alerts": 4,
+      "metrics": 19,
+      "dashboards": 3,
+      "collect": 1
+    },
+    {
+      "ident": "NVIDIA",
+      "slug": "nvidia",
+      "name": "NVIDIA",
+      "category": "host",
+      "alerts": 2,
+      "metrics": 38,
+      "dashboards": 3,
+      "collect": 2
+    },
+    {
+      "ident": "AMD_ROCm_SMI",
+      "slug": "amd-rocm-smi",
+      "name": "AMD ROCm SMI",
+      "category": "host",
+      "alerts": 4,
+      "metrics": 0,
+      "dashboards": 0,
+      "collect": 1
+    },
+    {
+      "ident": "Exec",
+      "slug": "exec",
+      "name": "Exec",
+      "category": "host",
+      "alerts": 0,
+      "metrics": 0,
+      "dashboards": 0,
+      "collect": 1
+    },
+    {
+      "ident": "MySQL",
+      "slug": "mysql",
+      "name": "MySQL",
+      "category": "database",
+      "alerts": 20,
+      "metrics": 31,
+      "dashboards": 7,
+      "collect": 1
+    },
+    {
+      "ident": "PostgreSQL",
+      "slug": "postgresql",
+      "name": "PostgreSQL",
+      "category": "database",
+      "alerts": 5,
+      "metrics": 0,
+      "dashboards": 1,
+      "collect": 1
+    },
+    {
+      "ident": "Redis",
+      "slug": "redis",
+      "name": "Redis",
+      "category": "database",
+      "alerts": 13,
+      "metrics": 0,
+      "dashboards": 3,
+      "collect": 2
+    },
+    {
+      "ident": "MongoDB",
+      "slug": "mongodb",
+      "name": "MongoDB",
+      "category": "database",
+      "alerts": 8,
+      "metrics": 0,
+      "dashboards": 1,
+      "collect": 2
+    },
+    {
+      "ident": "Oracle",
+      "slug": "oracle",
+      "name": "Oracle",
+      "category": "database",
+      "alerts": 5,
+      "metrics": 0,
+      "dashboards": 1,
+      "collect": 2
+    },
+    {
+      "ident": "SQLServer",
+      "slug": "sqlserver",
+      "name": "SQLServer",
+      "category": "database",
+      "alerts": 11,
+      "metrics": 0,
+      "dashboards": 1,
+      "collect": 1
+    },
+    {
+      "ident": "Elasticsearch",
+      "slug": "elasticsearch",
+      "name": "Elasticsearch",
+      "category": "database",
+      "alerts": 22,
+      "metrics": 30,
+      "dashboards": 5,
+      "collect": 1
+    },
+    {
+      "ident": "ClickHouse",
+      "slug": "clickhouse",
+      "name": "ClickHouse",
+      "category": "database",
+      "alerts": 10,
+      "metrics": 81,
+      "dashboards": 2,
+      "collect": 1
+    },
+    {
+      "ident": "Doris",
+      "slug": "doris",
+      "name": "Doris",
+      "category": "database",
+      "alerts": 21,
+      "metrics": 0,
+      "dashboards": 1,
+      "collect": 1
+    },
+    {
+      "ident": "TiDB",
+      "slug": "tidb",
+      "name": "TiDB",
+      "category": "database",
+      "alerts": 28,
+      "metrics": 0,
+      "dashboards": 1,
+      "collect": 0
+    },
+    {
+      "ident": "VictoriaMetrics",
+      "slug": "victoriametrics",
+      "name": "VictoriaMetrics",
+      "category": "database",
+      "alerts": 9,
+      "metrics": 0,
+      "dashboards": 2,
+      "collect": 0
+    },
+    {
+      "ident": "Kafka",
+      "slug": "kafka",
+      "name": "Kafka",
+      "category": "mq",
+      "alerts": 5,
+      "metrics": 6,
+      "dashboards": 2,
+      "collect": 1
+    },
+    {
+      "ident": "RabbitMQ",
+      "slug": "rabbitmq",
+      "name": "RabbitMQ",
+      "category": "mq",
+      "alerts": 6,
+      "metrics": 0,
+      "dashboards": 4,
+      "collect": 2
+    },
+    {
+      "ident": "NSQ",
+      "slug": "nsq",
+      "name": "NSQ",
+      "category": "mq",
+      "alerts": 5,
+      "metrics": 0,
+      "dashboards": 0,
+      "collect": 1
+    },
+    {
+      "ident": "EMQX",
+      "slug": "emqx",
+      "name": "EMQX",
+      "category": "mq",
+      "alerts": 9,
+      "metrics": 0,
+      "dashboards": 0,
+      "collect": 1
+    },
+    {
+      "ident": "AutoMQ",
+      "slug": "automq",
+      "name": "AutoMQ",
+      "category": "mq",
+      "alerts": 12,
+      "metrics": 59,
+      "dashboards": 5,
+      "collect": 1
+    },
+    {
+      "ident": "Nginx",
+      "slug": "nginx",
+      "name": "Nginx",
+      "category": "web",
+      "alerts": 3,
+      "metrics": 7,
+      "dashboards": 3,
+      "collect": 2
+    },
+    {
+      "ident": "Apache",
+      "slug": "apache",
+      "name": "Apache",
+      "category": "web",
+      "alerts": 5,
+      "metrics": 0,
+      "dashboards": 0,
+      "collect": 1
+    },
+    {
+      "ident": "HAProxy",
+      "slug": "haproxy",
+      "name": "HAProxy",
+      "category": "web",
+      "alerts": 8,
+      "metrics": 0,
+      "dashboards": 1,
+      "collect": 1
+    },
+    {
+      "ident": "Tomcat",
+      "slug": "tomcat",
+      "name": "Tomcat",
+      "category": "web",
+      "alerts": 6,
+      "metrics": 0,
+      "dashboards": 1,
+      "collect": 1
+    },
+    {
+      "ident": "Java",
+      "slug": "java",
+      "name": "Java",
+      "category": "web",
+      "alerts": 0,
+      "metrics": 0,
+      "dashboards": 3,
+      "collect": 0
+    },
+    {
+      "ident": "SpringBoot",
+      "slug": "springboot",
+      "name": "SpringBoot",
+      "category": "web",
+      "alerts": 5,
+      "metrics": 0,
+      "dashboards": 2,
+      "collect": 0
+    },
+    {
+      "ident": "PHP",
+      "slug": "php",
+      "name": "PHP",
+      "category": "web",
+      "alerts": 5,
+      "metrics": 0,
+      "dashboards": 0,
+      "collect": 1
+    },
+    {
+      "ident": "Consul",
+      "slug": "consul",
+      "name": "Consul",
+      "category": "web",
+      "alerts": 7,
+      "metrics": 0,
+      "dashboards": 0,
+      "collect": 1
+    },
+    {
+      "ident": "Ldap",
+      "slug": "ldap",
+      "name": "Ldap",
+      "category": "web",
+      "alerts": 5,
+      "metrics": 0,
+      "dashboards": 0,
+      "collect": 1
+    },
+    {
+      "ident": "Bind",
+      "slug": "bind",
+      "name": "Bind",
+      "category": "web",
+      "alerts": 5,
+      "metrics": 0,
+      "dashboards": 0,
+      "collect": 1
+    },
+    {
+      "ident": "Logstash",
+      "slug": "logstash",
+      "name": "Logstash",
+      "category": "web",
+      "alerts": 6,
+      "metrics": 0,
+      "dashboards": 1,
+      "collect": 1
+    },
+    {
+      "ident": "Mtail",
+      "slug": "mtail",
+      "name": "Mtail",
+      "category": "web",
+      "alerts": 0,
+      "metrics": 0,
+      "dashboards": 0,
+      "collect": 1
+    },
+    {
+      "ident": "Kubernetes",
+      "slug": "kubernetes",
+      "name": "Kubernetes",
+      "category": "cloud-native",
+      "alerts": 154,
+      "metrics": 305,
+      "dashboards": 17,
+      "collect": 0
+    },
+    {
+      "ident": "Docker",
+      "slug": "docker",
+      "name": "Docker",
+      "category": "cloud-native",
+      "alerts": 6,
+      "metrics": 0,
+      "dashboards": 1,
+      "collect": 1
+    },
+    {
+      "ident": "cAdvisor",
+      "slug": "cadvisor",
+      "name": "cAdvisor",
+      "category": "cloud-native",
+      "alerts": 6,
+      "metrics": 45,
+      "dashboards": 1,
+      "collect": 1
+    },
+    {
+      "ident": "Ceph",
+      "slug": "ceph",
+      "name": "Ceph",
+      "category": "cloud-native",
+      "alerts": 15,
+      "metrics": 0,
+      "dashboards": 1,
+      "collect": 0
+    },
+    {
+      "ident": "MinIO",
+      "slug": "minio",
+      "name": "MinIO",
+      "category": "cloud-native",
+      "alerts": 2,
+      "metrics": 0,
+      "dashboards": 2,
+      "collect": 0
+    },
+    {
+      "ident": "OpenStack",
+      "slug": "openstack",
+      "name": "OpenStack",
+      "category": "cloud-native",
+      "alerts": 5,
+      "metrics": 0,
+      "dashboards": 0,
+      "collect": 1
+    },
+    {
+      "ident": "vSphere",
+      "slug": "vsphere",
+      "name": "vSphere",
+      "category": "cloud-native",
+      "alerts": 5,
+      "metrics": 0,
+      "dashboards": 2,
+      "collect": 1
+    },
+    {
+      "ident": "AliYun",
+      "slug": "aliyun",
+      "name": "Alibaba Cloud",
+      "category": "cloud",
+      "alerts": 73,
+      "metrics": 0,
+      "dashboards": 44,
+      "collect": 1
+    },
+    {
+      "ident": "Huawei",
+      "slug": "huawei",
+      "name": "Huawei Cloud",
+      "category": "cloud",
+      "alerts": 35,
+      "metrics": 286,
+      "dashboards": 14,
+      "collect": 0
+    },
+    {
+      "ident": "Tencent",
+      "slug": "tencent",
+      "name": "Tencent Cloud",
+      "category": "cloud",
+      "alerts": 0,
+      "metrics": 0,
+      "dashboards": 7,
+      "collect": 0
+    },
+    {
+      "ident": "CloudWatch",
+      "slug": "cloudwatch",
+      "name": "CloudWatch",
+      "category": "cloud",
+      "alerts": 8,
+      "metrics": 0,
+      "dashboards": 1,
+      "collect": 1
+    },
+    {
+      "ident": "Azure",
+      "slug": "azure",
+      "name": "Azure",
+      "category": "cloud",
+      "alerts": 0,
+      "metrics": 0,
+      "dashboards": 0,
+      "collect": 1
+    },
+    {
+      "ident": "SNMP",
+      "slug": "snmp",
+      "name": "SNMP",
+      "category": "network",
+      "alerts": 37,
+      "metrics": 5,
+      "dashboards": 9,
+      "collect": 2
+    },
+    {
+      "ident": "Switch_Legacy",
+      "slug": "switch-legacy",
+      "name": "Switch (legacy)",
+      "category": "network",
+      "alerts": 7,
+      "metrics": 0,
+      "dashboards": 1,
+      "collect": 1
+    },
+    {
+      "ident": "Ping",
+      "slug": "ping",
+      "name": "Ping",
+      "category": "network",
+      "alerts": 1,
+      "metrics": 6,
+      "dashboards": 2,
+      "collect": 1
+    },
+    {
+      "ident": "Net_Response",
+      "slug": "net-response",
+      "name": "Net Response",
+      "category": "network",
+      "alerts": 1,
+      "metrics": 2,
+      "dashboards": 2,
+      "collect": 1
+    },
+    {
+      "ident": "Dns_Query",
+      "slug": "dns-query",
+      "name": "DNS Query",
+      "category": "network",
+      "alerts": 4,
+      "metrics": 5,
+      "dashboards": 0,
+      "collect": 1
+    },
+    {
+      "ident": "Gitlab",
+      "slug": "gitlab",
+      "name": "Gitlab",
+      "category": "devops",
+      "alerts": 9,
+      "metrics": 0,
+      "dashboards": 5,
+      "collect": 0
+    }
+  ]
+}
