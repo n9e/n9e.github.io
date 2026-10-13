@@ -32,8 +32,8 @@
 </style>
 <script>!function(){try{var e=window.location,t=e.pathname;if(t.length>1&&"/"===t.charAt(t.length-1)&&"/zh/"!==t)return void e.replace(t.replace(/\/+$/,"")+e.search+e.hash);var n,a=new URLSearchParams(e.search),r=window.self!==window.top;try{n=window.sessionStorage}catch(i){}function o(e){try{return n&&n.getItem(e)}catch(e){return null}}function h(e,t){try{n&&n.setItem(e,t)}catch(e){}}if(!(a.has("onlyContent")||r&&"1"===o("n9e-embed")))return;var c=a.get("theme");if("dark"!==c&&"light"!==c&&(c=r?o("n9e-embed-theme"):null),r&&(h("n9e-embed","1"),c&&h("n9e-embed-theme",c)),document.documentElement.setAttribute("data-n9e-embed",""),e.hash){var s=decodeURIComponent(e.hash.slice(1));window.addEventListener("load",function(){setTimeout(function(){var e=document.getElementById(s);e&&e.scrollIntoView({behavior:"instant",block:"start"})},0)})}c&&!a.has("docusaurus-theme")&&(a.set("docusaurus-theme",c),history.replaceState(history.state,"",t+"?"+a.toString()+e.hash))}catch(d){}}()</script>
 <script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?9d7cc507a7aae60b28b5e04bb995492a",e.async=!0;var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><link rel="stylesheet" href="/assets/css/styles.4f3e9aef.css">
-<script src="/assets/js/runtime~main.7670d2a0.js" defer="defer"></script>
-<script src="/assets/js/main.f3b9cd5a.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.e72a491c.js" defer="defer"></script>
+<script src="/assets/js/main.7674a994.js" defer="defer"></script>
 </head>
 <body>
 <svg style="display: none;"><defs>
@@ -58,8 +58,8 @@ disk of <strong>one Center process</strong>, so with several replicas each one h
 <ul>
 <li class=""><strong>Data does not flow through Nightingale.</strong> You handle collection and storage; Nightingale only
 queries. The host list stays empty and self-healing is unavailable, but alert rules work fully.</li>
-<li class=""><strong>Data flows through Nightingale.</strong> Categraf remote-writes to Nightingale, which stores nothing
-itself and forwards to one or more TSDBs per <code>Pushgw.Writers</code>. Host list and self-healing work.</li>
+<li class=""><strong>Data flows through Nightingale.</strong> Categraf remote-writes to Nightingale, which keeps it in the
+embedded TSDB by default and can forward it to one or more TSDBs per <code>Pushgw.Writers</code>. Host list and self-healing work.</li>
 <li class=""><strong>Edge deployment.</strong> Where a site&#x27;s link to the centre is unreliable, run <code>n9e-edge</code> there so
 evaluation happens locally and alerting survives a partition. See <a class="" href="/docs/install/edge">Edge data centers</a>.</li>
 </ul>

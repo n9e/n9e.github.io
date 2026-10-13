@@ -20,7 +20,7 @@
 
 | Zabbix                             | 夜莺                                                                                                                                    |
 | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| Zabbix Server                      | 夜莺 + 一个时序库。夜莺自己**不存数据**（内置时序库是唯一例外）                                                                         |
+| Zabbix Server                      | 夜莺 + 时序库。[内置时序库](https://n9e.github.io/zh/docs/install/embedded-tsdb.md)默认开启、起步够用；规模上来后转发到外部时序库       |
 | Zabbix Agent                       | [Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，或者你已有的 exporter                                               |
 | Zabbix Proxy                       | 概念上最接近 `n9e-edge`，但语义不同：Proxy 是采集代理，edge 是**判定下沉**，见[边缘机房](https://n9e.github.io/zh/docs/install/edge.md) |
 | `history` / `trends` 表            | 外部时序库，或[内置时序库](https://n9e.github.io/zh/docs/data/embedded-tsdb.md)                                                         |

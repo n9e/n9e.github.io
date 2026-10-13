@@ -22,7 +22,7 @@ DATA SOURCES
 
 ## Data sources
 
-Nightingale ships no storage of its own; it queries what you already run. Metrics stores speak PromQL, log stores use their own query syntax, and SQL stores take plain SQL — alert rules and dashboards work on all three.
+Nightingale does not make you move your data; it queries what you already run. Metrics stores speak PromQL, log stores use their own query syntax, and SQL stores take plain SQL — alert rules and dashboards work on all three.
 
 Metrics
 

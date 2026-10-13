@@ -180,7 +180,7 @@ Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告�
 
 要替换 Prometheus 吗？
 
-不用。夜莺不存时序数据，Prometheus 继续采集和存储，夜莺在上面接管规则、降噪和分发。
+不用。Prometheus 继续采集和存储，数据不用搬，夜莺在上面接管规则、降噪和分发。
 
 Alertmanager 的规则能迁过来吗？
 

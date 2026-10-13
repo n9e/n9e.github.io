@@ -18,15 +18,15 @@ Historical data does not move either. Zabbix's `history` and `trends` stay where
 
 ### Collection and storage[​](#collection-and-storage "Direct link to Collection and storage")
 
-| Zabbix                            | Nightingale                                                                                                                                                                                      |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Zabbix Server                     | Nightingale plus a time-series database. Nightingale **stores nothing itself** (the embedded TSDB being the one exception)                                                                       |
-| Zabbix Agent                      | [Categraf](https://n9e.github.io/docs/data/categraf/install.md), or the exporters you already run                                                                                                |
-| Zabbix Proxy                      | Conceptually closest to `n9e-edge`, but not the same thing: a Proxy is a collection relay, edge **pushes evaluation down** — see [Edge data centers](https://n9e.github.io/docs/install/edge.md) |
-| `history` / `trends` tables       | An external store, or the [embedded TSDB](https://n9e.github.io/docs/data/embedded-tsdb.md)                                                                                                      |
-| Item                              | **No equivalent.** What gets collected is decided by the collector's config; Nightingale does not define items                                                                                   |
-| Item key (`vfs.fs.size[/,pfree]`) | A metric name plus labels (`disk_used_percent{path="/"}`)                                                                                                                                        |
-| The Zabbix API                    | Nightingale's HTTP API                                                                                                                                                                           |
+| Zabbix                            | Nightingale                                                                                                                                                                                         |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Zabbix Server                     | Nightingale plus a time-series database. The [embedded TSDB](https://n9e.github.io/docs/install/embedded-tsdb.md) is on by default and enough to start with; at scale, forward to an external store |
+| Zabbix Agent                      | [Categraf](https://n9e.github.io/docs/data/categraf/install.md), or the exporters you already run                                                                                                   |
+| Zabbix Proxy                      | Conceptually closest to `n9e-edge`, but not the same thing: a Proxy is a collection relay, edge **pushes evaluation down** — see [Edge data centers](https://n9e.github.io/docs/install/edge.md)    |
+| `history` / `trends` tables       | An external store, or the [embedded TSDB](https://n9e.github.io/docs/data/embedded-tsdb.md)                                                                                                         |
+| Item                              | **No equivalent.** What gets collected is decided by the collector's config; Nightingale does not define items                                                                                      |
+| Item key (`vfs.fs.size[/,pfree]`) | A metric name plus labels (`disk_used_percent{path="/"}`)                                                                                                                                           |
+| The Zabbix API                    | Nightingale's HTTP API                                                                                                                                                                              |
 
 ### Hosts and grouping[​](#hosts-and-grouping "Direct link to Hosts and grouping")
 

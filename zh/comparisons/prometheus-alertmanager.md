@@ -128,7 +128,7 @@ rules.yml + alertmanager.yml
 
 要替换 Prometheus 吗？
 
-不用。夜莺不存时序数据，Prometheus 继续抓取和存储，夜莺把它注册成数据源，按周期发 instant query 做判定。Thanos、Mimir、VictoriaMetrics 同样直接接。
+不用。Prometheus 继续抓取和存储，夜莺把它注册成数据源，按周期发 instant query 做判定，数据不用搬。Thanos、Mimir、VictoriaMetrics 同样直接接。
 
 alertmanager.yml 能自动转换吗？
 

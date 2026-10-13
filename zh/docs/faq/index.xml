@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>夜莺监控 Nightingale (n9e)</title>
+    <link>https://n9e.github.io/zh/</link>
+    <description>开源监控告警引擎：版本发布与文档更新。</description>
+    <language>zh-CN</language>
+    <atom:link href="https://n9e.github.io/zh/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 11 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Nightingale v9.2.0 发布</title>
+      <link>https://github.com/ccfos/nightingale/releases/tag/v9.2.0</link>
+      <guid isPermaLink="false">https://github.com/ccfos/nightingale/releases/tag/v9.2.0#2026-10-11</guid>
+      <pubDate>Sun, 11 Oct 2026 00:00:00 GMT</pubDate>
+      <description>https://github.com/ccfos/nightingale/releases/tag/v9.2.0</description>
+    </item>
+    <item>
+      <title>文档已迁移到 n9e.github.io</title>
+      <link>https://n9e.github.io/zh/docs</link>
+      <guid isPermaLink="false">https://n9e.github.io/zh/docs#2026-10-10</guid>
+      <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
+      <description>夜莺文档现在位于 n9e.github.io/zh/docs。这个订阅源只推送版本发布。</description>
+    </item>
+    <item>
+      <title>Categraf v0.5.18 发布</title>
+      <link>https://github.com/flashcatcloud/categraf/releases/tag/v0.5.18</link>
+      <guid isPermaLink="false">https://github.com/flashcatcloud/categraf/releases/tag/v0.5.18#2026-08-31</guid>
+      <pubDate>Mon, 31 Aug 2026 00:00:00 GMT</pubDate>
+      <description>https://github.com/flashcatcloud/categraf/releases/tag/v0.5.18</description>
+    </item>
+  </channel>
+</rss>

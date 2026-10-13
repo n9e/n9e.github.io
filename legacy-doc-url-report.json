@@ -50,8 +50,9 @@
   },
   {
     "from": "/docs/prologue/flashcat",
-    "action": "retire",
-    "expectedStatus": 404
+    "action": "explain",
+    "to": "/docs/get-started/introduction",
+    "expectedStatus": 200
   },
   {
     "from": "/docs/install",
@@ -433,8 +434,9 @@
   },
   {
     "from": "/zh/docs/prologue/flashcat",
-    "action": "retire",
-    "expectedStatus": 404
+    "action": "explain",
+    "to": "/zh/docs/get-started/introduction",
+    "expectedStatus": 200
   },
   {
     "from": "/zh/docs/install",
@@ -753,7 +755,9 @@
   },
   {
     "from": "/zh/contributors/henk-verlinde",
-    "action": "retire",
-    "expectedStatus": 404
+    "action": "redirect",
+    "to": "https://github.com/ccfos/nightingale/graphs/contributors",
+    "canonical": "https://github.com/ccfos/nightingale/graphs/contributors",
+    "expectedStatus": 200
   }
 ]

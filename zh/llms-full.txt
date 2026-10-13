@@ -176,7 +176,7 @@ Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告�
 - [已有日志库或数据库](https://n9e.github.io/zh/docs/get-started/choose-your-path/existing-logs-databases.md): 用和指标同一套规则体系，对 ElasticSearch、Loki、ClickHouse、MySQL 这类日志库和数据库做告警。
 - [已有 Prometheus / VictoriaMetrics](https://n9e.github.io/zh/docs/get-started/choose-your-path/existing-metrics.md): 把现有存储注册为数据源，抓取配置原样保留，让第一条规则在它上面跑起来——数据不用搬。
 - [想启用 Nightingale AI](https://n9e.github.io/zh/docs/get-started/choose-your-path/nightingale-ai.md): 配置一个大模型提供方，打开内置助手和 MCP 端点，再接上 Claude Code 这类客户端。
-- [夜莺监控（Nightingale）是什么](https://n9e.github.io/zh/docs/get-started/introduction.md): 夜莺监控（Nightingale，n9e）是开源告警引擎：接上已有的 Prometheus、日志库和数据库做规则判定、降噪和分发，自己不存数据、不做采集。
+- [夜莺监控（Nightingale）是什么](https://n9e.github.io/zh/docs/get-started/introduction.md): 夜莺监控（Nightingale，n9e）是开源告警引擎：接上已有的 Prometheus、日志库和数据库做规则判定、降噪和分发，数据不用搬、采集器不用换。
 - [在线体验导览](https://n9e.github.io/zh/docs/get-started/live-demo.md): 登录公共演示环境，按快速开始的顺序走一遍：从数据源到告警送达，不用安装任何东西。
 - [上生产前的检查清单](https://n9e.github.io/zh/docs/get-started/production-checklist.md): 真正上线前要改掉的东西：默认密码、外置数据库、时序库选型、高可用、备份与自监控。
 - [五分钟拉起夜莺](https://n9e.github.io/zh/docs/get-started/quick-start.md): docker compose up -d 一条命令拉起夜莺及依赖，以 root 登录 17000 端口，然后接数据源、写规则、配通知。
@@ -736,7 +736,7 @@ Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告�
 
 要替换 Prometheus 吗？
 
-不用。夜莺不存时序数据，Prometheus 继续采集和存储，夜莺在上面接管规则、降噪和分发。
+不用。Prometheus 继续采集和存储，数据不用搬，夜莺在上面接管规则、降噪和分发。
 
 Alertmanager 的规则能迁过来吗？
 
@@ -1142,7 +1142,7 @@ rules.yml + alertmanager.yml
 
 要替换 Prometheus 吗？
 
-不用。夜莺不存时序数据，Prometheus 继续抓取和存储，夜莺把它注册成数据源，按周期发 instant query 做判定。Thanos、Mimir、VictoriaMetrics 同样直接接。
+不用。Prometheus 继续抓取和存储，夜莺把它注册成数据源，按周期发 instant query 做判定，数据不用搬。Thanos、Mimir、VictoriaMetrics 同样直接接。
 
 alertmanager.yml 能自动转换吗？
 
@@ -1276,17 +1276,17 @@ Zabbix 二十多年的积累在传统 IT 一体化监控上非常成熟：网络
 
 Zabbix 的每类对象在夜莺里叫什么，哪些根本没有对应物。完整映射表和「全程 Zabbix 不停机」的重建顺序见迁移文档。
 
-| Zabbix              | 夜莺                                         |
-| ------------------- | -------------------------------------------- |
-| Zabbix Server       | 夜莺 + 一个时序库（夜莺不存数据）            |
-| Zabbix Agent        | Categraf，或已有 exporter；两者可同机并存    |
-| Host / Host group   | 设备（ident）/ 业务组，业务组同时是权限边界  |
-| Template            | 模板中心的组件，内置 83 个，导入是一次性拷贝 |
-| Item（监控项）      | 没有对应物，采什么由采集器配置决定           |
-| Trigger             | 告警规则，一条覆盖查询返回的所有对象         |
-| LLD 自动发现        | 没有对应物，查询返回几条序列就是几个对象     |
-| Action + Media type | 通知规则 + 通知媒介 + 消息模板               |
-| Maintenance         | 屏蔽规则                                     |
+| Zabbix              | 夜莺                                                      |
+| ------------------- | --------------------------------------------------------- |
+| Zabbix Server       | 夜莺 + 时序库（内置时序库默认开启，规模大了换外部时序库） |
+| Zabbix Agent        | Categraf，或已有 exporter；两者可同机并存                 |
+| Host / Host group   | 设备（ident）/ 业务组，业务组同时是权限边界               |
+| Template            | 模板中心的组件，内置 83 个，导入是一次性拷贝              |
+| Item（监控项）      | 没有对应物，采什么由采集器配置决定                        |
+| Trigger             | 告警规则，一条覆盖查询返回的所有对象                      |
+| LLD 自动发现        | 没有对应物，查询返回几条序列就是几个对象                  |
+| Action + Media type | 通知规则 + 通知媒介 + 消息模板                            |
+| Maintenance         | 屏蔽规则                                                  |
 
 夜莺没有 Zabbix 模板或触发器的导入器，也读不了它的 XML / YAML。从 Zabbix 过来是重建而不是搬迁；好消息是工作量比想象的小：内置组件顶掉模板的大部分，一条规则顶掉一整组触发器。
 
@@ -1375,7 +1375,7 @@ Zabbix 的六档严重性怎么对应？
 
 ### 夜莺监控 Nightingale（Apache-2.0）[​](#夜莺监控-nightingaleapache-20 "夜莺监控 Nightingale（Apache-2.0）的直接链接")
 
-开源告警引擎，由中国计算机学会开源发展技术委员会托管。它不存数据，直接把 Prometheus、VictoriaMetrics、Elasticsearch、ClickHouse 等 <!-- -->10+<!-- --> 种数据源注册进来做判定；没人采的地方用 Categraf 补，<!-- -->83<!-- --> 个内置集成模板带采集配置、仪表盘和告警规则。规则在页面上配，业务组是权限边界，<!-- -->20<!-- --> 种通知媒介里电话、短信、钉钉、飞书、企业微信开箱即用，内置 AI 助手和 <!-- -->74<!-- --> 个 MCP 工具。不擅长的：网络设备自动发现、Zabbix 式的多步骤升级阶梯，以及它不是告警聚合层，不能接收别的系统发来的告警。完整对比见[夜莺 vs Zabbix](https://n9e.github.io/zh/comparisons/zabbix.md)。
+开源告警引擎，由中国计算机学会开源发展技术委员会托管。它不要求数据搬家，直接把 Prometheus、VictoriaMetrics、Elasticsearch、ClickHouse 等 <!-- -->10+<!-- --> 种数据源注册进来做判定；没人采的地方用 Categraf 补，<!-- -->83<!-- --> 个内置集成模板带采集配置、仪表盘和告警规则。规则在页面上配，业务组是权限边界，<!-- -->20<!-- --> 种通知媒介里电话、短信、钉钉、飞书、企业微信开箱即用，内置 AI 助手和 <!-- -->74<!-- --> 个 MCP 工具。不擅长的：网络设备自动发现、Zabbix 式的多步骤升级阶梯，以及它不是告警聚合层，不能接收别的系统发来的告警。完整对比见[夜莺 vs Zabbix](https://n9e.github.io/zh/comparisons/zabbix.md)。
 
 ### Grafana Alerting（AGPL-3.0）[​](#grafana-alertingagpl-30 "Grafana Alerting（AGPL-3.0）的直接链接")
 
@@ -1540,7 +1540,7 @@ DATA SOURCES
 
 ## 数据源
 
-夜莺不自带存储，接上你已经在用的。指标类走 PromQL，日志类走各自的查询语法，SQL 类直接写 SQL——三类都能配告警规则和仪表盘。
+夜莺不要求你搬数据，接上你已经在用的。指标类走 PromQL，日志类走各自的查询语法，SQL 类直接写 SQL——三类都能配告警规则和仪表盘。
 
 指标
 
@@ -9641,11 +9641,11 @@ MCPToolsets = ["alerts", "dashboards"]
 
 # 夜莺监控（Nightingale）是什么
 
-夜莺监控（Nightingale，n9e）是开源告警引擎：接上已有的 Prometheus、日志库和数据库做规则判定、降噪和分发，自己不存数据、不做采集。
+夜莺监控（Nightingale，n9e）是开源告警引擎：接上已有的 Prometheus、日志库和数据库做规则判定、降噪和分发，数据不用搬、采集器不用换。
 
 最后校对于 2026-10-12
 
-夜莺监控（Nightingale，简称 **n9e**）是一个开源告警引擎，由中国计算机学会开源发展技术委员会（CCF ODTC） 托管，代码在 [GitHub](https://github.com/ccfos/nightingale)，Apache-2.0 许可。它不存你的数据，也不替你采集—— 它长在你已有的数据库之上，在其上做告警判定、降噪，把最后剩下的送到值班人手里。
+夜莺监控（Nightingale，简称 **n9e**）是一个开源告警引擎，由中国计算机学会开源发展技术委员会（CCF ODTC） 托管，代码在 [GitHub](https://github.com/ccfos/nightingale)，Apache-2.0 许可。它不要求你把数据搬过来，也不替你采集—— 它长在你已有的数据库之上，在其上做告警判定、降噪，把最后剩下的送到值班人手里。
 
 ## 它负责哪一层[​](#它负责哪一层 "它负责哪一层的直接链接")
 
@@ -9887,7 +9887,7 @@ docker compose up -d
 ## 三种典型接法[​](#三种典型接法 "三种典型接法的直接链接")
 
 * **数据不流经夜莺**：你自己搞定采集和存储，夜莺只查询。机器列表会是空的， 故障自愈用不了，但告警规则完全可用。
-* **数据流经夜莺**：Categraf 用 remote write 把数据推给夜莺，夜莺不自己存， 按 `Pushgw.Writers` 的配置转发给一个或多个时序库。机器列表、故障自愈都能用。
+* **数据流经夜莺**：Categraf 用 remote write 把数据推给夜莺，默认存进内置时序库， 也可以按 `Pushgw.Writers` 的配置转发给一个或多个时序库。机器列表、故障自愈都能用。
 * **边缘下沉**：边缘机房和中心网络不可靠时，在边缘部署 `n9e-edge`， 规则判定在本地完成，断网期间照常告警。见[边缘机房](https://n9e.github.io/zh/docs/install/edge.md)。
 
 下一步：[选一条路进来](https://n9e.github.io/zh/docs/get-started/choose-your-path/existing-metrics.md)。
@@ -11853,7 +11853,7 @@ Grafana 全程不停，随时能退。
 
 | Zabbix                             | 夜莺                                                                                                                                    |
 | ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| Zabbix Server                      | 夜莺 + 一个时序库。夜莺自己**不存数据**（内置时序库是唯一例外）                                                                         |
+| Zabbix Server                      | 夜莺 + 时序库。[内置时序库](https://n9e.github.io/zh/docs/install/embedded-tsdb.md)默认开启、起步够用；规模上来后转发到外部时序库       |
 | Zabbix Agent                       | [Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，或者你已有的 exporter                                               |
 | Zabbix Proxy                       | 概念上最接近 `n9e-edge`，但语义不同：Proxy 是采集代理，edge 是**判定下沉**，见[边缘机房](https://n9e.github.io/zh/docs/install/edge.md) |
 | `history` / `trends` 表            | 外部时序库，或[内置时序库](https://n9e.github.io/zh/docs/data/embedded-tsdb.md)                                                         |
@@ -18361,7 +18361,7 @@ Prometheus Remote Write、OpenTSDB、Datadog、Falcon：端点、报文、标签
 
 最后校对于 2026-10-10
 
-夜莺接收数据的能力叫 Pushgw，在 Center 进程里（也可以拆成独立的 `n9e-pushgw`）。 **它不长期存数据**——收下来之后按 `[[Pushgw.Writers]]` 的配置转发给一个或多个时序库， 内置时序库开着的话也会写一份。
+夜莺接收数据的能力叫 Pushgw，在 Center 进程里（也可以拆成独立的 `n9e-pushgw`）。 **Pushgw 本身不存数据**——收下来之后写进内置时序库（默认开启），并按 `[[Pushgw.Writers]]` 的配置转发给外部时序库。
 
 不用非得走这条路：你已有的 Prometheus 继续抓、夜莺只查询，同样能配告警。 两种接法的差别见[在可观测体系中的位置](https://n9e.github.io/zh/docs/get-started/where-it-fits.md)。
 

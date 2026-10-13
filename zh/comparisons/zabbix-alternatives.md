@@ -38,7 +38,7 @@
 
 ### 夜莺监控 Nightingale（Apache-2.0）[​](#夜莺监控-nightingaleapache-20 "夜莺监控 Nightingale（Apache-2.0）的直接链接")
 
-开源告警引擎，由中国计算机学会开源发展技术委员会托管。它不存数据，直接把 Prometheus、VictoriaMetrics、Elasticsearch、ClickHouse 等 <!-- -->10+<!-- --> 种数据源注册进来做判定；没人采的地方用 Categraf 补，<!-- -->83<!-- --> 个内置集成模板带采集配置、仪表盘和告警规则。规则在页面上配，业务组是权限边界，<!-- -->20<!-- --> 种通知媒介里电话、短信、钉钉、飞书、企业微信开箱即用，内置 AI 助手和 <!-- -->74<!-- --> 个 MCP 工具。不擅长的：网络设备自动发现、Zabbix 式的多步骤升级阶梯，以及它不是告警聚合层，不能接收别的系统发来的告警。完整对比见[夜莺 vs Zabbix](https://n9e.github.io/zh/comparisons/zabbix.md)。
+开源告警引擎，由中国计算机学会开源发展技术委员会托管。它不要求数据搬家，直接把 Prometheus、VictoriaMetrics、Elasticsearch、ClickHouse 等 <!-- -->10+<!-- --> 种数据源注册进来做判定；没人采的地方用 Categraf 补，<!-- -->83<!-- --> 个内置集成模板带采集配置、仪表盘和告警规则。规则在页面上配，业务组是权限边界，<!-- -->20<!-- --> 种通知媒介里电话、短信、钉钉、飞书、企业微信开箱即用，内置 AI 助手和 <!-- -->74<!-- --> 个 MCP 工具。不擅长的：网络设备自动发现、Zabbix 式的多步骤升级阶梯，以及它不是告警聚合层，不能接收别的系统发来的告警。完整对比见[夜莺 vs Zabbix](https://n9e.github.io/zh/comparisons/zabbix.md)。
 
 ### Grafana Alerting（AGPL-3.0）[​](#grafana-alertingagpl-30 "Grafana Alerting（AGPL-3.0）的直接链接")
 

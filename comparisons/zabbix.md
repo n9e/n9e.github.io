@@ -93,17 +93,17 @@ Based on the publicly documented capabilities of each project’s open-source ed
 
 What each kind of Zabbix object is called in Nightingale, and which have no equivalent at all. The full table and the rebuild order that keeps Zabbix running throughout are in the migration guide.
 
-| Zabbix              | Nightingale                                                                |
-| ------------------- | -------------------------------------------------------------------------- |
-| Zabbix server       | Nightingale plus a time-series store (Nightingale stores nothing)          |
-| Zabbix agent        | Categraf, or exporters you already run; both coexist on one host           |
-| Host / host group   | Target (ident) / business group, which is also the permission boundary     |
-| Template            | A component in the template center, 83 built in; import is a one-time copy |
-| Item                | No equivalent; what is collected is decided in the collector config        |
-| Trigger             | Alert rule; one covers every object the query returns                      |
-| Low-level discovery | No equivalent; as many series as the query returns, that many objects      |
-| Action + media type | Notification rule + notification media + message template                  |
-| Maintenance         | Mute rule                                                                  |
+| Zabbix              | Nightingale                                                                                                 |
+| ------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Zabbix server       | Nightingale plus a time-series store (the embedded TSDB is on by default; move to an external one at scale) |
+| Zabbix agent        | Categraf, or exporters you already run; both coexist on one host                                            |
+| Host / host group   | Target (ident) / business group, which is also the permission boundary                                      |
+| Template            | A component in the template center, 83 built in; import is a one-time copy                                  |
+| Item                | No equivalent; what is collected is decided in the collector config                                         |
+| Trigger             | Alert rule; one covers every object the query returns                                                       |
+| Low-level discovery | No equivalent; as many series as the query returns, that many objects                                       |
+| Action + media type | Notification rule + notification media + message template                                                   |
+| Maintenance         | Mute rule                                                                                                   |
 
 Nightingale has no importer for Zabbix templates or triggers and cannot read its XML or YAML. Coming from Zabbix is a rebuild, not a move; the good news is that it is smaller than it looks: built-in components replace most templates, and one rule replaces a whole set of triggers.
 

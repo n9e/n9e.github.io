@@ -171,7 +171,7 @@ Find CPU alerting advice, Prometheus rule imports, subscriptions and data troubl
 - [I already have logs or databases](https://n9e.github.io/docs/get-started/choose-your-path/existing-logs-databases.md): Alert on ElasticSearch, Loki, ClickHouse, MySQL and the other SQL-queried stores using the same rule model as metrics.
 - [I already have Prometheus / VictoriaMetrics](https://n9e.github.io/docs/get-started/choose-your-path/existing-metrics.md): Register the store as a data source, keep scraping exactly as before, and get the first rule evaluating against it — no data moves.
 - [I want to enable Nightingale AI](https://n9e.github.io/docs/get-started/choose-your-path/nightingale-ai.md): Configure an LLM provider, turn on the built-in assistant and the MCP endpoint, and connect a client such as Claude Code.
-- [What Nightingale (n9e) is](https://n9e.github.io/docs/get-started/introduction.md): Nightingale (n9e, 夜莺) is an open-source alerting engine: it evaluates rules on the stores you already run, cuts the noise and delivers to on-call; it stores and collects nothing.
+- [What Nightingale (n9e) is](https://n9e.github.io/docs/get-started/introduction.md): Nightingale (n9e, 夜莺) is an open-source alerting engine: it evaluates rules on the stores you already run, cuts the noise and delivers to on-call; it needs no copy of your data and no new collectors.
 - [Guided live demo](https://n9e.github.io/docs/get-started/live-demo.md): Sign in to the public demo and walk the path from data source to delivered alert, in the same order as the quick start — no install needed.
 - [Production readiness checklist](https://n9e.github.io/docs/get-started/production-checklist.md): What to change before real traffic: default credentials, external database, TSDB choice, HA, backups and self-monitoring.
 - [Bring up Nightingale in five minutes](https://n9e.github.io/docs/get-started/quick-start.md): One docker compose up -d brings up Nightingale with its dependencies; sign in on port 17000 as root, then register a data source, write a rule and add a channel.
@@ -731,7 +731,7 @@ Yes, and it is the most common setup: chart in Grafana, alert in Nightingale. A 
 
 Do I have to replace Prometheus?
 
-No. Nightingale does not store time series. Prometheus keeps scraping and storing; Nightingale takes over rules, noise reduction and routing on top of it.
+No. Prometheus keeps scraping and storing; Nightingale takes over rules, noise reduction and routing on top of it, so nothing has to move.
 
 Can Alertmanager rules be migrated?
 
@@ -1137,7 +1137,7 @@ Two traps: a notification config with no severity ticked matches nothing, not ev
 
 Do I have to replace Prometheus?
 
-No. Nightingale stores no time series. Prometheus keeps scraping and storing; Nightingale registers it as a data source and runs instant queries against it on a schedule. Thanos, Mimir and VictoriaMetrics connect the same way.
+No. Prometheus keeps scraping and storing; Nightingale registers it as a data source and runs instant queries against it on a schedule, so nothing has to move. Thanos, Mimir and VictoriaMetrics connect the same way.
 
 Can alertmanager.yml be converted automatically?
 
@@ -1271,17 +1271,17 @@ Based on the publicly documented capabilities of each project’s open-source ed
 
 What each kind of Zabbix object is called in Nightingale, and which have no equivalent at all. The full table and the rebuild order that keeps Zabbix running throughout are in the migration guide.
 
-| Zabbix              | Nightingale                                                                |
-| ------------------- | -------------------------------------------------------------------------- |
-| Zabbix server       | Nightingale plus a time-series store (Nightingale stores nothing)          |
-| Zabbix agent        | Categraf, or exporters you already run; both coexist on one host           |
-| Host / host group   | Target (ident) / business group, which is also the permission boundary     |
-| Template            | A component in the template center, 83 built in; import is a one-time copy |
-| Item                | No equivalent; what is collected is decided in the collector config        |
-| Trigger             | Alert rule; one covers every object the query returns                      |
-| Low-level discovery | No equivalent; as many series as the query returns, that many objects      |
-| Action + media type | Notification rule + notification media + message template                  |
-| Maintenance         | Mute rule                                                                  |
+| Zabbix              | Nightingale                                                                                                 |
+| ------------------- | ----------------------------------------------------------------------------------------------------------- |
+| Zabbix server       | Nightingale plus a time-series store (the embedded TSDB is on by default; move to an external one at scale) |
+| Zabbix agent        | Categraf, or exporters you already run; both coexist on one host                                            |
+| Host / host group   | Target (ident) / business group, which is also the permission boundary                                      |
+| Template            | A component in the template center, 83 built in; import is a one-time copy                                  |
+| Item                | No equivalent; what is collected is decided in the collector config                                         |
+| Trigger             | Alert rule; one covers every object the query returns                                                       |
+| Low-level discovery | No equivalent; as many series as the query returns, that many objects                                       |
+| Action + media type | Notification rule + notification media + message template                                                   |
+| Maintenance         | Mute rule                                                                                                   |
 
 Nightingale has no importer for Zabbix templates or triggers and cannot read its XML or YAML. Coming from Zabbix is a rebuild, not a move; the good news is that it is smaller than it looks: built-in components replace most templates, and one rule replaces a whole set of triggers.
 
@@ -1370,7 +1370,7 @@ The de facto standard for cloud-native metrics: pull model, exporter ecosystem, 
 
 ### Nightingale (Apache-2.0)[​](#nightingale-apache-20 "Direct link to Nightingale (Apache-2.0)")
 
-An open-source alerting engine hosted by the China Computer Federation's open-source committee. It stores nothing: Prometheus, VictoriaMetrics, Elasticsearch, ClickHouse and other sources (<!-- -->10+<!-- --> types) are registered and queried in place; Categraf fills the gaps, with <!-- -->83<!-- --> built-in integrations bundling collector config, dashboards and rules. Rules are configured in the UI, business groups are the permission boundary, phone, SMS, DingTalk, Feishu and WeCom are among <!-- -->20<!-- --> built-in channels, and an AI assistant with <!-- -->74<!-- --> MCP tools runs in-process. Not its ground: network device discovery, Zabbix-style multi-step escalation ladders, and it is not an aggregation layer, so it cannot receive alerts from other systems. Full comparison: [Nightingale vs Zabbix](https://n9e.github.io/comparisons/zabbix.md).
+An open-source alerting engine hosted by the China Computer Federation's open-source committee. It does not need the data moved: Prometheus, VictoriaMetrics, Elasticsearch, ClickHouse and other sources (<!-- -->10+<!-- --> types) are registered and queried in place; Categraf fills the gaps, with <!-- -->83<!-- --> built-in integrations bundling collector config, dashboards and rules. Rules are configured in the UI, business groups are the permission boundary, phone, SMS, DingTalk, Feishu and WeCom are among <!-- -->20<!-- --> built-in channels, and an AI assistant with <!-- -->74<!-- --> MCP tools runs in-process. Not its ground: network device discovery, Zabbix-style multi-step escalation ladders, and it is not an aggregation layer, so it cannot receive alerts from other systems. Full comparison: [Nightingale vs Zabbix](https://n9e.github.io/comparisons/zabbix.md).
 
 ### Grafana Alerting (AGPL-3.0)[​](#grafana-alerting-agpl-30 "Direct link to Grafana Alerting (AGPL-3.0)")
 
@@ -1535,7 +1535,7 @@ DATA SOURCES
 
 ## Data sources
 
-Nightingale ships no storage of its own; it queries what you already run. Metrics stores speak PromQL, log stores use their own query syntax, and SQL stores take plain SQL — alert rules and dashboards work on all three.
+Nightingale does not make you move your data; it queries what you already run. Metrics stores speak PromQL, log stores use their own query syntax, and SQL stores take plain SQL — alert rules and dashboards work on all three.
 
 Metrics
 
@@ -9641,11 +9641,11 @@ Verify with something read-only, such as "list all alert rules".
 
 # What Nightingale (n9e) is
 
-Nightingale (n9e, 夜莺) is an open-source alerting engine: it evaluates rules on the stores you already run, cuts the noise and delivers to on-call; it stores and collects nothing.
+Nightingale (n9e, 夜莺) is an open-source alerting engine: it evaluates rules on the stores you already run, cuts the noise and delivers to on-call; it needs no copy of your data and no new collectors.
 
 Last reviewed 2026-10-12
 
-Nightingale (夜莺, also known as **n9e**) is an open-source alerting engine, hosted by the China Computer Federation's open-source committee (CCF ODTC) and developed on [GitHub](https://github.com/ccfos/nightingale) under Apache-2.0. It does not store your telemetry and it does not replace your collectors — it sits on top of the databases you already run, evaluates rules against them, cuts the noise, and delivers what survives to the people on call.
+Nightingale (夜莺, also known as **n9e**) is an open-source alerting engine, hosted by the China Computer Federation's open-source committee (CCF ODTC) and developed on [GitHub](https://github.com/ccfos/nightingale) under Apache-2.0. It does not need a copy of your telemetry and it does not replace your collectors — it sits on top of the databases you already run, evaluates rules against them, cuts the noise, and delivers what survives to the people on call.
 
 ## What it owns[​](#what-it-owns "Direct link to What it owns")
 
@@ -9887,7 +9887,7 @@ It is fine at small scale (roughly under 100k active series). Past that, turn it
 ## Three common shapes[​](#three-common-shapes "Direct link to Three common shapes")
 
 * **Data does not flow through Nightingale.** You handle collection and storage; Nightingale only queries. The host list stays empty and self-healing is unavailable, but alert rules work fully.
-* **Data flows through Nightingale.** Categraf remote-writes to Nightingale, which stores nothing itself and forwards to one or more TSDBs per `Pushgw.Writers`. Host list and self-healing work.
+* **Data flows through Nightingale.** Categraf remote-writes to Nightingale, which keeps it in the embedded TSDB by default and can forward it to one or more TSDBs per `Pushgw.Writers`. Host list and self-healing work.
 * **Edge deployment.** Where a site's link to the centre is unreliable, run `n9e-edge` there so evaluation happens locally and alerting survives a partition. See [Edge data centers](https://n9e.github.io/docs/install/edge.md).
 
 Next: [Choose your path](https://n9e.github.io/docs/get-started/choose-your-path/existing-metrics.md).
@@ -11851,15 +11851,15 @@ Historical data does not move either. Zabbix's `history` and `trends` stay where
 
 ### Collection and storage[​](#collection-and-storage "Direct link to Collection and storage")
 
-| Zabbix                            | Nightingale                                                                                                                                                                                      |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Zabbix Server                     | Nightingale plus a time-series database. Nightingale **stores nothing itself** (the embedded TSDB being the one exception)                                                                       |
-| Zabbix Agent                      | [Categraf](https://n9e.github.io/docs/data/categraf/install.md), or the exporters you already run                                                                                                |
-| Zabbix Proxy                      | Conceptually closest to `n9e-edge`, but not the same thing: a Proxy is a collection relay, edge **pushes evaluation down** — see [Edge data centers](https://n9e.github.io/docs/install/edge.md) |
-| `history` / `trends` tables       | An external store, or the [embedded TSDB](https://n9e.github.io/docs/data/embedded-tsdb.md)                                                                                                      |
-| Item                              | **No equivalent.** What gets collected is decided by the collector's config; Nightingale does not define items                                                                                   |
-| Item key (`vfs.fs.size[/,pfree]`) | A metric name plus labels (`disk_used_percent{path="/"}`)                                                                                                                                        |
-| The Zabbix API                    | Nightingale's HTTP API                                                                                                                                                                           |
+| Zabbix                            | Nightingale                                                                                                                                                                                         |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Zabbix Server                     | Nightingale plus a time-series database. The [embedded TSDB](https://n9e.github.io/docs/install/embedded-tsdb.md) is on by default and enough to start with; at scale, forward to an external store |
+| Zabbix Agent                      | [Categraf](https://n9e.github.io/docs/data/categraf/install.md), or the exporters you already run                                                                                                   |
+| Zabbix Proxy                      | Conceptually closest to `n9e-edge`, but not the same thing: a Proxy is a collection relay, edge **pushes evaluation down** — see [Edge data centers](https://n9e.github.io/docs/install/edge.md)    |
+| `history` / `trends` tables       | An external store, or the [embedded TSDB](https://n9e.github.io/docs/data/embedded-tsdb.md)                                                                                                         |
+| Item                              | **No equivalent.** What gets collected is decided by the collector's config; Nightingale does not define items                                                                                      |
+| Item key (`vfs.fs.size[/,pfree]`) | A metric name plus labels (`disk_used_percent{path="/"}`)                                                                                                                                           |
+| The Zabbix API                    | Nightingale's HTTP API                                                                                                                                                                              |
 
 ### Hosts and grouping[​](#hosts-and-grouping "Direct link to Hosts and grouping")
 
@@ -18365,7 +18365,7 @@ Prometheus Remote Write, OpenTSDB, Datadog and Falcon: endpoints, payloads and l
 
 Last reviewed 2026-10-10
 
-The ingest side is called Pushgw and lives inside the Center process (it can also run on its own as `n9e-pushgw`). **It does not store data long-term** — what arrives is forwarded to one or more TSDBs per `[[Pushgw.Writers]]`, plus the embedded TSDB when that is on.
+The ingest side is called Pushgw and lives inside the Center process (it can also run on its own as `n9e-pushgw`). **Pushgw itself keeps nothing** — what arrives goes to the embedded TSDB (on by default) and to any TSDBs listed in `[[Pushgw.Writers]]`.
 
 You do not have to use it. Your existing Prometheus can keep scraping while Nightingale only queries, and alerting works the same. The difference between the two shapes is in [Where it fits](https://n9e.github.io/docs/get-started/where-it-fits.md).
 

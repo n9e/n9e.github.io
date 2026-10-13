@@ -180,7 +180,7 @@ Yes, and it is the most common setup: chart in Grafana, alert in Nightingale. A 
 
 Do I have to replace Prometheus?
 
-No. Nightingale does not store time series. Prometheus keeps scraping and storing; Nightingale takes over rules, noise reduction and routing on top of it.
+No. Prometheus keeps scraping and storing; Nightingale takes over rules, noise reduction and routing on top of it, so nothing has to move.
 
 Can Alertmanager rules be migrated?
 

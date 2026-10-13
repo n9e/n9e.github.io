@@ -128,7 +128,7 @@ Two traps: a notification config with no severity ticked matches nothing, not ev
 
 Do I have to replace Prometheus?
 
-No. Nightingale stores no time series. Prometheus keeps scraping and storing; Nightingale registers it as a data source and runs instant queries against it on a schedule. Thanos, Mimir and VictoriaMetrics connect the same way.
+No. Prometheus keeps scraping and storing; Nightingale registers it as a data source and runs instant queries against it on a schedule, so nothing has to move. Thanos, Mimir and VictoriaMetrics connect the same way.
 
 Can alertmanager.yml be converted automatically?
 
