@@ -35,7 +35,7 @@ test('aliases preserve language and existing canonical routes never redirect to 
   assert.equal(legacyTarget('/docs/practice/java-extra'), null);
 });
 
-test('the retired article is never emitted as a redirect', () => {
+test('the removed article gets a notice, never a redirect', () => {
   for (const locale of ['en', 'zh-Hans']) {
     const rules = redirectsForLocale(locale);
     assert(!rules.some((item) => item.from.includes('flashcat')));
@@ -51,7 +51,7 @@ test('old blog and contributor routes keep their language, off-site targets are 
   assert.equal(legacyTarget('/contributors/'), 'https://github.com/ccfos/nightingale/graphs/contributors');
   assert.equal(legacyTarget('/zh/contributors'), 'https://github.com/ccfos/nightingale/graphs/contributors');
   assert.equal(legacyTarget('/contributors/ulric-qin'), 'https://github.com/ccfos/nightingale/graphs/contributors');
-  assert.equal(legacyTarget('/zh/contributors/henk-verlinde'), null);
+  assert.equal(legacyTarget('/zh/contributors/henk-verlinde'), 'https://github.com/ccfos/nightingale/graphs/contributors');
   for (const locale of ['en', 'zh-Hans']) {
     const rules = redirectsForLocale(locale);
     assert(rules.some((item) => item.from === '/blog' && item.to === '/'));

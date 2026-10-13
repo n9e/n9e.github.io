@@ -19,9 +19,9 @@ export function validateRegistry(items, inventory) {
       assert(safePath.test(item.path), `Invalid source path: ${item.path}`);
       assert(!paths.has(item.path), `Duplicate legacy source: ${locale} ${item.path}`);
       paths.add(item.path);
-      assert(['redirect', 'keep', 'restore', 'retire'].includes(item.action), `Invalid action: ${item.path}`);
+      assert(['redirect', 'keep', 'restore', 'retire', 'explain'].includes(item.action), `Invalid action: ${item.path}`);
       assert(item.reason && item.source, `Missing content decision or source: ${item.path}`);
-      if (item.action === 'redirect') {
+      if (item.action === 'redirect' || item.action === 'explain') {
         assert(safeTarget(item.to), `Invalid target: ${item.path}`);
         assert.notEqual(item.path, item.to, `Self redirect: ${item.path}`);
         const next = local.find((candidate) => candidate.path === item.to);
@@ -55,6 +55,21 @@ async function checkBuild() {
         }
         assert(!indexed.has(from), `Retired page appears in sitemap: ${from}`);
         reports.push({ from, action: item.action, expectedStatus: 404 });
+        continue;
+      }
+      if (item.action === 'explain') {
+        // A static notice, not a redirect: 200, noindex, no refresh, a link to the suggested page.
+        for (const file of [`${from}/index.html`, `${from}.html`]) {
+          const html = await fs.readFile(path.join(build, file), 'utf8');
+          const page = load(html);
+          assert.equal(page('meta[name="robots"]').attr('content'), 'noindex', `Notice is indexable: ${file}`);
+          assert.equal(page('meta[http-equiv="refresh"]').length, 0, `Notice redirects: ${file}`);
+          assert(page('h1').text().trim(), `Notice has no title: ${file}`);
+          assert(page('body a').toArray().some((a) => page(a).attr('href') === to), `Notice lacks the suggested link: ${file}`);
+          assert(!html.includes('hm.baidu.com') && !page('script[src]').length, `Notice loads app or analytics: ${file}`);
+        }
+        assert(!indexed.has(from), `Notice appears in sitemap: ${from}`);
+        reports.push({ from, action: item.action, to, expectedStatus: 200 });
         continue;
       }
       let canonical = to;

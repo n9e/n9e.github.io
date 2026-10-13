@@ -1,7 +1,7 @@
 ---
 sidebar_label: Introduction
 title: What Nightingale (n9e) is
-description: "Nightingale (n9e, 夜莺) is an open-source alerting engine: it evaluates rules on the stores you already run, cuts the noise and delivers to on-call; it stores and collects nothing."
+description: "Nightingale (n9e, 夜莺) is an open-source alerting engine: it evaluates rules on the stores you already run, cuts the noise and delivers to on-call; it needs no copy of your data and no new collectors."
 last_reviewed: 2026-10-12
 ---
 
@@ -9,7 +9,7 @@ import { figures } from '@site/src/data/figures';
 
 Nightingale (夜莺, also known as **n9e**) is an open-source alerting engine, hosted by the China
 Computer Federation's open-source committee (CCF ODTC) and developed on
-[GitHub](https://github.com/ccfos/nightingale) under Apache-2.0. It does not store your telemetry
+[GitHub](https://github.com/ccfos/nightingale) under Apache-2.0. It does not need a copy of your telemetry
 and it does not replace your collectors — it sits on top of the databases you already run,
 evaluates rules against them, cuts the noise, and delivers what survives to the people on call.
 

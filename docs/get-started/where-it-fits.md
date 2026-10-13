@@ -41,8 +41,8 @@ It is fine at small scale (roughly under 100k active series). Past that, turn it
 
 - **Data does not flow through Nightingale.** You handle collection and storage; Nightingale only
   queries. The host list stays empty and self-healing is unavailable, but alert rules work fully.
-- **Data flows through Nightingale.** Categraf remote-writes to Nightingale, which stores nothing
-  itself and forwards to one or more TSDBs per `Pushgw.Writers`. Host list and self-healing work.
+- **Data flows through Nightingale.** Categraf remote-writes to Nightingale, which keeps it in the
+  embedded TSDB by default and can forward it to one or more TSDBs per `Pushgw.Writers`. Host list and self-healing work.
 - **Edge deployment.** Where a site's link to the centre is unreliable, run `n9e-edge` there so
   evaluation happens locally and alerting survives a partition. See [Edge data centers](../install/edge.md).
 

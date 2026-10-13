@@ -29,7 +29,7 @@ keeps running and collecting throughout, and afterwards you demote it to a read-
 
 | Zabbix | Nightingale |
 |---|---|
-| Zabbix Server | Nightingale plus a time-series database. Nightingale **stores nothing itself** (the embedded TSDB being the one exception) |
+| Zabbix Server | Nightingale plus a time-series database. The [embedded TSDB](../install/embedded-tsdb.md) is on by default and enough to start with; at scale, forward to an external store |
 | Zabbix Agent | [Categraf](../data/categraf/install.md), or the exporters you already run |
 | Zabbix Proxy | Conceptually closest to `n9e-edge`, but not the same thing: a Proxy is a collection relay, edge **pushes evaluation down** — see [Edge data centers](../install/edge.md) |
 | `history` / `trends` tables | An external store, or the [embedded TSDB](../data/embedded-tsdb.md) |

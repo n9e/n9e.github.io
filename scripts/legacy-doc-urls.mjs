@@ -20,7 +20,7 @@ export const legacyDocUrls = [
   entry('prologue/prometheus', 'redirect', 'Relationship to existing monitoring components.', 'get-started/where-it-fits'),
   entry('prologue/pre-knowledge', 'restore', 'Prerequisites, PromQL and troubleshooting skills.'),
   entry('prologue/videos', 'restore', 'Preserve the video catalogue and its version context.'),
-  entry('prologue/flashcat', 'retire', 'Commercial-edition copy was intentionally removed.'),
+  entry('prologue/flashcat', 'explain', 'Commercial-edition copy was intentionally removed; old links get a short notice pointing at the introduction instead of a bare 404.', 'get-started/introduction'),
   entry('install', 'redirect', 'Installation overview.', 'install/overview', { source: 'install/_index.md' }),
   entry('install/pre-intro', 'redirect', 'Deployment choices and dependencies.', 'install/overview'),
   entry('install/compose', 'redirect', 'Docker Compose deployment.', 'install/docker-compose'),
@@ -97,7 +97,7 @@ export const legacySiteUrls = [
   site('/contributors/ulric-qin', 'redirect', 'Doks author page generated from the blog post taxonomy; see /contributors.', GITHUB_CONTRIBUTORS, {
     locales: ['en'], source: 'blog/how-to-build-observability/index.md (contributors taxonomy)',
   }),
-  site('/contributors/henk-verlinde', 'retire', 'Doks theme author page left over from the template; never about this project.', undefined, {
+  site('/contributors/henk-verlinde', 'redirect', 'Doks theme author page left over from the template; never about this project. Treated like every other contributor page: the GitHub contributor graph.', GITHUB_CONTRIBUTORS, {
     locales: ['zh-Hans'], source: 'contributors/henk-verlinde/_index.md',
   }),
 ];
@@ -124,7 +124,8 @@ export function targetForLocale(item, prefix) {
 
 export function redirectsForLocale(locale) {
   return entriesForLocale(locale).flatMap((item) => {
-    if (item.action === 'retire') return [];
+    // Retired pages stay 404; explained pages are static notices written by finalize-legacy-doc-urls.mjs.
+    if (item.action === 'retire' || item.action === 'explain') return [];
     // The official plugin only accepts site routes; off-site aliases are written by finalize-legacy-doc-urls.mjs.
     if (item.action === 'redirect') return isExternalTarget(item.to) ? [] : [{ from: item.path, to: item.to }];
     // Existing canonical .html pages stay untouched; the alias is directory/index.html.
@@ -138,7 +139,7 @@ export function legacyTarget(pathname) {
   const locale = prefix ? 'zh-Hans' : 'en';
   const relativePath = pathname.slice(prefix.length).replace(/\/+$/, '');
   const item = entriesForLocale(locale).find((candidate) => candidate.path === relativePath);
-  if (!item || item.action === 'retire') return null;
+  if (!item || item.action === 'retire' || item.action === 'explain') return null;
   const target = targetForLocale(item, prefix);
   return target === pathname ? null : target;
 }

@@ -6,8 +6,8 @@ last_reviewed: 2026-10-10
 ---
 
 The ingest side is called Pushgw and lives inside the Center process (it can also run on its own as
-`n9e-pushgw`). **It does not store data long-term** — what arrives is forwarded to one or more TSDBs
-per `[[Pushgw.Writers]]`, plus the embedded TSDB when that is on.
+`n9e-pushgw`). **Pushgw itself keeps nothing** — what arrives goes to the embedded TSDB (on by default) and to
+any TSDBs listed in `[[Pushgw.Writers]]`.
 
 You do not have to use it. Your existing Prometheus can keep scraping while Nightingale only
 queries, and alerting works the same. The difference between the two shapes is in

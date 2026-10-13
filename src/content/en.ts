@@ -572,7 +572,7 @@ export const en: SiteCopy = {
         faq: [
           {
             q: 'Do I have to replace Prometheus?',
-            a: 'No. Nightingale stores no time series. Prometheus keeps scraping and storing; Nightingale registers it as a data source and runs instant queries against it on a schedule. Thanos, Mimir and VictoriaMetrics connect the same way.',
+            a: 'No. Prometheus keeps scraping and storing; Nightingale registers it as a data source and runs instant queries against it on a schedule, so nothing has to move. Thanos, Mimir and VictoriaMetrics connect the same way.',
           },
           {
             q: 'Can alertmanager.yml be converted automatically?',
@@ -637,7 +637,7 @@ export const en: SiteCopy = {
           fromLabel: 'Zabbix',
           toLabel: 'Nightingale',
           rows: [
-            { from: 'Zabbix server', to: 'Nightingale plus a time-series store (Nightingale stores nothing)' },
+            { from: 'Zabbix server', to: 'Nightingale plus a time-series store (the embedded TSDB is on by default; move to an external one at scale)' },
             { from: 'Zabbix agent', to: 'Categraf, or exporters you already run; both coexist on one host' },
             { from: 'Host / host group', to: 'Target (ident) / business group, which is also the permission boundary' },
             { from: 'Template', to: `A component in the template center, ${figures.integrations} built in; import is a one-time copy` },
@@ -856,7 +856,7 @@ export const en: SiteCopy = {
         },
         {
           q: 'Do I have to replace Prometheus?',
-          a: 'No. Nightingale does not store time series. Prometheus keeps scraping and storing; Nightingale takes over rules, noise reduction and routing on top of it.',
+          a: 'No. Prometheus keeps scraping and storing; Nightingale takes over rules, noise reduction and routing on top of it, so nothing has to move.',
         },
         {
           q: 'Can Alertmanager rules be migrated?',
@@ -922,7 +922,7 @@ export const en: SiteCopy = {
     sources: {
       label: 'DATA SOURCES',
       title: 'Data sources',
-      lead: 'Nightingale ships no storage of its own; it queries what you already run. Metrics stores speak PromQL, log stores use their own query syntax, and SQL stores take plain SQL — alert rules and dashboards work on all three.',
+      lead: 'Nightingale does not make you move your data; it queries what you already run. Metrics stores speak PromQL, log stores use their own query syntax, and SQL stores take plain SQL — alert rules and dashboards work on all three.',
       kinds: { metrics: 'Metrics', logs: 'Logs', sql: 'SQL' },
       items: [
         { name: 'Prometheus', logo: 'img/logos/prometheus.png', kind: 'metrics', href: '/docs/data/prometheus' },

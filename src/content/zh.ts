@@ -525,7 +525,7 @@ export const zh: SiteCopy = {
         faq: [
           {
             q: '要替换 Prometheus 吗？',
-            a: '不用。夜莺不存时序数据，Prometheus 继续抓取和存储，夜莺把它注册成数据源，按周期发 instant query 做判定。Thanos、Mimir、VictoriaMetrics 同样直接接。',
+            a: '不用。Prometheus 继续抓取和存储，夜莺把它注册成数据源，按周期发 instant query 做判定，数据不用搬。Thanos、Mimir、VictoriaMetrics 同样直接接。',
           },
           {
             q: 'alertmanager.yml 能自动转换吗？',
@@ -590,7 +590,7 @@ export const zh: SiteCopy = {
           fromLabel: 'Zabbix',
           toLabel: '夜莺',
           rows: [
-            { from: 'Zabbix Server', to: '夜莺 + 一个时序库（夜莺不存数据）' },
+            { from: 'Zabbix Server', to: '夜莺 + 时序库（内置时序库默认开启，规模大了换外部时序库）' },
             { from: 'Zabbix Agent', to: 'Categraf，或已有 exporter；两者可同机并存' },
             { from: 'Host / Host group', to: '设备（ident）/ 业务组，业务组同时是权限边界' },
             { from: 'Template', to: `模板中心的组件，内置 ${figures.integrations} 个，导入是一次性拷贝` },
@@ -809,7 +809,7 @@ export const zh: SiteCopy = {
         },
         {
           q: '要替换 Prometheus 吗？',
-          a: '不用。夜莺不存时序数据，Prometheus 继续采集和存储，夜莺在上面接管规则、降噪和分发。',
+          a: '不用。Prometheus 继续采集和存储，数据不用搬，夜莺在上面接管规则、降噪和分发。',
         },
         {
           q: 'Alertmanager 的规则能迁过来吗？',
@@ -875,7 +875,7 @@ export const zh: SiteCopy = {
     sources: {
       label: 'DATA SOURCES',
       title: '数据源',
-      lead: '夜莺不自带存储，接上你已经在用的。指标类走 PromQL，日志类走各自的查询语法，SQL 类直接写 SQL——三类都能配告警规则和仪表盘。',
+      lead: '夜莺不要求你搬数据，接上你已经在用的。指标类走 PromQL，日志类走各自的查询语法，SQL 类直接写 SQL——三类都能配告警规则和仪表盘。',
       kinds: { metrics: '指标', logs: '日志', sql: 'SQL' },
       items: [
         { name: 'Prometheus', logo: 'img/logos/prometheus.png', kind: 'metrics', href: '/docs/data/prometheus' },

@@ -98,7 +98,8 @@ registering it in `scripts/docs-tree.mjs` and running `npm run scaffold`.
 ## Historical documentation URLs
 
 `scripts/legacy-doc-urls.mjs` records how each pre-redesign Hugo documentation URL is handled:
-redirect to equivalent content, keep, restore, or retire. Its frozen inventory comes from the
+redirect to equivalent content, keep, restore, explain (a `noindex` notice with a suggested page,
+for removed content that old links still point at), or retire (404). Its frozen inventory comes from the
 commit before `54cbdc54`; the older `/docs/install/server` entry is recorded separately and
 redirects to the current installation overview rather than retaining an obsolete-architecture article.
 English and Chinese keep their language. Collector and monitoring-practice articles retain
@@ -114,6 +115,12 @@ adds slashless aliases without overwriting current pages, copies the target cano
 uses `location.replace` while forwarding query and hash, and checks the completed output.
 These are zero-second meta-refresh redirects, **not HTTP 301 responses**. Retired and unknown
 URLs remain 404 on GitHub Pages.
+
+The old Hugo site also served RSS at `/index.xml`, `/docs/index.xml`, per-section
+`/docs/<section>/index.xml`, `/blog/index.xml` and `/contributors/index.xml` (both locales).
+`scripts/write-legacy-feeds.mjs` writes a small valid RSS 2.0 feed at each of those paths, with the
+latest Nightingale and Categraf releases and a pointer to the new documentation, so feed readers
+and crawlers that still poll them get a 200 and the new site's address rather than a 404.
 
 The same plugin's `createRedirects` adds a trailing-slash alias for every current page
 (`/docs/x/` → `/docs/x`), because `trailingSlash: false` leaves only `docs/x.html` and GitHub
