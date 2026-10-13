@@ -107,8 +107,14 @@ const T = {
 const yamlStr = (s) => JSON.stringify(s);
 /** 上游正文里的 `<id>`、`{}` 这类字符在 Markdown 里会被当成 HTML 标签或表达式，转义成字面量 */
 const esc = (s) => String(s ?? '').replace(/[<{}]/g, '\\$&');
-/** 表格单元格：竖线和换行会破坏表格 */
-const cell = (s) => esc(s).replace(/\|/g, '\\|').replace(/\s*\n\s*/g, ' ').trim();
+/** 表格单元格：竖线和换行会破坏表格；上游备注里的 "- 列表项" 压成一行时用分号隔开 */
+const cell = (s) =>
+  esc(s)
+    .replace(/\|/g, '\\|')
+    .replace(/^\s*-\s*/, '')
+    .replace(/([.。;；])?\s*\n\s*-\s*/g, (m, end) => (end ? `${end} ` : '; '))
+    .replace(/\s*\n\s*/g, ' ')
+    .trim();
 /** 行内代码里不能出现反引号；表达式里基本没有，保险起见换成单引号 */
 const code = (s) => `\`${String(s).replace(/`/g, "'")}\``;
 /** 围栏代码块：正文里出现 ``` 就加长围栏 */

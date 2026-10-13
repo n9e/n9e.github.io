@@ -100,7 +100,7 @@ net_response_result_code != 0
 
 | 指标 | 含义 | 单位 |
 | --- | --- | --- |
-| `net_response_result_code` | NET 探测结果状态码 — 0 值表示正常，大于 0 就是异常，各个值的含义如下： - 0: Success - 1: Timeout - 2: ConnectionFailed - 3: ReadFailed - 4: StringMismatch |  |
+| `net_response_result_code` | NET 探测结果状态码 — 0 值表示正常，大于 0 就是异常，各个值的含义如下：; 0: Success; 1: Timeout; 2: ConnectionFailed; 3: ReadFailed; 4: StringMismatch |  |
 | `net_response_response_time` | NET 探测耗时 | s |
 
 ## 相关链接

@@ -453,7 +453,7 @@ elasticsearch_cluster_health_unassigned_shards > 0
 | `elasticsearch_cluster_health_number_of_pending_tasks` | Cluster Health Pending task 数量 |  |
 | `elasticsearch_cluster_health_relocating_shards` | Cluster Health relocating 的分片数 | 个 |
 | `elasticsearch_cluster_health_unassigned_shards` | Cluster Health unassigned 的分片数 | 个 |
-| `elasticsearch_cluster_health_status_code` | Cluster Health 健康度状态码 — - 1：Green，绿色状态，表示所有分片都正常 - 2：Yellow，黄色状态，主分片都正常，从分片有不正常的 - 3：Red，红色状态，有些主分片不正常 |  |
+| `elasticsearch_cluster_health_status_code` | Cluster Health 健康度状态码 — - 1：Green，绿色状态，表示所有分片都正常; 2：Yellow，黄色状态，主分片都正常，从分片有不正常的; 3：Red，红色状态，有些主分片不正常 |  |
 | `elasticsearch_cluster_health_number_of_data_nodes` | Cluster Health 数据节点数量 |  |
 | `elasticsearch_cluster_health_initializing_shards` | Cluster Health 正在初始化的分片数 | 个 |
 | `elasticsearch_cluster_health_active_primary_shards` | Cluster Health 活跃主分片数 | 个 |

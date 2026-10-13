@@ -933,8 +933,15 @@ article > a.card.planned h2 {
 .markdown table {
   display: table;
   width: 100%;
+  max-width: 100%;
   border-collapse: collapse;
   font-size: 0.92rem;
+}
+
+/* 单元格里的长代码（指标名、PromQL）要能断行，否则整张表被撑宽、压到右侧目录栏上 */
+.markdown table code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .markdown table th,

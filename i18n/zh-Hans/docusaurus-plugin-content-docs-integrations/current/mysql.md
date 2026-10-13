@@ -478,7 +478,7 @@ mysql_up == 0
 | `mysql_global_variables_innodb_buffer_pool_size` | Global Variables InnoDB 缓冲池配置大小 | bytes |
 | `mysql_global_variables_read_only` | Global Variables read_only 开关值 — 0 就是 OFF，1 是 ON |  |
 | `mysql_global_variables_open_files_limit` | Global Variables 允许打开的文件句柄数 |  |
-| `mysql_global_variables_max_connections` | Global Variables 最大连接数限制 — 允许的最大连接数，默认值是 151，过小了。 - 通过 `SHOW VARIABLES LIKE 'max_connections'` 命令查看当前设置 - 通过 `SET GLOBAL max_connections = 2048` 重新设置最大连接数 - 通过修改 MySQL 配置文件，在 `[mysqld]` 下面添加 `max_connections = 2048` 使其重启依旧生效 |  |
+| `mysql_global_variables_max_connections` | Global Variables 最大连接数限制 — 允许的最大连接数，默认值是 151，过小了。 通过 `SHOW VARIABLES LIKE 'max_connections'` 命令查看当前设置; 通过 `SET GLOBAL max_connections = 2048` 重新设置最大连接数; 通过修改 MySQL 配置文件，在 `[mysqld]` 下面添加 `max_connections = 2048` 使其重启依旧生效 |  |
 | `mysql_global_variables_query_cache_size` | Global Variables 查询缓存大小 | bytes |
 | `mysql_up` | MySQL 实例是否 UP — 1 表示 UP，说明能正常连到 MySQL 采集数据；0 表示无法连通 MySQL 实例，可能是网络问题、认证问题，或者 MySQL 本身就是挂了 |  |
 | `mysql_scrape_use_seconds` | MySQL 指标抓取耗时 | s |
