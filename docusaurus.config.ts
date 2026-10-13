@@ -241,6 +241,12 @@ const config: Config = {
     // 社交分享卡片。产品截图当 OG 图在 1200×630 下糊成一片，改用专门的卡片。
     // 源文件在 scripts/og/，改完用浏览器按 1200×630 截图覆盖 static/img/ 下的同名文件。
     image: isEn ? 'img/og-en.png' : 'img/og.png',
+    // 两张卡片都是 1200×630，尺寸写死给抓取器：Facebook / LinkedIn 第一次分享时不用先异步拉图再排版。
+    // 换图请保持尺寸，或同步改这里。
+    metadata: [
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+    ],
     // 默认深色。respectPrefersColorScheme 必须关掉：开着的话系统设为浅色的访客
     // 仍然会拿到浅色，defaultMode 形同虚设。访客自己切换的结果仍会被记住。
     colorMode: {

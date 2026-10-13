@@ -22,7 +22,11 @@ fails, the build carries on with the data already in the repository. The build a
 copy of every page next to its HTML (`/docs/x` → `/docs/x.md`) for AI crawlers. Links and images
 in those Markdown files are absolute; `scripts/llms-txt-links.mjs` fixes the doubled `/zh/zh/`
 prefix the llms-txt plugin otherwise produces for the Chinese locale (its route table is keyed by
-prefixed paths, so the prefix cannot simply be stripped before it runs).
+prefixed paths, so the prefix cannot simply be stripped before it runs). After the build,
+`scripts/link-markdown-alternates.mjs` adds `<link rel="alternate" type="text/markdown">` (the page's
+`.md` twin) and `<link rel="describedby">` (the locale's `llms.txt`) to the head of every page that
+has a Markdown copy, following the llms.txt proposal; GitHub Pages cannot send the equivalent
+`Link:` header or negotiate `Accept: text/markdown`, so the tags are the only in-band discovery path.
 
 Fonts are self-hosted: `node scripts/sync-fonts.mjs` copies the `@fontsource` files into
 `static/fonts/` and writes `src/css/fonts.css`, which `docusaurus.config.ts` inlines into `<head>`

@@ -67,6 +67,10 @@ export default function DocItemContent({ children }: Props): ReactNode {
           <meta name="robots" content="noindex, follow" />
         </Head>
       )}
+      <Head>
+        {/* article:* 属性按 Open Graph 规范要配合 og:type=article；主题默认不给文档页输出 og:type */}
+        <meta property="og:type" content="article" />
+      </Head>
       {reviewed && (
         <Head>
           <meta property="article:modified_time" content={reviewed} />
