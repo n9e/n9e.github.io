@@ -36,7 +36,7 @@
 
 下载发布包，`./n9e` 直接跑，端口 17000，账号 `root` / `root.2020`。
 
-这种模式下元数据存在同级目录的 `n9e.db`（SQLite），Redis 用进程内的 miniredis， 指标存在内置时序库里。**方便，但不要用于生产**——见[上生产前的检查清单](https://n9e.github.io/zh/zh/docs/get-started/production-checklist.md)。
+这种模式下元数据存在同级目录的 `n9e.db`（SQLite），Redis 用进程内的 miniredis， 指标存在内置时序库里。**方便，但不要用于生产**——见[上生产前的检查清单](https://n9e.github.io/zh/docs/get-started/production-checklist.md)。
 
 ### 单机生产[​](#单机生产 "单机生产的直接链接")
 
@@ -80,7 +80,7 @@ Address = "127.0.0.1:6379"
 | 故障自愈   | 用不了                 | 可用                              |
 | 告警规则   | 完全可用               | 完全可用                          |
 
-夜莺自己不长期存储指标（内置时序库是开箱即用的例外，见[存储](https://n9e.github.io/zh/zh/docs/concepts/storage.md)）。
+夜莺自己不长期存储指标（内置时序库是开箱即用的例外，见[存储](https://n9e.github.io/zh/docs/concepts/storage.md)）。
 
 ## 边缘模式[​](#边缘模式 "边缘模式的直接链接")
 
@@ -88,10 +88,10 @@ Address = "127.0.0.1:6379"
 
 这时在边缘机房部署 `n9e-edge`：规则配置仍然在中心统一管理并下发， 但**判定在边缘本地完成**，查的是边缘自己的时序库。中心和边缘断开时，边缘照常告警。
 
-详见[边缘机房](https://n9e.github.io/zh/zh/docs/install/edge.md)。
+详见[边缘机房](https://n9e.github.io/zh/docs/install/edge.md)。
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* 各个进程分别负责什么：[进程与角色](https://n9e.github.io/zh/zh/docs/concepts/components.md)
-* 元数据存哪、指标存哪：[存储](https://n9e.github.io/zh/zh/docs/concepts/storage.md)
-* 部署怎么选：[安装部署](https://n9e.github.io/zh/zh/docs/install/overview.md)
+* 各个进程分别负责什么：[进程与角色](https://n9e.github.io/zh/docs/concepts/components.md)
+* 元数据存哪、指标存哪：[存储](https://n9e.github.io/zh/docs/concepts/storage.md)
+* 部署怎么选：[安装部署](https://n9e.github.io/zh/docs/install/overview.md)

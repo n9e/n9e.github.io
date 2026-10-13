@@ -8,7 +8,7 @@
 
 ## 17000 上挂了什么[​](#17000-上挂了什么 "17000 上挂了什么的直接链接")
 
-一句话：**全部**。Web 界面、`/api/n9e/*`、四种协议的写入端点、采集器心跳、 内置时序库的查询接口、`/mcp` 和 `/a2a`、`/metrics`，都在同一个端口上。 逐条清单在[端口与网络流向](https://n9e.github.io/zh/zh/docs/reference/ports.md)。
+一句话：**全部**。Web 界面、`/api/n9e/*`、四种协议的写入端点、采集器心跳、 内置时序库的查询接口、`/mcp` 和 `/a2a`、`/metrics`，都在同一个端口上。 逐条清单在[端口与网络流向](https://n9e.github.io/zh/docs/reference/ports.md)。
 
 另外两个端口：`n9e-edge` 的 19000，ibex 自愈的 20090（gRPC）。它们都只面向机房内部。
 
@@ -36,7 +36,7 @@ curl https://<你的夜莺地址>/api/n9e/datasource/brief
 
 `AlertDetail = true` 是同一回事，让告警事件详情可以匿名打开。
 
-这两个开关是为「即时查询的图表分享链接」和「事件详情分享」服务的。所以只有两条路： **要么关掉它们，要么就按「17000 是公开的」来设计网络。** 关掉之后， 仪表盘的限时分享链接照常工作——那条通道走的是独立的板级 token，不依赖这两个开关， 断掉的只有 `/chart/<id>` 那种临时图表链接（见[匿名限时分享](https://n9e.github.io/zh/zh/docs/query/sharing.md)）。
+这两个开关是为「即时查询的图表分享链接」和「事件详情分享」服务的。所以只有两条路： **要么关掉它们，要么就按「17000 是公开的」来设计网络。** 关掉之后， 仪表盘的限时分享链接照常工作——那条通道走的是独立的板级 token，不依赖这两个开关， 断掉的只有 `/chart/<id>` 那种临时图表链接（见[匿名限时分享](https://n9e.github.io/zh/docs/query/sharing.md)）。
 
 ## 1. 让夜莺自己跑 HTTPS[​](#1-让夜莺自己跑-https "1. 让夜莺自己跑 HTTPS的直接链接")
 
@@ -104,7 +104,7 @@ Enable = true
 n9e-agent = "<换成你自己生成的口令>"
 ```
 
-改完之后所有采集器都要同步这组凭据，否则心跳全断。轮换顺序见 [Token 与凭据轮换](https://n9e.github.io/zh/zh/docs/security/tokens.md)。
+改完之后所有采集器都要同步这组凭据，否则心跳全断。轮换顺序见 [Token 与凭据轮换](https://n9e.github.io/zh/docs/security/tokens.md)。
 
 `[HTTP.APIForService]` 是另一组，**默认 `Enable = false`**。关着的时候 `/v1/n9e` 这一整组路由 根本没有挂上去，所以配置文件里自带的那组示例账号密码目前是失效的。边缘模式、 独立部署的 alert 进程、以及变量解密都需要开它——开之前先把那组示例密码换掉。
 
@@ -140,10 +140,10 @@ BasicAuthPass = ""
 | `[HTTP.JWTAuth] RefreshExpired`  | `10080`（分钟，7 天）   | 同上                                                                           |
 | `[HTTP.ShowCaptcha] Enable`      | `false`                 | 登录页验证码。登录页对外可达时打开                                             |
 
-出向连接（数据库、Redis、各类数据源、通知媒介、大模型）的清单在 [端口与网络流向](https://n9e.github.io/zh/zh/docs/reference/ports.md)，防火墙的出方向照那张表写。 Redis 和 `[[Pushgw.Writers]]` 各自带一组 TLS 选项，跨机房时用得上。
+出向连接（数据库、Redis、各类数据源、通知媒介、大模型）的清单在 [端口与网络流向](https://n9e.github.io/zh/docs/reference/ports.md)，防火墙的出方向照那张表写。 Redis 和 `[[Pushgw.Writers]]` 各自带一组 TLS 选项，跨机房时用得上。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 完整的端口和流向表：[端口与网络流向](https://n9e.github.io/zh/zh/docs/reference/ports.md)
-* 把配置文件里的凭证换成密文：[密钥管理](https://n9e.github.io/zh/zh/docs/security/secrets.md)
-* 上线前逐项过一遍：[安全检查清单](https://n9e.github.io/zh/zh/docs/security/checklist.md)
+* 完整的端口和流向表：[端口与网络流向](https://n9e.github.io/zh/docs/reference/ports.md)
+* 把配置文件里的凭证换成密文：[密钥管理](https://n9e.github.io/zh/docs/security/secrets.md)
+* 上线前逐项过一遍：[安全检查清单](https://n9e.github.io/zh/docs/security/checklist.md)

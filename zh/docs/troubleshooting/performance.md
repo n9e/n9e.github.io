@@ -4,7 +4,7 @@
 
 最后校对于 2026-10-10
 
-告警比实际晚了好几分钟才到；界面点开一个页面转半天；指标图上出现规律性的空洞。 这页只做一件事：**从现象找到那个能定位的指标，再从指标找到根因。** 容量该怎么规划、各项默认值是多少，是[容量规划](https://n9e.github.io/zh/zh/docs/operations/capacity.md)和 [限制与默认值](https://n9e.github.io/zh/zh/docs/reference/limits.md)的事，这里不重复。
+告警比实际晚了好几分钟才到；界面点开一个页面转半天；指标图上出现规律性的空洞。 这页只做一件事：**从现象找到那个能定位的指标，再从指标找到根因。** 容量该怎么规划、各项默认值是多少，是[容量规划](https://n9e.github.io/zh/docs/operations/capacity.md)和 [限制与默认值](https://n9e.github.io/zh/docs/reference/limits.md)的事，这里不重复。
 
 紧急程度看队列：**队列是稳定的非零值**，说明系统在满负荷但还跟得上，可以排期优化； **队列在持续增长**，那就是在丢数据了——队列满了会直接丢，先止血。
 
@@ -85,7 +85,7 @@ grep '^n9e_alert_eval_query_series_count' /tmp/m2.txt | sort -t' ' -k2 -rn | hea
 * **先聚合再返回**——用 `sum by (...)` 或 `topk` 把上万条曲线压下来， 而不是把它们全捞回夜莺再判定；
 * **降低执行频率**——不是每条规则都需要每分钟跑一次。
 
-真的很贵又必须要，就把它拆成[记录规则](https://n9e.github.io/zh/zh/docs/query/recording-rules.md)预先算好， 再对结果做告警。
+真的很贵又必须要，就把它拆成[记录规则](https://n9e.github.io/zh/docs/query/recording-rules.md)预先算好， 再对结果做告警。
 
 ### 数据源自己慢了[​](#数据源自己慢了 "数据源自己慢了的直接链接")
 
@@ -101,7 +101,7 @@ grep '^n9e_alert_eval_query_series_count' /tmp/m2.txt | sort -t' ' -k2 -rn | hea
 
 **怎么确认**：`n9e_alert_alerts_total` 短时间陡增，同时 `n9e_alert_alert_queue_size` 开始涨。 这个计数器的标签是 `busi_group` / `cluster` / `type`，**上面没有 `rule_id`**， 所以它只能把范围缩到业务组，缩不到具体规则。要定位到规则， 去事件列表里按规则分组，看是不是集中在一条上。
 
-**怎么修**：先给那条规则加**告警抑制**或提高 for 时长把抖动滤掉， 再回头把查询聚合窄。降噪手段的选择见[降噪与路由模型](https://n9e.github.io/zh/zh/docs/concepts/noise-routing.md)。
+**怎么修**：先给那条规则加**告警抑制**或提高 for 时长把抖动滤掉， 再回头把查询聚合窄。降噪手段的选择见[降噪与路由模型](https://n9e.github.io/zh/docs/concepts/noise-routing.md)。
 
 ### 元数据库排队[​](#元数据库排队 "元数据库排队的直接链接")
 
@@ -138,7 +138,7 @@ grep -E '^n9e_alert_eval_log_drop_total|^n9e_alert_eval_log_query_reject_total' 
 5. 挑一条之前延迟明显的规则，**测试触发**一次，从触发到收到通知的时间回到预期；
 6. 图上原来有空洞的那段时间之后，曲线是连续的。
 
-改完之后**给这几个指标建上告警规则**，别等下次再手工查—— 具体规则写法见[监控夜莺自身](https://n9e.github.io/zh/zh/docs/operations/self-monitoring.md)。
+改完之后**给这几个指标建上告警规则**，别等下次再手工查—— 具体规则写法见[监控夜莺自身](https://n9e.github.io/zh/docs/operations/self-monitoring.md)。
 
 ## 收集这些再去提问[​](#收集这些再去提问 "收集这些再去提问的直接链接")
 
@@ -152,8 +152,8 @@ grep -E '^n9e_alert_eval_log_drop_total|^n9e_alert_eval_log_query_reject_total' 
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 该扩哪里、怎么估：[容量规划](https://n9e.github.io/zh/zh/docs/operations/capacity.md)
-* 各项默认值和上限：[限制与默认值](https://n9e.github.io/zh/zh/docs/reference/limits.md)
-* 每个指标的含义：[内置指标](https://n9e.github.io/zh/zh/docs/reference/built-in-metrics.md)
-* 把这些做成告警：[监控夜莺自身](https://n9e.github.io/zh/zh/docs/operations/self-monitoring.md)
-* 判定彻底停了：[判定记录为什么缺失或被丢弃？](https://n9e.github.io/zh/zh/docs/troubleshooting/evaluation-missing.md)
+* 该扩哪里、怎么估：[容量规划](https://n9e.github.io/zh/docs/operations/capacity.md)
+* 各项默认值和上限：[限制与默认值](https://n9e.github.io/zh/docs/reference/limits.md)
+* 每个指标的含义：[内置指标](https://n9e.github.io/zh/docs/reference/built-in-metrics.md)
+* 把这些做成告警：[监控夜莺自身](https://n9e.github.io/zh/docs/operations/self-monitoring.md)
+* 判定彻底停了：[判定记录为什么缺失或被丢弃？](https://n9e.github.io/zh/docs/troubleshooting/evaluation-missing.md)

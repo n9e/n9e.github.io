@@ -22,7 +22,7 @@
 | 用户名 / 密码                 | Loki 前面挂了认证网关时填                                                                              |
 | 自定义HTTP标头                | 多租户模式下在这里加 `X-Scope-OrgID`，值是租户 ID                                                      |
 
-![Loki 数据源表单](/zh/img/docs/data/form-loki.zh.webp)![Loki 数据源表单](/zh/img/docs/data/form-loki.zh.dark.webp)
+![Loki 数据源表单](https://n9e.github.io/zh/img/docs/data/form-loki.zh.webp)![Loki 数据源表单](https://n9e.github.io/zh/img/docs/data/form-loki.zh.dark.webp)
 
 URL 少了 `/loki` 是最常见的错。点 **测试连通性并保存** 时夜莺会请求 `<URL>/api/v1/labels`，返回 404 而且 URL 里没有 `/loki`，它会直接把补好的地址提示给你： `/loki suffix is miss, please add /loki to the url: ...`。
 
@@ -41,7 +41,7 @@ URL 少了 `/loki` 是最常见的错。点 **测试连通性并保存** 时夜�
 | 用户名 / 密码                 | 开了认证就填                                                 |
 | 自定义HTTP标头                | 网关需要额外头时填                                           |
 
-![VictoriaLogs 数据源表单](/zh/img/docs/data/form-victorialogs.zh.webp)![VictoriaLogs 数据源表单](/zh/img/docs/data/form-victorialogs.zh.dark.webp)
+![VictoriaLogs 数据源表单](https://n9e.github.io/zh/img/docs/data/form-victorialogs.zh.webp)![VictoriaLogs 数据源表单](https://n9e.github.io/zh/img/docs/data/form-victorialogs.zh.dark.webp)
 
 ## 查询：LogQL 与 LogsQL[​](#查询logql-与-logsql "查询：LogQL 与 LogsQL的直接链接")
 
@@ -104,6 +104,6 @@ VictoriaLogs 的写法是查询出结果之后，用值字段挑出那一列数�
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 日志规则的完整写法：[日志类告警规则](https://n9e.github.io/zh/zh/docs/alerting/log-rules.md)
-* 检索技巧：[日志检索与索引模式](https://n9e.github.io/zh/zh/docs/query/log-explorer.md)
-* 换成 ES：[ElasticSearch / OpenSearch](https://n9e.github.io/zh/zh/docs/data/elasticsearch.md)
+* 日志规则的完整写法：[日志类告警规则](https://n9e.github.io/zh/docs/alerting/log-rules.md)
+* 检索技巧：[日志检索与索引模式](https://n9e.github.io/zh/docs/query/log-explorer.md)
+* 换成 ES：[ElasticSearch / OpenSearch](https://n9e.github.io/zh/docs/data/elasticsearch.md)

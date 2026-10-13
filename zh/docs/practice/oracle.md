@@ -12,7 +12,7 @@
 * `conf/input.oracle/metric.toml`：通用采集 SQL，各实例共用。
 * `[[instances.metrics]]`：仅对它所属的实例执行的 SQL。
 
-使用已有[安装与注册](https://n9e.github.io/zh/zh/docs/data/categraf/install.md)中的写入配置，不需要再建一个 Oracle 时序库。
+使用已有[安装与注册](https://n9e.github.io/zh/docs/data/categraf/install.md)中的写入配置，不需要再建一个 Oracle 时序库。
 
 ## 单实例配置[​](#configure "单实例配置的直接链接")
 
@@ -80,5 +80,5 @@ FROM v$session GROUP BY status, type
 
 ## 下一步[​](#next "下一步的直接链接")
 
-* [输入插件](https://n9e.github.io/zh/zh/docs/data/categraf/plugins.md)
-* [导入仪表盘与规则](https://n9e.github.io/zh/zh/docs/data/integrations/import.md)
+* [输入插件](https://n9e.github.io/zh/docs/data/categraf/plugins.md)
+* [导入仪表盘与规则](https://n9e.github.io/zh/docs/data/integrations/import.md)

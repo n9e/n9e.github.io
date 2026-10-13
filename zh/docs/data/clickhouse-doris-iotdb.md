@@ -36,7 +36,7 @@ Nodes 是个可以加行的列表，但**当前实现只用第一个节点**，�
 
 「高级设置」里是连接池和限流：超时时间（毫秒，默认 100000）、 单次请求允许检索的最大行数（默认 500，必填）、最大空闲连接数（10）、 最大打开连接数（100）、连接最大生存时间（秒，14400）。
 
-![ClickHouse 数据源表单](/zh/img/docs/data/form-clickhouse.zh.webp)![ClickHouse 数据源表单](/zh/img/docs/data/form-clickhouse.zh.dark.webp)
+![ClickHouse 数据源表单](https://n9e.github.io/zh/img/docs/data/form-clickhouse.zh.webp)![ClickHouse 数据源表单](https://n9e.github.io/zh/img/docs/data/form-clickhouse.zh.dark.webp)
 
 点 **测试连通性并保存** 时，夜莺会真的建连接并执行一次 `SHOW DATABASES`， 过不了就不入库。地址格式写错（带了 `http://`）属于配置错误，**用「不测试连通性直接保存」 也存不进去**。
 
@@ -123,6 +123,6 @@ GROUP BY service
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* SQL 类规则怎么写：[SQL 类告警规则](https://n9e.github.io/zh/zh/docs/alerting/sql-rules.md)
-* 阈值表达式的语法：[告警规则](https://n9e.github.io/zh/zh/docs/alerting/overview.md)
-* 对业务库直接告警：[MySQL / PostgreSQL / TDengine](https://n9e.github.io/zh/zh/docs/data/sql-databases.md)
+* SQL 类规则怎么写：[SQL 类告警规则](https://n9e.github.io/zh/docs/alerting/sql-rules.md)
+* 阈值表达式的语法：[告警规则](https://n9e.github.io/zh/docs/alerting/overview.md)
+* 对业务库直接告警：[MySQL / PostgreSQL / TDengine](https://n9e.github.io/zh/docs/data/sql-databases.md)

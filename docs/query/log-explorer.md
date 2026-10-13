@@ -18,7 +18,7 @@ Registering the source itself is covered in [ElasticSearch / OpenSearch](https:/
 
 **Explorer → Logs** (`/log/explorer`).
 
-![Log explorer](/img/docs/query/log-explorer.webp)![Log explorer](/img/docs/query/log-explorer.dark.webp)
+![Log explorer](https://n9e.github.io/img/docs/query/log-explorer.webp)![Log explorer](https://n9e.github.io/img/docs/query/log-explorer.dark.webp)
 
 The left column, top to bottom (this is the Elasticsearch shape):
 

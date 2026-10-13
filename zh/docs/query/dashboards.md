@@ -17,20 +17,20 @@
 
 **数据查询 → 仪表盘**（`/dashboards`），左侧选好业务组，点 **导入**。
 
-![仪表盘列表](/zh/img/docs/query/dashboard-list.zh.webp)![仪表盘列表](/zh/img/docs/query/dashboard-list.zh.dark.webp)
+![仪表盘列表](https://n9e.github.io/zh/img/docs/query/dashboard-list.zh.webp)![仪表盘列表](https://n9e.github.io/zh/img/docs/query/dashboard-list.zh.dark.webp)
 
 弹窗里有四个 tab：
 
-| tab                               | 什么时候用                                                                                                                      |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| **导入内置仪表盘**（默认）        | 先选一个组件（MySQL、Redis…），再从它自带的仪表盘里勾几块导入。这是最常走的路                                                   |
-| **Grafana 仪表盘链接（推荐）**    | 不转换任何东西，建一个 iframe 模式的仪表盘直接嵌你的 Grafana 页面                                                               |
-| **导入夜莺仪表盘 JSON**           | 从别处导出的夜莺仪表盘 JSON 原样粘进来                                                                                          |
-| **导入 Grafana 仪表盘（不推荐）** | Beta，把 Grafana 的 dashboard JSON 转成夜莺模型。限制多，见[与 Grafana 配合](https://n9e.github.io/zh/zh/docs/query/grafana.md) |
+| tab                               | 什么时候用                                                                                                                   |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **导入内置仪表盘**（默认）        | 先选一个组件（MySQL、Redis…），再从它自带的仪表盘里勾几块导入。这是最常走的路                                                |
+| **Grafana 仪表盘链接（推荐）**    | 不转换任何东西，建一个 iframe 模式的仪表盘直接嵌你的 Grafana 页面                                                            |
+| **导入夜莺仪表盘 JSON**           | 从别处导出的夜莺仪表盘 JSON 原样粘进来                                                                                       |
+| **导入 Grafana 仪表盘（不推荐）** | Beta，把 Grafana 的 dashboard JSON 转成夜莺模型。限制多，见[与 Grafana 配合](https://n9e.github.io/zh/docs/query/grafana.md) |
 
-导完之后预期结果：列表里出现这几块盘，点开就有图。**没有图先别改盘**，多半是这个组件的 指标还没采上来，回去[验证数据到达](https://n9e.github.io/zh/zh/docs/data/integrations/verify.md)。
+导完之后预期结果：列表里出现这几块盘，点开就有图。**没有图先别改盘**，多半是这个组件的 指标还没采上来，回去[验证数据到达](https://n9e.github.io/zh/docs/data/integrations/verify.md)。
 
-模板本身在**集成中心 → 模板中心**里，从那里也能进同一批仪表盘；采集配置和告警规则 一起导的做法见[导入仪表盘与规则](https://n9e.github.io/zh/zh/docs/data/integrations/import.md)。
+模板本身在**集成中心 → 模板中心**里，从那里也能进同一批仪表盘；采集配置和告警规则 一起导的做法见[导入仪表盘与规则](https://n9e.github.io/zh/docs/data/integrations/import.md)。
 
 ## 2. 从空白建一个，加第一块面板[​](#2-从空白建一个加第一块面板 "2. 从空白建一个，加第一块面板的直接链接")
 
@@ -40,7 +40,7 @@
 
 选一种图表类型，进入面板编辑器。它是一个全屏弹窗，**左右两栏，不是 tab**：
 
-* **左边**：最上面是变量条，中间是实时预览，下面是查询编辑器。查询编辑器和 [即时查询](https://n9e.github.io/zh/zh/docs/query/metric-explorer.md)是同一套，写完就能在上面看到效果。 「文本卡片」和「内嵌文档」这两种类型没有查询编辑器。
+* **左边**：最上面是变量条，中间是实时预览，下面是查询编辑器。查询编辑器和 [即时查询](https://n9e.github.io/zh/docs/query/metric-explorer.md)是同一套，写完就能在上面看到效果。 「文本卡片」和「内嵌文档」这两种类型没有查询编辑器。
 * **右边**：一列可折叠的配置区，按图表类型出现其中几块—— **面板配置**（名称、描述、链接、按变量重复出图）、**图表样式**、Legend、Tooltip、 **值映射**、**高级设置**、**阈值**、**颜色设置**、**链接**、Override。
 
 弹窗顶部还有图表类型选择器和时间范围选择器，**换图表类型就在这里换**，不用删了重加。
@@ -72,7 +72,7 @@
 * **时间范围和自动刷新**：页面右上角。选中的范围写进 URL（`__from` / `__to` / `__refresh`）， 也按仪表盘记在浏览器里，下次打开还是它。自动刷新的档位是 5s / 10s / 20s / 30s / 1m / 2m / 3m / 5m / 10m。**刷新间隔比查询步长还短是没有意义的**，界面会提示。
 * **仪表盘链接**：标题栏的链接图标里可以配一组跳转（链接名称、链接地址、是否新窗口打开）， 用来把相关的几块盘串起来。
 * **仪表盘设置**（齿轮）：改名称、英文标识、分类标签、备注，还有两个行为开关—— **提示信息 (Tooltip)**（默认 / 共享十字线 / 共享提示信息）和 **缩放行为** （默认 / 更新时间范围）。
-* **变量**：变量条最右边有入口，没有变量时显示「添加变量」。怎么配见 [变量与筛选](https://n9e.github.io/zh/zh/docs/query/variables.md)。
+* **变量**：变量条最右边有入口，没有变量时显示「添加变量」。怎么配见 [变量与筛选](https://n9e.github.io/zh/docs/query/variables.md)。
 
 ## 保存、导出、把一块面板搬到别处[​](#保存导出把一块面板搬到别处 "保存、导出、把一块面板搬到别处的直接链接")
 
@@ -84,6 +84,6 @@
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 让一块盘适配多台机器：[变量与筛选](https://n9e.github.io/zh/zh/docs/query/variables.md)
-* 发给没有账号的人看：[匿名限时分享](https://n9e.github.io/zh/zh/docs/query/sharing.md)
-* 模板里的规则一起导：[导入仪表盘与规则](https://n9e.github.io/zh/zh/docs/data/integrations/import.md)
+* 让一块盘适配多台机器：[变量与筛选](https://n9e.github.io/zh/docs/query/variables.md)
+* 发给没有账号的人看：[匿名限时分享](https://n9e.github.io/zh/docs/query/sharing.md)
+* 模板里的规则一起导：[导入仪表盘与规则](https://n9e.github.io/zh/docs/data/integrations/import.md)

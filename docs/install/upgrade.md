@@ -72,7 +72,7 @@ grep -i "failed to migrate table" /opt/n9e/logs/*.log
 
 Then open **System → About**; the version there should match the command line:
 
-![The About page](/img/docs/operations/about.webp)![The About page](/img/docs/operations/about.dark.webp)
+![The About page](https://n9e.github.io/img/docs/operations/about.webp)![The About page](https://n9e.github.io/img/docs/operations/about.dark.webp)
 
 Finally check that nothing broke: open a dashboard and confirm charts render, and look at the events page to confirm new events are still being produced. Indexes on the large tables (`alert_his_event`, `notification_record`) are built **asynchronously after startup** and can take tens of minutes on a big database. The service is usable throughout — do not restart just because you see index-building in the log.
 

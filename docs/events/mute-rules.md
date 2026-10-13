@@ -8,13 +8,13 @@ Where this page ends: a rule that keeps a class of alert quiet during a window y
 
 Entry point: **Alerts & Notifications → Alert rules**, then the **Muting rules** tab at the top of the page (`/alert-mutes`).
 
-![The muting rules list](/img/docs/events/mute-rules.webp)![The muting rules list](/img/docs/events/mute-rules.dark.webp)
+![The muting rules list](https://n9e.github.io/img/docs/events/mute-rules.webp)![The muting rules list](https://n9e.github.io/img/docs/events/mute-rules.dark.webp)
 
 ## 1. Create a mute rule[​](#1-create-a-mute-rule "Direct link to 1. Create a mute rule")
 
 Click **Add**. The form has three sections; the first two are marked as the core ones.
 
-![The mute rule form](/img/docs/events/mute-form.webp)![The mute rule form](/img/docs/events/mute-form.dark.webp)
+![The mute rule form](https://n9e.github.io/img/docs/events/mute-form.webp)![The mute rule form](https://n9e.github.io/img/docs/events/mute-form.dark.webp)
 
 **Filter conditions** decide which events get muted. They are AND-ed, and an empty one means no restriction:
 

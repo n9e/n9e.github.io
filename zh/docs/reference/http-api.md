@@ -41,7 +41,7 @@ curl -X POST http://n9e:17000/api/n9e/auth/login \
 # 取响应里的 dat.access_token，之后用 Authorization: Bearer <token>
 ```
 
-**Token 没有独立权限**——它就是「以那个用户的身份行动」。给自动化用的 Token 应该建一个最小权限的专用账号再生成，见[Token 与凭据轮换](https://n9e.github.io/zh/zh/docs/security/tokens.md)。
+**Token 没有独立权限**——它就是「以那个用户的身份行动」。给自动化用的 Token 应该建一个最小权限的专用账号再生成，见[Token 与凭据轮换](https://n9e.github.io/zh/docs/security/tokens.md)。
 
 ## 响应形状[​](#响应形状 "响应形状的直接链接")
 
@@ -65,7 +65,7 @@ curl -X POST http://n9e:17000/api/n9e/auth/login \
 curl -o /dev/null -w '%{http_code}' http://n9e:17000/api/n9e/does-not-exist
 ```
 
-判断接口是否存在，要看响应体是不是 JSON，或者直接查路由表。 这条坑在[排障](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)里还会再遇到。
+判断接口是否存在，要看响应体是不是 JSON，或者直接查路由表。 这条坑在[排障](https://n9e.github.io/zh/docs/troubleshooting/no-data.md)里还会再遇到。
 
 ## 常用端点[​](#常用端点 "常用端点的直接链接")
 
@@ -99,16 +99,16 @@ curl -o /dev/null -w '%{http_code}' http://n9e:17000/api/n9e/does-not-exist
 
 采集器请求与页面管理 API 是不同链路。`[HTTP.APIForAgent].Enable` 控制接收入口， 指标写入内置存储或配置的外置目标。页面登录 JWT 不能替代采集器凭据。
 
-| 格式                    | 接收入口                      | 配置说明                                                                                                                                   |
-| ----------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| Prometheus Remote Write | `POST /prometheus/v1/write`   | [Telegraf](https://n9e.github.io/zh/zh/docs/agent/telegraf.md)、[Categraf](https://n9e.github.io/zh/zh/docs/data/categraf/remote-write.md) |
-| OpenTSDB JSON           | `POST /opentsdb/put`          | [数据写入协议](https://n9e.github.io/zh/zh/docs/reference/write-protocols.md)                                                              |
-| Datadog v1 series       | `POST /datadog/api/v1/series` | [Datadog Agent 兼容说明](https://n9e.github.io/zh/zh/docs/agent/datadog-agent.md)                                                          |
+| 格式                    | 接收入口                      | 配置说明                                                                                                                             |
+| ----------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| Prometheus Remote Write | `POST /prometheus/v1/write`   | [Telegraf](https://n9e.github.io/zh/docs/agent/telegraf.md)、[Categraf](https://n9e.github.io/zh/docs/data/categraf/remote-write.md) |
+| OpenTSDB JSON           | `POST /opentsdb/put`          | [数据写入协议](https://n9e.github.io/zh/docs/reference/write-protocols.md)                                                           |
+| Datadog v1 series       | `POST /datadog/api/v1/series` | [Datadog Agent 兼容说明](https://n9e.github.io/zh/docs/agent/datadog-agent.md)                                                       |
 
 开启认证时，Remote Write 和 OpenTSDB 使用 Agent BasicAuth；Datadog v1 series 则将 `api_key` 与其中的密码值匹配。先确认认证和实际写入目标，再在时序库中查询， 不能把 HTTP 响应成功直接当成数据已经可查询。
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [Token 与凭据轮换](https://n9e.github.io/zh/zh/docs/security/tokens.md)
-* [权限矩阵](https://n9e.github.io/zh/zh/docs/reference/permissions.md)
-* [MCP 工具](https://n9e.github.io/zh/zh/docs/reference/mcp-tools.md)（同一套权限模型的另一个入口）
+* [Token 与凭据轮换](https://n9e.github.io/zh/docs/security/tokens.md)
+* [权限矩阵](https://n9e.github.io/zh/docs/reference/permissions.md)
+* [MCP 工具](https://n9e.github.io/zh/docs/reference/mcp-tools.md)（同一套权限模型的另一个入口）

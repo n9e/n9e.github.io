@@ -107,6 +107,6 @@ curl -s https://n9e.example.com/.well-known/oauth-protected-resource/mcp
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 更省事的做法：[个人 Token 认证](https://n9e.github.io/zh/zh/docs/ai/token-auth.md)
-* 权限边界不因鉴权方式改变：[权限继承与 RBAC](https://n9e.github.io/zh/zh/docs/ai/permissions.md)
-* SSO 本身怎么配：[SSO / 外部身份源集成](https://n9e.github.io/zh/zh/docs/security/sso.md)
+* 更省事的做法：[个人 Token 认证](https://n9e.github.io/zh/docs/ai/token-auth.md)
+* 权限边界不因鉴权方式改变：[权限继承与 RBAC](https://n9e.github.io/zh/docs/ai/permissions.md)
+* SSO 本身怎么配：[SSO / 外部身份源集成](https://n9e.github.io/zh/docs/security/sso.md)

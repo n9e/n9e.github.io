@@ -17,7 +17,7 @@
 
 **下面这些不存在，别去找：**
 
-* 没有「用环境变量覆盖任意配置项」的机制。没有 `N9E_DB_DSN` 这种东西， 配置只从 `etc/` 下的 toml 文件读，详见[环境变量](https://n9e.github.io/zh/zh/docs/reference/environment-variables.md)。
+* 没有「用环境变量覆盖任意配置项」的机制。没有 `N9E_DB_DSN` 这种东西， 配置只从 `etc/` 下的 toml 文件读，详见[环境变量](https://n9e.github.io/zh/docs/reference/environment-variables.md)。
 * 没有对接外部密钥管理系统（Vault、云 KMS）的口子。
 * **数据源的账号密码和大模型 API Key 两套机制都覆盖不到**，它们只存在各自的表里。
 
@@ -95,21 +95,21 @@
 
 通知媒介的 Token、SMTP 口令、单点登录的 ClientSecret 都是在界面里填的，不在配置文件里， 所以走另一套：在 **系统配置 → 变量设置** 里建一条加密变量， 然后在对应的配置里用 `{{.变量名}}` 引用它。
 
-值在**浏览器里**就用 RSA 公钥加密好才发出去，之后界面上再也读不出来（列表显示 `******`）， 渲染进日志和通知记录时会被打成 `***`。完整规则和限制见[站点与用户变量](https://n9e.github.io/zh/zh/docs/security/variables.md)。
+值在**浏览器里**就用 RSA 公钥加密好才发出去，之后界面上再也读不出来（列表显示 `******`）， 渲染进日志和通知记录时会被打成 `***`。完整规则和限制见[站点与用户变量](https://n9e.github.io/zh/docs/security/variables.md)。
 
 它的边界要说清楚：**RSA 私钥和密文存在同一张 `configs` 表里**。 所以这层加密防的是「有系统配置权限的人顺手看见凭证」和「凭证写进日志」， 防不住能读数据库的人。
 
 ## 3. 剩下的凭证放在哪儿[​](#3-剩下的凭证放在哪儿 "3. 剩下的凭证放在哪儿的直接链接")
 
-| 凭证                               | 存在哪             | 能不能加密                                                                                        |
-| ---------------------------------- | ------------------ | ------------------------------------------------------------------------------------------------- |
-| 用户密码                           | `users` 表         | 加盐哈希，不可逆。但全站共用一个盐，弱口令仍然扛不住离线爆破                                      |
-| 个人 Token                         | `user_token` 表    | 明文 UUID，靠删除吊销，见 [Token 与凭据轮换](https://n9e.github.io/zh/zh/docs/security/tokens.md) |
-| 数据源账号密码、证书、请求头       | `datasource` 表    | 两套机制都覆盖不到。非管理员调接口拿到的记录里这些字段已被抹掉                                    |
-| 大模型 API Key                     | `ai_llm_config` 表 | 同上                                                                                              |
-| 通知媒介的 Token、SMTP 口令        | 媒介配置           | 可以改成引用加密变量                                                                              |
-| 单点登录的 ClientSecret / BindPass | `sso_config` 表    | 同上                                                                                              |
-| RSA 私钥、JWT 签名密钥、口令盐     | `configs` 表       | 自动生成，不用管，但它们决定了库的敏感级别                                                        |
+| 凭证                               | 存在哪             | 能不能加密                                                                                     |
+| ---------------------------------- | ------------------ | ---------------------------------------------------------------------------------------------- |
+| 用户密码                           | `users` 表         | 加盐哈希，不可逆。但全站共用一个盐，弱口令仍然扛不住离线爆破                                   |
+| 个人 Token                         | `user_token` 表    | 明文 UUID，靠删除吊销，见 [Token 与凭据轮换](https://n9e.github.io/zh/docs/security/tokens.md) |
+| 数据源账号密码、证书、请求头       | `datasource` 表    | 两套机制都覆盖不到。非管理员调接口拿到的记录里这些字段已被抹掉                                 |
+| 大模型 API Key                     | `ai_llm_config` 表 | 同上                                                                                           |
+| 通知媒介的 Token、SMTP 口令        | 媒介配置           | 可以改成引用加密变量                                                                           |
+| 单点登录的 ClientSecret / BindPass | `sso_config` 表    | 同上                                                                                           |
+| RSA 私钥、JWT 签名密钥、口令盐     | `configs` 表       | 自动生成，不用管，但它们决定了库的敏感级别                                                     |
 
 看这张表最该记住的一件事：**能加密的是少数，绝大部分凭证的实际边界是数据库本身。**
 
@@ -118,11 +118,11 @@
 产品覆盖不到的部分只能在部署上补，这三件的收益最高：
 
 1. **配置文件的权限。** 即使六个字段全加密了，文件里还留着数据库地址、 Redis 地址、写入目标这类拓扑信息。`chmod 600`，属主是跑进程的那个用户。
-2. **别把配置文件提交进版本库。** 要版本化就只存模板，值在部署时注入； 多环境用 `N9E_CONFIGS`（或 `--configs`）指向不同目录，是最省事也最好审计的做法， 见[环境变量](https://n9e.github.io/zh/zh/docs/reference/environment-variables.md)。
-3. **把数据库当成真正的边界。** 密码哈希、Token、数据源凭证、RSA 私钥全在里面。 数据库账号给最小权限、网络上只对夜莺开放、备份落盘时加密—— 见[备份与恢复](https://n9e.github.io/zh/zh/docs/operations/backup-restore.md)。
+2. **别把配置文件提交进版本库。** 要版本化就只存模板，值在部署时注入； 多环境用 `N9E_CONFIGS`（或 `--configs`）指向不同目录，是最省事也最好审计的做法， 见[环境变量](https://n9e.github.io/zh/docs/reference/environment-variables.md)。
+3. **把数据库当成真正的边界。** 密码哈希、Token、数据源凭证、RSA 私钥全在里面。 数据库账号给最小权限、网络上只对夜莺开放、备份落盘时加密—— 见[备份与恢复](https://n9e.github.io/zh/docs/operations/backup-restore.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 加密变量的完整规则：[站点与用户变量](https://n9e.github.io/zh/zh/docs/security/variables.md)
-* 凭证怎么轮换：[Token 与凭据轮换](https://n9e.github.io/zh/zh/docs/security/tokens.md)
-* 上线前逐项过一遍：[安全检查清单](https://n9e.github.io/zh/zh/docs/security/checklist.md)
+* 加密变量的完整规则：[站点与用户变量](https://n9e.github.io/zh/docs/security/variables.md)
+* 凭证怎么轮换：[Token 与凭据轮换](https://n9e.github.io/zh/docs/security/tokens.md)
+* 上线前逐项过一遍：[安全检查清单](https://n9e.github.io/zh/docs/security/checklist.md)

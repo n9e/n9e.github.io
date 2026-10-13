@@ -17,7 +17,7 @@ N9E_CONFIGS=/etc/n9e ./n9e
 ## 有几段是有前提的[​](#有几段是有前提的 "有几段是有前提的的直接链接")
 
 * **`[EmbeddedTSDB]` 只有 Center 会处理。** `n9e-edge` / `n9e-alert` / `n9e-pushgw` 读同一个 `etc` 目录，但会忽略这一段。
-* **`[DB] DBType = "sqlite"` 和 `[Redis] RedisType = "miniredis"` 是测试用的默认值。** miniredis 是进程内的假 Redis，多实例没法共享。生产要换成真的，见[数据库选型](https://n9e.github.io/zh/zh/docs/install/databases.md)。
+* **`[DB] DBType = "sqlite"` 和 `[Redis] RedisType = "miniredis"` 是测试用的默认值。** miniredis 是进程内的假 Redis，多实例没法共享。生产要换成真的，见[数据库选型](https://n9e.github.io/zh/docs/install/databases.md)。
 * **`[HTTP.ProxyAuth]` 打开后 JWT 登录整体停用**，是单向开关。
 * 带 `#` 的行是**默认注释掉的配置项样例**，不是说明文字——下表里标了「默认注释掉」。
 

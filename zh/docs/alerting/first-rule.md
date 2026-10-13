@@ -9,14 +9,14 @@
 ## 开始之前[​](#开始之前 "开始之前的直接链接")
 
 * 夜莺跑起来了，你能登录；
-* **至少注册了一个数据源**——内置时序库也算。没有的话先去[数据源](https://n9e.github.io/zh/zh/docs/data/overview.md)；
+* **至少注册了一个数据源**——内置时序库也算。没有的话先去[数据源](https://n9e.github.io/zh/docs/data/overview.md)；
 * 你能查这个数据源并拿到数据。先去**数据查询 → 指标**里试一下；查不到东西， 就先解决那个，再来写规则。
 
 ## 1. 打开表单[​](#1-打开表单 "1. 打开表单的直接链接")
 
 **告警通知 → 规则管理**。在左侧树里选一个业务组——规则属于它，它产生的每条事件也属于它。 然后点**新增**。
 
-![新建告警规则表单](/zh/img/docs/alerting/rule-form.zh.webp)![新建告警规则表单](/zh/img/docs/alerting/rule-form.zh.dark.webp)
+![新建告警规则表单](https://n9e.github.io/zh/img/docs/alerting/rule-form.zh.webp)![新建告警规则表单](https://n9e.github.io/zh/img/docs/alerting/rule-form.zh.dark.webp)
 
 表单中间是六个步骤，右侧是随着你输入实时填充的**规则摘要**。顶部那几个控件—— **仅展开核心步骤**、**展开全部**、**收起侧边栏**——只改变屏幕上显示多少内容，不改变规则本身。
 
@@ -30,7 +30,7 @@
 | -------- | ------------------------------------------------------------------------------------------------ |
 | 规则名称 | `第一条规则测试`。写死的文本——别在规则名里放变量，否则每条事件的名字都不一样，聚合看的时候一团糟 |
 | 业务组   | 从左侧树里带过来了。它决定谁能改这条规则，以及它的事件归谁                                       |
-| 附加标签 | 先跳过。见[标签、附加信息与级别](https://n9e.github.io/zh/zh/docs/alerting/labels-severity.md)   |
+| 附加标签 | 先跳过。见[标签、附加信息与级别](https://n9e.github.io/zh/docs/alerting/labels-severity.md)      |
 | 备注     | 跳过                                                                                             |
 
 ## 3. 选数据源[​](#3-选数据源 "3. 选数据源的直接链接")
@@ -56,7 +56,7 @@ target_up == 1
 * **执行频率**：`@every 15s`——比生产环境该用的快，省得你干等；
 * **持续时长 (s)**：`0`——第一次命中就报。
 
-阈值就写在 PromQL 里。没有单独的阈值输入框，查询返回几条序列就产生几条事件。 这就是全部模型——[指标规则](https://n9e.github.io/zh/zh/docs/alerting/metric-rules.md)会讲透。
+阈值就写在 PromQL 里。没有单独的阈值输入框，查询返回几条序列就产生几条事件。 这就是全部模型——[指标规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)会讲透。
 
 展开查询卡片上的**数据预览**。预期结果：图上有数据。图是空的，说明这条规则永远不会触发， 后面再怎么配都没用——换一个你确定这个数据源里有的指标再试（`up` 只有在 Prometheus 自己去抓取目标时才存在）。
 
@@ -64,7 +64,7 @@ target_up == 1
 
 第 4 步**通知配置** → **选择通知规则**。
 
-全新安装里一条都没有，而没挂通知规则的告警规则产生的事件不会有人被告知。 列表是空的话，要么现在建一条——见[通知规则](https://n9e.github.io/zh/zh/docs/notifications/rules.md)—— 要么就先不挂，改成盯事件列表而不是盯收件箱。这第一条规则，两种都行。
+全新安装里一条都没有，而没挂通知规则的告警规则产生的事件不会有人被告知。 列表是空的话，要么现在建一条——见[通知规则](https://n9e.github.io/zh/docs/notifications/rules.md)—— 要么就先不挂，改成盯事件列表而不是盯收件箱。这第一条规则，两种都行。
 
 其余全部留默认：启用恢复通知，每 60 分钟重复一次，不限发送次数。
 
@@ -78,7 +78,7 @@ target_up == 1
 
 预期结果：六个阶段，各带一个状态标签。**查询与条件检测**应该说查询返回了序列、当前值是多少。 如果它说*查询有效，但当前无数据*，回第 4 步——那就是全部答案了。
 
-其余几个阶段告诉你后面会发生什么：事件会不会被屏蔽规则接住、有没有通知规则匹配上。 细节见[测试触发](https://n9e.github.io/zh/zh/docs/alerting/test-fire.md)。
+其余几个阶段告诉你后面会发生什么：事件会不会被屏蔽规则接住、有没有通知规则匹配上。 细节见[测试触发](https://n9e.github.io/zh/docs/alerting/test-fire.md)。
 
 ## 7. 保存，然后看它触发[​](#7-保存然后看它触发 "7. 保存，然后看它触发的直接链接")
 
@@ -91,7 +91,7 @@ target_up == 1
 
 这就把整条链路证完了：数据源 → 查询 → 判定 → 事件。
 
-两分钟还是什么都没有，就点规则行上的**执行记录**。每个评估周期都留了一条记录， 写着查询返回了什么、结果后来去了哪儿——见[查看判定执行记录](https://n9e.github.io/zh/zh/docs/alerting/execution-records.md)。
+两分钟还是什么都没有，就点规则行上的**执行记录**。每个评估周期都留了一条记录， 写着查询返回了什么、结果后来去了哪儿——见[查看判定执行记录](https://n9e.github.io/zh/docs/alerting/execution-records.md)。
 
 ## 8. 现在把它变成一条真规则[​](#8-现在把它变成一条真规则 "8. 现在把它变成一条真规则的直接链接")
 
@@ -103,11 +103,11 @@ target_up == 1
 mem_used_percent > 85
 ```
 
-执行频率改成 `@every 60s`，持续时长设 `180`。持续三分钟的内存压力值得发一条消息， 一次毛刺不值得。这几个数怎么挑，见[判定周期与恢复](https://n9e.github.io/zh/zh/docs/alerting/evaluation.md)。
+执行频率改成 `@every 60s`，持续时长设 `180`。持续三分钟的内存压力值得发一条消息， 一次毛刺不值得。这几个数怎么挑，见[判定周期与恢复](https://n9e.github.io/zh/docs/alerting/evaluation.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 好好写查询：[指标规则](https://n9e.github.io/zh/zh/docs/alerting/metric-rules.md)
-* 改成对日志或数据库告警：[日志规则](https://n9e.github.io/zh/zh/docs/alerting/log-rules.md)、[SQL 规则](https://n9e.github.io/zh/zh/docs/alerting/sql-rules.md)
-* 与其一条条写，不如导一百条进来：[规则模板与内置规则](https://n9e.github.io/zh/zh/docs/alerting/templates.md)
-* 把事件送到人手上：[通知规则](https://n9e.github.io/zh/zh/docs/notifications/rules.md)
+* 好好写查询：[指标规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)
+* 改成对日志或数据库告警：[日志规则](https://n9e.github.io/zh/docs/alerting/log-rules.md)、[SQL 规则](https://n9e.github.io/zh/docs/alerting/sql-rules.md)
+* 与其一条条写，不如导一百条进来：[规则模板与内置规则](https://n9e.github.io/zh/docs/alerting/templates.md)
+* 把事件送到人手上：[通知规则](https://n9e.github.io/zh/docs/notifications/rules.md)

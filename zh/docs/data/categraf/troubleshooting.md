@@ -191,7 +191,7 @@ panic 会被兜住，reader 不会死，下个周期继续采。带上堆栈去 
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 主机显示无心跳：[Categraf 失联](https://n9e.github.io/zh/zh/docs/troubleshooting/categraf-offline.md)
-* 数据源连上了但查不到数据：[查不到数据](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)
-* 写入链路的细节：[Remote Write](https://n9e.github.io/zh/zh/docs/data/categraf/remote-write.md)
-* 插件配置的细节：[输入插件](https://n9e.github.io/zh/zh/docs/data/categraf/plugins.md)
+* 主机显示无心跳：[Categraf 失联](https://n9e.github.io/zh/docs/troubleshooting/categraf-offline.md)
+* 数据源连上了但查不到数据：[查不到数据](https://n9e.github.io/zh/docs/troubleshooting/no-data.md)
+* 写入链路的细节：[Remote Write](https://n9e.github.io/zh/docs/data/categraf/remote-write.md)
+* 插件配置的细节：[输入插件](https://n9e.github.io/zh/docs/data/categraf/plugins.md)

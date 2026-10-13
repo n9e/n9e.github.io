@@ -39,7 +39,7 @@
 
 ## 确认它活着[​](#确认它活着 "确认它活着的直接链接")
 
-先在「个人设置 → Token 管理」里生成一个 Token（做法见 [个人 Token 认证](https://n9e.github.io/zh/zh/docs/ai/token-auth.md)），然后：
+先在「个人设置 → Token 管理」里生成一个 Token（做法见 [个人 Token 认证](https://n9e.github.io/zh/docs/ai/token-auth.md)），然后：
 
 ```
 curl -s -X POST http://127.0.0.1:17000/mcp \
@@ -75,7 +75,7 @@ MCPToolsets = ["alerts", "dashboards"]
 
 合法名字有 13 个：`alerts`、`targets`、`datasource`、`mutes`、`busi_groups`、 `notify_rules`、`alert_subscribes`、`event_pipelines`、`users`、`metrics`、`logs`、 `dashboards`、`roles`。
 
-写错的名字会被丢掉并打一条 `[MCP] ignoring unknown toolset` 的告警，**不会**回退成「全放开」。 一份全是错别字的白名单换来的是零个工具，不是 74 个。各工具集覆盖什么见 [读写工具集](https://n9e.github.io/zh/zh/docs/ai/toolsets.md)。
+写错的名字会被丢掉并打一条 `[MCP] ignoring unknown toolset` 的告警，**不会**回退成「全放开」。 一份全是错别字的白名单换来的是零个工具，不是 74 个。各工具集覆盖什么见 [读写工具集](https://n9e.github.io/zh/docs/ai/toolsets.md)。
 
 ## 放在反向代理后面[​](#放在反向代理后面 "放在反向代理后面的直接链接")
 
@@ -125,6 +125,6 @@ DisableMCP = true   # 只关 MCP
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 建 Token 并理解它代表谁：[个人 Token 认证](https://n9e.github.io/zh/zh/docs/ai/token-auth.md)
-* 把客户端接上来：[接入 Claude Code / Cursor 等客户端](https://n9e.github.io/zh/zh/docs/ai/mcp-clients.md)
-* 把写工具打开：[安全地启用写工具](https://n9e.github.io/zh/zh/docs/ai/write-tools.md)
+* 建 Token 并理解它代表谁：[个人 Token 认证](https://n9e.github.io/zh/docs/ai/token-auth.md)
+* 把客户端接上来：[接入 Claude Code / Cursor 等客户端](https://n9e.github.io/zh/docs/ai/mcp-clients.md)
+* 把写工具打开：[安全地启用写工具](https://n9e.github.io/zh/docs/ai/write-tools.md)

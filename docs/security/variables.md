@@ -12,7 +12,7 @@ Both live under **System**, but they do different jobs: Variable settings holds 
 
 **System → Variable** (`/system/variable-settings`), then **Create** at the top right.
 
-![Variable settings](/img/docs/security/variables.webp)![Variable settings](/img/docs/security/variables.dark.webp)
+![Variable settings](https://n9e.github.io/img/docs/security/variables.webp)![Variable settings](https://n9e.github.io/img/docs/security/variables.dark.webp)
 
 | Field          | Notes                                                                                |
 | -------------- | ------------------------------------------------------------------------------------ |

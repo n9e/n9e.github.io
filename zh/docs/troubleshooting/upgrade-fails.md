@@ -138,7 +138,7 @@ diff -u /opt/n9e/etc.bak/config.toml /opt/n9e/etc/config.toml
 3. **回退二进制。** 新版加的列对老版本只是多余的，老版本一般会忽略它们正常启动。 如果老版本报 `Unknown column` 或 `Error 1364`（字段没有默认值），这条路走不通；
 4. **从备份恢复数据库。** 代价很明确：**备份之后产生的一切都会丢**—— 新写的规则、告警事件、通知记录、仪表盘改动。集群环境下要**先停掉所有实例**再恢复， 否则活着的实例会一边写一边和你抢。
 
-第 4 条正是升级前那份 `mysqldump` 的意义。步骤见 [回滚](https://n9e.github.io/zh/zh/docs/install/rollback.md)。
+第 4 条正是升级前那份 `mysqldump` 的意义。步骤见 [回滚](https://n9e.github.io/zh/docs/install/rollback.md)。
 
 ## 确认升级成功了[​](#确认升级成功了 "确认升级成功了的直接链接")
 
@@ -175,8 +175,8 @@ diff -u /opt/n9e/etc.bak/config.toml /opt/n9e/etc/config.toml
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 升级的完整步骤：[升级](https://n9e.github.io/zh/zh/docs/install/upgrade.md)
-* 跨大版本的断点：[v8 到 v9](https://n9e.github.io/zh/zh/docs/migration/v8-to-v9.md)
-* 回不去的时候：[回滚](https://n9e.github.io/zh/zh/docs/install/rollback.md)
-* 备份策略：[备份与恢复](https://n9e.github.io/zh/zh/docs/operations/backup-restore.md)
-* 升完之后要监控什么：[监控夜莺自身](https://n9e.github.io/zh/zh/docs/operations/self-monitoring.md)
+* 升级的完整步骤：[升级](https://n9e.github.io/zh/docs/install/upgrade.md)
+* 跨大版本的断点：[v8 到 v9](https://n9e.github.io/zh/docs/migration/v8-to-v9.md)
+* 回不去的时候：[回滚](https://n9e.github.io/zh/docs/install/rollback.md)
+* 备份策略：[备份与恢复](https://n9e.github.io/zh/docs/operations/backup-restore.md)
+* 升完之后要监控什么：[监控夜莺自身](https://n9e.github.io/zh/docs/operations/self-monitoring.md)

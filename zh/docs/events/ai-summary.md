@@ -6,13 +6,13 @@
 
 这页办完你会得到：流经工作流的每个事件，都带上一个由大模型写的 `ai_summary` 附加信息， 通知模板把它放在消息最前面。
 
-它是工作流（**告警通知 → 事件处理**）里的一种处理器：添加一张处理器卡片，在 **富化** 下选 **AI 摘要生成**。 工作流怎么运行、怎么挂到规则上，见[事件 Pipeline](https://n9e.github.io/zh/zh/docs/events/pipelines.md)。
+它是工作流（**告警通知 → 事件处理**）里的一种处理器：添加一张处理器卡片，在 **富化** 下选 **AI 摘要生成**。 工作流怎么运行、怎么挂到规则上，见[事件 Pipeline](https://n9e.github.io/zh/docs/events/pipelines.md)。
 
 ## 1. 接上模型[​](#1-接上模型 "1. 接上模型的直接链接")
 
 由第一个字段决定，两种方式：
 
-* **复用 LLM 配置**——选一个在 **AI 配置 → LLM 配置** 里已经配好的模型，沿用它的提供方、模型、密钥和地址， 那里支持的提供方这里都能用。该配置必须是启用状态。见[配置大模型提供方](https://n9e.github.io/zh/zh/docs/ai/llm-provider.md)。
+* **复用 LLM 配置**——选一个在 **AI 配置 → LLM 配置** 里已经配好的模型，沿用它的提供方、模型、密钥和地址， 那里支持的提供方这里都能用。该配置必须是启用状态。见[配置大模型提供方](https://n9e.github.io/zh/docs/ai/llm-provider.md)。
 * **留空**，填下面的字段。这时直接调用一个 **OpenAI 兼容的 chat completions** 接口：
 
 | 字段     | 说明                                                                |
@@ -57,7 +57,7 @@
 注释信息: {{$event.Annotations}}
 ```
 
-事件字段见[通知模板变量](https://n9e.github.io/zh/zh/docs/reference/notification-variables.md)。想要多长、什么语言，在提示词里写清楚； 模型的回复原样使用。
+事件字段见[通知模板变量](https://n9e.github.io/zh/docs/reference/notification-variables.md)。想要多长、什么语言，在提示词里写清楚； 模型的回复原样使用。
 
 ## 3. 使用结果[​](#3-使用结果 "3. 使用结果的直接链接")
 
@@ -71,12 +71,12 @@
 
 ## 调用失败时[​](#调用失败时 "调用失败时的直接链接")
 
-* 调用失败（连不上、非 2xx、超时、返回为空），这个节点在[执行记录](https://n9e.github.io/zh/zh/docs/events/execution-records.md)里标为**失败**。 事件**照样往下走**，进入后续处理器和通知，只是没有 `ai_summary`——所以模板里像上面那样用 `if` 兜住。
+* 调用失败（连不上、非 2xx、超时、返回为空），这个节点在[执行记录](https://n9e.github.io/zh/docs/events/execution-records.md)里标为**失败**。 事件**照样往下走**，进入后续处理器和通知，只是没有 `ai_summary`——所以模板里像上面那样用 `if` 兜住。
 * 调用是同步的：模型慢，通知最多晚一个超时时长。
 * **每个事件调用一次模型。** 用工作流的处理范围把低价值事件挡在外面，比如排除恢复事件或 S3。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 添加、排序、挂载处理器：[事件 Pipeline](https://n9e.github.io/zh/zh/docs/events/pipelines.md)
-* 看每个节点对事件做了什么：[查看 Pipeline 执行记录](https://n9e.github.io/zh/zh/docs/events/execution-records.md)
-* 把摘要放进消息：[模板与变量](https://n9e.github.io/zh/zh/docs/notifications/templates.md)
+* 添加、排序、挂载处理器：[事件 Pipeline](https://n9e.github.io/zh/docs/events/pipelines.md)
+* 看每个节点对事件做了什么：[查看 Pipeline 执行记录](https://n9e.github.io/zh/docs/events/execution-records.md)
+* 把摘要放进消息：[模板与变量](https://n9e.github.io/zh/docs/notifications/templates.md)

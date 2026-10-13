@@ -4,7 +4,7 @@
 
 最后校对于 2026-10-10
 
-这页汇总那些「不改也能跑、但规模上来会撞上」的数字。完整配置见[配置项](https://n9e.github.io/zh/zh/docs/reference/configuration.md)。
+这页汇总那些「不改也能跑、但规模上来会撞上」的数字。完整配置见[配置项](https://n9e.github.io/zh/docs/reference/configuration.md)。
 
 ## HTTP[​](#http "HTTP的直接链接")
 
@@ -38,7 +38,7 @@
 
 超过 `MaxBytes` 时**从最旧的块开始删**。
 
-真正的硬限制不是这几个数字，而是**它只存在于单个 Center 进程的本地磁盘上**： 多副本部署时每个副本只有一部分数据。适用范围大致到 10 万活跃序列， 再往上换外部时序库。见[内置时序库的单实例限制](https://n9e.github.io/zh/zh/docs/operations/embedded-tsdb-limits.md)。
+真正的硬限制不是这几个数字，而是**它只存在于单个 Center 进程的本地磁盘上**： 多副本部署时每个副本只有一部分数据。适用范围大致到 10 万活跃序列， 再往上换外部时序库。见[内置时序库的单实例限制](https://n9e.github.io/zh/docs/operations/embedded-tsdb-limits.md)。
 
 ## 写入与转发[​](#写入与转发 "写入与转发的直接链接")
 
@@ -48,7 +48,7 @@
 | 转发请求超时 | 10000ms | `[[Pushgw.Writers]] Timeout`     |
 | 建连超时     | 3000ms  | `[[Pushgw.Writers]] DialTimeout` |
 
-队列满了会丢数据。队列长度持续接近上限，说明下游时序库写不动了， 盯 `n9e_alert_alert_queue_size` 这类指标能提前发现，见[内置指标](https://n9e.github.io/zh/zh/docs/reference/built-in-metrics.md)。
+队列满了会丢数据。队列长度持续接近上限，说明下游时序库写不动了， 盯 `n9e_alert_alert_queue_size` 这类指标能提前发现，见[内置指标](https://n9e.github.io/zh/docs/reference/built-in-metrics.md)。
 
 ## 告警判定[​](#告警判定 "告警判定的直接链接")
 
@@ -73,6 +73,6 @@
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [配置项](https://n9e.github.io/zh/zh/docs/reference/configuration.md)
-* [容量规划](https://n9e.github.io/zh/zh/docs/operations/capacity.md)
-* [夜莺为什么变慢或出现积压？](https://n9e.github.io/zh/zh/docs/troubleshooting/performance.md)
+* [配置项](https://n9e.github.io/zh/docs/reference/configuration.md)
+* [容量规划](https://n9e.github.io/zh/docs/operations/capacity.md)
+* [夜莺为什么变慢或出现积压？](https://n9e.github.io/zh/docs/troubleshooting/performance.md)

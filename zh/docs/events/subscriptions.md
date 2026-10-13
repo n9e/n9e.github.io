@@ -8,7 +8,7 @@
 
 入口：**告警通知 → 规则管理**，顶部切到 **订阅规则** tab（`/alert-subscribes`）。
 
-![订阅规则列表](/zh/img/docs/events/subscriptions.zh.webp)![订阅规则列表](/zh/img/docs/events/subscriptions.zh.dark.webp)
+![订阅规则列表](https://n9e.github.io/zh/img/docs/events/subscriptions.zh.webp)![订阅规则列表](https://n9e.github.io/zh/img/docs/events/subscriptions.zh.dark.webp)
 
 ## 1. 新建订阅[​](#1-新建订阅 "1. 新建订阅的直接链接")
 
@@ -18,7 +18,7 @@
 * **告警升级兜底**：持续 1 小时未恢复的告警，额外通知一份给团队负责人；
 * **全局回调**：所有告警事件都回调一个 Webhook 做自动化。
 
-![订阅规则表单](/zh/img/docs/events/subscribe-form.zh.webp)![订阅规则表单](/zh/img/docs/events/subscribe-form.zh.dark.webp)
+![订阅规则表单](https://n9e.github.io/zh/img/docs/events/subscribe-form.zh.webp)![订阅规则表单](https://n9e.github.io/zh/img/docs/events/subscribe-form.zh.dark.webp)
 
 ## 2. 筛选配置：哪些事件算数[​](#2-筛选配置哪些事件算数 "2. 筛选配置：哪些事件算数的直接链接")
 
@@ -35,13 +35,13 @@
 
 **持续时长**是告警升级的关键字段。填 3600 的意思是：事件第一次命中这条订阅时不发， 之后每次匹配都算一遍「本次触发时刻 − 首次命中时刻」，超过 3600 秒才真正走通知。 配一条「超过 1 小时通知给负责人」的订阅，就有了兜底。
 
-订阅是按**标签**过滤的，所以精细订阅的前提是源规则打了合适的标签。 在告警规则的附加标签里补上 `app`、`team` 这类业务维度，订阅侧才筛得动， 见[标签、附加信息与级别](https://n9e.github.io/zh/zh/docs/alerting/labels-severity.md)。
+订阅是按**标签**过滤的，所以精细订阅的前提是源规则打了合适的标签。 在告警规则的附加标签里补上 `app`、`team` 这类业务维度，订阅侧才筛得动， 见[标签、附加信息与级别](https://n9e.github.io/zh/docs/alerting/labels-severity.md)。
 
 ## 3. 通知配置：用谁的通知规则发[​](#3-通知配置用谁的通知规则发 "3. 通知配置：用谁的通知规则发的直接链接")
 
 **通知配置** 段里点 **选择通知规则**，至少选一条——命中的事件按你选的通知规则再通知一次。 不选就等于配了订阅但没人收得到，保存时会拦下来。
 
-这里选的是**你自己的**通知规则，所以媒介、消息模板、适用级别、适用时段全归你定， 源规则的所有者不需要知道有谁订阅了它。写通知规则见[通知规则](https://n9e.github.io/zh/zh/docs/notifications/rules.md)。
+这里选的是**你自己的**通知规则，所以媒介、消息模板、适用级别、适用时段全归你定， 源规则的所有者不需要知道有谁订阅了它。写通知规则见[通知规则](https://n9e.github.io/zh/docs/notifications/rules.md)。
 
 最后填 **订阅名称**（会按上面的配置自动生成一个，可改）和 **启用** 开关。
 
@@ -49,7 +49,7 @@
 
 底部除了 **创建** 还有 **测试**：拿已经发生过的事件跑一遍这条订阅的匹配条件， 在生效前确认它命中的是你想要的那些。
 
-保存后回到列表，确认 **启用** 是开的。真正验证要等一条符合条件的事件产生—— 去[活跃事件](https://n9e.github.io/zh/zh/docs/events/active-historical.md)打开那条事件的**通知记录**， 应该能看到按你的通知规则发出去的那一条。
+保存后回到列表，确认 **启用** 是开的。真正验证要等一条符合条件的事件产生—— 去[活跃事件](https://n9e.github.io/zh/docs/events/active-historical.md)打开那条事件的**通知记录**， 应该能看到按你的通知规则发出去的那一条。
 
 ## 订阅不是转发[​](#订阅不是转发 "订阅不是转发的直接链接")
 
@@ -57,7 +57,7 @@
 
 * 源规则原本的接收人**照常**收到他们那份，订阅方**另外**收到一份。 同一个人同时在两边，会收到两份内容相同的通知；
 * 订阅产生的这一份**不会再触发一次自愈脚本**——自愈只挂在源规则上跑一次；
-* 订阅规则归属你的业务组，但订阅的是**别的**业务组的事件， 两者的关系见[业务组与权限边界](https://n9e.github.io/zh/zh/docs/concepts/business-groups.md)。
+* 订阅规则归属你的业务组，但订阅的是**别的**业务组的事件， 两者的关系见[业务组与权限边界](https://n9e.github.io/zh/docs/concepts/business-groups.md)。
 
 ## 几个容易踩的点[​](#几个容易踩的点 "几个容易踩的点的直接链接")
 
@@ -68,7 +68,7 @@
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 反过来，想让某类告警别吵：[屏蔽规则](https://n9e.github.io/zh/zh/docs/events/mute-rules.md)
-* 订阅出来的事件走哪条通知路径：[条件路由](https://n9e.github.io/zh/zh/docs/events/routing.md)
-* 各机制的先后顺序：[降噪与路由模型](https://n9e.github.io/zh/zh/docs/concepts/noise-routing.md)
-* 订阅了却收不到：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)
+* 反过来，想让某类告警别吵：[屏蔽规则](https://n9e.github.io/zh/docs/events/mute-rules.md)
+* 订阅出来的事件走哪条通知路径：[条件路由](https://n9e.github.io/zh/docs/events/routing.md)
+* 各机制的先后顺序：[降噪与路由模型](https://n9e.github.io/zh/docs/concepts/noise-routing.md)
+* 订阅了却收不到：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/docs/troubleshooting/no-notification.md)

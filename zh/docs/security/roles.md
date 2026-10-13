@@ -34,7 +34,7 @@
 | Organization    | 人员组织 | 16       | 用户、团队、业务组、角色                                       |
 | System Settings | 系统配置 | 7        | 站点、变量、单点登录、告警引擎、关于产品、大模型配置、技能管理 |
 
-一共 96 个。逐条的对照表——每个权限点由哪个内置角色持有、卡住哪些接口——在 [权限矩阵](https://n9e.github.io/zh/zh/docs/reference/permissions.md)。
+一共 96 个。逐条的对照表——每个权限点由哪个内置角色持有、卡住哪些接口——在 [权限矩阵](https://n9e.github.io/zh/docs/reference/permissions.md)。
 
 ## 三个内置角色[​](#三个内置角色 "三个内置角色的直接链接")
 
@@ -50,7 +50,7 @@
 
 ## 建一个自定义角色[​](#建一个自定义角色 "建一个自定义角色的直接链接")
 
-![角色管理](/zh/img/docs/security/roles.zh.webp)![角色管理](/zh/img/docs/security/roles.zh.dark.webp)
+![角色管理](https://n9e.github.io/zh/img/docs/security/roles.zh.webp)![角色管理](https://n9e.github.io/zh/img/docs/security/roles.zh.dark.webp)
 
 1. **人员组织 → 角色管理**，左侧「角色列表」标题旁的 **+**；
 2. 填名称和备注。名称就是它在用户表单里显示的字符串，建议用英文，不要带空格；
@@ -67,10 +67,10 @@
 * **`Standard` 有完整的 `/busi-groups` 增删改权限。** 也就是默认配置下， 一个普通用户可以建业务组、也可以删掉他有权限的业务组。真要收口就自定义角色， 把这四个点摘掉。
 * **`/alert-mutes` 少一个 `put`。** `Standard` 有 `add` 和 `del`，没有 `put`—— 屏蔽规则能建能删，但改不了。这是种子数据的历史遗留，不是设计。
 * **数据源只有 `Admin` 能改。** `/datasources` 这个点只控制「能不能看到数据源列表页」， 新增、修改、删除一律要求 `Admin`；非管理员调列表接口拿到的记录里， 地址、请求头、证书和账号密码都已经被抹掉。
-* **系统配置类的点同理。** `/system/site-settings`、`/system/sso-settings` 只管菜单可见， 真正的保存动作都要求 `Admin`。变量设置是例外，见[站点与用户变量](https://n9e.github.io/zh/zh/docs/security/variables.md)。
+* **系统配置类的点同理。** `/system/site-settings`、`/system/sso-settings` 只管菜单可见， 真正的保存动作都要求 `Admin`。变量设置是例外，见[站点与用户变量](https://n9e.github.io/zh/docs/security/variables.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 逐个权限点的完整对照表：[权限矩阵](https://n9e.github.io/zh/zh/docs/reference/permissions.md)
-* 第二层权限怎么配：[业务组授权](https://n9e.github.io/zh/zh/docs/security/business-groups.md)
-* 两层是怎么合在一起的：[认证、Token 与 RBAC 模型](https://n9e.github.io/zh/zh/docs/concepts/auth-rbac.md)
+* 逐个权限点的完整对照表：[权限矩阵](https://n9e.github.io/zh/docs/reference/permissions.md)
+* 第二层权限怎么配：[业务组授权](https://n9e.github.io/zh/docs/security/business-groups.md)
+* 两层是怎么合在一起的：[认证、Token 与 RBAC 模型](https://n9e.github.io/zh/docs/concepts/auth-rbac.md)

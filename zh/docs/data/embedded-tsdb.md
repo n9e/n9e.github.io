@@ -6,7 +6,7 @@
 
 装完夜莺第一次打开 **集成中心 → 数据源**，列表里已经躺着一条名叫 `embedded-tsdb` 的 Prometheus 类型数据源，右边还带着一个默认标记。这页说清它是谁创建的、什么在往它里面写、 以及它和你自己加的外置 Prometheus 数据源到底差在哪。
 
-![数据源列表，第一条�是 embedded-tsdb](/zh/img/docs/data/datasource-list.zh.webp)![数据源列表，第一条是 embedded-tsdb](/zh/img/docs/data/datasource-list.zh.dark.webp)
+![数据源列表，第一条�是 embedded-tsdb](https://n9e.github.io/zh/img/docs/data/datasource-list.zh.webp)![数据源列表，第一条是 embedded-tsdb](https://n9e.github.io/zh/img/docs/data/datasource-list.zh.dark.webp)
 
 ## 它是谁创建的[​](#它是谁创建的 "它是谁创建的的直接链接")
 
@@ -73,7 +73,7 @@ QueryMaxSamples = 50000000
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 它的适用边界：[内置时序库的单实例限制](https://n9e.github.io/zh/zh/docs/operations/embedded-tsdb-limits.md)
-* 换成外部时序库：[外部时序库与双写迁移](https://n9e.github.io/zh/zh/docs/install/external-tsdb.md)
-* 查不到数据：[内置时序库里没有数据](https://n9e.github.io/zh/zh/docs/troubleshooting/embedded-tsdb-data.md)
-* 两类存储怎么分工：[内置时序库与外部存储](https://n9e.github.io/zh/zh/docs/concepts/storage.md)
+* 它的适用边界：[内置时序库的单实例限制](https://n9e.github.io/zh/docs/operations/embedded-tsdb-limits.md)
+* 换成外部时序库：[外部时序库与双写迁移](https://n9e.github.io/zh/docs/install/external-tsdb.md)
+* 查不到数据：[内置时序库里没有数据](https://n9e.github.io/zh/docs/troubleshooting/embedded-tsdb-data.md)
+* 两类存储怎么分工：[内置时序库与外部存储](https://n9e.github.io/zh/docs/concepts/storage.md)

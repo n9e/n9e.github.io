@@ -6,7 +6,7 @@
 
 这页办完你会得到：目标机器上多了一个 `conf/input.<插件>/<插件>.toml`， Categraf 开始采集这个组件的指标，并且你已经确认指标到了夜莺。
 
-前提是目标机器上**已经装好 Categraf**——还没装先看 [安装与注册](https://n9e.github.io/zh/zh/docs/data/categraf/install.md)。夜莺本身不采集任何东西， 它只是告诉你该往 Categraf 里放什么。
+前提是目标机器上**已经装好 Categraf**——还没装先看 [安装与注册](https://n9e.github.io/zh/docs/data/categraf/install.md)。夜莺本身不采集任何东西， 它只是告诉你该往 Categraf 里放什么。
 
 ## 两条路[​](#两条路 "两条路的直接链接")
 
@@ -15,7 +15,7 @@
 |                | 采集向导                           | 模板中心的采集说明                          |
 | -------------- | ---------------------------------- | ------------------------------------------- |
 | 入口           | **基础设施 → 设备列表 → 配置采集** | **集成中心 → 模板中心 → 选组件 → 采集说明** |
-| 覆盖           | 55 个常见组件                      | 86 个组件                                   |
+| 覆盖           | 55 个常见组件                      | 83<!-- --> 个组件                           |
 | 怎么落到机器上 | 生成一条命令，你去机器上执行       | 你自己创建配置文件、粘贴、重启              |
 | 适合           | 常见组件、要在多台机器上重复做     | 向导没覆盖的组件、要深度定制                |
 
@@ -48,7 +48,7 @@ curl -sSfL 'http://<夜莺地址>/api/n9e/agents/categraf/collect.sh' \
 
 命令里内嵌了 base64 编码的完整配置，**里面可能有密码，别在不可信渠道传播**。
 
-**4. 验证数据。** 向导会盯着一个哨兵指标，每 5 秒查一次，命令执行后通常 1 分钟内出现。 详见[验证数据到达](https://n9e.github.io/zh/zh/docs/data/integrations/verify.md)。
+**4. 验证数据。** 向导会盯着一个哨兵指标，每 5 秒查一次，命令执行后通常 1 分钟内出现。 详见[验证数据到达](https://n9e.github.io/zh/docs/data/integrations/verify.md)。
 
 ## 路线二：模板中心的采集说明[​](#路线二模板中心的采集说明 "路线二：模板中心的采集说明的直接链接")
 
@@ -94,7 +94,7 @@ labels = { instance="n9e-10.2.3.4:3306" }
 
 采集说明是**给人读的文档，不是下发到 agent 的配置**——开源版不会替你把它推到机器上， 落地这一步得你自己做（或者走上面的向导）。
 
-页面上那个「编辑」按钮，对内置的 86 个组件不生效：内置组件的说明以夜莺自带的 `integrations` 目录为准，编辑不会被保存。
+页面上那个「编辑」按钮，对内置的 <!-- -->83<!-- --> 个组件不生效：内置组件的说明以夜莺自带的 `integrations` 目录为准，编辑不会被保存。
 
 ## 命令做了什么[​](#命令做了什么 "命令做了什么的直接链接")
 
@@ -108,7 +108,7 @@ labels = { instance="n9e-10.2.3.4:3306" }
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 把这个组件的仪表盘和规则一起装上：[导入仪表盘与规则](https://n9e.github.io/zh/zh/docs/data/integrations/import.md)
-* 确认指标真的到了：[验证数据到达](https://n9e.github.io/zh/zh/docs/data/integrations/verify.md)
-* 手写插件配置的细节：[输入插件](https://n9e.github.io/zh/zh/docs/data/categraf/plugins.md)
-* 数据没来：[Categraf 排障](https://n9e.github.io/zh/zh/docs/data/categraf/troubleshooting.md)
+* 把这个组件的仪表盘和规则一起装上：[导入仪表盘与规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
+* 确认指标真的到了：[验证数据到达](https://n9e.github.io/zh/docs/data/integrations/verify.md)
+* 手写插件配置的细节：[输入插件](https://n9e.github.io/zh/docs/data/categraf/plugins.md)
+* 数据没来：[Categraf 排障](https://n9e.github.io/zh/docs/data/categraf/troubleshooting.md)

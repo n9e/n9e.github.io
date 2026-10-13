@@ -55,7 +55,7 @@ cd /opt/n9e && ./n9e
 
 **预期结果**：日志里出现 `http server listening on: 0.0.0.0:17000`，页面能登进去。
 
-这套默认值**不适合生产**，往下继续换掉它们，或者直接照 [上生产前的检查清单](https://n9e.github.io/zh/zh/docs/get-started/production-checklist.md) 走一遍。
+这套默认值**不适合生产**，往下继续换掉它们，或者直接照 [上生产前的检查清单](https://n9e.github.io/zh/docs/get-started/production-checklist.md) 走一遍。
 
 ## 接已有的 MySQL 和 Redis[​](#接已有的-mysql-和-redis "接已�有的 MySQL 和 Redis的直接链接")
 
@@ -85,7 +85,7 @@ RedisType = "standalone"
 Address = "redis:6379"
 ```
 
-重启后**预期结果**：日志里没有 `failed to migrate table`，登录页仍然是 `root` / `root.2020` （root 这行数据是首次启动时写进新库的）。选型和权限细节见 [数据库选型](https://n9e.github.io/zh/zh/docs/install/databases.md)。
+重启后**预期结果**：日志里没有 `failed to migrate table`，登录页仍然是 `root` / `root.2020` （root 这行数据是首次启动时写进新库的）。选型和权限细节见 [数据库选型](https://n9e.github.io/zh/docs/install/databases.md)。
 
 ## 用 systemd 托管[​](#用-systemd-托管 "用 systemd 托管的直接链接")
 
@@ -143,10 +143,10 @@ curl -s http://127.0.0.1:17000/ping
 ./n9e-edge --configs etc/edge
 ```
 
-写成 `--configs etc` 会让它读到中心端的 `config.toml`，而且不报错。 详见[边缘机房](https://n9e.github.io/zh/zh/docs/install/edge.md)。
+写成 `--configs etc` 会让它读到中心端的 `config.toml`，而且不报错。 详见[边缘机房](https://n9e.github.io/zh/docs/install/edge.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* [数据库选型](https://n9e.github.io/zh/zh/docs/install/databases.md)——MySQL 还是 PostgreSQL，Redis 用来做什么
-* [配置文件布局](https://n9e.github.io/zh/zh/docs/install/configuration.md)——`etc/` 里各段是干什么的
-* [高可用](https://n9e.github.io/zh/zh/docs/install/high-availability.md)——多跑几个实例
+* [数据库选型](https://n9e.github.io/zh/docs/install/databases.md)——MySQL 还是 PostgreSQL，Redis 用来做什么
+* [配置文件布局](https://n9e.github.io/zh/docs/install/configuration.md)——`etc/` 里各段是干什么的
+* [高可用](https://n9e.github.io/zh/docs/install/high-availability.md)——多跑几个实例

@@ -10,7 +10,7 @@
 
 **告警通知 → 规则管理**，鼠标移到规则那一行，点操作列里的**执行记录**。
 
-![规则列表](/zh/img/docs/alerting/rule-list.zh.webp)![规则列表](/zh/img/docs/alerting/rule-list.zh.dark.webp)
+![规则列表](https://n9e.github.io/zh/img/docs/alerting/rule-list.zh.webp)![规则列表](https://n9e.github.io/zh/img/docs/alerting/rule-list.zh.dark.webp)
 
 抽屉打开时默认展示最近 1 小时。上方的时间选择器可以改范围，列表底部的**加载更早的记录** 往前翻页。
 
@@ -65,9 +65,9 @@
 
 **「即时查询里有数据，规则就是不触发。」** 看「查询结果」。标签写着 `无数据`， 说明规则跑的那条查询和你粘进查询页的那条不是一回事——多半是打在了另一个数据源上， 或者变量展开成了你没预料到的样子。展开这一行就能看到真正发出去的查询。
 
-**「触发了，但没人收到。」** 看「事件处理」列。`屏蔽` 和 `流水线丢弃` 说明事件根本没走到通知； 显示 `触发` 说明它走到了，问题在下游的通知规则，见 [没有收到通知](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)。
+**「触发了，但没人收到。」** 看「事件处理」列。`屏蔽` 和 `流水线丢弃` 说明事件根本没走到通知； 显示 `触发` 说明它走到了，问题在下游的通知规则，见 [没有收到通知](https://n9e.github.io/zh/docs/troubleshooting/no-notification.md)。
 
-**「反复触发又反复恢复。」** 对比相邻几行的「异常点」数量。每个周期在 `1` 和 `0` 之间来回跳， 就是指标压在阈值上，见[告警为什么反复触发或从不恢复？](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-flapping.md)。
+**「反复触发又反复恢复。」** 对比相邻几行的「异常点」数量。每个周期在 `1` 和 `0` 之间来回跳， 就是指标压在阈值上，见[告警为什么反复触发或从不恢复？](https://n9e.github.io/zh/docs/troubleshooting/alert-flapping.md)。
 
 ## 记录存在哪、留多久[​](#记录存在哪留多久 "记录�存在哪、留多久的直接链接")
 
@@ -117,6 +117,6 @@ curl -u <user>:<pass> 'http://<engine-instance>/v1/n9e/eval-records?rule_id=<id>
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 不想等，直接让它触发一次：[测试触发](https://n9e.github.io/zh/zh/docs/alerting/test-fire.md)
-* 这些记录反映的时间参数：[判定周期与恢复](https://n9e.github.io/zh/zh/docs/alerting/evaluation.md)
-* 跟着事件走到引擎之外：[查看 Pipeline 执行记录](https://n9e.github.io/zh/zh/docs/events/execution-records.md)
+* 不想等，直接让它触发一次：[测试触发](https://n9e.github.io/zh/docs/alerting/test-fire.md)
+* 这些记录反映的时间参数：[判定周期与恢复](https://n9e.github.io/zh/docs/alerting/evaluation.md)
+* 跟着事件走到引擎之外：[查看 Pipeline 执行记录](https://n9e.github.io/zh/docs/events/execution-records.md)

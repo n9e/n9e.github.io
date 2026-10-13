@@ -38,10 +38,10 @@
 
 1. **每个环境一份配置文件**，用 `N9E_CONFIGS` 或 `--configs` 指到对应目录。 最直白，也最好审计。
 2. **配置模板 + 启动时渲染**：在容器的 entrypoint 里用 envsubst 之类把变量填进 toml， 然后再启动进程。
-3. **加密字段**：敏感值用 `--crypto-key` 对应的密钥加密后存在配置文件里， 密钥本身走环境变量或密钥管理系统。见[凭据管理](https://n9e.github.io/zh/zh/docs/security/secrets.md)。
+3. **加密字段**：敏感值用 `--crypto-key` 对应的密钥加密后存在配置文件里， 密钥本身走环境变量或密钥管理系统。见[凭据管理](https://n9e.github.io/zh/docs/security/secrets.md)。
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [配置项](https://n9e.github.io/zh/zh/docs/reference/configuration.md)
-* [命令行](https://n9e.github.io/zh/zh/docs/reference/cli.md)
-* [Docker Compose](https://n9e.github.io/zh/zh/docs/install/docker-compose.md)
+* [配置项](https://n9e.github.io/zh/docs/reference/configuration.md)
+* [命令行](https://n9e.github.io/zh/docs/reference/cli.md)
+* [Docker Compose](https://n9e.github.io/zh/docs/install/docker-compose.md)

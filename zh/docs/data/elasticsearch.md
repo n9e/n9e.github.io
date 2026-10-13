@@ -33,7 +33,7 @@
 
 「允许写入」这个开关开源版用不到，保持关闭。
 
-![Elasticsearch 数据源表单](/zh/img/docs/data/form-elasticsearch.zh.webp)![Elasticsearch 数据源表单](/zh/img/docs/data/form-elasticsearch.zh.dark.webp)
+![Elasticsearch 数据源表单](https://n9e.github.io/zh/img/docs/data/form-elasticsearch.zh.webp)![Elasticsearch 数据源表单](https://n9e.github.io/zh/img/docs/data/form-elasticsearch.zh.dark.webp)
 
 点 **测试连通性并保存**。ES 类型这一步做的是取版本号：取到了就把版本填进配置， 取不到**不会阻断保存**，但结果页会告诉你原因——所以看到「已保存，未验证连通性」别急着走， 先把原因看完。
 
@@ -104,6 +104,6 @@ OpenSearch fork 自 ES 7.10，接入表单几乎一样（超时默认值是 1000
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 认真写日志规则：[日志类告警规则](https://n9e.github.io/zh/zh/docs/alerting/log-rules.md)
-* 检索技巧和索引模式详解：[日志检索与索引模式](https://n9e.github.io/zh/zh/docs/query/log-explorer.md)
-* 换一种日志存储：[Loki / VictoriaLogs](https://n9e.github.io/zh/zh/docs/data/loki-victorialogs.md)
+* 认真写日志规则：[日志类告警规则](https://n9e.github.io/zh/docs/alerting/log-rules.md)
+* 检索技巧和索引模式详解：[日志检索与索引模式](https://n9e.github.io/zh/docs/query/log-explorer.md)
+* 换一种日志存储：[Loki / VictoriaLogs](https://n9e.github.io/zh/docs/data/loki-victorialogs.md)

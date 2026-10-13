@@ -22,6 +22,6 @@ docker compose up -d
 2. **写第一条告警规则**，挂在某个业务组下，定好 S1 / S2 / S3 级别。
 3. **配一个通知媒介**，让事件真的能送到人。
 
-还没有采集？[Categraf](https://n9e.github.io/zh/zh/categraf.md) 一个 agent 覆盖操作系统、中间件、数据库、网络设备与 Kubernetes。
+还没有采集？[Categraf](https://n9e.github.io/zh/categraf.md) 一个 agent 覆盖操作系统、中间件、数据库、网络设备与 Kubernetes。
 
-下一步：[安装部署](https://n9e.github.io/zh/zh/docs/install/overview.md)，面向生产环境。
+下一步：[安装部署](https://n9e.github.io/zh/docs/install/overview.md)，面向生产环境。

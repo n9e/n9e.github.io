@@ -88,7 +88,7 @@ recovery_promql    mem_used_percent{ident="{{$labels.ident}}"}
 处理手册：{{$event.AnnotationsJSON.runbook_url}}
 ```
 
-完整的变量列表见[模板与变量](https://n9e.github.io/zh/zh/docs/notifications/templates.md)。
+完整的变量列表见[模板与变量](https://n9e.github.io/zh/docs/notifications/templates.md)。
 
 ## 级别[​](#级别 "级别的直接链接")
 
@@ -111,11 +111,11 @@ recovery_promql    mem_used_percent{ident="{{$labels.ident}}"}
 
 剩下的才是 S1。在一套健康的规则里，这是很小的一部分：用户已经感知到的， 或者一小时内就会感知到的。
 
-有两个习惯能让它保持诚实。回顾最近一个月真正把人叫起来的那些告警， 把没人立刻处理的降级——见[规则设计实践](https://n9e.github.io/zh/zh/docs/alerting/best-practices.md)。 以及，一条规则需要两个级别时，用[一条规则里的多个级别](https://n9e.github.io/zh/zh/docs/alerting/metric-rules.md)配上级别抑制， 而不是写两条早晚会各走各路的规则。
+有两个习惯能让它保持诚实。回顾最近一个月真正把人叫起来的那些告警， 把没人立刻处理的降级——见[规则设计实践](https://n9e.github.io/zh/docs/alerting/best-practices.md)。 以及，一条规则需要两个级别时，用[一条规则里的多个级别](https://n9e.github.io/zh/docs/alerting/metric-rules.md)配上级别抑制， 而不是写两条早晚会各走各路的规则。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 这些字段在表单里的位置：[指标规则](https://n9e.github.io/zh/zh/docs/alerting/metric-rules.md)
-* 路由拿它们做什么：[通知规则](https://n9e.github.io/zh/zh/docs/notifications/rules.md)
-* 事后改写标签：[改写标签与补充上下文](https://n9e.github.io/zh/zh/docs/events/relabel-enrich.md)
-* 背后的模型：[标签与附加信息](https://n9e.github.io/zh/zh/docs/concepts/labels-annotations.md)
+* 这些字段在表单里的位置：[指标规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)
+* 路由拿它们做什么：[通知规则](https://n9e.github.io/zh/docs/notifications/rules.md)
+* 事后改写标签：[改写标签与补充上下文](https://n9e.github.io/zh/docs/events/relabel-enrich.md)
+* 背后的模型：[标签与附加信息](https://n9e.github.io/zh/docs/concepts/labels-annotations.md)

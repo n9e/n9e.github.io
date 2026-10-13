@@ -107,14 +107,14 @@ notify send timeMatch:true severityMatch:true tagMatch:true attributesMatch:true
 
 记录里的详情就是原因，照着对：
 
-| 详情                                           | 含义                                                                                                             |
-| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `notify_channel not found`                     | 媒介被删了、或者被禁用了                                                                                         |
-| `message_template not found`                   | 这条通知配置没选消息模板                                                                                         |
-| `failed to enqueue notify task, queue is full` | 这个媒介的发送队列满了（每媒介 10 万条），下游卡住了                                                             |
-| `all retries failed, last error: ...`          | 连都连不上，是网络或地址问题                                                                                     |
-| `status_code:400, response:...`                | 对方收到了但拒绝了内容——一般是 token、签名或消息格式                                                             |
-| `failed to execute template: ...`              | 模板渲染失败，见 [通知模板为什么渲染失败？](https://n9e.github.io/zh/zh/docs/troubleshooting/template-errors.md) |
+| 详情                                           | 含义                                                                                                          |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `notify_channel not found`                     | 媒介被删了、或者被禁用了                                                                                      |
+| `message_template not found`                   | 这条通知配置没选消息模板                                                                                      |
+| `failed to enqueue notify task, queue is full` | 这个媒介的发送队列满了（每媒介 10 万条），下游卡住了                                                          |
+| `all retries failed, last error: ...`          | 连都连不上，是网络或地址问题                                                                                  |
+| `status_code:400, response:...`                | 对方收到了但拒绝了内容——一般是 token、签名或消息格式                                                          |
+| `failed to execute template: ...`              | 模板渲染失败，见 [通知模板为什么渲染失败？](https://n9e.github.io/zh/docs/troubleshooting/template-errors.md) |
 
 关于 `message_template not found` 有一个例外要知道： **callback、flashduty、pagerduty 这三类不消费消息模板**，缺模板不会被拦； 其余媒介缺模板会**整条丢弃并写一条失败记录**。 注意 callback 是按媒介标识 `callback` 放行的，你自己复制一份改了标识的 callback 媒介 **不在豁免之列**。
 
@@ -152,8 +152,8 @@ notify send timeMatch:true severityMatch:true tagMatch:true attributesMatch:true
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 收到了但内容是报错文本：[通知模板为什么渲染失败？](https://n9e.github.io/zh/zh/docs/troubleshooting/template-errors.md)
-* 发给了错误的人：[Pipeline 为什么路由到了错误的目的地？](https://n9e.github.io/zh/zh/docs/troubleshooting/wrong-routing.md)
-* 事件本身就没产生：[查询有结果，为什么告警不触发？](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-not-firing.md)
-* 链路的完整模型：[降噪与路由模型](https://n9e.github.io/zh/zh/docs/concepts/noise-routing.md)
-* 怎么端到端测一遍：[端到端测试一条通知](https://n9e.github.io/zh/zh/docs/notifications/test.md)
+* 收到了但内容是报错文本：[通知模板为什么渲染失败？](https://n9e.github.io/zh/docs/troubleshooting/template-errors.md)
+* 发给了错误的人：[Pipeline 为什么路由到了错误的目的地？](https://n9e.github.io/zh/docs/troubleshooting/wrong-routing.md)
+* 事件本身就没产生：[查询有结果，为什么告警不触发？](https://n9e.github.io/zh/docs/troubleshooting/alert-not-firing.md)
+* 链路的完整模型：[降噪与路由模型](https://n9e.github.io/zh/docs/concepts/noise-routing.md)
+* 怎么端到端测一遍：[端到端测试一条通知](https://n9e.github.io/zh/docs/notifications/test.md)

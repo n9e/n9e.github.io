@@ -70,8 +70,8 @@
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [屏蔽规则](https://n9e.github.io/zh/zh/docs/events/mute-rules.md)
-* [订阅规则](https://n9e.github.io/zh/zh/docs/events/subscriptions.md)
-* [事件 Pipeline](https://n9e.github.io/zh/zh/docs/events/pipelines.md)
-* [通知规则](https://n9e.github.io/zh/zh/docs/notifications/rules.md)
-* 收不到通知时顺着这条链查：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)
+* [屏蔽规则](https://n9e.github.io/zh/docs/events/mute-rules.md)
+* [订阅规则](https://n9e.github.io/zh/docs/events/subscriptions.md)
+* [事件 Pipeline](https://n9e.github.io/zh/docs/events/pipelines.md)
+* [通知规则](https://n9e.github.io/zh/docs/notifications/rules.md)
+* 收不到通知时顺着这条链查：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/docs/troubleshooting/no-notification.md)

@@ -67,6 +67,6 @@ K8S
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [业务组授权](https://n9e.github.io/zh/zh/docs/security/business-groups.md)
-* [角色与权限矩阵](https://n9e.github.io/zh/zh/docs/security/roles.md)
-* [认证、Token 与 RBAC 模型](https://n9e.github.io/zh/zh/docs/concepts/auth-rbac.md)
+* [业务组授权](https://n9e.github.io/zh/docs/security/business-groups.md)
+* [角色与权限矩阵](https://n9e.github.io/zh/docs/security/roles.md)
+* [认证、Token 与 RBAC 模型](https://n9e.github.io/zh/docs/concepts/auth-rbac.md)

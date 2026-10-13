@@ -33,13 +33,13 @@
 | 回复里没有内容   | 通常是纯思考模型，预算全花在思考上了。把**最大 Tokens** 调大，或者换一个非思考模型   |
 | 看着像网络问题的 | 夜莺所在机器到不了那个地址。在那台机器上验一下，需要就填**代理地址**                 |
 
-逐字段的说明在[配置大模型提供方](https://n9e.github.io/zh/zh/docs/ai/llm-provider.md)。
+逐字段的说明在[配置大模型提供方](https://n9e.github.io/zh/docs/ai/llm-provider.md)。
 
 ## 回答不对、很空，或者半路停了[​](#回答不对很空或者半路停了 "回答不对、很空，或者半路停了的直接链接")
 
 **「达到最大迭代次数」。** 工具调用链撞到预算了，默认 25 次。 要么把问题问窄一点，要么在覆盖这类问题的那个 Skill 的 frontmatter 里调大 `max_iterations`。
 
-**你看得到的数据它看不到。** 它跑在提问账号的权限上，所以这是权限问题不是 AI 问题： 去查那个账号的角色，以及它所在团队有哪些业务组。模型见 [权限继承与 RBAC](https://n9e.github.io/zh/zh/docs/ai/permissions.md)。
+**你看得到的数据它看不到。** 它跑在提问账号的权限上，所以这是权限问题不是 AI 问题： 去查那个账号的角色，以及它所在团队有哪些业务组。模型见 [权限继承与 RBAC](https://n9e.github.io/zh/docs/ai/permissions.md)。
 
 **它编字段名、编指标名。** 把对象和时间窗点名，并且让它去查而不是去回忆： *「读一下 42 号规则的定义再告诉我」*。文档检索工具存在的意义就是让版本相关的名字 从文档里来——出网到 `flashcat.cloud` 被挡掉时，这个工具会降级，这个毛病会更明显。
 
@@ -54,7 +54,7 @@
 3. **用用户会打出来的话重写描述**，把他们会粘贴进来的告警名和报错串都放进去。 绝大多数情况下就是这条；
 4. 找一找近似重复。几个描述差不多的 Skill 会同时命中、同时吃上下文，合并掉。
 
-写法和例子在[安装、管理与编写 Skills](https://n9e.github.io/zh/zh/docs/ai/skills.md)。
+写法和例子在[安装、管理与编写 Skills](https://n9e.github.io/zh/docs/ai/skills.md)。
 
 ## Skill 装不上[​](#skill-装不上 "Skill 装不上的直接链接")
 
@@ -77,7 +77,7 @@
 
 **执行被拒绝。** 你设了 `RequireIsolation = true`，而这台机器搭不出真沙箱。 这是配置在按预期工作。要么在 Linux 上提供一份 python-base 根文件系统， 要么接受这台机器不跑 Skill 脚本。
 
-**跑起来了，但启动日志里有 `SKILL EXECUTION RUNNING WITHOUT ISOLATION (unsafe-exec)`。** 脚本是直接在夜莺所在主机上跑的，而且没有网络。就这么放着之前， 先读一遍[安装、管理与编写 Skills](https://n9e.github.io/zh/zh/docs/ai/skills.md)里的安全那一节。
+**跑起来了，但启动日志里有 `SKILL EXECUTION RUNNING WITHOUT ISOLATION (unsafe-exec)`。** 脚本是直接在夜莺所在主机上跑的，而且没有网络。就这么放着之前， 先读一遍[安装、管理与编写 Skills](https://n9e.github.io/zh/docs/ai/skills.md)里的安全那一节。
 
 每次执行都会打 `sandbox audit: exec_id=... engine=... network=... exit_code=...`， 非零退出码就在这行里。
 
@@ -92,7 +92,7 @@
 | 代理返回 404，或者本该是 JSON 的地方回了一段 HTML | 请求根本没到 `n9e`。`/mcp` 在根路径，不在 `/api/n9e` 下面，只转发 `/api/n9e/*` 的代理不会把它放过去——加一段 `location /mcp` |
 | 连上大约 60 秒后断开                              | nginx 的默认值。加 `proxy_buffering off`，并把 `proxy_read_timeout`、`proxy_send_timeout` 放到一小时                        |
 
-一份满足上面所有条件的代理配置在[启用 MCP 端点](https://n9e.github.io/zh/zh/docs/ai/mcp-endpoint.md)。 想把客户端从嫌疑里排除掉，就用那页的 curl 复现一遍。
+一份满足上面所有条件的代理配置在[启用 MCP 端点](https://n9e.github.io/zh/docs/ai/mcp-endpoint.md)。 想把客户端从嫌疑里排除掉，就用那页的 curl 复现一遍。
 
 ## 连上了，但工具不对[​](#连上了但工具不对 "连上了，但工具不对的直接链接")
 
@@ -115,10 +115,10 @@
 | 明明跑完了，`tasks/get` 却说任务不存在 | 任务状态在 Redis 里，TTL 24 小时。对话本身还在数据库里                                       |
 | Agent Card 公布的是个内网地址          | `BaseURL` 留空了，是从请求头猜出来的。显式写上                                               |
 
-更多在 [A2A 端点](https://n9e.github.io/zh/zh/docs/ai/a2a.md)。
+更多在 [A2A 端点](https://n9e.github.io/zh/docs/ai/a2a.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 端点本身的配置：[启用 MCP 端点](https://n9e.github.io/zh/zh/docs/ai/mcp-endpoint.md)
-* 认证失败的细节：[MCP 认证为什么失败？](https://n9e.github.io/zh/zh/docs/troubleshooting/mcp-auth.md)
-* 工具缺失的细节：[MCP 工具为什么缺失或被拒绝？](https://n9e.github.io/zh/zh/docs/troubleshooting/mcp-tools-missing.md)
+* 端点本身的配置：[启用 MCP 端点](https://n9e.github.io/zh/docs/ai/mcp-endpoint.md)
+* 认证失败的细节：[MCP 认证为什么失败？](https://n9e.github.io/zh/docs/troubleshooting/mcp-auth.md)
+* 工具缺失的细节：[MCP 工具为什么缺失或被拒绝？](https://n9e.github.io/zh/docs/troubleshooting/mcp-tools-missing.md)

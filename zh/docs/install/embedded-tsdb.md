@@ -73,6 +73,6 @@ BasicAuthPass = "<password>"
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* [外置时序库与双写迁移](https://n9e.github.io/zh/zh/docs/install/external-tsdb.md)——不停机换到 Prometheus 或 VictoriaMetrics
-* [自动注册的内置时序库数据源](https://n9e.github.io/zh/zh/docs/data/embedded-tsdb.md)——这个数据源在页面上怎么用
-* [内置时序库与外部存储](https://n9e.github.io/zh/zh/docs/concepts/storage.md)——两类数据分别存在哪
+* [外置时序库与双写迁移](https://n9e.github.io/zh/docs/install/external-tsdb.md)——不停机换到 Prometheus 或 VictoriaMetrics
+* [自动注册的内置时序库数据源](https://n9e.github.io/zh/docs/data/embedded-tsdb.md)——这个数据源在页面上怎么用
+* [内置时序库与外部存储](https://n9e.github.io/zh/docs/concepts/storage.md)——两类数据分别存在哪

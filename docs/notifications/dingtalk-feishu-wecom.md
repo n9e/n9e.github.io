@@ -29,7 +29,7 @@ Anything it cannot recognise (Slack, your own webhook) goes through the manual f
 
 **Alerts & Notifications → Media types**. The open-source edition ships `Dingtalk`, `Wecom` and `Feishu Card` ready to use; Lark Card has a card in the type panel on the left, one click to create.
 
-![Media types](/img/docs/notifications/media-types.webp)![Media types](/img/docs/notifications/media-types.dark.webp)
+![Media types](https://n9e.github.io/img/docs/notifications/media-types.webp)![Media types](https://n9e.github.io/img/docs/notifications/media-types.dark.webp)
 
 URL, method, headers and body are all pre-filled. You only need to touch them when:
 

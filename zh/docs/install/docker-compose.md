@@ -103,7 +103,7 @@ DBType = "postgres"
 DSN="host=postgres port=5432 user=root dbname=n9e_v6 password=1234 sslmode=disable"
 ```
 
-它把 5432 映射到宿主机，不映射 3306。两种数据库的取舍见[数据库选型](https://n9e.github.io/zh/zh/docs/install/databases.md)。
+它把 5432 映射到宿主机，不映射 3306。两种数据库的取舍见[数据库选型](https://n9e.github.io/zh/docs/install/databases.md)。
 
 ## 接自己已有的数据库和时序库[​](#接自己已有的数据库和时序库 "接自己已有的数据库和时序库的直接链接")
 
@@ -113,6 +113,6 @@ DSN="host=postgres port=5432 user=root dbname=n9e_v6 password=1234 sslmode=disab
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* [数据库选型](https://n9e.github.io/zh/zh/docs/install/databases.md)
-* [外置时序库与双写迁移](https://n9e.github.io/zh/zh/docs/install/external-tsdb.md)
-* [上生产前的检查清单](https://n9e.github.io/zh/zh/docs/get-started/production-checklist.md)
+* [数据库选型](https://n9e.github.io/zh/docs/install/databases.md)
+* [外置时序库与双写迁移](https://n9e.github.io/zh/docs/install/external-tsdb.md)
+* [上生产前的检查清单](https://n9e.github.io/zh/docs/get-started/production-checklist.md)

@@ -1,11 +1,11 @@
-1. [产品对比](https://n9e.github.io/zh/zh/comparisons.md)
+1. [产品对比](https://n9e.github.io/zh/comparisons.md)
 2. Zabbix
 
 # 夜莺 vs Zabbix
 
 Zabbix 以主机和监控项为中心，自己采、自己存、自己告警；夜莺以查询为中心，在你已有的 Prometheus、VictoriaMetrics、ES 上判定，没人采的地方才用 Categraf 补。这不是同一类产品的优劣之争，而是两种架构各自适合不同的基础设施。
 
-[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
+[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/docs/get-started/quick-start.md)
 
 ## 30 秒结论
 
@@ -45,13 +45,13 @@ Zabbix 二十多年的积累在传统 IT 一体化监控上非常成熟：网络
 
 你已有的存储
 
-![](/zh/img/logos/prometheus.png)Prometheus![](/zh/img/logos/victoriametrics.png)VictoriaMetrics![](/zh/img/logos/elasticsearch.png)ElasticSearch![](/zh/img/logos/ck.png)ClickHouse
+![](https://n9e.github.io/zh/img/logos/prometheus.png)Prometheus![](https://n9e.github.io/zh/img/logos/victoriametrics.png)VictoriaMetrics![](https://n9e.github.io/zh/img/logos/elasticsearch.png)ElasticSearch![](https://n9e.github.io/zh/img/logos/ck.png)ClickHouse
 
-![](/zh/img/logo-mark.webp)**夜莺**就地读取，不搬数据
+![](https://n9e.github.io/zh/img/logo-mark.webp)**夜莺**就地读取，不搬数据
 
 20 种通知媒介
 
-电话 / 短信邮件![](/zh/img/logos/dingtalk.png)钉钉![](/zh/img/logos/feishu.png)飞书+16
+电话 / 短信邮件![](https://n9e.github.io/zh/img/logos/dingtalk.png)钉钉![](https://n9e.github.io/zh/img/logos/feishu.png)飞书+16
 
 没人采的地方，才用 Categraf 补
 
@@ -107,7 +107,7 @@ Zabbix 的每类对象在夜莺里叫什么，哪些根本没有对应物。完�
 
 夜莺没有 Zabbix 模板或触发器的导入器，也读不了它的 XML / YAML。从 Zabbix 过来是重建而不是搬迁；好消息是工作量比想象的小：内置组件顶掉模板的大部分，一条规则顶掉一整组触发器。
 
-[从 Zabbix 迁移<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/from-zabbix.md)[并存与回滚方案<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/coexistence.md)
+[从 Zabbix 迁移<!-- --> →](https://n9e.github.io/zh/docs/migration/from-zabbix.md)[并存与回滚方案<!-- --> →](https://n9e.github.io/zh/docs/migration/coexistence.md)
 
 ## 关于这组对比的常见问题
 
@@ -133,18 +133,18 @@ Zabbix 的六档严重性怎么对应？
 
 ## 其他对比
 
-* [夜莺 vs Prometheus + Alertmanager](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
+* [夜莺 vs Prometheus + Alertmanager](https://n9e.github.io/zh/comparisons/prometheus-alertmanager.md)
   <!-- -->
-  [ →](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
-* [夜莺 vs Grafana Alerting](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
+  [ →](https://n9e.github.io/zh/comparisons/prometheus-alertmanager.md)
+* [夜莺 vs Grafana Alerting](https://n9e.github.io/zh/comparisons/grafana-alerting.md)
   <!-- -->
-  [ →](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
-* [产品对比](https://n9e.github.io/zh/zh/comparisons.md)
+  [ →](https://n9e.github.io/zh/comparisons/grafana-alerting.md)
+* [产品对比](https://n9e.github.io/zh/comparisons.md)
   <!-- -->
-  [ →](https://n9e.github.io/zh/zh/comparisons.md)
+  [ →](https://n9e.github.io/zh/comparisons.md)
 
 ## 拿不准？两套一起跑。
 
 夜莺读的是你现有的存储，装上不影响现在正在跑的告警。
 
-[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
+[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/docs/get-started/quick-start.md)

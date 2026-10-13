@@ -10,7 +10,7 @@ Where this page ends: an account that can log in, can receive alerts, and belong
 
 **Organization → Users**, then **Add** at the top right.
 
-![User management](/img/docs/security/users.webp)![User management](/img/docs/security/users.dark.webp)
+![User management](https://n9e.github.io/img/docs/security/users.webp)![User management](https://n9e.github.io/img/docs/security/users.dark.webp)
 
 Top to bottom in the form:
 
@@ -43,7 +43,7 @@ The keys under Contact details come from a dropdown backed by the system's defin
 
 **Organization → Teams**, then the **+** next to the **Team list** heading on the left. A team needs only a name and a note.
 
-![Team management](/img/docs/security/teams.webp)![Team management](/img/docs/security/teams.dark.webp)
+![Team management](https://n9e.github.io/img/docs/security/teams.webp)![Team management](https://n9e.github.io/img/docs/security/teams.dark.webp)
 
 Select it on the left and use **Add members** at the top right to pick users. The header row on the right shows the team's ID, note, last editor, and **which business groups it is authorized on** — this is where you look up authorization from the team's side.
 

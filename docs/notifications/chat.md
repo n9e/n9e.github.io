@@ -118,7 +118,7 @@ For the bot variants (`slackbot`, `mattermostbot`) the token lives in a header, 
 
 If you would rather not touch JSON, use the built-in **Callback** media type: click Callback in the type panel, leave the URL as `{{$params.callback_url}}`, and rewrite the body into whatever shape the target expects.
 
-![Add a media type](/img/docs/notifications/media-type-add.webp)![Add a media type](/img/docs/notifications/media-type-add.dark.webp)
+![Add a media type](https://n9e.github.io/img/docs/notifications/media-type-add.webp)![Add a media type](https://n9e.github.io/img/docs/notifications/media-type-add.dark.webp)
 
 The cost: **Callback media types do not consume message templates**, and the UI hides the template dropdown for them. The whole message layout has to live in the media type's body, assembled from event variables directly:
 

@@ -144,7 +144,7 @@ AsyncWrite = true
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [外部时序库与双写迁移](https://n9e.github.io/zh/zh/docs/install/external-tsdb.md)
-* [内置时序库的单 Center 限制](https://n9e.github.io/zh/zh/docs/operations/embedded-tsdb-limits.md)
-* [容量规划](https://n9e.github.io/zh/zh/docs/operations/capacity.md)
-* [内置指标与健康检查](https://n9e.github.io/zh/zh/docs/operations/health.md)
+* [外部时序库与双写迁移](https://n9e.github.io/zh/docs/install/external-tsdb.md)
+* [内置时序库的单 Center 限制](https://n9e.github.io/zh/docs/operations/embedded-tsdb-limits.md)
+* [容量规划](https://n9e.github.io/zh/docs/operations/capacity.md)
+* [内置指标与健康检查](https://n9e.github.io/zh/docs/operations/health.md)

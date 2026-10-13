@@ -53,7 +53,7 @@
 | Loki                                                                      | URL **必须带 `/loki` 后缀**                                                      |
 | VictoriaLogs / TDengine / ClickHouse / Doris / IoTDB / MySQL / PostgreSQL | 见各自的接入页                                                                   |
 
-注意**能注册成数据源**和**能在哪里用**是两回事：ClickHouse、Doris、MySQL、PostgreSQL、 OpenSearch 在开源版进不了即时查询、日志检索和仪表盘，只能用于告警规则。 见[接入数据](https://n9e.github.io/zh/zh/docs/data/overview.md)。
+注意**能注册成数据源**和**能在哪里用**是两回事：ClickHouse、Doris、MySQL、PostgreSQL、 OpenSearch 在开源版进不了即时查询、日志检索和仪表盘，只能用于告警规则。 见[接入数据](https://n9e.github.io/zh/docs/data/overview.md)。
 
 ## 采集器[​](#采集器 "采集器的直接链接")
 
@@ -71,6 +71,6 @@ Go 1.25。前端是 Vite + React，构建脚本见 `n9e/fe` 仓库。
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [数据库选型](https://n9e.github.io/zh/zh/docs/install/databases.md)
-* [接入数据](https://n9e.github.io/zh/zh/docs/data/overview.md)
-* [数据写入协议](https://n9e.github.io/zh/zh/docs/reference/write-protocols.md)
+* [数据库选型](https://n9e.github.io/zh/docs/install/databases.md)
+* [接入数据](https://n9e.github.io/zh/docs/data/overview.md)
+* [数据写入协议](https://n9e.github.io/zh/docs/reference/write-protocols.md)

@@ -140,8 +140,8 @@ INFO dispatch/dispatch.go:265 processor_by_notify_rule_id:1 pipeline_id:1, event
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 试跑面板怎么用：[用模拟事件试跑](https://n9e.github.io/zh/zh/docs/events/try-workflow.md)
-* 执行记录逐列怎么读：[查看 Pipeline 执行记录](https://n9e.github.io/zh/zh/docs/events/execution-records.md)
-* 工作流怎么配：[事件 Pipeline](https://n9e.github.io/zh/zh/docs/events/pipelines.md)
-* 跑通了但发错了地方：[Pipeline 为什么路由到了错误的目的地？](https://n9e.github.io/zh/zh/docs/troubleshooting/wrong-routing.md)
-* 标签改写的细节：[改写标签与富化上下文](https://n9e.github.io/zh/zh/docs/events/relabel-enrich.md)
+* 试跑面板怎么用：[用模拟事件试跑](https://n9e.github.io/zh/docs/events/try-workflow.md)
+* 执行记录逐列怎么读：[查看 Pipeline 执行记录](https://n9e.github.io/zh/docs/events/execution-records.md)
+* 工作流怎么配：[事件 Pipeline](https://n9e.github.io/zh/docs/events/pipelines.md)
+* 跑通了但发错了地方：[Pipeline 为什么路由到了错误的目的地？](https://n9e.github.io/zh/docs/troubleshooting/wrong-routing.md)
+* 标签改写的细节：[改写标签与富化上下文](https://n9e.github.io/zh/docs/events/relabel-enrich.md)

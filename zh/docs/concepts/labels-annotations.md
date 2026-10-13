@@ -60,6 +60,6 @@ runbook_url: https://wiki.internal/runbook/host-memory
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [标签、注解与级别](https://n9e.github.io/zh/zh/docs/alerting/labels-severity.md)
-* [改写标签与富化上下文](https://n9e.github.io/zh/zh/docs/events/relabel-enrich.md)
-* [通知模板变量](https://n9e.github.io/zh/zh/docs/reference/notification-variables.md)
+* [标签、注解与级别](https://n9e.github.io/zh/docs/alerting/labels-severity.md)
+* [改写标签与富化上下文](https://n9e.github.io/zh/docs/events/relabel-enrich.md)
+* [通知模板变量](https://n9e.github.io/zh/docs/reference/notification-variables.md)

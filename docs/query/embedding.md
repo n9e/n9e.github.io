@@ -15,7 +15,7 @@ Where this page ends: extra entries in the Nightingale side menu that open your 
 
 **Integrations → Embedded products** (`/embedded-products`), then **Add**.
 
-![Embedded products](/img/docs/query/embedded-products.webp)![Embedded products](/img/docs/query/embedded-products.dark.webp)
+![Embedded products](https://n9e.github.io/img/docs/query/embedded-products.webp)![Embedded products](https://n9e.github.io/img/docs/query/embedded-products.dark.webp)
 
 | Field      | What to put in it                                                                      |
 | ---------- | -------------------------------------------------------------------------------------- |

@@ -96,5 +96,5 @@ url_label_value = "{{.Host}}"
 
 ## 下一步[​](#next "下一步的直接链接")
 
-* [Prometheus 数据源](https://n9e.github.io/zh/zh/docs/data/prometheus.md)
-* [进程监控](https://n9e.github.io/zh/zh/docs/practice/proc.md)
+* [Prometheus 数据源](https://n9e.github.io/zh/docs/data/prometheus.md)
+* [进程监控](https://n9e.github.io/zh/docs/practice/proc.md)

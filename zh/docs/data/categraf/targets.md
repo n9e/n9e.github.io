@@ -100,7 +100,7 @@ CPU / 内存显示 `unknown` 是另一回事，它表示这台机器**从来没�
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 机器没出现、状态不对：[排障](https://n9e.github.io/zh/zh/docs/data/categraf/troubleshooting.md)
-* 业务组是怎么回事：[业务组](https://n9e.github.io/zh/zh/docs/concepts/business-groups.md)
-* 给这些机器配规则：[第一条告警规则](https://n9e.github.io/zh/zh/docs/alerting/first-rule.md)
-* 从一台机器跳到它的核心指标：[对象快捷视图](https://n9e.github.io/zh/zh/docs/query/object-view.md)
+* 机器没出现、状态不对：[排障](https://n9e.github.io/zh/docs/data/categraf/troubleshooting.md)
+* 业务组是怎么回事：[业务组](https://n9e.github.io/zh/docs/concepts/business-groups.md)
+* 给这些机器配规则：[第一条告警规则](https://n9e.github.io/zh/docs/alerting/first-rule.md)
+* 从一台机器跳到它的核心指标：[对象快捷视图](https://n9e.github.io/zh/docs/query/object-view.md)

@@ -71,7 +71,7 @@ region = "shanghai"
 
 **基础设施 → 设备列表**，一分钟内应该能看到这台机器，状态是在线，并带上 CPU、内存利用率。
 
-![设备列表，机器已经上报](/zh/img/docs/data/targets-list.zh.webp)![设备列表，机器已经上报](/zh/img/docs/data/targets-list.zh.dark.webp)
+![设备列表，机器已经上报](https://n9e.github.io/zh/img/docs/data/targets-list.zh.webp)![设备列表，机器已经上报](https://n9e.github.io/zh/img/docs/data/targets-list.zh.dark.webp)
 
 看不到就按顺序查：
 
@@ -79,7 +79,7 @@ region = "shanghai"
 2. 这台机器能不能访问到夜莺（防火墙、安全组）；
 3. 两边时间差是不是超过了几分钟。
 
-细的排查见 [Categraf 对象为什么显示离线？](https://n9e.github.io/zh/zh/docs/troubleshooting/categraf-offline.md)。
+细的排查见 [Categraf 对象为什么显示离线？](https://n9e.github.io/zh/docs/troubleshooting/categraf-offline.md)。
 
 ## 5. 顺手导一套仪表盘和规则[​](#5-顺手导一套仪表盘和规则 "5. 顺手导一套仪表盘和规则的直接链接")
 
@@ -87,6 +87,6 @@ region = "shanghai"
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 让告警送到人：[通知](https://n9e.github.io/zh/zh/docs/notifications/overview.md)
+* 让告警送到人：[通知](https://n9e.github.io/zh/docs/notifications/overview.md)
 * 采集别的东西（MySQL、Redis、Nginx…）：模板中心里有 80 多个组件包
-* 生产环境的采集器怎么部署：[Categraf](https://n9e.github.io/zh/zh/docs/data/categraf/install.md)
+* 生产环境的采集器怎么部署：[Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)

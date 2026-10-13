@@ -91,7 +91,7 @@ PagerDuty 的重试口径也和普通 HTTP 媒介不同：只有 200 和 202 算
 * 自定义参数：`project_key`
 * 请求体：创建 issue，`fields.project.key` 取 `{{$params.project_key}}`， `summary` 取 `{{$event.RuleName}}`，描述用 ADF 格式包住 `{{$tpl.content}}`， `labels` 里带上 `eventHash={{$event.Hash}}`
 
-URL 里的凭证不要写死——写成 `{{.jira_token}}`，值放[变量配置](https://n9e.github.io/zh/zh/docs/security/variables.md)里。 这条链路**只建单，不自动关单**；要闭环就用 `eventHash` 这个 label 自己写一个回收脚本。
+URL 里的凭证不要写死——写成 `{{.jira_token}}`，值放[变量配置](https://n9e.github.io/zh/docs/security/variables.md)里。 这条链路**只建单，不自动关单**；要闭环就用 `eventHash` 这个 label 自己写一个回收脚本。
 
 **JSM Alert**（Jira Service Management 的告警，原 Opsgenie）能闭环：
 
@@ -123,6 +123,6 @@ PagerDuty 的 `dedup_key` 和 JSM 的 `alias` 用的都是夜莺的**事件哈�
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 事件送到了但内容不对：[模板与变量](https://n9e.github.io/zh/zh/docs/notifications/templates.md)
-* 送不出去时看哪儿：[重试与投递状态](https://n9e.github.io/zh/zh/docs/notifications/delivery.md)
-* 在夜莺这边先降噪还是交给对方：[降噪与路由模型](https://n9e.github.io/zh/zh/docs/concepts/noise-routing.md)
+* 事件送到了但内容不对：[模板与变量](https://n9e.github.io/zh/docs/notifications/templates.md)
+* 送不出去时看哪儿：[重试与投递状态](https://n9e.github.io/zh/docs/notifications/delivery.md)
+* 在夜莺这边先降噪还是交给对方：[降噪与路由模型](https://n9e.github.io/zh/docs/concepts/noise-routing.md)

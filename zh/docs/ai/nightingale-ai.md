@@ -8,17 +8,17 @@ Nightingale AI 是内置在页面里的助手，能查告警、指标和配置�
 
 ## 开始之前[​](#开始之前 "开始之前的直接链接")
 
-一条同时处于**启用**和**默认**状态的 LLM 配置——做法见 [配置大模型提供方](https://n9e.github.io/zh/zh/docs/ai/llm-provider.md)。没有它，每次提问换来的都是一张 *当前环境没有大模型配置* 的卡片。除此之外什么都不用装，助手就在 `n9e` 进程里。
+一条同时处于**启用**和**默认**状态的 LLM 配置——做法见 [配置大模型提供方](https://n9e.github.io/zh/docs/ai/llm-provider.md)。没有它，每次提问换来的都是一张 *当前环境没有大模型配置* 的卡片。除此之外什么都不用装，助手就在 `n9e` 进程里。
 
 ## 工作区[​](#工作区 "工作区的直接链接")
 
 **Nightingale AI** 在侧栏顶部，紧挨着首页下面。它自己的左边栏里有**新建会话**， 以及——账号带着对应权限点时——**LLM 管理**和 **Skill 管理**。 下面的**会话**列出你自己的历史对话，带一个搜索框。
 
-![Nightingale AI 工作区](/zh/img/docs/ai/assistant.zh.webp)![Nightingale AI 工作区](/zh/img/docs/ai/assistant.zh.dark.webp)
+![Nightingale AI 工作区](https://n9e.github.io/zh/img/docs/ai/assistant.zh.webp)![Nightingale AI 工作区](https://n9e.github.io/zh/img/docs/ai/assistant.zh.dark.webp)
 
 新会话给三个起手式，基本就是它的用途摘要：*快速了解夜莺*、 *盘一盘我的告警*（哪些规则最吵、哪些从没触发过）、*一句话配一条告警*。
 
-会话按用户存，不删就一直在——见 [Agent 与对话历史](https://n9e.github.io/zh/zh/docs/ai/agents.md)。
+会话按用户存，不删就一直在——见 [Agent 与对话历史](https://n9e.github.io/zh/docs/ai/agents.md)。
 
 ## 它能做什么[​](#它能做什么 "它能做什么的直接链接")
 
@@ -47,7 +47,7 @@ Nightingale AI 是内置在页面里的助手，能查告警、指标和配置�
 
 提案 30 分钟过期，而且只能确认一次。如果这期间对象被别人改过，确认会被拒绝， 而不是把别人的修改悄悄盖掉。
 
-[安全的自动化模式](https://n9e.github.io/zh/zh/docs/ai/automation.md)就建立在这个机制上—— 它也是「改配置这件事，内置助手比开了写工具的 MCP 客户端更安全」的原因。
+[安全的自动化模式](https://n9e.github.io/zh/docs/ai/automation.md)就建立在这个机制上—— 它也是「改配置这件事，内置助手比开了写工具的 MCP 客户端更安全」的原因。
 
 ## 产品里其它地方的 AI 按钮[​](#产品里其它地方的-ai-按钮 "产品里其它地方的 AI 按钮的直接链接")
 
@@ -63,11 +63,11 @@ Nightingale AI 是内置在页面里的助手，能查告警、指标和配置�
 | 通知规则 / 通知媒介 | 这条规则会命中哪些事件；为什么没发出通知；怎么 @ 到具体的人    |
 | 告警自愈            | 写一个磁盘清理或服务重启脚本；脚本怎么从 stdin 拿告警字段      |
 
-另外每个 PromQL 输入框旁边都有一个小 AI 按钮——即时查询、告警规则表单、 记录规则、仪表盘图表都有——消息模板编辑器里也有一个。 具体例子见[常见排查工作流](https://n9e.github.io/zh/zh/docs/ai/workflows.md)。
+另外每个 PromQL 输入框旁边都有一个小 AI 按钮——即时查询、告警规则表单、 记录规则、仪表盘图表都有——消息模板编辑器里也有一个。 具体例子见[常见排查工作流](https://n9e.github.io/zh/docs/ai/workflows.md)。
 
 ## 它看不到你看不到的东西[​](#它看不到你看不到的东西 "它看不到你看不到的东西的直接链接")
 
-助手跑在提问账号的权限上下文里。你打不开的业务组它读不到，你改不了的规则它改不了。 背后没有服务账号，也没有单独一套「给 AI 的权限」——模型见 [认证与权限](https://n9e.github.io/zh/zh/docs/concepts/auth-rbac.md)。
+助手跑在提问账号的权限上下文里。你打不开的业务组它读不到，你改不了的规则它改不了。 背后没有服务账号，也没有单独一套「给 AI 的权限」——模型见 [认证与权限](https://n9e.github.io/zh/docs/concepts/auth-rbac.md)。
 
 Skill 还叠了一层：标成*仅管理团队可见*的 Skill，会从其他人的目录里整个摘掉， 模型根本不知道它存在。
 
@@ -82,7 +82,7 @@ Skill 还叠了一层：标成*仅管理团队可见*的 Skill，会从其他人
 | 工具箱          | 上面说的内置那套，加上 Skill | 另一套细粒度工具集                    |
 | 写操作          | 永远走两阶段确认             | 默认关闭；打开后是即时写入            |
 
-`/a2a` 是第三个入口：它把**这个助手**包起来，让别的 Agent 平台用自然语言跟它对话， 所以它是需要 LLM 配置的。见 [A2A 端点](https://n9e.github.io/zh/zh/docs/ai/a2a.md)。
+`/a2a` 是第三个入口：它把**这个助手**包起来，让别的 Agent 平台用自然语言跟它对话， 所以它是需要 LLM 配置的。见 [A2A 端点](https://n9e.github.io/zh/docs/ai/a2a.md)。
 
 ## 你的数据去了哪[​](#你的数据去了哪 "你的数据去了哪的直接链接")
 
@@ -92,6 +92,6 @@ LLM 配置里填的那个地址，就是监控数据唯一会去的地方。夜�
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 先把模型配好：[配置大模型提供方](https://n9e.github.io/zh/zh/docs/ai/llm-provider.md)
-* 把团队的方法教给它：[安装、管理与编写 Skills](https://n9e.github.io/zh/zh/docs/ai/skills.md)
-* 好用的提示词：[常见排查工作流](https://n9e.github.io/zh/zh/docs/ai/workflows.md)
+* 先把模型配好：[配置大模型提供方](https://n9e.github.io/zh/docs/ai/llm-provider.md)
+* 把团队的方法教给它：[安装、管理与编写 Skills](https://n9e.github.io/zh/docs/ai/skills.md)
+* 好用的提示词：[常见排查工作流](https://n9e.github.io/zh/docs/ai/workflows.md)

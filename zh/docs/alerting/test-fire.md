@@ -10,7 +10,7 @@
 
 **模拟触发**按钮在告警规则表单底部，紧挨着**保存**。规则**不需要先保存**， 测试跑的就是表单里当前这份配置。
 
-![规则编辑页](/zh/img/docs/alerting/rule-edit.zh.webp)![规则编辑页](/zh/img/docs/alerting/rule-edit.zh.dark.webp)
+![规则编辑页](https://n9e.github.io/zh/img/docs/alerting/rule-edit.zh.webp)![规则编辑页](https://n9e.github.io/zh/img/docs/alerting/rule-edit.zh.dark.webp)
 
 弹窗里问四件事：
 
@@ -70,10 +70,10 @@
 
 ## 通过之后[​](#通过之后 "通过之后的直接链接")
 
-模拟触发证明的是配置自洽，不是阈值合理。阈值合不合理，得存下规则、让它真的评估一段时间， 再去读[判定执行记录](https://n9e.github.io/zh/zh/docs/alerting/execution-records.md)，看查询逐周期返回了什么。
+模拟触发证明的是配置自洽，不是阈值合理。阈值合不合理，得存下规则、让它真的评估一段时间， 再去读[判定执行记录](https://n9e.github.io/zh/docs/alerting/execution-records.md)，看查询逐周期返回了什么。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 看真实的判定：[查看判定执行记录](https://n9e.github.io/zh/zh/docs/alerting/execution-records.md)
-* 把消息写好看：[模板与变量](https://n9e.github.io/zh/zh/docs/notifications/templates.md)
-* 把媒介本身也验一遍：[端到端测试一条通知](https://n9e.github.io/zh/zh/docs/notifications/test.md)
+* 看真实的判定：[查看判定执行记录](https://n9e.github.io/zh/docs/alerting/execution-records.md)
+* 把消息写好看：[模板与变量](https://n9e.github.io/zh/docs/notifications/templates.md)
+* 把媒介本身也验一遍：[端到端测试一条通知](https://n9e.github.io/zh/docs/notifications/test.md)

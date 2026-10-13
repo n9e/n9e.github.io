@@ -54,7 +54,7 @@ integrations/MySQL/
 
 **`dashboards/*.json`** 就是仪表盘的导出格式。做法是在界面上画好，导出，放进来。
 
-**`alerts/*.json`** 是告警规则的导出格式，可以是单条对象，也可以是数组。 关键字段：`name`、`cate`、`prod`、`severity`、`rule_config`（v6 之后查询写在这里面的 `queries` 数组里，顶层 `prom_ql` 留空）、`prom_eval_interval`、`prom_for_duration`、 `append_tags`、`annotations`。完整字段见[告警规则的导入导出](https://n9e.github.io/zh/zh/docs/alerting/import-export.md)。
+**`alerts/*.json`** 是告警规则的导出格式，可以是单条对象，也可以是数组。 关键字段：`name`、`cate`、`prod`、`severity`、`rule_config`（v6 之后查询写在这里面的 `queries` 数组里，顶层 `prom_ql` 留空）、`prom_eval_interval`、`prom_for_duration`、 `append_tags`、`annotations`。完整字段见[告警规则的导入导出](https://n9e.github.io/zh/docs/alerting/import-export.md)。
 
 **`metrics/*.json`** 是「这个组件会产出哪些指标、各是什么意思」， 进产品里的**指标视图**。内置的一共 1300 多条。
 
@@ -74,6 +74,6 @@ integrations/MySQL/
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [导入仪表盘与规则](https://n9e.github.io/zh/zh/docs/data/integrations/import.md)
-* [安装采集配置](https://n9e.github.io/zh/zh/docs/data/integrations/collector-config.md)
-* [告警规则的导入导出](https://n9e.github.io/zh/zh/docs/alerting/import-export.md)
+* [导入仪表盘与规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
+* [安装采集配置](https://n9e.github.io/zh/docs/data/integrations/collector-config.md)
+* [告警规则的导入导出](https://n9e.github.io/zh/docs/alerting/import-export.md)

@@ -9,12 +9,12 @@
 ## 先分清三种用途[​](#choose "先分清三种用途的直接链接")
 
 * **MySQL 性能监控**：采集器连接 MySQL，读取运行状态，再把指标写到时序库。
-* **业务 SQL 告警**：夜莺直接查询业务数据库，比如统计失败订单数，见 [SQL 数据源](https://n9e.github.io/zh/zh/docs/data/sql-databases.md)。
-* **夜莺元数据库**：保存用户、规则等配置，见[数据库部署](https://n9e.github.io/zh/zh/docs/install/databases.md)；它不自动替代前两条链路。
+* **业务 SQL 告警**：夜莺直接查询业务数据库，比如统计失败订单数，见 [SQL 数据源](https://n9e.github.io/zh/docs/data/sql-databases.md)。
+* **夜莺元数据库**：保存用户、规则等配置，见[数据库部署](https://n9e.github.io/zh/docs/install/databases.md)；它不自动替代前两条链路。
 
 ## 配置采集[​](#configure "配置采集的直接链接")
 
-先完成 [Categraf 安装与注册](https://n9e.github.io/zh/zh/docs/data/categraf/install.md)。准备能从采集机器连接 MySQL 的监控账号，再修改 `conf/input.mysql/mysql.toml`：
+先完成 [Categraf 安装与注册](https://n9e.github.io/zh/docs/data/categraf/install.md)。准备能从采集机器连接 MySQL 的监控账号，再修改 `conf/input.mysql/mysql.toml`：
 
 ```
 [[instances]]
@@ -58,5 +58,5 @@ labels = { instance = "mysql-local:3306" }
 
 ## 下一步[​](#next "下一步的直接链接")
 
-* [输入插件](https://n9e.github.io/zh/zh/docs/data/categraf/plugins.md)
-* [SQL 告警规则](https://n9e.github.io/zh/zh/docs/alerting/sql-rules.md)
+* [输入插件](https://n9e.github.io/zh/docs/data/categraf/plugins.md)
+* [SQL 告警规则](https://n9e.github.io/zh/docs/alerting/sql-rules.md)

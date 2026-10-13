@@ -46,7 +46,7 @@ The form lists the shape for each product:
 
 **Timeout(ms)** defaults to 10000. Raise it for a large, slow cluster, but not to minutes — the alerting engine evaluates on a schedule, and one stuck query holds up a whole batch of rules.
 
-![The Prometheus data source form](/img/docs/data/form-prometheus.webp)![The Prometheus data source form](/img/docs/data/form-prometheus.dark.webp)
+![The Prometheus data source form](https://n9e.github.io/img/docs/data/form-prometheus.webp)![The Prometheus data source form](https://n9e.github.io/img/docs/data/form-prometheus.dark.webp)
 
 ## 2. Auth and TLS[​](#2-auth-and-tls "Direct link to 2. Auth and TLS")
 

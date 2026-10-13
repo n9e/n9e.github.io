@@ -13,11 +13,11 @@ OIDC、OAuth2、LDAP、CAS、钉钉与飞书登录，以及把外部组映射到
 * **LDAP / CAS / OIDC / OAuth2**：一整块 TOML 文本，在代码编辑器里直接改，字段名就是 TOML 的键名；
 * **钉钉 / 飞书**：常规表单。
 
-![单点登录](/zh/img/docs/security/sso.zh.webp)![单点登录](/zh/img/docs/security/sso.zh.dark.webp)
+![单点登录](https://n9e.github.io/zh/img/docs/security/sso.zh.webp)![单点登录](https://n9e.github.io/zh/img/docs/security/sso.zh.dark.webp)
 
-两种都是底部一个 **保存**。保存后**不用重启进程**——后端定期比对配置的更新时间， 变了就重新加载一次。保存要求 `Admin`；`/system/sso-settings` 那个权限点只管菜单显不显示， 见[角色与权限矩阵](https://n9e.github.io/zh/zh/docs/security/roles.md)。
+两种都是底部一个 **保存**。保存后**不用重启进程**——后端定期比对配置的更新时间， 变了就重新加载一次。保存要求 `Admin`；`/system/sso-settings` 那个权限点只管菜单显不显示， 见[角色与权限矩阵](https://n9e.github.io/zh/docs/security/roles.md)。
 
-配置正文里可以用 `{{.变量名}}` 引用加密变量，六个身份源都支持。 `ClientSecret`、`BindPass` 这类值不想以明文留在库里就走这条路，见[密钥管理](https://n9e.github.io/zh/zh/docs/security/secrets.md)。
+配置正文里可以用 `{{.变量名}}` 引用加密变量，六个身份源都支持。 `ClientSecret`、`BindPass` 这类值不想以明文留在库里就走这条路，见[密钥管理](https://n9e.github.io/zh/docs/security/secrets.md)。
 
 ## 1. 接一个 OIDC[​](#1-接一个-oidc "1. 接一个 OIDC的直接链接")
 
@@ -146,7 +146,7 @@ state 值在 Redis 里只存 5 分钟，所以一次登录要在 5 分钟内走�
 
 保存之前，拿一个真实 token 手动调一次 `UserInfoAddr`：前缀或字段名对不上时不会报错，只会取到空值。
 
-`RSVerifyMethod`、`IntrospectAddr`、`IntrospectCacheSeconds` 和浏览器登录无关， 只在这个身份源同时用来校验 A2A、MCP 的 access token 时生效，见[OAuth 2.1 与外部身份源](https://n9e.github.io/zh/zh/docs/ai/oauth.md)。
+`RSVerifyMethod`、`IntrospectAddr`、`IntrospectCacheSeconds` 和浏览器登录无关， 只在这个身份源同时用来校验 A2A、MCP 的 access token 时生效，见[OAuth 2.1 与外部身份源](https://n9e.github.io/zh/docs/ai/oauth.md)。
 
 ## 3. 接 CAS[​](#cas "3. 接 CAS的直接链接")
 
@@ -301,7 +301,7 @@ Teams = [1, 2]
 
 在 **人员组织 → 用户管理** 里，这些账号的**账号来源**列显示身份源的名字， 一眼能分清哪些账号归你管、哪些归 IdP 管。
 
-**这里就是那个坑**：默认角色给了 `Standard`，人也确实能登录进来，但如果团队是空的， 他打开界面还是什么都看不到——权限是两层的，第二层没接上。所以接 SSO 时 `DefaultTeams`（或表单里的默认团队）几乎总该配上，并且那个团队要在某个业务组里有授权。 展开见[用户与团队](https://n9e.github.io/zh/zh/docs/security/users-teams.md)和[业务组授权](https://n9e.github.io/zh/zh/docs/security/business-groups.md)。
+**这里就是那个坑**：默认角色给了 `Standard`，人也确实能登录进来，但如果团队是空的， 他打开界面还是什么都看不到——权限是两层的，第二层没接上。所以接 SSO 时 `DefaultTeams`（或表单里的默认团队）几乎总该配上，并且那个团队要在某个业务组里有授权。 展开见[用户与团队](https://n9e.github.io/zh/docs/security/users-teams.md)和[业务组授权](https://n9e.github.io/zh/docs/security/business-groups.md)。
 
 还有一条：**别在夜莺这边手工删 SSO 账号**，下次登录又会被建回来。 账号的生命周期交给身份源，夜莺这边只做 `SyncDelUsers` 之类的跟随。
 
@@ -309,10 +309,10 @@ Teams = [1, 2]
 
 如果前面已经有一层做统一认证的网关，可以不用这页的任何一个身份源， 改用配置文件里的 `[HTTP.ProxyAuth]`：网关认完把用户名放在请求头里传进来。
 
-它和这六个不是一回事，也**不能混用**——开了 `ProxyAuth`，JWT 登录整体停用， 这页配出来的六个登录按钮也就都没用了。它的前提条件（17000 必须只对网关开放） 和风险见[网络与 TLS 加固](https://n9e.github.io/zh/zh/docs/security/network-tls.md)。
+它和这六个不是一回事，也**不能混用**——开了 `ProxyAuth`，JWT 登录整体停用， 这页配出来的六个登录按钮也就都没用了。它的前提条件（17000 必须只对网关开放） 和风险见[网络与 TLS 加固](https://n9e.github.io/zh/docs/security/network-tls.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 账号建出来之后怎么给权限：[用户与团队](https://n9e.github.io/zh/zh/docs/security/users-teams.md)
-* 角色里具体有什么：[角色与权限矩阵](https://n9e.github.io/zh/zh/docs/security/roles.md)
-* 把 ClientSecret 换成加密变量：[站点与用户变量](https://n9e.github.io/zh/zh/docs/security/variables.md)
+* 账号建出来之后怎么给权限：[用户与团队](https://n9e.github.io/zh/docs/security/users-teams.md)
+* 角色里具体有什么：[角色与权限矩阵](https://n9e.github.io/zh/docs/security/roles.md)
+* 把 ClientSecret 换成加密变量：[站点与用户变量](https://n9e.github.io/zh/docs/security/variables.md)

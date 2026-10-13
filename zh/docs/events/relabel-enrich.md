@@ -6,7 +6,7 @@
 
 这页办完你会得到：一个把事件标签改成你想要的样子的处理器，以及一条从外部系统 （CMDB、值班表、配置库）取信息补到事件上的路子。
 
-两件事都在工作流的处理器里做，怎么建工作流见[事件 Pipeline](https://n9e.github.io/zh/zh/docs/events/pipelines.md)。
+两件事都在工作流的处理器里做，怎么建工作流见[事件 Pipeline](https://n9e.github.io/zh/docs/events/pipelines.md)。
 
 ## 改写标签：事件标签改写处理器[​](#改写标签事件标签改写处理器 "改写标签：事件标签改写处理器的直接链接")
 
@@ -123,7 +123,7 @@
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 改完怎么验证：[用模拟事件试跑](https://n9e.github.io/zh/zh/docs/events/try-workflow.md)
-* 看改写前后的差异串：[查看 Pipeline 执行记录](https://n9e.github.io/zh/zh/docs/events/execution-records.md)
-* 让新标签影响通知去向：[条件路由](https://n9e.github.io/zh/zh/docs/events/routing.md)
-* 标签本身的设计：[标签与附加信息](https://n9e.github.io/zh/zh/docs/concepts/labels-annotations.md)
+* 改完怎么验证：[用模拟事件试跑](https://n9e.github.io/zh/docs/events/try-workflow.md)
+* 看改写前后的差异串：[查看 Pipeline 执行记录](https://n9e.github.io/zh/docs/events/execution-records.md)
+* 让新标签影响通知去向：[条件路由](https://n9e.github.io/zh/docs/events/routing.md)
+* 标签本身的设计：[标签与附加信息](https://n9e.github.io/zh/docs/concepts/labels-annotations.md)

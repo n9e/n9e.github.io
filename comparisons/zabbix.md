@@ -45,13 +45,13 @@ If your telemetry already lives in Prometheus, VictoriaMetrics or ElasticSearch,
 
 Storage you already run
 
-![](/img/logos/prometheus.png)Prometheus![](/img/logos/victoriametrics.png)VictoriaMetrics![](/img/logos/elasticsearch.png)ElasticSearch![](/img/logos/ck.png)ClickHouse
+![](https://n9e.github.io/img/logos/prometheus.png)Prometheus![](https://n9e.github.io/img/logos/victoriametrics.png)VictoriaMetrics![](https://n9e.github.io/img/logos/elasticsearch.png)ElasticSearch![](https://n9e.github.io/img/logos/ck.png)ClickHouse
 
-![](/img/logo-mark.webp)**Nightingale**Reads in place, moves nothing
+![](https://n9e.github.io/img/logo-mark.webp)**Nightingale**Reads in place, moves nothing
 
 20 notification channels
 
-Phone / SMSEmail![](/img/logos/dingtalk.png)DingTalk![](/img/logos/slack.png)Slack+16
+Phone / SMSEmail![](https://n9e.github.io/img/logos/dingtalk.png)DingTalk![](https://n9e.github.io/img/logos/slack.png)Slack+16
 
 Categraf fills only the gaps
 

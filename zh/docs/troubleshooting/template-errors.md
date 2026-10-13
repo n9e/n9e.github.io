@@ -139,7 +139,7 @@ failed to parse template: template: content:1: bad character U+007D '}'
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 模板变量的完整写法：[消息模板与变量](https://n9e.github.io/zh/zh/docs/notifications/templates.md)
-* 根本没收到消息：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)
-* 怎么端到端测一遍：[端到端测试一条通知](https://n9e.github.io/zh/zh/docs/notifications/test.md)
-* 投递状态怎么读：[重试与投递状态](https://n9e.github.io/zh/zh/docs/notifications/delivery.md)
+* 模板变量的完整写法：[消息模板与变量](https://n9e.github.io/zh/docs/notifications/templates.md)
+* 根本没收到消息：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/docs/troubleshooting/no-notification.md)
+* 怎么端到端测一遍：[端到端测试一条通知](https://n9e.github.io/zh/docs/notifications/test.md)
+* 投递状态怎么读：[重试与投递状态](https://n9e.github.io/zh/docs/notifications/delivery.md)

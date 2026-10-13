@@ -20,7 +20,7 @@
 
 先把整库 dump 一份放到别的机器上，再动手。删完发现少导了一个东西， 有这份 dump 就还能捞回来。
 
-**内置时序库的数据没有导出功能。** 还想留住这段指标历史，得在卸载前先配双写， 把数据同时写进一个外部时序库，等攒够了再卸载——办法见 [外置时序库与双写迁移](https://n9e.github.io/zh/zh/docs/install/external-tsdb.md)。
+**内置时序库的数据没有导出功能。** 还想留住这段指标历史，得在卸载前先配双写， 把数据同时写进一个外部时序库，等攒够了再卸载——办法见 [外置时序库与双写迁移](https://n9e.github.io/zh/docs/install/external-tsdb.md)。
 
 ## 停进程[​](#停进程 "停进程的直接链接")
 
@@ -90,6 +90,6 @@ rm -rf /opt/categraf
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* [外置时序库与双写迁移](https://n9e.github.io/zh/zh/docs/install/external-tsdb.md)——想留住指标历史就从这里开始
-* [备份与恢复](https://n9e.github.io/zh/zh/docs/operations/backup-restore.md)——卸载前那份 dump 该怎么做
-* [二进制包](https://n9e.github.io/zh/zh/docs/install/binary.md)——重新装回来
+* [外置时序库与双写迁移](https://n9e.github.io/zh/docs/install/external-tsdb.md)——想留住指标历史就从这里开始
+* [备份与恢复](https://n9e.github.io/zh/docs/operations/backup-restore.md)——卸载前那份 dump 该怎么做
+* [二进制包](https://n9e.github.io/zh/docs/install/binary.md)——重新装回来

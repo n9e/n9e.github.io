@@ -10,7 +10,7 @@
 
 **告警通知 → 消息模板**。左边是模板列表，中间是编辑器，右边是可引用的事件变量面板 （点任意一个即可复制）。
 
-![消息模板](/zh/img/docs/notifications/message-templates.zh.webp)![消息模板](/zh/img/docs/notifications/message-templates.zh.dark.webp)
+![消息模板](https://n9e.github.io/zh/img/docs/notifications/message-templates.zh.webp)![消息模板](https://n9e.github.io/zh/img/docs/notifications/message-templates.zh.dark.webp)
 
 标题栏显示这份模板的**标识**和**媒介类型**。标识是服务端生成的 uuid，不用管； 媒介类型决定这份模板在通知规则里跟着哪个媒介出现。
 
@@ -53,7 +53,7 @@
 
 时间戳要格式化才能看：`{{timeformat $event.TriggerTime}}`。 **`timeformat` 只吃 int64**，喂给它一个字符串会渲染出 `invalid value; expected int64` 并原样发出去。当前时间用 `{{timestamp}}`。
 
-其他常用函数：`humanizeDurationInterface`（秒数转「1h20m」）、`formatDecimal`（保留小数位）、 `sub` / `add` / `now.Unix`（算持续时长）、`jsonMarshal`、`toUpper` / `toLower`、`join`。 完整字段清单见[通知模板变量](https://n9e.github.io/zh/zh/docs/reference/notification-variables.md)。
+其他常用函数：`humanizeDurationInterface`（秒数转「1h20m」）、`formatDecimal`（保留小数位）、 `sub` / `add` / `now.Unix`（算持续时长）、`jsonMarshal`、`toUpper` / `toLower`、`join`。 完整字段清单见[通知模板变量](https://n9e.github.io/zh/docs/reference/notification-variables.md)。
 
 算「告警持续了多久」的标准写法，内置的钉钉模板就是这么写的：
 
@@ -119,7 +119,7 @@
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 完整字段清单：[通知模板变量](https://n9e.github.io/zh/zh/docs/reference/notification-variables.md)
-* 模板里的字段名跟媒介怎么对上：[通知架构](https://n9e.github.io/zh/zh/docs/notifications/architecture.md)
-* 渲染报错怎么查：[模板渲染报错](https://n9e.github.io/zh/zh/docs/troubleshooting/template-errors.md)
-* 改完之后走一遍真实链路：[端到端测试一条通知](https://n9e.github.io/zh/zh/docs/notifications/test.md)
+* 完整字段清单：[通知模板变量](https://n9e.github.io/zh/docs/reference/notification-variables.md)
+* 模板里的字段名跟媒介怎么对上：[通知架构](https://n9e.github.io/zh/docs/notifications/architecture.md)
+* 渲染报错怎么查：[模板渲染报错](https://n9e.github.io/zh/docs/troubleshooting/template-errors.md)
+* 改完之后走一遍真实链路：[端到端测试一条通知](https://n9e.github.io/zh/docs/notifications/test.md)

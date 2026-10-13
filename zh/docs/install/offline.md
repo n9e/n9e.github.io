@@ -31,7 +31,7 @@ compose 编排还会用到 `mysql:8`、`redis:6.2`、`victoriametrics/victoria-m
 
 ## 二进制方式[​](#二进制方式 "二进制方式的直接链接")
 
-拷进去之后的步骤和联网时**完全一样**，见[二进制包](https://n9e.github.io/zh/zh/docs/install/binary.md)：解压、改 `etc/config.toml`、systemd 托管、启动。
+拷进去之后的步骤和联网时**完全一样**，见[二进制包](https://n9e.github.io/zh/docs/install/binary.md)：解压、改 `etc/config.toml`、systemd 托管、启动。
 
 有几件事值得确认一下，它们是「联网时不会注意到」的部分：
 
@@ -47,7 +47,7 @@ compose 编排还会用到 `mysql:8`、`redis:6.2`、`victoriametrics/victoria-m
 docker load -i n9e-images.tar
 ```
 
-然后按[Docker Compose](https://n9e.github.io/zh/zh/docs/install/docker-compose.md) 的做法起，只是把编排文件里的 `image:` 都换成你 load 进来的 tag，并去掉 `:latest`——离线环境里 `latest` 没有意义，而且容易在重启时触发拉取失败。
+然后按[Docker Compose](https://n9e.github.io/zh/docs/install/docker-compose.md) 的做法起，只是把编排文件里的 `image:` 都换成你 load 进来的 tag，并去掉 `:latest`——离线环境里 `latest` 没有意义，而且容易在重启时触发拉取失败。
 
 ## 从源码编译[​](#从源码编译 "从源码编译的直接链接")
 
@@ -76,6 +76,6 @@ Go 依赖同理，提前 `go mod download` 或者配好内网的 module proxy。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* [二进制包](https://n9e.github.io/zh/zh/docs/install/binary.md)
-* [升级](https://n9e.github.io/zh/zh/docs/install/upgrade.md)——离线环境的升级同样是先搬包
-* [上生产前的检查清单](https://n9e.github.io/zh/zh/docs/get-started/production-checklist.md)
+* [二进制包](https://n9e.github.io/zh/docs/install/binary.md)
+* [升级](https://n9e.github.io/zh/docs/install/upgrade.md)——离线环境的升级同样是先搬包
+* [上生产前的检查清单](https://n9e.github.io/zh/docs/get-started/production-checklist.md)

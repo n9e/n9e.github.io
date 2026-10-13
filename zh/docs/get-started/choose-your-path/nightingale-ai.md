@@ -68,6 +68,6 @@ MCPToolsets = ["alerts", "dashboards"]
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 助手能看到什么、能做什么：[AI 与 MCP](https://n9e.github.io/zh/zh/docs/ai/overview.md)
-* 写工具怎么安全地开：[安全地启用写工具](https://n9e.github.io/zh/zh/docs/ai/write-tools.md)
-* 工具清单：[MCP 工具](https://n9e.github.io/zh/zh/docs/reference/mcp-tools.md)
+* 助手能看到什么、能做什么：[AI 与 MCP](https://n9e.github.io/zh/docs/ai/overview.md)
+* 写工具怎么安全地开：[安全地启用写工具](https://n9e.github.io/zh/docs/ai/write-tools.md)
+* 工具清单：[MCP 工具](https://n9e.github.io/zh/docs/reference/mcp-tools.md)

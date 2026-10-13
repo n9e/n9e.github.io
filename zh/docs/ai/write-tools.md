@@ -53,7 +53,7 @@ MCPToolsets = ["alerts", "mutes", "dashboards"]
 
 其次考虑摘掉的：`datasource`（写凭据 + 向填入的地址发探测）、 `notify_rules`（Webhook 媒介等于把告警内容发到任意地址）。
 
-各工具集里具体有什么见 [读写工具集](https://n9e.github.io/zh/zh/docs/ai/toolsets.md)。
+各工具集里具体有什么见 [读写工具集](https://n9e.github.io/zh/docs/ai/toolsets.md)。
 
 ## 「限定到某个 Token」是怎么回事[​](#限定到某个-token是怎么回事 "「限定到某个 Token」是怎么回事的直接链接")
 
@@ -69,7 +69,7 @@ MCPToolsets = ["alerts", "mutes", "dashboards"]
                           AND  Token 主人所在团队对规则的业务组有写权限
 ```
 
-所以实际做法是：**给需要写的客户端一个权限更大的专用账号，其余客户端用只读账号。** 两个客户端连同一个端点，能做的事由各自 Token 决定。 建账号的做法见 [个人 Token 认证](https://n9e.github.io/zh/zh/docs/ai/token-auth.md)。
+所以实际做法是：**给需要写的客户端一个权限更大的专用账号，其余客户端用只读账号。** 两个客户端连同一个端点，能做的事由各自 Token 决定。 建账号的做法见 [个人 Token 认证](https://n9e.github.io/zh/docs/ai/token-auth.md)。
 
 需要「谁都不能写」的确定性时，把开关关掉，别指望账号权限—— 账号能改的错误会随着有人给这个账号加角色而悄悄扩大。
 
@@ -99,10 +99,10 @@ grep '"method":"tools/call"' /path/to/n9e.log | grep -oE '"name":"[a-z_]+"' | so
 
 ## 一个更安全的替代：让 AI 提议，人来确认[​](#一个更安全的替代让-ai-提议人来确认 "一个更安全的替代：让 AI 提议，人来确认的直接链接")
 
-如果你的诉求是「让 AI 帮忙改配置」，注意夜莺**内置助手**走的是另一条路： `update_*` 类操作是两阶段的——第一次调用只算出改动、返回一个确认卡片， 必须由人在下一轮确认之后才真的落库。这个机制在 `/mcp` 上没有 （MCP 客户端的写工具是一次调用直接写），所以对配置变更来说， 内置助手比外部 MCP 客户端更稳妥。见 [安全的自动化模式](https://n9e.github.io/zh/zh/docs/ai/automation.md)。
+如果你的诉求是「让 AI 帮忙改配置」，注意夜莺**内置助手**走的是另一条路： `update_*` 类操作是两阶段的——第一次调用只算出改动、返回一个确认卡片， 必须由人在下一轮确认之后才真的落库。这个机制在 `/mcp` 上没有 （MCP 客户端的写工具是一次调用直接写），所以对配置变更来说， 内置助手比外部 MCP 客户端更稳妥。见 [安全的自动化模式](https://n9e.github.io/zh/docs/ai/automation.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 工具集怎么挑：[读写工具集](https://n9e.github.io/zh/zh/docs/ai/toolsets.md)
-* 权限边界：[权限继承与 RBAC](https://n9e.github.io/zh/zh/docs/ai/permissions.md)
-* 人在回路的写入：[安全的自动化模式](https://n9e.github.io/zh/zh/docs/ai/automation.md)
+* 工具集怎么挑：[读写工具集](https://n9e.github.io/zh/docs/ai/toolsets.md)
+* 权限边界：[权限继承与 RBAC](https://n9e.github.io/zh/docs/ai/permissions.md)
+* 人在回路的写入：[安全的自动化模式](https://n9e.github.io/zh/docs/ai/automation.md)

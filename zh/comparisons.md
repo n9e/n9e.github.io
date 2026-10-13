@@ -1,10 +1,10 @@
-夜莺 vs[Prometheus + Alertmanager](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)[Zabbix](https://n9e.github.io/zh/zh/comparisons/zabbix.md)[Grafana Alerting](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
+夜莺 vs[Prometheus + Alertmanager](https://n9e.github.io/zh/comparisons/prometheus-alertmanager.md)[Zabbix](https://n9e.github.io/zh/comparisons/zabbix.md)[Grafana Alerting](https://n9e.github.io/zh/comparisons/grafana-alerting.md)
 
 # 存储不用换，<br /><!-- -->换掉的是告警这一层。
 
 Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告警这一层，该交给专门做告警的工具。
 
-[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
+[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/docs/get-started/quick-start.md)
 
 ## 一眼看完
 
@@ -22,7 +22,7 @@ Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告�
 
 基于各项目 2026 年 8 月开源版本的公开能力，只作选型参考。我们尽量把对方的长处写清楚——选型建议不老实，社区口碑也就没了。
 
-* **13,332**GitHub Stars
+* **13,336**GitHub Stars
 * **10+**&#x6570;据源类型
 * **20**通知媒介
 * **74**MCP 工具
@@ -88,13 +88,13 @@ Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告�
 * 凌晨三点得有人接电话，webhook 叫不醒人
 * 数据已经不全在 Prometheus 里了
 
-[阅读完整对比](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
+[阅读完整对比](https://n9e.github.io/zh/comparisons/prometheus-alertmanager.md)
 
 <!-- -->
 
-[ →](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
+[ →](https://n9e.github.io/zh/comparisons/prometheus-alertmanager.md)
 
-迁移文档[从 Prometheus + Alertmanager 迁移<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/from-alertmanager.md)
+迁移文档[从 Prometheus + Alertmanager 迁移<!-- --> →](https://n9e.github.io/zh/docs/migration/from-alertmanager.md)
 
 02
 
@@ -114,13 +114,13 @@ Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告�
 * Kubernetes 和云上服务比网络设备多
 * 为了一条告警，维护着两套采集体系
 
-[阅读完整对比](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
+[阅读完整对比](https://n9e.github.io/zh/comparisons/zabbix.md)
 
 <!-- -->
 
-[ →](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
+[ →](https://n9e.github.io/zh/comparisons/zabbix.md)
 
-迁移文档[从 Zabbix 迁移<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/from-zabbix.md)
+迁移文档[从 Zabbix 迁移<!-- --> →](https://n9e.github.io/zh/docs/migration/from-zabbix.md)
 
 03
 
@@ -140,13 +140,13 @@ Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告�
 * 需要事件 Pipeline、订阅或告警自愈
 * 值班的人要电话短信，不只是 contact point
 
-[阅读完整对比](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
+[阅读完整对比](https://n9e.github.io/zh/comparisons/grafana-alerting.md)
 
 <!-- -->
 
-[ →](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
+[ →](https://n9e.github.io/zh/comparisons/grafana-alerting.md)
 
-迁移文档[从 Grafana Alerting 迁移<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/from-grafana-alerting.md)
+迁移文档[从 Grafana Alerting 迁移<!-- --> →](https://n9e.github.io/zh/docs/migration/from-grafana-alerting.md)
 
 ## 不用停掉现在的系统
 
@@ -170,7 +170,7 @@ Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告�
 
    每天对一次两边都触发了什么，通知渠道一个一个切，任何一步都能在一分钟内回退。
 
-[并存与回滚方案<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/coexistence.md)
+[并存与回滚方案<!-- --> →](https://n9e.github.io/zh/docs/migration/coexistence.md)
 
 ## 换之前大家常问的
 
@@ -198,4 +198,4 @@ Alertmanager 的规则能迁过来吗？
 
 夜莺读的是你现有的存储，装上不影响现在正在跑的告警。
 
-[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
+[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/docs/get-started/quick-start.md)

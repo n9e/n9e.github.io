@@ -14,7 +14,7 @@
                    我所在的某个团队，对这条规则所属的业务组有读写权
 ```
 
-模型本身见[认证与权限模型](https://n9e.github.io/zh/zh/docs/concepts/auth-rbac.md)，这页只是查表用的清单。
+模型本身见[认证与权限模型](https://n9e.github.io/zh/docs/concepts/auth-rbac.md)，这页只是查表用的清单。
 
 ## 三个内置角色[​](#三个内置角色 "三个内置角色的直接链接")
 

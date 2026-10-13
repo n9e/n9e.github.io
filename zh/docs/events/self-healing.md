@@ -80,11 +80,11 @@ ident=$(echo "$tags" | jq -r .ident)
 * **自愈模板**：选刚才建的那个（下拉里只列当前业务组的模板）；
 * **执行机器**：**通常留空**。留空时从事件的 `ident` 标签取机器， 也就是「哪台机器出问题就在哪台上跑」。填了就固定在那几台上跑。
 
-一条规则可以挂多行，触发时逐行执行。看不到「告警自愈」这一段，是因为你的角色没有 自愈脚本的权限，见[角色与权限](https://n9e.github.io/zh/zh/docs/security/roles.md)。
+一条规则可以挂多行，触发时逐行执行。看不到「告警自愈」这一段，是因为你的角色没有 自愈脚本的权限，见[角色与权限](https://n9e.github.io/zh/docs/security/roles.md)。
 
 ## 3. 触发一次，去历史任务看结果[​](#3-触发一次去历史任务看结果 "3. 触发一次，去历史任务看结果的直接链接")
 
-让规则真的烧一次（写一条必然触发的规则最快，见[测试触发](https://n9e.github.io/zh/zh/docs/alerting/test-fire.md)）， 然后去 **告警自愈 → 历史任务**。
+让规则真的烧一次（写一条必然触发的规则最快，见[测试触发](https://n9e.github.io/zh/docs/alerting/test-fire.md)）， 然后去 **告警自愈 → 历史任务**。
 
 预期结果：多出一条任务，标题是「模板标题 FH: 机器名」。点进去能看到：
 
@@ -98,7 +98,7 @@ ident=$(echo "$tags" | jq -r .ident)
 ## 什么情况下不会执行[​](#什么情况下不会执行 "什么情况下不会执行的直接链接")
 
 * **恢复事件不执行。** 只有告警触发会跑自愈，恢复不跑。
-* **订阅出来的那一份不执行。** 自愈只挂在源规则上，跑一次；别的团队订阅了这条告警， 不会再触发一遍脚本。见[订阅规则](https://n9e.github.io/zh/zh/docs/events/subscriptions.md)。
+* **订阅出来的那一份不执行。** 自愈只挂在源规则上，跑一次；别的团队订阅了这条告警， 不会再触发一遍脚本。见[订阅规则](https://n9e.github.io/zh/docs/events/subscriptions.md)。
 * **取不到机器就放弃。** 执行机器留空、事件又没有 `ident` 标签时，这次自愈直接跳过。 日志里能看到 `event_callback_ibex: failed to get host`。
 * **权限不够不执行。** 后端会用**最后修改这个自愈模板的人**的身份，校验 「模板所属业务组 – 目标机器 – 执行账号」这个三元组。那个人没有这台机器的操作权限， 任务下不去。改过模板的人要确保自己对目标机器有权限。
 * **目标机器上 categraf 没开 ibex。** 任务建出来了但一直没人来取，状态停着不动。
@@ -107,10 +107,10 @@ ident=$(echo "$tags" | jq -r .ident)
 
 不需要在机器上执行命令、只想通知一个外部系统去做事时，用工作流里的 **Webhook 回调** 处理器：把整条事件 POST 给你的地址，响应体不看，发出去就算完。 适合开工单、触发 CI/CD、调自动化平台。
 
-配法见[事件 Pipeline](https://n9e.github.io/zh/zh/docs/events/pipelines.md)；如果还想拿对方的返回值改事件， 那要用的是事件更新处理器，两者的区别见[改写标签与补充上下文](https://n9e.github.io/zh/zh/docs/events/relabel-enrich.md)。
+配法见[事件 Pipeline](https://n9e.github.io/zh/docs/events/pipelines.md)；如果还想拿对方的返回值改事件， 那要用的是事件更新处理器，两者的区别见[改写标签与补充上下文](https://n9e.github.io/zh/docs/events/relabel-enrich.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 事件到人之前还会经历什么：[降噪与路由模型](https://n9e.github.io/zh/zh/docs/concepts/noise-routing.md)
-* 让脚本只在特定事件上跑：[条件路由](https://n9e.github.io/zh/zh/docs/events/routing.md)
-* 端口开在哪：[端口清单](https://n9e.github.io/zh/zh/docs/reference/ports.md)
+* 事件到人之前还会经历什么：[降噪与路由模型](https://n9e.github.io/zh/docs/concepts/noise-routing.md)
+* 让脚本只在特定事件上跑：[条件路由](https://n9e.github.io/zh/docs/events/routing.md)
+* 端口开在哪：[端口清单](https://n9e.github.io/zh/docs/reference/ports.md)

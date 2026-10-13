@@ -19,7 +19,7 @@ VictoriaMetrics 集群版把读和写拆成了两个组件，地址完全不同�
 
 集群版路径里的 `0` 是租户 ID（`accountID`）。多租户环境下每个租户配一个数据源， 路径里换成各自的租户 ID。
 
-其余字段和 [Prometheus](https://n9e.github.io/zh/zh/docs/data/prometheus.md) 完全一样：名称、超时、用户名密码、跳过 SSL 验证、 自定义 HTTP 标头。
+其余字段和 [Prometheus](https://n9e.github.io/zh/docs/data/prometheus.md) 完全一样：名称、超时、用户名密码、跳过 SSL 验证、 自定义 HTTP 标头。
 
 ## 把「时序库类型」设成 VictoriaMetrics[​](#把时序库类型设成-victoriametrics "把「时序库类型」设成 VictoriaMetrics的直接链接")
 
@@ -62,9 +62,9 @@ Url = "http://victoriametrics:8428/api/v1/write"
 # Timeout = 10000
 ```
 
-两个字段容易搞混，记住这条：**数据源 URL 指向 vmselect，`Pushgw.Writers` 指向 vminsert。** 数据源表单里那个 **Remote Write URL** 是第三个东西——它只给[记录规则](https://n9e.github.io/zh/zh/docs/query/recording-rules.md) 回写结果用，和 Categraf 的数据流无关。
+两个字段容易搞混，记住这条：**数据源 URL 指向 vmselect，`Pushgw.Writers` 指向 vminsert。** 数据源表单里那个 **Remote Write URL** 是第三个东西——它只给[记录规则](https://n9e.github.io/zh/docs/query/recording-rules.md) 回写结果用，和 Categraf 的数据流无关。
 
-`[[Pushgw.Writers]]` 可以和 [`[EmbeddedTSDB]`](https://n9e.github.io/zh/zh/docs/data/embedded-tsdb.md) 同时开着，两边都写， 这就是从内置库迁到 VictoriaMetrics 的过渡窗口。详见 [外部时序库与双写迁移](https://n9e.github.io/zh/zh/docs/install/external-tsdb.md)。
+`[[Pushgw.Writers]]` 可以和 [`[EmbeddedTSDB]`](https://n9e.github.io/zh/docs/data/embedded-tsdb.md) 同时开着，两边都写， 这就是从内置库迁到 VictoriaMetrics 的过渡窗口。详见 [外部时序库与双写迁移](https://n9e.github.io/zh/docs/install/external-tsdb.md)。
 
 ## 验证[​](#验证 "验证的直接链接")
 
@@ -74,6 +74,6 @@ Url = "http://victoriametrics:8428/api/v1/write"
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 用它写第一条规则：[第一条告警规则](https://n9e.github.io/zh/zh/docs/alerting/first-rule.md)
-* 从内置时序库迁过来：[外部时序库与双写迁移](https://n9e.github.io/zh/zh/docs/install/external-tsdb.md)
-* 表单字段逐个解释：[Prometheus](https://n9e.github.io/zh/zh/docs/data/prometheus.md)
+* 用它写第一条规则：[第一条告警规则](https://n9e.github.io/zh/docs/alerting/first-rule.md)
+* 从内置时序库迁过来：[外部时序库与双写迁移](https://n9e.github.io/zh/docs/install/external-tsdb.md)
+* 表单字段逐个解释：[Prometheus](https://n9e.github.io/zh/docs/data/prometheus.md)

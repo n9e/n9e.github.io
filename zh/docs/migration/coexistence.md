@@ -33,7 +33,7 @@
 两种做法，按你要对比的东西选：
 
 * **影子渠道**（推荐）：建一条通知规则，媒介指向一个专用的群、邮箱， 或者一个只写日志的 Callback 地址，把这批新规则全挂上去。 好处是通知链路（媒介、模板、过滤条件）也一起被验证了。
-* **只留事件不发通知**：规则照常启用，用一条「只屏蔽通知」的[屏蔽规则](https://n9e.github.io/zh/zh/docs/events/mute-rules.md) 盖住这个业务组。事件照常产生、照常留档，就是不发。 好处是不用建影子媒介，代价是通知侧完全没被验证。
+* **只留事件不发通知**：规则照常启用，用一条「只屏蔽通知」的[屏蔽规则](https://n9e.github.io/zh/docs/events/mute-rules.md) 盖住这个业务组。事件照常产生、照常留档，就是不发。 好处是不用建影子媒介，代价是通知侧完全没被验证。
 
 两种都行，但**不要用「屏蔽事件与通知」**——那样事件根本不产生，你就没东西可对了。
 
@@ -41,13 +41,13 @@
 
 ## 第 2 步：对比三个桶[​](#第-2-步对比三个桶 "第 2 步：对比三个桶的直接链接")
 
-每天（或每个班次）把两边的触发结果拉出来，分成三个桶。夜莺这边的数据源是 [告警事件](https://n9e.github.io/zh/zh/docs/events/active-historical.md)的历史列表，按业务组和时间段筛。
+每天（或每个班次）把两边的触发结果拉出来，分成三个桶。夜莺这边的数据源是 [告警事件](https://n9e.github.io/zh/docs/events/active-historical.md)的历史列表，按业务组和时间段筛。
 
-| 桶                     | 含义                                                     | 先查什么                                                                                                                  |
-| ---------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| **只有老系统报了**     | 规则漏搬，或者指标压根没查到                             | 先去即时查询 / 日志检索确认数据存在，再看规则的[判定记录](https://n9e.github.io/zh/zh/docs/alerting/execution-records.md) |
-| **只有夜莺报了**       | 阈值抄错，或者老系统那边有你没注意到的抑制、依赖、维护期 | 用[试运行](https://n9e.github.io/zh/zh/docs/alerting/test-fire.md)看这条规则每一段的实际取值                              |
-| **两边都报了但不一样** | 级别映射、持续时长、恢复条件的差异                       | 逐项核对，级别档数不同的（比如 6 档压 3 档）必然有损失                                                                    |
+| 桶                     | 含义                                                     | 先查什么                                                                                                               |
+| ---------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **只有老系统报了**     | 规则漏搬，或者指标压根没查到                             | 先去即时查询 / 日志检索确认数据存在，再看规则的[判定记录](https://n9e.github.io/zh/docs/alerting/execution-records.md) |
+| **只有夜莺报了**       | 阈值抄错，或者老系统那边有你没注意到的抑制、依赖、维护期 | 用[试运行](https://n9e.github.io/zh/docs/alerting/test-fire.md)看这条规则每一段的实际取值                              |
+| **两边都报了但不一样** | 级别映射、持续时长、恢复条件的差异                       | 逐项核对，级别档数不同的（比如 6 档压 3 档）必然有损失                                                                 |
 
 判定记录是这一步最有用的东西：它把**每一轮**判定查了什么、怎么判的都落在告警引擎本地， 所以「为什么这轮没报」是能查的，不用靠猜。
 
@@ -67,13 +67,13 @@
 | 3  | 全部                      | 老系统**只判定不通知** | 一周                         |
 | 4  | 全部                      | 停判定                 | 迁移完成                     |
 
-每档之间至少隔一周。档 1 到档 2 的切法是**改通知规则**，不是改告警规则： 用「规则管理 → 更多 → 更新告警规则」批量换这批规则挂的通知规则，一次操作切一整批。 见[通知规则](https://n9e.github.io/zh/zh/docs/notifications/rules.md)。
+每档之间至少隔一周。档 1 到档 2 的切法是**改通知规则**，不是改告警规则： 用「规则管理 → 更多 → 更新告警规则」批量换这批规则挂的通知规则，一次操作切一整批。 见[通知规则](https://n9e.github.io/zh/docs/notifications/rules.md)。
 
 档 3 那一步在老系统上的做法各不相同：Alertmanager 把接收器指向黑洞、 Zabbix 停掉 Action、Grafana 暂停规则。共同点是**保留判定**，这样第 2 步的对账还能继续。
 
 ## 千万不要并行的两样东西[​](#千万不要并行的两样东西 "千万不要并行的两样东西的直接链接")
 
-* **自动执行的动作。** [告警自愈](https://n9e.github.io/zh/zh/docs/events/self-healing.md)脚本、 事件 Pipeline 里的回调、工单系统的自动建单——这些只能有一边开着。 两边都开就会执行两次：重启两次服务、建两张重复工单。 **并行期把夜莺侧的自愈和回调全部关掉**，等切到档 4 再开。
+* **自动执行的动作。** [告警自愈](https://n9e.github.io/zh/docs/events/self-healing.md)脚本、 事件 Pipeline 里的回调、工单系统的自动建单——这些只能有一边开着。 两边都开就会执行两次：重启两次服务、建两张重复工单。 **并行期把夜莺侧的自愈和回调全部关掉**，等切到档 4 再开。
 * **同一个电话 / 短信通道。** 电话和短信通常按条计费且会吵醒人， 两套系统同时打同一个号码，代价是真金白银加上值班同学的信任。 档 0 到档 2 期间，夜莺侧的通知规则里**不要**配电话和短信媒介。
 
 ## 每一档的回退动作[​](#每一档的回退动作 "每一档的回退动作的直接链接")
@@ -89,7 +89,7 @@
 三条纪律：
 
 1. **老系统的配置在档 4 之前一律不删。** 停用、暂停、指向黑洞都行，就是不要删—— 删了回退就变成重建。
-2. **每一档切之前，先导出一份夜莺的规则 JSON 存档。** 「规则管理 → 更多 → 导出规则 JSON」，进版本库。注意导出会丢生效时段， 见[导入、导出与复用](https://n9e.github.io/zh/zh/docs/alerting/import-export.md)。
+2. **每一档切之前，先导出一份夜莺的规则 JSON 存档。** 「规则管理 → 更多 → 导出规则 JSON」，进版本库。注意导出会丢生效时段， 见[导入、导出与复用](https://n9e.github.io/zh/docs/alerting/import-export.md)。
 3. **回退不是失败。** 退回上一档、修掉差异、再切一次，比在档 3 上带着已知差异硬扛便宜得多。
 
 ## 什么时候算切完[​](#什么时候算切完 "什么时候算切完的直接链接")
@@ -101,10 +101,10 @@
 * 老系统已经在档 3 停了通知一周以上，期间没有人抱怨漏报；
 * 夜莺侧的自愈和回调已经打开并验证过。
 
-都成立了，就可以走档 4，然后按[生产上线检查清单](https://n9e.github.io/zh/zh/docs/get-started/production-checklist.md) 把新系统本身的可靠性再过一遍。
+都成立了，就可以走档 4，然后按[生产上线检查清单](https://n9e.github.io/zh/docs/get-started/production-checklist.md) 把新系统本身的可靠性再过一遍。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 上线前的完整检查项：[生产上线检查清单](https://n9e.github.io/zh/zh/docs/get-started/production-checklist.md)
-* 事件在夜莺里的处理顺序：[降噪与路由模型](https://n9e.github.io/zh/zh/docs/concepts/noise-routing.md)
-* 具体某一套系统怎么搬：[从 Prometheus + Alertmanager 迁移](https://n9e.github.io/zh/zh/docs/migration/from-alertmanager.md)、 [从 Zabbix 迁移](https://n9e.github.io/zh/zh/docs/migration/from-zabbix.md)、[从 Grafana Alerting 迁移](https://n9e.github.io/zh/zh/docs/migration/from-grafana-alerting.md)
+* 上线前的完整检查项：[生产上线检查清单](https://n9e.github.io/zh/docs/get-started/production-checklist.md)
+* 事件在夜莺里的处理顺序：[降噪与路由模型](https://n9e.github.io/zh/docs/concepts/noise-routing.md)
+* 具体某一套系统怎么搬：[从 Prometheus + Alertmanager 迁移](https://n9e.github.io/zh/docs/migration/from-alertmanager.md)、 [从 Zabbix 迁移](https://n9e.github.io/zh/docs/migration/from-zabbix.md)、[从 Grafana Alerting 迁移](https://n9e.github.io/zh/docs/migration/from-grafana-alerting.md)

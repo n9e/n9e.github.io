@@ -61,9 +61,9 @@ Alertmanager 没有内置 AI。Grafana 的 Assistant 只在 Cloud 版，开源�
 
 * **小团队，数据全在 Prometheus，习惯 GitOps**：Prometheus + Alertmanager。组件最少，模型最干净。
 * **Grafana 重度用户，告警量中等，联系点够用**：Grafana Alerting。少一个系统。
-* **多种数据源、业务团队自己配规则、要电话短信和国内 IM、想用 AI 排查**：夜莺。完整对比见[夜莺 vs Prometheus + Alertmanager](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)和[夜莺 vs Grafana Alerting](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)。
+* **多种数据源、业务团队自己配规则、要电话短信和国内 IM、想用 AI 排查**：夜莺。完整对比见[夜莺 vs Prometheus + Alertmanager](https://n9e.github.io/zh/comparisons/prometheus-alertmanager.md)和[夜莺 vs Grafana Alerting](https://n9e.github.io/zh/comparisons/grafana-alerting.md)。
 * **已经有三套监控各自在报警，想统一收口**：Keep 或 Alerta 这类聚合层。注意夜莺不是聚合层。
-* **从 Zabbix 过来**：先看[Zabbix 替代方案](https://n9e.github.io/zh/zh/comparisons/zabbix-alternatives.md)，再看[夜莺 vs Zabbix](https://n9e.github.io/zh/zh/comparisons/zabbix.md)。
+* **从 Zabbix 过来**：先看[Zabbix 替代方案](https://n9e.github.io/zh/comparisons/zabbix-alternatives.md)，再看[夜莺 vs Zabbix](https://n9e.github.io/zh/comparisons/zabbix.md)。
 
 ## 常见问题[​](#常见问题 "常见问题的直接链接")
 

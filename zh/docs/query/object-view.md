@@ -13,7 +13,7 @@
 | 临时看几台机器，看完就走     | 设备列表勾几行，点工具栏上那个图标 |
 | 每天看同一批机器的同一组指标 | 快捷视图，配一次存下来             |
 
-两条路查的是同一份[内置指标目录](https://n9e.github.io/zh/zh/docs/query/built-in-views.md)，区别在入口和能不能存。
+两条路查的是同一份[内置指标目录](https://n9e.github.io/zh/docs/query/built-in-views.md)，区别在入口和能不能存。
 
 ## 1. 从设备列表一键看指标[​](#1-从设备列表一键看指标 "1. 从设备列表一键看指标的直接链接")
 
@@ -29,7 +29,7 @@
 
 **数据查询 → 指标 → 快捷视图**（`/object/explorer`）。
 
-![快捷视图](/zh/img/docs/query/object-explorer.zh.webp)![快捷视图](/zh/img/docs/query/object-explorer.zh.dark.webp)
+![快捷视图](https://n9e.github.io/zh/img/docs/query/object-explorer.zh.webp)![快捷视图](https://n9e.github.io/zh/img/docs/query/object-explorer.zh.dark.webp)
 
 **先在右上角选数据源。** 不选数据源，下面三栏全是空的——这是「打开一片空白」最常见的 原因，不是没数据。
 
@@ -62,10 +62,10 @@
 
 * 存的是**筛选条件和维度**，不是一组固定的图。每次打开都是现选现画，所以它不适合当大屏；
 * 只认 **Prometheus 类型**的数据源；
-* 要固定布局、要分享给外部、要嵌进别的系统，用仪表盘，见[创建仪表盘](https://n9e.github.io/zh/zh/docs/query/dashboards.md)。
+* 要固定布局、要分享给外部、要嵌进别的系统，用仪表盘，见[创建仪表盘](https://n9e.github.io/zh/docs/query/dashboards.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 目录里的指标怎么维护：[内置指标视图](https://n9e.github.io/zh/zh/docs/query/built-in-views.md)
-* 机器是怎么注册进设备列表的：[对象与心跳](https://n9e.github.io/zh/zh/docs/data/categraf/targets.md)
-* 要固定下来的图：[创建仪表盘](https://n9e.github.io/zh/zh/docs/query/dashboards.md)
+* 目录里的指标怎么维护：[内置指标视图](https://n9e.github.io/zh/docs/query/built-in-views.md)
+* 机器是怎么注册进设备列表的：[对象与心跳](https://n9e.github.io/zh/docs/data/categraf/targets.md)
+* 要固定下来的图：[创建仪表盘](https://n9e.github.io/zh/docs/query/dashboards.md)

@@ -76,7 +76,7 @@ Url = "http://victoriametrics:8428/api/v1/write"
 Enable = false
 ```
 
-内置库和 `Pushgw.Writers` 可以同时生效，这就是迁移窗口。 详见[外部时序库与双写迁移](https://n9e.github.io/zh/zh/docs/install/external-tsdb.md)。
+内置库和 `Pushgw.Writers` 可以同时生效，这就是迁移窗口。 详见[外部时序库与双写迁移](https://n9e.github.io/zh/docs/install/external-tsdb.md)。
 
 ## 注意：edge / alert / pushgw 不看这段配置[​](#注意edge--alert--pushgw-不看这段配置 "注意：edge / alert / pushgw 不看这段配置的直接链接")
 
@@ -84,6 +84,6 @@ Enable = false
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [内置时序库用于开箱与小规模](https://n9e.github.io/zh/zh/docs/install/embedded-tsdb.md)
-* [内置时序库的单实例限制](https://n9e.github.io/zh/zh/docs/operations/embedded-tsdb-limits.md)
-* [数据库选型](https://n9e.github.io/zh/zh/docs/install/databases.md)
+* [内置时序库用于开箱与小规模](https://n9e.github.io/zh/docs/install/embedded-tsdb.md)
+* [内置时序库的单实例限制](https://n9e.github.io/zh/docs/operations/embedded-tsdb-limits.md)
+* [数据库选型](https://n9e.github.io/zh/docs/install/databases.md)

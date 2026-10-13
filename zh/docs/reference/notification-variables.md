@@ -73,5 +73,5 @@
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [消息模板与变量](https://n9e.github.io/zh/zh/docs/notifications/templates.md)
-* [通知模板为什么渲染失败？](https://n9e.github.io/zh/zh/docs/troubleshooting/template-errors.md)
+* [消息模板与变量](https://n9e.github.io/zh/docs/notifications/templates.md)
+* [通知模板为什么渲染失败？](https://n9e.github.io/zh/docs/troubleshooting/template-errors.md)

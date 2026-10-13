@@ -100,7 +100,7 @@ Address = "redis:6379"
 * 边缘**需要自己的 Redis**，不能复用中心那套；
 * 启动时一定要指对配置目录：`n9e-edge --configs etc/edge`， 默认的 `etc` 是中心的配置，指错了不会报错，只会静默地跑偏。
 
-详见[边缘机房](https://n9e.github.io/zh/zh/docs/install/edge.md)与[边缘断网行为](https://n9e.github.io/zh/zh/docs/operations/edge-partition.md)。
+详见[边缘机房](https://n9e.github.io/zh/docs/install/edge.md)与[边缘断网行为](https://n9e.github.io/zh/docs/operations/edge-partition.md)。
 
 ## 什么时候值得拆进程[​](#什么时候值得拆进程 "什么时候值得拆进程的直接链接")
 
@@ -127,7 +127,7 @@ Address = "redis:6379"
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [高可用与故障域](https://n9e.github.io/zh/zh/docs/operations/high-availability.md)
-* [容量规划](https://n9e.github.io/zh/zh/docs/operations/capacity.md)
-* [进程与角色](https://n9e.github.io/zh/zh/docs/concepts/components.md)
-* [上线前检查清单](https://n9e.github.io/zh/zh/docs/get-started/production-checklist.md)
+* [高可用与故障域](https://n9e.github.io/zh/docs/operations/high-availability.md)
+* [容量规划](https://n9e.github.io/zh/docs/operations/capacity.md)
+* [进程与角色](https://n9e.github.io/zh/docs/concepts/components.md)
+* [上线前检查清单](https://n9e.github.io/zh/docs/get-started/production-checklist.md)

@@ -4,7 +4,7 @@
 
 最后校对于 2026-10-10
 
-这页办完你会得到：一个已注册、连通性测过、能在即时查询里查出曲线的 Prometheus 数据源。 Thanos、Mimir、M3、VictoriaMetrics 都实现了 Prometheus 的查询 API，也都用这个类型接入 （VictoriaMetrics 还多一个开关，见 [VictoriaMetrics](https://n9e.github.io/zh/zh/docs/data/victoriametrics.md)）。
+这页办完你会得到：一个已注册、连通性测过、能在即时查询里查出曲线的 Prometheus 数据源。 Thanos、Mimir、M3、VictoriaMetrics 都实现了 Prometheus 的查询 API，也都用这个类型接入 （VictoriaMetrics 还多一个开关，见 [VictoriaMetrics](https://n9e.github.io/zh/docs/data/victoriametrics.md)）。
 
 数据不会被搬走。数据源只是一条连接：夜莺按需去你的时序库上查，抓取配置一行不用改。
 
@@ -46,7 +46,7 @@
 
 **超时(单位<!-- -->:ms<!-- -->)** 默认 10000。查询慢的大集群往上调，别调到分钟级——告警引擎按周期评估， 一条查询卡住会拖累整批规则。
 
-![Prometheus 数据源表单](/zh/img/docs/data/form-prometheus.zh.webp)![Prometheus 数据源表单](/zh/img/docs/data/form-prometheus.zh.dark.webp)
+![Prometheus 数据源表单](https://n9e.github.io/zh/img/docs/data/form-prometheus.zh.webp)![Prometheus 数据源表单](https://n9e.github.io/zh/img/docs/data/form-prometheus.zh.dark.webp)
 
 ## 2. 认证与 TLS[​](#2-认证与-tls "2. 认证与 TLS的直接链接")
 
@@ -59,11 +59,11 @@
 
 这三个都不是必填，但填错了会在别的地方咬人：
 
-| 字段             | 什么时候要填                                                                                                                                                                                                                                         |
-| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Remote Write URL | 用[记录规则](https://n9e.github.io/zh/zh/docs/query/recording-rules.md)时才需要。记录规则算出来的新序列要写回时序库，写到这个地址。Prometheus 是 `http://localhost:9090/api/v1/write`，VictoriaMetrics 单机版是 `http://localhost:8428/api/v1/write` |
-| 时序库内网地址   | 只有边缘机房下沉部署告警引擎时才填。填了之后 `n9e-edge` 用这个地址访问时序库，不填就用上面的 URL                                                                                                                                                     |
-| 时序库类型       | 可选 Prometheus / Thanos / VictoriaMetrics / M3 / SLS。它影响仪表盘变量的取值方式和「删除序列」走哪个接口，接 VictoriaMetrics 时务必选对                                                                                                             |
+| 字段             | 什么时候要填                                                                                                                                                                                                                                      |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Remote Write URL | 用[记录规则](https://n9e.github.io/zh/docs/query/recording-rules.md)时才需要。记录规则算出来的新序列要写回时序库，写到这个地址。Prometheus 是 `http://localhost:9090/api/v1/write`，VictoriaMetrics 单机版是 `http://localhost:8428/api/v1/write` |
+| 时序库内网地址   | 只有边缘机房下沉部署告警引擎时才填。填了之后 `n9e-edge` 用这个地址访问时序库，不填就用上面的 URL                                                                                                                                                  |
+| 时序库类型       | 可选 Prometheus / Thanos / VictoriaMetrics / M3 / SLS。它影响仪表盘变量的取值方式和「删除序列」走哪个接口，接 VictoriaMetrics 时务必选对                                                                                                          |
 
 **关联告警引擎集群** 保持 `default` 即可，只有一套引擎时不用动。这个字段留空的话， 这个数据源上的告警规则不会被评估。
 
@@ -85,7 +85,7 @@
 up
 ```
 
-有曲线出来，这条路就通了。查不到先别往下走，看 [数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)。
+有曲线出来，这条路就通了。查不到先别往下走，看 [数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/docs/troubleshooting/no-data.md)。
 
 ## 排障[​](#排障 "排障的直接链接")
 
@@ -99,7 +99,7 @@ up
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 用它写第一条规则：[第一条告警规则](https://n9e.github.io/zh/zh/docs/alerting/first-rule.md)
-* 即席查询：[即时查询](https://n9e.github.io/zh/zh/docs/query/metric-explorer.md)
-* 换成 VictoriaMetrics：[VictoriaMetrics](https://n9e.github.io/zh/zh/docs/data/victoriametrics.md)
-* 还没有任何采集：[安装 Categraf](https://n9e.github.io/zh/zh/docs/data/categraf/install.md)
+* 用它写第一条规则：[第一条告警规则](https://n9e.github.io/zh/docs/alerting/first-rule.md)
+* 即席查询：[即时查询](https://n9e.github.io/zh/docs/query/metric-explorer.md)
+* 换成 VictoriaMetrics：[VictoriaMetrics](https://n9e.github.io/zh/docs/data/victoriametrics.md)
+* 还没有任何采集：[安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)

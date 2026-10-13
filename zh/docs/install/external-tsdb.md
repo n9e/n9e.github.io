@@ -79,10 +79,10 @@ Enable = false
 Url = "http://victoriametrics:8428/api/v1/write"
 ```
 
-这时 `embedded-tsdb` 数据源不会被注册，得自己在数据源页面注册外部时序库。 做高可用的部署必须走这条路，见[高可用](https://n9e.github.io/zh/zh/docs/install/high-availability.md)。
+这时 `embedded-tsdb` 数据源不会被注册，得自己在数据源页面注册外部时序库。 做高可用的部署必须走这条路，见[高可用](https://n9e.github.io/zh/docs/install/high-availability.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* [接入 VictoriaMetrics](https://n9e.github.io/zh/zh/docs/data/victoriametrics.md)
-* [接入 Prometheus](https://n9e.github.io/zh/zh/docs/data/prometheus.md)
-* [内置时序库与外部存储](https://n9e.github.io/zh/zh/docs/concepts/storage.md)
+* [接入 VictoriaMetrics](https://n9e.github.io/zh/docs/data/victoriametrics.md)
+* [接入 Prometheus](https://n9e.github.io/zh/docs/data/prometheus.md)
+* [内置时序库与外部存储](https://n9e.github.io/zh/docs/concepts/storage.md)

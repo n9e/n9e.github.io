@@ -67,7 +67,7 @@ Neither corrupts data, and both cost you a start you then have to diagnose. The 
 2. Wait for its log to go quiet: no `failed to migrate`, and no index work still running.
 3. Only then take the next instance, and one at a time from there.
 
-![The alerting engines page](/img/docs/operations/alerting-engines.webp)![The alerting engines page](/img/docs/operations/alerting-engines.dark.webp)
+![The alerting engines page](https://n9e.github.io/img/docs/operations/alerting-engines.webp)![The alerting engines page](https://n9e.github.io/img/docs/operations/alerting-engines.dark.webp)
 
 [Upgrade](https://n9e.github.io/docs/install/upgrade.md) already asks you to roll one at a time so that alerting never stops. The migration race is a **second, independent reason** for the same rule — and the reason the first instance deserves a pause before you touch the second, rather than a fixed interval.
 

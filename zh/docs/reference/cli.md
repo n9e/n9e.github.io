@@ -4,7 +4,7 @@
 
 最后校对于 2026-10-10
 
-夜莺的命令行**很薄**——配置都在 `etc/` 的 toml 文件里，参数只有三个。 没有「用命令行管理告警规则」这类子命令，那些事走 [HTTP API](https://n9e.github.io/zh/zh/docs/reference/http-api.md)。
+夜莺的命令行**很薄**——配置都在 `etc/` 的 toml 文件里，参数只有三个。 没有「用命令行管理告警规则」这类子命令，那些事走 [HTTP API](https://n9e.github.io/zh/docs/reference/http-api.md)。
 
 ## 四个服务进程[​](#四个服务进程 "四个服务进程的直接链接")
 
@@ -58,6 +58,6 @@ make build-cli
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [配置项](https://n9e.github.io/zh/zh/docs/reference/configuration.md)
-* [HTTP API](https://n9e.github.io/zh/zh/docs/reference/http-api.md)
-* [二进制包安装](https://n9e.github.io/zh/zh/docs/install/binary.md)
+* [配置项](https://n9e.github.io/zh/docs/reference/configuration.md)
+* [HTTP API](https://n9e.github.io/zh/docs/reference/http-api.md)
+* [二进制包安装](https://n9e.github.io/zh/docs/install/binary.md)

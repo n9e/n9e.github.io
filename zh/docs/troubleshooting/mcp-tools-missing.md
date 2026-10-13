@@ -6,7 +6,7 @@
 
 客户端连上了，但模型说「我没有这个工具」；或者工具列表比预期短一大截； 或者调用返回一句拒绝。这三种是三个不同的原因，**返回的形状不一样**， 先按形状分类，比逐条试配置快得多。
 
-前提是连接本身是通的。如果客户端压根连不上，先看 [MCP 认证为什么失败？](https://n9e.github.io/zh/zh/docs/troubleshooting/mcp-auth.md)。
+前提是连接本身是通的。如果客户端压根连不上，先看 [MCP 认证为什么失败？](https://n9e.github.io/zh/docs/troubleshooting/mcp-auth.md)。
 
 ## 先数一下 `tools/list` 返回了几个[​](#先数一下-toolslist-返回了几个 "先数一下-toolslist-返回了几个的直接链接")
 
@@ -68,7 +68,7 @@ curl -s --noproxy '*' -X POST http://127.0.0.1:17000/mcp \
 MCPEnableWriteTools = true
 ```
 
-**重启 center 才生效**，然后 `tools/list` 应该变成 74。 打开之前先读 [安全地启用写工具](https://n9e.github.io/zh/zh/docs/ai/write-tools.md)—— `users` 和 `roles` 这两个工具集里的写工具能改角色和重置密码，建议同时用白名单排除掉。
+**重启 center 才生效**，然后 `tools/list` 应该变成 74。 打开之前先读 [安全地启用写工具](https://n9e.github.io/zh/docs/ai/write-tools.md)—— `users` 和 `roles` 这两个工具集里的写工具能改角色和重置密码，建议同时用白名单排除掉。
 
 顺带两个容易踩空的预期：**74 个工具里没有任何删除工具**， 「写」只包括新建和更新；另外 `targets`、`busi_groups`、`alert_subscribes`、 `event_pipelines`、`metrics`、`logs` 这**六个工具集本来就没有写工具**， 打开开关也不会多出来。
 
@@ -84,7 +84,7 @@ WARNING [MCP] ignoring unknown toolset "alert"; valid names: [alert_subscribes a
 
 最常见的就是单复数写反（`alert` / `alerts`、`mute` / `mutes`）。
 
-**怎么修**：按告警里那份列表逐字改。两个额外语义值得知道： **留空表示全部默认工具集**，写 `"all"` 也一样（为兼容旧配置保留）； 列表里的空字符串会被跳过，不告警。各工具集覆盖什么见 [只读与写入工具集](https://n9e.github.io/zh/zh/docs/ai/toolsets.md)。
+**怎么修**：按告警里那份列表逐字改。两个额外语义值得知道： **留空表示全部默认工具集**，写 `"all"` 也一样（为兼容旧配置保留）； 列表里的空字符串会被跳过，不告警。各工具集覆盖什么见 [只读与写入工具集](https://n9e.github.io/zh/docs/ai/toolsets.md)。
 
 ### 工具在，但 Token 对应的用户没权限[​](#工具在但-token-对应的用户没权限 "工具在，但 Token 对应的用户没权限的直接链接")
 
@@ -92,7 +92,7 @@ WARNING [MCP] ignoring unknown toolset "alert"; valid names: [alert_subscribes a
 
 **怎么确认**：返回是带 `"isError": true` 的 `result`，正文里有 `forbidden:` 前缀， 比如 `forbidden: no access to busi group 3`、`forbidden: no access to this alert rule`。 再到服务端日志里找这次请求的 `[MCP] done` 行，**`user=` 后面就是它连成的身份**—— 经常和你以为的不是一个账号。
 
-**怎么修**：改这个账号的角色和团队，不用动任何 MCP 配置。 两层是**与**的关系：角色决定能不能调这个接口，业务组决定能操作哪些数据。 不要为了省事给 `Admin`——它会绕过业务组这一层，等于把所有业务组一次性交出去。 详见 [权限继承与 RBAC](https://n9e.github.io/zh/zh/docs/ai/permissions.md)。
+**怎么修**：改这个账号的角色和团队，不用动任何 MCP 配置。 两层是**与**的关系：角色决定能不能调这个接口，业务组决定能操作哪些数据。 不要为了省事给 `Admin`——它会绕过业务组这一层，等于把所有业务组一次性交出去。 详见 [权限继承与 RBAC](https://n9e.github.io/zh/docs/ai/permissions.md)。
 
 ### 返回空列表，不一定是「没有数据」[​](#返回空列表不一定是没有数据 "返回空列表，不一定是「没有数据」的直接链接")
 
@@ -134,8 +134,8 @@ WARNING [MCP] ignoring unknown toolset "alert"; valid names: [alert_subscribes a
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 13 个工具集分别是什么：[只读与写入工具集](https://n9e.github.io/zh/zh/docs/ai/toolsets.md)
-* 逐个工具的参数：[MCP 工具参考](https://n9e.github.io/zh/zh/docs/reference/mcp-tools.md)
-* 打开写工具之前先读：[安全地启用写工具](https://n9e.github.io/zh/zh/docs/ai/write-tools.md)
-* 权限边界怎么算：[权限继承与 RBAC](https://n9e.github.io/zh/zh/docs/ai/permissions.md)
-* 连都连不上：[MCP 认证为什么失败？](https://n9e.github.io/zh/zh/docs/troubleshooting/mcp-auth.md)
+* 13 个工具集分别是什么：[只读与写入工具集](https://n9e.github.io/zh/docs/ai/toolsets.md)
+* 逐个工具的参数：[MCP 工具参考](https://n9e.github.io/zh/docs/reference/mcp-tools.md)
+* 打开写工具之前先读：[安全地启用写工具](https://n9e.github.io/zh/docs/ai/write-tools.md)
+* 权限边界怎么算：[权限继承与 RBAC](https://n9e.github.io/zh/docs/ai/permissions.md)
+* 连都连不上：[MCP 认证为什么失败？](https://n9e.github.io/zh/docs/troubleshooting/mcp-auth.md)

@@ -8,7 +8,7 @@
 
 ## 采集和接入[​](#collect "采集和接入的直接链接")
 
-先按[安装与注册](https://n9e.github.io/zh/zh/docs/data/categraf/install.md)配置 `writers` 和 `heartbeat`。 主机基础指标由 `cpu`、`mem`、`disk`、`diskio`、`net`、`system` 等输入插件采集；配置文件放在 `conf/input.<插件名>/`。
+先按[安装与注册](https://n9e.github.io/zh/docs/data/categraf/install.md)配置 `writers` 和 `heartbeat`。 主机基础指标由 `cpu`、`mem`、`disk`、`diskio`、`net`、`system` 等输入插件采集；配置文件放在 `conf/input.<插件名>/`。
 
 在 Categraf 安装目录验证单独的插件：
 
@@ -42,7 +42,7 @@
 sudo journalctl -u categraf.service -n 100 --no-pager
 ```
 
-**预期结果**：在正确时序库中直接查询能看到样本；再处理仪表盘变量，避免把展示过滤误当成采集故障。 详细排查见[数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)。
+**预期结果**：在正确时序库中直接查询能看到样本；再处理仪表盘变量，避免把展示过滤误当成采集故障。 详细排查见[数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/docs/troubleshooting/no-data.md)。
 
 ## 机器失联监控[​](#missing-host "机器失联监控的直接链接")
 
@@ -54,5 +54,5 @@ sudo journalctl -u categraf.service -n 100 --no-pager
 
 ## 下一步[​](#next "下一步的直接链接")
 
-* [对象与心跳](https://n9e.github.io/zh/zh/docs/data/categraf/targets.md)
-* [导入仪表盘与规则](https://n9e.github.io/zh/zh/docs/data/integrations/import.md)
+* [对象与心跳](https://n9e.github.io/zh/docs/data/categraf/targets.md)
+* [导入仪表盘与规则](https://n9e.github.io/zh/docs/data/integrations/import.md)

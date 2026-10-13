@@ -69,10 +69,10 @@ https://<你的夜莺地址>/dashboards/share/<仪表盘 id>?__token=<uuid>
 ## 另外两种分享，性质不同[​](#另外两种分享性质不同 "另外两种分享，性质不同的直接链接")
 
 * **临时图链接。** 即时查询里图表右上角有个分享图标，点一下把当前这条查询存成一张 临时图，给你一条 `/chart/<id>` 链接，不用登录也能打开（依赖 `[Center.AnonymousAccess]` 的 `PromQuerier`，默认是开的）。**它没有有效期，也没有注销入口**，适合当截图的替代品， 不要拿它当受控的对外分享。
-* **告警事件详情分享。** 告警事件详情页也能签一条限时链接（默认 7 天），机制和这里 一样，但分享的是一条事件而不是一个仪表盘。见[活跃事件与历史事件](https://n9e.github.io/zh/zh/docs/events/active-historical.md)。
+* **告警事件详情分享。** 告警事件详情页也能签一条限时链接（默认 7 天），机制和这里 一样，但分享的是一条事件而不是一个仪表盘。见[活跃事件与历史事件](https://n9e.github.io/zh/docs/events/active-historical.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 想把整个夜莺嵌进别的系统，而不是分享单个板：[嵌入与被集成](https://n9e.github.io/zh/zh/docs/query/embedding.md)
-* 板里的变量怎么配：[变量与筛选](https://n9e.github.io/zh/zh/docs/query/variables.md)
-* 谁能改这个板：[业务组与权限边界](https://n9e.github.io/zh/zh/docs/concepts/business-groups.md)
+* 想把整个夜莺嵌进别的系统，而不是分享单个板：[嵌入与被集成](https://n9e.github.io/zh/docs/query/embedding.md)
+* 板里的变量怎么配：[变量与筛选](https://n9e.github.io/zh/docs/query/variables.md)
+* 谁能改这个板：[业务组与权限边界](https://n9e.github.io/zh/docs/concepts/business-groups.md)

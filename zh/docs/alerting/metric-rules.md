@@ -6,7 +6,7 @@
 
 这页办完你会看得懂、也写得出 Prometheus 类规则的「告警条件」那一步——阈值写在哪儿、 一条规则怎么带多个级别、查询返回的标签里哪些最后会落到事件上。
 
-这是 **Prometheus Like** 类数据源的规则类型：Prometheus 本身、VictoriaMetrics、Thanos、Mimir。 其他类型见[日志规则](https://n9e.github.io/zh/zh/docs/alerting/log-rules.md)和 [SQL 规则](https://n9e.github.io/zh/zh/docs/alerting/sql-rules.md)。
+这是 **Prometheus Like** 类数据源的规则类型：Prometheus 本身、VictoriaMetrics、Thanos、Mimir。 其他类型见[日志规则](https://n9e.github.io/zh/docs/alerting/log-rules.md)和 [SQL 规则](https://n9e.github.io/zh/docs/alerting/sql-rules.md)。
 
 ## 查询列表[​](#查询列表 "查询列表的直接链接")
 
@@ -67,7 +67,7 @@ disk_used_percent > 95     S1
 
 持续时长是按序列判的：同一条序列要在连续几个周期里都被返回，直到累计时间覆盖了持续时长。 只出现过一次就消失的序列，永远不会产生事件——也就不会有恢复，因为它压根没产生过事件。
 
-执行频率按你负担得起的值来设，不是按下拉里最小的那个。一条匹配十个数据源的规则设成 `@every 15s`，一小时就是 2400 次查询，还没算任何人打开仪表盘。 详见[判定周期与恢复](https://n9e.github.io/zh/zh/docs/alerting/evaluation.md)。
+执行频率按你负担得起的值来设，不是按下拉里最小的那个。一条匹配十个数据源的规则设成 `@every 15s`，一小时就是 2400 次查询，还没算任何人打开仪表盘。 详见[判定周期与恢复](https://n9e.github.io/zh/docs/alerting/evaluation.md)。
 
 ## 保存之前先预览[​](#保存之前先预览 "保存之前先预览的直接链接")
 
@@ -78,7 +78,7 @@ disk_used_percent > 95     S1
 
 预览需要一个具体的数据源，所以哪怕规则最终会匹配好几个，也先在第 2 步里选一个。
 
-想要连标签、模板和通知路由一起验的更严格的检查，用[模拟触发](https://n9e.github.io/zh/zh/docs/alerting/test-fire.md)。
+想要连标签、模板和通知路由一起验的更严格的检查，用[模拟触发](https://n9e.github.io/zh/docs/alerting/test-fire.md)。
 
 ## 事件上最后带着什么[​](#事件上最后带着什么 "事件上最后带着什么的直接链接")
 
@@ -88,7 +88,7 @@ disk_used_percent > 95     S1
 2. **规则的附加标签**（第 1 步配的），追加到这条规则产生的每一条事件上；
 3. **附加信息**，逐事件渲染，那是文本不是标签。
 
-事件的值是序列在触发时刻的值，在模板里是 `$value`，标签是 `$labels.<名字>`。 见[标签、附加信息与级别](https://n9e.github.io/zh/zh/docs/alerting/labels-severity.md)。
+事件的值是序列在触发时刻的值，在模板里是 `$value`，标签是 `$labels.<名字>`。 见[标签、附加信息与级别](https://n9e.github.io/zh/docs/alerting/labels-severity.md)。
 
 关于聚合有一点要注意：`sum by (service) (...)` 会把 `instance` 和 `ident` 丢掉。 对服务级别的告警来说通常正是你要的，但也意味着事件没有一台可指的机器—— 而告警自愈是靠 `ident` 标签找机器的，那样它就无从下手了。
 
@@ -114,7 +114,7 @@ mem_used_percent{ident="$hosts"} > $threshold
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 把时间参数配对：[判定周期与恢复](https://n9e.github.io/zh/zh/docs/alerting/evaluation.md)
-* 让事件读得懂：[标签、附加信息与级别](https://n9e.github.io/zh/zh/docs/alerting/labels-severity.md)
-* 把贵的查询变便宜：[记录规则](https://n9e.github.io/zh/zh/docs/query/recording-rules.md)
-* 它就是不触发：[告警规则不触发](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-not-firing.md)
+* 把时间参数配对：[判定周期与恢复](https://n9e.github.io/zh/docs/alerting/evaluation.md)
+* 让事件读得懂：[标签、附加信息与级别](https://n9e.github.io/zh/docs/alerting/labels-severity.md)
+* 把贵的查询变便宜：[记录规则](https://n9e.github.io/zh/docs/query/recording-rules.md)
+* 它就是不触发：[告警规则不触发](https://n9e.github.io/zh/docs/troubleshooting/alert-not-firing.md)

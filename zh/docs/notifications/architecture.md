@@ -49,7 +49,7 @@
 有两点容易搞错：
 
 * **筛选是「与」的关系，但空值的含义不一样。** 时段、标签、属性留空表示不限制； **级别留空表示匹配不到任何事件**，等于把这条通知配置停用了。
-* **屏蔽规则和订阅规则不在这条链路里**，它们发生在事件落库那一步，比通知规则更早。 完整的先后顺序见[降噪与路由模型](https://n9e.github.io/zh/zh/docs/concepts/noise-routing.md)。
+* **屏蔽规则和订阅规则不在这条链路里**，它们发生在事件落库那一步，比通知规则更早。 完整的先后顺序见[降噪与路由模型](https://n9e.github.io/zh/docs/concepts/noise-routing.md)。
 
 ## 模板和媒介靠「媒介类型」字符串对上[​](#模板和媒介靠媒介类型字符串对上 "模板和媒介靠「媒介类型」字符串对上的直接链接")
 
@@ -91,11 +91,11 @@ Token 等每条规则各自使用的输入，在媒介的参数配置中声明�
 
 创建媒介类型字符串相同的消息模板，再在通知规则中选择该媒介和模板、填写参数。 显示名称相同不够，关联依赖的是媒介类型字符串。
 
-接入生产告警前先做[通知测试](https://n9e.github.io/zh/zh/docs/notifications/test.md)，同时确认投递记录和接收端实际收到的内容。 要回调完整事件看 [Callback](https://n9e.github.io/zh/zh/docs/notifications/callback.md)，要执行本地程序看[脚本媒介](https://n9e.github.io/zh/zh/docs/notifications/script.md)。
+接入生产告警前先做[通知测试](https://n9e.github.io/zh/docs/notifications/test.md)，同时确认投递记录和接收端实际收到的内容。 要回调完整事件看 [Callback](https://n9e.github.io/zh/docs/notifications/callback.md)，要执行本地程序看[脚本媒介](https://n9e.github.io/zh/docs/notifications/script.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 动手配一条：[通知规则](https://n9e.github.io/zh/zh/docs/notifications/rules.md)
-* 改消息文案：[模板与变量](https://n9e.github.io/zh/zh/docs/notifications/templates.md)
-* 发出去之前先验一遍：[端到端测试一条通知](https://n9e.github.io/zh/zh/docs/notifications/test.md)
-* 发失败了在哪看：[重试与投递状态](https://n9e.github.io/zh/zh/docs/notifications/delivery.md)
+* 动手配一条：[通知规则](https://n9e.github.io/zh/docs/notifications/rules.md)
+* 改消息文案：[模板与变量](https://n9e.github.io/zh/docs/notifications/templates.md)
+* 发出去之前先验一遍：[端到端测试一条通知](https://n9e.github.io/zh/docs/notifications/test.md)
+* 发失败了在哪看：[重试与投递状态](https://n9e.github.io/zh/docs/notifications/delivery.md)

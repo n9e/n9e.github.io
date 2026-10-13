@@ -38,11 +38,11 @@
 
 ### 夜莺监控 Nightingale（Apache-2.0）[​](#夜莺监控-nightingaleapache-20 "夜莺监控 Nightingale（Apache-2.0）的直接链接")
 
-开源告警引擎，由中国计算机学会开源发展技术委员会托管。它不存数据，直接把 Prometheus、VictoriaMetrics、Elasticsearch、ClickHouse 等 <!-- -->10+<!-- --> 种数据源注册进来做判定；没人采的地方用 Categraf 补，<!-- -->83<!-- --> 个内置集成模板带采集配置、仪表盘和告警规则。规则在页面上配，业务组是权限边界，<!-- -->20<!-- --> 种通知媒介里电话、短信、钉钉、飞书、企业微信开箱即用，内置 AI 助手和 <!-- -->74<!-- --> 个 MCP 工具。不擅长的：网络设备自动发现、Zabbix 式的多步骤升级阶梯，以及它不是告警聚合层，不能接收别的系统发来的告警。完整对比见[夜莺 vs Zabbix](https://n9e.github.io/zh/zh/comparisons/zabbix.md)。
+开源告警引擎，由中国计算机学会开源发展技术委员会托管。它不存数据，直接把 Prometheus、VictoriaMetrics、Elasticsearch、ClickHouse 等 <!-- -->10+<!-- --> 种数据源注册进来做判定；没人采的地方用 Categraf 补，<!-- -->83<!-- --> 个内置集成模板带采集配置、仪表盘和告警规则。规则在页面上配，业务组是权限边界，<!-- -->20<!-- --> 种通知媒介里电话、短信、钉钉、飞书、企业微信开箱即用，内置 AI 助手和 <!-- -->74<!-- --> 个 MCP 工具。不擅长的：网络设备自动发现、Zabbix 式的多步骤升级阶梯，以及它不是告警聚合层，不能接收别的系统发来的告警。完整对比见[夜莺 vs Zabbix](https://n9e.github.io/zh/comparisons/zabbix.md)。
 
 ### Grafana Alerting（AGPL-3.0）[​](#grafana-alertingagpl-30 "Grafana Alerting（AGPL-3.0）的直接链接")
 
-Grafana 自带的统一告警：规则可以跨多种数据源，通知策略是一棵 Alertmanager 式的路由树，联系点覆盖主流 IM。如果团队已经住在 Grafana 里，它是少一个系统的选择。要注意的是开源版的权限粒度（细粒度 RBAC 在企业版）、没有电话短信联系点，以及 Grafana OnCall 开源版已于 2026 年 3 月归档，值班能力在 Cloud。见[夜莺 vs Grafana Alerting](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)。
+Grafana 自带的统一告警：规则可以跨多种数据源，通知策略是一棵 Alertmanager 式的路由树，联系点覆盖主流 IM。如果团队已经住在 Grafana 里，它是少一个系统的选择。要注意的是开源版的权限粒度（细粒度 RBAC 在企业版）、没有电话短信联系点，以及 Grafana OnCall 开源版已于 2026 年 3 月归档，值班能力在 Cloud。见[夜莺 vs Grafana Alerting](https://n9e.github.io/zh/comparisons/grafana-alerting.md)。
 
 ### Checkmk Raw Edition（GPL-2.0）[​](#checkmk-raw-editiongpl-20 "Checkmk Raw Edition（GPL-2.0）的直接链接")
 
@@ -62,7 +62,7 @@ OpenTelemetry 原生的可观测平台，链路、指标、日志放在 ClickHou
 
 ## 从 Zabbix 迁到夜莺要做什么[​](#从-zabbix-迁到夜莺要做什么 "从 Zabbix 迁到夜莺要做什么的直接链接")
 
-迁移是重建，不是搬迁：夜莺没有 Zabbix 模板和触发器的导入器。但工作量比想象的小，因为一条夜莺规则覆盖查询返回的所有序列，一个模板挂一千台机器生成的一千组触发器在夜莺里通常是一条规则。顺序是：装 Categraf（Zabbix Agent 不用卸）、定存储、导内置模板、翻译剩余触发器、建通知、搬维护期、两套并行比对、最后先停 Action 再停 Agent。每一步都能单独验证，回退只需把夜莺这批规则批量禁用。逐步说明见[从 Zabbix 迁移](https://n9e.github.io/zh/zh/docs/migration/from-zabbix.md)和[并行运行与回退方案](https://n9e.github.io/zh/zh/docs/migration/coexistence.md)。
+迁移是重建，不是搬迁：夜莺没有 Zabbix 模板和触发器的导入器。但工作量比想象的小，因为一条夜莺规则覆盖查询返回的所有序列，一个模板挂一千台机器生成的一千组触发器在夜莺里通常是一条规则。顺序是：装 Categraf（Zabbix Agent 不用卸）、定存储、导内置模板、翻译剩余触发器、建通知、搬维护期、两套并行比对、最后先停 Action 再停 Agent。每一步都能单独验证，回退只需把夜莺这批规则批量禁用。逐步说明见[从 Zabbix 迁移](https://n9e.github.io/zh/docs/migration/from-zabbix.md)和[并行运行与回退方案](https://n9e.github.io/zh/docs/migration/coexistence.md)。
 
 ## 常见问题[​](#常见问题 "常见问题的直接链接")
 

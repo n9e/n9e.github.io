@@ -46,7 +46,7 @@ http://127.0.0.1:17000/prometheus/api/v1/write
 
 **数据查询 → 指标 → 记录规则**（`/recording-rules`），点 **新增**。
 
-![记录规则](/zh/img/docs/query/recording-rules.zh.webp)![记录规则](/zh/img/docs/query/recording-rules.zh.dark.webp)
+![记录规则](https://n9e.github.io/zh/img/docs/query/recording-rules.zh.webp)![记录规则](https://n9e.github.io/zh/img/docs/query/recording-rules.zh.dark.webp)
 
 | 字段     | 填什么                                                                                        |
 | -------- | --------------------------------------------------------------------------------------------- |
@@ -118,6 +118,6 @@ service:http_latency:p99_5m > 1
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 让新指标进告警：[指标告警规则](https://n9e.github.io/zh/zh/docs/alerting/metric-rules.md)
-* 把它画成面板：[创建仪表盘](https://n9e.github.io/zh/zh/docs/query/dashboards.md)
-* 查询到底慢在哪：[查询与判定慢](https://n9e.github.io/zh/zh/docs/troubleshooting/performance.md)
+* 让新指标进告警：[指标告警规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)
+* 把它画成面板：[创建仪表盘](https://n9e.github.io/zh/docs/query/dashboards.md)
+* 查询到底慢在哪：[查询与判定慢](https://n9e.github.io/zh/docs/troubleshooting/performance.md)

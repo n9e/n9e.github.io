@@ -54,9 +54,9 @@ data_format = "prometheus"
 
 示例固定返回 1 只用于验证链路。正式检查应返回实际结果，例如任务积压数或最近一次成功时间。 失败状态也要输出明确数值；脚本完全没有输出与输出 0 需要用不同的告警逻辑处理。
 
-不要把每次执行的随机 ID、时间戳或完整错误文本放进标签，避免不断创建新时序。 累计计数使用 Counter 语义，当前值使用 Gauge 语义，查询方式见[前置知识](https://n9e.github.io/zh/zh/docs/prologue/pre-knowledge.md)。
+不要把每次执行的随机 ID、时间戳或完整错误文本放进标签，避免不断创建新时序。 累计计数使用 Counter 语义，当前值使用 Gauge 语义，查询方式见[前置知识](https://n9e.github.io/zh/docs/prologue/pre-knowledge.md)。
 
 ## 下一步[​](#next "下一步的直接链接")
 
-* [创建第一条告警](https://n9e.github.io/zh/zh/docs/alerting/first-rule.md)
-* [数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)
+* [创建第一条告警](https://n9e.github.io/zh/docs/alerting/first-rule.md)
+* [数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/docs/troubleshooting/no-data.md)

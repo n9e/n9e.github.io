@@ -8,13 +8,13 @@
 
 入口：**告警通知 → 规则管理**，页面顶部切到 **屏蔽规则** tab（`/alert-mutes`）。
 
-![屏蔽规则列表](/zh/img/docs/events/mute-rules.zh.webp)![屏蔽规则列表](/zh/img/docs/events/mute-rules.zh.dark.webp)
+![屏蔽规则列表](https://n9e.github.io/zh/img/docs/events/mute-rules.zh.webp)![屏蔽规则列表](https://n9e.github.io/zh/img/docs/events/mute-rules.zh.dark.webp)
 
 ## 1. 新建一条屏蔽规则[​](#1-新建一条屏蔽规则 "1. 新建一条屏蔽规则的直接链接")
 
 点 **新增**。表单分三段，前两段标了「核心」。
 
-![屏蔽规则表单](/zh/img/docs/events/mute-form.zh.webp)![屏蔽规则表单](/zh/img/docs/events/mute-form.zh.dark.webp)
+![屏蔽规则表单](https://n9e.github.io/zh/img/docs/events/mute-form.zh.webp)![屏蔽规则表单](https://n9e.github.io/zh/img/docs/events/mute-form.zh.dark.webp)
 
 **筛选条件**——决定哪些事件被屏蔽，各项之间是「与」，留空表示不限制：
 
@@ -76,14 +76,14 @@
 
 ## 几个容易踩的点[​](#几个容易踩的点 "几个容易踩的点的直接链接")
 
-* **屏蔽只影响新的判定结果。** 已经在活跃列表里的那条事件不会因为你建了屏蔽规则就消失， 它只是在屏蔽期间不再产生通知。想让它立刻消失，去详情里删掉（注意删除的前提，见 [活跃事件与历史事件](https://n9e.github.io/zh/zh/docs/events/active-historical.md)）。
+* **屏蔽只影响新的判定结果。** 已经在活跃列表里的那条事件不会因为你建了屏蔽规则就消失， 它只是在屏蔽期间不再产生通知。想让它立刻消失，去详情里删掉（注意删除的前提，见 [活跃事件与历史事件](https://n9e.github.io/zh/docs/events/active-historical.md)）。
 * **时间窗按事件的触发时刻判。** 每个判定周期事件的触发时刻都会更新，所以一条从窗口前 就在烧的事件，窗口一开也会被屏蔽住；窗口一关它又开始发。
-* **Pipeline 在屏蔽之前跑。** 工作流改写出来的标签，屏蔽规则是能匹配到的—— 先富化再按新标签屏蔽，这条路是通的。顺序见[降噪与路由模型](https://n9e.github.io/zh/zh/docs/concepts/noise-routing.md)。
+* **Pipeline 在屏蔽之前跑。** 工作流改写出来的标签，屏蔽规则是能匹配到的—— 先富化再按新标签屏蔽，这条路是通的。顺序见[降噪与路由模型](https://n9e.github.io/zh/docs/concepts/noise-routing.md)。
 * **屏蔽不省引擎开销。** 规则照常按周期查询和判定，省掉的只是后面的落库和通知。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 反过来，想让更多人收到：[订阅规则](https://n9e.github.io/zh/zh/docs/events/subscriptions.md)
-* 某类事件根本不该存在：[事件 Pipeline](https://n9e.github.io/zh/zh/docs/events/pipelines.md)
-* 屏蔽了还是收到通知：[通知发到了错误的人](https://n9e.github.io/zh/zh/docs/troubleshooting/wrong-routing.md)
-* 成套的止吵套路：[降噪模式](https://n9e.github.io/zh/zh/docs/events/noise-patterns.md)
+* 反过来，想让更多人收到：[订阅规则](https://n9e.github.io/zh/docs/events/subscriptions.md)
+* 某类事件根本不该存在：[事件 Pipeline](https://n9e.github.io/zh/docs/events/pipelines.md)
+* 屏蔽了还是收到通知：[通知发到了错误的人](https://n9e.github.io/zh/docs/troubleshooting/wrong-routing.md)
+* 成套的止吵套路：[降噪模式](https://n9e.github.io/zh/docs/events/noise-patterns.md)

@@ -4,7 +4,7 @@
 
 最后校对于 2026-10-10
 
-夜莺要连两个存储：一个**元数据库**（用户、业务组、规则、仪表盘、通知配置都在里面）， 一个 **Redis**。指标不在这里，那是[时序库](https://n9e.github.io/zh/zh/docs/concepts/storage.md)的事。
+夜莺要连两个存储：一个**元数据库**（用户、业务组、规则、仪表盘、通知配置都在里面）， 一个 **Redis**。指标不在这里，那是[时序库](https://n9e.github.io/zh/docs/concepts/storage.md)的事。
 
 ## 选哪个[​](#选哪个 "选哪个的直接链接")
 
@@ -102,6 +102,6 @@ Address = "redis:6379"
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* [二进制包](https://n9e.github.io/zh/zh/docs/install/binary.md)——改完配置怎么启动
-* [配置文件布局](https://n9e.github.io/zh/zh/docs/install/configuration.md)——口令怎么不写明文
-* [高可用](https://n9e.github.io/zh/zh/docs/install/high-availability.md)——多实例共享同一套 MySQL 和 Redis
+* [二进制包](https://n9e.github.io/zh/docs/install/binary.md)——改完配置怎么启动
+* [配置文件布局](https://n9e.github.io/zh/docs/install/configuration.md)——口令怎么不写明文
+* [高可用](https://n9e.github.io/zh/docs/install/high-availability.md)——多实例共享同一套 MySQL 和 Redis

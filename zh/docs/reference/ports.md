@@ -29,7 +29,7 @@
 | `/mcp`、`/a2a`           | MCP / A2A 端点               | AI 客户端                  |
 | `/metrics`               | 自身指标                     | 你的监控系统               |
 
-所以**不能简单地「把 17000 放到公网」**。要么整个放在网关后面按路径分流， 要么把采集器网络和用户网络分开。见[网络与 TLS 加固](https://n9e.github.io/zh/zh/docs/security/network-tls.md)。
+所以**不能简单地「把 17000 放到公网」**。要么整个放在网关后面按路径分流， 要么把采集器网络和用户网络分开。见[网络与 TLS 加固](https://n9e.github.io/zh/docs/security/network-tls.md)。
 
 ## 出向[​](#出向 "出向的直接链接")
 
@@ -44,10 +44,10 @@
 
 ## 边缘模式[​](#边缘模式 "边缘模式的直接链接")
 
-`n9e-edge` 要能连到中心的 17000（拉规则配置），中心需要开 `[HTTP.APIForService] Enable = true`。边缘和中心的其余流向见[边缘机房](https://n9e.github.io/zh/zh/docs/install/edge.md)。
+`n9e-edge` 要能连到中心的 17000（拉规则配置），中心需要开 `[HTTP.APIForService] Enable = true`。边缘和中心的其余流向见[边缘机房](https://n9e.github.io/zh/docs/install/edge.md)。
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [配置项](https://n9e.github.io/zh/zh/docs/reference/configuration.md)
-* [网络与 TLS 加固](https://n9e.github.io/zh/zh/docs/security/network-tls.md)
-* [生产拓扑参考](https://n9e.github.io/zh/zh/docs/operations/topology.md)
+* [配置项](https://n9e.github.io/zh/docs/reference/configuration.md)
+* [网络与 TLS 加固](https://n9e.github.io/zh/docs/security/network-tls.md)
+* [生产拓扑参考](https://n9e.github.io/zh/docs/operations/topology.md)

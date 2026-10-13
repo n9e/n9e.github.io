@@ -56,16 +56,16 @@ EngineName = "default"
 
 ## 能扛住什么，扛不住什么[​](#能扛住什么扛不住什么 "能扛住什么，扛不住什么的直接链接")
 
-| 故障                      | 结果                                                                                                    |
-| ------------------------- | ------------------------------------------------------------------------------------------------------- |
-| 一个 `n9e` 实例挂了       | 30 秒内它的规则被别的实例接管；这段时间这批规则不判定                                                   |
-| 一个 `n9e` 实例被重启升级 | 同上，另加新实例启动后的 30 秒判定延迟                                                                  |
-| 元数据库（MySQL）不可用   | **全站不可用**——规则、用户、事件都在这里，没有降级模式                                                  |
-| Redis 不可用              | **启动时连不上 Redis 进程直接退出**；运行中断开则登录态、心跳缓存大面积异常                             |
-| 某个数据源不可用          | 只影响用到它的规则；判定报错会记在判定记录里                                                            |
-| 通知媒介不可用            | 事件照常产生，通知记录里是失败状态                                                                      |
-| 内置时序库所在实例挂了    | 这段时间的指标写不进去，历史数据也查不到                                                                |
-| 中心与边缘机房断链        | 边缘继续本地判定和通知，见[边缘断网行为](https://n9e.github.io/zh/zh/docs/operations/edge-partition.md) |
+| 故障                      | 结果                                                                                                 |
+| ------------------------- | ---------------------------------------------------------------------------------------------------- |
+| 一个 `n9e` 实例挂了       | 30 秒内它的规则被别的实例接管；这段时间这批规则不判定                                                |
+| 一个 `n9e` 实例被重启升级 | 同上，另加新实例启动后的 30 秒判定延迟                                                               |
+| 元数据库（MySQL）不可用   | **全站不可用**——规则、用户、事件都在这里，没有降级模式                                               |
+| Redis 不可用              | **启动时连不上 Redis 进程直接退出**；运行中断开则登录态、心跳缓存大面积异常                          |
+| 某个数据源不可用          | 只影响用到它的规则；判定报错会记在判定记录里                                                         |
+| 通知媒介不可用            | 事件照常产生，通知记录里是失败状态                                                                   |
+| 内置时序库所在实例挂了    | 这段时间的指标写不进去，历史数据也查不到                                                             |
+| 中心与边缘机房断链        | 边缘继续本地判定和通知，见[边缘断网行为](https://n9e.github.io/zh/docs/operations/edge-partition.md) |
 
 结论很直接：**多实例只解决了 `n9e` 进程这一个故障域**。 MySQL 和 Redis 的高可用得各自单独做，夜莺不替它们兜底。
 
@@ -79,7 +79,7 @@ EngineName = "default"
 Enable = false
 ```
 
-Center 启动时如果发现同一个引擎集群里还有别的活跃实例，会打一条 warning 日志提醒这件事。 迁移办法见[内置时序库的单 Center 限制](https://n9e.github.io/zh/zh/docs/operations/embedded-tsdb-limits.md)。
+Center 启动时如果发现同一个引擎集群里还有别的活跃实例，会打一条 warning 日志提醒这件事。 迁移办法见[内置时序库的单 Center 限制](https://n9e.github.io/zh/docs/operations/embedded-tsdb-limits.md)。
 
 ## 怎么演练[​](#怎么演练 "怎么演练的直接链接")
 
@@ -95,7 +95,7 @@ Center 启动时如果发现同一个引擎集群里还有别的活跃实例，�
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [生产拓扑](https://n9e.github.io/zh/zh/docs/operations/topology.md)
-* [内置时序库的单 Center 限制](https://n9e.github.io/zh/zh/docs/operations/embedded-tsdb-limits.md)
-* [升级与数据库迁移](https://n9e.github.io/zh/zh/docs/operations/upgrade.md)
-* [监控夜莺自身](https://n9e.github.io/zh/zh/docs/operations/self-monitoring.md)
+* [生产拓扑](https://n9e.github.io/zh/docs/operations/topology.md)
+* [内置时序库的单 Center 限制](https://n9e.github.io/zh/docs/operations/embedded-tsdb-limits.md)
+* [升级与数据库迁移](https://n9e.github.io/zh/docs/operations/upgrade.md)
+* [监控夜莺自身](https://n9e.github.io/zh/docs/operations/self-monitoring.md)

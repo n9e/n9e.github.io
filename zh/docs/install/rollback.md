@@ -14,7 +14,7 @@
 * 但这只是「通常」，不是保证。新版本改过语义的列、加过非空约束的列， 都可能让旧版本在写入时报错；
 * 新版本在新表里产生的数据（比如新功能的配置），旧版本看不到，也不会迁回去。
 
-所以**升级前那份 `mysqldump` 是唯一可靠的退路**。 [升级](https://n9e.github.io/zh/zh/docs/install/upgrade.md)里让你先备份，就是为了这一刻。
+所以**升级前那份 `mysqldump` 是唯一可靠的退路**。 [升级](https://n9e.github.io/zh/docs/install/upgrade.md)里让你先备份，就是为了这一刻。
 
 ## 只回滚二进制[​](#只回滚二进制 "只回滚二进制的直接链接")
 
@@ -71,6 +71,6 @@ systemctl start n9e
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* [升级](https://n9e.github.io/zh/zh/docs/install/upgrade.md)——把备份这步做扎实，回滚就用不上
-* [备份与恢复](https://n9e.github.io/zh/zh/docs/operations/backup-restore.md)——常态化的备份策略
-* [回滚与恢复](https://n9e.github.io/zh/zh/docs/operations/rollback.md)——配置推错、元数据库损坏时怎么办
+* [升级](https://n9e.github.io/zh/docs/install/upgrade.md)——把备份这步做扎实，回滚就用不上
+* [备份与恢复](https://n9e.github.io/zh/docs/operations/backup-restore.md)——常态化的备份策略
+* [回滚与恢复](https://n9e.github.io/zh/docs/operations/rollback.md)——配置推错、元数据库损坏时怎么办

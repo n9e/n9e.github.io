@@ -33,6 +33,6 @@
 
 * **数据不流经夜莺**：你自己搞定采集和存储，夜莺只查询。机器列表会是空的， 故障自愈用不了，但告警规则完全可用。
 * **数据流经夜莺**：Categraf 用 remote write 把数据推给夜莺，夜莺不自己存， 按 `Pushgw.Writers` 的配置转发给一个或多个时序库。机器列表、故障自愈都能用。
-* **边缘下沉**：边缘机房和中心网络不可靠时，在边缘部署 `n9e-edge`， 规则判定在本地完成，断网期间照常告警。见[边缘机房](https://n9e.github.io/zh/zh/docs/install/edge.md)。
+* **边缘下沉**：边缘机房和中心网络不可靠时，在边缘部署 `n9e-edge`， 规则判定在本地完成，断网期间照常告警。见[边缘机房](https://n9e.github.io/zh/docs/install/edge.md)。
 
-下一步：[选一条路进来](https://n9e.github.io/zh/zh/docs/get-started/choose-your-path/existing-metrics.md)。
+下一步：[选一条路进来](https://n9e.github.io/zh/docs/get-started/choose-your-path/existing-metrics.md)。

@@ -13,7 +13,7 @@ Claude Code、Cursor 等 MCP 客户端只需 /mcp 地址和一个 Token 即可�
 | 地址   | `https://n9e.example.com/mcp`（根路径，**不在** `/api/n9e` 下面） |
 | 认证   | 请求头 `X-User-Token: <你的 Token>`                               |
 
-Token 怎么建见 [个人 Token 认证](https://n9e.github.io/zh/zh/docs/ai/token-auth.md)。 本机验证时地址是 `http://127.0.0.1:17000/mcp`。
+Token 怎么建见 [个人 Token 认证](https://n9e.github.io/zh/docs/ai/token-auth.md)。 本机验证时地址是 `http://127.0.0.1:17000/mcp`。
 
 传输协议是 MCP Streamable HTTP，**不需要**任何本地 stdio 网关或代理进程。 客户端配置里如果有 `command` / `args` 这种 stdio 写法，那是另一种接法，不适用这里。
 
@@ -51,7 +51,7 @@ Claude Code、Claude Desktop、Cursor 这类客户端用的是同一种 JSON 结
 
 这类客户端跑在别人的服务器上，填不了自定义请求头，只能填一个地址。 它们走 OAuth：你在夜莺上开内置授权服务器，用户在客户端里点一次「允许」就连上了， 你一个 Token 都不用发。
 
-在客户端的「添加自定义连接器 / Remote MCP server」里填 `https://n9e.example.com/mcp`， 剩下的它自己发现。前提是服务端先开好 OAuth，见 [OAuth 2.1 与外部身份源](https://n9e.github.io/zh/zh/docs/ai/oauth.md)——那页还列了地址必须满足的三个条件 （浏览器可达、与 `Issuer` 完全一致、HTTPS）。
+在客户端的「添加自定义连接器 / Remote MCP server」里填 `https://n9e.example.com/mcp`， 剩下的它自己发现。前提是服务端先开好 OAuth，见 [OAuth 2.1 与外部身份源](https://n9e.github.io/zh/docs/ai/oauth.md)——那页还列了地址必须满足的三个条件 （浏览器可达、与 `Issuer` 完全一致、HTTPS）。
 
 ## 验证连通的第一条提示词[​](#验证连通的第一条提示词 "验证连通的第一条提示词的直接链接")
 
@@ -59,7 +59,7 @@ Claude Code、Claude Desktop、Cursor 这类客户端用的是同一种 JSON 结
 
 > 列出我能看到的所有业务组。
 
-预期结果：返回的业务组和你用这个账号登录页面看到的一模一样。 数量对不上，说明 Token 属于另一个账号，或者账号权限没按你想的收紧—— 回到 [权限继承与 RBAC](https://n9e.github.io/zh/zh/docs/ai/permissions.md)。
+预期结果：返回的业务组和你用这个账号登录页面看到的一模一样。 数量对不上，说明 Token 属于另一个账号，或者账号权限没按你想的收紧—— 回到 [权限继承与 RBAC](https://n9e.github.io/zh/docs/ai/permissions.md)。
 
 再试一条带数据的：
 
@@ -78,10 +78,10 @@ Claude Code、Claude Desktop、Cursor 这类客户端用的是同一种 JSON 结
 | 连上了但一个工具都没有 | `MCPToolsets` 里的名字写错了，全被丢弃了                                             |
 | 大约 60 秒后断开       | nginx 缺 `proxy_buffering off` 和长超时                                              |
 
-逐条的排查动作见 [AI / Skill / MCP 排障](https://n9e.github.io/zh/zh/docs/ai/troubleshooting.md)。
+逐条的排查动作见 [AI / Skill / MCP 排障](https://n9e.github.io/zh/docs/ai/troubleshooting.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 让它能改东西：[安全地启用写工具](https://n9e.github.io/zh/zh/docs/ai/write-tools.md)
-* 好用的提示词：[常见排查工作流](https://n9e.github.io/zh/zh/docs/ai/workflows.md)
-* 工具清单：[MCP 工具](https://n9e.github.io/zh/zh/docs/reference/mcp-tools.md)
+* 让它能改东西：[安全地启用写工具](https://n9e.github.io/zh/docs/ai/write-tools.md)
+* 好用的提示词：[常见排查工作流](https://n9e.github.io/zh/docs/ai/workflows.md)
+* 工具清单：[MCP 工具](https://n9e.github.io/zh/docs/reference/mcp-tools.md)

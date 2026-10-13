@@ -12,13 +12,13 @@
 
 OpenSearch、ClickHouse、Doris 可以注册成数据源，但**在这个检索页面上选不到**。 一个可用的都没有时，页面直接提示「没有可用的数据源类型」并指向数据源管理。
 
-数据源怎么注册见 [ElasticSearch / OpenSearch](https://n9e.github.io/zh/zh/docs/data/elasticsearch.md) 和 [Loki / VictoriaLogs](https://n9e.github.io/zh/zh/docs/data/loki-victorialogs.md)。
+数据源怎么注册见 [ElasticSearch / OpenSearch](https://n9e.github.io/zh/docs/data/elasticsearch.md) 和 [Loki / VictoriaLogs](https://n9e.github.io/zh/docs/data/loki-victorialogs.md)。
 
 ## 1. 选数据源，跑第一条检索[​](#1-选数据源跑第一条检索 "1. 选数据源，跑第一条检索的直接链接")
 
 **数据查询 → 日志**（`/log/explorer`）。
 
-![日志检索](/zh/img/docs/query/log-explorer.zh.webp)![日志检索](/zh/img/docs/query/log-explorer.zh.dark.webp)
+![日志检索](https://n9e.github.io/zh/img/docs/query/log-explorer.zh.webp)![日志检索](https://n9e.github.io/zh/img/docs/query/log-explorer.zh.dark.webp)
 
 左边一列自上而下（Elasticsearch 的形态）：
 
@@ -113,10 +113,10 @@ KQL       method: GET
 2. 去 **告警通知 → 规则管理 → 新增**，规则类型选日志类；
 3. 把上面四样原样填进去，再定「多少条算异常」。
 
-字段语义和阈值怎么定见[日志告警规则](https://n9e.github.io/zh/zh/docs/alerting/log-rules.md)。
+字段语义和阈值怎么定见[日志告警规则](https://n9e.github.io/zh/docs/alerting/log-rules.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 写日志类告警规则：[日志告警规则](https://n9e.github.io/zh/zh/docs/alerting/log-rules.md)
-* 接入 ES / OpenSearch 集群：[ElasticSearch / OpenSearch](https://n9e.github.io/zh/zh/docs/data/elasticsearch.md)
-* 接入 Loki / VictoriaLogs：[Loki / VictoriaLogs](https://n9e.github.io/zh/zh/docs/data/loki-victorialogs.md)
+* 写日志类告警规则：[日志告警规则](https://n9e.github.io/zh/docs/alerting/log-rules.md)
+* 接入 ES / OpenSearch 集群：[ElasticSearch / OpenSearch](https://n9e.github.io/zh/docs/data/elasticsearch.md)
+* 接入 Loki / VictoriaLogs：[Loki / VictoriaLogs](https://n9e.github.io/zh/docs/data/loki-victorialogs.md)

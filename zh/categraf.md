@@ -54,11 +54,11 @@ test 模式把采集结果直接打到标准输出，可以在接服务端之前
 
 接入夜莺、给主机打标签、没数据时怎么查，文档里有逐步的说明。
 
-[Categraf 使用文档](https://n9e.github.io/zh/zh/docs/data/categraf.md)
+[Categraf 使用文档](https://n9e.github.io/zh/docs/data/categraf.md)
 
 <!-- -->
 
-[ →](https://n9e.github.io/zh/zh/docs/data/categraf.md)
+[ →](https://n9e.github.io/zh/docs/data/categraf.md)
 
 ### Kubernetes
 
@@ -178,11 +178,11 @@ GPU
 
 Categraf 走 Prometheus Remote Write 协议推送，因此可以写入夜莺、Prometheus、VictoriaMetrics 等任何支持该协议的后端。PUSH 意味着由 agent 主动建立连接——在网络策略不允许中心端反向访问各网段时，这一点很关键。
 
-[接成夜莺的数据源](https://n9e.github.io/zh/zh/integrations.md)
+[接成夜莺的数据源](https://n9e.github.io/zh/integrations.md)
 
 <!-- -->
 
-[ →](https://n9e.github.io/zh/zh/integrations.md)
+[ →](https://n9e.github.io/zh/integrations.md)
 
 ### 并非唯一选择
 

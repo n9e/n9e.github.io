@@ -4,7 +4,7 @@ MCP 端点提供 13 个工具集共 74 个工具；六个工具集完全只读�
 
 最后校对于 2026-10-10
 
-这页是给「该放开哪几个工具集」这个决定用的。逐个工具的参数在 [MCP 工具](https://n9e.github.io/zh/zh/docs/reference/mcp-tools.md)，那页是从源码生成的，不用来回翻。
+这页是给「该放开哪几个工具集」这个决定用的。逐个工具的参数在 [MCP 工具](https://n9e.github.io/zh/docs/reference/mcp-tools.md)，那页是从源码生成的，不用来回翻。
 
 ## 13 个工具集一览[​](#13-个工具集一览 "13 个工具集一览的直接链接")
 
@@ -66,11 +66,11 @@ MCPToolsets = ["alerts", "dashboards", "metrics"]
 | `set_dashboard_public`                                         | 把仪表盘切成匿名可访问                             |
 | `toggle_alert_rules` / `set_datasource_status` / `create_mute` | 都能制造监控盲区：批量停规则、停数据源、静默告警   |
 
-结论很直接：**只在真需要写的场景开写工具，并且用 `MCPToolsets` 把 `users`、`roles` 这类工具集摘掉。** 做法见 [安全地启用写工具](https://n9e.github.io/zh/zh/docs/ai/write-tools.md)。
+结论很直接：**只在真需要写的场景开写工具，并且用 `MCPToolsets` 把 `users`、`roles` 这类工具集摘掉。** 做法见 [安全地启用写工具](https://n9e.github.io/zh/docs/ai/write-tools.md)。
 
 ## 只读工具里也有一个要留神[​](#只读工具里也有一个要留神 "只读工具里也有一个要留神的直接链接")
 
-`logs` 的 `query_logs` 把查询体原样透传给夜莺的日志查询接口， 接口按你传的数据源类型分发。注册了 MySQL、PostgreSQL、ClickHouse、Doris、TDengine 这类 SQL 数据源时，SQL 是照写照执行的。**有 SQL 数据源就把 `logs` 摘掉**， 详见 [权限继承与 RBAC](https://n9e.github.io/zh/zh/docs/ai/permissions.md)。
+`logs` 的 `query_logs` 把查询体原样透传给夜莺的日志查询接口， 接口按你传的数据源类型分发。注册了 MySQL、PostgreSQL、ClickHouse、Doris、TDengine 这类 SQL 数据源时，SQL 是照写照执行的。**有 SQL 数据源就把 `logs` 摘掉**， 详见 [权限继承与 RBAC](https://n9e.github.io/zh/docs/ai/permissions.md)。
 
 ## 挑一个最小集[​](#挑一个最小集 "挑一个最小集的直接链接")
 
@@ -85,6 +85,6 @@ MCPToolsets = ["alerts", "dashboards", "metrics"]
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 逐工具清单与参数：[MCP 工具](https://n9e.github.io/zh/zh/docs/reference/mcp-tools.md)
-* 打开写工具：[安全地启用写工具](https://n9e.github.io/zh/zh/docs/ai/write-tools.md)
-* 端点本身：[启用 MCP 端点](https://n9e.github.io/zh/zh/docs/ai/mcp-endpoint.md)
+* 逐工具清单与参数：[MCP 工具](https://n9e.github.io/zh/docs/reference/mcp-tools.md)
+* 打开写工具：[安全地启用写工具](https://n9e.github.io/zh/docs/ai/write-tools.md)
+* 端点本身：[启用 MCP 端点](https://n9e.github.io/zh/docs/ai/mcp-endpoint.md)

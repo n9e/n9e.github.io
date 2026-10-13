@@ -6,7 +6,7 @@
 
 这页办完你会得到：能有意识地设规则上那四个时间字段，而不是一路默认； 并且分得清哪几个决定「事件存不存在」，哪几个只决定「消息发不发」。
 
-这些字段背后的状态机在[判定、恢复与状态变化](https://n9e.github.io/zh/zh/docs/concepts/evaluation.md)里讲。 这一页讲的是字段本身。
+这些字段背后的状态机在[判定、恢复与状态变化](https://n9e.github.io/zh/docs/concepts/evaluation.md)里讲。 这一页讲的是字段本身。
 
 ## 四个字段分别在哪儿[​](#四个字段分别在哪儿 "四个字段分别在哪儿的直接链接")
 
@@ -26,7 +26,7 @@
 * **别跑得比数据来得还快。** Categraf 默认 15 秒采一次。5 秒判一次只是把同样的三个点 重读一遍，负载翻三倍，一点收益没有。
 * **别跑得比你能容忍的发现时间还慢。** 执行频率是发现时间的下限，持续时长还要往上加。
 
-还有一条，很多人是花了代价才发现的：执行频率是**按数据源算的**。一条匹配十个实例的规则设成 `@every 15s`，一小时就是 2400 次查询。放宽数据源筛选会悄悄把这个数乘上去—— 见[按业务组与数据源划定范围](https://n9e.github.io/zh/zh/docs/alerting/scope.md)。
+还有一条，很多人是花了代价才发现的：执行频率是**按数据源算的**。一条匹配十个实例的规则设成 `@every 15s`，一小时就是 2400 次查询。放宽数据源筛选会悄悄把这个数乘上去—— 见[按业务组与数据源划定范围](https://n9e.github.io/zh/docs/alerting/scope.md)。
 
 SQL 类规则还要拿执行频率和语句本身的耗时对一下。跑一次要八秒的查询，别设 15 秒一跑。
 
@@ -78,7 +78,7 @@ ClickHouse 和 Doris 在这里算日志类，哪怕你对它们写的是 SQL 规
 恢复      $A.value < 80
 ```
 
-在 80 到 90 之间，告警既不再次触发也不恢复——就保持原样，直到指标往一边站队为止。 恢复表达式写错时会被当成「恢复条件不满足」，界面上没有明显报错， 所以配完用[模拟触发](https://n9e.github.io/zh/zh/docs/alerting/test-fire.md)验一下。
+在 80 到 90 之间，告警既不再次触发也不恢复——就保持原样，直到指标往一边站队为止。 恢复表达式写错时会被当成「恢复条件不满足」，界面上没有明显报错， 所以配完用[模拟触发](https://n9e.github.io/zh/docs/alerting/test-fire.md)验一下。
 
 ### 对「数据消失」告警[​](#对数据消失告警 "对「数据消失」告警的直接链接")
 
@@ -96,7 +96,7 @@ Prometheus 类规则没有这个开关。单写一条规则来做——用 `up =
 | 重复通知间隔（分钟） | 60   | 一直不恢复的告警隔多久再提醒一次。`0` 表示不重复               |
 | 最大发送次数         | 0    | 一条事件总共最多发多少条通知。`0` 表示不限                     |
 
-一个值得记住的坑：**把一条正在告警的规则停用，你就永远收不到那条恢复通知了**， 因为停用的规则不产生任何事件。想临时静音，用[屏蔽规则](https://n9e.github.io/zh/zh/docs/events/mute-rules.md)。
+一个值得记住的坑：**把一条正在告警的规则停用，你就永远收不到那条恢复通知了**， 因为停用的规则不产生任何事件。想临时静音，用[屏蔽规则](https://n9e.github.io/zh/docs/events/mute-rules.md)。
 
 ## 怎么选一组值[​](#怎么选一组值 "怎么选一组值的直接链接")
 
@@ -108,10 +108,10 @@ Prometheus 类规则没有这个开关。单写一条规则来做——用 `up =
 
 **某个比率越线。** 执行频率 `@every 60s`，持续时长 `120`， 然后在支持的规则类型上用不对称的恢复条件，而不是留观时长。
 
-数字的行为和你预期对不上时，答案在[判定执行记录](https://n9e.github.io/zh/zh/docs/alerting/execution-records.md)里： 每个周期都记着条件有没有成立、事件停在了哪个阶段。
+数字的行为和你预期对不上时，答案在[判定执行记录](https://n9e.github.io/zh/docs/alerting/execution-records.md)里： 每个周期都记着条件有没有成立、事件停在了哪个阶段。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 这些字段驱动的状态机：[判定、恢复与状态变化](https://n9e.github.io/zh/zh/docs/concepts/evaluation.md)
-* 它就是停不下来：[告警为什么反复触发或从不恢复？](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-flapping.md)
-* 它就是不开始：[告警规则不触发](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-not-firing.md)
+* 这些字段驱动的状态机：[判定、恢复与状态变化](https://n9e.github.io/zh/docs/concepts/evaluation.md)
+* 它就是停不下来：[告警为什么反复触发或从不恢复？](https://n9e.github.io/zh/docs/troubleshooting/alert-flapping.md)
+* 它就是不开始：[告警规则不触发](https://n9e.github.io/zh/docs/troubleshooting/alert-not-firing.md)

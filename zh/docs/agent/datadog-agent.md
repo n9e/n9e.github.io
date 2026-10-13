@@ -46,11 +46,11 @@ sudo journalctl -u datadog-agent -n 100 --no-pager
 
 夜莺会把 Datadog 指标名里的 `.`、`-` 转为 `_`，例如 `system.cpu.user` 对应 `system_cpu_user`。 排查时检查 Agent 和夜莺两边日志，不能只看 Agent 服务在运行。
 
-兼容辅助端点的成功响应，不代表日志、APM、事件或全部 service check 已被保存；本页只承诺 v1 series 指标链路。 若 Agent 版本已不支持这种配置，改用 [Categraf](https://n9e.github.io/zh/zh/docs/data/categraf/install.md) 或已验证的 Prometheus 采集链路。
+兼容辅助端点的成功响应，不代表日志、APM、事件或全部 service check 已被保存；本页只承诺 v1 series 指标链路。 若 Agent 版本已不支持这种配置，改用 [Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md) 或已验证的 Prometheus 采集链路。
 
 ## 下一步[​](#next "下一步的直接链接")
 
-* [数据写入协议](https://n9e.github.io/zh/zh/docs/reference/write-protocols.md)
-* [数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)
+* [数据写入协议](https://n9e.github.io/zh/docs/reference/write-protocols.md)
+* [数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/docs/troubleshooting/no-data.md)
 
 实现依据：[Pushgw 路由](https://github.com/ccfos/nightingale/blob/01a8e22eb21d81f5cbe5c34e5a1511ff63e39983/pushgw/router/router.go)、[series 解析与认证](https://github.com/ccfos/nightingale/blob/01a8e22eb21d81f5cbe5c34e5a1511ff63e39983/pushgw/router/router_datadog.go)。

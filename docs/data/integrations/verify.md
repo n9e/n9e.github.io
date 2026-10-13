@@ -14,7 +14,7 @@ Start by knowing what to search for. A component drawer's **Metrics** tab lists 
 
 The same data is browsable across components under **Explorer → Metrics → Built-in metrics**, where the columns are Component type / Category / Name / Unit / PromQL / Operations.
 
-Only 22 of the 86 components ship metric descriptions. Without one, guess from the plugin name: Categraf plugins almost always prefix their metrics with the plugin name — `mysql` produces `mysql_*`, `redis` produces `redis_*`, `nginx` produces `nginx_*`.
+Only <!-- -->21<!-- --> of the <!-- -->83<!-- --> components ship metric descriptions. Without one, guess from the plugin name: Categraf plugins almost always prefix their metrics with the plugin name — `mysql` produces `mysql_*`, `redis` produces `redis_*`, `nginx` produces `nginx_*`.
 
 ## 2. On the host: is the plugin collecting[​](#2-on-the-host-is-the-plugin-collecting "Direct link to 2. On the host: is the plugin collecting")
 

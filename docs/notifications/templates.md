@@ -10,7 +10,7 @@ Where this page ends: your own message template, every variable in it verified i
 
 **Alerts & Notifications → Message templates**. The list is on the left, the editor in the middle, and a panel of referenceable event variables on the right (click any of them to copy).
 
-![Message templates](/img/docs/notifications/message-templates.webp)![Message templates](/img/docs/notifications/message-templates.dark.webp)
+![Message templates](https://n9e.github.io/img/docs/notifications/message-templates.webp)![Message templates](https://n9e.github.io/img/docs/notifications/message-templates.dark.webp)
 
 The header shows the template's **ident** and its **media type**. The ident is a server-side uuid you never need to touch; the media type decides which media type this template appears under in a notification rule.
 

@@ -8,7 +8,7 @@
 
 ## 搭起来[​](#搭起来 "搭起来的直接链接")
 
-在几台机器上各装一个 `n9e`（[二进制包](https://n9e.github.io/zh/zh/docs/install/binary.md)），配置文件用同一份。 必须一致的是这三段：
+在几台机器上各装一个 `n9e`（[二进制包](https://n9e.github.io/zh/docs/install/binary.md)），配置文件用同一份。 必须一致的是这三段：
 
 ```
 [DB]
@@ -96,7 +96,7 @@ IP = "n9e-1.example.internal"
 Enable = false
 ```
 
-迁移办法见[外置时序库与双写迁移](https://n9e.github.io/zh/zh/docs/install/external-tsdb.md)。
+迁移办法见[外置时序库与双写迁移](https://n9e.github.io/zh/docs/install/external-tsdb.md)。
 
 ## 关于 n9e-alert 和 n9e-pushgw[​](#关于-n9e-alert-和-n9e-pushgw "关于 n9e-alert 和 n9e-pushgw的直接链接")
 
@@ -104,6 +104,6 @@ Enable = false
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* [高可用与故障域](https://n9e.github.io/zh/zh/docs/operations/high-availability.md)——能扛住什么、扛不住什么，以及怎么演练
-* [外置时序库与双写迁移](https://n9e.github.io/zh/zh/docs/install/external-tsdb.md)
-* [升级](https://n9e.github.io/zh/zh/docs/install/upgrade.md)——集群怎么滚动升级
+* [高可用与故障域](https://n9e.github.io/zh/docs/operations/high-availability.md)——能扛住什么、扛不住什么，以及怎么演练
+* [外置时序库与双写迁移](https://n9e.github.io/zh/docs/install/external-tsdb.md)
+* [升级](https://n9e.github.io/zh/docs/install/upgrade.md)——集群怎么滚动升级

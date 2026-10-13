@@ -75,7 +75,7 @@ Url = "http://victoriametrics:8428/api/v1/write"
 
 告警系统自己挂了，是不会给你发告警的。每个进程都在 `/metrics` 上暴露自身指标， 把夜莺自己也接进来，至少盯住：进程存活、告警判定是否在按周期执行、通知投递失败数。
 
-见[监控夜莺自身](https://n9e.github.io/zh/zh/docs/operations/self-monitoring.md)。
+见[监控夜莺自身](https://n9e.github.io/zh/docs/operations/self-monitoring.md)。
 
 ### 决定匿名访问要不要留着[​](#决定匿名访问要不要留着 "决定匿名访问要不要留着的直接链接")
 
@@ -95,14 +95,14 @@ AlertDetail = true
 
 ### 收口网络[​](#收口网络 "收口网络的直接链接")
 
-写入端点（`/prometheus/v1/write`、`/v1/n9e/heartbeat`）和管理端口不该直接暴露在公网上。 需要外网访问就放在网关后面，配好 TLS。见[网络与 TLS 加固](https://n9e.github.io/zh/zh/docs/security/network-tls.md)。
+写入端点（`/prometheus/v1/write`、`/v1/n9e/heartbeat`）和管理端口不该直接暴露在公网上。 需要外网访问就放在网关后面，配好 TLS。见[网络与 TLS 加固](https://n9e.github.io/zh/docs/security/network-tls.md)。
 
 ### 把凭据挪出配置文件[​](#把凭据挪出配置文件 "把凭据挪出配置文件的直接链接")
 
-数据库密码、通知媒介的 token、大模型 API Key 都不该硬编码在 `config.toml` 里。 见[凭据管理](https://n9e.github.io/zh/zh/docs/security/secrets.md)。
+数据库密码、通知媒介的 token、大模型 API Key 都不该硬编码在 `config.toml` 里。 见[凭据管理](https://n9e.github.io/zh/docs/security/secrets.md)。
 
 ## 上线之后[​](#上线之后 "上线之后的直接链接")
 
 * 通知链路要**真的验证过一次**：从规则触发到手机响，不要等真出事才发现媒介配错了；
 * 至少配一条「采集器失联」类的规则，否则数据断了你是不知道的；
-* 把升级和回滚的步骤先走一遍：[升级](https://n9e.github.io/zh/zh/docs/install/upgrade.md)、[回退](https://n9e.github.io/zh/zh/docs/install/rollback.md)。
+* 把升级和回滚的步骤先走一遍：[升级](https://n9e.github.io/zh/docs/install/upgrade.md)、[回退](https://n9e.github.io/zh/docs/install/rollback.md)。

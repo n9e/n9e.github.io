@@ -33,7 +33,7 @@
 | **v9.1.0** | 2026-08-06 | ① **判定记录默认开启**，告警引擎写本地 `./evallog`，保留 8 天、上限 20 GB——磁盘要留量，或在 `[Alert.EvalLog]` 里关掉；② **内置时序库不会被自动打开**，`[EmbeddedTSDB]` 只存在于新版 `etc/config.toml`，沿用旧配置就等于没开；③ `notification_record` 的两个索引在启动后在线创建，大表上要跑一阵 |
 | **v9.0.0** | 2026-07-25 | ① **Redis 必须 ≥ 5.0**（AI 助手依赖 Redis Streams），Cluster 用户建议 7.0+；② 用 telegraf 的，写入地址要追加 `ignore_host=false`，否则那些机器不再进设备列表；③ 跑了 `n9e-edge` / `n9e-pushgw` 的要同批升级                                                                                     |
 
-完整的升级步骤、验证和回退见 [v8 升级 v9](https://n9e.github.io/zh/zh/docs/migration/v8-to-v9.md)。
+完整的升级步骤、验证和回退见 [v8 升级 v9](https://n9e.github.io/zh/docs/migration/v8-to-v9.md)。
 
 各版本的主要功能（一句话版，细节看 GitHub）：
 
@@ -55,9 +55,9 @@ GitHub 上每篇发布说明结构是固定的，升级前至少读这三段：
 
 * **PATCH**（v9.1.0 → v9.1.1）：只修 bug，通常换二进制重启就行；
 * **MINOR**（v9.0.0 → v9.1.0）：加功能，可能带默认行为变化——v9.1.0 就是例子， 一定要读 Upgrade note；
-* **MAJOR**（v8 → v9）：有环境依赖变化和界面重排，按[迁移页](https://n9e.github.io/zh/zh/docs/migration/v8-to-v9.md)走。
+* **MAJOR**（v8 → v9）：有环境依赖变化和界面重排，按[迁移页](https://n9e.github.io/zh/docs/migration/v8-to-v9.md)走。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 升级怎么做：[v8 升级 v9](https://n9e.github.io/zh/zh/docs/migration/v8-to-v9.md)
-* 哪些东西被弃用了：[弃用与生命周期](https://n9e.github.io/zh/zh/docs/help/deprecations.md)
+* 升级怎么做：[v8 升级 v9](https://n9e.github.io/zh/docs/migration/v8-to-v9.md)
+* 哪些东西被弃用了：[弃用与生命周期](https://n9e.github.io/zh/docs/help/deprecations.md)

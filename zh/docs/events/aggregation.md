@@ -14,7 +14,7 @@
 * 同一条规则跑在 5 台机器上，是 5 个事件（`ident` 不同），各自触发、各自恢复；
 * 恢复之后再次触发，才算新的一条。
 
-所以「重复告警」在夜莺里通常不是同一个事件发了很多次，而是**标签维度太细**—— 一条规则按 `device` 展开出十几个序列，就有十几个独立事件。想少几条， 先看能不能在规则里把维度聚合掉（PromQL 里 `sum by (...)`）， 见[指标规则](https://n9e.github.io/zh/zh/docs/alerting/metric-rules.md)。
+所以「重复告警」在夜莺里通常不是同一个事件发了很多次，而是**标签维度太细**—— 一条规则按 `device` 展开出十几个序列，就有十几个独立事件。想少几条， 先看能不能在规则里把维度聚合掉（PromQL 里 `sum by (...)`）， 见[指标规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)。
 
 同一条事件反复通知，则由告警规则上的两个字段控制：**重复通知间隔（分钟）** —— 持续未恢复时隔多久再提醒一次；**最大发送次数** —— 0 表示不限制。 这两个是最直接的「一个故障别发一百条」开关。
 
@@ -47,13 +47,13 @@
 看完聚合卡片、确认某一类确实不用每条都发之后：
 
 1. **规则上调重复通知间隔和最大发送次数**——针对「同一个事件一直响」；
-2. **屏蔽规则**——针对「这段时间这类别吵」，见[屏蔽规则](https://n9e.github.io/zh/zh/docs/events/mute-rules.md)；
-3. **工作流的事件丢弃处理器**——针对「这类根本不该发」，见[事件 Pipeline](https://n9e.github.io/zh/zh/docs/events/pipelines.md)。
+2. **屏蔽规则**——针对「这段时间这类别吵」，见[屏蔽规则](https://n9e.github.io/zh/docs/events/mute-rules.md)；
+3. **工作流的事件丢弃处理器**——针对「这类根本不该发」，见[事件 Pipeline](https://n9e.github.io/zh/docs/events/pipelines.md)。
 
-三者的先后顺序见[降噪与路由模型](https://n9e.github.io/zh/zh/docs/concepts/noise-routing.md)； 成套的场景化配法见[降噪模式](https://n9e.github.io/zh/zh/docs/events/noise-patterns.md)。
+三者的先后顺序见[降噪与路由模型](https://n9e.github.io/zh/docs/concepts/noise-routing.md)； 成套的场景化配法见[降噪模式](https://n9e.github.io/zh/docs/events/noise-patterns.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 两张事件列表怎么用：[活跃事件与历史事件](https://n9e.github.io/zh/zh/docs/events/active-historical.md)
-* 按条件分流而不是一刀切：[条件路由](https://n9e.github.io/zh/zh/docs/events/routing.md)
-* 一会儿报一会儿恢复：[告警反复触发和恢复](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-flapping.md)
+* 两张事件列表怎么用：[活跃事件与历史事件](https://n9e.github.io/zh/docs/events/active-historical.md)
+* 按条件分流而不是一刀切：[条件路由](https://n9e.github.io/zh/docs/events/routing.md)
+* 一会儿报一会儿恢复：[告警反复触发和恢复](https://n9e.github.io/zh/docs/troubleshooting/alert-flapping.md)

@@ -10,7 +10,7 @@ Where this page ends: a working notification rule — S1 through one media type,
 
 **Alerts & Notifications → Notification rules**, then **Add** at the top right.
 
-![Notification rules](/img/docs/notifications/notify-rules.webp)![Notification rules](/img/docs/notifications/notify-rules.dark.webp)
+![Notification rules](https://n9e.github.io/img/docs/notifications/notify-rules.webp)![Notification rules](https://n9e.github.io/img/docs/notifications/notify-rules.dark.webp)
 
 The form has three sections: **Notification configuration** (the core one), **Basic configuration**, and **Event workflow** (optional). Skip basic configuration for now — the name is generated for you once you have picked a media type and a team.
 

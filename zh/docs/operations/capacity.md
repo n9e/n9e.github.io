@@ -66,7 +66,7 @@ n9e_pushgw_sample_queue_size{queueid="..."}               # 各队列积压
 n9e_pushgw_push_queue_error_total{queueid="..."}          # 被丢的样本
 ```
 
-队列个数默认等于 CPU 核数，全局准入上限是 `队列数 × QueueMaxSize × 0.1`。 `push_queue_error_total` 一旦非 0，就是真的在掉数据了，详见 [Pushgw 队列、写入器与双写](https://n9e.github.io/zh/zh/docs/operations/pushgw.md)。
+队列个数默认等于 CPU 核数，全局准入上限是 `队列数 × QueueMaxSize × 0.1`。 `push_queue_error_total` 一旦非 0，就是真的在掉数据了，详见 [Pushgw 队列、写入器与双写](https://n9e.github.io/zh/docs/operations/pushgw.md)。
 
 ## 磁盘要单独算[​](#磁盘要单独算 "磁盘要单独算的直接链接")
 
@@ -94,15 +94,15 @@ n9e_pushgw_push_queue_error_total{queueid="..."}          # 被丢的样本
 
 先定位是哪个数到顶了，再决定扩什么。加机器不能解决所有问题。
 
-| 到顶的是                     | 该做的                                                                                                            |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| 判定耗时（规则排不开）       | 加 `n9e` 实例——规则会自动重新分派到新实例上                                                                       |
-| 判定耗时（少数几条规则很慢） | 改那几条规则，加机器没用                                                                                          |
-| 活跃序列数                   | 换外部时序库，见[内置时序库的单 Center 限制](https://n9e.github.io/zh/zh/docs/operations/embedded-tsdb-limits.md) |
-| 写入量                       | 拆出 `n9e-pushgw`，或者加 `n9e` 实例并在前面做负载均衡                                                            |
-| 数据库排队                   | 先查慢查询，再调 `[DB] MaxOpenConns`，最后才是加数据库规格                                                        |
-| 磁盘                         | 调保留期，或者把内置时序库换掉                                                                                    |
-| Web 卡但判定正常             | 拆出 `n9e-alert`，让判定和 Web 不抢 CPU                                                                           |
+| 到顶的是                     | 该做的                                                                                                         |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| 判定耗时（规则排不开）       | 加 `n9e` 实例——规则会自动重新分派到新实例上                                                                    |
+| 判定耗时（少数几条规则很慢） | 改那几条规则，加机器没用                                                                                       |
+| 活跃序列数                   | 换外部时序库，见[内置时序库的单 Center 限制](https://n9e.github.io/zh/docs/operations/embedded-tsdb-limits.md) |
+| 写入量                       | 拆出 `n9e-pushgw`，或者加 `n9e` 实例并在前面做负载均衡                                                         |
+| 数据库排队                   | 先查慢查询，再调 `[DB] MaxOpenConns`，最后才是加数据库规格                                                     |
+| 磁盘                         | 调保留期，或者把内置时序库换掉                                                                                 |
+| Web 卡但判定正常             | 拆出 `n9e-alert`，让判定和 Web 不抢 CPU                                                                        |
 
 还有一项容易忽略的成本：Pushgw 会为**每一台被监控的机器**在自己的 `/metrics` 上暴露 一条 `n9e_pushgw_sample_received_by_ident{host_ident="..."}`。机器数量上万时， 光这一个指标就是上万条序列，而且没有开关能关掉它——采集夜莺自身指标时要把这份成本算进去。
 
@@ -114,7 +114,7 @@ n9e_pushgw_push_queue_error_total{queueid="..."}          # 被丢的样本
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [生产拓扑](https://n9e.github.io/zh/zh/docs/operations/topology.md)
-* [高可用与故障域](https://n9e.github.io/zh/zh/docs/operations/high-availability.md)
-* [Pushgw 队列、写入器与双写](https://n9e.github.io/zh/zh/docs/operations/pushgw.md)
-* [内置指标与健康检查](https://n9e.github.io/zh/zh/docs/operations/health.md)
+* [生产拓扑](https://n9e.github.io/zh/docs/operations/topology.md)
+* [高可用与故障域](https://n9e.github.io/zh/docs/operations/high-availability.md)
+* [Pushgw 队列、写入器与双写](https://n9e.github.io/zh/docs/operations/pushgw.md)
+* [内置指标与健康检查](https://n9e.github.io/zh/docs/operations/health.md)

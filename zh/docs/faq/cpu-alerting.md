@@ -32,7 +32,7 @@ CPU 负载高，既可能是正常的批量任务，也可能导致请求延迟�
 
 CPU 使用率、load average、运行队列和容器 CPU throttling 描述的是不同现象。 load average 包含其他等待状态，不等于 CPU 使用百分比；不同核数的机器也不能简单比较同一个负载阈值。
 
-先确认指标含义和基线，再结合业务延迟、错误或积压判断影响。批处理机器长期高利用率，可能是预期行为。 选择持续时长以覆盖正常抖动，在[即时查询](https://n9e.github.io/zh/zh/docs/query/metric-explorer.md)检查真实样本，再启用规则。
+先确认指标含义和基线，再结合业务延迟、错误或积压判断影响。批处理机器长期高利用率，可能是预期行为。 选择持续时长以覆盖正常抖动，在[即时查询](https://n9e.github.io/zh/docs/query/metric-explorer.md)检查真实样本，再启用规则。
 
 ## 写一个可执行预案[​](#runbook "写一个可执行预案的直接链接")
 
@@ -48,6 +48,6 @@ CPU 使用率、load average、运行队列和容器 CPU throttling 描述的是
 
 ## 下一步[​](#next "下一步的直接链接")
 
-* [标签、附加信息与事件身份](https://n9e.github.io/zh/zh/docs/concepts/labels-annotations.md)
-* [告警最佳实践](https://n9e.github.io/zh/zh/docs/alerting/best-practices.md)
-* [通知规则](https://n9e.github.io/zh/zh/docs/notifications/rules.md)
+* [标签、附加信息与事件身份](https://n9e.github.io/zh/docs/concepts/labels-annotations.md)
+* [告警最佳实践](https://n9e.github.io/zh/docs/alerting/best-practices.md)
+* [通知规则](https://n9e.github.io/zh/docs/notifications/rules.md)

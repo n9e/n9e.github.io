@@ -29,7 +29,7 @@ Expected result: tick `n9e-web-01`, click `cpu_usage_idle`, and you get that hos
 
 **Explorer → Metrics → Quick view** (`/object/explorer`).
 
-![Quick view](/img/docs/query/object-explorer.webp)![Quick view](/img/docs/query/object-explorer.dark.webp)
+![Quick view](https://n9e.github.io/img/docs/query/object-explorer.webp)![Quick view](https://n9e.github.io/img/docs/query/object-explorer.dark.webp)
 
 **Pick a data source at the top right first.** Without one, all three columns are empty — which is the most common reason the page "looks blank", and it is not a data problem.
 

@@ -27,7 +27,7 @@
 | 请求头 | `Content-Type: application/json`                                              |
 | 请求体 | `{{ jsonMarshal $events }}`——事件对象的 JSON **数组**，只有一个事件时也是数组 |
 
-事件对象和历史告警表里存的结构一致，字段说明见[通知模板变量](https://n9e.github.io/zh/zh/docs/reference/notification-variables.md)。
+事件对象和历史告警表里存的结构一致，字段说明见[通知模板变量](https://n9e.github.io/zh/docs/reference/notification-variables.md)。
 
 ## 需要自己建一个时：媒介上的字段[​](#需要自己建一个时媒介上的字段 "需要自己建一个时：媒介上的字段的直接链接")
 
@@ -48,22 +48,22 @@
 
 这些字段上方还有一块 **变量配置**，放着另外两样东西：
 
-* **联系方式**——从规则里选中的用户和团队身上取哪个联系方式字段，见[联系方式](https://n9e.github.io/zh/zh/docs/security/contacts.md)。 普通 Webhook 留空即可；
+* **联系方式**——从规则里选中的用户和团队身上取哪个联系方式字段，见[联系方式](https://n9e.github.io/zh/docs/security/contacts.md)。 普通 Webhook 留空即可；
 * **自定义参数**——选中这个媒介后，通知规则里会出现的输入框，模板里用 `$params.<key>` 取。 内置媒介的 Callback Url 和 Note 就是这么来的。
 
 ## 模板里能用什么[​](#模板里能用什么 "模板里能用什么的直接链接")
 
 URL、请求头的值、请求参数的值、请求体，用的是同一套变量：
 
-| 变量          | 内容                                                                                  |
-| ------------- | ------------------------------------------------------------------------------------- |
-| `$events`     | 这次发送的全部事件，数组                                                              |
-| `$event`      | 第一个事件——确定每次只发一个事件时用着方便                                            |
-| `$params`     | 通知规则里填的自定义参数，比如 `$params.callback_url`                                 |
-| `$tpl`        | 规则里选的消息模板渲染后的结果，每个模板字段是一个 key，比如 `$tpl.content`           |
-| `$sendto`     | 一个接收人的地址（见下一节）                                                          |
-| `$sendtos`    | 全部接收人的地址，数组                                                                |
-| `{{.变量名}}` | [站点变量](https://n9e.github.io/zh/zh/docs/security/variables.md)——token、密钥放这里 |
+| 变量          | 内容                                                                               |
+| ------------- | ---------------------------------------------------------------------------------- |
+| `$events`     | 这次发送的全部事件，数组                                                           |
+| `$event`      | 第一个事件——确定每次只发一个事件时用着方便                                         |
+| `$params`     | 通知规则里填的自定义参数，比如 `$params.callback_url`                              |
+| `$tpl`        | 规则里选的消息模板渲染后的结果，每个模板字段是一个 key，比如 `$tpl.content`        |
+| `$sendto`     | 一个接收人的地址（见下一节）                                                       |
+| `$sendtos`    | 全部接收人的地址，数组                                                             |
+| `{{.变量名}}` | [站点变量](https://n9e.github.io/zh/docs/security/variables.md)——token、密钥放这里 |
 
 `jsonMarshal` 等模板函数在这些位置都能用。
 
@@ -104,7 +104,7 @@ URL、请求头的值、请求参数的值、请求体，用的是同一套变�
 * **返回了非 200 不会重试。** 重试只针对根本没连上（DNS、拒绝连接、超时）， 最多重试「重试次数」次，每次间隔「重试间隔」。
 * Callback 走一个按媒介并发数消费的队列，队列满了，这次发送记为失败，原因是 `queue is full`。
 
-发送记录（目标、状态码、响应体）在事件的通知记录里，见[重试与投递状态](https://n9e.github.io/zh/zh/docs/notifications/delivery.md)。
+发送记录（目标、状态码、响应体）在事件的通知记录里，见[重试与投递状态](https://n9e.github.io/zh/docs/notifications/delivery.md)。
 
 ## 常见报错[​](#常见报错 "常见报错的直接链接")
 
@@ -118,6 +118,6 @@ URL、请求头的值、请求参数的值、请求体，用的是同一套变�
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 接进规则：[通知规则](https://n9e.github.io/zh/zh/docs/notifications/rules.md)
-* 不调 HTTP，跑你自己的程序：[脚本媒介](https://n9e.github.io/zh/zh/docs/notifications/script.md)
-* 在通知之前、工作流里做回调：[改写标签与补充上下文](https://n9e.github.io/zh/zh/docs/events/relabel-enrich.md)
+* 接进规则：[通知规则](https://n9e.github.io/zh/docs/notifications/rules.md)
+* 不调 HTTP，跑你自己的程序：[脚本媒介](https://n9e.github.io/zh/docs/notifications/script.md)
+* 在通知之前、工作流里做回调：[改写标签与补充上下文](https://n9e.github.io/zh/docs/events/relabel-enrich.md)

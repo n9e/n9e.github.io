@@ -8,14 +8,14 @@
 
 ## 按主题阅读[​](#topics "按主题阅读的直接链接")
 
-* [数据源](https://n9e.github.io/zh/zh/docs/data/overview.md)
-* [即时查询](https://n9e.github.io/zh/zh/docs/query/metric-explorer.md)
-* [仪表盘](https://n9e.github.io/zh/zh/docs/query/dashboards.md)
-* [指标告警](https://n9e.github.io/zh/zh/docs/alerting/metric-rules.md)
-* [日志告警](https://n9e.github.io/zh/zh/docs/alerting/log-rules.md)
-* [通知规则](https://n9e.github.io/zh/zh/docs/notifications/rules.md)
+* [数据源](https://n9e.github.io/zh/docs/data/overview.md)
+* [即时查询](https://n9e.github.io/zh/docs/query/metric-explorer.md)
+* [仪表盘](https://n9e.github.io/zh/docs/query/dashboards.md)
+* [指标告警](https://n9e.github.io/zh/docs/alerting/metric-rules.md)
+* [日志告警](https://n9e.github.io/zh/docs/alerting/log-rules.md)
+* [通知规则](https://n9e.github.io/zh/docs/notifications/rules.md)
 
 ## 下一步[​](#next "下一步的直接链接")
 
-* [文档首页](https://n9e.github.io/zh/zh/docs.md)
-* [系统架构](https://n9e.github.io/zh/zh/docs/concepts/architecture.md)
+* [文档首页](https://n9e.github.io/zh/docs.md)
+* [系统架构](https://n9e.github.io/zh/docs/concepts/architecture.md)

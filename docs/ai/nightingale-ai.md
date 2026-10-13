@@ -14,7 +14,7 @@ One LLM config that is both **enabled** and **Default** — see [Configure an LL
 
 **Nightingale AI** is a top-level item in the sidebar, just under Home. Its own left rail holds **New chat**, and — for accounts that hold the matching permission points — **LLM configs** and **Skill management**. Below them, **Conversations** lists your own history with a search box.
 
-![The Nightingale AI workspace](/img/docs/ai/assistant.webp)![The Nightingale AI workspace](/img/docs/ai/assistant.dark.webp)
+![The Nightingale AI workspace](https://n9e.github.io/img/docs/ai/assistant.webp)![The Nightingale AI workspace](https://n9e.github.io/img/docs/ai/assistant.dark.webp)
 
 A new chat offers three starting points, which are a fair summary of what it is for: *Get to know Nightingale*, *Review my alerts* (which rules are the noisiest, and which have never fired) and *Create an alert in one sentence*.
 

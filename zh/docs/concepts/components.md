@@ -36,7 +36,7 @@
 
 Edge 部署在边缘机房，规则仍由中心统一管理并下发，但查询和判定发生在边缘本地。 断网期间边缘继续判定、继续发通知；恢复后再和中心同步。
 
-见[边缘机房](https://n9e.github.io/zh/zh/docs/install/edge.md)和[Edge 断网时的行为](https://n9e.github.io/zh/zh/docs/operations/edge-partition.md)。
+见[边缘机房](https://n9e.github.io/zh/docs/install/edge.md)和[Edge 断网时的行为](https://n9e.github.io/zh/docs/operations/edge-partition.md)。
 
 ## Categraf 是采集侧[​](#categraf-是采集侧 "Categraf 是采集侧的直接链接")
 
@@ -54,6 +54,6 @@ Edge 部署在边缘机房，规则仍由中心统一管理并下发，但查询
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [系统架构](https://n9e.github.io/zh/zh/docs/concepts/architecture.md)
-* [安装部署](https://n9e.github.io/zh/zh/docs/install/overview.md)
-* [生产拓扑参考](https://n9e.github.io/zh/zh/docs/operations/topology.md)
+* [系统架构](https://n9e.github.io/zh/docs/concepts/architecture.md)
+* [安装部署](https://n9e.github.io/zh/docs/install/overview.md)
+* [生产拓扑参考](https://n9e.github.io/zh/docs/operations/topology.md)

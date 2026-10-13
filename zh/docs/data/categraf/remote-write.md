@@ -149,7 +149,7 @@ timeout = 5000
 Url = "http://victoriametrics:8428/api/v1/write"
 ```
 
-详见 [VictoriaMetrics](https://n9e.github.io/zh/zh/docs/data/victoriametrics.md) 和[外部时序库与双写迁移](https://n9e.github.io/zh/zh/docs/install/external-tsdb.md)。
+详见 [VictoriaMetrics](https://n9e.github.io/zh/docs/data/victoriametrics.md) 和[外部时序库与双写迁移](https://n9e.github.io/zh/docs/install/external-tsdb.md)。
 
 ## 观测写入本身[​](#观测写入本身 "观测写入本身的直��接链接")
 
@@ -166,6 +166,6 @@ Url = "http://victoriametrics:8428/api/v1/write"
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 队列涨、数据不到：[排障](https://n9e.github.io/zh/zh/docs/data/categraf/troubleshooting.md)
-* 夜莺侧的转发配置：[Pushgw](https://n9e.github.io/zh/zh/docs/operations/pushgw.md)
-* 支持哪些写入协议：[写入协议](https://n9e.github.io/zh/zh/docs/reference/write-protocols.md)
+* 队列涨、数据不到：[排障](https://n9e.github.io/zh/docs/data/categraf/troubleshooting.md)
+* 夜莺侧的转发配置：[Pushgw](https://n9e.github.io/zh/docs/operations/pushgw.md)
+* 支持哪些写入协议：[写入协议](https://n9e.github.io/zh/docs/reference/write-protocols.md)

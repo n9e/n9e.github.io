@@ -4,7 +4,7 @@
 
 最后校对于 2026-10-10
 
-[备份与恢复](https://n9e.github.io/zh/zh/docs/operations/backup-restore.md)讲的是把库恢复回它原来待的地方。这页讲更难的那种： **环境没了，你在另一批机器上重建。** 流程绝大部分是一样的， 不一样的地方在于地址变了，而夜莺内部有好几处东西是钉在老地址上的。
+[备份与恢复](https://n9e.github.io/zh/docs/operations/backup-restore.md)讲的是把库恢复回它原来待的地方。这页讲更难的那种： **环境没了，你在另一批机器上重建。** 流程绝大部分是一样的， 不一样的地方在于地址变了，而夜莺内部有好几处东西是钉在老地址上的。
 
 ## 你必须带出来的东西[​](#你必须带出来的东西 "你必须带出来的东西的直接链接")
 
@@ -20,7 +20,7 @@
 ## 按这个顺序拉起来[​](#按这个顺序拉起来 "按这个顺序拉起来的直接链接")
 
 1. **元数据库。** 把备份恢复进一个全新的空库。别的什么都不能先起： 连不上数据库的进程会直接退出。
-2. **Redis，空的。** 不要恢复它——登录态、心跳时间戳、主机元信息都会自己过期。 代价是什么，[备份与恢复](https://n9e.github.io/zh/zh/docs/operations/backup-restore.md)里说了。
+2. **Redis，空的。** 不要恢复它——登录态、心跳时间戳、主机元信息都会自己过期。 代价是什么，[备份与恢复](https://n9e.github.io/zh/docs/operations/backup-restore.md)里说了。
 3. **一个 `n9e` 实例。** 恢复 `etc/`，把 `[DB] DSN` 和 `[Redis] Address` 改成新地址， 单独把它起起来。
 4. **先验证，再加东西。** `curl --noproxy '*' http://n9e:17000/ping` 返回 `pong`； `grep -i "failed to migrate table" logs/*.log` 没有输出；能登录， 规则、仪表盘、通知配置都在。
 5. **修地址**——见下一节。要在采集器回来之前做完，让数据落到仪表盘去查的那个地方。
@@ -46,7 +46,7 @@
 
 ## 拿不回来的东西[​](#拿不回来的东西 "拿不回来的东西的直接链接")
 
-* **内置时序库里的样本**，除非你专门备份过那个目录。它没有在线快照接口，见 [内置时序库的单 Center 限制](https://n9e.github.io/zh/zh/docs/operations/embedded-tsdb-limits.md)。
+* **内置时序库里的样本**，除非你专门备份过那个目录。它没有在线快照接口，见 [内置时序库的单 Center 限制](https://n9e.github.io/zh/docs/operations/embedded-tsdb-limits.md)。
 * **备份之后写进去的一切**——期间改过的规则、告警事件、通知记录。
 * **故障期间的指标本身。** 没有东西会补写，每张图上都会有一段缺口。
 * **Redis 里的内容。** 所有人重新登录一次，设备心跳时间要等采集器下次上报才有。
@@ -58,13 +58,13 @@
 * **能丢多少**，等于你的备份间隔。每天备一次，就意味着最多丢 24 小时的规则和仪表盘改动。 夜莺这边没有任何东西能改变这个数——改变它的是备份计划。
 * **要花多久**，等于你上一次演练花的时间。不是估出来的。
 
-所以演练就是这件事的全部。[备份与恢复](https://n9e.github.io/zh/zh/docs/operations/backup-restore.md)要求每季度做一次恢复演练， **把其中一次做成重建**——恢复到一台主机名和地址都不一样的机器上， 照着上面那张表走一遍。表里每一条都是只有在地址变了的时候才会暴露的， 在原地址上做恢复演练永远发现不了它们。
+所以演练就是这件事的全部。[备份与恢复](https://n9e.github.io/zh/docs/operations/backup-restore.md)要求每季度做一次恢复演练， **把其中一次做成重建**——恢复到一台主机名和地址都不一样的机器上， 照着上面那张表走一遍。表里每一条都是只有在地址变了的时候才会暴露的， 在原地址上做恢复演练永远发现不了它们。
 
 计时，把这个数字记下来，并且把这份手册放在它所描述的那个环境之外。
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [备份与恢复](https://n9e.github.io/zh/zh/docs/operations/backup-restore.md)——备份什么，以及恢复步骤
-* [回滚与恢复](https://n9e.github.io/zh/zh/docs/operations/rollback.md)——更小范围的撤销
-* [生产拓扑](https://n9e.github.io/zh/zh/docs/operations/topology.md)——你要重建成的那个样子
-* [上生产前的检查清单](https://n9e.github.io/zh/zh/docs/get-started/production-checklist.md)
+* [备份与恢复](https://n9e.github.io/zh/docs/operations/backup-restore.md)——备份什么，以及恢复步骤
+* [回滚与恢复](https://n9e.github.io/zh/docs/operations/rollback.md)——更小范围的撤销
+* [生产拓扑](https://n9e.github.io/zh/docs/operations/topology.md)——你要重建成的那个样子
+* [上生产前的检查清单](https://n9e.github.io/zh/docs/get-started/production-checklist.md)

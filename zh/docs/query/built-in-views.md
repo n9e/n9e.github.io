@@ -12,13 +12,13 @@
 
 全新安装就带 1300 多条，覆盖 Linux、MySQL、Redis、Nginx、Kafka、ClickHouse、 Kubernetes 等常见组件。
 
-它和[即时查询](https://n9e.github.io/zh/zh/docs/query/metric-explorer.md)的分工：那边是写 PromQL 的人临时排障用的， 这边是给全员的例行巡检和「新组件有啥可看」用的。
+它和[即时查询](https://n9e.github.io/zh/docs/query/metric-explorer.md)的分工：那边是写 PromQL 的人临时排障用的， 这边是给全员的例行巡检和「新组件有啥可看」用的。
 
 **数据查询 → 指标 → 指标视图**（`/metrics-built-in`）。
 
 ## 1. 先配过滤条件，再点指标[​](#1-先配过滤条件再点指标 "1. 先配过滤条件，再点指标的直接链接")
 
-![指标视图](/zh/img/docs/query/metrics-built-in.zh.webp)![指标视图](/zh/img/docs/query/metrics-built-in.zh.dark.webp)
+![指标视图](https://n9e.github.io/zh/img/docs/query/metrics-built-in.zh.webp)![指标视图](https://n9e.github.io/zh/img/docs/query/metrics-built-in.zh.dark.webp)
 
 左边那一栏叫「过滤条件」，作用是**在你点击一条指标查图时，自动给查询加上一组标签条件**。
 
@@ -72,10 +72,10 @@
 * 你在这个页面上建的指标存在数据库里。**同一条 PromQL 上，数据库里的那条盖过文件里的** ——所以内置指标改不动的时候，办法是照抄一条新建、PromQL 保持一样；
 * 集成中心 → 模板中心里每个组件下也有一个「指标说明」页，那是同一批数据的另一个入口， 改哪边都一样。
 
-这份目录还有两个消费方：即时查询输入框左边的「内置指标」按钮，以及设备列表里 [一键看指标](https://n9e.github.io/zh/zh/docs/query/object-view.md)的那个抽屉。
+这份目录还有两个消费方：即时查询输入框左边的「内置指标」按钮，以及设备列表里 [一键看指标](https://n9e.github.io/zh/docs/query/object-view.md)的那个抽屉。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 自己写 PromQL：[即时查询](https://n9e.github.io/zh/zh/docs/query/metric-explorer.md)
-* 按机器看：[对象快捷视图](https://n9e.github.io/zh/zh/docs/query/object-view.md)
-* 组件模板还带什么：[导入仪表盘与规则](https://n9e.github.io/zh/zh/docs/data/integrations/import.md)
+* 自己写 PromQL：[即时查询](https://n9e.github.io/zh/docs/query/metric-explorer.md)
+* 按机器看：[对象快捷视图](https://n9e.github.io/zh/docs/query/object-view.md)
+* 组件模板还带什么：[导入仪表盘与规则](https://n9e.github.io/zh/docs/data/integrations/import.md)

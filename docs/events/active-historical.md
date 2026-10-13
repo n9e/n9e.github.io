@@ -27,7 +27,7 @@ An event's business group comes from **the rule's business group**, not the host
 
 ## Finding the one you want[​](#finding-the-one-you-want "Direct link to Finding the one you want")
 
-![Active alerts](/img/docs/events/active-events.webp)![Active alerts](/img/docs/events/active-events.dark.webp)
+![Active alerts](https://n9e.github.io/img/docs/events/active-events.webp)![Active alerts](https://n9e.github.io/img/docs/events/active-events.dark.webp)
 
 The top row:
 
@@ -64,7 +64,7 @@ Deleting is not muting: the rule is still enabled, so if the condition still hol
 
 ## Historical events: export and cleanup[​](#historical-events-export-and-cleanup "Direct link to Historical events: export and cleanup")
 
-![Historical alerts](/img/docs/events/historical-events.webp)![Historical alerts](/img/docs/events/historical-events.dark.webp)
+![Historical alerts](https://n9e.github.io/img/docs/events/historical-events.webp)![Historical alerts](https://n9e.github.io/img/docs/events/historical-events.dark.webp)
 
 The historical columns differ from the active ones: **First triggered** (when it entered the alerting state) and **Last evaluated** (when evaluation last confirmed it was still firing, or recovered) are separate columns. Those two are what you reconstruct a timeline from.
 

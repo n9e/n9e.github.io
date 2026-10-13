@@ -190,10 +190,10 @@ reload_interval = 120
 
 它会周期性地 `GET <remote_url>?agent=categraf&host=<hostname>`， 按返回的内容重建插件。`providers` 只认 `local` 和 `http` 两个值，写别的会直接 panic。
 
-注意这是 Categraf 自己的能力，不是夜莺提供的服务——你得自己实现那个配置服务。 夜莺侧下发采集配置的做法见[安装采集配置](https://n9e.github.io/zh/zh/docs/data/integrations/collector-config.md)。
+注意这是 Categraf 自己的能力，不是夜莺提供的服务——你得自己实现那个配置服务。 夜莺侧下发采集配置的做法见[安装采集配置](https://n9e.github.io/zh/docs/data/integrations/collector-config.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 一次接完一个组件（配置 + 仪表盘 + 规则）：[安装采集配置](https://n9e.github.io/zh/zh/docs/data/integrations/collector-config.md)
-* 指标往哪写、怎么写：[Remote Write](https://n9e.github.io/zh/zh/docs/data/categraf/remote-write.md)
-* 插件报错、没数据：[排障](https://n9e.github.io/zh/zh/docs/data/categraf/troubleshooting.md)
+* 一次接完一个组件（配置 + 仪表盘 + 规则）：[安装采集配置](https://n9e.github.io/zh/docs/data/integrations/collector-config.md)
+* 指标往哪写、怎么写：[Remote Write](https://n9e.github.io/zh/docs/data/categraf/remote-write.md)
+* 插件报错、没数据：[排障](https://n9e.github.io/zh/docs/data/categraf/troubleshooting.md)

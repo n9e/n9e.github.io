@@ -10,7 +10,7 @@
 
 **Nightingale AI → LLM 管理**，地址 `/nightingale-ai/llm-configs`。它没有顶级菜单入口； 老地址 `/ai-config/llm-configs` 会跳到这里。
 
-![LLM 配置列表](/zh/img/docs/ai/llm-configs.zh.webp)![LLM 配置列表](/zh/img/docs/ai/llm-configs.zh.dark.webp)
+![LLM 配置列表](https://n9e.github.io/zh/img/docs/ai/llm-configs.zh.webp)![LLM 配置列表](https://n9e.github.io/zh/img/docs/ai/llm-configs.zh.dark.webp)
 
 页面由权限点 `/ai-config/llm-configs` 把守，**`Standard` 和 `Guest` 都不带这个点**。 也就是说：要么用 `Admin`，要么在**人员组织 → 角色管理**里建一个带这个点的自定义角色。
 
@@ -109,6 +109,6 @@ Gemini 只认自定义参数里的 `thinking_config`，其余键忽略；另外�
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 助手拿这个模型做什么：[Nightingale AI 概览](https://n9e.github.io/zh/zh/docs/ai/nightingale-ai.md)
-* 把团队的方法教给它：[安装、管理与编写 Skills](https://n9e.github.io/zh/zh/docs/ai/skills.md)
-* 它报错的时候：[AI / Skill / MCP 排障](https://n9e.github.io/zh/zh/docs/ai/troubleshooting.md)
+* 助手拿这个模型做什么：[Nightingale AI 概览](https://n9e.github.io/zh/docs/ai/nightingale-ai.md)
+* 把团队的方法教给它：[安装、管理与编写 Skills](https://n9e.github.io/zh/docs/ai/skills.md)
+* 它报错的时候：[AI / Skill / MCP 排障](https://n9e.github.io/zh/docs/ai/troubleshooting.md)

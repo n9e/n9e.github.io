@@ -81,7 +81,7 @@ A **Last heartbeat** frozen at some point means that instance is in trouble; a r
 
 Version information lives under **System → About**: frontend version, backend version, and which features each data source type supports.
 
-![The about page](/img/docs/operations/about.webp)![The about page](/img/docs/operations/about.dark.webp)
+![The about page](https://n9e.github.io/img/docs/operations/about.webp)![The about page](https://n9e.github.io/img/docs/operations/about.dark.webp)
 
 ## Labelled counters do not exist until they fire[​](#labelled-counters-do-not-exist-until-they-fire "Direct link to Labelled counters do not exist until they fire")
 

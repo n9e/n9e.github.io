@@ -4,7 +4,7 @@ schema 迁移在启动时怎么跑，以及多实例部署该按什么顺序升�
 
 最后校对于 2026-10-10
 
-换二进制的命令在[升级](https://n9e.github.io/zh/zh/docs/install/upgrade.md)里。这页讲运行侧的另一半： **进程启动时会对你的库做什么，以及从第一个实例停掉到最后一个实例回来的这段时间里， 多实例部署是什么样子。**
+换二进制的命令在[升级](https://n9e.github.io/zh/docs/install/upgrade.md)里。这页讲运行侧的另一半： **进程启动时会对你的库做什么，以及从第一个实例停掉到最后一个实例回来的这段时间里， 多实例部署是什么样子。**
 
 ## 迁移在进程启动时跑，没有单独的命令[​](#迁移在进程启动时跑没有单独的命令 "迁移在进程启动时跑，没有单独的命令的直接链接")
 
@@ -12,7 +12,7 @@ schema 迁移在启动时怎么跑，以及多实例部署该按什么顺序升�
 
 由此带来两条性质，都很重要：
 
-* **它只增不减。** 缺的表、列、索引会被建出来，但从不删任何东西，也不记录改之前的样子。 所以不存在反向迁移——见[回滚](https://n9e.github.io/zh/zh/docs/install/rollback.md)。
+* **它只增不减。** 缺的表、列、索引会被建出来，但从不删任何东西，也不记录改之前的样子。 所以不存在反向迁移——见[回滚](https://n9e.github.io/zh/docs/install/rollback.md)。
 * **schema 的来源是模型，不是仓库里的 SQL 文件。** `docker/sqlite.sql` 和 `docker/initsql/a-n9e.sql` 是全新安装用的，而且落后于代码：`sqlite.sql` 里 根本没有 `notify_rule`、`notify_channel_config`、`message_template`、`event_pipeline`、 `ai_llm_config` 这些表。它们在跑着的 v9 里存在，**纯粹是 AutoMigrate 建出来的**。 别拿线上的表结构去和这两个文件比对，来判断升级有没有成功。
 
 启动顺序，按「哪一步会失败」排列：
@@ -52,7 +52,7 @@ schema 迁移在启动时怎么跑，以及多实例部署该按什么顺序升�
 grep -iE "failed to migrate table|failed to create index" /opt/n9e/logs/*.log
 ```
 
-**预期结果**：没有输出。有输出的话几乎都是权限问题——`[DB] DSN` 里那个账号能读能写， 但没有 `CREATE` / `ALTER` 权限。补上授权重启，或者按 [v8 升级 v9](https://n9e.github.io/zh/zh/docs/migration/v8-to-v9.md) 里的说法，把 `docker/migratesql/migrate.sql` 里对应版本的段落交给 DBA 执行。
+**预期结果**：没有输出。有输出的话几乎都是权限问题——`[DB] DSN` 里那个账号能读能写， 但没有 `CREATE` / `ALTER` 权限。补上授权重启，或者按 [v8 升级 v9](https://n9e.github.io/zh/docs/migration/v8-to-v9.md) 里的说法，把 `docker/migratesql/migrate.sql` 里对应版本的段落交给 DBA 执行。
 
 ## 先让一个实例把迁移跑完，再滚其余的[​](#先让一个实例把迁移跑完再滚其余�的 "先让一个实例把迁移跑完，再滚其余的的直接链接")
 
@@ -67,30 +67,30 @@ grep -iE "failed to migrate table|failed to create index" /opt/n9e/logs/*.log
 2. 等它的日志安静下来：没有 `failed to migrate`，索引也不再有动静。
 3. 然后才动下一个，之后一个一个来。
 
-![告警引擎页面](/zh/img/docs/operations/alerting-engines.zh.webp)![告警引擎页面](/zh/img/docs/operations/alerting-engines.zh.dark.webp)
+![告警引擎页面](https://n9e.github.io/zh/img/docs/operations/alerting-engines.zh.webp)![告警引擎页面](https://n9e.github.io/zh/img/docs/operations/alerting-engines.zh.dark.webp)
 
-[升级](https://n9e.github.io/zh/zh/docs/install/upgrade.md)里要求一个一个滚，是为了让告警不中断。 迁移竞争是**同一条规则的第二个、独立的理由**——也是「第一个实例升完要停一停再动第二个」 而不是「隔固定时间动下一个」的原因。
+[升级](https://n9e.github.io/zh/docs/install/upgrade.md)里要求一个一个滚，是为了让告警不中断。 迁移竞争是**同一条规则的第二个、独立的理由**——也是「第一个实例升完要停一停再动第二个」 而不是「隔固定时间动下一个」的原因。
 
 ## 升级窗口里到底损失了什么[​](#升级窗口里到底损失了什么 "升级窗口里到底损失了什么的直接链接")
 
 以单个实例为单位，从 `systemctl stop` 到恢复稳态：
 
-| 功能                         | 这个实例重启期间                                                                                                   |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| 规则判定                     | 它的规则 30 秒内被其他实例接管，之后照常跑                                                                         |
-| 规则判定（重启的这个实例上） | 启动后还要再等 30 秒才开始（`[Alert] EngineDelay`）                                                                |
-| 指标写入                     | 写到这个实例 `/prometheus/v1/write` 的请求会失败；前面挂负载均衡，或者接受这段缺口                                 |
-| 界面和 API                   | 只有这个实例上不可用                                                                                               |
-| 通知                         | 跟着判定走——谁判定谁发                                                                                             |
-| 内置时序库                   | 整个重启期间既读不了也写不了，何况集群里本来就不该开它                                                             |
-| 边缘机房                     | `n9e-edge` 继续在本地判定和发通知，见[边缘断网行为](https://n9e.github.io/zh/zh/docs/operations/edge-partition.md) |
+| 功能                         | 这个实例重启期间                                                                                                |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| 规则判定                     | 它的规则 30 秒内被其他实例接管，之后照常跑                                                                      |
+| 规则判定（重启的这个实例上） | 启动后还要再等 30 秒才开始（`[Alert] EngineDelay`）                                                             |
+| 指标写入                     | 写到这个实例 `/prometheus/v1/write` 的请求会失败；前面挂负载均衡，或者接受这段缺口                              |
+| 界面和 API                   | 只有这个实例上不可用                                                                                            |
+| 通知                         | 跟着判定走——谁判定谁发                                                                                          |
+| 内置时序库                   | 整个重启期间既读不了也写不了，何况集群里本来就不该开它                                                          |
+| 边缘机房                     | `n9e-edge` 继续在本地判定和发通知，见[边缘断网行为](https://n9e.github.io/zh/docs/operations/edge-partition.md) |
 
 所有实例一起重启，会把上面第一行变成「升级多久，就多久没有任何规则在判定」—— 这正是要滚动升级的全部理由。
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [升级](https://n9e.github.io/zh/zh/docs/install/upgrade.md)——具体命令
-* [v8 升级 v9](https://n9e.github.io/zh/zh/docs/migration/v8-to-v9.md)——跨大版本的破坏性变更
-* [高可用与故障域](https://n9e.github.io/zh/zh/docs/operations/high-availability.md)——规则在实例之间怎么流转
-* [回滚与恢复](https://n9e.github.io/zh/zh/docs/operations/rollback.md)——升级不顺利的时候
-* [升级或数据库迁移为什么失败？](https://n9e.github.io/zh/zh/docs/troubleshooting/upgrade-fails.md)——日志里真有东西的时候
+* [升级](https://n9e.github.io/zh/docs/install/upgrade.md)——具体命令
+* [v8 升级 v9](https://n9e.github.io/zh/docs/migration/v8-to-v9.md)——跨大版本的破坏性变更
+* [高可用与故障域](https://n9e.github.io/zh/docs/operations/high-availability.md)——规则在实例之间怎么流转
+* [回滚与恢复](https://n9e.github.io/zh/docs/operations/rollback.md)——升级不顺利的时候
+* [升级或数据库迁移为什么失败？](https://n9e.github.io/zh/docs/troubleshooting/upgrade-fails.md)——日志里真有东西的时候

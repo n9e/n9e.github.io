@@ -10,7 +10,7 @@
 
 监控系统是 P0：**Kubernetes 集群出问题的时候，你恰恰需要监控还活着**。 把夜莺部署在它要监控的那个集群里，就形成了循环依赖——集群一挂，用来排查集群的工具跟着挂。
 
-要么装在独立的、专门跑基础设施的集群里，要么就用[二进制包](https://n9e.github.io/zh/zh/docs/install/binary.md)装在集群外的机器上。 这不是 chart 有问题，是拓扑选择问题。
+要么装在独立的、专门跑基础设施的集群里，要么就用[二进制包](https://n9e.github.io/zh/docs/install/binary.md)装在集群外的机器上。 这不是 chart 有问题，是拓扑选择问题。
 
 ## chart 的版本状况[​](#chart-的版本状况 "chart 的版本状况的直接链接")
 
@@ -22,7 +22,7 @@ chart 在 [flashcatcloud/n9e-helm](https://github.com/flashcatcloud/n9e-helm)，
 
 **打包发布还没跟上**：Helm 仓库 `https://flashcatcloud.github.io/n9e-helm` 里最新的仍是 v8 的 `v8.0.0-beta12`，`helm repo add` 之后装到的是 v8。要装 v9，用 clone 下来的 master 目录装（见下一节）。
 
-从旧版 chart 升级上来的，换成新 chart 后 `helm upgrade` 即可，表结构由 `n9e` 启动时的 AutoMigrate 补齐。 升级前的注意事项见[升级](https://n9e.github.io/zh/zh/docs/install/upgrade.md)。
+从旧版 chart 升级上来的，换成新 chart 后 `helm upgrade` 即可，表结构由 `n9e` 启动时的 AutoMigrate 补齐。 升级前的注意事项见[升级](https://n9e.github.io/zh/docs/install/upgrade.md)。
 
 ## 装[​](#装 "装的直接链接")
 
@@ -128,6 +128,6 @@ externalURL: https://n9e.example.com
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* [数据库选型](https://n9e.github.io/zh/zh/docs/install/databases.md)
-* [上生产前的检查清单](https://n9e.github.io/zh/zh/docs/get-started/production-checklist.md)
-* [二进制包](https://n9e.github.io/zh/zh/docs/install/binary.md)——集群外部署的做法
+* [数据库选型](https://n9e.github.io/zh/docs/install/databases.md)
+* [上生产前的检查清单](https://n9e.github.io/zh/docs/get-started/production-checklist.md)
+* [二进制包](https://n9e.github.io/zh/docs/install/binary.md)——集群外部署的做法

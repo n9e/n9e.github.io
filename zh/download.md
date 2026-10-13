@@ -22,7 +22,7 @@ DOWNLOAD
 2. 打开 http\://localhost:17000，用 root / root.2020 登录
 3. 自带的 Categraf 已经把本机上报上来，机器列表里能看到它
 
-[Docker Compose 部署文档<!-- --> →](https://n9e.github.io/zh/zh/docs/install/docker-compose.md)
+[Docker Compose 部署文档<!-- --> →](https://n9e.github.io/zh/docs/install/docker-compose.md)
 
 ### 同一目录下的其他组合
 
@@ -47,13 +47,13 @@ DOWNLOAD
 
 把 config.toml 里的地址指向夜莺，一分钟内这台机器就出现在机器列表里。
 
-[Categraf 介绍<!-- --> →](https://n9e.github.io/zh/zh/categraf.md)[Categraf 文档<!-- --> →](https://n9e.github.io/zh/zh/docs/data/categraf.md)
+[Categraf 介绍<!-- --> →](https://n9e.github.io/zh/categraf.md)[Categraf 文档<!-- --> →](https://n9e.github.io/zh/docs/data/categraf.md)
 
 ## 升级与回滚
 
 小版本之间直接换二进制。v8 升 v9 先备份数据库，读发布说明里的表结构变更；迁移在首次启动时执行。
 
-[升级文档<!-- --> →](https://n9e.github.io/zh/zh/docs/install/upgrade.md)[回滚<!-- --> →](https://n9e.github.io/zh/zh/docs/install/rollback.md)[v8 升 v9<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/v8-to-v9.md)
+[升级文档<!-- --> →](https://n9e.github.io/zh/docs/install/upgrade.md)[回滚<!-- --> →](https://n9e.github.io/zh/docs/install/rollback.md)[v8 升 v9<!-- --> →](https://n9e.github.io/zh/docs/migration/v8-to-v9.md)
 
 ## 卡住了？
 

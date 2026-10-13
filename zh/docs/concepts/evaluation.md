@@ -74,10 +74,10 @@ cpu_usage_active > 95   →  S1
 
 规则页上有**判定记录**：每个评估周期都留一条，记着这次查询返回了什么、 判定结果是什么、有没有被 Pipeline 丢掉、有没有被屏蔽。
 
-「查询在即时查询页面有结果，但规则不触发」这类问题，答案基本都在这里。 见[判定记录](https://n9e.github.io/zh/zh/docs/alerting/execution-records.md)。
+「查询在即时查询页面有结果，但规则不触发」这类问题，答案基本都在这里。 见[判定记录](https://n9e.github.io/zh/docs/alerting/execution-records.md)。
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [告警生命周期与级别](https://n9e.github.io/zh/zh/docs/concepts/alert-lifecycle.md)
-* [评估周期与恢复](https://n9e.github.io/zh/zh/docs/alerting/evaluation.md)
-* [告警为什么反复触发或从不恢复？](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-flapping.md)
+* [告警生命周期与级别](https://n9e.github.io/zh/docs/concepts/alert-lifecycle.md)
+* [评估周期与恢复](https://n9e.github.io/zh/docs/alerting/evaluation.md)
+* [告警为什么反复触发或从不恢复？](https://n9e.github.io/zh/docs/troubleshooting/alert-flapping.md)

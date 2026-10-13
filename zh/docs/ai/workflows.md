@@ -18,7 +18,7 @@
 
 **在工作区里问。** 没有页面上下文，所以要把对象点名：哪条规则、哪台机器、哪个业务组。 跨领域的问题反而更适合在这里问。
 
-**从 MCP 客户端问。** Claude Code、Cursor 自带模型也自带工具箱——没有 Skill、 没有文档检索、没有确认卡片。依赖 Skill 的提示词在那边不会是同样的表现。 那边就老老实实做检索：*「列出我能看到的所有业务组」*、 *「现在有哪些活跃告警？按级别分组。」* 见[接入 MCP 客户端](https://n9e.github.io/zh/zh/docs/ai/mcp-clients.md)。
+**从 MCP 客户端问。** Claude Code、Cursor 自带模型也自带工具箱——没有 Skill、 没有文档检索、没有确认卡片。依赖 Skill 的提示词在那边不会是同样的表现。 那边就老老实实做检索：*「列出我能看到的所有业务组」*、 *「现在有哪些活跃告警？按级别分组。」* 见[接入 MCP 客户端](https://n9e.github.io/zh/docs/ai/mcp-clients.md)。
 
 ## 分诊：现在什么在烧[​](#分诊现在什么在烧 "分诊：现在什么在烧的直接链接")
 
@@ -68,7 +68,7 @@
 
 > 我最近哪些告警频繁触发？有没有适合自愈的场景推荐？
 
-最后这句来自告警自愈页，它是一个很好的过渡：每周都来一次的机械告警， 就是脚本的候选。见[用 ibex / webhook 做告警自愈](https://n9e.github.io/zh/zh/docs/events/self-healing.md)。
+最后这句来自告警自愈页，它是一个很好的过渡：每周都来一次的机械告警， 就是脚本的候选。见[用 ibex / webhook 做告警自愈](https://n9e.github.io/zh/docs/events/self-healing.md)。
 
 ## 解释一个尖峰，或者写出那条查询[​](#解释一个尖峰或者写出那条查询 "解释一个尖峰，或者写出那条查询的直接链接")
 
@@ -119,6 +119,6 @@
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 为什么有些问题得靠 Skill：[安装、管理与编写 Skills](https://n9e.github.io/zh/zh/docs/ai/skills.md)
-* 放手让它改东西之前：[安全的自动化模式](https://n9e.github.io/zh/zh/docs/ai/automation.md)
-* 它答不好或者干脆不答：[AI / Skill / MCP 排障](https://n9e.github.io/zh/zh/docs/ai/troubleshooting.md)
+* 为什么有些问题得靠 Skill：[安装、管理与编写 Skills](https://n9e.github.io/zh/docs/ai/skills.md)
+* 放手让它改东西之前：[安全的自动化模式](https://n9e.github.io/zh/docs/ai/automation.md)
+* 它答不好或者干脆不答：[AI / Skill / MCP 排障](https://n9e.github.io/zh/docs/ai/troubleshooting.md)

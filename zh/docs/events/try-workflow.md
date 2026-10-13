@@ -57,11 +57,11 @@ service=web
 * **用样例事件时更要复核。** 样例事件的标签是固定的四个，按其他标签判断的处理器 在这里必然走不到；
 * **整条工作流的试跑会写一条执行记录**，触发模式是「API 触发」、触发者是你的用户名。 单个处理器的试跑不写记录。
 
-所以试跑通过之后还有一步：挂到规则上、等一条真实事件、去 [执行记录](https://n9e.github.io/zh/zh/docs/events/execution-records.md)确认。
+所以试跑通过之后还有一步：挂到规则上、等一条真实事件、去 [执行记录](https://n9e.github.io/zh/docs/events/execution-records.md)确认。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 把工作流挂上去：[事件 Pipeline](https://n9e.github.io/zh/zh/docs/events/pipelines.md)
-* 看真实事件的执行结果：[查看 Pipeline 执行记录](https://n9e.github.io/zh/zh/docs/events/execution-records.md)
-* 试跑通了线上不生效：[工作流试跑通过但线上不生效](https://n9e.github.io/zh/zh/docs/troubleshooting/workflow-prod-fails.md)
-* 通知那一侧也能这么测：[验证通知链路](https://n9e.github.io/zh/zh/docs/notifications/test.md)
+* 把工作流挂上去：[事件 Pipeline](https://n9e.github.io/zh/docs/events/pipelines.md)
+* 看真实事件的执行结果：[查看 Pipeline 执行记录](https://n9e.github.io/zh/docs/events/execution-records.md)
+* 试跑通了线上不生效：[工作流试跑通过但线上不生效](https://n9e.github.io/zh/docs/troubleshooting/workflow-prod-fails.md)
+* 通知那一侧也能这么测：[验证通知链路](https://n9e.github.io/zh/docs/notifications/test.md)

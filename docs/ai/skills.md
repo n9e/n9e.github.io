@@ -18,7 +18,7 @@ A skill is not a model and not a tool. The model comes from [Configure an LLM pr
 
 **Nightingale AI → Skill management**, at `/nightingale-ai/skills`. The older address `/ai-config/skills` redirects here. The page is guarded by the permission point `/ai-config/skills`, which **no built-in role except `Admin` holds** — grant it to a custom role under **Organization → Roles** if somebody else needs it.
 
-![Skill management](/img/docs/ai/skills.webp)![Skill management](/img/docs/ai/skills.dark.webp)
+![Skill management](https://n9e.github.io/img/docs/ai/skills.webp)![Skill management](https://n9e.github.io/img/docs/ai/skills.dark.webp)
 
 The left pane is a tree: one node per skill, expanding to its files. **22 skills ship built in** and are tagged `Builtin` — alert-rule troubleshooting, host health and onboarding diagnosis, dashboard analysis and creation, PromQL and SQL generation, notification-template writing, Prometheus rule import, self-healing script authoring, and more. You can open and read every file in them, but they cannot be downloaded or deleted. They are also the best worked examples available for writing your own.
 

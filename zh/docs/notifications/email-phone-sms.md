@@ -10,7 +10,7 @@ SMTP 设置，以及通过阿里云、腾讯云发电话和短信。
 
 **告警通知 → 通知媒介**，左边的类型面板里点 **邮件**。开源版自带一个叫 `Email` 的媒介， 直接编辑它就行，不必新建。
 
-![通知媒介](/zh/img/docs/notifications/media-types.zh.webp)![通知媒介](/zh/img/docs/notifications/media-types.zh.dark.webp)
+![通知媒介](https://n9e.github.io/zh/img/docs/notifications/media-types.zh.webp)![通知媒介](https://n9e.github.io/zh/img/docs/notifications/media-types.zh.dark.webp)
 
 SMTP 配置这一块：
 
@@ -106,10 +106,10 @@ SMTP 配置这一块：
 | `isv.MOBILE_NUMBER_ILLEGAL` / `InvalidParameterValue.InvalidPhoneNumber`       | 手机号格式不对，多半是 `+86` 多写或少写           |
 | `AuthFailure.SignatureFailure`（腾讯云）                                       | 密钥不对，或服务器时钟偏差超过 5 分钟             |
 
-失败详情在事件详情的**通知记录**里，见[重试与投递状态](https://n9e.github.io/zh/zh/docs/notifications/delivery.md)。
+失败详情在事件详情的**通知记录**里，见[重试与投递状态](https://n9e.github.io/zh/docs/notifications/delivery.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 群机器人的配法：[钉钉 / 飞书 / 企业微信](https://n9e.github.io/zh/zh/docs/notifications/dingtalk-feishu-wecom.md)
-* 让 S1 打电话、S3 发邮件：[通知规则](https://n9e.github.io/zh/zh/docs/notifications/rules.md)
-* 把 HTTP 类媒介里的密钥挪进变量（SMTP 字段不支持）：[变量配置](https://n9e.github.io/zh/zh/docs/security/variables.md)
+* 群机器人的配法：[钉钉 / 飞书 / 企业微信](https://n9e.github.io/zh/docs/notifications/dingtalk-feishu-wecom.md)
+* 让 S1 打电话、S3 发邮件：[通知规则](https://n9e.github.io/zh/docs/notifications/rules.md)
+* 把 HTTP 类媒介里的密钥挪进变量（SMTP 字段不支持）：[变量配置](https://n9e.github.io/zh/docs/security/variables.md)

@@ -573,7 +573,7 @@ Prometheus, Zabbix and Grafana each have their ground. Nightingale argues for on
 
 Based on the publicly documented capabilities of each project’s open-source edition as of August 2026. We try to state what the other tools are good at — advice you cannot trust is worth nothing to a community.
 
-* **13,332**GitHub stars
+* **13,336**GitHub stars
 * **10+**&#x44;ata source types
 * **20**Notification channels
 * **74**MCP tools
@@ -1223,13 +1223,13 @@ If your telemetry already lives in Prometheus, VictoriaMetrics or ElasticSearch,
 
 Storage you already run
 
-![](/img/logos/prometheus.png)Prometheus![](/img/logos/victoriametrics.png)VictoriaMetrics![](/img/logos/elasticsearch.png)ElasticSearch![](/img/logos/ck.png)ClickHouse
+![](https://n9e.github.io/img/logos/prometheus.png)Prometheus![](https://n9e.github.io/img/logos/victoriametrics.png)VictoriaMetrics![](https://n9e.github.io/img/logos/elasticsearch.png)ElasticSearch![](https://n9e.github.io/img/logos/ck.png)ClickHouse
 
-![](/img/logo-mark.webp)**Nightingale**Reads in place, moves nothing
+![](https://n9e.github.io/img/logo-mark.webp)**Nightingale**Reads in place, moves nothing
 
 20 notification channels
 
-Phone / SMSEmail![](/img/logos/dingtalk.png)DingTalk![](/img/logos/slack.png)Slack+16
+Phone / SMSEmail![](https://n9e.github.io/img/logos/dingtalk.png)DingTalk![](https://n9e.github.io/img/logos/slack.png)Slack+16
 
 Categraf fills only the gaps
 
@@ -1539,25 +1539,25 @@ Nightingale ships no storage of its own; it queries what you already run. Metric
 
 Metrics
 
-* [![Prometheus logo](/img/logos/prometheus.png)Prometheus](https://n9e.github.io/docs/data/prometheus.md)
-* [![VictoriaMetrics logo](/img/logos/victoriametrics.png)VictoriaMetrics](https://n9e.github.io/docs/data/victoriametrics.md)
-* [![Embedded TSDB logo](/img/logo-mark.webp)Embedded TSDB](https://n9e.github.io/docs/data/embedded-tsdb.md)
+* [![Prometheus logo](https://n9e.github.io/img/logos/prometheus.png)Prometheus](https://n9e.github.io/docs/data/prometheus.md)
+* [![VictoriaMetrics logo](https://n9e.github.io/img/logos/victoriametrics.png)VictoriaMetrics](https://n9e.github.io/docs/data/victoriametrics.md)
+* [![Embedded TSDB logo](https://n9e.github.io/img/logo-mark.webp)Embedded TSDB](https://n9e.github.io/docs/data/embedded-tsdb.md)
 
 Logs
 
-* [![ElasticSearch logo](/img/logos/elasticsearch.png)ElasticSearch](https://n9e.github.io/docs/data/elasticsearch.md)
-* [![OpenSearch logo](/img/logos/opensearch.png)OpenSearch](https://n9e.github.io/docs/data/elasticsearch.md)
-* [![Loki logo](/img/logos/loki.png)Loki](https://n9e.github.io/docs/data/loki-victorialogs.md)
-* [![VictoriaLogs logo](/img/logos/victorialogs.png)VictoriaLogs](https://n9e.github.io/docs/data/loki-victorialogs.md)
+* [![ElasticSearch logo](https://n9e.github.io/img/logos/elasticsearch.png)ElasticSearch](https://n9e.github.io/docs/data/elasticsearch.md)
+* [![OpenSearch logo](https://n9e.github.io/img/logos/opensearch.png)OpenSearch](https://n9e.github.io/docs/data/elasticsearch.md)
+* [![Loki logo](https://n9e.github.io/img/logos/loki.png)Loki](https://n9e.github.io/docs/data/loki-victorialogs.md)
+* [![VictoriaLogs logo](https://n9e.github.io/img/logos/victorialogs.png)VictoriaLogs](https://n9e.github.io/docs/data/loki-victorialogs.md)
 
 SQL
 
-* [![ClickHouse logo](/img/logos/ck.png)ClickHouse](https://n9e.github.io/docs/data/clickhouse-doris-iotdb.md)
-* [![MySQL logo](/img/logos/mysql.png)MySQL](https://n9e.github.io/docs/data/sql-databases.md)
-* [![PostgreSQL logo](/img/logos/pgsql.png)PostgreSQL](https://n9e.github.io/docs/data/sql-databases.md)
-* [![TDengine logo](/img/logos/tdengine.png)TDengine](https://n9e.github.io/docs/data/sql-databases.md)
-* [![Doris logo](/img/logos/doris.png)Doris](https://n9e.github.io/docs/data/clickhouse-doris-iotdb.md)
-* [![IoTDB logo](/img/logos/iotdb.png)IoTDB](https://n9e.github.io/docs/data/clickhouse-doris-iotdb.md)
+* [![ClickHouse logo](https://n9e.github.io/img/logos/ck.png)ClickHouse](https://n9e.github.io/docs/data/clickhouse-doris-iotdb.md)
+* [![MySQL logo](https://n9e.github.io/img/logos/mysql.png)MySQL](https://n9e.github.io/docs/data/sql-databases.md)
+* [![PostgreSQL logo](https://n9e.github.io/img/logos/pgsql.png)PostgreSQL](https://n9e.github.io/docs/data/sql-databases.md)
+* [![TDengine logo](https://n9e.github.io/img/logos/tdengine.png)TDengine](https://n9e.github.io/docs/data/sql-databases.md)
+* [![Doris logo](https://n9e.github.io/img/logos/doris.png)Doris](https://n9e.github.io/docs/data/clickhouse-doris-iotdb.md)
+* [![IoTDB logo](https://n9e.github.io/img/logos/iotdb.png)IoTDB](https://n9e.github.io/docs/data/clickhouse-doris-iotdb.md)
 
 NOTIFICATIONS
 
@@ -1565,18 +1565,18 @@ NOTIFICATIONS
 
 DingTalk, WeCom, Feishu, email and phone/SMS work out of the box. Slack, Telegram, Discord, PagerDuty and Jira come with built-in message templates — create the media type and send. Anything else goes through a webhook with a custom body.
 
-* ![Slack logo](/img/logos/slack.png)Slack
-* ![PagerDuty logo](/img/logos/pagerduty.png)PagerDuty
+* ![Slack logo](https://n9e.github.io/img/logos/slack.png)Slack
+* ![PagerDuty logo](https://n9e.github.io/img/logos/pagerduty.png)PagerDuty
 * Email
-* ![Telegram logo](/img/logos/telegram.png)Telegram
-* ![Discord logo](/img/logos/discord.png)Discord
-* ![Jira logo](/img/logos/jira.png)Jira
-* ![Mattermost logo](/img/logos/mattermost.png)Mattermost
+* ![Telegram logo](https://n9e.github.io/img/logos/telegram.png)Telegram
+* ![Discord logo](https://n9e.github.io/img/logos/discord.png)Discord
+* ![Jira logo](https://n9e.github.io/img/logos/jira.png)Jira
+* ![Mattermost logo](https://n9e.github.io/img/logos/mattermost.png)Mattermost
 * Phone / SMS
-* ![FlashDuty logo](/img/logos/flashduty.png)FlashDuty
-* ![DingTalk logo](/img/logos/dingtalk.png)DingTalk
-* ![Feishu logo](/img/logos/feishu.png)Feishu
-* ![WeCom logo](/img/logos/wecom.png)WeCom
+* ![FlashDuty logo](https://n9e.github.io/img/logos/flashduty.png)FlashDuty
+* ![DingTalk logo](https://n9e.github.io/img/logos/dingtalk.png)DingTalk
+* ![Feishu logo](https://n9e.github.io/img/logos/feishu.png)Feishu
+* ![WeCom logo](https://n9e.github.io/img/logos/wecom.png)WeCom
 
 [Notification docs<!-- --> →](https://n9e.github.io/docs/notifications/overview.md)
 
@@ -1588,22 +1588,22 @@ Each template bundles Categraf collector config, dashboards and a set of alert r
 
 All83Hosts & hardware14Databases & storage16Message queues8Web & middleware15Containers & cloud native8Cloud providers & CDN9Network & probes9DevOps & others4
 
-* [![Linux logo](/img/integrations/Linux.png)Linux5 dashboards·4 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Linux/markdown/README.en_US.md)
-* [![Kubernetes logo](/img/integrations/Kubernetes.png)Kubernetes17 dashboards·9 rule sets·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Kubernetes/markdown/README.en_US.md)
-* [![MySQL logo](/img/integrations/MySQL.png)MySQL7 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/MySQL/markdown/README.en_US.md)
-* [![Redis logo](/img/integrations/Redis.png)Redis3 dashboards·2 rule sets·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/Redis/markdown/README.en_US.md)
-* [![Windows logo](/img/integrations/Windows.png)Windows6 dashboards·2 rule sets](https://github.com/ccfos/nightingale/blob/main/integrations/Windows/markdown/README.en_US.md)
-* [![Docker logo](/img/integrations/Docker.png)Docker1 dashboard·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/Docker/markdown/README.en_US.md)
-* [![PostgreSQL logo](/img/integrations/PostgreSQL.png)PostgreSQL1 dashboard·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/PostgreSQL/markdown/README.en_US.md)
-* [![Nginx logo](/img/integrations/Nginx.png)Nginx3 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Nginx/markdown/README.en_US.md)
-* [![Elasticsearch logo](/img/integrations/Elasticsearch.png)Elasticsearch5 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Elasticsearch/markdown/README.en_US.md)
-* [![Kafka logo](/img/integrations/Kafka.png)Kafka2 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Kafka/markdown/README.en_US.md)
-* [![MongoDB logo](/img/integrations/MongoDB.png)MongoDB1 dashboard·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/MongoDB/markdown/README.en_US.md)
-* [![Java logo](/img/integrations/Java.png)Java3 dashboards](https://github.com/ccfos/nightingale/blob/main/integrations/Java/markdown/README.en_US.md)
-* [![RabbitMQ logo](/img/integrations/RabbitMQ.png)RabbitMQ4 dashboards·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/RabbitMQ/markdown/README.en_US.md)
-* [![SNMP logo](/img/integrations/SNMP.png)SNMP9 dashboards·5 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/SNMP/markdown/README.en_US.md)
-* [![Ping logo](/img/integrations/Ping.png)Ping2 dashboards·1 rule set·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Ping/markdown/README.en_US.md)
-* [![Alibaba Cloud logo](/img/integrations/AliYun.png)Alibaba Cloud44 dashboards·12 rule sets·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/AliYun/markdown/README.en_US.md)
+* [![Linux logo](https://n9e.github.io/img/integrations/Linux.png)Linux5 dashboards·4 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Linux/markdown/README.en_US.md)
+* [![Kubernetes logo](https://n9e.github.io/img/integrations/Kubernetes.png)Kubernetes17 dashboards·9 rule sets·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Kubernetes/markdown/README.en_US.md)
+* [![MySQL logo](https://n9e.github.io/img/integrations/MySQL.png)MySQL7 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/MySQL/markdown/README.en_US.md)
+* [![Redis logo](https://n9e.github.io/img/integrations/Redis.png)Redis3 dashboards·2 rule sets·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/Redis/markdown/README.en_US.md)
+* [![Windows logo](https://n9e.github.io/img/integrations/Windows.png)Windows6 dashboards·2 rule sets](https://github.com/ccfos/nightingale/blob/main/integrations/Windows/markdown/README.en_US.md)
+* [![Docker logo](https://n9e.github.io/img/integrations/Docker.png)Docker1 dashboard·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/Docker/markdown/README.en_US.md)
+* [![PostgreSQL logo](https://n9e.github.io/img/integrations/PostgreSQL.png)PostgreSQL1 dashboard·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/PostgreSQL/markdown/README.en_US.md)
+* [![Nginx logo](https://n9e.github.io/img/integrations/Nginx.png)Nginx3 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Nginx/markdown/README.en_US.md)
+* [![Elasticsearch logo](https://n9e.github.io/img/integrations/Elasticsearch.png)Elasticsearch5 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Elasticsearch/markdown/README.en_US.md)
+* [![Kafka logo](https://n9e.github.io/img/integrations/Kafka.png)Kafka2 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Kafka/markdown/README.en_US.md)
+* [![MongoDB logo](https://n9e.github.io/img/integrations/MongoDB.png)MongoDB1 dashboard·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/MongoDB/markdown/README.en_US.md)
+* [![Java logo](https://n9e.github.io/img/integrations/Java.png)Java3 dashboards](https://github.com/ccfos/nightingale/blob/main/integrations/Java/markdown/README.en_US.md)
+* [![RabbitMQ logo](https://n9e.github.io/img/integrations/RabbitMQ.png)RabbitMQ4 dashboards·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/RabbitMQ/markdown/README.en_US.md)
+* [![SNMP logo](https://n9e.github.io/img/integrations/SNMP.png)SNMP9 dashboards·5 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/SNMP/markdown/README.en_US.md)
+* [![Ping logo](https://n9e.github.io/img/integrations/Ping.png)Ping2 dashboards·1 rule set·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Ping/markdown/README.en_US.md)
+* [![Alibaba Cloud logo](https://n9e.github.io/img/integrations/AliYun.png)Alibaba Cloud44 dashboards·12 rule sets·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/AliYun/markdown/README.en_US.md)
 
 Show all 83 templates
 
@@ -1611,7 +1611,7 @@ Show all 83 templates
 
 ↓
 
-[Browse every template on GitHub<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-10-12
+[Browse every template on GitHub<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-10-13
 
 COLLECTORS
 
@@ -2202,7 +2202,7 @@ Where this page ends: one LLM config that passed **Test connection**, is enabled
 
 **Nightingale AI → LLM configs**, at `/nightingale-ai/llm-configs`. There is no top-level menu item for it; the older address `/ai-config/llm-configs` redirects here.
 
-![The LLM configs list](/img/docs/ai/llm-configs.webp)![The LLM configs list](/img/docs/ai/llm-configs.dark.webp)
+![The LLM configs list](https://n9e.github.io/img/docs/ai/llm-configs.webp)![The LLM configs list](https://n9e.github.io/img/docs/ai/llm-configs.dark.webp)
 
 The page is guarded by the permission point `/ai-config/llm-configs`, which **neither `Standard` nor `Guest` holds**. So: an `Admin`, or a custom role you granted that point to under **Organization → Roles**.
 
@@ -2549,7 +2549,7 @@ One LLM config that is both **enabled** and **Default** — see [Configure an LL
 
 **Nightingale AI** is a top-level item in the sidebar, just under Home. Its own left rail holds **New chat**, and — for accounts that hold the matching permission points — **LLM configs** and **Skill management**. Below them, **Conversations** lists your own history with a search box.
 
-![The Nightingale AI workspace](/img/docs/ai/assistant.webp)![The Nightingale AI workspace](/img/docs/ai/assistant.dark.webp)
+![The Nightingale AI workspace](https://n9e.github.io/img/docs/ai/assistant.webp)![The Nightingale AI workspace](https://n9e.github.io/img/docs/ai/assistant.dark.webp)
 
 A new chat offers three starting points, which are a fair summary of what it is for: *Get to know Nightingale*, *Review my alerts* (which rules are the noisiest, and which have never fired) and *Create an alert in one sentence*.
 
@@ -2972,7 +2972,7 @@ A skill is not a model and not a tool. The model comes from [Configure an LLM pr
 
 **Nightingale AI → Skill management**, at `/nightingale-ai/skills`. The older address `/ai-config/skills` redirects here. The page is guarded by the permission point `/ai-config/skills`, which **no built-in role except `Admin` holds** — grant it to a custom role under **Organization → Roles** if somebody else needs it.
 
-![Skill management](/img/docs/ai/skills.webp)![Skill management](/img/docs/ai/skills.dark.webp)
+![Skill management](https://n9e.github.io/img/docs/ai/skills.webp)![Skill management](https://n9e.github.io/img/docs/ai/skills.dark.webp)
 
 The left pane is a tree: one node per skill, expanding to its files. **22 skills ship built in** and are tagged `Builtin` — alert-rule troubleshooting, host health and onboarding diagnosis, dashboard analysis and creation, PromQL and SQL generation, notification-template writing, Prometheus rule import, self-healing script authoring, and more. You can open and read every file in them, but they cannot be downloaded or deleted. They are also the best worked examples available for writing your own.
 
@@ -3884,7 +3884,7 @@ Where this page ends: for any rule, you can pull up the last hour of evaluations
 
 **Alerts & Notifications → Alert rules**, hover the row of the rule, and click **Eval records** in the operations column.
 
-![The alert rule list](/img/docs/alerting/rule-list.webp)![The alert rule list](/img/docs/alerting/rule-list.dark.webp)
+![The alert rule list](https://n9e.github.io/img/docs/alerting/rule-list.webp)![The alert rule list](https://n9e.github.io/img/docs/alerting/rule-list.dark.webp)
 
 A drawer opens showing the last hour. Change the range with the time picker at the top, and use **Load earlier records** at the bottom to page backwards.
 
@@ -4016,7 +4016,7 @@ Where this page ends: one rule you wrote yourself has produced a real event, and
 
 **Alerts & Notifications → Alert rules**. Pick a business group in the left tree — the rule belongs to it, and so will every event it produces. Then **Add**.
 
-![The new alert rule form](/img/docs/alerting/rule-form.webp)![The new alert rule form](/img/docs/alerting/rule-form.dark.webp)
+![The new alert rule form](https://n9e.github.io/img/docs/alerting/rule-form.webp)![The new alert rule form](https://n9e.github.io/img/docs/alerting/rule-form.dark.webp)
 
 The form is six steps down the middle, with a live **Rule summary** on the right that fills in as you type. The controls at the top — **Core steps only**, **Expand all**, **Collapse sidebar** — change how much of it is on screen; they change nothing about the rule.
 
@@ -4951,7 +4951,7 @@ Where this page ends: the alert rules that ship with Nightingale for MySQL, Redi
 
 ## The library that ships with the install[​](#the-library-that-ships-with-the-install "Direct link to The library that ships with the install")
 
-**Integrations → Components** (`/components`) is a grid of logos, one per integration. v9.1.1 ships 86 integrations; 64 of them carry alert rules, 755 rules in total.
+**Integrations → Components** (`/components`) is a grid of logos, one per integration. Nightingale ships <!-- -->83<!-- --> integrations; <!-- -->63<!-- --> of them carry alert rules.
 
 Click an integration to open its drawer. Among its tabs, **Alert rules** is the list of rules that integration brings. Each rule carries a `note`, tags, and an `action` annotation with concrete first-response advice for whoever gets paged.
 
@@ -5037,7 +5037,7 @@ Where this page ends: you press one button on the rule form and get a six-stage 
 
 **Test fire** sits at the bottom of the alert rule form, next to **Save**. The rule does not have to be saved first — the test runs against whatever is currently in the form.
 
-![The alert rule form](/img/docs/alerting/rule-edit.webp)![The alert rule form](/img/docs/alerting/rule-edit.dark.webp)
+![The alert rule form](https://n9e.github.io/img/docs/alerting/rule-edit.webp)![The alert rule form](https://n9e.github.io/img/docs/alerting/rule-edit.dark.webp)
 
 A small dialog asks for four things:
 
@@ -6881,7 +6881,7 @@ Nodes is a list you can extend, but **the current implementation uses only the f
 
 **Advanced settings** holds the pool and the caps: timeout in milliseconds (default 100000), maximum rows retrieved per request (default 500, required), max idle connections (10), max open connections (100), max connection lifetime in seconds (14400).
 
-![The ClickHouse data source form](/img/docs/data/form-clickhouse.webp)![The ClickHouse data source form](/img/docs/data/form-clickhouse.dark.webp)
+![The ClickHouse data source form](https://n9e.github.io/img/docs/data/form-clickhouse.webp)![The ClickHouse data source form](https://n9e.github.io/img/docs/data/form-clickhouse.dark.webp)
 
 **Save & test** genuinely opens a connection and runs `SHOW DATABASES`; failing that, nothing is stored. A malformed address (one carrying `http://`) counts as a config error rather than a connectivity problem, so **even plain Save will not store it**.
 
@@ -7010,7 +7010,7 @@ The **HTTP** section is a list you can extend: click the `+` next to the heading
 
 The **Enable write** switch is unused in the open-source edition; leave it off.
 
-![The Elasticsearch data source form](/img/docs/data/form-elasticsearch.webp)![The Elasticsearch data source form](/img/docs/data/form-elasticsearch.dark.webp)
+![The Elasticsearch data source form](https://n9e.github.io/img/docs/data/form-elasticsearch.webp)![The Elasticsearch data source form](https://n9e.github.io/img/docs/data/form-elasticsearch.dark.webp)
 
 Click **Save & test**. For ES, that step fetches the version number: on success the version is stored with the config, and on failure the record is **still saved** with the reason shown in the result panel — so when you see "Saved, connectivity not verified", read the reason before moving on.
 
@@ -7096,7 +7096,7 @@ Last reviewed 2026-10-10
 
 Open **Integrations → Data sources** on a fresh install and there is already a Prometheus-type source named `embedded-tsdb`, carrying a default badge. This page explains who created it, what writes into it, and how it actually differs from an external Prometheus source you add yourself.
 
-![The data source list, with embedded-tsdb at the top](/img/docs/data/datasource-list.webp)![The data source list, with embedded-tsdb at the top](/img/docs/data/datasource-list.dark.webp)
+![The data source list, with embedded-tsdb at the top](https://n9e.github.io/img/docs/data/datasource-list.webp)![The data source list, with embedded-tsdb at the top](https://n9e.github.io/img/docs/data/datasource-list.dark.webp)
 
 ## Who creates it[​](#who-creates-it "Direct link to Who creates it")
 
@@ -7223,7 +7223,7 @@ The open-source edition offers two; pick one:
 |                          | Collection wizard                              | Instructions in the template center                             |
 | ------------------------ | ---------------------------------------------- | --------------------------------------------------------------- |
 | Entry point              | **Infrastructure → Hosts → Set up collection** | **Integrations → Components → pick a component → Instructions** |
-| Coverage                 | 55 common components                           | 86 components                                                   |
+| Coverage                 | 55 common components                           | 83<!-- --> components                                           |
 | How it lands on the host | Generates a command you run there              | You create the file, paste, restart                             |
 | Best for                 | Common components, repeated across many hosts  | Components the wizard doesn't cover, or heavy customisation     |
 
@@ -7302,7 +7302,7 @@ Three steps to apply it:
 
 The Instructions tab is **documentation for a human, not a config pushed to the agent** — the open-source edition does not deliver it to your hosts, so that last mile is yours (or the wizard's).
 
-The **Edit** button on that tab has no effect on the 86 bundled components: their content comes from the `integrations` directory Nightingale ships with, and edits are not persisted.
+The **Edit** button on that tab has no effect on the <!-- -->83<!-- --> bundled components: their content comes from the `integrations` directory Nightingale ships with, and edits are not persisted.
 
 ## What the command does[​](#what-the-command-does "Direct link to What the command does")
 
@@ -7332,7 +7332,7 @@ Last reviewed 2026-10-10
 
 Where this page ends: a business group that now has this component's dashboards, plus a batch of alert rules sitting **disabled**, waiting for you to adjust thresholds and enable them one by one.
 
-Nightingale ships templates for 86 components. Once metrics are arriving there is no need to draw panels or write rules from scratch — import the templates into a business group and tune them.
+Nightingale ships templates for <!-- -->83<!-- --> components. Once metrics are arriving there is no need to draw panels or write rules from scratch — import the templates into a business group and tune them.
 
 ## What a component ships with[​](#what-a-component-ships-with "Direct link to What a component ships with")
 
@@ -7345,7 +7345,7 @@ Nightingale ships templates for 86 components. Once metrics are arriving there i
 | Dashboards   | Ready-made dashboard templates                                                                                                            |
 | Alert rules  | Ready-made alert rule templates                                                                                                           |
 
-Not every component has all four. Of the 86, 64 ship alert rules, 54 ship dashboards, and 22 ship metric descriptions.
+Not every component has all four. Of the <!-- -->83<!-- -->, <!-- -->63<!-- --> ship alert rules, <!-- -->51<!-- --> ship dashboards, and <!-- -->21<!-- --> ship metric descriptions.
 
 ## Importing dashboards[​](#importing-dashboards "Direct link to Importing dashboards")
 
@@ -7436,7 +7436,7 @@ Start by knowing what to search for. A component drawer's **Metrics** tab lists 
 
 The same data is browsable across components under **Explorer → Metrics → Built-in metrics**, where the columns are Component type / Category / Name / Unit / PromQL / Operations.
 
-Only 22 of the 86 components ship metric descriptions. Without one, guess from the plugin name: Categraf plugins almost always prefix their metrics with the plugin name — `mysql` produces `mysql_*`, `redis` produces `redis_*`, `nginx` produces `nginx_*`.
+Only <!-- -->21<!-- --> of the <!-- -->83<!-- --> components ship metric descriptions. Without one, guess from the plugin name: Categraf plugins almost always prefix their metrics with the plugin name — `mysql` produces `mysql_*`, `redis` produces `redis_*`, `nginx` produces `nginx_*`.
 
 ## 2. On the host: is the plugin collecting[​](#2-on-the-host-is-the-plugin-collecting "Direct link to 2. On the host: is the plugin collecting")
 
@@ -7554,7 +7554,7 @@ One shared limitation up front: **neither type can back a dashboard panel.** The
 | User / Password     | Fill these when an auth gateway sits in front of Loki                                                                             |
 | Custom HTTP headers | In multi-tenant mode, add `X-Scope-OrgID` here with the tenant ID as its value                                                    |
 
-![The Loki data source form](/img/docs/data/form-loki.webp)![The Loki data source form](/img/docs/data/form-loki.dark.webp)
+![The Loki data source form](https://n9e.github.io/img/docs/data/form-loki.webp)![The Loki data source form](https://n9e.github.io/img/docs/data/form-loki.dark.webp)
 
 A URL missing `/loki` is the single most common mistake. **Save & test** requests `<URL>/api/v1/labels`; on a 404 with no `/loki` in the URL, Nightingale hands you the corrected address directly: `/loki suffix is miss, please add /loki to the url: ...`.
 
@@ -7573,7 +7573,7 @@ To find out whether you need a tenant ID, query Loki once without the header. `n
 | User / Password                        | Fill these if auth is enabled                                                    |
 | Custom HTTP headers                    | For a gateway that needs extra headers                                           |
 
-![The VictoriaLogs data source form](/img/docs/data/form-victorialogs.webp)![The VictoriaLogs data source form](/img/docs/data/form-victorialogs.dark.webp)
+![The VictoriaLogs data source form](https://n9e.github.io/img/docs/data/form-victorialogs.webp)![The VictoriaLogs data source form](https://n9e.github.io/img/docs/data/form-victorialogs.dark.webp)
 
 ## Querying: LogQL and LogsQL[​](#querying-logql-and-logsql "Direct link to Querying: LogQL and LogsQL")
 
@@ -7748,7 +7748,7 @@ The form lists the shape for each product:
 
 **Timeout(ms)** defaults to 10000. Raise it for a large, slow cluster, but not to minutes — the alerting engine evaluates on a schedule, and one stuck query holds up a whole batch of rules.
 
-![The Prometheus data source form](/img/docs/data/form-prometheus.webp)![The Prometheus data source form](/img/docs/data/form-prometheus.dark.webp)
+![The Prometheus data source form](https://n9e.github.io/img/docs/data/form-prometheus.webp)![The Prometheus data source form](https://n9e.github.io/img/docs/data/form-prometheus.dark.webp)
 
 ## 2. Auth and TLS[​](#2-auth-and-tls "Direct link to 2. Auth and TLS")
 
@@ -7874,7 +7874,7 @@ MySQL and PostgreSQL share one form; only the default port differs:
 | Max idle / max open connections                                    | Default 10 / 100. Lower them if the database is tight on connections          |
 | Maximum connection lifetime (unit: seconds)                        | Defaults to 14400                                                             |
 
-![The MySQL data source form](/img/docs/data/form-mysql.webp)![The MySQL data source form](/img/docs/data/form-mysql.dark.webp)
+![The MySQL data source form](https://n9e.github.io/img/docs/data/form-mysql.webp)![The MySQL data source form](https://n9e.github.io/img/docs/data/form-mysql.dark.webp)
 
 TDengine talks over its REST interface and needs fewer fields: URL `http://localhost:6041`, timeout in milliseconds (10000 by default), user and password as needed. The connectivity test posts `show databases` to `<URL>/rest/sql`.
 
@@ -8074,7 +8074,7 @@ An event's business group comes from **the rule's business group**, not the host
 
 ## Finding the one you want[​](#finding-the-one-you-want "Direct link to Finding the one you want")
 
-![Active alerts](/img/docs/events/active-events.webp)![Active alerts](/img/docs/events/active-events.dark.webp)
+![Active alerts](https://n9e.github.io/img/docs/events/active-events.webp)![Active alerts](https://n9e.github.io/img/docs/events/active-events.dark.webp)
 
 The top row:
 
@@ -8111,7 +8111,7 @@ Deleting is not muting: the rule is still enabled, so if the condition still hol
 
 ## Historical events: export and cleanup[​](#historical-events-export-and-cleanup "Direct link to Historical events: export and cleanup")
 
-![Historical alerts](/img/docs/events/historical-events.webp)![Historical alerts](/img/docs/events/historical-events.dark.webp)
+![Historical alerts](https://n9e.github.io/img/docs/events/historical-events.webp)![Historical alerts](https://n9e.github.io/img/docs/events/historical-events.dark.webp)
 
 The historical columns differ from the active ones: **First triggered** (when it entered the alerting state) and **Last evaluated** (when evaluation last confirmed it was still firing, or recovered) are separate columns. Those two are what you reconstruct a timeline from.
 
@@ -8291,7 +8291,7 @@ Where this page ends: you can answer whether a given event entered a workflow, w
 
 Entry point: **Alerts & Notifications → Workflows**, then the **Execution history** tab (`/event-pipelines-executions`). Opening executions from a single workflow's row is the same table with that workflow pre-filtered.
 
-![Execution records](/img/docs/events/pipeline-executions.webp)![Execution records](/img/docs/events/pipeline-executions.dark.webp)
+![Execution records](https://n9e.github.io/img/docs/events/pipeline-executions.webp)![Execution records](https://n9e.github.io/img/docs/events/pipeline-executions.dark.webp)
 
 ## Widen the time range first[​](#widen-the-time-range-first "Direct link to Widen the time range first")
 
@@ -8364,13 +8364,13 @@ Where this page ends: a rule that keeps a class of alert quiet during a window y
 
 Entry point: **Alerts & Notifications → Alert rules**, then the **Muting rules** tab at the top of the page (`/alert-mutes`).
 
-![The muting rules list](/img/docs/events/mute-rules.webp)![The muting rules list](/img/docs/events/mute-rules.dark.webp)
+![The muting rules list](https://n9e.github.io/img/docs/events/mute-rules.webp)![The muting rules list](https://n9e.github.io/img/docs/events/mute-rules.dark.webp)
 
 ## 1. Create a mute rule[​](#1-create-a-mute-rule "Direct link to 1. Create a mute rule")
 
 Click **Add**. The form has three sections; the first two are marked as the core ones.
 
-![The mute rule form](/img/docs/events/mute-form.webp)![The mute rule form](/img/docs/events/mute-form.dark.webp)
+![The mute rule form](https://n9e.github.io/img/docs/events/mute-form.webp)![The mute rule form](https://n9e.github.io/img/docs/events/mute-form.dark.webp)
 
 **Filter conditions** decide which events get muted. They are AND-ed, and an empty one means no restriction:
 
@@ -8602,7 +8602,7 @@ Where this page ends: a chain of processors attached to an alert rule or a notif
 
 In the UI this feature is called **Workflows**, under **Alerts & Notifications → Workflows** (`/event-pipelines`).
 
-![The workflow list](/img/docs/events/pipelines.webp)![The workflow list](/img/docs/events/pipelines.dark.webp)
+![The workflow list](https://n9e.github.io/img/docs/events/pipelines.webp)![The workflow list](https://n9e.github.io/img/docs/events/pipelines.dark.webp)
 
 ## 1. Create a workflow[​](#1-create-a-workflow "Direct link to 1. Create a workflow")
 
@@ -9017,7 +9017,7 @@ Where this page ends: a subscription that delivers another business group's aler
 
 Entry point: **Alerts & Notifications → Alert rules**, then the **Subscription rules** tab (`/alert-subscribes`).
 
-![The subscriptions list](/img/docs/events/subscriptions.webp)![The subscriptions list](/img/docs/events/subscriptions.dark.webp)
+![The subscriptions list](https://n9e.github.io/img/docs/events/subscriptions.webp)![The subscriptions list](https://n9e.github.io/img/docs/events/subscriptions.dark.webp)
 
 ## 1. Create a subscription[​](#1-create-a-subscription "Direct link to 1. Create a subscription")
 
@@ -9027,7 +9027,7 @@ Click **Add**. The form opens with the three cases this feature exists for:
 * **Escalation safety net**: alerts unresolved for over an hour also go to the team lead;
 * **Global callback**: send every alert event to one webhook for automation.
 
-![The subscription form](/img/docs/events/subscribe-form.webp)![The subscription form](/img/docs/events/subscribe-form.dark.webp)
+![The subscription form](https://n9e.github.io/img/docs/events/subscribe-form.webp)![The subscription form](https://n9e.github.io/img/docs/events/subscribe-form.dark.webp)
 
 ## 2. Filter settings: which events count[​](#2-filter-settings-which-events-count "Direct link to 2. Filter settings: which events count")
 
@@ -9350,7 +9350,7 @@ Give `--configs` **an absolute path**, or be sure of your working directory: Cat
 
 **Infrastructure → Hosts**. Within a minute the machine should be listed, marked up, and carrying CPU and memory utilisation.
 
-![The host list, showing hosts reporting in](/img/docs/data/targets-list.webp)![The host list, showing hosts reporting in](/img/docs/data/targets-list.dark.webp)
+![The host list, showing hosts reporting in](https://n9e.github.io/img/docs/data/targets-list.webp)![The host list, showing hosts reporting in](https://n9e.github.io/img/docs/data/targets-list.dark.webp)
 
 If it is not there, check in this order:
 
@@ -9485,13 +9485,13 @@ If the endpoint uses basic auth, fill **User** and **Password** under **Auth** �
 
 Click **Save & test**. A failed test is not saved, and the error names the step that failed.
 
-![The Prometheus data source form](/img/docs/data/form-prometheus.webp)![The Prometheus data source form](/img/docs/data/form-prometheus.dark.webp)
+![The Prometheus data source form](https://n9e.github.io/img/docs/data/form-prometheus.webp)![The Prometheus data source form](https://n9e.github.io/img/docs/data/form-prometheus.dark.webp)
 
 ## 2. Saving opens a guided dialog[​](#2-saving-opens-a-guided-dialog "Direct link to 2. Saving opens a guided dialog")
 
 Saving does not drop you back on the list. A dialog opens and answers, right there, whether the source you just registered actually works — and offers the few things worth doing next.
 
-![The guided dialog that opens after saving a data source](/img/docs/get-started/ds-next-step.webp)![The guided dialog that opens after saving a data source](/img/docs/get-started/ds-next-step.dark.webp)
+![The guided dialog that opens after saving a data source](https://n9e.github.io/img/docs/get-started/ds-next-step.webp)![The guided dialog that opens after saving a data source](https://n9e.github.io/img/docs/get-started/ds-next-step.dark.webp)
 
 ### Health check[​](#health-check "Direct link to Health check")
 
@@ -9521,7 +9521,7 @@ The matching runs on sentinel metrics: every built-in template picks one to thre
 
 Click a card to open the import dialog:
 
-![Importing component templates from the data source dialog](/img/docs/get-started/ds-template-import.webp)![Importing component templates from the data source dialog](/img/docs/get-started/ds-template-import.dark.webp)
+![Importing component templates from the data source dialog](https://n9e.github.io/img/docs/get-started/ds-template-import.webp)![Importing component templates from the data source dialog](https://n9e.github.io/img/docs/get-started/ds-template-import.dark.webp)
 
 Pick a business group, tick the dashboards or alert rules to bring in, and the import binds them to the source you just saved. The other two import entry points, and the templates themselves, are covered in [Import dashboards and rules](https://n9e.github.io/docs/data/integrations/import.md).
 
@@ -11396,7 +11396,7 @@ grep -i "failed to migrate table" /opt/n9e/logs/*.log
 
 Then open **System → About**; the version there should match the command line:
 
-![The About page](/img/docs/operations/about.webp)![The About page](/img/docs/operations/about.dark.webp)
+![The About page](https://n9e.github.io/img/docs/operations/about.webp)![The About page](https://n9e.github.io/img/docs/operations/about.dark.webp)
 
 Finally check that nothing broke: open a dashboard and confirm charts render, and look at the events page to confirm new events are still being produced. Indexes on the large tables (`alert_his_event`, `notification_record`) are built **asynchronously after startup** and can take tens of minutes on a big database. The service is usable throughout — do not restart just because you see index-building in the log.
 
@@ -11863,14 +11863,14 @@ Historical data does not move either. Zabbix's `history` and `trends` stay where
 
 ### Hosts and grouping[​](#hosts-and-grouping "Direct link to Hosts and grouping")
 
-| Zabbix                                  | Nightingale                                                                                                                                                            |
-| --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Host                                    | A row in the host list, keyed on `ident` (the hostname Categraf reports)                                                                                               |
-| Host group                              | A **business group** — but it is also the **permission boundary**, not just a grouping. See [Business groups](https://n9e.github.io/docs/concepts/business-groups.md)  |
-| Host macros / inventory                 | Custom tags and notes on the target, plus the labels the collector reports in `[global.labels]`                                                                        |
-| Template                                | A **component in the template center**: 86 components ship, 64 of them with alert rule templates and 54 with dashboard templates                                       |
-| Template inheritance / nested templates | **No equivalent.** Importing a component is a one-time copy; changing the template does not flow back into copies already imported                                     |
-| LLD (low-level discovery)               | **No equivalent**, and usually not needed: however many series a query returns is how many objects you have, so a new mount point or NIC simply shows up in the result |
+| Zabbix                                  | Nightingale                                                                                                                                                                      |
+| --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Host                                    | A row in the host list, keyed on `ident` (the hostname Categraf reports)                                                                                                         |
+| Host group                              | A **business group** — but it is also the **permission boundary**, not just a grouping. See [Business groups](https://n9e.github.io/docs/concepts/business-groups.md)            |
+| Host macros / inventory                 | Custom tags and notes on the target, plus the labels the collector reports in `[global.labels]`                                                                                  |
+| Template                                | A **component in the template center**: <!-- -->83<!-- --> components ship, <!-- -->63<!-- --> of them with alert rule templates and <!-- -->51<!-- --> with dashboard templates |
+| Template inheritance / nested templates | **No equivalent.** Importing a component is a one-time copy; changing the template does not flow back into copies already imported                                               |
+| LLD (low-level discovery)               | **No equivalent**, and usually not needed: however many series a query returns is how many objects you have, so a new mount point or NIC simply shows up in the result           |
 
 ### Triggers and alerting[​](#triggers-and-alerting "Direct link to Triggers and alerting")
 
@@ -12446,7 +12446,7 @@ For the bot variants (`slackbot`, `mattermostbot`) the token lives in a header, 
 
 If you would rather not touch JSON, use the built-in **Callback** media type: click Callback in the type panel, leave the URL as `{{$params.callback_url}}`, and rewrite the body into whatever shape the target expects.
 
-![Add a media type](/img/docs/notifications/media-type-add.webp)![Add a media type](/img/docs/notifications/media-type-add.dark.webp)
+![Add a media type](https://n9e.github.io/img/docs/notifications/media-type-add.webp)![Add a media type](https://n9e.github.io/img/docs/notifications/media-type-add.dark.webp)
 
 The cost: **Callback media types do not consume message templates**, and the UI hides the template dropdown for them. The whole message layout has to live in the media type's body, assembled from event variables directly:
 
@@ -12630,7 +12630,7 @@ Anything it cannot recognise (Slack, your own webhook) goes through the manual f
 
 **Alerts & Notifications → Media types**. The open-source edition ships `Dingtalk`, `Wecom` and `Feishu Card` ready to use; Lark Card has a card in the type panel on the left, one click to create.
 
-![Media types](/img/docs/notifications/media-types.webp)![Media types](/img/docs/notifications/media-types.dark.webp)
+![Media types](https://n9e.github.io/img/docs/notifications/media-types.webp)![Media types](https://n9e.github.io/img/docs/notifications/media-types.dark.webp)
 
 URL, method, headers and body are all pre-filled. You only need to touch them when:
 
@@ -12713,7 +12713,7 @@ Where this page ends: a working email media type, and — if you need them — S
 
 **Alerts & Notifications → Media types**, then **Email** in the type panel on the left. The open-source edition ships a media type called `Email`; edit that rather than creating a new one.
 
-![Media types](/img/docs/notifications/media-types.webp)![Media types](/img/docs/notifications/media-types.dark.webp)
+![Media types](https://n9e.github.io/img/docs/notifications/media-types.webp)![Media types](https://n9e.github.io/img/docs/notifications/media-types.dark.webp)
 
 The SMTP block:
 
@@ -13019,7 +13019,7 @@ Where this page ends: a working notification rule — S1 through one media type,
 
 **Alerts & Notifications → Notification rules**, then **Add** at the top right.
 
-![Notification rules](/img/docs/notifications/notify-rules.webp)![Notification rules](/img/docs/notifications/notify-rules.dark.webp)
+![Notification rules](https://n9e.github.io/img/docs/notifications/notify-rules.webp)![Notification rules](https://n9e.github.io/img/docs/notifications/notify-rules.dark.webp)
 
 The form has three sections: **Notification configuration** (the core one), **Basic configuration**, and **Event workflow** (optional). Skip basic configuration for now — the name is generated for you once you have picked a media type and a team.
 
@@ -13232,7 +13232,7 @@ Where this page ends: your own message template, every variable in it verified i
 
 **Alerts & Notifications → Message templates**. The list is on the left, the editor in the middle, and a panel of referenceable event variables on the right (click any of them to copy).
 
-![Message templates](/img/docs/notifications/message-templates.webp)![Message templates](/img/docs/notifications/message-templates.dark.webp)
+![Message templates](https://n9e.github.io/img/docs/notifications/message-templates.webp)![Message templates](https://n9e.github.io/img/docs/notifications/message-templates.dark.webp)
 
 The header shows the template's **ident** and its **media type**. The ident is a server-side uuid you never need to touch; the media type decides which media type this template appears under in a notification rule.
 
@@ -14283,7 +14283,7 @@ A **Last heartbeat** frozen at some point means that instance is in trouble; a r
 
 Version information lives under **System → About**: frontend version, backend version, and which features each data source type supports.
 
-![The about page](/img/docs/operations/about.webp)![The about page](/img/docs/operations/about.dark.webp)
+![The about page](https://n9e.github.io/img/docs/operations/about.webp)![The about page](https://n9e.github.io/img/docs/operations/about.dark.webp)
 
 ## Labelled counters do not exist until they fire[​](#labelled-counters-do-not-exist-until-they-fire "Direct link to Labelled counters do not exist until they fire")
 
@@ -14956,7 +14956,7 @@ Neither corrupts data, and both cost you a start you then have to diagnose. The 
 2. Wait for its log to go quiet: no `failed to migrate`, and no index work still running.
 3. Only then take the next instance, and one at a time from there.
 
-![The alerting engines page](/img/docs/operations/alerting-engines.webp)![The alerting engines page](/img/docs/operations/alerting-engines.dark.webp)
+![The alerting engines page](https://n9e.github.io/img/docs/operations/alerting-engines.webp)![The alerting engines page](https://n9e.github.io/img/docs/operations/alerting-engines.dark.webp)
 
 [Upgrade](https://n9e.github.io/docs/install/upgrade.md) already asks you to roll one at a time so that alerting never stops. The migration race is a **second, independent reason** for the same rule — and the reason the first instance deserves a pause before you touch the second, rather than a fixed interval.
 
@@ -15799,7 +15799,7 @@ Compared with the [Metrics explorer](https://n9e.github.io/docs/query/metric-exp
 
 ## 1. Set a filter before clicking a metric[​](#1-set-a-filter-before-clicking-a-metric "Direct link to 1. Set a filter before clicking a metric")
 
-![Built-in metrics](/img/docs/query/metrics-built-in.webp)![Built-in metrics](/img/docs/query/metrics-built-in.dark.webp)
+![Built-in metrics](https://n9e.github.io/img/docs/query/metrics-built-in.webp)![Built-in metrics](https://n9e.github.io/img/docs/query/metrics-built-in.dark.webp)
 
 The left column is **Filters**, and its job is to **attach a set of label conditions to the query whenever you click a metric**.
 
@@ -15883,7 +15883,7 @@ Either way, note one thing first: **the Add / Import / More buttons only appear 
 
 **Explorer → Dashboards** (`/dashboards`), pick a business group on the left, then **Import**.
 
-![Dashboard list](/img/docs/query/dashboard-list.webp)![Dashboard list](/img/docs/query/dashboard-list.dark.webp)
+![Dashboard list](https://n9e.github.io/img/docs/query/dashboard-list.webp)![Dashboard list](https://n9e.github.io/img/docs/query/dashboard-list.dark.webp)
 
 The dialog has four tabs:
 
@@ -15974,7 +15974,7 @@ Where this page ends: extra entries in the Nightingale side menu that open your 
 
 **Integrations → Embedded products** (`/embedded-products`), then **Add**.
 
-![Embedded products](/img/docs/query/embedded-products.webp)![Embedded products](/img/docs/query/embedded-products.dark.webp)
+![Embedded products](https://n9e.github.io/img/docs/query/embedded-products.webp)![Embedded products](https://n9e.github.io/img/docs/query/embedded-products.dark.webp)
 
 | Field      | What to put in it                                                                      |
 | ---------- | -------------------------------------------------------------------------------------- |
@@ -16214,7 +16214,7 @@ Registering the source itself is covered in [ElasticSearch / OpenSearch](https:/
 
 **Explorer → Logs** (`/log/explorer`).
 
-![Log explorer](/img/docs/query/log-explorer.webp)![Log explorer](/img/docs/query/log-explorer.dark.webp)
+![Log explorer](https://n9e.github.io/img/docs/query/log-explorer.webp)![Log explorer](https://n9e.github.io/img/docs/query/log-explorer.dark.webp)
 
 The left column, top to bottom (this is the Elasticsearch shape):
 
@@ -16332,7 +16332,7 @@ Where this page ends: one PromQL query running against any registered Prometheus
 
 **Explorer → Metrics** (`/metric/explorer`) opens on the **Explorer** tab.
 
-![Metrics explorer](/img/docs/query/metric-explorer.webp)![Metrics explorer](/img/docs/query/metric-explorer.dark.webp)
+![Metrics explorer](https://n9e.github.io/img/docs/query/metric-explorer.webp)![Metrics explorer](https://n9e.github.io/img/docs/query/metric-explorer.dark.webp)
 
 The top row:
 
@@ -16426,7 +16426,7 @@ Expected result: tick `n9e-web-01`, click `cpu_usage_idle`, and you get that hos
 
 **Explorer → Metrics → Quick view** (`/object/explorer`).
 
-![Quick view](/img/docs/query/object-explorer.webp)![Quick view](/img/docs/query/object-explorer.dark.webp)
+![Quick view](https://n9e.github.io/img/docs/query/object-explorer.webp)![Quick view](https://n9e.github.io/img/docs/query/object-explorer.dark.webp)
 
 **Pick a data source at the top right first.** Without one, all three columns are empty — which is the most common reason the page "looks blank", and it is not a data problem.
 
@@ -16518,7 +16518,7 @@ The embedded TSDB's `/prometheus` endpoint only accepts requests from the local 
 
 **Explorer → Metrics → Recording rules** (`/recording-rules`), then **Add**.
 
-![Recording rules](/img/docs/query/recording-rules.webp)![Recording rules](/img/docs/query/recording-rules.dark.webp)
+![Recording rules](https://n9e.github.io/img/docs/query/recording-rules.webp)![Recording rules](https://n9e.github.io/img/docs/query/recording-rules.dark.webp)
 
 | Field               | What to put in it                                                                                                                    |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
@@ -18975,7 +18975,7 @@ What `Standard` does *not* get is worth memorising, because it rarely matches wh
 
 ## Build a custom role[​](#build-a-custom-role "Direct link to Build a custom role")
 
-![Role management](/img/docs/security/roles.webp)![Role management](/img/docs/security/roles.dark.webp)
+![Role management](https://n9e.github.io/img/docs/security/roles.webp)![Role management](https://n9e.github.io/img/docs/security/roles.dark.webp)
 
 1. **Organization → Roles**, then the **+** next to the **Role list** heading on the left.
 2. Enter a name and a note. The name is the string shown in the user form — keep it ASCII and without spaces.
@@ -19150,7 +19150,7 @@ Where this page ends: people sign in to Nightingale with their corporate account
 * **LDAP / CAS / OIDC / OAuth2**: one block of TOML, edited directly in a code editor. The field names *are* the TOML keys.
 * **DingTalk / Feishu**: an ordinary form.
 
-![Single sign-on settings](/img/docs/security/sso.webp)![Single sign-on settings](/img/docs/security/sso.dark.webp)
+![Single sign-on settings](https://n9e.github.io/img/docs/security/sso.webp)![Single sign-on settings](https://n9e.github.io/img/docs/security/sso.dark.webp)
 
 Both end in a **Save** button at the bottom. Saving needs **no process restart** — the backend periodically compares the configuration's update time and reloads when it moves. Saving requires `Admin`; the `/system/sso-settings` permission point only governs menu visibility, as covered in [Roles and permission matrix](https://n9e.github.io/docs/security/roles.md).
 
@@ -19553,7 +19553,7 @@ Where this page ends: an account that can log in, can receive alerts, and belong
 
 **Organization → Users**, then **Add** at the top right.
 
-![User management](/img/docs/security/users.webp)![User management](/img/docs/security/users.dark.webp)
+![User management](https://n9e.github.io/img/docs/security/users.webp)![User management](https://n9e.github.io/img/docs/security/users.dark.webp)
 
 Top to bottom in the form:
 
@@ -19586,7 +19586,7 @@ The keys under Contact details come from a dropdown backed by the system's defin
 
 **Organization → Teams**, then the **+** next to the **Team list** heading on the left. A team needs only a name and a note.
 
-![Team management](/img/docs/security/teams.webp)![Team management](/img/docs/security/teams.dark.webp)
+![Team management](https://n9e.github.io/img/docs/security/teams.webp)![Team management](https://n9e.github.io/img/docs/security/teams.dark.webp)
 
 Select it on the left and use **Add members** at the top right to pick users. The header row on the right shows the team's ID, note, last editor, and **which business groups it is authorized on** — this is where you look up authorization from the team's side.
 
@@ -19642,7 +19642,7 @@ Both live under **System**, but they do different jobs: Variable settings holds 
 
 **System → Variable** (`/system/variable-settings`), then **Create** at the top right.
 
-![Variable settings](/img/docs/security/variables.webp)![Variable settings](/img/docs/security/variables.dark.webp)
+![Variable settings](https://n9e.github.io/img/docs/security/variables.webp)![Variable settings](https://n9e.github.io/img/docs/security/variables.dark.webp)
 
 | Field          | Notes                                                                                |
 | -------------- | ------------------------------------------------------------------------------------ |

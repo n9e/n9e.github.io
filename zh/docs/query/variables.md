@@ -56,7 +56,7 @@ query_result(up == 0)                     直接用一条 PromQL 的即时查询
 | 数据源标识 (Datasource identifier) | 同上，取的是标识而不是内部 id  |                                        |
 | 机器标识 (Host ident)              | 当前用户有权限的机器           | 需要按权限过滤机器列表时               |
 
-最后一个有个副作用要记住：**用了「机器标识」的仪表盘不能匿名分享**，因为它依赖登录态 接口。界面上会直接禁掉分享链接的生成，见[匿名限时分享](https://n9e.github.io/zh/zh/docs/query/sharing.md)。
+最后一个有个副作用要记住：**用了「机器标识」的仪表盘不能匿名分享**，因为它依赖登录态 接口。界面上会直接禁掉分享链接的生成，见[匿名限时分享](https://n9e.github.io/zh/docs/query/sharing.md)。
 
 ## 3. 让下拉框互相联动[​](#3-让下拉框互相联动 "3. 让下拉框互相联动的直接链接")
 
@@ -111,10 +111,10 @@ cpu_usage_idle{ident=~"$ident"}
 * 变量名只能用字母、数字、下划线，这和 `$name` 的解析规则是配套的；
 * **多选变量必须配 `=~`**，写成 `=` 只会去匹配字面量 `a|b|c`，结果永远是空；
 * 「包含全选」在没设「自定义全选值」时，全选展开成**当前所有候选项拼起来**（`a|b|c`）， 所以同样只在 `=~` 下有意义；想让它变成 `.*` 就填进「自定义全选值」；
-* 这一页说的是**仪表盘变量**。系统配置 → 变量设置（`/system/variable-settings`）是另一 回事，那是给通知模板和规则用的全局变量，见[全局变量与密文](https://n9e.github.io/zh/zh/docs/security/variables.md)。
+* 这一页说的是**仪表盘变量**。系统配置 → 变量设置（`/system/variable-settings`）是另一 回事，那是给通知模板和规则用的全局变量，见[全局变量与密文](https://n9e.github.io/zh/docs/security/variables.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 把变量用到面板上：[创建仪表盘](https://n9e.github.io/zh/zh/docs/query/dashboards.md)
-* 带变量的盘怎么分享：[匿名限时分享](https://n9e.github.io/zh/zh/docs/query/sharing.md)
-* 标签是从哪儿来的：[标签与注解](https://n9e.github.io/zh/zh/docs/concepts/labels-annotations.md)
+* 把变量用到面板上：[创建仪表盘](https://n9e.github.io/zh/docs/query/dashboards.md)
+* 带变量的盘怎么分享：[匿名限时分享](https://n9e.github.io/zh/docs/query/sharing.md)
+* 标签是从哪儿来的：[标签与注解](https://n9e.github.io/zh/docs/concepts/labels-annotations.md)

@@ -8,7 +8,7 @@ Pipeline 执行记录逐事件记下每个处理器改了什么、事件是否�
 
 入口：**告警通知 → 工作流**，顶部切到 **执行记录** tab（`/event-pipelines-executions`）。 工作流列表里点某条工作流的执行记录，是同一张表加了工作流筛选。
 
-![执行记录](/zh/img/docs/events/pipeline-executions.zh.webp)![执行记录](/zh/img/docs/events/pipeline-executions.zh.dark.webp)
+![执行记录](https://n9e.github.io/zh/img/docs/events/pipeline-executions.zh.webp)![执行记录](https://n9e.github.io/zh/img/docs/events/pipeline-executions.zh.dark.webp)
 
 ## 先把时间范围放宽[​](#先把时间范围放宽 "先把时间范围放宽的直接链接")
 
@@ -51,7 +51,7 @@ Pipeline 执行记录逐事件记下每个处理器改了什么、事件是否�
 ## 用它排查三类问题[​](#用它排查三类问题 "用它排查三类问题的直接链接")
 
 * **「工作流没生效」**：先看有没有记录。一条都没有，说明事件压根没进来—— 多半是**作用范围**的适用标签/属性没匹配上，或者工作流没被规则引用。
-* **「改了标签但通知里没变」**：找到那条事件的记录，看标签改写节点的差异串。 差异串是对的但通知不对，问题在消息模板，见[消息模板](https://n9e.github.io/zh/zh/docs/notifications/templates.md)。
+* **「改了标签但通知里没变」**：找到那条事件的记录，看标签改写节点的差异串。 差异串是对的但通知不对，问题在消息模板，见[消息模板](https://n9e.github.io/zh/docs/notifications/templates.md)。
 * **「事件莫名其妙没了」**：搜这条事件的 ID，看是不是被事件丢弃处理器吃掉了。 状态会是成功，消息里带 `terminated at node`。
 
 ## 记录从哪来、留多久[​](#记录从哪来留多久 "记录从哪来、留多久的直接链接")
@@ -60,10 +60,10 @@ Pipeline 执行记录逐事件记下每个处理器改了什么、事件是否�
 * **整条工作流的试跑**也会写一条，触发模式是 API 触发、触发者是你的用户名；
 * **单个处理器的试跑不写记录**，它不经过工作流引擎。
 
-记录会自动清理：每天 06:00 有个任务删掉早于 `[Center] CleanPipelineExecutionDay` 的记录， 每批 100 条，避免大批量删除压垮数据库。**这个配置项默认是注释掉的，兜底值是 7 天**—— 不管它就是留一周，不是一直留着。另外还有一个只对管理员开放的清理接口，界面上没有入口。 工作流跑得频繁的实例， 把这张表的增长纳入容量规划，见[容量规划](https://n9e.github.io/zh/zh/docs/operations/capacity.md)。
+记录会自动清理：每天 06:00 有个任务删掉早于 `[Center] CleanPipelineExecutionDay` 的记录， 每批 100 条，避免大批量删除压垮数据库。**这个配置项默认是注释掉的，兜底值是 7 天**—— 不管它就是留一周，不是一直留着。另外还有一个只对管理员开放的清理接口，界面上没有入口。 工作流跑得频繁的实例， 把这张表的增长纳入容量规划，见[容量规划](https://n9e.github.io/zh/docs/operations/capacity.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 上线前先在这里之外验证一遍：[用模拟事件试跑](https://n9e.github.io/zh/zh/docs/events/try-workflow.md)
-* 工作流本身怎么配：[事件 Pipeline](https://n9e.github.io/zh/zh/docs/events/pipelines.md)
-* 试跑通了线上不生效：[工作流试跑通过但线上不生效](https://n9e.github.io/zh/zh/docs/troubleshooting/workflow-prod-fails.md)
+* 上线前先在这里之外验证一遍：[用模拟事件试跑](https://n9e.github.io/zh/docs/events/try-workflow.md)
+* 工作流本身怎么配：[事件 Pipeline](https://n9e.github.io/zh/docs/events/pipelines.md)
+* 试跑通了线上不生效：[工作流试跑通过但线上不生效](https://n9e.github.io/zh/docs/troubleshooting/workflow-prod-fails.md)

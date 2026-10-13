@@ -56,6 +56,6 @@ SQL 类数据源要特别注意查询代价：规则是**周期性**执行的，
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 各类数据源的完整字段说明：[接入数据](https://n9e.github.io/zh/zh/docs/data/overview.md)
-* 日志规则怎么写：[日志告警规则](https://n9e.github.io/zh/zh/docs/alerting/log-rules.md)
-* SQL 规则怎么写：[SQL 告警规则](https://n9e.github.io/zh/zh/docs/alerting/sql-rules.md)
+* 各类数据源的完整字段说明：[接入数据](https://n9e.github.io/zh/docs/data/overview.md)
+* 日志规则怎么写：[日志告警规则](https://n9e.github.io/zh/docs/alerting/log-rules.md)
+* SQL 规则怎么写：[SQL 告警规则](https://n9e.github.io/zh/docs/alerting/sql-rules.md)

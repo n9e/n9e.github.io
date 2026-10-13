@@ -127,6 +127,6 @@ Issue 提到 [ccfos/nightingale](https://github.com/ccfos/nightingale/issues)。
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [内置指标与健康检查](https://n9e.github.io/zh/zh/docs/operations/health.md)
-* [查看判定执行记录](https://n9e.github.io/zh/zh/docs/alerting/execution-records.md)
-* [规则不触发](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-not-firing.md)
+* [内置指标与健康检查](https://n9e.github.io/zh/docs/operations/health.md)
+* [查看判定执行记录](https://n9e.github.io/zh/docs/alerting/execution-records.md)
+* [规则不触发](https://n9e.github.io/zh/docs/troubleshooting/alert-not-firing.md)

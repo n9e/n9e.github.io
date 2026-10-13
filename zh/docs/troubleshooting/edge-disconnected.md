@@ -157,8 +157,8 @@ n9e-edge --configs etc/edge
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 断网期间的完整行为模型：[Edge 断网行为](https://n9e.github.io/zh/zh/docs/operations/edge-partition.md)
-* edge 怎么部署：[边缘机房](https://n9e.github.io/zh/zh/docs/install/edge.md)
-* 部署形态怎么选：[生产拓扑](https://n9e.github.io/zh/zh/docs/operations/topology.md)
-* 事件产生了但没通知：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)
-* 中心侧也没数据：[数据源连接正常但查询无数据](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)
+* 断网期间的完整行为模型：[Edge 断网行为](https://n9e.github.io/zh/docs/operations/edge-partition.md)
+* edge 怎么部署：[边缘机房](https://n9e.github.io/zh/docs/install/edge.md)
+* 部署形态怎么选：[生产拓扑](https://n9e.github.io/zh/docs/operations/topology.md)
+* 事件产生了但没通知：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/docs/troubleshooting/no-notification.md)
+* 中心侧也没数据：[数据源连接正常但查询无数据](https://n9e.github.io/zh/docs/troubleshooting/no-data.md)

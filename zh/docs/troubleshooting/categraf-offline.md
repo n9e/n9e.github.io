@@ -48,7 +48,7 @@ journalctl -u categraf | grep -i heartbeat
 
 **心跳请求里 `hostname` 是必填的**，缺了服务端直接拒，边缘节点上返回 400 `hostname is required`。
 
-采集端的完整排查见 [Categraf 排障](https://n9e.github.io/zh/zh/docs/data/categraf/troubleshooting.md)。
+采集端的完整排查见 [Categraf 排障](https://n9e.github.io/zh/docs/data/categraf/troubleshooting.md)。
 
 ### 服务端侧[​](#服务端侧 "服务端侧的直接链接")
 
@@ -97,7 +97,7 @@ failed to write target ts in redis after 3 retries, keys: [...]
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 机器在但没指标：[数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)
-* 采集端的完整排查：[Categraf 排障](https://n9e.github.io/zh/zh/docs/data/categraf/troubleshooting.md)
-* 设备列表这个页面本身：[设备列表](https://n9e.github.io/zh/zh/docs/data/categraf/targets.md)
-* 失联告警怎么配：[告警规则的生效范围](https://n9e.github.io/zh/zh/docs/alerting/scope.md)
+* 机器在但没指标：[数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/docs/troubleshooting/no-data.md)
+* 采集端的完整排查：[Categraf 排障](https://n9e.github.io/zh/docs/data/categraf/troubleshooting.md)
+* 设备列表这个页面本身：[设备列表](https://n9e.github.io/zh/docs/data/categraf/targets.md)
+* 失联告警怎么配：[告警规则的生效范围](https://n9e.github.io/zh/docs/alerting/scope.md)

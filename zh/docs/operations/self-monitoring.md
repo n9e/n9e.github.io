@@ -82,13 +82,13 @@ n9e_center_uptime
 所以通知失败有两个看法：
 
 * **人看**：告警事件详情里的通知记录，或者事件列表页；
-* **机器看**：把夜莺的元数据库注册成一个 MySQL / PostgreSQL 数据源， 写一条 SQL 告警规则统计最近一段时间 `status = 2` 的条数。 注册数据源的方法见 [MySQL / PostgreSQL 数据源](https://n9e.github.io/zh/zh/docs/data/sql-databases.md)， 写 SQL 规则见 [SQL 告警规则](https://n9e.github.io/zh/zh/docs/alerting/sql-rules.md)。
+* **机器看**：把夜莺的元数据库注册成一个 MySQL / PostgreSQL 数据源， 写一条 SQL 告警规则统计最近一段时间 `status = 2` 的条数。 注册数据源的方法见 [MySQL / PostgreSQL 数据源](https://n9e.github.io/zh/docs/data/sql-databases.md)， 写 SQL 规则见 [SQL 告警规则](https://n9e.github.io/zh/docs/alerting/sql-rules.md)。
 
 注意通知记录默认只保留 7 天（`[Center] CleanNotifyRecordDay`，每天凌晨 1 点清理）， SQL 规则的时间窗口要在这个范围内。
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [内置指标与健康检查](https://n9e.github.io/zh/zh/docs/operations/health.md)
-* [高可用与故障域](https://n9e.github.io/zh/zh/docs/operations/high-availability.md)
-* [日志与诊断包](https://n9e.github.io/zh/zh/docs/operations/diagnostics.md)
-* [上线前检查清单](https://n9e.github.io/zh/zh/docs/get-started/production-checklist.md)
+* [内置指标与健康检查](https://n9e.github.io/zh/docs/operations/health.md)
+* [高可用与故障域](https://n9e.github.io/zh/docs/operations/high-availability.md)
+* [日志与诊断包](https://n9e.github.io/zh/docs/operations/diagnostics.md)
+* [上线前检查清单](https://n9e.github.io/zh/docs/get-started/production-checklist.md)

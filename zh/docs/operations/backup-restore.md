@@ -48,7 +48,7 @@ tar czf n9e-etc-$(date +%F).tar.gz etc/ integrations/
 
 `etc/` 里有 `config.toml`、边缘的 `etc/edge/edge.toml`、`metrics.yaml` 和通知脚本。 更好的做法是**把 `etc/` 放进版本库**，这样「什么时候改的、谁改的、改了什么」 都有记录，回滚也是一条 `git checkout`。
 
-注意 `config.toml` 里有数据库口令，放版本库前先把凭据挪出去，见 [敏感信息管理](https://n9e.github.io/zh/zh/docs/security/secrets.md)。
+注意 `config.toml` 里有数据库口令，放版本库前先把凭据挪出去，见 [敏感信息管理](https://n9e.github.io/zh/docs/security/secrets.md)。
 
 ## 内置时序库[​](#内置时序库 "内置时序库的直接链接")
 
@@ -64,7 +64,7 @@ systemctl start n9e
 
 运行中直接拷会拷到写了一半的数据块，恢复后可能起不来。
 
-现实一点：如果内置时序库里存的是「看趋势用的近 15 天数据」， 停机备份不值得，丢了就丢了。如果它是你唯一的指标存储、而且丢不起， 那真正该做的不是备份它，而是**换成外部时序库**——见 [内置时序库的单 Center 限制](https://n9e.github.io/zh/zh/docs/operations/embedded-tsdb-limits.md)。
+现实一点：如果内置时序库里存的是「看趋势用的近 15 天数据」， 停机备份不值得，丢了就丢了。如果它是你唯一的指标存储、而且丢不起， 那真正该做的不是备份它，而是**换成外部时序库**——见 [内置时序库的单 Center 限制](https://n9e.github.io/zh/docs/operations/embedded-tsdb-limits.md)。
 
 ## 恢复步骤[​](#恢复步骤 "恢复步骤的直接链接")
 
@@ -100,11 +100,11 @@ Redis **不需要恢复**。它存的是登录态、设备心跳时间戳和主�
 * **每季度做一次完整恢复**，恢复到一个独立的测试库和测试实例上， 按上面第 5、6 步验证到「能登录、规则在、判定在跑」；
 * 演练时记录耗时。真出事的时候，「恢复要多久」是必须回答的问题。
 
-在全新环境里从零重建的完整流程，见[灾备](https://n9e.github.io/zh/zh/docs/operations/disaster-recovery.md)。
+在全新环境里从零重建的完整流程，见[灾备](https://n9e.github.io/zh/docs/operations/disaster-recovery.md)。
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [灾备](https://n9e.github.io/zh/zh/docs/operations/disaster-recovery.md)
-* [回滚与恢复](https://n9e.github.io/zh/zh/docs/operations/rollback.md)
-* [内置时序库的单 Center 限制](https://n9e.github.io/zh/zh/docs/operations/embedded-tsdb-limits.md)
-* [上线前检查清单](https://n9e.github.io/zh/zh/docs/get-started/production-checklist.md)
+* [灾备](https://n9e.github.io/zh/docs/operations/disaster-recovery.md)
+* [回滚与恢复](https://n9e.github.io/zh/docs/operations/rollback.md)
+* [内置时序库的单 Center 限制](https://n9e.github.io/zh/docs/operations/embedded-tsdb-limits.md)
+* [上线前检查清单](https://n9e.github.io/zh/docs/get-started/production-checklist.md)

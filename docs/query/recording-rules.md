@@ -46,7 +46,7 @@ The embedded TSDB's `/prometheus` endpoint only accepts requests from the local 
 
 **Explorer → Metrics → Recording rules** (`/recording-rules`), then **Add**.
 
-![Recording rules](/img/docs/query/recording-rules.webp)![Recording rules](/img/docs/query/recording-rules.dark.webp)
+![Recording rules](https://n9e.github.io/img/docs/query/recording-rules.webp)![Recording rules](https://n9e.github.io/img/docs/query/recording-rules.dark.webp)
 
 | Field               | What to put in it                                                                                                                    |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |

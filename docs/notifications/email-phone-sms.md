@@ -10,7 +10,7 @@ Where this page ends: a working email media type, and — if you need them — S
 
 **Alerts & Notifications → Media types**, then **Email** in the type panel on the left. The open-source edition ships a media type called `Email`; edit that rather than creating a new one.
 
-![Media types](/img/docs/notifications/media-types.webp)![Media types](/img/docs/notifications/media-types.dark.webp)
+![Media types](https://n9e.github.io/img/docs/notifications/media-types.webp)![Media types](https://n9e.github.io/img/docs/notifications/media-types.dark.webp)
 
 The SMTP block:
 

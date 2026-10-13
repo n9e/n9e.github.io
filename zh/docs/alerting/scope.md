@@ -51,7 +51,7 @@
 
 ### 匹配到多个数据源时会怎样[​](#匹配到多个数据源时会怎样 "匹配到�多个数据源时会怎样的直接链接")
 
-规则会**对每个数据源各自独立评估一遍**。匹配到三个数据源，就是三条评估循环、三套事件， [判定执行记录](https://n9e.github.io/zh/zh/docs/alerting/execution-records.md)里每个周期也是三行。
+规则会**对每个数据源各自独立评估一遍**。匹配到三个数据源，就是三条评估循环、三套事件， [判定执行记录](https://n9e.github.io/zh/docs/alerting/execution-records.md)里每个周期也是三行。
 
 放宽筛选之前，值得先知道这几条后果：
 
@@ -75,7 +75,7 @@
 
 第 5 步剩下的部分决定规则**什么时候**允许产生事件。
 
-* **立即启用**是总开关。关掉就不再产生新事件——**恢复事件也算**。 一条正在告警的规则被关掉，你就永远等不到那条恢复通知了。想临时静音， 用[屏蔽规则](https://n9e.github.io/zh/zh/docs/events/mute-rules.md)。
+* **立即启用**是总开关。关掉就不再产生新事件——**恢复事件也算**。 一条正在告警的规则被关掉，你就永远等不到那条恢复通知了。想临时静音， 用[屏蔽规则](https://n9e.github.io/zh/docs/events/mute-rules.md)。
 * **时区**决定按哪个时钟读这些窗口。它只影响窗口判定，不影响事件上显示的任何时间。 默认 `Local`，即服务端所在机器的时区。
 * **生效时间**是一行或多行「星期几 + 开始时间 + 结束时间」。多行之间是**或**，命中任意一行即可。 一行都不配就是全天全周生效。
 
@@ -119,7 +119,7 @@
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 规则在范围内到底做什么：[指标规则](https://n9e.github.io/zh/zh/docs/alerting/metric-rules.md)
-* 把规则搬到另一套环境：[导入、导出与复用](https://n9e.github.io/zh/zh/docs/alerting/import-export.md)
-* 不改范围也能静音：[屏蔽规则](https://n9e.github.io/zh/zh/docs/events/mute-rules.md)
-* 业务组本身怎么回事：[业务组](https://n9e.github.io/zh/zh/docs/concepts/business-groups.md)
+* 规则在范围内到底做什么：[指标规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)
+* 把规则搬到另一套环境：[导入、导出与复用](https://n9e.github.io/zh/docs/alerting/import-export.md)
+* 不改范围也能静音：[屏蔽规则](https://n9e.github.io/zh/docs/events/mute-rules.md)
+* 业务组本身怎么回事：[业务组](https://n9e.github.io/zh/docs/concepts/business-groups.md)

@@ -20,7 +20,7 @@
 
 `Host memory usage too high` 这一条规则跑在 5 台机器上，会产生 **5 个独立事件**， 因为它们的 `ident` 标签不同。其中一台恢复了，只有那一个事件恢复，其余四个还烧着。
 
-反过来，标签集完全相同的一次次触发，会被认为是同一个告警的延续，而不是新告警。 所以**标签集设计不好，会直接导致告警合并不对**—— 见[标签、注解与身份](https://n9e.github.io/zh/zh/docs/concepts/labels-annotations.md)。
+反过来，标签集完全相同的一次次触发，会被认为是同一个告警的延续，而不是新告警。 所以**标签集设计不好，会直接导致告警合并不对**—— 见[标签、注解与身份](https://n9e.github.io/zh/docs/concepts/labels-annotations.md)。
 
 ## 三个级别是给人看的[​](#三个级别是给人看的 "三个级别是给人看的的直接链接")
 
@@ -45,6 +45,6 @@
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [判定、恢复与状态变化](https://n9e.github.io/zh/zh/docs/concepts/evaluation.md)
-* [活跃告警与历史告警](https://n9e.github.io/zh/zh/docs/events/active-historical.md)
-* [标签、注解与级别](https://n9e.github.io/zh/zh/docs/alerting/labels-severity.md)
+* [判定、恢复与状态变化](https://n9e.github.io/zh/docs/concepts/evaluation.md)
+* [活跃告警与历史告警](https://n9e.github.io/zh/docs/events/active-historical.md)
+* [标签、注解与级别](https://n9e.github.io/zh/docs/alerting/labels-severity.md)

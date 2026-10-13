@@ -70,7 +70,7 @@ http_response_cert_expire_timestamp - time()
 
 ## 下一步[​](#next "下一步的直接链接")
 
-* [指标告警规则](https://n9e.github.io/zh/zh/docs/alerting/metric-rules.md)
-* [导入仪表盘与规则](https://n9e.github.io/zh/zh/docs/data/integrations/import.md)
+* [指标告警规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)
+* [导入仪表盘与规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
 
 完整 HTTP 字段见 [v0.5.17 配置](https://github.com/flashcatcloud/categraf/blob/v0.5.17/conf/input.http_response/http_response.toml)。

@@ -63,7 +63,7 @@ MySQL 和 PostgreSQL 的表单一样，只是默认端口不同：
 | 最大空闲连接数 / 最大打开连接数 | 默认 10 / 100。业务库连接数紧张就往下调                                      |
 | 连接最大生存时间（单位: 秒）    | 默认 14400                                                                   |
 
-![MySQL 数据源表单](/zh/img/docs/data/form-mysql.zh.webp)![MySQL 数据源表单](/zh/img/docs/data/form-mysql.zh.dark.webp)
+![MySQL 数据源表单](https://n9e.github.io/zh/img/docs/data/form-mysql.zh.webp)![MySQL 数据源表单](https://n9e.github.io/zh/img/docs/data/form-mysql.zh.dark.webp)
 
 TDengine 走的是 REST 接口，字段少一些：URL 填 `http://localhost:6041`， 超时单位是毫秒（默认 10000），用户名密码按需。保存时的连通性测试是往 `<URL>/rest/sql` 发一条 `show databases`。
 
@@ -144,6 +144,6 @@ $A.failed / $A.total * 100 > 5
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* SQL 类规则的完整写法：[SQL 类告警规则](https://n9e.github.io/zh/zh/docs/alerting/sql-rules.md)
-* 让事件送到人：[通知](https://n9e.github.io/zh/zh/docs/notifications/overview.md)
-* 日志明细类存储：[ClickHouse / Doris / IoTDB](https://n9e.github.io/zh/zh/docs/data/clickhouse-doris-iotdb.md)
+* SQL 类规则的完整写法：[SQL 类告警规则](https://n9e.github.io/zh/docs/alerting/sql-rules.md)
+* 让事件送到人：[通知](https://n9e.github.io/zh/docs/notifications/overview.md)
+* 日志明细类存储：[ClickHouse / Doris / IoTDB](https://n9e.github.io/zh/docs/data/clickhouse-doris-iotdb.md)

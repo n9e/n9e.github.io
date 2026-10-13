@@ -36,7 +36,7 @@ Nodes is a list you can extend, but **the current implementation uses only the f
 
 **Advanced settings** holds the pool and the caps: timeout in milliseconds (default 100000), maximum rows retrieved per request (default 500, required), max idle connections (10), max open connections (100), max connection lifetime in seconds (14400).
 
-![The ClickHouse data source form](/img/docs/data/form-clickhouse.webp)![The ClickHouse data source form](/img/docs/data/form-clickhouse.dark.webp)
+![The ClickHouse data source form](https://n9e.github.io/img/docs/data/form-clickhouse.webp)![The ClickHouse data source form](https://n9e.github.io/img/docs/data/form-clickhouse.dark.webp)
 
 **Save & test** genuinely opens a connection and runs `SHOW DATABASES`; failing that, nothing is stored. A malformed address (one carrying `http://`) counts as a config error rather than a connectivity problem, so **even plain Save will not store it**.
 

@@ -10,7 +10,7 @@ Where this page ends: you press one button on the rule form and get a six-stage 
 
 **Test fire** sits at the bottom of the alert rule form, next to **Save**. The rule does not have to be saved first — the test runs against whatever is currently in the form.
 
-![The alert rule form](/img/docs/alerting/rule-edit.webp)![The alert rule form](/img/docs/alerting/rule-edit.dark.webp)
+![The alert rule form](https://n9e.github.io/img/docs/alerting/rule-edit.webp)![The alert rule form](https://n9e.github.io/img/docs/alerting/rule-edit.dark.webp)
 
 A small dialog asks for four things:
 

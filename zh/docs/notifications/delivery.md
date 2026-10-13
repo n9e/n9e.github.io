@@ -68,7 +68,7 @@ HTTP 队列满的时候消息会被丢弃，并写一条失败记录： `failed 
 * **通知目标默认打码**，末 8 位变成星号。只有邮件、短信、语音、脚本和屏蔽记录 显示完整值——这几类的目标本来就是收件人自己看得到的信息。
 * 记录是异步入库的（内存队列每 100 毫秒批量落一次），刚发完立刻刷新可能还看不到。
 
-状态有三种：**成功**、**失败**，以及**被屏蔽**——最后一种来自「只屏蔽通知」的屏蔽规则， 渠道显示成 `mute`，目标是 `id=<屏蔽规则 id>`，说明文字里带屏蔽规则的名字。 用它可以回答「这段时间到底屏蔽掉了什么」，详见[屏蔽规则](https://n9e.github.io/zh/zh/docs/events/mute-rules.md)。
+状态有三种：**成功**、**失败**，以及**被屏蔽**——最后一种来自「只屏蔽通知」的屏蔽规则， 渠道显示成 `mute`，目标是 `id=<屏蔽规则 id>`，说明文字里带屏蔽规则的名字。 用它可以回答「这段时间到底屏蔽掉了什么」，详见[屏蔽规则](https://n9e.github.io/zh/docs/events/mute-rules.md)。
 
 ## 通知记录只留 7 天[​](#通知记录只留-7-天 "通知记录只留 7 天的直接链接")
 
@@ -86,6 +86,6 @@ CleanNotifyRecordDay = 30
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 先验证通道再上线：[端到端测试一条通知](https://n9e.github.io/zh/zh/docs/notifications/test.md)
-* 消息内容渲染失败：[模板渲染报错](https://n9e.github.io/zh/zh/docs/troubleshooting/template-errors.md)
-* 一条都收不到时的排查顺序：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)
+* 先验证通道再上线：[端到端测试一条通知](https://n9e.github.io/zh/docs/notifications/test.md)
+* 消息内容渲染失败：[模板渲染报错](https://n9e.github.io/zh/docs/troubleshooting/template-errors.md)
+* 一条都收不到时的排查顺序：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/docs/troubleshooting/no-notification.md)

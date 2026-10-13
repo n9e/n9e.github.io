@@ -6,7 +6,7 @@ Last reviewed 2026-10-10
 
 Open **Integrations → Data sources** on a fresh install and there is already a Prometheus-type source named `embedded-tsdb`, carrying a default badge. This page explains who created it, what writes into it, and how it actually differs from an external Prometheus source you add yourself.
 
-![The data source list, with embedded-tsdb at the top](/img/docs/data/datasource-list.webp)![The data source list, with embedded-tsdb at the top](/img/docs/data/datasource-list.dark.webp)
+![The data source list, with embedded-tsdb at the top](https://n9e.github.io/img/docs/data/datasource-list.webp)![The data source list, with embedded-tsdb at the top](https://n9e.github.io/img/docs/data/datasource-list.dark.webp)
 
 ## Who creates it[​](#who-creates-it "Direct link to Who creates it")
 

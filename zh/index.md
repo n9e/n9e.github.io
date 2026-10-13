@@ -6,7 +6,7 @@ THE OPEN-SOURCE ALERTING EXPERT
 
 [在线体验](https://play.n9e.io/api/n9e/auth/demo-login)无需注册
 
-[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)自托管部署
+[5 分钟安装](https://n9e.github.io/zh/docs/get-started/quick-start.md)自托管部署
 
 [GitHub★ ](https://github.com/ccfos/nightingale)
 
@@ -20,7 +20,7 @@ THE OPEN-SOURCE ALERTING EXPERT
 
 n9e.example.com/dashboards
 
-![夜莺监控仪表盘](/zh/img/hero-dashboard-light.webp)![](/zh/img/hero-dashboard-dark.webp)
+![夜莺监控仪表盘](https://n9e.github.io/zh/img/hero-dashboard-light.webp)![](https://n9e.github.io/zh/img/hero-dashboard-dark.webp)
 
 S1CPU 使用率持续高于 90%
 
@@ -36,9 +36,9 @@ S1CPU 使用率持续高于 90%
 
 **14m**
 
-已送达![钉钉](/zh/img/logos/dingtalk.png)![飞书](/zh/img/logos/feishu.png)![Slack](/zh/img/logos/slack.png)
+已送达![钉钉](https://n9e.github.io/zh/img/logos/dingtalk.png)![飞书](https://n9e.github.io/zh/img/logos/feishu.png)![Slack](https://n9e.github.io/zh/img/logos/slack.png)
 
-13,332GitHub Stars
+13,336GitHub Stars
 
 10+数据源类型
 
@@ -67,7 +67,7 @@ datasource
 * 10+ 数据源类型，指标、日志、数据库统一接入
 * 83 个内置集成模板：采集配置、仪表盘、告警规则成套导入
 
-![夜莺集成中心的组件模板列表](/zh/img/step-connect.webp)
+![夜莺集成中心的组件模板列表](https://n9e.github.io/zh/img/step-connect.webp)
 
 rule
 
@@ -78,7 +78,7 @@ rule
 * 一条规则可同时作用于多个数据源
 * 页面或 API 配置规则，不用改 YAML 再 reload
 
-![夜莺告警规则管理页面](/zh/img/step-alert.webp)
+![夜莺告警规则管理页面](https://n9e.github.io/zh/img/step-alert.webp)
 
 event
 
@@ -89,7 +89,7 @@ event
 * 钉钉、飞书、企业微信、电话、短信、Slack 等 20 种内置媒介
 * 事件 Pipeline：聚合相似告警、改写标签、按条件路由
 
-![夜莺告警事件聚合视图](/zh/img/step-automate.webp)
+![夜莺告警事件聚合视图](https://n9e.github.io/zh/img/step-automate.webp)
 
 agent
 
@@ -160,35 +160,35 @@ INTEGRATIONS
 
 DATA SOURCES<!-- --> · <!-- -->数据源
 
-* ![Prometheus logo](/zh/img/logos/prometheus.png)Prometheus
-* ![VictoriaMetrics logo](/zh/img/logos/victoriametrics.png)VictoriaMetrics
-* ![ElasticSearch logo](/zh/img/logos/elasticsearch.png)ElasticSearch
-* ![ClickHouse logo](/zh/img/logos/ck.png)ClickHouse
-* ![Loki logo](/zh/img/logos/loki.png)Loki
-* ![VictoriaLogs logo](/zh/img/logos/victorialogs.png)VictoriaLogs
-* ![MySQL logo](/zh/img/logos/mysql.png)MySQL
-* ![PostgreSQL logo](/zh/img/logos/pgsql.png)PostgreSQL
-* ![TDengine logo](/zh/img/logos/tdengine.png)TDengine
-* ![OpenSearch logo](/zh/img/logos/opensearch.png)OpenSearch
-* ![Doris logo](/zh/img/logos/doris.png)Doris
-* ![IoTDB logo](/zh/img/logos/iotdb.png)IoTDB
+* ![Prometheus logo](https://n9e.github.io/zh/img/logos/prometheus.png)Prometheus
+* ![VictoriaMetrics logo](https://n9e.github.io/zh/img/logos/victoriametrics.png)VictoriaMetrics
+* ![ElasticSearch logo](https://n9e.github.io/zh/img/logos/elasticsearch.png)ElasticSearch
+* ![ClickHouse logo](https://n9e.github.io/zh/img/logos/ck.png)ClickHouse
+* ![Loki logo](https://n9e.github.io/zh/img/logos/loki.png)Loki
+* ![VictoriaLogs logo](https://n9e.github.io/zh/img/logos/victorialogs.png)VictoriaLogs
+* ![MySQL logo](https://n9e.github.io/zh/img/logos/mysql.png)MySQL
+* ![PostgreSQL logo](https://n9e.github.io/zh/img/logos/pgsql.png)PostgreSQL
+* ![TDengine logo](https://n9e.github.io/zh/img/logos/tdengine.png)TDengine
+* ![OpenSearch logo](https://n9e.github.io/zh/img/logos/opensearch.png)OpenSearch
+* ![Doris logo](https://n9e.github.io/zh/img/logos/doris.png)Doris
+* ![IoTDB logo](https://n9e.github.io/zh/img/logos/iotdb.png)IoTDB
 
 NOTIFICATIONS<!-- --> · <!-- -->通知媒介
 
-* ![钉钉 logo](/zh/img/logos/dingtalk.png)钉钉
-* ![飞书 logo](/zh/img/logos/feishu.png)飞书
-* ![企业微信 logo](/zh/img/logos/wecom.png)企业微信
+* ![钉钉 logo](https://n9e.github.io/zh/img/logos/dingtalk.png)钉钉
+* ![飞书 logo](https://n9e.github.io/zh/img/logos/feishu.png)飞书
+* ![企业微信 logo](https://n9e.github.io/zh/img/logos/wecom.png)企业微信
 * 电话 / 短信
 * 邮件
-* ![Slack logo](/zh/img/logos/slack.png)Slack
-* ![Telegram logo](/zh/img/logos/telegram.png)Telegram
-* ![Discord logo](/zh/img/logos/discord.png)Discord
-* ![Mattermost logo](/zh/img/logos/mattermost.png)Mattermost
-* ![PagerDuty logo](/zh/img/logos/pagerduty.png)PagerDuty
-* ![FlashDuty logo](/zh/img/logos/flashduty.png)FlashDuty
-* ![Jira logo](/zh/img/logos/jira.png)Jira
+* ![Slack logo](https://n9e.github.io/zh/img/logos/slack.png)Slack
+* ![Telegram logo](https://n9e.github.io/zh/img/logos/telegram.png)Telegram
+* ![Discord logo](https://n9e.github.io/zh/img/logos/discord.png)Discord
+* ![Mattermost logo](https://n9e.github.io/zh/img/logos/mattermost.png)Mattermost
+* ![PagerDuty logo](https://n9e.github.io/zh/img/logos/pagerduty.png)PagerDuty
+* ![FlashDuty logo](https://n9e.github.io/zh/img/logos/flashduty.png)FlashDuty
+* ![Jira logo](https://n9e.github.io/zh/img/logos/jira.png)Jira
 
-[查看全部集成<!-- --> →](https://n9e.github.io/zh/zh/integrations.md)
+[查看全部集成<!-- --> →](https://n9e.github.io/zh/integrations.md)
 
 DEPLOY
 
@@ -198,21 +198,21 @@ DEPLOY
 
 Apache-2.0 全功能开源。一条 compose 命令拉起，也支持二进制与 Helm。
 
-`docker compose up -d`[下载与安装](https://n9e.github.io/zh/zh/download.md)
+`docker compose up -d`[下载与安装](https://n9e.github.io/zh/download.md)
 
 <!-- -->
 
-[ →](https://n9e.github.io/zh/zh/download.md)
+[ →](https://n9e.github.io/zh/download.md)
 
 ### 边缘机房
 
 与中心网络不稳的机房部署 n9e-edge 作本地告警引擎：断网期间告警照常产生、照常通知。
 
-`n9e-edge --configs etc/edge`[了解边缘架构](https://n9e.github.io/zh/zh/docs/operations/edge-partition.md)
+`n9e-edge --configs etc/edge`[了解边缘架构](https://n9e.github.io/zh/docs/operations/edge-partition.md)
 
 <!-- -->
 
-[ →](https://n9e.github.io/zh/zh/docs/operations/edge-partition.md)
+[ →](https://n9e.github.io/zh/docs/operations/edge-partition.md)
 
 COMPARISONS
 
@@ -220,23 +220,23 @@ COMPARISONS
 
 各有所长。夜莺建议你继续用 Prometheus 或 VictoriaMetrics 存数据，把告警这层交给专家。
 
-### [vs Prometheus + Alertmanager](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
+### [vs Prometheus + Alertmanager](https://n9e.github.io/zh/comparisons/prometheus-alertmanager.md)
 
-[同样的数据，规则在页面上配、有权限体系，通知媒介不用自己搭。](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
+[同样的数据，规则在页面上配、有权限体系，通知媒介不用自己搭。](https://n9e.github.io/zh/comparisons/prometheus-alertmanager.md)
 
-### [vs Zabbix](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
+### [vs Zabbix](https://n9e.github.io/zh/comparisons/zabbix.md)
 
-[不重做采集体系，接住你已有的时序库与日志库，云原生栈更顺手。](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
+[不重做采集体系，接住你已有的时序库与日志库，云原生栈更顺手。](https://n9e.github.io/zh/comparisons/zabbix.md)
 
-### [vs Grafana Alerting](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
+### [vs Grafana Alerting](https://n9e.github.io/zh/comparisons/grafana-alerting.md)
 
-[Grafana 长于可视化，夜莺把力气全花在告警引擎与事件分发上。](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
+[Grafana 长于可视化，夜莺把力气全花在告警引擎与事件分发上。](https://n9e.github.io/zh/comparisons/grafana-alerting.md)
 
-[看完整对比](https://n9e.github.io/zh/zh/comparisons.md)
+[看完整对比](https://n9e.github.io/zh/comparisons.md)
 
 <!-- -->
 
-[ →](https://n9e.github.io/zh/zh/comparisons.md)
+[ →](https://n9e.github.io/zh/comparisons.md)
 
 WHO USES NIGHTINGALE
 
@@ -244,13 +244,13 @@ WHO USES NIGHTINGALE
 
 互联网、金融、车企、制造、医疗——以下为部分授权展示的用户。
 
-![夜莺用户企业 logo 墙](/zh/img/user-logos.webp)
+![夜莺用户企业 logo 墙](https://n9e.github.io/zh/img/user-logos.webp)
 
 ## 把告警这件事，交给专家
 
 五分钟拉起一套夜莺，接上你的数据源，收到第一条告警。
 
-[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)[GitHub](https://github.com/ccfos/nightingale)
+[5 分钟安装](https://n9e.github.io/zh/docs/get-started/quick-start.md)[GitHub](https://github.com/ccfos/nightingale)
 
 <!-- -->
 

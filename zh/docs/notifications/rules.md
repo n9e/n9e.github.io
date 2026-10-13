@@ -10,7 +10,7 @@
 
 **告警通知 → 通知规则**，右上角 **新增**。
 
-![通知规则](/zh/img/docs/notifications/notify-rules.zh.webp)![通知规则](/zh/img/docs/notifications/notify-rules.zh.dark.webp)
+![通知规则](https://n9e.github.io/zh/img/docs/notifications/notify-rules.zh.webp)![通知规则](https://n9e.github.io/zh/img/docs/notifications/notify-rules.zh.dark.webp)
 
 表单分三块：**通知配置**（核心）、**基础配置**、**事件处理工作流**（可选）。 先跳过基础配置——名称会在你选完媒介和接收团队之后自动生成。
 
@@ -18,7 +18,7 @@
 
 | 字段              | 说明                                                                                                                          |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| 通知媒介          | 从已有媒介里选。没有合适的就先去[通知媒介](https://n9e.github.io/zh/zh/docs/notifications/dingtalk-feishu-wecom.md)建一个     |
+| 通知媒介          | 从已有媒介里选。没有合适的就先去[通知媒介](https://n9e.github.io/zh/docs/notifications/dingtalk-feishu-wecom.md)建一个        |
 | 消息模板          | 选完媒介才出现，只列出媒介类型相同的模板；默认自动选中第一个。FlashDuty、PagerDuty 和「回调」类媒介不显示这一项，它们不走模板 |
 | 媒介参数          | 随媒介变化：钉钉是 Access Token + Bot Name，企业微信是 Key，回调是 Callback Url                                               |
 | 接收人 / 接收团队 | 只有媒介配了「联系方式」才出现（邮件、短信、电话这类）。两者不能同时为空                                                      |
@@ -47,7 +47,7 @@
 * **使用模拟事件**：发一条内置的假事件，**不校验筛选条件**，纯粹验证「地址通不通、密钥对不对」。新环境用这个。
 * **选择历史事件**：挑几条真实发生过的事件，会按筛选条件校验一遍，不匹配就直接报错——顺便验证了你的筛选写得对不对。
 
-预期结果：弹窗里显示目标返回的响应，同时你的群/邮箱里真的多出一条消息。 两者缺一都算没通过，详见[端到端测试一条通知](https://n9e.github.io/zh/zh/docs/notifications/test.md)。
+预期结果：弹窗里显示目标返回的响应，同时你的群/邮箱里真的多出一条消息。 两者缺一都算没通过，详见[端到端测试一条通知](https://n9e.github.io/zh/docs/notifications/test.md)。
 
 ## 5. 挂到告警规则上[​](#5-挂到告警规则上 "5. 挂到告警规则上的直接链接")
 
@@ -65,7 +65,7 @@
 
 ## 事件处理工作流（可选）[​](#事件处理工作流可选 "事件处理工作流（可选）的直接链接")
 
-通知规则上可以挂一条或多条[事件 Pipeline](https://n9e.github.io/zh/zh/docs/events/pipelines.md)，在发送之前对事件 做加工——补标签、改字段，或者直接丢弃。它跑在筛选条件之前，所以工作流写出来的标签， 「适用标签」是能匹配到的。
+通知规则上可以挂一条或多条[事件 Pipeline](https://n9e.github.io/zh/docs/events/pipelines.md)，在发送之前对事件 做加工——补标签、改字段，或者直接丢弃。它跑在筛选条件之前，所以工作流写出来的标签， 「适用标签」是能匹配到的。
 
 注意告警规则上也能挂工作流，那一份影响所有下游；这里这一份只影响这条通知规则。
 
@@ -78,7 +78,7 @@
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 改消息文案：[模板与变量](https://n9e.github.io/zh/zh/docs/notifications/templates.md)
-* 让另一个团队也收到同样的事件：[订阅规则](https://n9e.github.io/zh/zh/docs/events/subscriptions.md)
-* 变更窗口内别吵：[屏蔽规则](https://n9e.github.io/zh/zh/docs/events/mute-rules.md)
-* 规则配好了却收不到：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)
+* 改消息文案：[模板与变量](https://n9e.github.io/zh/docs/notifications/templates.md)
+* 让另一个团队也收到同样的事件：[订阅规则](https://n9e.github.io/zh/docs/events/subscriptions.md)
+* 变更窗口内别吵：[屏蔽规则](https://n9e.github.io/zh/docs/events/mute-rules.md)
+* 规则配好了却收不到：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/docs/troubleshooting/no-notification.md)

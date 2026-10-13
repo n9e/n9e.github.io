@@ -8,7 +8,7 @@
 
 ## 直接采集 Redis[​](#direct-collection "直接采集 Redis的直接链接")
 
-插件连接 Redis 并执行 `INFO` 等命令读取运行状态。 完成 [Categraf 安装与注册](https://n9e.github.io/zh/zh/docs/data/categraf/install.md)后，修改 `conf/input.redis/redis.toml`：
+插件连接 Redis 并执行 `INFO` 等命令读取运行状态。 完成 [Categraf 安装与注册](https://n9e.github.io/zh/docs/data/categraf/install.md)后，修改 `conf/input.redis/redis.toml`：
 
 ```
 [[instances]]
@@ -28,7 +28,7 @@ labels = { instance = "redis-local:6379" }
 
 ## 复用 Redis Exporter[​](#exporter "复用 Redis Exporter的直接链接")
 
-已有 Prometheus 或 vmagent 抓取 Exporter 时，直接把存储注册为[数据源](https://n9e.github.io/zh/zh/docs/data/overview.md)，无需再重复采集。
+已有 Prometheus 或 vmagent 抓取 Exporter 时，直接把存储注册为[数据源](https://n9e.github.io/zh/docs/data/overview.md)，无需再重复采集。
 
 也可以让 Categraf 抓取 Exporter，在 `conf/input.prometheus/prometheus.toml` 中增加实例：
 
@@ -62,5 +62,5 @@ url_label_value = "{{.Host}}"
 
 ## 下一步[​](#next "下一步的直接链接")
 
-* [导入仪表盘与规则](https://n9e.github.io/zh/zh/docs/data/integrations/import.md)
-* [Remote Write](https://n9e.github.io/zh/zh/docs/data/categraf/remote-write.md)
+* [导入仪表盘与规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
+* [Remote Write](https://n9e.github.io/zh/docs/data/categraf/remote-write.md)

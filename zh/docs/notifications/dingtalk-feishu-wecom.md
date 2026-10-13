@@ -29,7 +29,7 @@
 
 **告警通知 → 通知媒介**。开源版内置了 `Dingtalk`、`Wecom`、`Feishu Card` 三个媒介， 直接用就行；Lark 卡片在左侧类型面板里有卡片，点一下建一个。
 
-![通知媒介](/zh/img/docs/notifications/media-types.zh.webp)![通知媒介](/zh/img/docs/notifications/media-types.zh.dark.webp)
+![通知媒介](https://n9e.github.io/zh/img/docs/notifications/media-types.zh.webp)![通知媒介](https://n9e.github.io/zh/img/docs/notifications/media-types.zh.dark.webp)
 
 媒介里已经预置好了 URL、请求方法、请求头和请求体。只有这几种情况需要动它：
 
@@ -89,10 +89,10 @@
 | `errcode 45009`（企业微信）/ 钉钉限流                            | 超过 20 条/分钟。用屏蔽规则或多建几个群分流                  |
 | `status_code:200` 但群里没消息                                   | 机器人被移出群了，或者消息被关键词策略过滤                   |
 
-失败详情在事件详情的**通知记录**里，见[重试与投递状态](https://n9e.github.io/zh/zh/docs/notifications/delivery.md)。
+失败详情在事件详情的**通知记录**里，见[重试与投递状态](https://n9e.github.io/zh/docs/notifications/delivery.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 改消息排版：[模板与变量](https://n9e.github.io/zh/zh/docs/notifications/templates.md)
-* Slack / Telegram / Discord：[Slack / Telegram / Discord / Mattermost](https://n9e.github.io/zh/zh/docs/notifications/chat.md)
-* 上线前完整验一遍：[端到端测试一条通知](https://n9e.github.io/zh/zh/docs/notifications/test.md)
+* 改消息排版：[模板与变量](https://n9e.github.io/zh/docs/notifications/templates.md)
+* Slack / Telegram / Discord：[Slack / Telegram / Discord / Mattermost](https://n9e.github.io/zh/docs/notifications/chat.md)
+* 上线前完整验一遍：[端到端测试一条通知](https://n9e.github.io/zh/docs/notifications/test.md)

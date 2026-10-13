@@ -23,7 +23,7 @@
 
 ## 什么留给仪表盘[​](#什么留给仪表盘 "什么留给仪表盘的直接链接")
 
-容量趋势、流量形态、对比视图，以及一切你每周看一次而不是立刻反应的东西。 一个你想知道但不想被通知的数字，[仪表盘](https://n9e.github.io/zh/zh/docs/query/dashboards.md)才是它的家。
+容量趋势、流量形态、对比视图，以及一切你每周看一次而不是立刻反应的东西。 一个你想知道但不想被通知的数字，[仪表盘](https://n9e.github.io/zh/docs/query/dashboards.md)才是它的家。
 
 有个可靠的信号说明你越了线：一条规则的通知，如果你在值班时会想把它静音， 那它就是一个多绕了几道弯的仪表盘图表。
 
@@ -33,8 +33,8 @@
 
 只有确实不一样的时候才拆成多条规则：
 
-* 级别不一样不是理由——用[一条规则里的多个级别](https://n9e.github.io/zh/zh/docs/alerting/metric-rules.md)配上**级别抑制**；
-* 少数几个对象阈值不一样也不是理由——那是[变量](https://n9e.github.io/zh/zh/docs/alerting/metric-rules.md)存在的意义；
+* 级别不一样不是理由——用[一条规则里的多个级别](https://n9e.github.io/zh/docs/alerting/metric-rules.md)配上**级别抑制**；
+* 少数几个对象阈值不一样也不是理由——那是[变量](https://n9e.github.io/zh/docs/alerting/metric-rules.md)存在的意义；
 * **归属团队**不一样是理由，因为业务组是规则级的属性；
 * **查询**不一样当然是理由。
 
@@ -48,7 +48,7 @@
 
 **名字描述现象，不描述指标。** `根分区快满了` 好过 `disk_used_percent 偏高`， 因为前者在换指标之后还成立，后者不成立。永远别在规则名里放变量—— 那样每条事件名字都不一样，一条都聚不到一起。
 
-**标签是一份很小的共享词表。** 定下所有规则都要带的那几个 key——`team`、`service`、`env` 通常就够了——然后严格只用这几个、严格只用这个拼法。 下游的每条通知规则、屏蔽规则、订阅规则都按它们匹配，你每放行一个近义词， 就得在所有这些地方各编码一次。见[标签、附加信息与级别](https://n9e.github.io/zh/zh/docs/alerting/labels-severity.md)。
+**标签是一份很小的共享词表。** 定下所有规则都要带的那几个 key——`team`、`service`、`env` 通常就够了——然后严格只用这几个、严格只用这个拼法。 下游的每条通知规则、屏蔽规则、订阅规则都按它们匹配，你每放行一个近义词， 就得在所有这些地方各编码一次。见[标签、附加信息与级别](https://n9e.github.io/zh/docs/alerting/labels-severity.md)。
 
 **级别在任何地方含义都一样。** 把三条定义写下来并守住。 S1 时而表示「紧急」时而表示「重要」，路由就没法修了。
 
@@ -58,28 +58,28 @@
 
 业务组同时决定**谁能改这条规则**和**它的事件归哪个团队**—— 而归属取自规则，不是取自事件所描述的那台机器。所以能用的切法是按**归属团队**切， 不是按环境切，也不是按技术栈切。
 
-如果几个团队都要看到同一批事件，别把规则克隆到每个组里，那样就有 N 条规则要同步。 在归属团队的组里留一条，让其他团队用[订阅规则](https://n9e.github.io/zh/zh/docs/events/subscriptions.md)。
+如果几个团队都要看到同一批事件，别把规则克隆到每个组里，那样就有 N 条规则要同步。 在归属团队的组里留一条，让其他团队用[订阅规则](https://n9e.github.io/zh/docs/events/subscriptions.md)。
 
 业务组名字里用 `/` 这类分隔符可以渲染成树——`DBA/MySQL`、`DBA/Redis`—— 让一个很长的平铺列表重新变得能翻。
 
 ### 让改动可评审[​](#让改动可评审 "让改动可评审的直接�链接")
 
-界面上配出来的规则可以导出成 JSON 提交进仓库，再用「按名字覆盖」导入生产。 这样就有了可评审的 diff 和可追溯的历史，而一百条就地编辑的规则没有这些。 流程和它的两处锋利边缘在[导入、导出与复用](https://n9e.github.io/zh/zh/docs/alerting/import-export.md)里。
+界面上配出来的规则可以导出成 JSON 提交进仓库，再用「按名字覆盖」导入生产。 这样就有了可评审的 diff 和可追溯的历史，而一百条就地编辑的规则没有这些。 流程和它的两处锋利边缘在[导入、导出与复用](https://n9e.github.io/zh/docs/alerting/import-export.md)里。
 
-标准规则别自己写，从[随附的规则库](https://n9e.github.io/zh/zh/docs/alerting/templates.md)开始—— 然后把导进来的东西当草稿看，因为它的阈值是按通用安装写的。
+标准规则别自己写，从[随附的规则库](https://n9e.github.io/zh/docs/alerting/templates.md)开始—— 然后把导进来的东西当草稿看，因为它的阈值是按通用安装写的。
 
 ## 让它保持诚实的定期回顾[​](#让它保持诚实的定期回顾 "让它保持诚实的定期回顾的直接链接")
 
 每月一次，把上个周期的事件拿出来，对每条规则问两个问题：
 
-1. **它响过吗？** 从来没响过的规则，要么在保护你，要么在骗你， 不[模拟触发](https://n9e.github.io/zh/zh/docs/alerting/test-fire.md)一下你分不清。那就触发一下，把坏掉的删了。
-2. **有人处理过吗？** 响了四十次、零次被处理的规则，该降到 S3 或者删掉。 屏蔽它是错误答案——[屏蔽规则](https://n9e.github.io/zh/zh/docs/events/mute-rules.md)只是把噪音藏起来， 维护成本一分没省。
+1. **它响过吗？** 从来没响过的规则，要么在保护你，要么在骗你， 不[模拟触发](https://n9e.github.io/zh/docs/alerting/test-fire.md)一下你分不清。那就触发一下，把坏掉的删了。
+2. **有人处理过吗？** 响了四十次、零次被处理的规则，该降到 S3 或者删掉。 屏蔽它是错误答案——[屏蔽规则](https://n9e.github.io/zh/docs/events/mute-rules.md)只是把噪音藏起来， 维护成本一分没省。
 
-然后专门看最吵的那几条。通常一两条规则贡献了大部分的量， 而通常的解法是更长的持续时长、一个不对称的恢复条件， 或者一次把三十条按机器的事件变成一条按服务的事件的聚合。 手法在[降噪模式](https://n9e.github.io/zh/zh/docs/events/noise-patterns.md)里。
+然后专门看最吵的那几条。通常一两条规则贡献了大部分的量， 而通常的解法是更长的持续时长、一个不对称的恢复条件， 或者一次把三十条按机器的事件变成一条按服务的事件的聚合。 手法在[降噪模式](https://n9e.github.io/zh/docs/events/noise-patterns.md)里。
 
 ## 下一步[​](#下一步 "下��一步的直接链接")
 
-* 把已经有的噪音降下去：[降噪模式](https://n9e.github.io/zh/zh/docs/events/noise-patterns.md)
-* 让数字听话：[判定周期与恢复](https://n9e.github.io/zh/zh/docs/alerting/evaluation.md)
-* 给规则集做版本管理：[导入、导出与复用](https://n9e.github.io/zh/zh/docs/alerting/import-export.md)
-* 上生产之前：[生产环境检查清单](https://n9e.github.io/zh/zh/docs/get-started/production-checklist.md)
+* 把已经有的噪音降下去：[降噪模式](https://n9e.github.io/zh/docs/events/noise-patterns.md)
+* 让数字听话：[判定周期与恢复](https://n9e.github.io/zh/docs/alerting/evaluation.md)
+* 给规则集做版本管理：[导入、导出与复用](https://n9e.github.io/zh/docs/alerting/import-export.md)
+* 上生产之前：[生产环境检查清单](https://n9e.github.io/zh/docs/get-started/production-checklist.md)

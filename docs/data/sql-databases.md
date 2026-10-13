@@ -63,7 +63,7 @@ MySQL and PostgreSQL share one form; only the default port differs:
 | Max idle / max open connections                                    | Default 10 / 100. Lower them if the database is tight on connections          |
 | Maximum connection lifetime (unit: seconds)                        | Defaults to 14400                                                             |
 
-![The MySQL data source form](/img/docs/data/form-mysql.webp)![The MySQL data source form](/img/docs/data/form-mysql.dark.webp)
+![The MySQL data source form](https://n9e.github.io/img/docs/data/form-mysql.webp)![The MySQL data source form](https://n9e.github.io/img/docs/data/form-mysql.dark.webp)
 
 TDengine talks over its REST interface and needs fewer fields: URL `http://localhost:6041`, timeout in milliseconds (10000 by default), user and password as needed. The connectivity test posts `show databases` to `<URL>/rest/sql`.
 

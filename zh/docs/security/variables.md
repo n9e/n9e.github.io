@@ -12,7 +12,7 @@
 
 **系统配置 → 变量设置**（`/system/variable-settings`），右上角 **创 建**。
 
-![变量设置](/zh/img/docs/security/variables.zh.webp)![变量设置](/zh/img/docs/security/variables.zh.dark.webp)
+![变量设置](https://n9e.github.io/zh/img/docs/security/variables.zh.webp)![变量设置](https://n9e.github.io/zh/img/docs/security/variables.zh.dark.webp)
 
 | 字段     | 说明                                                       |
 | -------- | ---------------------------------------------------------- |
@@ -54,7 +54,7 @@
 
 它挡不住的是**能读数据库的人**：私钥和它的口令跟密文存在同一张 `configs` 表里。 这层加密解决的是「运维界面上的凭证可见性」，不是「数据库泄露」。 真正的边界在数据库访问控制上。
 
-权限上，这四个接口由 `/system/variable-settings` 权限点把守，**不是 `Admin` 专属**—— 这是系统配置里唯一的例外（见[角色与权限矩阵](https://n9e.github.io/zh/zh/docs/security/roles.md)）。但改和删还要再过一道： 你得是 `Admin`，或者是这条变量的创建人，否则返回 403。
+权限上，这四个接口由 `/system/variable-settings` 权限点把守，**不是 `Admin` 专属**—— 这是系统配置里唯一的例外（见[角色与权限矩阵](https://n9e.github.io/zh/docs/security/roles.md)）。但改和删还要再过一道： 你得是 `Admin`，或者是这条变量的创建人，否则返回 403。
 
 ## 4. 命名规则与保留字[​](#4-命名规则与保留字 "4. 命名规则与保留字的直接链接")
 
@@ -104,6 +104,6 @@ it renders as empty; check 变量配置 (system variable settings)
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 变量在通知里怎么用：[通知媒介](https://n9e.github.io/zh/zh/docs/notifications/dingtalk-feishu-wecom.md)
-* 配置文件里的凭证怎么存密文：[密钥管理](https://n9e.github.io/zh/zh/docs/security/secrets.md)
-* 谁能进这两个页面：[角色与权限矩阵](https://n9e.github.io/zh/zh/docs/security/roles.md)
+* 变量在通知里怎么用：[通知媒介](https://n9e.github.io/zh/docs/notifications/dingtalk-feishu-wecom.md)
+* 配置文件里的凭证怎么存密文：[密钥管理](https://n9e.github.io/zh/docs/security/secrets.md)
+* 谁能进这两个页面：[角色与权限矩阵](https://n9e.github.io/zh/docs/security/roles.md)

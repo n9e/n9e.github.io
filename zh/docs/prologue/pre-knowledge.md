@@ -32,13 +32,13 @@ sudo journalctl -u categraf.service -n 100 --no-pager
 
 先能做三件事：按标签选择时序、对 Counter 计算 `rate()`、按需要聚合多个实例。 指标阈值应建立在数据语义上，不能把累计计数直接当每秒请求量。
 
-Instant query 返回某个时刻的结果，Range query 返回一段时间内的序列；查询时间范围和步长影响展示。 在[即时查询](https://n9e.github.io/zh/zh/docs/query/metric-explorer.md)验证表达式，再放到[指标告警规则](https://n9e.github.io/zh/zh/docs/alerting/metric-rules.md)里。 表达式说明见 [Prometheus 查询文档](https://prometheus.io/docs/prometheus/latest/querying/basics/)。
+Instant query 返回某个时刻的结果，Range query 返回一段时间内的序列；查询时间范围和步长影响展示。 在[即时查询](https://n9e.github.io/zh/docs/query/metric-explorer.md)验证表达式，再放到[指标告警规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)里。 表达式说明见 [Prometheus 查询文档](https://prometheus.io/docs/prometheus/latest/querying/basics/)。
 
 ## Pull 与 Push[​](#collection-paths "Pull 与 Push的直接链接")
 
 Prometheus / vmagent 的抓取是 Pull：采集端知道一次抓取是否成功，可以产生 `up`。 Categraf Remote Write 是 Push：采集器主动发送指标，不能把它的链路直接套成抓取 `up` 的判断。
 
-夜莺 v9 可以使用内置时序库，也可以查询外置存储。已有 Prometheus 数据时，接数据源即可，不必迁移数据。 心跳元信息与时序写入也是两条不同链路，见 [Linux 机器监控](https://n9e.github.io/zh/zh/docs/practice/linux.md)。
+夜莺 v9 可以使用内置时序库，也可以查询外置存储。已有 Prometheus 数据时，接数据源即可，不必迁移数据。 心跳元信息与时序写入也是两条不同链路，见 [Linux 机器监控](https://n9e.github.io/zh/docs/practice/linux.md)。
 
 ## 排查与提问[​](#troubleshooting "排查与提问的直接链接")
 
@@ -55,6 +55,6 @@ Prometheus / vmagent 的抓取是 Pull：采集端知道一次抓取是否成功
 
 ## 下一步[​](#next "下一步的直接链接")
 
-* [快速开始](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
-* [系统架构](https://n9e.github.io/zh/zh/docs/concepts/architecture.md)
-* [数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)
+* [快速开始](https://n9e.github.io/zh/docs/get-started/quick-start.md)
+* [系统架构](https://n9e.github.io/zh/docs/concepts/architecture.md)
+* [数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/docs/troubleshooting/no-data.md)

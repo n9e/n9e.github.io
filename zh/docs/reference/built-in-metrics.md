@@ -12,7 +12,7 @@ curl http://n9e:17000/metrics
 
 由 `[HTTP] ExposeMetrics` 控制，默认开着。
 
-**告警系统自己挂了是不会给你发告警的**，所以这套指标该被你的监控系统抓走， 并配上规则——怎么配见[监控夜莺自身](https://n9e.github.io/zh/zh/docs/operations/self-monitoring.md)。
+**告警系统自己挂了是不会给你发告警的**，所以这套指标该被你的监控系统抓走， 并配上规则——怎么配见[监控夜莺自身](https://n9e.github.io/zh/docs/operations/self-monitoring.md)。
 
 ## 先看哪几个[​](#先看哪几个 "先看哪几个的直接链接")
 

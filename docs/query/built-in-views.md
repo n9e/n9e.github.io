@@ -18,7 +18,7 @@ Compared with the [Metrics explorer](https://n9e.github.io/docs/query/metric-exp
 
 ## 1. Set a filter before clicking a metric[​](#1-set-a-filter-before-clicking-a-metric "Direct link to 1. Set a filter before clicking a metric")
 
-![Built-in metrics](/img/docs/query/metrics-built-in.webp)![Built-in metrics](/img/docs/query/metrics-built-in.dark.webp)
+![Built-in metrics](https://n9e.github.io/img/docs/query/metrics-built-in.webp)![Built-in metrics](https://n9e.github.io/img/docs/query/metrics-built-in.dark.webp)
 
 The left column is **Filters**, and its job is to **attach a set of label conditions to the query whenever you click a metric**.
 

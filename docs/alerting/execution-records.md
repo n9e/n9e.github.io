@@ -10,7 +10,7 @@ Where this page ends: for any rule, you can pull up the last hour of evaluations
 
 **Alerts & Notifications → Alert rules**, hover the row of the rule, and click **Eval records** in the operations column.
 
-![The alert rule list](/img/docs/alerting/rule-list.webp)![The alert rule list](/img/docs/alerting/rule-list.dark.webp)
+![The alert rule list](https://n9e.github.io/img/docs/alerting/rule-list.webp)![The alert rule list](https://n9e.github.io/img/docs/alerting/rule-list.dark.webp)
 
 A drawer opens showing the last hour. Change the range with the time picker at the top, and use **Load earlier records** at the bottom to page backwards.
 

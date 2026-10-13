@@ -8,7 +8,7 @@ Where this page ends: a chain of processors attached to an alert rule or a notif
 
 In the UI this feature is called **Workflows**, under **Alerts & Notifications → Workflows** (`/event-pipelines`).
 
-![The workflow list](/img/docs/events/pipelines.webp)![The workflow list](/img/docs/events/pipelines.dark.webp)
+![The workflow list](https://n9e.github.io/img/docs/events/pipelines.webp)![The workflow list](https://n9e.github.io/img/docs/events/pipelines.dark.webp)
 
 ## 1. Create a workflow[​](#1-create-a-workflow "Direct link to 1. Create a workflow")
 

@@ -8,7 +8,7 @@
 
 界面上这个功能叫 **工作流**，入口是 **告警通知 → 工作流**（`/event-pipelines`）。
 
-![工作流列表](/zh/img/docs/events/pipelines.zh.webp)![工作流列表](/zh/img/docs/events/pipelines.zh.dark.webp)
+![工作流列表](https://n9e.github.io/zh/img/docs/events/pipelines.zh.webp)![工作流列表](https://n9e.github.io/zh/img/docs/events/pipelines.zh.dark.webp)
 
 ## 1. 新建一条工作流[​](#1-新建一条工作流 "1. 新建一条工作流的直接链接")
 
@@ -47,7 +47,7 @@
 {{ if eq $event.TagsMap.env "dev" }}true{{ end }}
 ```
 
-标签改写和事件更新怎么配，见[改写标签与补充上下文](https://n9e.github.io/zh/zh/docs/events/relabel-enrich.md)。 AI 摘要怎么接模型、写提示词、结果落在哪，见[AI 摘要处理器](https://n9e.github.io/zh/zh/docs/events/ai-summary.md)。
+标签改写和事件更新怎么配，见[改写标签与补充上下文](https://n9e.github.io/zh/docs/events/relabel-enrich.md)。 AI 摘要怎么接模型、写提示词、结果落在哪，见[AI 摘要处理器](https://n9e.github.io/zh/docs/events/ai-summary.md)。
 
 新建时那张处理器卡片**不预选类型**，必须自己从下拉里挑一个——类型是必填的，不选就存不下去， 提示是「请选择处理器类型，类型为空的处理器对每条事件都会执行失败」。这条校验存在的理由 也正是这句话。
 
@@ -62,7 +62,7 @@
 
 在通知规则的表单里，这一段叫 **事件处理工作流**，点「添加事件处理工作流」选中即可， 每条都能单独启用/停用。
 
-**Pipeline 在屏蔽之前跑**，所以挂在告警规则上的工作流改出来的标签，屏蔽规则能匹配到。 完整顺序见[降噪与路由模型](https://n9e.github.io/zh/zh/docs/concepts/noise-routing.md)。
+**Pipeline 在屏蔽之前跑**，所以挂在告警规则上的工作流改出来的标签，屏蔽规则能匹配到。 完整顺序见[降噪与路由模型](https://n9e.github.io/zh/docs/concepts/noise-routing.md)。
 
 ## 几个容易踩的点[​](#几个容易踩的点 "几个容易踩的点的直接链接")
 
@@ -73,7 +73,7 @@
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 上线前先跑一遍：[用模拟事件试跑](https://n9e.github.io/zh/zh/docs/events/try-workflow.md)
-* 跑完去哪看结果：[查看 Pipeline 执行记录](https://n9e.github.io/zh/zh/docs/events/execution-records.md)
-* 具体怎么改标签：[改写标签与补充上下文](https://n9e.github.io/zh/zh/docs/events/relabel-enrich.md)
-* 试跑通了线上不对：[工作流试跑通过但线上不生效](https://n9e.github.io/zh/zh/docs/troubleshooting/workflow-prod-fails.md)
+* 上线前先跑一遍：[用模拟事件试跑](https://n9e.github.io/zh/docs/events/try-workflow.md)
+* 跑完去哪看结果：[查看 Pipeline 执行记录](https://n9e.github.io/zh/docs/events/execution-records.md)
+* 具体怎么改标签：[改写标签与补充上下文](https://n9e.github.io/zh/docs/events/relabel-enrich.md)
+* 试跑通了线上不对：[工作流试跑通过但线上不生效](https://n9e.github.io/zh/docs/troubleshooting/workflow-prod-fails.md)

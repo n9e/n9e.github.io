@@ -12,13 +12,13 @@ Skill 是一份用 SKILL.md 描述的排查方法，可从市场安装或自己�
 
 于是 Skill 就是资深工程师方法论的落点：「MySQL 主从延迟告警来了，先看 `pt-heartbeat`， 再看复制线程，最后才看 binlog 大小。」写一次，之后所有人提问都按这个走。
 
-Skill 不是模型，也不是工具。模型来自[配置大模型提供方](https://n9e.github.io/zh/zh/docs/ai/llm-provider.md)， 工具是产品自带的。
+Skill 不是模型，也不是工具。模型来自[配置大模型提供方](https://n9e.github.io/zh/docs/ai/llm-provider.md)， 工具是产品自带的。
 
 ## 页面在哪[​](#页面在哪 "页面在哪的直接链接")
 
 **Nightingale AI → Skill 管理**，地址 `/nightingale-ai/skills`，老地址 `/ai-config/skills` 会跳过来。页面由权限点 `/ai-config/skills` 把守，**内置角色里只有 `Admin` 带这个点**—— 别人要用，就在**人员组织 → 角色管理**里给自定义角色勾上。
 
-![Skill 管理](/zh/img/docs/ai/skills.zh.webp)![Skill 管理](/zh/img/docs/ai/skills.zh.dark.webp)
+![Skill 管理](https://n9e.github.io/zh/img/docs/ai/skills.zh.webp)![Skill 管理](https://n9e.github.io/zh/img/docs/ai/skills.zh.dark.webp)
 
 左边是一棵树：一个 Skill 一个节点，展开是它的文件。**产品内置了 22 个 Skill**， 带**内置**标签——覆盖告警规则不触发的排查、主机健康与上线诊断、仪表盘分析与创建、 PromQL 和 SQL 生成、通知模板编写、Prometheus 规则导入、自愈脚本编写等等。 它们的每个文件都能打开来看，但下载不了也删不掉。 同时它们也是写自己 Skill 时最好的范例。
 
@@ -107,7 +107,7 @@ builtin_tools:
 
 私有 Skill 会从目录里对团队之外的人整个摘掉——模型根本不知道它存在， 既叫不出名字也加载不了。
 
-还有一个地方你的 Skill 永远不会出现：A2A 的 Agent Card 只公布内置 Skill， 所以第三方 Agent 发现夜莺时看到的是内置那批，不含你自己写的。 但它仍然能受益，因为问题命中时 Skill 是在服务端加载的——见 [A2A 端点](https://n9e.github.io/zh/zh/docs/ai/a2a.md)。
+还有一个地方你的 Skill 永远不会出现：A2A 的 Agent Card 只公布内置 Skill， 所以第三方 Agent 发现夜莺时看到的是内置那批，不含你自己写的。 但它仍然能受益，因为问题命中时 Skill 是在服务端加载的——见 [A2A 端点](https://n9e.github.io/zh/docs/ai/a2a.md)。
 
 ## 会跑脚本的 Skill[​](#会跑脚本的-skill "会跑脚本的 Skill的直接链接")
 
@@ -158,6 +158,6 @@ Path = "/opt/n9e/sandbox/python-base"
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 模型从哪来：[配置大模型提供方](https://n9e.github.io/zh/zh/docs/ai/llm-provider.md)
-* 助手拿 Skill 做什么：[Nightingale AI 概览](https://n9e.github.io/zh/zh/docs/ai/nightingale-ai.md)
-* 一切会改状态的动作的护栏：[安全的自动化模式](https://n9e.github.io/zh/zh/docs/ai/automation.md)
+* 模型从哪来：[配置大模型提供方](https://n9e.github.io/zh/docs/ai/llm-provider.md)
+* 助手拿 Skill 做什么：[Nightingale AI 概览](https://n9e.github.io/zh/docs/ai/nightingale-ai.md)
+* 一切会改状态的动作的护栏：[安全的自动化模式](https://n9e.github.io/zh/docs/ai/automation.md)

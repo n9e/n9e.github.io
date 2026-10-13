@@ -8,16 +8,16 @@
 
 ## 每个进程都有的端点[​](#每个进程都有的端点 "每个进程都有的端点的直接链接")
 
-| 端点                     | 返回                      | 用途                                                                                          |
-| ------------------------ | ------------------------- | --------------------------------------------------------------------------------------------- |
-| `GET /ping`              | `pong`                    | 负载均衡和 K8s 探针用这个，最轻                                                               |
-| `GET /pid`               | 进程 PID                  | 确认你连到的是哪个进程                                                                        |
-| `GET /ppid`              | 父进程 PID                | 判断是不是被 supervisor 拉起来的                                                              |
-| `GET /addr`              | 请求方的地址              | 排查「我到底是从哪个 IP 连过来的」                                                            |
-| `GET /api/n9e/version`   | 版本号，例如 `v9.1.1`     | 滚动升级时逐个实例确认版本                                                                    |
-| `GET /metrics`           | Prometheus 格式的自身指标 | 见下一节                                                                                      |
-| `GET /api/debug/pprof/*` | Go pprof                  | 排查 CPU / 内存，见[日志与诊断包](https://n9e.github.io/zh/zh/docs/operations/diagnostics.md) |
-| `GET /dumper/sync`       | 各类配置的同步状态        | **只接受本机请求**，排查「改了配置没生效」                                                    |
+| 端点                     | 返回                      | 用途                                                                                       |
+| ------------------------ | ------------------------- | ------------------------------------------------------------------------------------------ |
+| `GET /ping`              | `pong`                    | 负载均衡和 K8s 探针用这个，最轻                                                            |
+| `GET /pid`               | 进程 PID                  | 确认你连到的是哪个进程                                                                     |
+| `GET /ppid`              | 父进程 PID                | 判断是不是被 supervisor 拉起来的                                                           |
+| `GET /addr`              | 请求方的地址              | 排查「我到底是从哪个 IP 连过来的」                                                         |
+| `GET /api/n9e/version`   | 版本号，例如 `v9.1.1`     | 滚动升级时逐个实例确认版本                                                                 |
+| `GET /metrics`           | Prometheus 格式的自身指标 | 见下一节                                                                                   |
+| `GET /api/debug/pprof/*` | Go pprof                  | 排查 CPU / 内存，见[日志与诊断包](https://n9e.github.io/zh/docs/operations/diagnostics.md) |
+| `GET /dumper/sync`       | 各类配置的同步状态        | **只接受本机请求**，排查「改了配置没生效」                                                 |
 
 验一下：
 
@@ -81,7 +81,7 @@ curl --noproxy '*' http://n9e:17000/api/n9e/version # v9.1.1
 
 版本信息在**系统配置 → 关于产品**：前端版本、后端版本，以及各数据源支持哪些功能。
 
-![关于产品页](/zh/img/docs/operations/about.zh.webp)![关于产品页](/zh/img/docs/operations/about.zh.dark.webp)
+![关于产品页](https://n9e.github.io/zh/img/docs/operations/about.zh.webp)![关于产品页](https://n9e.github.io/zh/img/docs/operations/about.zh.dark.webp)
 
 ## 带标签的计数器一开始并不存在[​](#带标签的计数器一开始并不存在 "带标签的计数器一开始并不存在的直接链接")
 
@@ -92,7 +92,7 @@ Prometheus 的 `CounterVec` 只有在某个标签组合第一次被记录时才�
 * 用 `absent(n9e_alert_rule_eval_error_total)` 判断「有没有错误」——它在一切正常时永远告警；
 * 直接对错误计数做阈值告警而不加 `rate()`——首次出现时会从无到有跳一下。
 
-可靠的写法是对**一定会存在**的指标做判断，比如 `n9e_alert_rule_eval_total` 的增长率。 具体规则见[监控夜莺自身](https://n9e.github.io/zh/zh/docs/operations/self-monitoring.md)。
+可靠的写法是对**一定会存在**的指标做判断，比如 `n9e_alert_rule_eval_total` 的增长率。 具体规则见[监控夜莺自身](https://n9e.github.io/zh/docs/operations/self-monitoring.md)。
 
 ## 把这些端点收口[​](#把这些端点收口 "把这些端点收口的直接链接")
 
@@ -104,7 +104,7 @@ Prometheus 的 `CounterVec` 只有在某个标签组合第一次被记录时才�
 
 ## 相关[​](#相关 "�相关的直接链接")
 
-* [监控夜莺自身](https://n9e.github.io/zh/zh/docs/operations/self-monitoring.md)
-* [日志与诊断包](https://n9e.github.io/zh/zh/docs/operations/diagnostics.md)
-* [高可用与故障域](https://n9e.github.io/zh/zh/docs/operations/high-availability.md)
-* [端口与网络](https://n9e.github.io/zh/zh/docs/reference/ports.md)
+* [监控夜莺自身](https://n9e.github.io/zh/docs/operations/self-monitoring.md)
+* [日志与诊断包](https://n9e.github.io/zh/docs/operations/diagnostics.md)
+* [高可用与故障域](https://n9e.github.io/zh/docs/operations/high-availability.md)
+* [端口与网络](https://n9e.github.io/zh/docs/reference/ports.md)

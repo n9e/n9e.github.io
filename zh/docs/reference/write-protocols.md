@@ -6,7 +6,7 @@ Prometheus Remote Write、OpenTSDB、Datadog、Falcon：端点、报文、标签
 
 夜莺接收数据的能力叫 Pushgw，在 Center 进程里（也可以拆成独立的 `n9e-pushgw`）。 **它不长期存数据**——收下来之后按 `[[Pushgw.Writers]]` 的配置转发给一个或多个时序库， 内置时序库开着的话也会写一份。
 
-不用非得走这条路：你已有的 Prometheus 继续抓、夜莺只查询，同样能配告警。 两种接法的差别见[在可观测体系中的位置](https://n9e.github.io/zh/zh/docs/get-started/where-it-fits.md)。
+不用非得走这条路：你已有的 Prometheus 继续抓、夜莺只查询，同样能配告警。 两种接法的差别见[在可观测体系中的位置](https://n9e.github.io/zh/docs/get-started/where-it-fits.md)。
 
 ## 端点[​](#端点 "端点的直接链接")
 
@@ -65,10 +65,10 @@ Url = "http://prometheus:9090/api/v1/write"
 
 转发给 Prometheus 的话，**Prometheus 启动参数要加 `--web.enable-remote-write-receiver`**（老版本是 `--enable-feature=remote-write-receiver`）， 否则 `/api/v1/write` 根本没在监听，夜莺转发时会收到 404。
 
-内置时序库和外部时序库可以同时写，这就是迁移窗口， 见[外部时序库与双写迁移](https://n9e.github.io/zh/zh/docs/install/external-tsdb.md)。
+内置时序库和外部时序库可以同时写，这就是迁移窗口， 见[外部时序库与双写迁移](https://n9e.github.io/zh/docs/install/external-tsdb.md)。
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [Categraf Remote Write](https://n9e.github.io/zh/zh/docs/data/categraf/remote-write.md)
-* [Pushgw 队列与双写](https://n9e.github.io/zh/zh/docs/operations/pushgw.md)
-* [端口与网络流向](https://n9e.github.io/zh/zh/docs/reference/ports.md)
+* [Categraf Remote Write](https://n9e.github.io/zh/docs/data/categraf/remote-write.md)
+* [Pushgw 队列与双写](https://n9e.github.io/zh/docs/operations/pushgw.md)
+* [端口与网络流向](https://n9e.github.io/zh/docs/reference/ports.md)

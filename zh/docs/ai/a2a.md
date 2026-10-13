@@ -15,7 +15,7 @@ A2A 端点把夜莺暴露成可被其他 Agent 平台发现和调用的 Agent，
 | 需要配大模型吗 | **不需要**——工具直接打到夜莺 API         | **需要**，它驱动的就是内置助手 |
 | 适合谁         | Claude Code、Cursor 这类自带模型的客户端 | 别人家的 Agent 编排平台        |
 
-两个端点默认都开着，用同一套鉴权。**A2A 在页面上答不上来的问题， 在 A2A 上也答不上来**——先在 Nightingale AI 里聊通了再说，见 [Nightingale AI 概览](https://n9e.github.io/zh/zh/docs/ai/nightingale-ai.md)。
+两个端点默认都开着，用同一套鉴权。**A2A 在页面上答不上来的问题， 在 A2A 上也答不上来**——先在 Nightingale AI 里聊通了再说，见 [Nightingale AI 概览](https://n9e.github.io/zh/docs/ai/nightingale-ai.md)。
 
 ## Agent Card：第三方唯一需要的地址[​](#agent-card第三方唯一需要的地址 "Agent Card：第三方唯一需要的地址的直接链接")
 
@@ -160,6 +160,6 @@ Disable = true   # /a2a、/mcp、Agent Card 一起关
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 先把助手聊通：[Nightingale AI 概览](https://n9e.github.io/zh/zh/docs/ai/nightingale-ai.md)
-* 换成 OAuth 让对方用自己的账号：[OAuth 2.1 与外部身份源](https://n9e.github.io/zh/zh/docs/ai/oauth.md)
-* 细粒度工具那条路：[启用 MCP 端点](https://n9e.github.io/zh/zh/docs/ai/mcp-endpoint.md)
+* 先把助手聊通：[Nightingale AI 概览](https://n9e.github.io/zh/docs/ai/nightingale-ai.md)
+* 换成 OAuth 让对方用自己的账号：[OAuth 2.1 与外部身份源](https://n9e.github.io/zh/docs/ai/oauth.md)
+* 细粒度工具那条路：[启用 MCP 端点](https://n9e.github.io/zh/docs/ai/mcp-endpoint.md)

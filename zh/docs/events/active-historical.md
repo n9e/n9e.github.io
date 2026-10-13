@@ -27,7 +27,7 @@
 
 ## 找到你要的那条[​](#找到你要的那条 "找到你要的那条的直接链接")
 
-![活跃告警](/zh/img/docs/events/active-events.zh.webp)![活跃告警](/zh/img/docs/events/active-events.zh.dark.webp)
+![活跃告警](https://n9e.github.io/zh/img/docs/events/active-events.zh.webp)![活跃告警](https://n9e.github.io/zh/img/docs/events/active-events.zh.dark.webp)
 
 顶部一行：
 
@@ -40,31 +40,31 @@
 
 表格里每行左边有一条竖色条，颜色就是级别；**持续时长** 那一格下面的彩条按时长从绿到红， 一眼能看出哪条烧得最久。
 
-条数还是太多时，用列表上方的 **聚合规则** 把它们折成卡片，见 [事件聚合与去重](https://n9e.github.io/zh/zh/docs/events/aggregation.md)。
+条数还是太多时，用列表上方的 **聚合规则** 把它们折成卡片，见 [事件聚合与去重](https://n9e.github.io/zh/docs/events/aggregation.md)。
 
 ## 打开一条事件看什么[​](#打开一条事件看什么 "打开一条事件看什么的直接链接")
 
 点事件标题（蓝色那行）从右侧滑出详情。除了规则名、级别、标签、首次触发时间、触发时值， 有三处值得专门看：
 
 * **查询语句**：规则实际执行的 PromQL / SQL，旁边有按钮直接拿去复算， 用来判断「是数据真的异常，还是阈值写错了」；
-* **通知记录**：这条事件被推到了哪些媒介、成没成功、失败的返回是什么。 收不到通知时先看这里，再看 [有告警事件，为什么收不到通知？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)；
+* **通知记录**：这条事件被推到了哪些媒介、成没成功、失败的返回是什么。 收不到通知时先看这里，再看 [有告警事件，为什么收不到通知？](https://n9e.github.io/zh/docs/troubleshooting/no-notification.md)；
 * **Hash**：事件指纹（规则 + 标签算出来的），排查「为什么这两条被当成同一个事件」时 直接复制比对。
 
 底部三个按钮：
 
-* **屏蔽**：拿当前事件的标签预填一条屏蔽规则，跳到新建屏蔽页。这是最常用的止吵入口， 见[屏蔽规则](https://n9e.github.io/zh/zh/docs/events/mute-rules.md)；
+* **屏蔽**：拿当前事件的标签预填一条屏蔽规则，跳到新建屏蔽页。这是最常用的止吵入口， 见[屏蔽规则](https://n9e.github.io/zh/docs/events/mute-rules.md)；
 * **删除**：物理删掉这条事件。**只在确定这个指标再也不会上报时才用**（机器下线、标签改名）—— 这类事件永远等不到恢复。其他情况让它自然恢复；
-* **分享链接**：签一条免登录的只读链接，默认 7 天，发给协作方看。机制和 [匿名限时分享](https://n9e.github.io/zh/zh/docs/query/sharing.md)一样，只是分享的是一条事件。
+* **分享链接**：签一条免登录的只读链接，默认 7 天，发给协作方看。机制和 [匿名限时分享](https://n9e.github.io/zh/docs/query/sharing.md)一样，只是分享的是一条事件。
 
 ## 批量处置[​](#批量处置 "批量处置的直接链接")
 
 勾选多行后，列表上方出现批量操作。开源版能批量**删除**。
 
-删除不等于屏蔽：规则本身没被禁用，下一个判定周期条件还成立的话，会重新烧出一条新事件 （Hash 可能和刚才那条一样）。想长期止吵，去[屏蔽规则](https://n9e.github.io/zh/zh/docs/events/mute-rules.md)， 或者干脆停用规则。
+删除不等于屏蔽：规则本身没被禁用，下一个判定周期条件还成立的话，会重新烧出一条新事件 （Hash 可能和刚才那条一样）。想长期止吵，去[屏蔽规则](https://n9e.github.io/zh/docs/events/mute-rules.md)， 或者干脆停用规则。
 
 ## 历史事件：导出与清理[​](#历史事件导出与清理 "历史事件：导出与清理的直接链接")
 
-![历史告警](/zh/img/docs/events/historical-events.zh.webp)![历史告警](/zh/img/docs/events/historical-events.zh.dark.webp)
+![历史告警](https://n9e.github.io/zh/img/docs/events/historical-events.zh.webp)![历史告警](https://n9e.github.io/zh/img/docs/events/historical-events.zh.dark.webp)
 
 历史告警的列和活跃告警不同：**首次触发时间**（第一次进告警状态）和 **检测时间**（最后一次判定确认它还在告警 / 已恢复）分成两列，复盘时间线时看这两个。
 
@@ -77,7 +77,7 @@
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 让某类事件在窗口期内别吵：[屏蔽规则](https://n9e.github.io/zh/zh/docs/events/mute-rules.md)
-* 让另一个团队也收到：[订阅规则](https://n9e.github.io/zh/zh/docs/events/subscriptions.md)
-* 事件到人之间还会经历什么：[降噪与路由模型](https://n9e.github.io/zh/zh/docs/concepts/noise-routing.md)
-* 事件一直不恢复：[告警反复触发和恢复](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-flapping.md)
+* 让某类事件在窗口期内别吵：[屏蔽规则](https://n9e.github.io/zh/docs/events/mute-rules.md)
+* 让另一个团队也收到：[订阅规则](https://n9e.github.io/zh/docs/events/subscriptions.md)
+* 事件到人之间还会经历什么：[降噪与路由模型](https://n9e.github.io/zh/docs/concepts/noise-routing.md)
+* 事件一直不恢复：[告警反复触发和恢复](https://n9e.github.io/zh/docs/troubleshooting/alert-flapping.md)

@@ -22,7 +22,7 @@ mv /opt/n9e/integrations /opt/n9e/integrations.bak
 
 数据库是唯一不可再生的那份，其余三样只是省事。`./n9e -version` 会打印当前版本， 把它拼进备份文件名，回滚时不用猜。
 
-再去读一遍目标版本的发布说明。跨大版本时先看 [v8 升级 v9](https://n9e.github.io/zh/zh/docs/migration/v8-to-v9.md)，那页列了必须手工补的配置段。
+再去读一遍目标版本的发布说明。跨大版本时先看 [v8 升级 v9](https://n9e.github.io/zh/docs/migration/v8-to-v9.md)，那页列了必须手工补的配置段。
 
 ## 小版本升级[​](#小版本升级 "小版本升级的直接链接")
 
@@ -72,12 +72,12 @@ grep -i "failed to migrate table" /opt/n9e/logs/*.log
 
 然后打开**系统配置 → 关于产品**，页面上的版本号应该和命令行一致：
 
-![关于产品页](/zh/img/docs/operations/about.zh.webp)![关于产品页](/zh/img/docs/operations/about.zh.dark.webp)
+![关于产品页](https://n9e.github.io/zh/img/docs/operations/about.zh.webp)![关于产品页](https://n9e.github.io/zh/img/docs/operations/about.zh.dark.webp)
 
 最后确认功能没坏：随便打开一个仪表盘看图出得来、去告警事件页看新事件还在产生。 大表（`alert_his_event`、`notification_record`）的索引是**启动后异步建的**， 大库上可能要几十分钟，这期间服务照常可用，不要因为看到建索引的日志就重启。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* [回滚](https://n9e.github.io/zh/zh/docs/install/rollback.md)——升级不顺利时怎么退回去
-* [v8 升级 v9](https://n9e.github.io/zh/zh/docs/migration/v8-to-v9.md)——跨大版本的不兼容点
-* [升级与数据库迁移](https://n9e.github.io/zh/zh/docs/operations/upgrade.md)——表结构迁移的机制
+* [回滚](https://n9e.github.io/zh/docs/install/rollback.md)——升级不顺利时怎么退回去
+* [v8 升级 v9](https://n9e.github.io/zh/docs/migration/v8-to-v9.md)——跨大版本的不兼容点
+* [升级与数据库迁移](https://n9e.github.io/zh/docs/operations/upgrade.md)——表结构迁移的机制

@@ -16,7 +16,7 @@ Where this page ends: one rule you wrote yourself has produced a real event, and
 
 **Alerts & Notifications → Alert rules**. Pick a business group in the left tree — the rule belongs to it, and so will every event it produces. Then **Add**.
 
-![The new alert rule form](/img/docs/alerting/rule-form.webp)![The new alert rule form](/img/docs/alerting/rule-form.dark.webp)
+![The new alert rule form](https://n9e.github.io/img/docs/alerting/rule-form.webp)![The new alert rule form](https://n9e.github.io/img/docs/alerting/rule-form.dark.webp)
 
 The form is six steps down the middle, with a live **Rule summary** on the right that fills in as you type. The controls at the top — **Core steps only**, **Expand all**, **Collapse sidebar** — change how much of it is on screen; they change nothing about the rule.
 

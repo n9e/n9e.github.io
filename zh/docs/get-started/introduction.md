@@ -30,4 +30,4 @@
 
 Apache-2.0 全功能开源。
 
-下一步：[快速开始](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)。
+下一步：[快速开始](https://n9e.github.io/zh/docs/get-started/quick-start.md)。

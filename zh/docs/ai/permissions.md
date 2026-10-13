@@ -32,7 +32,7 @@
                      我所在的某个团队对规则所属的业务组有写权限
 ```
 
-`Admin` 角色会绕过第二层。所以**给 AI 用的账号不要给 `Admin`**—— 给了就等于把所有业务组一起给了。完整的模型见 [认证、Token 与权限模型](https://n9e.github.io/zh/zh/docs/concepts/auth-rbac.md)。
+`Admin` 角色会绕过第二层。所以**给 AI 用的账号不要给 `Admin`**—— 给了就等于把所有业务组一起给了。完整的模型见 [认证、Token 与权限模型](https://n9e.github.io/zh/docs/concepts/auth-rbac.md)。
 
 ## 业务组是怎么落到工具上的[​](#业务组是怎么落到工具上的 "业务组是怎么落到工具上的的直接链接")
 
@@ -48,7 +48,7 @@
 
 **一、OAuth Token 只在 agent 面生效。** 通过内置授权服务器或外部 IdP 拿到的 access token， 只能用在 `/a2a` 和 `/mcp` 上，拿去调 `/api/n9e/*` 的其他接口会被拒。 个人 Token 没有这个限制。
 
-**二、写工具默认根本没注册。** 32 个写工具在 `MCPEnableWriteTools = true` 之前 不出现在 `tools/list` 里——这是在 RBAC 之外多加的一道闸， 和账号权限无关。见 [安全地启用写工具](https://n9e.github.io/zh/zh/docs/ai/write-tools.md)。
+**二、写工具默认根本没注册。** 32 个写工具在 `MCPEnableWriteTools = true` 之前 不出现在 `tools/list` 里——这是在 RBAC 之外多加的一道闸， 和账号权限无关。见 [安全地启用写工具](https://n9e.github.io/zh/docs/ai/write-tools.md)。
 
 **三、「只读工具」不等于「无副作用」。** `logs` 工具集里的 `query_logs` 把查询体原样透传给夜莺的日志查询接口，而这个接口会按你传的数据源类型分发。 如果你注册了 MySQL、PostgreSQL、ClickHouse、Doris、TDengine 这类 SQL 数据源， 那条 SQL 是照写照执行的。这条路径上**有**一层只读校验 （`aiagent/tools/datasource_query.go` 里的 `validateReadOnlySQL`）， 但它是关键字黑名单——语句以 `INSERT`、`UPDATE`、`DELETE`、`DROP`、`ALTER`、`CREATE`、 `TRUNCATE`、`REPLACE`、`GRANT`、`REVOKE` 开头或包含这些词就拒掉。 明显的写操作能挡住，但它不是 SQL 解析器，只能当纵深防御，不能当保证。 **注册了 SQL 数据源、又要开 MCP 的话，用 `MCPToolsets` 把 `logs` 摘掉**， 或者给 AI 账号一个连不到这些数据源的角色。
 
@@ -74,6 +74,6 @@ curl -s -X POST http://127.0.0.1:17000/mcp \
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 建账号和 Token：[个人 Token 认证](https://n9e.github.io/zh/zh/docs/ai/token-auth.md)
-* 权限点全表：[权限矩阵](https://n9e.github.io/zh/zh/docs/reference/permissions.md)
-* 业务组模型：[业务组](https://n9e.github.io/zh/zh/docs/concepts/business-groups.md)
+* 建账号和 Token：[个人 Token 认证](https://n9e.github.io/zh/docs/ai/token-auth.md)
+* 权限点全表：[权限矩阵](https://n9e.github.io/zh/docs/reference/permissions.md)
+* 业务组模型：[业务组](https://n9e.github.io/zh/docs/concepts/business-groups.md)

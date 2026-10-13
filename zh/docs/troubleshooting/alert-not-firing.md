@@ -31,7 +31,7 @@ for=180s elapsed=45s
 
 意思是持续时长要 180 秒，目前才满足了 45 秒——不是不触发，是还没到时候。
 
-`anomaly_total` 是 0，说明**查询这一步就没有越阈的序列**——不是判定的问题， 回到查询本身：[数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)。
+`anomaly_total` 是 0，说明**查询这一步就没有越阈的序列**——不是判定的问题， 回到查询本身：[数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/docs/troubleshooting/no-data.md)。
 
 ## 规则根本没进入评估[​](#规则根本没进入评估 "规则根本没进入评估的直接链接")
 
@@ -88,8 +88,8 @@ for=180s elapsed=45s
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 判定记录本身是空的：[判定记录为什么缺失或被丢弃？](https://n9e.github.io/zh/zh/docs/troubleshooting/evaluation-missing.md)
-* 事件有了但没通知：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)
-* 反复触发/不恢复：[告警为什么反复触发或从不恢复？](https://n9e.github.io/zh/zh/docs/troubleshooting/alert-flapping.md)
-* 判定与恢复的完整模型：[判定、恢复与状态变化](https://n9e.github.io/zh/zh/docs/concepts/evaluation.md)
-* 判定记录页面怎么读：[判定执行记录](https://n9e.github.io/zh/zh/docs/alerting/execution-records.md)
+* 判定记录本身是空的：[判定记录为什么缺失或被丢弃？](https://n9e.github.io/zh/docs/troubleshooting/evaluation-missing.md)
+* 事件有了但没通知：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/docs/troubleshooting/no-notification.md)
+* 反复触发/不恢复：[告警为什么反复触发或从不恢复？](https://n9e.github.io/zh/docs/troubleshooting/alert-flapping.md)
+* 判定与恢复的完整模型：[判定、恢复与状态变化](https://n9e.github.io/zh/docs/concepts/evaluation.md)
+* 判定记录页面怎么读：[判定执行记录](https://n9e.github.io/zh/docs/alerting/execution-records.md)

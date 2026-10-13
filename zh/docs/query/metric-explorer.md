@@ -10,7 +10,7 @@
 
 **数据查询 → 指标**（`/metric/explorer`），默认落在 **即时查询** 这个 tab 上。
 
-![即时查询](/zh/img/docs/query/metric-explorer.zh.webp)![即时查询](/zh/img/docs/query/metric-explorer.zh.dark.webp)
+![即时查询](https://n9e.github.io/zh/img/docs/query/metric-explorer.zh.webp)![即时查询](https://n9e.github.io/zh/img/docs/query/metric-explorer.zh.dark.webp)
 
 顶上那一行：
 
@@ -26,7 +26,7 @@
 up
 ```
 
-预期结果：**表格 (Table)** 里列出一行行序列和它们的瞬时值，左上角的「序列 (N)」是条数。 一条都没有，先看[数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)。
+预期结果：**表格 (Table)** 里列出一行行序列和它们的瞬时值，左上角的「序列 (N)」是条数。 一条都没有，先看[数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/docs/troubleshooting/no-data.md)。
 
 ## 2. 表格和图表看的不是同一份数据[​](#2-表格和图表看的不是同一份数据 "2. 表格和图表看的不是同一份数据的直接链接")
 
@@ -45,7 +45,7 @@ up
 
 输入框旁边有三个入口：
 
-* **内置指标**（输入框左侧）：按组件类型和分类挑指标名，选完直接填进输入框。 这个目录怎么维护见[内置指标视图](https://n9e.github.io/zh/zh/docs/query/built-in-views.md)；
+* **内置指标**（输入框左侧）：按组件类型和分类挑指标名，选完直接填进输入框。 这个目录怎么维护见[内置指标视图](https://n9e.github.io/zh/docs/query/built-in-views.md)；
 * **放大镜**（输入框右侧）：按名字搜指标，看它有哪些标签、标签有哪些取值；
 * **历史记录**：你在这个数据源上跑过的 PromQL，最多留 100 条，点一条填回输入框。 它存在你自己的浏览器里，换台机器就没有了。
 
@@ -53,19 +53,19 @@ up
 
 页面最下面的 **添加面板** 会在下方再叠一个完整的查询面板，各自选数据源、各自写 PromQL， 适合把两个数据源的同一个指标摆在一起看。面板多于一个时，每个右上角会出现关闭图标。
 
-**它不是「添加到仪表盘」。** 加出来的面板只活在这个页面上，刷新就没了。要留下来得去 [创建仪表盘](https://n9e.github.io/zh/zh/docs/query/dashboards.md)。
+**它不是「添加到仪表盘」。** 加出来的面板只活在这个页面上，刷新就没了。要留下来得去 [创建仪表盘](https://n9e.github.io/zh/docs/query/dashboards.md)。
 
 ## 把这条查询带走[​](#把这条查询带走 "把这条查询带走的直接链接")
 
 跑通之后，同一段 PromQL 有四个去处：
 
-* **变成告警规则**：告警通知 → 规则管理 → 新增，数据源和 PromQL 原样粘过去， 再把阈值写进表达式。见[指标告警规则](https://n9e.github.io/zh/zh/docs/alerting/metric-rules.md)；
-* **变成面板**：仪表盘里新建图表用的是同一套查询编辑器，见[创建仪表盘](https://n9e.github.io/zh/zh/docs/query/dashboards.md)；
-* **变成新指标**：查询太重就预算成记录规则，见[记录规则](https://n9e.github.io/zh/zh/docs/query/recording-rules.md)；
-* **发给别人看一眼**：切到 **图表 (Graph)**，右上角的分享图标会把当前这条查询存成一张 临时图，给你一条 `/chart/<id>` 链接，对方不用登录就能打开。**这条链接不会过期， 也没有注销入口**，别拿它当受控的对外分享，见[匿名限时分享](https://n9e.github.io/zh/zh/docs/query/sharing.md)。
+* **变成告警规则**：告警通知 → 规则管理 → 新增，数据源和 PromQL 原样粘过去， 再把阈值写进表达式。见[指标告警规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)；
+* **变成面板**：仪表盘里新建图表用的是同一套查询编辑器，见[创建仪表盘](https://n9e.github.io/zh/docs/query/dashboards.md)；
+* **变成新指标**：查询太重就预算成记录规则，见[记录规则](https://n9e.github.io/zh/docs/query/recording-rules.md)；
+* **发给别人看一眼**：切到 **图表 (Graph)**，右上角的分享图标会把当前这条查询存成一张 临时图，给你一条 `/chart/<id>` 链接，对方不用登录就能打开。**这条链接不会过期， 也没有注销入口**，别拿它当受控的对外分享，见[匿名限时分享](https://n9e.github.io/zh/docs/query/sharing.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 日志怎么查：[日志检索与索引模式](https://n9e.github.io/zh/zh/docs/query/log-explorer.md)
-* 想直接从一台机器看起：[对象快捷视图](https://n9e.github.io/zh/zh/docs/query/object-view.md)
-* 指标名和标签是怎么来的：[指标、标签与序列](https://n9e.github.io/zh/zh/docs/concepts/data-model.md)
+* 日志怎么查：[日志检索与索引模式](https://n9e.github.io/zh/docs/query/log-explorer.md)
+* 想直接从一台机器看起：[对象快捷视图](https://n9e.github.io/zh/docs/query/object-view.md)
+* 指标名和标签是怎么来的：[指标、标签与序列](https://n9e.github.io/zh/docs/concepts/data-model.md)

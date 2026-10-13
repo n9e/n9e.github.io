@@ -104,7 +104,7 @@ SELECT avg(current) AS current FROM power.meters WHERE ts >= $from AND ts < $to
 $A.value > 10
 ```
 
-`$A.<列名>` 是那一列的值。`$A.<标签名>` 是标签，而标签是**字符串**—— `$A.service == 'checkout'` 可以，`$A.service > 10` 是类型错误， 引擎会静默地当成「条件不满足」。用[模拟触发](https://n9e.github.io/zh/zh/docs/alerting/test-fire.md)验一下， 它会拿真实的行实算表达式，把错误报出来而不是吞掉。
+`$A.<列名>` 是那一列的值。`$A.<标签名>` 是标签，而标签是**字符串**—— `$A.service == 'checkout'` 可以，`$A.service > 10` 是类型错误， 引擎会静默地当成「条件不满足」。用[模拟触发](https://n9e.github.io/zh/docs/alerting/test-fire.md)验一下， 它会拿真实的行实算表达式，把错误报出来而不是吞掉。
 
 多条查询用 `&&`、`||` 组合，**集合操作**控制它们标签集不同时的行怎么对起来。
 
@@ -112,7 +112,7 @@ $A.value > 10
 
 每条判定条件上的**恢复条件**下拉，在 SQL 这里比在别处更要紧。 *必须查到数据且不满足告警条件才恢复*会让告警在数据库连不上时保持， 这几乎总是你想要的：一个查不动的数据库不等于一个健康的数据库。
 
-MySQL、PostgreSQL、TDengine、IoTDB 默认选中的就是它——但 **ClickHouse 和 Doris 被归为日志类**， 默认停在*查不到数据就恢复*上。这两种要自己显式改。见[判定周期与恢复](https://n9e.github.io/zh/zh/docs/alerting/evaluation.md)。
+MySQL、PostgreSQL、TDengine、IoTDB 默认选中的就是它——但 **ClickHouse 和 Doris 被归为日志类**， 默认停在*查不到数据就恢复*上。这两种要自己显式改。见[判定周期与恢复](https://n9e.github.io/zh/docs/alerting/evaluation.md)。
 
 ## 各数据源的额外约束[​](#各数据源的额外约束 "各数据源的额外约束的直接链接")
 
@@ -127,10 +127,10 @@ MySQL、PostgreSQL、TDengine、IoTDB 默认选中的就是它——但 **ClickH
 
 在夜莺里能跑这条语句的地方，是规则表单里查询卡片上的**数据预览**。 它会把 SQL 打到选中的数据源上，展示结果序列——名称、标签、值—— 而这正是判定表达式将会看到的东西。预览里的列和你预期的不一样， 就先把值字段和标签字段改对，再往下走。
 
-然后用[模拟触发](https://n9e.github.io/zh/zh/docs/alerting/test-fire.md)核判定表达式，保存之后用 [判定执行记录](https://n9e.github.io/zh/zh/docs/alerting/execution-records.md)看生产环境里每个周期返回了什么。
+然后用[模拟触发](https://n9e.github.io/zh/docs/alerting/test-fire.md)核判定表达式，保存之后用 [判定执行记录](https://n9e.github.io/zh/docs/alerting/execution-records.md)看生产环境里每个周期返回了什么。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 时间参数与恢复：[判定周期与恢复](https://n9e.github.io/zh/zh/docs/alerting/evaluation.md)
-* 改成对日志告警：[日志规则](https://n9e.github.io/zh/zh/docs/alerting/log-rules.md)
-* 先把数据库接进来：[SQL 数据库](https://n9e.github.io/zh/zh/docs/data/sql-databases.md)、[ClickHouse、Doris 与 IoTDB](https://n9e.github.io/zh/zh/docs/data/clickhouse-doris-iotdb.md)
+* 时间参数与恢复：[判定周期与恢复](https://n9e.github.io/zh/docs/alerting/evaluation.md)
+* 改成对日志告警：[日志规则](https://n9e.github.io/zh/docs/alerting/log-rules.md)
+* 先把数据库接进来：[SQL 数据库](https://n9e.github.io/zh/docs/data/sql-databases.md)、[ClickHouse、Doris 与 IoTDB](https://n9e.github.io/zh/docs/data/clickhouse-doris-iotdb.md)

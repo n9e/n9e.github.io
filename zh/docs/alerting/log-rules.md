@@ -17,7 +17,7 @@
 | VictoriaLogs  | 同一个区块                                | `$A.<stats 别名> > 100`  |
 | Loki          | **写在 LogQL 里**，和 Prometheus 规则一样 | 没有——它就是查询的一部分 |
 
-Loki 是那个例外，单独放在下面讲。其余三种共用 [判定周期与恢复](https://n9e.github.io/zh/zh/docs/alerting/evaluation.md)里描述的那套判定条件模型。
+Loki 是那个例外，单独放在下面讲。其余三种共用 [判定周期与恢复](https://n9e.github.io/zh/docs/alerting/evaluation.md)里描述的那套判定条件模型。
 
 ## Elasticsearch 与 OpenSearch[​](#elasticsearch-与-opensearch "Elasticsearch 与 OpenSearch的直接链接")
 
@@ -56,7 +56,7 @@ $A > 100 && $B < 10
 
 Elasticsearch 里引用一条查询用裸的 `$A`。多加几张查询卡片就有了 `$B`、`$C`，可以组合。
 
-有两件事会**静默失效**，所以要用[模拟触发](https://n9e.github.io/zh/zh/docs/alerting/test-fire.md)验一下：
+有两件事会**静默失效**，所以要用[模拟触发](https://n9e.github.io/zh/docs/alerting/test-fire.md)验一下：
 
 * 引用了一个已经不存在的查询别名；
 * 拿标签和数字比。标签是字符串——`$A.service == 'checkout'` 没问题， `$A.service > 10` 是类型错误，而引擎对算不出来的表达式一律当「不满足」处理，一声不吭。
@@ -89,7 +89,7 @@ Loki 规则的形态像 Prometheus 规则，不像其他日志规则。每条查
 count_over_time({job="myapp"} |= "error" [5m]) > 10
 ```
 
-由此带来的后果，全都和[指标规则](https://n9e.github.io/zh/zh/docs/alerting/metric-rules.md)一样：
+由此带来的后果，全都和[指标规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)一样：
 
 * 查询必须返回瞬时向量，所以要有 `count_over_time`、`rate` 或别的区间聚合—— 光写一个日志选择器不行；
 * 返回一条序列产生一条事件，所以粒度由 `sum by (job) (...)` 决定；
@@ -113,10 +113,10 @@ Elasticsearch、OpenSearch 和 VictoriaLogs 规则的每条判定条件上都有
 
 Elasticsearch、Loki 和 VictoriaLogs 还可以先在**数据查询 → 日志**里交互式地试， 调过滤条件更方便。**OpenSearch 在日志检索里没有**， 所以 OpenSearch 的查询只能在规则表单的数据预览里验。
 
-然后用[模拟触发](https://n9e.github.io/zh/zh/docs/alerting/test-fire.md)拿真实数据核一下判定表达式，保存之后再看 [判定执行记录](https://n9e.github.io/zh/zh/docs/alerting/execution-records.md)，看每个周期到底返回了什么。
+然后用[模拟触发](https://n9e.github.io/zh/docs/alerting/test-fire.md)拿真实数据核一下判定表达式，保存之后再看 [判定执行记录](https://n9e.github.io/zh/docs/alerting/execution-records.md)，看每个周期到底返回了什么。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 时间参数与恢复的细节：[判定周期与恢复](https://n9e.github.io/zh/zh/docs/alerting/evaluation.md)
-* 改成对数据库告警：[SQL 规则](https://n9e.github.io/zh/zh/docs/alerting/sql-rules.md)
-* 先把存储接进来：[Elasticsearch](https://n9e.github.io/zh/zh/docs/data/elasticsearch.md)、[Loki 与 VictoriaLogs](https://n9e.github.io/zh/zh/docs/data/loki-victorialogs.md)
+* 时间参数与恢复的细节：[判定周期与恢复](https://n9e.github.io/zh/docs/alerting/evaluation.md)
+* 改成对数据库告警：[SQL 规则](https://n9e.github.io/zh/docs/alerting/sql-rules.md)
+* 先把存储接进来：[Elasticsearch](https://n9e.github.io/zh/docs/data/elasticsearch.md)、[Loki 与 VictoriaLogs](https://n9e.github.io/zh/docs/data/loki-victorialogs.md)

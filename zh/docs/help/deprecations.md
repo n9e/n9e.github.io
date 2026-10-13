@@ -8,15 +8,15 @@
 
 ## 没有公开的版本维护政策[​](#没有公开的版本维护政策 "没有公开的版本维护政策的直接链接")
 
-项目方没有公布支持矩阵，没有 LTS 版本，没有说明每个小版本维护多久， 也没有宣布过这页上任何一项的移除计划。[兼容性矩阵](https://n9e.github.io/zh/zh/docs/reference/compatibility.md) 在平台版本这件事上是同样的口径，理由也一样。
+项目方没有公布支持矩阵，没有 LTS 版本，没有说明每个小版本维护多久， 也没有宣布过这页上任何一项的移除计划。[兼容性矩阵](https://n9e.github.io/zh/docs/reference/compatibility.md) 在平台版本这件事上是同样的口径，理由也一样。
 
 实际情况是：修复只会打在发布线的最新一版上，v9.1.1 是打在 v9.1.0 上的补丁版本， Bug 修复出现在那里。除此之外，权威记录在 GitHub：
 
-| 你想知道的                   | 去哪儿看                                                                                            |
-| ---------------------------- | --------------------------------------------------------------------------------------------------- |
-| 有哪些版本、各自什么时候发的 | [GitHub Releases](https://github.com/ccfos/nightingale/releases)                                    |
-| 某个修复进没进               | 每个 release 里的 `fix:` 条目，见[发布说明](https://n9e.github.io/zh/zh/docs/help/release-notes.md) |
-| 某个字段引擎还读不读         | 源码。除此之外没有别的能作准                                                                        |
+| 你想知道的                   | 去哪儿看                                                                                         |
+| ---------------------------- | ------------------------------------------------------------------------------------------------ |
+| 有哪些版本、各自什么时候发的 | [GitHub Releases](https://github.com/ccfos/nightingale/releases)                                 |
+| 某个修复进没进               | 每个 release 里的 `fix:` 条目，见[发布说明](https://n9e.github.io/zh/docs/help/release-notes.md) |
+| 某个字段引擎还读不读         | 源码。除此之外没有别的能作准                                                                     |
 
 **下面标记为弃用的东西，在 v9.1.1 里全都还在、全都还能用。** 没有任何一项被移除。 把「弃用」读成「新增的东西应该做在替代方案上」，不要读成「下个版本就不能用了」—— 没有人说过时间，也不要从这页去推一个时间出来。
 
@@ -61,17 +61,17 @@
 * 重新定义的回调地址（`redefine_webhooks`、`webhooks`）；
 * 重新定义的告警级别（`redefine_severity`、`new_severity`）。
 
-这是设计如此，不是 Bug：在新模型里这些决定属于订阅所选的那几条通知规则，不属于订阅本身。 见[订阅规则](https://n9e.github.io/zh/zh/docs/events/subscriptions.md)。如果你是用脚本创建订阅的， 把这些字段和 `notify_version: 1` 一起发过去，它们会被静默丢掉。
+这是设计如此，不是 Bug：在新模型里这些决定属于订阅所选的那几条通知规则，不属于订阅本身。 见[订阅规则](https://n9e.github.io/zh/docs/events/subscriptions.md)。如果你是用脚本创建订阅的， 把这些字段和 `notify_version: 1` 一起发过去，它们会被静默丢掉。
 
 ## 代码还在、但已经不在任何链路上的[​](#代码还在但已经不在任何链路上的 "代码还在、但已经不在任何链路上的的直接链接")
 
 两样你读源码或者抓包时可能会撞见的东西。它们都还会响应，但都不要基于它们做事。
 
-* **`POST /api/n9e/busi-group/alert-rules/notify-tryrun` 和 `.../enable-tryrun`。** 前端还各留着一个封装函数，而唯一那处调用被注释掉了。它们的活现在由 [测试触发](https://n9e.github.io/zh/zh/docs/alerting/test-fire.md)干了——一次走完查询 → 阈值 → 事件 → 通知， 而不是分成两个局部检查。
+* **`POST /api/n9e/busi-group/alert-rules/notify-tryrun` 和 `.../enable-tryrun`。** 前端还各留着一个封装函数，而唯一那处调用被注释掉了。它们的活现在由 [测试触发](https://n9e.github.io/zh/docs/alerting/test-fire.md)干了——一次走完查询 → 阈值 → 事件 → 通知， 而不是分成两个局部检查。
 * **`alert/sender/` 下那套 v7 时期的发送器**（钉钉、企业微信、飞书、Lark、Telegram、 Mattermost、邮件）。它们还编译在里面、也还挂着，但只有旧链路会走到： 一条 `notify_version: 0` 的规则产生的、带着 `notify_channels` 和 `notify_groups` 的事件。 通知规则走的是完全不同的另一条路，经过你在**告警通知 → 通知媒介**里配的媒介。 改旧链路上的模板，不会改变通知规则发出去的内容。
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [发布说明](https://n9e.github.io/zh/zh/docs/help/release-notes.md)——每个版本的升级影响
-* [v8 升级 v9](https://n9e.github.io/zh/zh/docs/migration/v8-to-v9.md)——上面这些替代方案大多是那时候来的
-* [兼容性矩阵](https://n9e.github.io/zh/zh/docs/reference/compatibility.md)——另一页同样没有官方承诺兜底的内容
+* [发布说明](https://n9e.github.io/zh/docs/help/release-notes.md)——每个版本的升级影响
+* [v8 升级 v9](https://n9e.github.io/zh/docs/migration/v8-to-v9.md)——上面这些替代方案大多是那时候来的
+* [兼容性矩阵](https://n9e.github.io/zh/docs/reference/compatibility.md)——另一页同样没有官方承诺兜底的内容

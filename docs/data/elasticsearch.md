@@ -33,7 +33,7 @@ The **HTTP** section is a list you can extend: click the `+` next to the heading
 
 The **Enable write** switch is unused in the open-source edition; leave it off.
 
-![The Elasticsearch data source form](/img/docs/data/form-elasticsearch.webp)![The Elasticsearch data source form](/img/docs/data/form-elasticsearch.dark.webp)
+![The Elasticsearch data source form](https://n9e.github.io/img/docs/data/form-elasticsearch.webp)![The Elasticsearch data source form](https://n9e.github.io/img/docs/data/form-elasticsearch.dark.webp)
 
 Click **Save & test**. For ES, that step fetches the version number: on success the version is stored with the config, and on failure the record is **still saved** with the reason shown in the result panel — so when you see "Saved, connectivity not verified", read the reason before moving on.
 

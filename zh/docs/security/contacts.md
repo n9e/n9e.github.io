@@ -43,11 +43,11 @@
 | `telegram_robot_token` | Telegram 机器人 token   |
 | `mm_webhook_url`       | Mattermost webhook 地址 |
 
-内置条目可以停用，不能删除，标识也不能改。它们来自「每个人的机器人 token 填在个人资料里」的年代； v9 里通常的做法是把机器人 token 填在通知规则里，见[钉钉 / 飞书 / 企业微信](https://n9e.github.io/zh/zh/docs/notifications/dingtalk-feishu-wecom.md)。
+内置条目可以停用，不能删除，标识也不能改。它们来自「每个人的机器人 token 填在个人资料里」的年代； v9 里通常的做法是把机器人 token 填在通知规则里，见[钉钉 / 飞书 / 企业微信](https://n9e.github.io/zh/docs/notifications/dingtalk-feishu-wecom.md)。
 
 ## 媒介怎么用它[​](#媒介怎么用它 "媒介怎么用它的直接链接")
 
-面向人发送的媒介——[Callback](https://n9e.github.io/zh/zh/docs/notifications/callback.md)、[脚本](https://n9e.github.io/zh/zh/docs/notifications/script.md) 以及基于 HTTP 的各类媒介——在 **变量配置** 里有一个 **联系方式** 下拉框， 列出 `phone`、`email` 和所有启用的联系方式。
+面向人发送的媒介——[Callback](https://n9e.github.io/zh/docs/notifications/callback.md)、[脚本](https://n9e.github.io/zh/docs/notifications/script.md) 以及基于 HTTP 的各类媒介——在 **变量配置** 里有一个 **联系方式** 下拉框， 列出 `phone`、`email` 和所有启用的联系方式。
 
 通知规则给这个媒介选了用户或团队时，夜莺按选中的 key 去取每个人的值：
 
@@ -80,6 +80,6 @@
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 每个人的资料在哪里填：[用户与团队](https://n9e.github.io/zh/zh/docs/security/users-teams.md)
-* 在请求里用这些地址：[Callback（通用 Webhook）](https://n9e.github.io/zh/zh/docs/notifications/callback.md)
-* 或者在你自己的程序里用：[脚本媒介](https://n9e.github.io/zh/zh/docs/notifications/script.md)
+* 每个人的资料在哪里填：[用户与团队](https://n9e.github.io/zh/docs/security/users-teams.md)
+* 在请求里用这些地址：[Callback（通用 Webhook）](https://n9e.github.io/zh/docs/notifications/callback.md)
+* 或者在你自己的程序里用：[脚本媒介](https://n9e.github.io/zh/docs/notifications/script.md)

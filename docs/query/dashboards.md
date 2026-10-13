@@ -17,7 +17,7 @@ Either way, note one thing first: **the Add / Import / More buttons only appear 
 
 **Explorer → Dashboards** (`/dashboards`), pick a business group on the left, then **Import**.
 
-![Dashboard list](/img/docs/query/dashboard-list.webp)![Dashboard list](/img/docs/query/dashboard-list.dark.webp)
+![Dashboard list](https://n9e.github.io/img/docs/query/dashboard-list.webp)![Dashboard list](https://n9e.github.io/img/docs/query/dashboard-list.dark.webp)
 
 The dialog has four tabs:
 

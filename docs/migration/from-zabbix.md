@@ -30,14 +30,14 @@ Historical data does not move either. Zabbix's `history` and `trends` stay where
 
 ### Hosts and grouping[​](#hosts-and-grouping "Direct link to Hosts and grouping")
 
-| Zabbix                                  | Nightingale                                                                                                                                                            |
-| --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Host                                    | A row in the host list, keyed on `ident` (the hostname Categraf reports)                                                                                               |
-| Host group                              | A **business group** — but it is also the **permission boundary**, not just a grouping. See [Business groups](https://n9e.github.io/docs/concepts/business-groups.md)  |
-| Host macros / inventory                 | Custom tags and notes on the target, plus the labels the collector reports in `[global.labels]`                                                                        |
-| Template                                | A **component in the template center**: 86 components ship, 64 of them with alert rule templates and 54 with dashboard templates                                       |
-| Template inheritance / nested templates | **No equivalent.** Importing a component is a one-time copy; changing the template does not flow back into copies already imported                                     |
-| LLD (low-level discovery)               | **No equivalent**, and usually not needed: however many series a query returns is how many objects you have, so a new mount point or NIC simply shows up in the result |
+| Zabbix                                  | Nightingale                                                                                                                                                                      |
+| --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Host                                    | A row in the host list, keyed on `ident` (the hostname Categraf reports)                                                                                                         |
+| Host group                              | A **business group** — but it is also the **permission boundary**, not just a grouping. See [Business groups](https://n9e.github.io/docs/concepts/business-groups.md)            |
+| Host macros / inventory                 | Custom tags and notes on the target, plus the labels the collector reports in `[global.labels]`                                                                                  |
+| Template                                | A **component in the template center**: <!-- -->83<!-- --> components ship, <!-- -->63<!-- --> of them with alert rule templates and <!-- -->51<!-- --> with dashboard templates |
+| Template inheritance / nested templates | **No equivalent.** Importing a component is a one-time copy; changing the template does not flow back into copies already imported                                               |
+| LLD (low-level discovery)               | **No equivalent**, and usually not needed: however many series a query returns is how many objects you have, so a new mount point or NIC simply shows up in the result           |
 
 ### Triggers and alerting[​](#triggers-and-alerting "Direct link to Triggers and alerting")
 

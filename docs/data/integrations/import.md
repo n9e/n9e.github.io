@@ -6,7 +6,7 @@ Last reviewed 2026-10-10
 
 Where this page ends: a business group that now has this component's dashboards, plus a batch of alert rules sitting **disabled**, waiting for you to adjust thresholds and enable them one by one.
 
-Nightingale ships templates for 86 components. Once metrics are arriving there is no need to draw panels or write rules from scratch — import the templates into a business group and tune them.
+Nightingale ships templates for <!-- -->83<!-- --> components. Once metrics are arriving there is no need to draw panels or write rules from scratch — import the templates into a business group and tune them.
 
 ## What a component ships with[​](#what-a-component-ships-with "Direct link to What a component ships with")
 
@@ -19,7 +19,7 @@ Nightingale ships templates for 86 components. Once metrics are arriving there i
 | Dashboards   | Ready-made dashboard templates                                                                                                            |
 | Alert rules  | Ready-made alert rule templates                                                                                                           |
 
-Not every component has all four. Of the 86, 64 ship alert rules, 54 ship dashboards, and 22 ship metric descriptions.
+Not every component has all four. Of the <!-- -->83<!-- -->, <!-- -->63<!-- --> ship alert rules, <!-- -->51<!-- --> ship dashboards, and <!-- -->21<!-- --> ship metric descriptions.
 
 ## Importing dashboards[​](#importing-dashboards "Direct link to Importing dashboards")
 

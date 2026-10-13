@@ -20,12 +20,12 @@ curl -s --noproxy '*' http://127.0.0.1:17000/metrics | grep -E \
 
 隔一分钟再跑一次，对比两次的数：
 
-| 现象                                        | 结论                                                                                                                            |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `n9e_pushgw_samples_received_total` 不涨    | 样本压根没到夜莺，是**采集或网络**的问题，去 [Categraf 排障](https://n9e.github.io/zh/zh/docs/data/categraf/troubleshooting.md) |
-| 它涨，但 `head_samples_appended_total` 不涨 | 收到了没写进去，看下面「乱序」和转发配置                                                                                        |
-| 两个都涨，但图上还是空                      | 写进去了，是**查询侧**的问题——数据源选错了，或者多实例各拿一半                                                                  |
-| 两个都涨，图上只有近期缺一段                | 通常是那一段时间进程重启了或采集停了，先对时间                                                                                  |
+| 现象                                        | 结论                                                                                                                         |
+| ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `n9e_pushgw_samples_received_total` 不涨    | 样本压根没到夜莺，是**采集或网络**的问题，去 [Categraf 排障](https://n9e.github.io/zh/docs/data/categraf/troubleshooting.md) |
+| 它涨，但 `head_samples_appended_total` 不涨 | 收到了没写进去，看下面「乱序」和转发配置                                                                                     |
+| 两个都涨，但图上还是空                      | 写进去了，是**查询侧**的问题——数据源选错了，或者多实例各拿一半                                                               |
+| 两个都涨，图上只有近期缺一段                | 通常是那一段时间进程重启了或采集停了，先对时间                                                                               |
 
 `n9e_pushgw_samples_received_total` 和 `prometheus_tsdb_head_series` 都是 **当前进程**的计数，重启会归零，别把重启当成丢数。
 
@@ -76,7 +76,7 @@ MaxBytes = "10GiB"          # 默认 10 GiB，留空或 0 表示不限
 
 **怎么确认**：`prometheus_tsdb_lowest_timestamp` 换算出来的时间， 明显晚于 `RetentionDuration` 允许的最早时间——就是磁盘上限在起作用，不是时间在起作用。 再用 `du -sh data/tsdb` 看实际占用是不是贴着 `MaxBytes`。
 
-**怎么修**：把 `MaxBytes` 调到磁盘能吃下的量并重启；需要的历史比这更长， 就该换外部时序库了，见 [内置时序库的单实例边界](https://n9e.github.io/zh/zh/docs/operations/embedded-tsdb-limits.md)。 **注意已经被删掉的块不会回来。**
+**怎么修**：把 `MaxBytes` 调到磁盘能吃下的量并重启；需要的历史比这更长， 就该换外部时序库了，见 [内置时序库的单实例边界](https://n9e.github.io/zh/docs/operations/embedded-tsdb-limits.md)。 **注意已经被删掉的块不会回来。**
 
 ### 采集端时钟偏了，样本被当成乱序丢掉[​](#采集端时钟偏了样本被当成乱序丢掉 "采集端时钟偏了，样本被当成乱序丢掉的直接链接")
 
@@ -159,8 +159,8 @@ BasicAuthPass = "<密码>"
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 这个数据源是怎么来的：[自动注册的内置时序库数据源](https://n9e.github.io/zh/zh/docs/data/embedded-tsdb.md)
-* 什么时候该换外部库：[内置时序库的单实例边界](https://n9e.github.io/zh/zh/docs/operations/embedded-tsdb-limits.md)
-* 不停机地迁走：[外部时序库与双写迁移](https://n9e.github.io/zh/zh/docs/install/external-tsdb.md)
-* 数据源连得上但查不到数：[数据源连接正常但查询无数据](https://n9e.github.io/zh/zh/docs/troubleshooting/no-data.md)
-* 采集侧的排查：[Categraf 排障](https://n9e.github.io/zh/zh/docs/data/categraf/troubleshooting.md)
+* 这个数据源是怎么来的：[自动注册的内置时序库数据源](https://n9e.github.io/zh/docs/data/embedded-tsdb.md)
+* 什么时候该换外部库：[内置时序库的单实例边界](https://n9e.github.io/zh/docs/operations/embedded-tsdb-limits.md)
+* 不停机地迁走：[外部时序库与双写迁移](https://n9e.github.io/zh/docs/install/external-tsdb.md)
+* 数据源连得上但查不到数：[数据源连接正常但查询无数据](https://n9e.github.io/zh/docs/troubleshooting/no-data.md)
+* 采集侧的排查：[Categraf 排障](https://n9e.github.io/zh/docs/data/categraf/troubleshooting.md)

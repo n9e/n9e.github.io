@@ -37,9 +37,9 @@
 
 `/mcp` 上没有确认卡片，所以边界得用账号和配置搭出来。有效的做法是：
 
-* 每个客户端一个最小权限账号、一个自己的 Token，出了事能追到具体哪个集成 （[个人 Token 认证](https://n9e.github.io/zh/zh/docs/ai/token-auth.md)）；
-* 写工具保持关闭，除非某一个客户端确实需要；即使需要，也把工具集收窄到它真用的那些， 并且把 `users`、`roles` 摘掉（[安全地启用写工具](https://n9e.github.io/zh/zh/docs/ai/write-tools.md)）；
-* 账号的业务组归属才是影响面的真正上限，因为它对读和写一视同仁 （[权限继承与 RBAC](https://n9e.github.io/zh/zh/docs/ai/permissions.md)）。
+* 每个客户端一个最小权限账号、一个自己的 Token，出了事能追到具体哪个集成 （[个人 Token 认证](https://n9e.github.io/zh/docs/ai/token-auth.md)）；
+* 写工具保持关闭，除非某一个客户端确实需要；即使需要，也把工具集收窄到它真用的那些， 并且把 `users`、`roles` 摘掉（[安全地启用写工具](https://n9e.github.io/zh/docs/ai/write-tools.md)）；
+* 账号的业务组归属才是影响面的真正上限，因为它对读和写一视同仁 （[权限继承与 RBAC](https://n9e.github.io/zh/docs/ai/permissions.md)）。
 
 如果你想要的其实是「让 AI 帮我改配置」，注意内置助手已经在做这件事，而且带确认步骤。 为了同一个结果去打开 MCP 写工具，等于把这个确认换掉了。
 
@@ -53,20 +53,20 @@
 
 > 自愈脚本怎么从 stdin 拿告警字段？
 
-**但它建不了脚本，也跑不了脚本。** 这两件事都没有对应的工具。 把脚本存下来、在机器上执行，完全留在**告警通知 → 告警自愈**里， 按那边既有的管控走——见[用 ibex / webhook 做告警自愈](https://n9e.github.io/zh/zh/docs/events/self-healing.md)。
+**但它建不了脚本，也跑不了脚本。** 这两件事都没有对应的工具。 把脚本存下来、在机器上执行，完全留在**告警通知 → 告警自愈**里， 按那边既有的管控走——见[用 ibex / webhook 做告警自愈](https://n9e.github.io/zh/docs/events/self-healing.md)。
 
 这个分工就是这个模式本身：模型产出一份你看得懂、审得动的方案，人来落地， 执行链路上从头到尾没有模型。
 
 ## 值得刻意设一下的护栏[​](#值得刻意设一下的护栏 "值得刻意设一下的护栏的直接链接")
 
-| 护栏                                              | 在哪                                                                                                                   |
-| ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `/mcp` 上写工具保持关闭——默认就是关的，别动它     | `[HTTP.A2A]` 下的 `MCPEnableWriteTools`                                                                                |
-| 任何要写的客户端都把 `users`、`roles` 摘掉        | `MCPToolsets`                                                                                                          |
-| 注册了 SQL 数据源就把 `logs` 摘掉                 | `MCPToolsets`，理由见[权限继承与 RBAC](https://n9e.github.io/zh/zh/docs/ai/permissions.md)                             |
-| 宁可拒绝执行 Skill 脚本，也不要在没隔离的情况下跑 | `[Center.Sandbox]` 下的 `RequireIsolation`，见[安装、管理与编写 Skills](https://n9e.github.io/zh/zh/docs/ai/skills.md) |
-| 别把 AI 账号放进它不该看的业务组                  | **人员组织 → 团队管理**                                                                                                |
-| 永远不要给 AI 账号 `Admin` 角色                   | 它会整个绕过业务组这一层                                                                                               |
+| 护栏                                              | 在哪                                                                                                                |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `/mcp` 上写工具保持关闭——默认就是关的，别动它     | `[HTTP.A2A]` 下的 `MCPEnableWriteTools`                                                                             |
+| 任何要写的客户端都把 `users`、`roles` 摘掉        | `MCPToolsets`                                                                                                       |
+| 注册了 SQL 数据源就把 `logs` 摘掉                 | `MCPToolsets`，理由见[权限继承与 RBAC](https://n9e.github.io/zh/docs/ai/permissions.md)                             |
+| 宁可拒绝执行 Skill 脚本，也不要在没隔离的情况下跑 | `[Center.Sandbox]` 下的 `RequireIsolation`，见[安装、管理与编写 Skills](https://n9e.github.io/zh/docs/ai/skills.md) |
+| 别把 AI 账号放进它不该看的业务组                  | **人员组织 → 团队管理**                                                                                             |
+| 永远不要给 AI 账号 `Admin` 角色                   | 它会整个绕过业务组这一层                                                                                            |
 
 ## 改了什么怎么查[​](#改了什么怎么查 "改了什么怎么查的直接链接")
 
@@ -74,16 +74,16 @@
 
 **对象本身。** 经助手或经 MCP 改过的东西，「更新人」字段里是那个操作账号的名字， 和在界面上改完全一样。列表页就能看到。
 
-**对话本身。** 助手改过的东西，提案卡片和你的那句确认都留在对话记录里， 按用户存着而且不过期——所以「我到底批准了什么」几个月后还答得上来。 见 [Agent 与对话历史](https://n9e.github.io/zh/zh/docs/ai/agents.md)。
+**对话本身。** 助手改过的东西，提案卡片和你的那句确认都留在对话记录里， 按用户存着而且不过期——所以「我到底批准了什么」几个月后还答得上来。 见 [Agent 与对话历史](https://n9e.github.io/zh/docs/ai/agents.md)。
 
-**日志。** 每一个 `/mcp` 请求都记了工具名、参数和操作人；每一次 Skill 脚本执行 都记了隔离级别和退出码。细节和可以直接用的 grep 命令在 [安全地启用写工具](https://n9e.github.io/zh/zh/docs/ai/write-tools.md)。
+**日志。** 每一个 `/mcp` 请求都记了工具名、参数和操作人；每一次 Skill 脚本执行 都记了隔离级别和退出码。细节和可以直接用的 grep 命令在 [安全地启用写工具](https://n9e.github.io/zh/docs/ai/write-tools.md)。
 
 ## 它不会自己做的事[​](#它不会自己做的事 "它不会自己做的事的直接链接")
 
-开源版里，**每一个 AI 动作都由某个人在某个对话里发起**。没有定时任务， 没有无人值守的执行，也没有任何工具会在被监控的机器上执行命令。 唯一会跑代码的是 Skill 脚本，它只在你发起的那一轮里被模型调用， 而且你可以直接配置成拒绝执行——还是那句，见[安装、管理与编写 Skills](https://n9e.github.io/zh/zh/docs/ai/skills.md)。
+开源版里，**每一个 AI 动作都由某个人在某个对话里发起**。没有定时任务， 没有无人值守的执行，也没有任何工具会在被监控的机器上执行命令。 唯一会跑代码的是 Skill 脚本，它只在你发起的那一轮里被模型调用， 而且你可以直接配置成拒绝执行——还是那句，见[安装、管理与编写 Skills](https://n9e.github.io/zh/docs/ai/skills.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 确认机制在整体里的位置：[Nightingale AI 概览](https://n9e.github.io/zh/zh/docs/ai/nightingale-ai.md)
-* MCP 的写开关：[安全地启用写工具](https://n9e.github.io/zh/zh/docs/ai/write-tools.md)
-* 让一轮对话保持只读的提示词：[常见排查工作流](https://n9e.github.io/zh/zh/docs/ai/workflows.md)
+* 确认机制在整体里的位置：[Nightingale AI 概览](https://n9e.github.io/zh/docs/ai/nightingale-ai.md)
+* MCP 的写开关：[安全地启用写工具](https://n9e.github.io/zh/docs/ai/write-tools.md)
+* 让一轮对话保持只读的提示词：[常见排查工作流](https://n9e.github.io/zh/docs/ai/workflows.md)

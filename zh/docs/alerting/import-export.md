@@ -45,7 +45,7 @@
 
 点**导入**。预期结果：一张结果表，每条规则一行，显示规则名和「导入结果」—— 成功时结果列为空，失败时给出错误信息。
 
-通知配置不会被带过来。导入时会清掉旧版的媒介和接收组字段，规则上也不会挂任何通知规则， 所以**导入之后要自己挂一条**，否则什么也发不出去。见[通知规则](https://n9e.github.io/zh/zh/docs/notifications/rules.md)。
+通知配置不会被带过来。导入时会清掉旧版的媒介和接收组字段，规则上也不会挂任何通知规则， 所以**导入之后要自己挂一条**，否则什么也发不出去。见[通知规则](https://n9e.github.io/zh/docs/notifications/rules.md)。
 
 ## 导入 Prometheus 原生告警规则[​](#导入-prometheus-原生告警规则 "导入 Prometheus 原生告警规则的直接链接")
 
@@ -87,13 +87,13 @@ groups:
 | `labels` 里其余每一项 | 一条 `key=value` 附加标签                                                                                                                                                             |
 | `annotations`         | 原样搬成附加信息                                                                                                                                                                      |
 
-**文件里的 record 规则会被静默丢弃。** 只有带 `alert:` 的条目会被转换—— 夜莺里对应的能力见[记录规则](https://n9e.github.io/zh/zh/docs/query/recording-rules.md)。`keep_firing_for`、`limit` 也不会转换。
+**文件里的 record 规则会被静默丢弃。** 只有带 `alert:` 的条目会被转换—— 夜莺里对应的能力见[记录规则](https://n9e.github.io/zh/docs/query/recording-rules.md)。`keep_firing_for`、`limit` 也不会转换。
 
 ## 把规则纳入版本控制[​](#把规则纳入版本控制 "把规则纳入版本控制的直接链接")
 
 导出的 JSON 足够稳定，可以拿来做 diff，于是就有了一套能跑的评审流程：
 
-1. 在预发环境用界面改规则，表单会帮你校验，[模拟触发](https://n9e.github.io/zh/zh/docs/alerting/test-fire.md)能证明它真的能跑；
+1. 在预发环境用界面改规则，表单会帮你校验，[模拟触发](https://n9e.github.io/zh/docs/alerting/test-fire.md)能证明它真的能跑；
 2. 导出这个组的规则，把 JSON 提交进仓库；
 3. 像评审其他改动一样评审这份 diff；
 4. 打开**强制覆盖同名**导入到生产，于是合并是按名字做的。
@@ -112,6 +112,6 @@ groups:
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 干脆从随附的规则库开始：[规则模板与内置规则](https://n9e.github.io/zh/zh/docs/alerting/templates.md)
-* 给导入的规则重新指路：[按业务组与数据源划定范围](https://n9e.github.io/zh/zh/docs/alerting/scope.md)
-* 确认它们真的能发出通知：[通知规则](https://n9e.github.io/zh/zh/docs/notifications/rules.md)
+* 干脆从随附的规则库开始：[规则模板与内置规则](https://n9e.github.io/zh/docs/alerting/templates.md)
+* 给导入的规则重新指路：[按业务组与数据源划定范围](https://n9e.github.io/zh/docs/alerting/scope.md)
+* 确认它们真的能发出通知：[通知规则](https://n9e.github.io/zh/docs/notifications/rules.md)

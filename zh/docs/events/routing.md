@@ -37,11 +37,11 @@
 
 ## 3. 让别的团队自己订阅[​](#3-让别的团队自己订阅 "3. 让别的团队自己订阅的直接链接")
 
-如果分流的动机是「另一个团队也想收到这类告警」，不要去改人家的通知规则， 让他们建一条[订阅规则](https://n9e.github.io/zh/zh/docs/events/subscriptions.md)——订阅方自己决定筛什么、用哪条通知规则发， 规则的所有者完全不用参与。
+如果分流的动机是「另一个团队也想收到这类告警」，不要去改人家的通知规则， 让他们建一条[订阅规则](https://n9e.github.io/zh/docs/events/subscriptions.md)——订阅方自己决定筛什么、用哪条通知规则发， 规则的所有者完全不用参与。
 
 ## 4. 根本不该发的，在工作流里丢掉[​](#4-根本不该发的在工作流里丢掉 "4. 根本不该发的，在工作流里丢掉的直接链接")
 
-前三种是「送到哪里」，这一种是「不送」。在[事件 Pipeline](https://n9e.github.io/zh/zh/docs/events/pipelines.md) 里用 **事件丢弃** 处理器按条件把事件拦下来：
+前三种是「送到哪里」，这一种是「不送」。在[事件 Pipeline](https://n9e.github.io/zh/docs/events/pipelines.md) 里用 **事件丢弃** 处理器按条件把事件拦下来：
 
 ```
 {{ if eq $event.TagsMap.env "dev" }}true{{ end }}
@@ -51,25 +51,25 @@
 
 ## 选哪一种[​](#选哪一种 "选哪一种的直接链接")
 
-| 你想要的效果                 | 用什么                                                            |
-| ---------------------------- | ----------------------------------------------------------------- |
-| 同一批人，不同级别用不同媒介 | 一条通知规则里的多条通知配置                                      |
-| 夜里和白天走不同渠道         | 通知配置的适用时段                                                |
-| 不同团队各管一摊             | 多条通知规则                                                      |
-| 别人也想收到我的告警         | 订阅规则                                                          |
-| 这类事件根本不该发           | 工作流的事件丢弃处理器                                            |
-| 变更窗口内暂时别吵           | [屏蔽规则](https://n9e.github.io/zh/zh/docs/events/mute-rules.md) |
+| 你想要的效果                 | 用什么                                                         |
+| ---------------------------- | -------------------------------------------------------------- |
+| 同一批人，不同级别用不同媒介 | 一条通知规则里的多条通知配置                                   |
+| 夜里和白天走不同渠道         | 通知配置的适用时段                                             |
+| 不同团队各管一摊             | 多条通知规则                                                   |
+| 别人也想收到我的告警         | 订阅规则                                                       |
+| 这类事件根本不该发           | 工作流的事件丢弃处理器                                         |
+| 变更窗口内暂时别吵           | [屏蔽规则](https://n9e.github.io/zh/docs/events/mute-rules.md) |
 
 ## 几个容易踩的点[​](#几个容易踩的点 "几个容易踩的点的直接链接")
 
-* **标签得先存在。** 按 `env` 分流的前提是事件上有 `env` 标签。没有就先在告警规则的 附加标签里补，或者在工作流里[改写出来](https://n9e.github.io/zh/zh/docs/events/relabel-enrich.md)。
+* **标签得先存在。** 按 `env` 分流的前提是事件上有 `env` 标签。没有就先在告警规则的 附加标签里补，或者在工作流里[改写出来](https://n9e.github.io/zh/docs/events/relabel-enrich.md)。
 * **适用标签匹配的是事件标签，不是规则名。** 想按规则分流，用「适用属性」里的「告警规则」。
 * **顺序无关。** 一条通知规则里的多条通知配置是**并列**的，命中几条就发几条， 不是「先匹配到哪条就用哪条」。想互斥就把条件写成互斥的。
-* **改完先测。** 通知配置右边有「通知测试」，可以挑一条历史事件或用模拟事件走一遍， 见[验证通知链路](https://n9e.github.io/zh/zh/docs/notifications/test.md)。
+* **改完先测。** 通知配置右边有「通知测试」，可以挑一条历史事件或用模拟事件走一遍， 见[验证通知链路](https://n9e.github.io/zh/docs/notifications/test.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 通知规则本身怎么写：[通知规则](https://n9e.github.io/zh/zh/docs/notifications/rules.md)
-* 消息长什么样：[消息模板](https://n9e.github.io/zh/zh/docs/notifications/templates.md)
-* 发给了不该发的人：[通知发到了错误的人](https://n9e.github.io/zh/zh/docs/troubleshooting/wrong-routing.md)
-* 各机制的先后顺序：[降噪与路由模型](https://n9e.github.io/zh/zh/docs/concepts/noise-routing.md)
+* 通知规则本身怎么写：[通知规则](https://n9e.github.io/zh/docs/notifications/rules.md)
+* 消息长什么样：[消息模板](https://n9e.github.io/zh/docs/notifications/templates.md)
+* 发给了不该发的人：[通知发到了错误的人](https://n9e.github.io/zh/docs/troubleshooting/wrong-routing.md)
+* 各机制的先后顺序：[降噪与路由模型](https://n9e.github.io/zh/docs/concepts/noise-routing.md)

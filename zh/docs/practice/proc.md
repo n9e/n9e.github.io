@@ -10,9 +10,9 @@
 
 * `processes` 插件统计运行、睡眠等状态下的系统进程数量，适合发现脚本或任务意外堆积。
 * `procstat` 插件匹配具体进程，采集数量、CPU、内存、句柄等指标。
-* 应用自身暴露的 Prometheus 指标还能描述请求、错误和运行时，见 [Java 监控](https://n9e.github.io/zh/zh/docs/practice/java.md)。
+* 应用自身暴露的 Prometheus 指标还能描述请求、错误和运行时，见 [Java 监控](https://n9e.github.io/zh/docs/practice/java.md)。
 
-进程存在不等于业务可用，重要服务还需要[端口或 HTTP 探测](https://n9e.github.io/zh/zh/docs/practice/port.md)。
+进程存在不等于业务可用，重要服务还需要[端口或 HTTP 探测](https://n9e.github.io/zh/docs/practice/port.md)。
 
 ## 配置 procstat[​](#configure "配置 procstat的直接链接")
 
@@ -42,7 +42,7 @@ labels = { service = "nginx" }
 
 **预期结果**：进程总数和匹配服务的指标出现；匹配数量与实际进程一致。 确认后重启现有服务，在夜莺即时查询中检查 `procstat_lookup_count`。
 
-匹配到目标时该值大于 0，匹配不到时为 0。先在测试服务上验证匹配，再配置持续一段时间的告警，避免正常重启触发瞬时噪音。 如果主机或采集器失联，指标可能消失；这和进程数量为 0 是不同情况，还需配[主机失联检测](https://n9e.github.io/zh/zh/docs/practice/linux.md#missing-host)。
+匹配到目标时该值大于 0，匹配不到时为 0。先在测试服务上验证匹配，再配置持续一段时间的告警，避免正常重启触发瞬时噪音。 如果主机或采集器失联，指标可能消失；这和进程数量为 0 是不同情况，还需配[主机失联检测](https://n9e.github.io/zh/docs/practice/linux.md#missing-host)。
 
 ## JVM 与 systemd 环境[​](#jvm "JVM 与 systemd 环境的直接链接")
 
@@ -58,5 +58,5 @@ Environment="PATH=/usr/lib/jvm/java-17-openjdk-amd64/bin:/usr/local/sbin:/usr/lo
 
 ## 下一步[​](#next "下一步的直接链接")
 
-* [Java 程序监控](https://n9e.github.io/zh/zh/docs/practice/java.md)
-* [指标告警规则](https://n9e.github.io/zh/zh/docs/alerting/metric-rules.md)
+* [Java 程序监控](https://n9e.github.io/zh/docs/practice/java.md)
+* [指标告警规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)

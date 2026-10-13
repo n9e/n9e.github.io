@@ -28,34 +28,34 @@ Alertmanager 是夜莺唯一真正要替掉的组件。其余东西一个都不�
 
 ### 规则与表达式[​](#规则与表达式 "规则与表达式的直接链接")
 
-| Prometheus                          | 夜莺                                                                                  |
-| ----------------------------------- | ------------------------------------------------------------------------------------- |
-| `groups[].rules[].alert`            | 规则名称                                                                              |
-| `expr`                              | 规则里唯一的那条查询（阈值同样写在 PromQL 里，`... > 0.5`）                           |
-| `for`                               | 持续时长 `prom_for_duration`，单位秒；解析失败或缺省回落 60 秒                        |
-| group 的 `interval`                 | 执行频率，写成 `@every Ns`；缺省 60 秒                                                |
-| `labels.severity`                   | 级别 S1 / S2 / S3，按关键字映射；认不出来的一律 S2，且这个标签不再进附加标签          |
-| `labels` 里其余项                   | 附加标签 `key=value`，**键和值里的空格会被直接删掉**                                  |
-| `annotations`                       | 注释，原样带过来                                                                      |
-| 同一文件里的 `record:` 条目         | **静默跳过**，见[记录规则](https://n9e.github.io/zh/zh/docs/query/recording-rules.md) |
-| `keep_firing_for`、group 的 `limit` | **不转换**                                                                            |
+| Prometheus                          | 夜莺                                                                               |
+| ----------------------------------- | ---------------------------------------------------------------------------------- |
+| `groups[].rules[].alert`            | 规则名称                                                                           |
+| `expr`                              | 规则里唯一的那条查询（阈值同样写在 PromQL 里，`... > 0.5`）                        |
+| `for`                               | 持续时长 `prom_for_duration`，单位秒；解析失败或缺省回落 60 秒                     |
+| group 的 `interval`                 | 执行频率，写成 `@every Ns`；缺省 60 秒                                             |
+| `labels.severity`                   | 级别 S1 / S2 / S3，按关键字映射；认不出来的一律 S2，且这个标签不再进附加标签       |
+| `labels` 里其余项                   | 附加标签 `key=value`，**键和值里的空格会被直接删掉**                               |
+| `annotations`                       | 注释，原样带过来                                                                   |
+| 同一文件里的 `record:` 条目         | **静默跳过**，见[记录规则](https://n9e.github.io/zh/docs/query/recording-rules.md) |
+| `keep_firing_for`、group 的 `limit` | **不转换**                                                                         |
 
-整份 `rules.yml` 可以直接粘进「规则管理 → 导入 → 导入 Prometheus 告警规则」， 边界情况见[导入、导出与复用](https://n9e.github.io/zh/zh/docs/alerting/import-export.md)。注意导入时 「重复通知频率」被固定写成 60 分钟、「留观时长」写成 0——这两个值不来自 YAML，导完要复核。
+整份 `rules.yml` 可以直接粘进「规则管理 → 导入 → 导入 Prometheus 告警规则」， 边界情况见[导入、导出与复用](https://n9e.github.io/zh/docs/alerting/import-export.md)。注意导入时 「重复通知频率」被固定写成 60 分钟、「留观时长」写成 0——这两个值不来自 YAML，导完要复核。
 
 ### 路由与接收器[​](#路由与接收器 "路由与接收器的直接链接")
 
-| Alertmanager                                 | 夜莺                                                           | 说明                                                                                                            |
-| -------------------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| `receivers[]` 里的一个接收器                 | 一条**通知规则**里的一份通知配置                               | 媒介 + 参数 + 收件人                                                                                            |
-| 接收器的类型（webhook / 邮件 / 钉钉…）       | **通知媒介**                                                   | 「怎么发」，见[钉钉 / 飞书 / 企业微信](https://n9e.github.io/zh/zh/docs/notifications/dingtalk-feishu-wecom.md) |
-| `templates` 里的 Go 模板                     | **消息模板**                                                   | 见[模板与变量](https://n9e.github.io/zh/zh/docs/notifications/templates.md)                                     |
-| `route.matchers`                             | 通知配置上的「适用标签」「适用属性」                           | 全部 AND                                                                                                        |
-| `route` 的树形结构、`continue`               | **没有对应物**                                                 | 见下一节                                                                                                        |
-| `group_by` / `group_wait` / `group_interval` | **没有对应物**                                                 | 夜莺一次通知只装一个事件，不按标签聚合成一条消息                                                                |
-| `repeat_interval`                            | 告警规则上的「重复通知频率」，单位**分钟**；为 0 表示不重复发  | 另有 Alertmanager 没有的「最大通知次数」封顶                                                                    |
-| `send_resolved`                              | 「恢复时通知」开关                                             |                                                                                                                 |
-| `resolve_timeout`（近似）                    | 「留观时长」，单位**秒**：异常消失后再观察这么久无异常才判恢复 |                                                                                                                 |
-| Alertmanager 集群（gossip 去重）             | 多个告警引擎实例按规则分片                                     | 不需要 gossip                                                                                                   |
+| Alertmanager                                 | 夜莺                                                           | 说明                                                                                                         |
+| -------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `receivers[]` 里的一个接收器                 | 一条**通知规则**里的一份通知配置                               | 媒介 + 参数 + 收件人                                                                                         |
+| 接收器的类型（webhook / 邮件 / 钉钉…）       | **通知媒介**                                                   | 「怎么发」，见[钉钉 / 飞书 / 企业微信](https://n9e.github.io/zh/docs/notifications/dingtalk-feishu-wecom.md) |
+| `templates` 里的 Go 模板                     | **消息模板**                                                   | 见[模板与变量](https://n9e.github.io/zh/docs/notifications/templates.md)                                     |
+| `route.matchers`                             | 通知配置上的「适用标签」「适用属性」                           | 全部 AND                                                                                                     |
+| `route` 的树形结构、`continue`               | **没有对应物**                                                 | 见下一节                                                                                                     |
+| `group_by` / `group_wait` / `group_interval` | **没有对应物**                                                 | 夜莺一次通知只装一个事件，不按标签聚合成一条消息                                                             |
+| `repeat_interval`                            | 告警规则上的「重复通知频率」，单位**分钟**；为 0 表示不重复发  | 另有 Alertmanager 没有的「最大通知次数」封顶                                                                 |
+| `send_resolved`                              | 「恢复时通知」开关                                             |                                                                                                              |
+| `resolve_timeout`（近似）                    | 「留观时长」，单位**秒**：异常消失后再观察这么久无异常才判恢复 |                                                                                                              |
+| Alertmanager 集群（gossip 去重）             | 多个告警引擎实例按规则分片                                     | 不需要 gossip                                                                                                |
 
 ### 静默与抑制[​](#静默与抑制 "静默与抑制的直接链接")
 
@@ -67,7 +67,7 @@ Alertmanager 是夜莺唯一真正要替掉的组件。其余东西一个都不�
 | （无对应）                               | 「屏蔽方式」可选「只屏蔽通知」，事件照常留档  | Alertmanager 的静默只有这一种语义                                                                               |
 | `inhibit_rules`（跨规则抑制）            | **没有对应物**                                | 见下                                                                                                            |
 
-规则表单里那个叫「级别抑制」的开关**不是** `inhibit_rules`：它只在**同一条规则的同一轮判定内** 生效——指标名和标签完全相同的曲线同时命中多档阈值时，高级别把低级别压掉。 跨规则的「机房挂了就别报机器挂了」，夜莺没有声明式写法；最接近的做法是给下游规则挂一个 带丢弃处理器的[事件 Pipeline](https://n9e.github.io/zh/zh/docs/events/pipelines.md)，按上游写进来的标签丢事件。 这是一次改写，不是一次配置，迁移前先认下这笔账。
+规则表单里那个叫「级别抑制」的开关**不是** `inhibit_rules`：它只在**同一条规则的同一轮判定内** 生效——指标名和标签完全相同的曲线同时命中多档阈值时，高级别把低级别压掉。 跨规则的「机房挂了就别报机器挂了」，夜莺没有声明式写法；最接近的做法是给下游规则挂一个 带丢弃处理器的[事件 Pipeline](https://n9e.github.io/zh/docs/events/pipelines.md)，按上游写进来的标签丢事件。 这是一次改写，不是一次配置，迁移前先认下这笔账。
 
 ## 把路由树拍平[​](#把路由树拍平 "把路由树拍平的直接链接")
 
@@ -109,27 +109,27 @@ route:
 
 * 上例里 `continue: true`，所以 critical 同时进电话和群——平铺模型天然就是这个行为，不用配。 反过来，**默认的 `continue: false` 才需要你动手模拟**：把兄弟分支写成互斥条件 （用 `!=` / `not in` / `!~` 排除更具体的分支），否则一个事件会命中两条、发两遍。
 * 上表最后一行的 `env != prod` **只在事件一定带 `env` 标签时才靠谱**。原因见下一节。
-* 根路由的兜底接收器还有一种更稳的写法：做一条过滤条件全空的 [订阅规则](https://n9e.github.io/zh/zh/docs/events/subscriptions.md)——它的语义就是「所有事件我都要」，天然兜底， 而且不依赖任何标签存在。
+* 根路由的兜底接收器还有一种更稳的写法：做一条过滤条件全空的 [订阅规则](https://n9e.github.io/zh/docs/events/subscriptions.md)——它的语义就是「所有事件我都要」，天然兜底， 而且不依赖任何标签存在。
 * 通知规则**不是全局生效的**。Alertmanager 里所有告警都流进同一棵树；夜莺里事件只发给 这条告警规则上明确挂了的通知规则。批量挂载用「规则管理 → 更多 → 更新告警规则」。 **规则建完不挂通知规则，事件只会躺在事件列表里。**
 
 ## 四个会咬人的不对称[​](#四个会咬人的不对称 "四个会咬人的不对称的直接链接")
 
 1. **空的匹配条件，两边含义相反。** Alertmanager 里不写 matcher 表示不限制； 夜莺通知配置里的「适用级别」三个复选框**一个都不勾等于谁都不匹配**，这份配置直接失效。 照着路由树机械翻译最容易踩这个。「适用标签」「适用时段」倒是留空即不限制，只有级别是反的。
-2. **事件没有这个标签，一律判为不匹配——`!=` 和 `!~` 也一样。** 夜莺的标签过滤先查 key 存不存在，不存在直接返回不匹配（`alert/common/key.go` 的 `MatchTags`）。 Alertmanager 把缺失的标签当空串，所以 `env!="prod"` 对不带 `env` 的告警是**命中**的。 凡是用 `!=` / `!~` / `not in` 写排除条件的静默和路由，搬过来之前先确认目标标签一定存在—— 最省事的办法是在告警规则的附加标签里把这个维度补齐，见[标签与级别](https://n9e.github.io/zh/zh/docs/alerting/labels-severity.md)。
+2. **事件没有这个标签，一律判为不匹配——`!=` 和 `!~` 也一样。** 夜莺的标签过滤先查 key 存不存在，不存在直接返回不匹配（`alert/common/key.go` 的 `MatchTags`）。 Alertmanager 把缺失的标签当空串，所以 `env!="prod"` 对不带 `env` 的告警是**命中**的。 凡是用 `!=` / `!~` / `not in` 写排除条件的静默和路由，搬过来之前先确认目标标签一定存在—— 最省事的办法是在告警规则的附加标签里把这个维度补齐，见[标签与级别](https://n9e.github.io/zh/docs/alerting/labels-severity.md)。
 3. **屏蔽规则有业务组边界。** 一条静默在 Alertmanager 里能盖住全站；夜莺的屏蔽规则 只作用于它所属的那个业务组。变更窗口跨多个业务组时，要建多条。
-4. **恢复语义。** Prometheus 类型的规则阈值写在 PromQL 里，序列消失和跌破阈值 在夜莺看来是同一件事，都算恢复；exporter 挂掉会让告警「自动恢复」。 这和 Alertmanager 的行为一致，但切换前值得跟值班同学讲一遍。 细节见[判定与恢复](https://n9e.github.io/zh/zh/docs/alerting/evaluation.md)。
+4. **恢复语义。** Prometheus 类型的规则阈值写在 PromQL 里，序列消失和跌破阈值 在夜莺看来是同一件事，都算恢复；exporter 挂掉会让告警「自动恢复」。 这和 Alertmanager 的行为一致，但切换前值得跟值班同学讲一遍。 细节见[判定与恢复](https://n9e.github.io/zh/docs/alerting/evaluation.md)。
 
 ## 迁移顺序[​](#迁移顺序 "迁移顺序的直接链接")
 
 每一步都能单独验证，出问题就停在那一步。
 
-1. **注册数据源。** 集成中心 → 数据源 → 添加 → Prometheus，URL 填 Prometheus 的查询地址。 *验证*：保存后连通性检查通过。字段逐个解释见 [Prometheus](https://n9e.github.io/zh/zh/docs/data/prometheus.md)。
+1. **注册数据源。** 集成中心 → 数据源 → 添加 → Prometheus，URL 填 Prometheus 的查询地址。 *验证*：保存后连通性检查通过。字段逐个解释见 [Prometheus](https://n9e.github.io/zh/docs/data/prometheus.md)。
 2. **建通知媒介和消息模板。** 把 `receivers[]` 里每个接收器的地址、Token、密钥搬过来。 *验证*：保存前点「测试」，真的收到一条消息。
-3. **建通知规则，把路由树拍平。** 按上一节的表格逐条建。 *验证*：每份通知配置点「发送测试」，先用「使用模拟事件」确认地址通， 再用「选择历史事件」确认过滤条件放行了该放行的。见[测试通知](https://n9e.github.io/zh/zh/docs/notifications/test.md)。
+3. **建通知规则，把路由树拍平。** 按上一节的表格逐条建。 *验证*：每份通知配置点「发送测试」，先用「使用模拟事件」确认地址通， 再用「选择历史事件」确认过滤条件放行了该放行的。见[测试通知](https://n9e.github.io/zh/docs/notifications/test.md)。
 4. **导入告警规则，先不启用。** 选好业务组 → 导入 → 导入 Prometheus 告警规则， 粘贴 `rules.yml`，「是否启用」保持关闭。 *验证*：导入结果表每行的结果列为空即成功。
-5. **挂通知规则，挑一组先开。** 批量给这批规则挂上通知规则，只启用一个业务组做金丝雀。 *验证*：对其中一条规则点[试运行](https://n9e.github.io/zh/zh/docs/alerting/test-fire.md)，看查询→阈值→事件→通知各段是否都通。
+5. **挂通知规则，挑一组先开。** 批量给这批规则挂上通知规则，只启用一个业务组做金丝雀。 *验证*：对其中一条规则点[试运行](https://n9e.github.io/zh/docs/alerting/test-fire.md)，看查询→阈值→事件→通知各段是否都通。
 6. **搬静默。** 把 Alertmanager 里**还没过期**的静默重建成屏蔽规则，已过期的不用管。 *验证*：屏蔽规则表单上的「测试」按钮会拿现有事件跑一遍匹配，看它到底会吞掉什么。
-7. **并行跑一段。** 两边都判定、都发通知，对比触发结果。做法见 [并行运行与回退方案](https://n9e.github.io/zh/zh/docs/migration/coexistence.md)。
+7. **并行跑一段。** 两边都判定、都发通知，对比触发结果。做法见 [并行运行与回退方案](https://n9e.github.io/zh/docs/migration/coexistence.md)。
 8. **下线。** 确认无差异后，从 Prometheus 的 `rule_files` 里摘掉告警规则并 reload （记录规则留着），最后停 Alertmanager。
 
 ## 回退[​](#回退 "回退的直接链接")
@@ -140,7 +140,7 @@ route:
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 还在纠结换不换：[夜莺 vs Prometheus + Alertmanager](https://n9e.github.io/zh/zh/comparisons/prometheus-alertmanager.md)
-* 两边同时跑、怎么对比：[并行运行与回退方案](https://n9e.github.io/zh/zh/docs/migration/coexistence.md)
-* 事件在夜莺里被处理的完整顺序：[降噪与路由模型](https://n9e.github.io/zh/zh/docs/concepts/noise-routing.md)
-* 规则该归哪个业务组：[业务组与数据源范围](https://n9e.github.io/zh/zh/docs/alerting/scope.md)
+* 还在纠结换不换：[夜莺 vs Prometheus + Alertmanager](https://n9e.github.io/zh/comparisons/prometheus-alertmanager.md)
+* 两边同时跑、怎么对比：[并行运行与回退方案](https://n9e.github.io/zh/docs/migration/coexistence.md)
+* 事件在夜莺里被处理的完整顺序：[降噪与路由模型](https://n9e.github.io/zh/docs/concepts/noise-routing.md)
+* 规则该归哪个业务组：[业务组与数据源范围](https://n9e.github.io/zh/docs/alerting/scope.md)

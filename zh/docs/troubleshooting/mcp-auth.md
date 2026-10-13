@@ -124,7 +124,7 @@ curl -s --noproxy '*' -o /dev/null -w '%{http_code}\n' \
 
 **怎么确认**：两个都是 404，就是 `[HTTP.MCPAuth]` / `[HTTP.RSAuth]` 都没开。 这两节**在 `etc/config.toml` 里根本不存在**，得自己手写。 同样地，没开 OAuth 时 401 响应上**不会带 `WWW-Authenticate` 头**—— 而托管客户端正是靠这个头去发现授权入口的，所以它只会报「连不上」。
 
-**怎么修**：见 [OAuth 2.1 与外部身份提供方](https://n9e.github.io/zh/zh/docs/ai/oauth.md)。 代理上除了 `/mcp` 还要放行 `/oauth/` 和 `/.well-known/`。
+**怎么修**：见 [OAuth 2.1 与外部身份提供方](https://n9e.github.io/zh/docs/ai/oauth.md)。 代理上除了 `/mcp` 还要放行 `/oauth/` 和 `/.well-known/`。
 
 ### OAuth：地址和 Issuer 对不上[​](#oauth地址和-issuer-对不上 "OAuth：地址和 Issuer 对不上的直接链接")
 
@@ -168,7 +168,7 @@ curl -s --noproxy '*' -o /dev/null -w '%{http_code}\n' \
 
 4. 让它执行一个只读请求，比如「列出我能看到的业务组」， 返回的条数应该和这个账号登录界面看到的一致。
 
-工具数不对、或者少了某些工具，那是另一个问题，见 [MCP 工具为什么缺失或被拒绝？](https://n9e.github.io/zh/zh/docs/troubleshooting/mcp-tools-missing.md)。
+工具数不对、或者少了某些工具，那是另一个问题，见 [MCP 工具为什么缺失或被拒绝？](https://n9e.github.io/zh/docs/troubleshooting/mcp-tools-missing.md)。
 
 ## 收集这些再去提问[​](#收集这些再去提问 "收集这些再去提问的直接链接")
 
@@ -182,8 +182,8 @@ curl -s --noproxy '*' -o /dev/null -w '%{http_code}\n' \
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 端点本身怎么开：[启用 MCP 端点](https://n9e.github.io/zh/zh/docs/ai/mcp-endpoint.md)
-* Token 怎么建、代表谁：[个人 Token 认证](https://n9e.github.io/zh/zh/docs/ai/token-auth.md)
-* 托管客户端和企业 SSO：[OAuth 2.1 与外部身份提供方](https://n9e.github.io/zh/zh/docs/ai/oauth.md)
-* 连上了但工具不对：[MCP 工具为什么缺失或被拒绝？](https://n9e.github.io/zh/zh/docs/troubleshooting/mcp-tools-missing.md)
-* 客户端侧配置：[连接 Claude Code / Cursor 等客户端](https://n9e.github.io/zh/zh/docs/ai/mcp-clients.md)
+* 端点本身怎么开：[启用 MCP 端点](https://n9e.github.io/zh/docs/ai/mcp-endpoint.md)
+* Token 怎么建、代表谁：[个人 Token 认证](https://n9e.github.io/zh/docs/ai/token-auth.md)
+* 托管客户端和企业 SSO：[OAuth 2.1 与外部身份提供方](https://n9e.github.io/zh/docs/ai/oauth.md)
+* 连上了但工具不对：[MCP 工具为什么缺失或被拒绝？](https://n9e.github.io/zh/docs/troubleshooting/mcp-tools-missing.md)
+* 客户端侧配置：[连接 Claude Code / Cursor 等客户端](https://n9e.github.io/zh/docs/ai/mcp-clients.md)

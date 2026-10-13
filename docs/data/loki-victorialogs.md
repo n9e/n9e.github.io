@@ -22,7 +22,7 @@ One shared limitation up front: **neither type can back a dashboard panel.** The
 | User / Password     | Fill these when an auth gateway sits in front of Loki                                                                             |
 | Custom HTTP headers | In multi-tenant mode, add `X-Scope-OrgID` here with the tenant ID as its value                                                    |
 
-![The Loki data source form](/img/docs/data/form-loki.webp)![The Loki data source form](/img/docs/data/form-loki.dark.webp)
+![The Loki data source form](https://n9e.github.io/img/docs/data/form-loki.webp)![The Loki data source form](https://n9e.github.io/img/docs/data/form-loki.dark.webp)
 
 A URL missing `/loki` is the single most common mistake. **Save & test** requests `<URL>/api/v1/labels`; on a 404 with no `/loki` in the URL, Nightingale hands you the corrected address directly: `/loki suffix is miss, please add /loki to the url: ...`.
 
@@ -41,7 +41,7 @@ To find out whether you need a tenant ID, query Loki once without the header. `n
 | User / Password                        | Fill these if auth is enabled                                                    |
 | Custom HTTP headers                    | For a gateway that needs extra headers                                           |
 
-![The VictoriaLogs data source form](/img/docs/data/form-victorialogs.webp)![The VictoriaLogs data source form](/img/docs/data/form-victorialogs.dark.webp)
+![The VictoriaLogs data source form](https://n9e.github.io/img/docs/data/form-victorialogs.webp)![The VictoriaLogs data source form](https://n9e.github.io/img/docs/data/form-victorialogs.dark.webp)
 
 ## Querying: LogQL and LogsQL[​](#querying-logql-and-logsql "Direct link to Querying: LogQL and LogsQL")
 

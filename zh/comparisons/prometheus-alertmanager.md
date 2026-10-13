@@ -1,11 +1,11 @@
-1. [产品对比](https://n9e.github.io/zh/zh/comparisons.md)
+1. [产品对比](https://n9e.github.io/zh/comparisons.md)
 2. Prometheus + Alertmanager
 
 # 夜莺 vs Prometheus + Alertmanager
 
 Prometheus 不用换，exporter 不用换，Grafana 面板不用换。Alertmanager 是这组对比里唯一真正被替掉的组件：规则从 YAML 挪到页面上，路由树拍平成通知规则，静默变成带业务组边界的屏蔽规则。
 
-[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
+[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/docs/get-started/quick-start.md)
 
 ## 30 秒结论
 
@@ -122,7 +122,7 @@ rules.yml + alertmanager.yml
 
 两个最容易踩的坑：夜莺通知配置的「适用级别」一个都不勾等于谁都不匹配；事件缺少某个标签时，!= 和 !\~ 也判为不匹配，而 Alertmanager 把缺失标签当空串。
 
-[从 Prometheus + Alertmanager 迁移<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/from-alertmanager.md)[并存与回滚方案<!-- --> →](https://n9e.github.io/zh/zh/docs/migration/coexistence.md)
+[从 Prometheus + Alertmanager 迁移<!-- --> →](https://n9e.github.io/zh/docs/migration/from-alertmanager.md)[并存与回滚方案<!-- --> →](https://n9e.github.io/zh/docs/migration/coexistence.md)
 
 ## 关于这组对比的常见问题
 
@@ -148,18 +148,18 @@ Alertmanager 的告警分组在夜莺里怎么办？
 
 ## 其他对比
 
-* [夜莺 vs Zabbix](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
+* [夜莺 vs Zabbix](https://n9e.github.io/zh/comparisons/zabbix.md)
   <!-- -->
-  [ →](https://n9e.github.io/zh/zh/comparisons/zabbix.md)
-* [夜莺 vs Grafana Alerting](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
+  [ →](https://n9e.github.io/zh/comparisons/zabbix.md)
+* [夜莺 vs Grafana Alerting](https://n9e.github.io/zh/comparisons/grafana-alerting.md)
   <!-- -->
-  [ →](https://n9e.github.io/zh/zh/comparisons/grafana-alerting.md)
-* [产品对比](https://n9e.github.io/zh/zh/comparisons.md)
+  [ →](https://n9e.github.io/zh/comparisons/grafana-alerting.md)
+* [产品对比](https://n9e.github.io/zh/comparisons.md)
   <!-- -->
-  [ →](https://n9e.github.io/zh/zh/comparisons.md)
+  [ →](https://n9e.github.io/zh/comparisons.md)
 
 ## 拿不准？两套一起跑。
 
 夜莺读的是你现有的存储，装上不影响现在正在跑的告警。
 
-[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)
+[在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/docs/get-started/quick-start.md)

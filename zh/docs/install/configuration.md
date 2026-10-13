@@ -89,7 +89,7 @@ CONFIGTYPE_REDIS_ADDRESS=redis:6379
 | `[Ibex]`                                                   | 自愈任务的 RPC 监听                                       | Center、Edge         |
 | `[CenterApi]`                                              | 中心端地址与凭据（只在 `edge.toml` 里）                   | Edge                 |
 
-每个键的默认值和说明见[配置项](https://n9e.github.io/zh/zh/docs/reference/configuration.md)。
+每个键的默认值和说明见[配置项](https://n9e.github.io/zh/docs/reference/configuration.md)。
 
 ## 口令不要写明文[​](#口令不要写明文 "口令不要写明文的直接链接")
 
@@ -99,10 +99,10 @@ CONFIGTYPE_REDIS_ADDRESS=redis:6379
 ./n9e --crypto-key '<your-key>'
 ```
 
-没有 `{{cipher}}` 前缀的值按明文处理，所以可以逐个迁移。 更完整的做法见[密钥与凭据管理](https://n9e.github.io/zh/zh/docs/security/secrets.md)。
+没有 `{{cipher}}` 前缀的值按明文处理，所以可以逐个迁移。 更完整的做法见[密钥与凭据管理](https://n9e.github.io/zh/docs/security/secrets.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* [配置项](https://n9e.github.io/zh/zh/docs/reference/configuration.md)——每个键的默认值
-* [数据库选型](https://n9e.github.io/zh/zh/docs/install/databases.md)
-* [高可用](https://n9e.github.io/zh/zh/docs/install/high-availability.md)——多实例之间哪些配置必须一致
+* [配置项](https://n9e.github.io/zh/docs/reference/configuration.md)——每个键的默认值
+* [数据库选型](https://n9e.github.io/zh/docs/install/databases.md)
+* [高可用](https://n9e.github.io/zh/docs/install/high-availability.md)——多实例之间哪些配置必须一致

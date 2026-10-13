@@ -10,7 +10,7 @@ Where this page ends: one PromQL query running against any registered Prometheus
 
 **Explorer → Metrics** (`/metric/explorer`) opens on the **Explorer** tab.
 
-![Metrics explorer](/img/docs/query/metric-explorer.webp)![Metrics explorer](/img/docs/query/metric-explorer.dark.webp)
+![Metrics explorer](https://n9e.github.io/img/docs/query/metric-explorer.webp)![Metrics explorer](https://n9e.github.io/img/docs/query/metric-explorer.dark.webp)
 
 The top row:
 

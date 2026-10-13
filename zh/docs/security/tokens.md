@@ -6,7 +6,7 @@
 
 这页办完你会得到：一套能说清「哪个 Token 给谁用、上次什么时候用过、什么时候换」的做法， 以及一条换 Token 时不会把线上打断的操作顺序。
 
-创建和使用 Token 的最短路径在 [个人 Token 认证](https://n9e.github.io/zh/zh/docs/ai/token-auth.md)，这页讲的是之后的事。
+创建和使用 Token 的最短路径在 [个人 Token 认证](https://n9e.github.io/zh/docs/ai/token-auth.md)，这页讲的是之后的事。
 
 ## Token 是什么，不是什么[​](#token-是什么不是什么 "Token 是什么，不是什么的直接链接")
 
@@ -28,7 +28,7 @@ Token 是一个 UUID，挂在**某个用户**名下，代表「以这个用户�
 | CI 里同步告警规则 | 自定义角色，只勾 `/alert-rules` 四件套             | 对应业务组**读写**                 |
 | 外部系统读事件    | `Guest` + `/alert-cur-events`、`/alert-his-events` | 相关业务组只读                     |
 
-建账号见[用户与团队](https://n9e.github.io/zh/zh/docs/security/users-teams.md)，自定义角色见[角色与权限矩阵](https://n9e.github.io/zh/zh/docs/security/roles.md)。
+建账号见[用户与团队](https://n9e.github.io/zh/docs/security/users-teams.md)，自定义角色见[角色与权限矩阵](https://n9e.github.io/zh/docs/security/roles.md)。
 
 **别给这些账号 `Admin`**：`Admin` 会跳过业务组这一层，等于给了全量数据。
 
@@ -61,20 +61,20 @@ Token 管理页在**头像菜单 → 个人中心 → Token 管理**（`/account
 
 Token 只是其中一种。真正做一次凭据轮换，下面这些要一起过：
 
-| 凭据                | 在哪儿换                         | 备注                                                                                                    |
-| ------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `root` 的密码       | 用户管理里的重置密码             | 默认口令 `root.2020` 是公开信息，装完就得改                                                             |
-| 采集器 Basic Auth   | `[HTTP.APIForAgent.BasicAuth]`   | 改完要同步所有采集器，见[网络与 TLS 加固](https://n9e.github.io/zh/zh/docs/security/network-tls.md)     |
-| 服务间 Basic Auth   | `[HTTP.APIForService.BasicAuth]` | 配置文件里自带的那组示例账号密码是公开的，别沿用                                                        |
-| 数据源账号密码      | 数据源编辑页                     | 非管理员看不到这些值，改完记得验证一次查询                                                              |
-| SSO 的 ClientSecret | 系统配置 → 单点登录              | 建议放进加密变量，见[密钥管理](https://n9e.github.io/zh/zh/docs/security/secrets.md)                    |
-| 通知媒介的 Token    | 通知媒介配置                     | 同上                                                                                                    |
-| 仪表盘匿名分享链接  | 仪表盘列表的公开设置             | 它是独立的令牌，改密码不会让它失效，见[匿名限时分享](https://n9e.github.io/zh/zh/docs/query/sharing.md) |
+| 凭据                | 在哪儿换                         | 备注                                                                                                 |
+| ------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| `root` 的密码       | 用户管理里的重置密码             | 默认口令 `root.2020` 是公开信息，装完就得改                                                          |
+| 采集器 Basic Auth   | `[HTTP.APIForAgent.BasicAuth]`   | 改完要同步所有采集器，见[网络与 TLS 加固](https://n9e.github.io/zh/docs/security/network-tls.md)     |
+| 服务间 Basic Auth   | `[HTTP.APIForService.BasicAuth]` | 配置文件里自带的那组示例账号密码是公开的，别沿用                                                     |
+| 数据源账号密码      | 数据源编辑页                     | 非管理员看不到这些值，改完记得验证一次查询                                                           |
+| SSO 的 ClientSecret | 系统配置 → 单点登录              | 建议放进加密变量，见[密钥管理](https://n9e.github.io/zh/docs/security/secrets.md)                    |
+| 通知媒介的 Token    | 通知媒介配置                     | 同上                                                                                                 |
+| 仪表盘匿名分享链接  | 仪表盘列表的公开设置             | 它是独立的令牌，改密码不会让它失效，见[匿名限时分享](https://n9e.github.io/zh/docs/query/sharing.md) |
 
-配置文件里的那几项都支持密文存储，见[密钥管理](https://n9e.github.io/zh/zh/docs/security/secrets.md)。
+配置文件里的那几项都支持密文存储，见[密钥管理](https://n9e.github.io/zh/docs/security/secrets.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 怎么建 Token、怎么发请求：[个人 Token 认证](https://n9e.github.io/zh/zh/docs/ai/token-auth.md)
-* 把凭据挪出配置文件：[密钥管理](https://n9e.github.io/zh/zh/docs/security/secrets.md)
-* 上线前整体过一遍：[安全检查清单](https://n9e.github.io/zh/zh/docs/security/checklist.md)
+* 怎么建 Token、怎么发请求：[个人 Token 认证](https://n9e.github.io/zh/docs/ai/token-auth.md)
+* 把凭据挪出配置文件：[密钥管理](https://n9e.github.io/zh/docs/security/secrets.md)
+* 上线前整体过一遍：[安全检查清单](https://n9e.github.io/zh/docs/security/checklist.md)

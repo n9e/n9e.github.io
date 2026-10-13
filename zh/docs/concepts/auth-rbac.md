@@ -10,7 +10,7 @@
 
 **第一层：角色，决定你能进哪些页面、调哪些接口。** 内置三个角色：`Admin`、`Standard`、`Guest`。角色挂在用户身上，一个用户可以有多个角色。 角色由一组「权限点」组成，比如 `/alert-rules/add`、`/metric/explorer`。
 
-**第二层：业务组成员关系，决定你能操作哪些数据。** 用户属于若干团队，团队是业务组的成员并带读写标记。 见[业务组](https://n9e.github.io/zh/zh/docs/concepts/business-groups.md)。
+**第二层：业务组成员关系，决定你能操作哪些数据。** 用户属于若干团队，团队是业务组的成员并带读写标记。 见[业务组](https://n9e.github.io/zh/docs/concepts/business-groups.md)。
 
 两层是**且**的关系：
 
@@ -40,7 +40,7 @@
 
 支持 OIDC、OAuth2、LDAP、CAS，以及钉钉、飞书扫码登录。 在 **系统配置 → 单点登录** 里配。
 
-接了 SSO 之后，用户第一次登录会自动创建，默认角色可以配。 外部的组织架构可以映射成夜莺的角色，具体见 [SSO 与外部身份源](https://n9e.github.io/zh/zh/docs/security/sso.md)。
+接了 SSO 之后，用户第一次登录会自动创建，默认角色可以配。 外部的组织架构可以映射成夜莺的角色，具体见 [SSO 与外部身份源](https://n9e.github.io/zh/docs/security/sso.md)。
 
 也支持反向代理认证（`[HTTP.ProxyAuth]`）：由前置网关完成认证， 把用户名放在请求头里传进来。**开了这个，JWT 登录就会被禁用**—— 所以要么全走网关，要么全走夜莺自己的登录。
 
@@ -52,11 +52,11 @@
 
 * 给每个用途单独一个 Token（这个给 CI、那个给 AI 客户端），出事好定位；
 * 人员离职、Token 泄漏时逐个吊销，不用改所有人的凭据；
-* 定期轮换，见 [Token 与凭据轮换](https://n9e.github.io/zh/zh/docs/security/tokens.md)。
+* 定期轮换，见 [Token 与凭据轮换](https://n9e.github.io/zh/docs/security/tokens.md)。
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [角色与权限矩阵](https://n9e.github.io/zh/zh/docs/security/roles.md)
-* [用户与团队](https://n9e.github.io/zh/zh/docs/security/users-teams.md)
-* [权限矩阵（完整列表）](https://n9e.github.io/zh/zh/docs/reference/permissions.md)
-* [MCP 的权限继承](https://n9e.github.io/zh/zh/docs/ai/permissions.md)
+* [角色与权限矩阵](https://n9e.github.io/zh/docs/security/roles.md)
+* [用户与团队](https://n9e.github.io/zh/docs/security/users-teams.md)
+* [权限矩阵（完整列表）](https://n9e.github.io/zh/docs/reference/permissions.md)
+* [MCP 的权限继承](https://n9e.github.io/zh/docs/ai/permissions.md)

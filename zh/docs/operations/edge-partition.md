@@ -111,7 +111,7 @@ Timeout = 9000
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [边缘机房](https://n9e.github.io/zh/zh/docs/install/edge.md)
-* [生产拓扑](https://n9e.github.io/zh/zh/docs/operations/topology.md)
-* [边缘节点失联](https://n9e.github.io/zh/zh/docs/troubleshooting/edge-disconnected.md)
-* [高可用与故障域](https://n9e.github.io/zh/zh/docs/operations/high-availability.md)
+* [边缘机房](https://n9e.github.io/zh/docs/install/edge.md)
+* [生产拓扑](https://n9e.github.io/zh/docs/operations/topology.md)
+* [边缘节点失联](https://n9e.github.io/zh/docs/troubleshooting/edge-disconnected.md)
+* [高可用与故障域](https://n9e.github.io/zh/docs/operations/high-availability.md)

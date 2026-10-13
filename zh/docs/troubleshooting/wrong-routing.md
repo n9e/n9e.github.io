@@ -6,19 +6,19 @@
 
 通知发出去了，但发给了错误的人：本该只进值班群的进了全员群、本该被屏蔽的还是响了、 同一条事件收到两遍、或者标签改写完之后反而没人收到。 这类问题的共同点是**目的地在链路的哪一步被决定的，和你以为的不一样**。
 
-紧急程度按方向判断：**多发**（发给了不该收的人）是噪音，可以慢慢查； **漏发**（该收的人没收到）是盲区，先按 [有告警事件，为什么收不到通知？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md) 止血， 再回来查路由。
+紧急程度按方向判断：**多发**（发给了不该收的人）是噪音，可以慢慢查； **漏发**（该收的人没收到）是盲区，先按 [有告警事件，为什么收不到通知？](https://n9e.github.io/zh/docs/troubleshooting/no-notification.md) 止血， 再回来查路由。
 
 ## 先看通知记录：这一条是谁发出去的[​](#先看通知记录这一条是谁发出去的 "先看通知记录：这一条是谁发出去的的直接链接")
 
 **告警事件 → 打开这条事件 → 通知记录**。每条记录都写明了它是**哪条通知规则**、 **哪个媒介**发出去的。先把这两个值抄下来，问题范围立刻小一半：
 
-| 通知记录里看到的                     | 说明目的地是在哪决定的                                                                                                      |
-| ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------- |
-| 只有一条记录，通知规则不是你想的那条 | 告警规则上挂的通知规则选错了                                                                                                |
-| 有多条记录，通知规则 ID 不同         | 这条规则挂了多条通知规则，**它们各发各的**                                                                                  |
-| 记录出现在「订阅规则通知」那张表里   | 是订阅扩散出来的副本，不是原规则发的                                                                                        |
-| 记录的渠道显示「屏蔽」               | 命中了「只屏蔽通知」的屏蔽规则                                                                                              |
-| 一条记录都没有，但人收到了消息       | 事件是在 edge 上产生的，见 [Edge 为什么与中心失联？](https://n9e.github.io/zh/zh/docs/troubleshooting/edge-disconnected.md) |
+| 通知记录里看到的                     | 说明目的地是在哪决定的                                                                                                   |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| 只有一条记录，通知规则不是你想的那条 | 告警规则上挂的通知规则选错了                                                                                             |
+| 有多条记录，通知规则 ID 不同         | 这条规则挂了多条通知规则，**它们各发各的**                                                                               |
+| 记录出现在「订阅规则通知」那张表里   | 是订阅扩散出来的副本，不是原规则发的                                                                                     |
+| 记录的渠道显示「屏蔽」               | 命中了「只屏蔽通知」的屏蔽规则                                                                                           |
+| 一条记录都没有，但人收到了消息       | 事件是在 edge 上产生的，见 [Edge 为什么与中心失联？](https://n9e.github.io/zh/docs/troubleshooting/edge-disconnected.md) |
 
 ## 目的地是在哪一步决定的[​](#目的地是在哪一步决定的 "目的地是在哪一步决定的的直接链接")
 
@@ -54,7 +54,7 @@
 2. **① 的标签改写**——它改完的标签会被 ② 和 ④ 全程使用；
 3. **③ 的订阅扩散**——它只加不减，原规则该发的照发。
 
-完整模型见 [降噪与路由模型](https://n9e.github.io/zh/zh/docs/concepts/noise-routing.md)。
+完整模型见 [降噪与路由模型](https://n9e.github.io/zh/docs/concepts/noise-routing.md)。
 
 ## 两个挂载点，作用域完全不同[​](#两个挂载点作用域完全不同 "两个挂载点，作用域完全不同的直接链接")
 
@@ -177,9 +177,9 @@ INFO dispatch/dispatch.go:453 notify send timeMatch:true severityMatch:true tagM
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 完全没收到：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)
-* 试跑对了、线上不对：[工作流试跑成功，为什么生产执行失败？](https://n9e.github.io/zh/zh/docs/troubleshooting/workflow-prod-fails.md)
-* 链路的完整模型：[降噪与路由模型](https://n9e.github.io/zh/zh/docs/concepts/noise-routing.md)
-* 工作流怎么配：[事件 Pipeline](https://n9e.github.io/zh/zh/docs/events/pipelines.md)
-* 执行记录怎么读：[查看 Pipeline 执行记录](https://n9e.github.io/zh/zh/docs/events/execution-records.md)
-* 屏蔽规则的两种方式：[屏蔽规则](https://n9e.github.io/zh/zh/docs/events/mute-rules.md)
+* 完全没收到：[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/docs/troubleshooting/no-notification.md)
+* 试跑对了、线上不对：[工作流试跑成功，为什么生产执行失败？](https://n9e.github.io/zh/docs/troubleshooting/workflow-prod-fails.md)
+* 链路的完整模型：[降噪与路由模型](https://n9e.github.io/zh/docs/concepts/noise-routing.md)
+* 工作流怎么配：[事件 Pipeline](https://n9e.github.io/zh/docs/events/pipelines.md)
+* 执行记录怎么读：[查看 Pipeline 执行记录](https://n9e.github.io/zh/docs/events/execution-records.md)
+* 屏蔽规则的两种方式：[屏蔽规则](https://n9e.github.io/zh/docs/events/mute-rules.md)

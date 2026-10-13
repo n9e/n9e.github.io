@@ -4,7 +4,7 @@
 
 最后校对于 2026-10-10
 
-这页办完你会得到：一个业务组，以及一份「哪些团队能读、哪些团队能写」的授权清单。 这是权限模型的第二层——第一层是角色，见[角色与权限矩阵](https://n9e.github.io/zh/zh/docs/security/roles.md)。
+这页办完你会得到：一个业务组，以及一份「哪些团队能读、哪些团队能写」的授权清单。 这是权限模型的第二层——第一层是角色，见[角色与权限矩阵](https://n9e.github.io/zh/docs/security/roles.md)。
 
 ## 入口在哪[​](#入口在哪 "入口在哪的直接链接")
 
@@ -60,7 +60,7 @@ DBA/Postgres
 K8S/cluster-a
 ```
 
-分隔符和「树形 / 列表」的展示模式都在 **系统配置 → 站点设置** 里改 （字段叫「业务组分隔符」和「业务组展示模式」，默认分隔符是 `-`）。这纯粹是显示层的事， 改名不会动这个组下面的任何东西。概念上的划分建议见[业务组与资源归属](https://n9e.github.io/zh/zh/docs/concepts/business-groups.md)。
+分隔符和「树形 / 列表」的展示模式都在 **系统配置 → 站点设置** 里改 （字段叫「业务组分隔符」和「业务组展示模式」，默认分隔符是 `-`）。这纯粹是显示层的事， 改名不会动这个组下面的任何东西。概念上的划分建议见[业务组与资源归属](https://n9e.github.io/zh/docs/concepts/business-groups.md)。
 
 ## 两条会拦住你的规则[​](#两条会拦住你的规则 "两条会拦住�你的规则的直接链接")
 
@@ -69,10 +69,10 @@ K8S/cluster-a
 
 ## 机器要手动归组[​](#机器要手动归组 "机器要手动归组的直接链接")
 
-装了采集器的机器会自己注册上来，但落在**未归组**里。要有人把它分到业务组， 那个组的成员才看得见、才能给它配规则。这一步经常被忘，症状是 「设备列表里明明有，同事却说看不到」。见[对象与心跳](https://n9e.github.io/zh/zh/docs/data/categraf/targets.md)。
+装了采集器的机器会自己注册上来，但落在**未归组**里。要有人把它分到业务组， 那个组的成员才看得见、才能给它配规则。这一步经常被忘，症状是 「设备列表里明明有，同事却说看不到」。见[对象与心跳](https://n9e.github.io/zh/docs/data/categraf/targets.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 把人编进团队：[用户与团队](https://n9e.github.io/zh/zh/docs/security/users-teams.md)
-* 决定这些人能进哪些页面：[角色与权限矩阵](https://n9e.github.io/zh/zh/docs/security/roles.md)
-* 怎么划分业务组才合理：[业务组与资源归属](https://n9e.github.io/zh/zh/docs/concepts/business-groups.md)
+* 把人编进团队：[用户与团队](https://n9e.github.io/zh/docs/security/users-teams.md)
+* 决定这些人能进哪些页面：[角色与权限矩阵](https://n9e.github.io/zh/docs/security/roles.md)
+* 怎么划分业务组才合理：[业务组与资源归属](https://n9e.github.io/zh/docs/concepts/business-groups.md)

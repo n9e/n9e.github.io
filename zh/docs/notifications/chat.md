@@ -112,13 +112,13 @@ URL、请求参数和请求体都已经预置好了：请求体是 `{"text":"{{$
 
 表里的 `…` 都是 `{{$tpl.content}}`。请求体是一段 JSON **字符串**，里面的引号要转义。 Webhook 地址不要写死在媒介里——留成 `{{$params.webhook_url}}`，每条通知规则填自己的那条， 这样一个媒介能服务多个频道。
 
-Bot 方式（`slackbot` / `mattermostbot`）的 token 放在请求头里， 写成 `{{.变量名}}` 可以引用[变量配置](https://n9e.github.io/zh/zh/docs/security/variables.md)里的密文，不必明文存在媒介上。
+Bot 方式（`slackbot` / `mattermostbot`）的 token 放在请求头里， 写成 `{{.变量名}}` 可以引用[变量配置](https://n9e.github.io/zh/docs/security/variables.md)里的密文，不必明文存在媒介上。
 
 ## 另一条路：用「回调」媒介手写请求体[​](#另一条路用回调媒介手写请求体 "另一条路：用「回调」媒介手写请求体的直接链接")
 
 不想折腾 JSON 导入的话，直接用内置的 **回调**（Callback）媒介：类型面板里点「回调」， URL 留 `{{$params.callback_url}}`，把请求体改成目标平台要的形状。
 
-![新建通知媒介](/zh/img/docs/notifications/media-type-add.zh.webp)![新建通知媒介](/zh/img/docs/notifications/media-type-add.zh.dark.webp)
+![新建通知媒介](https://n9e.github.io/zh/img/docs/notifications/media-type-add.zh.webp)![新建通知媒介](https://n9e.github.io/zh/img/docs/notifications/media-type-add.zh.dark.webp)
 
 代价是：**回调类媒介不消费消息模板**，界面上也不显示模板下拉框。 整条消息的排版得写在媒介的请求体里，用 `{{$event.RuleName}}` 这类变量直接拼，比如：
 
@@ -146,7 +146,7 @@ Bot 方式（`slackbot` / `mattermostbot`）的 token 放在请求头里， 写�
 渲染逻辑对 `slackwebhook` 和 `slackbot` 这两个媒介类型做了特殊处理：
 
 * **`<` 会被还原。** 其余媒介走 `html/template`，`<` 被转义成 `&lt;`； Slack 的 `<url|文字>` 链接语法要是被转义就废了，所以渲染完会把 `&lt;` 换回 `<`。
-* **渲染失败时整个字段被丢掉。** 其余媒介会把 Go 模板的报错当成正文发出去 （难看，但你至少看得见）；Slack 是直接不发这个字段，消息可能是空的。 所以改完 Slack 模板一定要用**预览**看一眼，见[模板与变量](https://n9e.github.io/zh/zh/docs/notifications/templates.md)。
+* **渲染失败时整个字段被丢掉。** 其余媒介会把 Go 模板的报错当成正文发出去 （难看，但你至少看得见）；Slack 是直接不发这个字段，消息可能是空的。 所以改完 Slack 模板一定要用**预览**看一眼，见[模板与变量](https://n9e.github.io/zh/docs/notifications/templates.md)。
 
 ## 在通知规则里用起来[​](#在通知规则里用起来 "在通知规则里用起来的直接链接")
 
@@ -169,6 +169,6 @@ Bot 方式（`slackbot` / `mattermostbot`）的 token 放在请求头里， 写�
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 模板变量和辅助函数：[模板与变量](https://n9e.github.io/zh/zh/docs/notifications/templates.md)
-* 媒介、模板、规则的关系：[通知架构](https://n9e.github.io/zh/zh/docs/notifications/architecture.md)
-* 接值班平台或开工单：[PagerDuty / FlashDuty / Jira](https://n9e.github.io/zh/zh/docs/notifications/oncall-ticketing.md)
+* 模板变量和辅助函数：[模板与变量](https://n9e.github.io/zh/docs/notifications/templates.md)
+* 媒介、模板、规则的关系：[通知架构](https://n9e.github.io/zh/docs/notifications/architecture.md)
+* 接值班平台或开工单：[PagerDuty / FlashDuty / Jira](https://n9e.github.io/zh/docs/notifications/oncall-ticketing.md)

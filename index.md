@@ -23,7 +23,7 @@ Run the whole stack locally
 
 n9e.example.com/dashboards
 
-![Nightingale monitoring dashboard](/img/hero-dashboard-light.webp)![](/img/hero-dashboard-dark.webp)
+![Nightingale monitoring dashboard](https://n9e.github.io/img/hero-dashboard-light.webp)![](https://n9e.github.io/img/hero-dashboard-dark.webp)
 
 S1CPU usage above 90%
 
@@ -39,9 +39,9 @@ Fired
 
 **14m**
 
-Delivered![Slack](/img/logos/slack.png)![PagerDuty](/img/logos/pagerduty.png)![Telegram](/img/logos/telegram.png)
+Delivered![Slack](https://n9e.github.io/img/logos/slack.png)![PagerDuty](https://n9e.github.io/img/logos/pagerduty.png)![Telegram](https://n9e.github.io/img/logos/telegram.png)
 
-13,332GitHub stars
+13,336GitHub stars
 
 10+Data source types
 
@@ -70,7 +70,7 @@ No migration. Register Prometheus, VictoriaMetrics, ElasticSearch, ClickHouse or
 * 10+ data source types — metrics, logs and databases alike
 * 83 built-in integrations bundle collector config, dashboards and rules
 
-![Nightingale integration templates](/img/step-connect.webp)
+![Nightingale integration templates](https://n9e.github.io/img/step-connect.webp)
 
 rule
 
@@ -81,7 +81,7 @@ Metrics, logs and SQL-queried stores share one rule model, so there is nothing n
 * One rule can span several data sources
 * Edit rules in the UI or through the API — no YAML reload cycle
 
-![Nightingale alert rule management](/img/step-alert-en.webp)
+![Nightingale alert rule management](https://n9e.github.io/img/step-alert-en.webp)
 
 event
 
@@ -92,7 +92,7 @@ Storms collapse into an aggregated view by business group and severity. Mute rul
 * DingTalk, Feishu, WeCom, phone, SMS, Slack and 15 more
 * Event pipelines group similar alerts, rewrite labels and route conditionally
 
-![Nightingale aggregated alert events](/img/step-automate-en.webp)
+![Nightingale aggregated alert events](https://n9e.github.io/img/step-automate-en.webp)
 
 agent
 
@@ -163,33 +163,33 @@ Nightingale never asks you to replace what works. Data sources, collectors and n
 
 DATA SOURCES<!-- --> · <!-- -->Data sources
 
-* ![Prometheus logo](/img/logos/prometheus.png)Prometheus
-* ![VictoriaMetrics logo](/img/logos/victoriametrics.png)VictoriaMetrics
-* ![ElasticSearch logo](/img/logos/elasticsearch.png)ElasticSearch
-* ![ClickHouse logo](/img/logos/ck.png)ClickHouse
-* ![Loki logo](/img/logos/loki.png)Loki
-* ![VictoriaLogs logo](/img/logos/victorialogs.png)VictoriaLogs
-* ![MySQL logo](/img/logos/mysql.png)MySQL
-* ![PostgreSQL logo](/img/logos/pgsql.png)PostgreSQL
-* ![TDengine logo](/img/logos/tdengine.png)TDengine
-* ![OpenSearch logo](/img/logos/opensearch.png)OpenSearch
-* ![Doris logo](/img/logos/doris.png)Doris
-* ![IoTDB logo](/img/logos/iotdb.png)IoTDB
+* ![Prometheus logo](https://n9e.github.io/img/logos/prometheus.png)Prometheus
+* ![VictoriaMetrics logo](https://n9e.github.io/img/logos/victoriametrics.png)VictoriaMetrics
+* ![ElasticSearch logo](https://n9e.github.io/img/logos/elasticsearch.png)ElasticSearch
+* ![ClickHouse logo](https://n9e.github.io/img/logos/ck.png)ClickHouse
+* ![Loki logo](https://n9e.github.io/img/logos/loki.png)Loki
+* ![VictoriaLogs logo](https://n9e.github.io/img/logos/victorialogs.png)VictoriaLogs
+* ![MySQL logo](https://n9e.github.io/img/logos/mysql.png)MySQL
+* ![PostgreSQL logo](https://n9e.github.io/img/logos/pgsql.png)PostgreSQL
+* ![TDengine logo](https://n9e.github.io/img/logos/tdengine.png)TDengine
+* ![OpenSearch logo](https://n9e.github.io/img/logos/opensearch.png)OpenSearch
+* ![Doris logo](https://n9e.github.io/img/logos/doris.png)Doris
+* ![IoTDB logo](https://n9e.github.io/img/logos/iotdb.png)IoTDB
 
 NOTIFICATIONS<!-- --> · <!-- -->Notification channels
 
-* ![Slack logo](/img/logos/slack.png)Slack
-* ![PagerDuty logo](/img/logos/pagerduty.png)PagerDuty
+* ![Slack logo](https://n9e.github.io/img/logos/slack.png)Slack
+* ![PagerDuty logo](https://n9e.github.io/img/logos/pagerduty.png)PagerDuty
 * Email
-* ![Telegram logo](/img/logos/telegram.png)Telegram
-* ![Discord logo](/img/logos/discord.png)Discord
-* ![Jira logo](/img/logos/jira.png)Jira
-* ![Mattermost logo](/img/logos/mattermost.png)Mattermost
+* ![Telegram logo](https://n9e.github.io/img/logos/telegram.png)Telegram
+* ![Discord logo](https://n9e.github.io/img/logos/discord.png)Discord
+* ![Jira logo](https://n9e.github.io/img/logos/jira.png)Jira
+* ![Mattermost logo](https://n9e.github.io/img/logos/mattermost.png)Mattermost
 * Phone / SMS
-* ![FlashDuty logo](/img/logos/flashduty.png)FlashDuty
-* ![DingTalk logo](/img/logos/dingtalk.png)DingTalk
-* ![Feishu logo](/img/logos/feishu.png)Feishu
-* ![WeCom logo](/img/logos/wecom.png)WeCom
+* ![FlashDuty logo](https://n9e.github.io/img/logos/flashduty.png)FlashDuty
+* ![DingTalk logo](https://n9e.github.io/img/logos/dingtalk.png)DingTalk
+* ![Feishu logo](https://n9e.github.io/img/logos/feishu.png)Feishu
+* ![WeCom logo](https://n9e.github.io/img/logos/wecom.png)WeCom
 
 [See every integration<!-- --> →](https://n9e.github.io/integrations.md)
 
@@ -247,67 +247,67 @@ WHO USES NIGHTINGALE
 
 Automotive, electronics, gaming, cloud, logistics, retail.
 
-![Lenovo](/img/logos-en/lenovo.svg)
+![Lenovo](https://n9e.github.io/img/logos-en/lenovo.svg)
 
-![DJI](/img/logos-en/dji.svg)
+![DJI](https://n9e.github.io/img/logos-en/dji.svg)
 
-![SHEIN](/img/logos-en/shein.svg)
+![SHEIN](https://n9e.github.io/img/logos-en/shein.svg)
 
-![HoYoverse](/img/logos-en/hoyoverse.svg)
+![HoYoverse](https://n9e.github.io/img/logos-en/hoyoverse.svg)
 
-![Lotus](/img/logos-en/lotus.svg)
+![Lotus](https://n9e.github.io/img/logos-en/lotus.svg)
 
-![Anker Innovations](/img/logos-en/anker.svg)
+![Anker Innovations](https://n9e.github.io/img/logos-en/anker.svg)
 
-![Hisense](/img/logos-en/hisense.svg)
+![Hisense](https://n9e.github.io/img/logos-en/hisense.svg)
 
-![TCL](/img/logos-en/tcl.png)
+![TCL](https://n9e.github.io/img/logos-en/tcl.png)
 
-![Hikvision](/img/logos-en/hikvision.svg)
+![Hikvision](https://n9e.github.io/img/logos-en/hikvision.svg)
 
-![Insta360](/img/logos-en/insta360.svg)
+![Insta360](https://n9e.github.io/img/logos-en/insta360.svg)
 
-![smart](/img/logos-en/smart.svg)
+![smart](https://n9e.github.io/img/logos-en/smart.svg)
 
-![Yoshinoya](/img/logos-en/yoshinoya.svg)
+![Yoshinoya](https://n9e.github.io/img/logos-en/yoshinoya.svg)
 
-![NIO](/img/logos-en/nio.svg)
+![NIO](https://n9e.github.io/img/logos-en/nio.svg)
 
-![Chery](/img/logos-en/chery.svg)
+![Chery](https://n9e.github.io/img/logos-en/chery.svg)
 
-![Dahua](/img/logos-en/dahua.svg)
+![Dahua](https://n9e.github.io/img/logos-en/dahua.svg)
 
-![Transsion](/img/logos-en/transsion.svg)
+![Transsion](https://n9e.github.io/img/logos-en/transsion.svg)
 
-![Pony.ai](/img/logos-en/ponyai.png)
+![Pony.ai](https://n9e.github.io/img/logos-en/ponyai.png)
 
-![Tuya](/img/logos-en/tuya.png)
+![Tuya](https://n9e.github.io/img/logos-en/tuya.png)
 
-![DHgate](/img/logos-en/dhgate.svg)
+![DHgate](https://n9e.github.io/img/logos-en/dhgate.svg)
 
-![Leapmotor](/img/logos-en/leapmotor.svg)
+![Leapmotor](https://n9e.github.io/img/logos-en/leapmotor.svg)
 
-![Li Auto](/img/logos-en/liauto.svg)
+![Li Auto](https://n9e.github.io/img/logos-en/liauto.svg)
 
-![HyperGryph](/img/logos-en/hypergryph.svg)
+![HyperGryph](https://n9e.github.io/img/logos-en/hypergryph.svg)
 
-![Lilith Games](/img/logos-en/lilith.png)
+![Lilith Games](https://n9e.github.io/img/logos-en/lilith.png)
 
-![Sunborn](/img/logos-en/sunborn.png)
+![Sunborn](https://n9e.github.io/img/logos-en/sunborn.png)
 
-![Bespin Global](/img/logos-en/bespin.svg)
+![Bespin Global](https://n9e.github.io/img/logos-en/bespin.svg)
 
-![ClassIn](/img/logos-en/classin.svg)
+![ClassIn](https://n9e.github.io/img/logos-en/classin.svg)
 
-![Momenta](/img/logos-en/momenta.png)
+![Momenta](https://n9e.github.io/img/logos-en/momenta.png)
 
-![Inspur](/img/logos-en/inspur.svg)
+![Inspur](https://n9e.github.io/img/logos-en/inspur.svg)
 
-![VOYAH](/img/logos-en/voyah.svg)
+![VOYAH](https://n9e.github.io/img/logos-en/voyah.svg)
 
-![ARCFOX](/img/logos-en/arcfox.svg)
+![ARCFOX](https://n9e.github.io/img/logos-en/arcfox.svg)
 
-![Transfar](/img/logos-en/transfar.png)
+![Transfar](https://n9e.github.io/img/logos-en/transfar.png)
 
 ## Give alerting to a specialist
 

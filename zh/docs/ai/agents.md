@@ -19,7 +19,7 @@
 
 **对话严格按用户隔离。** 每一次读写都会校验请求账号是不是这次对话的主人， 管理员也没有例外，所以别人的对话你看不到——走 API 也一样。
 
-`/a2a` 上的对话就是同一个对象：调用方回传的 `contextId` 就是 `chat_id`， 所以通过 [A2A](https://n9e.github.io/zh/zh/docs/ai/a2a.md) 跟夜莺说话的 Agent，会和这个用户在浏览器里敲的对话 出现在同一个列表里。
+`/a2a` 上的对话就是同一个对象：调用方回传的 `contextId` 就是 `chat_id`， 所以通过 [A2A](https://n9e.github.io/zh/docs/ai/a2a.md) 跟夜莺说话的 Agent，会和这个用户在浏览器里敲的对话 出现在同一个列表里。
 
 ## 一次对话能做什么[​](#一次对话能做什么 "一次对话能做什么的直接链接")
 
@@ -51,23 +51,23 @@ chat id 就是对话地址的最后一段。删除会连同它的消息一起删
 * **使用场景只有 `chat` 一种**，而且只有一行启用的记录会被用到；
 * **启动时会自动建好一行**——`default-chat-agent`，不绑定具体模型—— 好让助手开箱即用；
 * **这一行上没有系统提示词，也没有工具选择。** 两者都编译在产品里， Agent 上的任何字段都改不了助手怎么想、能调什么；
-* **绑在 chat agent 上的 Skill 在普通对话路径上是被忽略的。** Skill 走的是 「从目录里发现、按需加载」——见[安装、管理与编写 Skills](https://n9e.github.io/zh/zh/docs/ai/skills.md)；
+* **绑在 chat agent 上的 Skill 在普通对话路径上是被忽略的。** Skill 走的是 「从目录里发现、按需加载」——见[安装、管理与编写 Skills](https://n9e.github.io/zh/docs/ai/skills.md)；
 * **没有菜单入口**，没有自己的权限点，而那个确实存在的列表页， 新建按钮已经被去掉了。它仅限管理员，而且只能靠手敲地址进去。
 
 所以：不要在开源版里围绕具名 Agent 搭工作流。 别处的页面或截图把 Agent 管理当成一个功能来讲的话，那不是这个版本。
 
 ## 想改的东西该去哪改[​](#想改的东西该去哪改 "想改的东西该去哪改的直接链接")
 
-| 你真正想要的             | 去哪做                                                                                                                                |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------- |
-| 换助手用的模型           | 把另一条 LLM 配置设为**默认**——它本来就压过 Agent 上的绑定（[配置大模型提供方](https://n9e.github.io/zh/zh/docs/ai/llm-provider.md)） |
-| 让某一类问题有不同的行为 | 写一个 Skill，它的描述决定什么时候生效（[安装、管理与编写 Skills](https://n9e.github.io/zh/zh/docs/ai/skills.md)）                    |
-| 某个流程要更多工具       | 那个 Skill frontmatter 里的 `builtin_tools`                                                                                           |
-| 诊断链要更长             | 那个 Skill frontmatter 里的 `max_iterations`                                                                                          |
-| 限制助手够得着什么       | 提问账号的角色和业务组（[权限继承与 RBAC](https://n9e.github.io/zh/zh/docs/ai/permissions.md)）                                       |
+| 你真正想要的             | 去哪做                                                                                                                             |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| 换助手用的模型           | 把另一条 LLM 配置设为**默认**——它本来就压过 Agent 上的绑定（[配置大模型提供方](https://n9e.github.io/zh/docs/ai/llm-provider.md)） |
+| 让某一类问题有不同的行为 | 写一个 Skill，它的描述决定什么时候生效（[安装、管理与编写 Skills](https://n9e.github.io/zh/docs/ai/skills.md)）                    |
+| 某个流程要更多工具       | 那个 Skill frontmatter 里的 `builtin_tools`                                                                                        |
+| 诊断链要更长             | 那个 Skill frontmatter 里的 `max_iterations`                                                                                       |
+| 限制助手够得着什么       | 提问账号的角色和业务组（[权限继承与 RBAC](https://n9e.github.io/zh/docs/ai/permissions.md)）                                       |
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 助手拿一次对话做什么：[Nightingale AI 概览](https://n9e.github.io/zh/zh/docs/ai/nightingale-ai.md)
-* 取代「每个 Agent 一套提示词」的 Skill 机制：[安装、管理与编写 Skills](https://n9e.github.io/zh/zh/docs/ai/skills.md)
-* 从别的 Agent 过来的对话：[A2A 端点](https://n9e.github.io/zh/zh/docs/ai/a2a.md)
+* 助手拿一次对话做什么：[Nightingale AI 概览](https://n9e.github.io/zh/docs/ai/nightingale-ai.md)
+* 取代「每个 Agent 一套提示词」的 Skill 机制：[安装、管理与编写 Skills](https://n9e.github.io/zh/docs/ai/skills.md)
+* 从别的 Agent 过来的对话：[A2A 端点](https://n9e.github.io/zh/docs/ai/a2a.md)

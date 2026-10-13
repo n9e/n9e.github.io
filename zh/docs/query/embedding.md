@@ -15,7 +15,7 @@
 
 **集成中心 → 系统集成**（`/embedded-products`），点 **新增**。
 
-![系统集成](/zh/img/docs/query/embedded-products.zh.webp)![系统集成](/zh/img/docs/query/embedded-products.zh.dark.webp)
+![系统集成](https://n9e.github.io/zh/img/docs/query/embedded-products.zh.webp)![系统集成](https://n9e.github.io/zh/img/docs/query/embedded-products.zh.dark.webp)
 
 | 字段   | 填什么                                                        |
 | ------ | ------------------------------------------------------------- |
@@ -65,7 +65,7 @@
 
 `viewMode=fullscreen` 在 iframe 里退不出来——退出全屏的快捷键受 iframe 安全限制管不到， 要手动把这个参数从 URL 里去掉。产品界面上也是这么提示的。
 
-只想给外部一个仪表盘、又不想让对方登录，别走这条路，走 [匿名限时分享](https://n9e.github.io/zh/zh/docs/query/sharing.md)：`/dashboards/share/<id>?__token=` 这个路径本来就不带菜单， 而且到期自动失效。
+只想给外部一个仪表盘、又不想让对方登录，别走这条路，走 [匿名限时分享](https://n9e.github.io/zh/docs/query/sharing.md)：`/dashboards/share/<id>?__token=` 这个路径本来就不带菜单， 而且到期自动失效。
 
 ## 把登录态透传过去[​](#把登录态透传过去 "把登录态透传过去的直接链接")
 
@@ -96,10 +96,10 @@ DefaultRoles = ["Standard"]
 ## 它管不到的边界[​](#它管不到的边界 "它管不到的边界的直接链接")
 
 * 「可见性」只控制侧栏里那个入口给谁看，**不是被嵌系统的安全边界**。用户拿到 URL 直接访问对方系统时，夜莺完全管不着——被嵌的系统自己也要鉴权。
-* 没有「按名单隐藏某几个菜单」的 URL 参数。`menu=hide` 是全隐藏；要按人裁菜单， 用角色和权限点，见[角色与权限点](https://n9e.github.io/zh/zh/docs/security/roles.md)。
+* 没有「按名单隐藏某几个菜单」的 URL 参数。`menu=hide` 是全隐藏；要按人裁菜单， 用角色和权限点，见[角色与权限点](https://n9e.github.io/zh/docs/security/roles.md)。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 只分享一个板：[匿名限时分享](https://n9e.github.io/zh/zh/docs/query/sharing.md)
-* 已经在用 Grafana：[与 Grafana 配合](https://n9e.github.io/zh/zh/docs/query/grafana.md)
-* 谁能看到什么：[用户、团队与角色](https://n9e.github.io/zh/zh/docs/security/users-teams.md)
+* 只分享一个板：[匿名限时分享](https://n9e.github.io/zh/docs/query/sharing.md)
+* 已经在用 Grafana：[与 Grafana 配合](https://n9e.github.io/zh/docs/query/grafana.md)
+* 谁能看到什么：[用户、团队与角色](https://n9e.github.io/zh/docs/security/users-teams.md)

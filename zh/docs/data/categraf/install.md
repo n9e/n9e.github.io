@@ -12,7 +12,7 @@
 
 * 目标机器**能访问夜莺的地址**（默认 `http://<夜莺IP>:17000`）；
 * 有 root 权限；
-* 夜莺已经起来了，还没起看[快速开始](https://n9e.github.io/zh/zh/docs/get-started/quick-start.md)。
+* 夜莺已经起来了，还没起看[快速开始](https://n9e.github.io/zh/docs/get-started/quick-start.md)。
 
 ## 路线一：从设备列表一键安装[​](#路线一从设备列表一键安装 "路线一：从设备列表�一键安装的直接链接")
 
@@ -180,7 +180,7 @@ cpu_usage_active
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 开始采中间件和数据库：[输入插件](https://n9e.github.io/zh/zh/docs/data/categraf/plugins.md)
-* 一次接完一个组件：[安装采集配置](https://n9e.github.io/zh/zh/docs/data/integrations/collector-config.md)
-* 写入相关的细节：[Remote Write](https://n9e.github.io/zh/zh/docs/data/categraf/remote-write.md)
-* 机器没出现或者没数据：[排障](https://n9e.github.io/zh/zh/docs/data/categraf/troubleshooting.md)
+* 开始采中间件和数据库：[输入插件](https://n9e.github.io/zh/docs/data/categraf/plugins.md)
+* 一次接完一个组件：[安装采集配置](https://n9e.github.io/zh/docs/data/integrations/collector-config.md)
+* 写入相关的细节：[Remote Write](https://n9e.github.io/zh/docs/data/categraf/remote-write.md)
+* 机器没出现或者没数据：[排障](https://n9e.github.io/zh/docs/data/categraf/troubleshooting.md)

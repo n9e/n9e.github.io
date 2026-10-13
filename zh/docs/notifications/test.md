@@ -48,7 +48,7 @@
 
 前两步不经过告警规则，所以最容易漏掉的一件事是：**这条通知规则根本没挂到告警规则上**。
 
-去 **告警通知 → 规则管理**，确认目标告警规则的 **通知规则** 字段里有它， 然后用规则自己的[测试触发](https://n9e.github.io/zh/zh/docs/alerting/test-fire.md)真的产生一条事件。
+去 **告警通知 → 规则管理**，确认目标告警规则的 **通知规则** 字段里有它， 然后用规则自己的[测试触发](https://n9e.github.io/zh/docs/alerting/test-fire.md)真的产生一条事件。
 
 预期结果：**告警通知 → 告警事件** 里出现一条新事件，同时你收到消息。
 
@@ -73,10 +73,10 @@
 1. 媒介测试过不去 → 是网络或密钥问题，跟夜莺的其余配置无关。看错误里的 status code。
 2. 媒介能过、通知规则测不过 → 看筛选条件（尤其是**适用级别一个都没勾**）和模板是否选了。
 3. 都能过、真实告警收不到 → 告警规则上没挂这条通知规则，或者被屏蔽规则吃掉了。
-4. 通知记录里根本没有这条事件的记录 → 事件压根没进到通知这一步， 顺着[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/zh/docs/troubleshooting/no-notification.md)排。
+4. 通知记录里根本没有这条事件的记录 → 事件压根没进到通知这一步， 顺着[有告警事件，为什么收不到通知？](https://n9e.github.io/zh/docs/troubleshooting/no-notification.md)排。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 消息内容不对：[模板与变量](https://n9e.github.io/zh/zh/docs/notifications/templates.md)
-* 发送失败的重试规则：[重试与投递状态](https://n9e.github.io/zh/zh/docs/notifications/delivery.md)
-* 送到了但送错了人：[通知路由到了错误的人](https://n9e.github.io/zh/zh/docs/troubleshooting/wrong-routing.md)
+* 消息内容不对：[模板与变量](https://n9e.github.io/zh/docs/notifications/templates.md)
+* 发送失败的重试规则：[重试与投递状态](https://n9e.github.io/zh/docs/notifications/delivery.md)
+* 送到了但送错了人：[通知路由到了错误的人](https://n9e.github.io/zh/docs/troubleshooting/wrong-routing.md)

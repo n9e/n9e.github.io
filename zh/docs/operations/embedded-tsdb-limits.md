@@ -36,7 +36,7 @@ Center 启动时发现同一个引擎集群里还有别的活跃实例，会打�
 
 所以这条限制排除的是：
 
-* 多实例高可用（见[高可用与故障域](https://n9e.github.io/zh/zh/docs/operations/high-availability.md)）；
+* 多实例高可用（见[高可用与故障域](https://n9e.github.io/zh/docs/operations/high-availability.md)）；
 * 在 Kubernetes 里把 Center 做成多副本 Deployment；
 * 在负载均衡后面滚动重启时不丢查询——重启期间这份数据整体不可用。
 
@@ -70,7 +70,7 @@ BasicAuthPass = "<password>"
 
 ## 限制三：没有在线备份，也没有副本[​](#限制三没有在线备份也没有副本 "限制三：没有在线备份�，也没有副本的直接链接")
 
-它不提供 Prometheus 的 snapshot 接口。想留一份就得停进程、拷 `data/tsdb` 目录—— 详见[备份与恢复](https://n9e.github.io/zh/zh/docs/operations/backup-restore.md)。删除数据的 `delete_series` / `clean_tombstones` 两个端点默认根本不注册，要用得先打开 `EnableAdminAPI = true`，并且先配好 BasicAuth。
+它不提供 Prometheus 的 snapshot 接口。想留一份就得停进程、拷 `data/tsdb` 目录—— 详见[备份与恢复](https://n9e.github.io/zh/docs/operations/backup-restore.md)。删除数据的 `delete_series` / `clean_tombstones` 两个端点默认根本不注册，要用得先打开 `EnableAdminAPI = true`，并且先配好 BasicAuth。
 
 ## 什么时候该迁走[​](#什么时候该迁走 "什么时候该迁走的直接链接")
 
@@ -112,7 +112,7 @@ Enable = false
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [内置时序库与外部存储](https://n9e.github.io/zh/zh/docs/concepts/storage.md)
-* [外部时序库与双写迁移](https://n9e.github.io/zh/zh/docs/install/external-tsdb.md)
-* [高可用与故障域](https://n9e.github.io/zh/zh/docs/operations/high-availability.md)
-* [备份与恢复](https://n9e.github.io/zh/zh/docs/operations/backup-restore.md)
+* [内置时序库与外部存储](https://n9e.github.io/zh/docs/concepts/storage.md)
+* [外部时序库与双写迁移](https://n9e.github.io/zh/docs/install/external-tsdb.md)
+* [高可用与故障域](https://n9e.github.io/zh/docs/operations/high-availability.md)
+* [备份与恢复](https://n9e.github.io/zh/docs/operations/backup-restore.md)

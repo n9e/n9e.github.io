@@ -21,7 +21,7 @@
 
 指标已经在 Prometheus / VictoriaMetrics / Thanos 里的，这是最省事的做法：把 Grafana 数据源里那个查询地址，在夜莺里也注册一份。
 
-**集成中心 → 数据源 → 新增 → Prometheus**，URL 填同一个地址，具体字段见 [Prometheus](https://n9e.github.io/zh/zh/docs/data/prometheus.md)。
+**集成中心 → 数据源 → 新增 → Prometheus**，URL 填同一个地址，具体字段见 [Prometheus](https://n9e.github.io/zh/docs/data/prometheus.md)。
 
 两点提醒：
 
@@ -56,15 +56,15 @@ Auth       Basic auth，用户名密码填上面那组
 
 保存并测试，能查到 `up` 就通了。
 
-这条路只适合小规模。内置库是单实例本地盘、大约 10 万活跃序列以内的方案， 边界见[内置时序库与外部存储](https://n9e.github.io/zh/zh/docs/concepts/storage.md)。规模上来换成外部时序库之后， 回到第 1 节，两边都指向外部库更简单。
+这条路只适合小规模。内置库是单实例本地盘、大约 10 万活跃序列以内的方案， 边界见[内置时序库与外部存储](https://n9e.github.io/zh/docs/concepts/storage.md)。规模上来换成外部时序库之后， 回到第 1 节，两边都指向外部库更简单。
 
 ## 3. 把告警搬到夜莺[​](#3-把告警搬到夜莺 "3. 把告警搬到夜莺的直接链接")
 
 夜莺规则里写的 PromQL 和 Grafana 面板里的是同一套写法，区别只是阈值判定写进表达式 本身（`... > 1`）。
 
-* 从零写第一条：[创建第一条告警规则](https://n9e.github.io/zh/zh/docs/alerting/first-rule.md)
-* 把已有的 Grafana 告警规则搬过来：[从 Grafana 告警迁移](https://n9e.github.io/zh/zh/docs/migration/from-grafana-alerting.md)
-* 不想一次切干净、想先并行跑一段：[与既有系统并存](https://n9e.github.io/zh/zh/docs/migration/coexistence.md)
+* 从零写第一条：[创建第一条告警规则](https://n9e.github.io/zh/docs/alerting/first-rule.md)
+* 把已有的 Grafana 告警规则搬过来：[从 Grafana 告警迁移](https://n9e.github.io/zh/docs/migration/from-grafana-alerting.md)
+* 不想一次切干净、想先并行跑一段：[与既有系统并存](https://n9e.github.io/zh/docs/migration/coexistence.md)
 
 ## 把 Grafana 大盘接进夜莺[​](#把-grafana-大盘接进夜莺 "把 Grafana 大盘接进夜莺的直接链接")
 
@@ -77,7 +77,7 @@ Auth       Basic auth，用户名密码填上面那组
 
 后者的限制界面上就写着：**只支持 Prometheus 类型数据源的仪表盘，以及夜莺支持的 图表类型和功能**。低于 v7 的 dashboard JSON 直接拒绝，v7 到 v8 之间会先警告再让你 选择继续。稍微复杂一点的大盘转过来都要手工收尾——「不推荐」不是客套话。
 
-第三种做法是把整个 Grafana 挂成一个侧栏入口，见[嵌入与被集成](https://n9e.github.io/zh/zh/docs/query/embedding.md)。
+第三种做法是把整个 Grafana 挂成一个侧栏入口，见[嵌入与被集成](https://n9e.github.io/zh/docs/query/embedding.md)。
 
 ## 让 Grafana 允许被嵌入[​](#让-grafana-允许被嵌入 "让 Grafana 允许被嵌入的直接链接")
 
@@ -119,6 +119,6 @@ org_role = Viewer
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 注册数据源的完整字段：[Prometheus](https://n9e.github.io/zh/zh/docs/data/prometheus.md)
-* 在夜莺里自己建盘：[创建仪表盘](https://n9e.github.io/zh/zh/docs/query/dashboards.md)
-* 把外部系统挂进侧栏：[嵌入与被集成](https://n9e.github.io/zh/zh/docs/query/embedding.md)
+* 注册数据源的完整字段：[Prometheus](https://n9e.github.io/zh/docs/data/prometheus.md)
+* 在夜莺里自己建盘：[创建仪表盘](https://n9e.github.io/zh/docs/query/dashboards.md)
+* 把外部系统挂进侧栏：[嵌入与被集成](https://n9e.github.io/zh/docs/query/embedding.md)

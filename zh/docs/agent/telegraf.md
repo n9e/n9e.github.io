@@ -10,7 +10,7 @@
 
 * 夜莺已启动，Telegraf 所在机器能访问 `http://<夜莺地址>:17000`。
 * `[HTTP.APIForAgent]` 的 `Enable` 为 `true`。
-* 已确认使用[内置时序库](https://n9e.github.io/zh/zh/docs/install/embedded-tsdb.md)，或正确配置了[外置写入目标](https://n9e.github.io/zh/zh/docs/install/external-tsdb.md)。
+* 已确认使用[内置时序库](https://n9e.github.io/zh/docs/install/embedded-tsdb.md)，或正确配置了[外置写入目标](https://n9e.github.io/zh/docs/install/external-tsdb.md)。
 
 用现有 Telegraf 安装即可。新安装参考 [Telegraf 官方安装说明](https://docs.influxdata.com/telegraf/v1/install/)，不要继续使用旧文里的 1.20.4 下载脚本。
 
@@ -80,5 +80,5 @@ Telegraf 不会上报 Categraf 的 heartbeat 元信息；看到时序数据，�
 
 ## 下一步[​](#next "下一步的直接链接")
 
-* [数据写入协议](https://n9e.github.io/zh/zh/docs/reference/write-protocols.md)
-* [创建第一条告警](https://n9e.github.io/zh/zh/docs/alerting/first-rule.md)
+* [数据写入协议](https://n9e.github.io/zh/docs/reference/write-protocols.md)
+* [创建第一条告警](https://n9e.github.io/zh/docs/alerting/first-rule.md)

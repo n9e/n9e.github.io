@@ -4,17 +4,17 @@
 
 最后校对于 2026-10-10
 
-有三件事都叫「回滚」，但机制上毫无共同之处：回退**版本**、回退 **`etc/` 里的某个文件**、 撤销**某个人在界面上做的改动**。三者各有各的撤销方式，其中只有第一件在 [回滚](https://n9e.github.io/zh/zh/docs/install/rollback.md)里给了命令。这页讲的是在一套正在运行的部署上分别怎么做， 外加元数据库自己坏掉的情况。
+有三件事都叫「回滚」，但机制上毫无共同之处：回退**版本**、回退 **`etc/` 里的某个文件**、 撤销**某个人在界面上做的改动**。三者各有各的撤销方式，其中只有第一件在 [回滚](https://n9e.github.io/zh/docs/install/rollback.md)里给了命令。这页讲的是在一套正在运行的部署上分别怎么做， 外加元数据库自己坏掉的情况。
 
 ## 把集群回退到上一个版本[​](#把集群回退到上一个版本 "把集群回退到上一个版本的直接链接")
 
-决定一切的约束是：schema 迁移只增不减、单向，所以不存在反向迁移。旧二进制在新 schema 上 能起来，它不认识的列会被忽略——大多数时候如此。什么时候「大多数」不成立、 以及那时该怎么办，见[回滚](https://n9e.github.io/zh/zh/docs/install/rollback.md)。
+决定一切的约束是：schema 迁移只增不减、单向，所以不存在反向迁移。旧二进制在新 schema 上 能起来，它不认识的列会被忽略——大多数时候如此。什么时候「大多数」不成立、 以及那时该怎么办，见[回滚](https://n9e.github.io/zh/docs/install/rollback.md)。
 
 集群多出来的东西是**混版本窗口**。两个版本的实例共用一个库和一个 Redis， 规则按一致性哈希在它们之间分派，所以回滚过程中同一条规则可能落在任意一边。 往前升的时候这没问题：新版本能读懂旧版本写的一切。往回退不对称—— 新版本运行期间创建的配置可能用了旧版本没实现的字段，而旧版本照样会去判定这些规则， 什么都不说。
 
 所以顺序上和升级有一处不同：
 
-1. 一个一个回退，和往前升一样——30 秒的接管时间和启动后 30 秒的判定延迟都还在，见 [升级与数据库迁移](https://n9e.github.io/zh/zh/docs/operations/upgrade.md)。
+1. 一个一个回退，和往前升一样——30 秒的接管时间和启动后 30 秒的判定延迟都还在，见 [升级与数据库迁移](https://n9e.github.io/zh/docs/operations/upgrade.md)。
 2. **不要退到一半停下。** 混版本状态持续几分钟没问题，持续几天是坏主意。 决定了就做完。
 3. `integrations/` 要跟着二进制一起换回去。那些模板是随版本发布的。
 4. 强刷浏览器。前端静态资源就是你刚换掉的那个进程提供的。
@@ -25,7 +25,7 @@
 
 `config.toml` **只在进程启动时读一次**。没有 reload 信号，也没有热加载， 所以撤销一处配置改动永远是「把文件放回去 + 重启这个实例」——这让它成了最好撤销的一类改动， 代价是每次都要重启一下。
 
-把 `etc/` 放进版本库，撤销就是一条 `git checkout` 加一次重启，见[备份与恢复](https://n9e.github.io/zh/zh/docs/operations/backup-restore.md)。 一个实例一个实例地重启，和滚动升级一样，这样告警不会断。
+把 `etc/` 放进版本库，撤销就是一条 `git checkout` 加一次重启，见[备份与恢复](https://n9e.github.io/zh/docs/operations/backup-restore.md)。 一个实例一个实例地重启，和滚动升级一样，这样告警不会断。
 
 要认出来的失败现象是：**你把 `config.toml` 改回去、重启了，那个设置还在。** 这说明它压根就不在文件里。站点设置、变量设置、单点登录、通知回调地址和通知脚本 都存在数据库的 `configs` 表里，不在 `etc/` 里。它们不需要重启就生效—— 配置类的内存缓存每 9 秒重新读一次数据库——撤销也在设置它的那个地方撤销。 这张表记了 `update_by` 和 `update_at`，所以「谁什么时候改的」是能查到的。
 
@@ -35,7 +35,7 @@
 
 * **手工改回去。** 规则列表里有最后修改人和修改时间，单次改动一般靠这个就能还原。
 * **改之前导出的那份。** 批量改之前把选中的规则导出成 JSON 是最便宜的保险。 注意导出会丢掉生效时段，重新导入后要检查这个字段。
-* **昨晚的数据库备份。** 从备份里捞单张表出来，得先停掉所有实例， 按[备份与恢复](https://n9e.github.io/zh/zh/docs/operations/backup-restore.md)来。
+* **昨晚的数据库备份。** 从备份里捞单张表出来，得先停掉所有实例， 按[备份与恢复](https://n9e.github.io/zh/docs/operations/backup-restore.md)来。
 
 直接改数据库来修规则的话，有一个坑：**告警引擎可能永远不会察觉。** 规则缓存只在「启用规则的条数」或「最大 `update_at`」变了的时候才刷新， 所以一次两者都没动的修改会躺在表里，永远到不了引擎。改的时候顺手把 `update_at` 写成当前的秒级时间戳。想确认某个实例到底加载到了什么：
 
@@ -49,7 +49,7 @@ curl --noproxy '*' http://127.0.0.1:17000/dumper/sync
 
 **动手之前先停掉所有 `n9e` 和 `n9e-edge` 进程。** 还活着的实例在不停地写心跳和事件， 修复或恢复要是和它并行进行，你拿到的会是两边混在一起的东西。这一步是最容易被跳过的。
 
-停完之后这就是一个普通的数据库问题，用数据库自己的工具处理。如果结论是「恢复备份」， 带顺序的完整流程——包括先起哪个实例、怎么确认判定恢复了——在[备份与恢复](https://n9e.github.io/zh/zh/docs/operations/backup-restore.md)里。
+停完之后这就是一个普通的数据库问题，用数据库自己的工具处理。如果结论是「恢复备份」， 带顺序的完整流程——包括先起哪个实例、怎么确认判定恢复了——在[备份与恢复](https://n9e.github.io/zh/docs/operations/backup-restore.md)里。
 
 SQLite 值得单独说，因为它的成因很具体：两个进程同时怼一个 `n9e.db` 会把库写坏， 报 `database disk image is malformed`。这没有什么可修的。这个库是**三个文件**—— `n9e.db`、`n9e.db-wal`、`n9e.db-shm`——它们要一起动：要删三个一起删，要恢复三个一起恢复。 只删 `n9e.db` 会让新库配上一份旧的预写日志。起新进程之前先确认没有旧进程还在， `lsof` 一下这个文件就知道。
 
@@ -67,7 +67,7 @@ SQLite 值得单独说，因为它的成因很具体：两个进程同时怼一�
 
 ## 相关[​](#相关 "相关的直接链接")
 
-* [回滚](https://n9e.github.io/zh/zh/docs/install/rollback.md)——命令，以及「没有反向迁移」这个约束
-* [升级与数据库迁移](https://n9e.github.io/zh/zh/docs/operations/upgrade.md)——按这个顺序升，就用不上这一页
-* [备份与恢复](https://n9e.github.io/zh/zh/docs/operations/backup-restore.md)——恢复步骤
-* [灾备](https://n9e.github.io/zh/zh/docs/operations/disaster-recovery.md)——整个环境都没了的时候
+* [回滚](https://n9e.github.io/zh/docs/install/rollback.md)——命令，以及「没有反向迁移」这个约束
+* [升级与数据库迁移](https://n9e.github.io/zh/docs/operations/upgrade.md)——按这个顺序升，就用不上这一页
+* [备份与恢复](https://n9e.github.io/zh/docs/operations/backup-restore.md)——恢复步骤
+* [灾备](https://n9e.github.io/zh/docs/operations/disaster-recovery.md)——整个环境都没了的时候

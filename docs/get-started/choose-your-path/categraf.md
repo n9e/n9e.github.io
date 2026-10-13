@@ -71,7 +71,7 @@ Give `--configs` **an absolute path**, or be sure of your working directory: Cat
 
 **Infrastructure → Hosts**. Within a minute the machine should be listed, marked up, and carrying CPU and memory utilisation.
 
-![The host list, showing hosts reporting in](/img/docs/data/targets-list.webp)![The host list, showing hosts reporting in](/img/docs/data/targets-list.dark.webp)
+![The host list, showing hosts reporting in](https://n9e.github.io/img/docs/data/targets-list.webp)![The host list, showing hosts reporting in](https://n9e.github.io/img/docs/data/targets-list.dark.webp)
 
 If it is not there, check in this order:
 

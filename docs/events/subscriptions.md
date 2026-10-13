@@ -8,7 +8,7 @@ Where this page ends: a subscription that delivers another business group's aler
 
 Entry point: **Alerts & Notifications → Alert rules**, then the **Subscription rules** tab (`/alert-subscribes`).
 
-![The subscriptions list](/img/docs/events/subscriptions.webp)![The subscriptions list](/img/docs/events/subscriptions.dark.webp)
+![The subscriptions list](https://n9e.github.io/img/docs/events/subscriptions.webp)![The subscriptions list](https://n9e.github.io/img/docs/events/subscriptions.dark.webp)
 
 ## 1. Create a subscription[​](#1-create-a-subscription "Direct link to 1. Create a subscription")
 
@@ -18,7 +18,7 @@ Click **Add**. The form opens with the three cases this feature exists for:
 * **Escalation safety net**: alerts unresolved for over an hour also go to the team lead;
 * **Global callback**: send every alert event to one webhook for automation.
 
-![The subscription form](/img/docs/events/subscribe-form.webp)![The subscription form](/img/docs/events/subscribe-form.dark.webp)
+![The subscription form](https://n9e.github.io/img/docs/events/subscribe-form.webp)![The subscription form](https://n9e.github.io/img/docs/events/subscribe-form.dark.webp)
 
 ## 2. Filter settings: which events count[​](#2-filter-settings-which-events-count "Direct link to 2. Filter settings: which events count")
 

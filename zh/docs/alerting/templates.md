@@ -8,7 +8,7 @@
 
 ## 随安装附带的规则库[​](#随安装附带的规则库 "随安装附带的规则库的直接链接")
 
-**集成中心 → 模板中心**（`/components`）是一片 logo 宫格，一个集成一块。 v9.1.1 随包带了 86 个集成，其中 64 个带告警规则，合计 755 条。
+**集成中心 → 模板中心**（`/components`）是一片 logo 宫格，一个集成一块。 夜莺随包带了 <!-- -->83<!-- --> 个集成，其中 <!-- -->63<!-- --> 个带告警规则。
 
 点开一个集成会拉出抽屉，里面的 **告警规则** tab 就是这个集成带来的规则列表。 每条规则都带备注、标签，以及一条 `action` 附加信息，写着被叫起来的人第一步该干什么。
 
@@ -33,7 +33,7 @@
 
 提交。预期结果：规则出现在那个业务组的规则列表里，处于停用状态， 数据源筛选和通知规则都已经按你填的设好了。
 
-和[导入、导出与复用](https://n9e.github.io/zh/zh/docs/alerting/import-export.md)里那条「导出再导入」的路不同， 这条路**会保留生效时间窗口**——内置规则的窗口写在文件里，跟着一起过来。
+和[导入、导出与复用](https://n9e.github.io/zh/docs/alerting/import-export.md)里那条「导出再导入」的路不同， 这条路**会保留生效时间窗口**——内置规则的窗口写在文件里，跟着一起过来。
 
 ## 从规则列表页导同一批[​](#从规则列表页导同一批 "从规则列表页导同一批的直接链接")
 
@@ -46,7 +46,7 @@
 内置规则是起点，不是成品。启用之前有三件事要过一遍：
 
 1. **阈值。** 它们是按通用安装写的。`disk_used_percent > 85` 对数据库服务器合理， 对日志采集机就是噪音。挨条看一遍。
-2. **级别。** 这个库对 S1 挺大方的。哪些真的值得半夜叫人，自己定—— 见[标签、附加信息与级别](https://n9e.github.io/zh/zh/docs/alerting/labels-severity.md)。
+2. **级别。** 这个库对 S1 挺大方的。哪些真的值得半夜叫人，自己定—— 见[标签、附加信息与级别](https://n9e.github.io/zh/docs/alerting/labels-severity.md)。
 3. **通知规则**，如果你是从规则列表那条路导的。没有它，规则触发了也是发向虚空。
 
 然后分批启用，别一次全开，这样一波噪音来了还能追到是哪一批。
@@ -55,7 +55,7 @@
 
 **没有「保存为模板」这个按钮。** 官方支持的是一条三步的手工路径，界面上的说明也是这么写的：
 
-1. 在自己的业务组里把规则写好、调顺，可以拿真实数据[模拟触发](https://n9e.github.io/zh/zh/docs/alerting/test-fire.md)验证；
+1. 在自己的业务组里把规则写好、调顺，可以拿真实数据[模拟触发](https://n9e.github.io/zh/docs/alerting/test-fire.md)验证；
 2. 在规则列表里选中它，用**更多操作 → 导出规则 JSON**；
 3. 去**集成中心 → 模板中心**，打开它所属的那个集成（没有就新建一个）的**告警规则** tab， 点**创建**，填一个分类名，把 JSON 粘进去。
 
@@ -75,6 +75,6 @@
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 把导进来的规则改成自己的：[指标规则](https://n9e.github.io/zh/zh/docs/alerting/metric-rules.md)
-* 在环境之间搬运自己的规则：[导入、导出与复用](https://n9e.github.io/zh/zh/docs/alerting/import-export.md)
-* 决定什么才值得叫人：[规则设计实践](https://n9e.github.io/zh/zh/docs/alerting/best-practices.md)
+* 把导进来的规则改成自己的：[指标规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)
+* 在环境之间搬运自己的规则：[导入、导出与复用](https://n9e.github.io/zh/docs/alerting/import-export.md)
+* 决定什么才值得叫人：[规则设计实践](https://n9e.github.io/zh/docs/alerting/best-practices.md)

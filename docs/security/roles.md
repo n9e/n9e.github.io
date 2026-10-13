@@ -50,7 +50,7 @@ What `Standard` does *not* get is worth memorising, because it rarely matches wh
 
 ## Build a custom role[​](#build-a-custom-role "Direct link to Build a custom role")
 
-![Role management](/img/docs/security/roles.webp)![Role management](/img/docs/security/roles.dark.webp)
+![Role management](https://n9e.github.io/img/docs/security/roles.webp)![Role management](https://n9e.github.io/img/docs/security/roles.dark.webp)
 
 1. **Organization → Roles**, then the **+** next to the **Role list** heading on the left.
 2. Enter a name and a note. The name is the string shown in the user form — keep it ASCII and without spaces.
