@@ -5,6 +5,8 @@ description: "Moving from Zabbix is a rebuild: hosts map to targets, templates t
 last_reviewed: 2026-10-10
 ---
 
+import { figures } from '@site/src/data/figures';
+
 Where this page ends: every Zabbix object placed on a Nightingale one, a clear list of what has
 **no equivalent at all**, and an order of work that never takes Zabbix down.
 
@@ -42,7 +44,7 @@ keeps running and collecting throughout, and afterwards you demote it to a read-
 | Host | A row in the host list, keyed on `ident` (the hostname Categraf reports) |
 | Host group | A **business group** — but it is also the **permission boundary**, not just a grouping. See [Business groups](../concepts/business-groups.md) |
 | Host macros / inventory | Custom tags and notes on the target, plus the labels the collector reports in `[global.labels]` |
-| Template | A **component in the template center**: 86 components ship, 64 of them with alert rule templates and 54 with dashboard templates |
+| Template | A **component in the template center**: {figures.integrations} components ship, {figures.integrationsWithAlerts} of them with alert rule templates and {figures.integrationsWithDashboards} with dashboard templates |
 | Template inheritance / nested templates | **No equivalent.** Importing a component is a one-time copy; changing the template does not flow back into copies already imported |
 | LLD (low-level discovery) | **No equivalent**, and usually not needed: however many series a query returns is how many objects you have, so a new mount point or NIC simply shows up in the result |
 

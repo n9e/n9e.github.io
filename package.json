@@ -11,7 +11,7 @@
     "releases": "node scripts/fetch-releases.mjs",
     "stats": "node scripts/fetch-stats.mjs",
     "build": "docusaurus build",
-    "postbuild": "node scripts/strip-nul.mjs build && node scripts/finalize-legacy-doc-urls.mjs && node scripts/check-legacy-doc-urls.mjs",
+    "postbuild": "node scripts/strip-nul.mjs build && node scripts/finalize-legacy-doc-urls.mjs && node scripts/finalize-slash-aliases.mjs && node scripts/check-legacy-doc-urls.mjs",
     "serve": "docusaurus serve",
     "clear": "docusaurus clear",
     "swizzle": "docusaurus swizzle",

@@ -5,14 +5,16 @@ description: "Nightingale ships rule templates for MySQL, Redis, Kubernetes and 
 last_reviewed: 2026-10-10
 ---
 
+import { figures } from '@site/src/data/figures';
+
 Where this page ends: the alert rules that ship with Nightingale for MySQL, Redis, Kubernetes and
 sixty other things are in one of your business groups, pointed at your data sources and attached to
 a notification rule — and you know how to put your own rules into the same library.
 
 ## The library that ships with the install
 
-**Integrations → Components** (`/components`) is a grid of logos, one per integration. v9.1.1 ships
-86 integrations; 64 of them carry alert rules, 755 rules in total.
+**Integrations → Components** (`/components`) is a grid of logos, one per integration. Nightingale ships
+{figures.integrations} integrations; {figures.integrationsWithAlerts} of them carry alert rules.
 
 Click an integration to open its drawer. Among its tabs, **Alert rules** is the list of rules that
 integration brings. Each rule carries a `note`, tags, and an `action` annotation with concrete

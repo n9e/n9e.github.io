@@ -5,6 +5,8 @@ description: "导入的规则不响可能只是数据没到；用集成模板列
 last_reviewed: 2026-10-10
 ---
 
+import { figures } from '@site/src/data/figures';
+
 导进来的告警规则不响，有两种可能：真的没问题，或者**数据压根没到**。
 这两件事看起来一模一样，所以在信任规则之前，先花两分钟确认指标真的进来了。
 
@@ -18,7 +20,7 @@ last_reviewed: 2026-10-10
 同一份数据在 **数据查询 → 指标 → 指标视图** 也能看，那里可以跨组件搜，
 列是「组件类型 / 分类 / 指标名称 / 单位 / PromQL / 操作」。
 
-86 个组件里只有 22 个带指标说明。没有的话，用插件名当前缀猜：
+{figures.integrations} 个组件里只有 {figures.integrationsWithMetrics} 个带指标说明。没有的话，用插件名当前缀猜：
 Categraf 的插件产出的指标基本都以插件名开头——`mysql` 插件出 `mysql_*`，
 `redis` 插件出 `redis_*`，`nginx` 插件出 `nginx_*`。
 

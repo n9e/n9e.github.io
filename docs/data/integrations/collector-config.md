@@ -5,6 +5,8 @@ description: "Copy a template's collector config into Categraf and start collect
 last_reviewed: 2026-10-10
 ---
 
+import { figures } from '@site/src/data/figures';
+
 Where this page ends: the target host has a new `conf/input.<plugin>/<plugin>.toml`, Categraf is
 collecting that component's metrics, and you have confirmed they reached Nightingale.
 
@@ -19,7 +21,7 @@ The open-source edition offers two; pick one:
 | | Collection wizard | Instructions in the template center |
 |---|---|---|
 | Entry point | **Infrastructure → Hosts → Set up collection** | **Integrations → Components → pick a component → Instructions** |
-| Coverage | 55 common components | 86 components |
+| Coverage | 55 common components | {figures.integrations} components |
 | How it lands on the host | Generates a command you run there | You create the file, paste, restart |
 | Best for | Common components, repeated across many hosts | Components the wizard doesn't cover, or heavy customisation |
 
@@ -100,7 +102,7 @@ Three steps to apply it:
 The Instructions tab is **documentation for a human, not a config pushed to the agent** — the
 open-source edition does not deliver it to your hosts, so that last mile is yours (or the wizard's).
 
-The **Edit** button on that tab has no effect on the 86 bundled components: their content comes from
+The **Edit** button on that tab has no effect on the {figures.integrations} bundled components: their content comes from
 the `integrations` directory Nightingale ships with, and edits are not persisted.
 
 ## What the command does

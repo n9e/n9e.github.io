@@ -6,6 +6,7 @@ import { starCount } from './src/lib/format';
 import repo from './src/data/stats.json';
 import { redirectsForLocale } from './scripts/legacy-doc-urls.mjs';
 import robotsTxtPlugin from './scripts/robots-txt-plugin.mjs';
+import llmsTxtLinks from './scripts/llms-txt-links.mjs';
 import { readFileSync } from 'node:fs';
 
 const FONT_FACE_CSS = readFileSync(new URL('./src/css/fonts.css', import.meta.url), 'utf8').replace(/^\/\*.*\*\/\n/, '');
@@ -62,6 +63,10 @@ const EMBED_INLINE_SCRIPT = `(function () {
 
 // 不走 i18n JSON 的配置项（如 og 图）只能按构建时的 locale 分流
 const isEn = process.env.DOCUSAURUS_CURRENT_LOCALE === 'en';
+const LOCALE_BASE_URL = isEn ? BASE_URL : '/zh/';
+// 历史文档地址的别名表；带斜杠的历史别名已在里面，createRedirects 不再重复生成。
+const legacyRedirects = redirectsForLocale(isEn ? 'en' : 'zh-Hans');
+const legacyFroms = new Set(legacyRedirects.map((r) => r.from));
 
 const config: Config = {
   // 站点标题会进每一页的 <title> 后缀和 og:title，英文站不能带中文；英文 tagline 与首页 hero 标题一致
@@ -175,7 +180,17 @@ const config: Config = {
     robotsTxtPlugin,
     [
       '@docusaurus/plugin-client-redirects',
-      { redirects: redirectsForLocale(isEn ? 'en' : 'zh-Hans') },
+      {
+        redirects: legacyRedirects,
+        // trailingSlash 为 false，只有 /docs/x.html 这一份文件；外链或手输 /docs/x/ 时
+        // GitHub Pages 会去找 docs/x/index.html，没有就 404。给每个页面补一个带斜杠的
+        // 跳转别名（scripts/finalize-slash-aliases.mjs 构建后再把它收拾成和历史别名一样的形态）。
+        createRedirects: (existingPath) => {
+          if (existingPath === '/' || existingPath.endsWith('/') || existingPath.endsWith('.html')) return [];
+          const withSlash = `${existingPath}/`;
+          return legacyFroms.has(withSlash) ? [] : [withSlash];
+        },
+      },
     ],
     // 给 AI 爬虫/助手的纯文本入口：每种语言各一份 llms.txt（目录 + 一句话摘要）、llms-full.txt（全文），
     // 以及每个页面同路径的 .md 原文（/docs/x → /docs/x.md）。从构建好的 HTML 转出来，中英文各跑一次。
@@ -197,6 +212,8 @@ const config: Config = {
           contentSelectors: ['.theme-doc-markdown', 'main'],
           // 绝对地址：这些文件是给站外的模型读的，相对路径离开站点就失效
           relativePaths: false,
+          // 中文站会拼出 /zh/zh/（见 scripts/llms-txt-links.mjs），在 Markdown 树上收回来；顺手把图片也拼成绝对地址
+          beforeDefaultRemarkPlugins: [[llmsTxtLinks, { baseUrl: LOCALE_BASE_URL, siteUrl: SITE_URL }]],
           excludeRoutes: ['**/search', '**/404.html'],
         },
       },

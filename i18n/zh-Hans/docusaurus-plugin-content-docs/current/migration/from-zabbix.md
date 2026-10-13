@@ -5,6 +5,8 @@ description: "从 Zabbix 迁移是重建而非搬迁：主机对应对象、模�
 last_reviewed: 2026-10-10
 ---
 
+import { figures } from '@site/src/data/figures';
+
 看完这页，你能把 Zabbix 的对象逐个对到夜莺上，知道哪几样**根本没有对应物**，
 并按一个 Zabbix 全程不停机的顺序把监控搬过来。
 
@@ -41,7 +43,7 @@ last_reviewed: 2026-10-10
 | Host | 设备列表里的一条记录，唯一标识是 `ident`（Categraf 上报的 hostname） |
 | Host group | **业务组**——但它同时是**权限边界**，不只是分组，见[业务组](../concepts/business-groups.md) |
 | Host 上的宏 / inventory | 设备上的自定义标签、备注，以及采集器 `[global.labels]` 上报的标签 |
-| Template（模板） | **模板中心里的组件**：夜莺内置 86 个组件，其中 64 个带告警规则模板、54 个带仪表盘模板 |
+| Template（模板） | **模板中心里的组件**：夜莺内置 {figures.integrations} 个组件，其中 {figures.integrationsWithAlerts} 个带告警规则模板、{figures.integrationsWithDashboards} 个带仪表盘模板 |
 | 模板继承 / 嵌套模板 | **没有对应物。** 组件导入是一次性拷贝，改了模板不会回流到已导入的副本 |
 | LLD（低级别自动发现） | **没有对应物**，但通常也不需要：一条查询返回几条序列就是几个对象，新挂载点、新网卡自动出现在结果里 |
 

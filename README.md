@@ -19,7 +19,10 @@ npm run typecheck
 `npm run build` first runs the data scripts (see [Generated data](#generated-data)). If a fetch
 fails, the build carries on with the data already in the repository. The build also writes
 `robots.txt` (with both locales' sitemaps), `llms.txt` / `llms-full.txt` per locale and a `.md`
-copy of every page next to its HTML (`/docs/x` → `/docs/x.md`) for AI crawlers.
+copy of every page next to its HTML (`/docs/x` → `/docs/x.md`) for AI crawlers. Links and images
+in those Markdown files are absolute; `scripts/llms-txt-links.mjs` fixes the doubled `/zh/zh/`
+prefix the llms-txt plugin otherwise produces for the Chinese locale (its route table is keyed by
+prefixed paths, so the prefix cannot simply be stripped before it runs).
 
 Fonts are self-hosted: `node scripts/sync-fonts.mjs` copies the `@fontsource` files into
 `static/fonts/` and writes `src/css/fonts.css`, which `docusaurus.config.ts` inlines into `<head>`
@@ -110,7 +113,12 @@ The official `@docusaurus/plugin-client-redirects` plugin emits static HTML alia
 adds slashless aliases without overwriting current pages, copies the target canonical URL,
 uses `location.replace` while forwarding query and hash, and checks the completed output.
 These are zero-second meta-refresh redirects, **not HTTP 301 responses**. Retired and unknown
-URLs remain 404 on GitHub Pages. A client module also handles known old URLs reached by SPA
+URLs remain 404 on GitHub Pages.
+
+The same plugin's `createRedirects` adds a trailing-slash alias for every current page
+(`/docs/x/` → `/docs/x`), because `trailingSlash: false` leaves only `docs/x.html` and GitHub
+Pages answers `/docs/x/` with 404 otherwise. `scripts/finalize-slash-aliases.mjs` gives those
+pages the target's absolute canonical and `location.replace`, matching the legacy aliases. A client module also handles known old URLs reached by SPA
 navigation; it does not replace the static aliases.
 
 ```bash
@@ -142,7 +150,10 @@ it under "Other"; the build does not fail.
 
 The figures quoted across the homepage, comparisons page, integrations page and introduction
 (integration count, data source types, notification channels, MCP tools) all come from
-`src/data/figures.ts`. The integration count is the catalog length; the MCP numbers are
+`src/data/figures.ts`. The integration count is the catalog length, and the "N of them ship alert
+rules / dashboards / metric descriptions" counts in the docs are derived from the same catalog
+(four upstream templates are deliberately hidden, see `HIDDEN` in
+`scripts/integration-categories.mjs`, so the product's template center shows a few more); the MCP numbers are
 `src/data/mcp.json`, written by `scripts/docs-env/gen-mcp-reference.mjs` from the toolset library
 pinned in nightingale's `go.mod` (the standalone `n9e-mcp-server` is deprecated; the tools ship
 inside n9e). Do not type these numbers into copy.

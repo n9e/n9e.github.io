@@ -5,10 +5,12 @@ description: "Import the bundled dashboards and alert rules into a business grou
 last_reviewed: 2026-10-10
 ---
 
+import { figures } from '@site/src/data/figures';
+
 Where this page ends: a business group that now has this component's dashboards, plus a batch of
 alert rules sitting **disabled**, waiting for you to adjust thresholds and enable them one by one.
 
-Nightingale ships templates for 86 components. Once metrics are arriving there is no need to draw
+Nightingale ships templates for {figures.integrations} components. Once metrics are arriving there is no need to draw
 panels or write rules from scratch — import the templates into a business group and tune them.
 
 ## What a component ships with
@@ -22,7 +24,7 @@ panels or write rules from scratch — import the templates into a business grou
 | Dashboards | Ready-made dashboard templates |
 | Alert rules | Ready-made alert rule templates |
 
-Not every component has all four. Of the 86, 64 ship alert rules, 54 ship dashboards, and 22 ship
+Not every component has all four. Of the {figures.integrations}, {figures.integrationsWithAlerts} ship alert rules, {figures.integrationsWithDashboards} ship dashboards, and {figures.integrationsWithMetrics} ship
 metric descriptions.
 
 ## Importing dashboards

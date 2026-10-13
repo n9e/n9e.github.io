@@ -5,6 +5,8 @@ description: "夜莺自带 MySQL、Redis、Kubernetes 等六十多个组件的�
 last_reviewed: 2026-10-10
 ---
 
+import { figures } from '@site/src/data/figures';
+
 这页办完你会得到：夜莺自带的 MySQL、Redis、Kubernetes 等六十多个组件的告警规则，
 已经躺在你的某个业务组里，指向你自己的数据源、挂好了通知规则——
 并且你知道怎么把自己写的规则放进同一个库里。
@@ -12,7 +14,7 @@ last_reviewed: 2026-10-10
 ## 随安装附带的规则库
 
 **集成中心 → 模板中心**（`/components`）是一片 logo 宫格，一个集成一块。
-v9.1.1 随包带了 86 个集成，其中 64 个带告警规则，合计 755 条。
+夜莺随包带了 {figures.integrations} 个集成，其中 {figures.integrationsWithAlerts} 个带告警规则。
 
 点开一个集成会拉出抽屉，里面的 **告警规则** tab 就是这个集成带来的规则列表。
 每条规则都带备注、标签，以及一条 `action` 附加信息，写着被叫起来的人第一步该干什么。

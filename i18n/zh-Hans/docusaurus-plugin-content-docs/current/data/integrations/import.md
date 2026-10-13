@@ -5,10 +5,12 @@ description: "把模板附带的仪表盘和告警规则导入某个业务组，
 last_reviewed: 2026-10-10
 ---
 
+import { figures } from '@site/src/data/figures';
+
 这页办完你会得到：某个业务组下多了这个组件的仪表盘，以及一批**处于停用状态**的告警规则，
 等你改完阈值再逐条启用。
 
-夜莺内置了 86 个组件的模板。指标采上来之后，不用自己从零画图、从零写规则——
+夜莺内置了 {figures.integrations} 个组件的模板。指标采上来之后，不用自己从零画图、从零写规则——
 把模板导进业务组，改改阈值就能用。
 
 ## 一个组件带哪些东西
@@ -22,7 +24,7 @@ last_reviewed: 2026-10-10
 | 仪表盘 | 现成的仪表盘模板 |
 | 告警规则 | 现成的告警规则模板 |
 
-不是每个组件四样都全。86 个组件里，64 个带告警规则、54 个带仪表盘、22 个带指标说明。
+不是每个组件四样都全。{figures.integrations} 个组件里，{figures.integrationsWithAlerts} 个带告警规则、{figures.integrationsWithDashboards} 个带仪表盘、{figures.integrationsWithMetrics} 个带指标说明。
 
 ## 导入仪表盘
 

@@ -5,6 +5,8 @@ description: "A quiet imported rule may just mean no data arrived; query the met
 last_reviewed: 2026-10-10
 ---
 
+import { figures } from '@site/src/data/figures';
+
 An imported alert rule that stays quiet means one of two things: everything is fine, or **the data
 never arrived**. Those look identical from the outside, so spend two minutes confirming the metrics
 are really there before you trust the rules.
@@ -20,7 +22,7 @@ unit and PromQL in the table.
 The same data is browsable across components under **Explorer → Metrics → Built-in metrics**, where
 the columns are Component type / Category / Name / Unit / PromQL / Operations.
 
-Only 22 of the 86 components ship metric descriptions. Without one, guess from the plugin name:
+Only {figures.integrationsWithMetrics} of the {figures.integrations} components ship metric descriptions. Without one, guess from the plugin name:
 Categraf plugins almost always prefix their metrics with the plugin name — `mysql` produces
 `mysql_*`, `redis` produces `redis_*`, `nginx` produces `nginx_*`.
 
