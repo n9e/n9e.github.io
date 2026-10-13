@@ -1,0 +1,1935 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-integrations docs-version-current docs-doc-page docs-doc-id-huawei" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">Monitor Huawei Cloud with Nightingale | Nightingale</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://n9e.github.io/img/og-en.png"><meta data-rh="true" name="twitter:image" content="https://n9e.github.io/img/og-en.png"><meta data-rh="true" property="og:url" content="https://n9e.github.io/integrations/huawei"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" property="og:locale:alternate" content="zh_CN"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" property="og:image:width" content="1200"><meta data-rh="true" property="og:image:height" content="630"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-integrations-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-integrations-current"><meta data-rh="true" property="og:title" content="Monitor Huawei Cloud with Nightingale | Nightingale"><meta data-rh="true" name="description" content="Scrape Cloud Eye (CES) metrics converted to Prometheus format by the cloudeye-exporter; templates cover ECS, RDS, DCS, ELB, Kafka, RocketMQ, CSS and WAF."><meta data-rh="true" property="og:description" content="Scrape Cloud Eye (CES) metrics converted to Prometheus format by the cloudeye-exporter; templates cover ECS, RDS, DCS, ELB, Kafka, RocketMQ, CSS and WAF."><meta data-rh="true" property="og:type" content="article"><meta data-rh="true" property="article:modified_time" content="2026-10-13"><link data-rh="true" rel="icon" href="/img/favicon.png"><link data-rh="true" rel="canonical" href="https://n9e.github.io/integrations/huawei"><link data-rh="true" rel="alternate" href="https://n9e.github.io/integrations/huawei" hreflang="en"><link data-rh="true" rel="alternate" href="https://n9e.github.io/zh/integrations/huawei" hreflang="zh-CN"><link data-rh="true" rel="alternate" href="https://n9e.github.io/integrations/huawei" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Huawei Cloud","item":"https://n9e.github.io/integrations/huawei"}]}</script><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Monitor Huawei Cloud with Nightingale","description":"Scrape Cloud Eye (CES) metrics converted to Prometheus format by the cloudeye-exporter; templates cover ECS, RDS, DCS, ELB, Kafka, RocketMQ, CSS and WAF.","inLanguage":"en","dateModified":"2026-10-13","url":"https://n9e.github.io/integrations/huawei"}</script><link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-400-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-700-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-800-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/jetbrains-mono-latin-400-normal.woff2" crossorigin="anonymous">
+<style>@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/archivo-latin-ext-400-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/archivo-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/archivo-latin-ext-500-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/archivo-latin-500-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 600; src: url(/fonts/archivo-latin-ext-600-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 600; src: url(/fonts/archivo-latin-600-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/archivo-latin-ext-700-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/archivo-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 800; src: url(/fonts/archivo-latin-ext-800-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 800; src: url(/fonts/archivo-latin-800-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/jetbrains-mono-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/jetbrains-mono-latin-500-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/jetbrains-mono-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+
+/* 度量匹配的回退字体：Archivo 没到时用 Arial 占位，字宽和行高按 Archivo 的度量调过，切换时几乎不重排 */
+@font-face { font-family: 'Archivo Fallback'; font-weight: 400; src: local('Arial'), local('Liberation Sans'); size-adjust: 115.77%; ascent-override: 75.84%; descent-override: 18.14%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 500; src: local('Arial'), local('Liberation Sans'); size-adjust: 117.58%; ascent-override: 74.67%; descent-override: 17.86%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 600; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 110.34%; ascent-override: 79.57%; descent-override: 19.03%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 700; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 113.27%; ascent-override: 77.51%; descent-override: 18.54%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 800; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 117.65%; ascent-override: 74.63%; descent-override: 17.85%; line-gap-override: 0%; }
+/* JetBrains Mono 对 Menlo（macOS）；Consolas / DejaVu 只是兜底，度量按 Menlo 算 */
+@font-face { font-family: 'JetBrains Mono Fallback'; src: local('Menlo'), local('Consolas'), local('DejaVu Sans Mono'); size-adjust: 99.66%; ascent-override: 102.35%; descent-override: 30.10%; line-gap-override: 0%; }
+</style>
+<script>!function(){try{var e=window.location,t=e.pathname;if(t.length>1&&"/"===t.charAt(t.length-1)&&"/zh/"!==t)return void e.replace(t.replace(/\/+$/,"")+e.search+e.hash);var n,a=new URLSearchParams(e.search),r=window.self!==window.top;try{n=window.sessionStorage}catch(i){}function o(e){try{return n&&n.getItem(e)}catch(e){return null}}function h(e,t){try{n&&n.setItem(e,t)}catch(e){}}if(!(a.has("onlyContent")||r&&"1"===o("n9e-embed")))return;var c=a.get("theme");if("dark"!==c&&"light"!==c&&(c=r?o("n9e-embed-theme"):null),r&&(h("n9e-embed","1"),c&&h("n9e-embed-theme",c)),document.documentElement.setAttribute("data-n9e-embed",""),e.hash){var s=decodeURIComponent(e.hash.slice(1));window.addEventListener("load",function(){setTimeout(function(){var e=document.getElementById(s);e&&e.scrollIntoView({behavior:"instant",block:"start"})},0)})}c&&!a.has("docusaurus-theme")&&(a.set("docusaurus-theme",c),history.replaceState(history.state,"",t+"?"+a.toString()+e.hash))}catch(d){}}()</script>
+<script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?9d7cc507a7aae60b28b5e04bb995492a",e.async=!0;var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><link rel="stylesheet" href="/assets/css/styles.4f3e9aef.css">
+<script src="/assets/js/runtime~main.3eefea0d.js" defer="defer"></script>
+<script src="/assets/js/main.42aa04ff.js" defer="defer"></script>
+<link rel="alternate" type="text/markdown" href="https://n9e.github.io/integrations/huawei.md"><link rel="describedby" href="https://n9e.github.io/llms.txt"></head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"dark"),document.documentElement.setAttribute("data-theme-choice",t||"dark")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo-mark.webp" alt="Nightingale" class="themedComponent_mlkZ themedComponent--light_NVdE" height="26" width="25"><img src="/img/logo-mark.webp" alt="Nightingale" class="themedComponent_mlkZ themedComponent--dark_xIcU" height="26" width="25"></div><b class="navbar__title text--truncate">Nightingale</b></a><a class="navbar__item navbar__link" href="/docs">Docs</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/integrations">Integrations</a><a class="navbar__item navbar__link" href="/comparisons">Comparisons</a><a class="navbar__item navbar__link" href="/download">Download</a><div class="navbar__item dropdown dropdown--hoverable"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">Community</a><ul class="dropdown__menu"><li><a href="https://github.com/ccfos/nightingale/issues" target="_blank" rel="noopener noreferrer" class="dropdown__link">Open an issue<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li><a href="https://join.slack.com/t/n9e/shared_invite/zt-480klxytf-P9qm3C1M87kDmRPp_H30Kw" target="_blank" rel="noopener noreferrer" class="dropdown__link">Slack<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://play.n9e.io/api/n9e/auth/demo-login" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">Live demo<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://github.com/ccfos/nightingale" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link navbar-github" aria-label="GitHub, 13337 stars">13.3k<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="mobileOnly_k8CN"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB n9e-docs-root n9e-docs-root--single"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><div class="searchWrap_zhtN"></div><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/integrations"><span class="linkLabel_WmDU">All integrations</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/linux"><span class="categoryLinkLabel_W154">Hosts &amp; hardware</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/linux"><span class="linkLabel_WmDU">Linux</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/windows"><span class="linkLabel_WmDU">Windows</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/systemd"><span class="linkLabel_WmDU">Systemd</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/smart"><span class="linkLabel_WmDU">SMART</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/ipmi"><span class="linkLabel_WmDU">IPMI</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/nvidia"><span class="linkLabel_WmDU">NVIDIA</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/amd-rocm-smi"><span class="linkLabel_WmDU">AMD ROCm SMI</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/exec"><span class="linkLabel_WmDU">Exec</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/mysql"><span class="categoryLinkLabel_W154">Databases &amp; storage</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/mysql"><span class="linkLabel_WmDU">MySQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/postgresql"><span class="linkLabel_WmDU">PostgreSQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/redis"><span class="linkLabel_WmDU">Redis</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/mongodb"><span class="linkLabel_WmDU">MongoDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/oracle"><span class="linkLabel_WmDU">Oracle</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/sqlserver"><span class="linkLabel_WmDU">SQLServer</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/elasticsearch"><span class="linkLabel_WmDU">Elasticsearch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/clickhouse"><span class="linkLabel_WmDU">ClickHouse</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/doris"><span class="linkLabel_WmDU">Doris</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/tidb"><span class="linkLabel_WmDU">TiDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/victoriametrics"><span class="linkLabel_WmDU">VictoriaMetrics</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/kafka"><span class="categoryLinkLabel_W154">Message queues</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/kafka"><span class="linkLabel_WmDU">Kafka</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/rabbitmq"><span class="linkLabel_WmDU">RabbitMQ</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/nsq"><span class="linkLabel_WmDU">NSQ</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/emqx"><span class="linkLabel_WmDU">EMQX</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/automq"><span class="linkLabel_WmDU">AutoMQ</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/nginx"><span class="categoryLinkLabel_W154">Web &amp; middleware</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/nginx"><span class="linkLabel_WmDU">Nginx</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/apache"><span class="linkLabel_WmDU">Apache</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/haproxy"><span class="linkLabel_WmDU">HAProxy</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/tomcat"><span class="linkLabel_WmDU">Tomcat</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/java"><span class="linkLabel_WmDU">Java</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/springboot"><span class="linkLabel_WmDU">SpringBoot</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/php"><span class="linkLabel_WmDU">PHP</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/consul"><span class="linkLabel_WmDU">Consul</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/ldap"><span class="linkLabel_WmDU">Ldap</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/bind"><span class="linkLabel_WmDU">Bind</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/logstash"><span class="linkLabel_WmDU">Logstash</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/mtail"><span class="linkLabel_WmDU">Mtail</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/kubernetes"><span class="categoryLinkLabel_W154">Containers &amp; cloud native</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/kubernetes"><span class="linkLabel_WmDU">Kubernetes</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/docker"><span class="linkLabel_WmDU">Docker</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/cadvisor"><span class="linkLabel_WmDU">cAdvisor</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/ceph"><span class="linkLabel_WmDU">Ceph</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/minio"><span class="linkLabel_WmDU">MinIO</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/openstack"><span class="linkLabel_WmDU">OpenStack</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/vsphere"><span class="linkLabel_WmDU">vSphere</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/integrations/aliyun"><span class="categoryLinkLabel_W154">Cloud providers &amp; CDN</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/aliyun"><span class="linkLabel_WmDU">Alibaba Cloud</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/integrations/huawei"><span class="linkLabel_WmDU">Huawei Cloud</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/tencent"><span class="linkLabel_WmDU">Tencent Cloud</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/cloudwatch"><span class="linkLabel_WmDU">CloudWatch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/azure"><span class="linkLabel_WmDU">Azure</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/snmp"><span class="categoryLinkLabel_W154">Network &amp; probes</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/snmp"><span class="linkLabel_WmDU">SNMP</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/switch-legacy"><span class="linkLabel_WmDU">Switch (legacy)</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/ping"><span class="linkLabel_WmDU">Ping</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/net-response"><span class="linkLabel_WmDU">Net Response</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/dns-query"><span class="linkLabel_WmDU">DNS Query</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/gitlab"><span class="categoryLinkLabel_W154">DevOps &amp; others</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/gitlab"><span class="linkLabel_WmDU">Gitlab</span></a></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Cloud providers &amp; CDN</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Huawei Cloud</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header class="n9e-doc-header"><h1>Monitor Huawei Cloud with Nightingale</h1><p class="n9e-doc-lead">Scrape Cloud Eye (CES) metrics converted to Prometheus format by the cloudeye-exporter; templates cover ECS, RDS, DCS, ELB, Kafka, RocketMQ, CSS and WAF.</p><p class="n9e-doc-reviewed">Last reviewed <time datetime="2026-10-13">2026-10-13</time></p></header><p>Huawei Cloud metrics come from the Cloud Eye service (CES). The <code>cloudeye-exporter</code> maintained by Huawei Cloud converts CES metrics per product namespace into Prometheus metrics named <code>huaweicloud_sys_&lt;service&gt;_&lt;metric&gt;</code>, which the Categraf <code>prometheus</code> input scrapes.</p>
+<p>The templates are split by product: ECS hosts, RDS (MySQL and PostgreSQL), DCS Redis instances and proxy nodes, ELB, distributed messaging (Kafka, RabbitMQ, RocketMQ), Cloud Search (CSS/ES) and WAF, one dashboard each. The rules cover ECS CPU and memory, RDS connections and disk, DCS memory and hit ratio, ELB backend health; the metric reference explains each product&#x27;s metrics one by one.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="whats-in-the-template">What&#x27;s in the template<a href="#whats-in-the-template" class="hash-link" aria-label="Direct link to What&#x27;s in the template" title="Direct link to What&#x27;s in the template" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>14 dashboards</strong>, 330 panels in total</li>
+<li class=""><strong>35 alert rules</strong>, each with runbook steps</li>
+<li class=""><strong>286 metric descriptions</strong></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-to-connect">How to connect<a href="#how-to-connect" class="hash-link" aria-label="Direct link to How to connect" title="Direct link to How to connect" translate="no">​</a></h2>
+<p>Deploy the <a href="https://github.com/huaweicloud/cloudeye-exporter" target="_blank" rel="noopener noreferrer" class="">cloudeye-exporter</a> and configure it with an IAM account&#x27;s AK/SK, the project and the namespaces to collect. Once <code>http://&lt;exporter&gt;:8087/metrics?services=SYS.ECS</code> responds, scrape it per namespace with the Categraf <code>prometheus</code> input:</p>
+<div class="language-toml codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-toml codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token comment" style="color:rgb(98, 114, 164)"># conf/input.prometheus/huaweicloud.toml</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token key property">interval</span><span class="token plain"> </span><span class="token punctuation" style="color:rgb(248, 248, 242)">=</span><span class="token plain"> </span><span class="token number">120</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token punctuation" style="color:rgb(248, 248, 242)">[</span><span class="token punctuation" style="color:rgb(248, 248, 242)">[</span><span class="token table class-name">instances</span><span class="token punctuation" style="color:rgb(248, 248, 242)">]</span><span class="token punctuation" style="color:rgb(248, 248, 242)">]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token key property">urls</span><span class="token plain"> </span><span class="token punctuation" style="color:rgb(248, 248, 242)">=</span><span class="token plain"> </span><span class="token punctuation" style="color:rgb(248, 248, 242)">[</span><span class="token string" style="color:rgb(255, 121, 198)">&quot;http://&lt;exporter&gt;:8087/metrics?services=SYS.ECS,SYS.RDS,SYS.DCS,SYS.ELB&quot;</span><span class="token punctuation" style="color:rgb(248, 248, 242)">]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token key property">labels</span><span class="token plain"> </span><span class="token punctuation" style="color:rgb(248, 248, 242)">=</span><span class="token plain"> </span><span class="token punctuation" style="color:rgb(248, 248, 242)">{</span><span class="token plain"> </span><span class="token key property">job</span><span class="token plain"> </span><span class="token punctuation" style="color:rgb(248, 248, 242)">=</span><span class="token plain"> </span><span class="token string" style="color:rgb(255, 121, 198)">&quot;huaweicloud&quot;</span><span class="token plain"> </span><span class="token punctuation" style="color:rgb(248, 248, 242)">}</span><br></div></code></pre></div></div>
+<p>Cloud Eye metrics are at 60-second granularity or coarser, so do not collect more often than that.</p>
+<ol>
+<li class="">Open the integration center in Nightingale, find Huawei Cloud, and <a class="" href="/docs/data/integrations/import">import the dashboards and alert rules</a> into a business group.</li>
+<li class="">Imported rules start disabled. <a class="" href="/docs/data/integrations/verify">Check that the metrics are arriving</a> first, then enable the rules one by one with thresholds that fit your environment.</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="bundled-dashboards">Bundled dashboards<a href="#bundled-dashboards" class="hash-link" aria-label="Direct link to Bundled dashboards" title="Direct link to Bundled dashboards" translate="no">​</a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Dashboard</th><th style="text-align:right">Panels</th></tr></thead><tbody><tr><td>Huawei Cloud Search Service (CSS/ES)</td><td style="text-align:right">25</td></tr><tr><td>Huawei Cloud Distributed Cache Service (DCS)</td><td style="text-align:right">13</td></tr><tr><td>Huawei Cloud Elastic Load Balance (ELB)</td><td style="text-align:right">24</td></tr><tr><td>Huawei Cloud ECS Host Monitoring Dashboard</td><td style="text-align:right">13</td></tr><tr><td>Huawei Cloud Distributed Message Service (Kafka)</td><td style="text-align:right">26</td></tr><tr><td>Huawei Cloud RDS for MySQL instance</td><td style="text-align:right">22</td></tr><tr><td>Huawei Cloud RDS for PostgreSQL instance</td><td style="text-align:right">21</td></tr><tr><td>Huawei Cloud Database (RDS)</td><td style="text-align:right">22</td></tr><tr><td>Huawei Cloud RabbitMQ</td><td style="text-align:right">53</td></tr><tr><td>Huawei Cloud Redis Instance Monitoring Dashboard</td><td style="text-align:right">35</td></tr><tr><td>Huawei Cloud Redis Proxy Node Monitoring Dashboard</td><td style="text-align:right">12</td></tr><tr><td>Huawei Cloud Redis Data Node Monitoring Dashboard</td><td style="text-align:right">35</td></tr><tr><td>Huawei RocketMQ Monitoring</td><td style="text-align:right">16</td></tr><tr><td>Huawei Cloud WAF</td><td style="text-align:right">13</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="bundled-alert-rules">Bundled alert rules<a href="#bundled-alert-rules" class="hash-link" aria-label="Direct link to Bundled alert rules" title="Direct link to Bundled alert rules" translate="no">​</a></h2>
+<p>35 rules. Each lists its trigger condition (PromQL) and the steps to take when it fires. Thresholds are meant to be adjusted after import.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-ecs-cpu-usage-exceeds-80">Huawei Cloud ECS CPU usage exceeds 80%<a href="#huawei-cloud-ecs-cpu-usage-exceeds-80" class="hash-link" aria-label="Direct link to Huawei Cloud ECS CPU usage exceeds 80%" title="Direct link to Huawei Cloud ECS CPU usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_agt_cpu_usage &gt;80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">SSH in and use top -H to find the busiest processes and threads;</li>
+<li class="">Use perf top or a language profiler to find the hot functions;</li>
+<li class="">Tell business growth apart from a code fault (infinite loop, frequent GC);</li>
+<li class="">For growth, change to a larger flavour in the console or scale out horizontally.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-ecs-inode-usage-exceeds-80">Huawei Cloud ECS inode usage exceeds 80%<a href="#huawei-cloud-ecs-inode-usage-exceeds-80" class="hash-link" aria-label="Direct link to Huawei Cloud ECS inode usage exceeds 80%" title="Direct link to Huawei Cloud ECS inode usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_agt_SlAsH_disk_inodesUsedPercent &gt;80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run df -i to find the mount point;</li>
+<li class="">Count files level by level to find the directories with the most small files;</li>
+<li class="">Common sources are log fragments, session files and container layers — confirm and bulk delete;</li>
+<li class="">Longer term, consider moving small-file workloads to a dedicated partition.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-ecs-ntp-offset-exceeds-1-second">Huawei Cloud ECS NTP offset exceeds 1 second<a href="#huawei-cloud-ecs-ntp-offset-exceeds-1-second" class="hash-link" aria-label="Direct link to Huawei Cloud ECS NTP offset exceeds 1 second" title="Direct link to Huawei Cloud ECS NTP offset exceeds 1 second" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_agt_ntp_offset &gt; 1000</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run chronyc tracking to check the offset and upstream source state;</li>
+<li class="">Huawei Cloud ECS should use the internal NTP service (ntp.myhuaweicloud.com) — confirm it is configured;</li>
+<li class="">Start chronyd if it is not running and enable it at boot;</li>
+<li class="">For a large offset, use chronyc makestep to step the clock.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-ecs-time_wait-connections-exceed-20000">Huawei Cloud ECS TIME_WAIT connections exceed 20000<a href="#huawei-cloud-ecs-time_wait-connections-exceed-20000" class="hash-link" aria-label="Direct link to Huawei Cloud ECS TIME_WAIT connections exceed 20000" title="Direct link to Huawei Cloud ECS TIME_WAIT connections exceed 20000" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_agt_net_tcp_close &gt; 20000</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run ss -s to see the real connection state distribution;</li>
+<li class="">Run ss -tan | awk &#x27;{print $5}&#x27; | cut -d: -f1 | sort | uniq -c | sort -rn to find the peers;</li>
+<li class="">The root cause is usually too many short-lived connections — switch the application to long-lived connections or a pool;</li>
+<li class="">As an emergency measure enable net.ipv4.tcp_tw_reuse and widen ip_local_port_range.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-ecs-zombie-processes-above-0">Huawei Cloud ECS zombie processes above 0<a href="#huawei-cloud-ecs-zombie-processes-above-0" class="hash-link" aria-label="Direct link to Huawei Cloud ECS zombie processes above 0" title="Direct link to Huawei Cloud ECS zombie processes above 0" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_agt_proc_zombie_count &gt;0</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run ps -ef | awk &#x27;$2 ~ /Z/ || $8 ~ /Z/&#x27; or ps aux | grep &#x27;Z&#x27; to find the zombie processes and their parent PPIDs;</li>
+<li class="">Once you have the parent, the problem is that it never calls wait() — this must be fixed in code;</li>
+<li class="">As an emergency measure restart the parent so init reaps the zombies;</li>
+<li class="">If the count keeps growing, the code fix is mandatory — restarting is only a stopgap.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-ecs-available-memory-below-20">Huawei Cloud ECS available memory below 20%<a href="#huawei-cloud-ecs-available-memory-below-20" class="hash-link" aria-label="Direct link to Huawei Cloud ECS available memory below 20%" title="Direct link to Huawei Cloud ECS available memory below 20%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_agt_mem_available &lt; 20</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run free -h to check available memory and swap;</li>
+<li class="">Run ps aux --sort=-%mem | head to find the largest consumer and judge whether it is leaking;</li>
+<li class="">For a leak, capture a heap in the application — a restart alone is not enough;</li>
+<li class="">For growth, change to a larger memory flavour in the console.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-ecs-outbound-packet-loss-rate-exceeds-50">Huawei Cloud ECS outbound packet loss rate exceeds 50%<a href="#huawei-cloud-ecs-outbound-packet-loss-rate-exceeds-50" class="hash-link" aria-label="Direct link to Huawei Cloud ECS outbound packet loss rate exceeds 50%" title="Direct link to Huawei Cloud ECS outbound packet loss rate exceeds 50%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_agt_net_dropout &gt; 50</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run ip -s link show to confirm TX dropped is growing;</li>
+<li class="">Confirm whether the instance flavour&#x27;s bandwidth cap is saturated — cloud bandwidth is capped per flavour and exceeding it drops packets;</li>
+<li class="">If capped, adjust bandwidth or change the flavour in the console;</li>
+<li class="">If not capped, check security groups, the kernel transmit queue and the application&#x27;s send logic.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-ecs-outbound-packet-error-rate-exceeds-50">Huawei Cloud ECS outbound packet error rate exceeds 50%<a href="#huawei-cloud-ecs-outbound-packet-error-rate-exceeds-50" class="hash-link" aria-label="Direct link to Huawei Cloud ECS outbound packet error rate exceeds 50%" title="Direct link to Huawei Cloud ECS outbound packet error rate exceeds 50%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_agt_net_errout &gt; 50</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run ip -s link show and ethtool -S to confirm the error counters;</li>
+<li class="">In the cloud the physical layer is the provider&#x27;s responsibility, so an abnormal error rate should go to a Huawei Cloud support ticket first;</li>
+<li class="">At the same time confirm whether the instance flavour&#x27;s bandwidth cap was exceeded;</li>
+<li class="">If redundancy exists, move traffic away to stop the impact.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-ecs-block-device-usage-exceeds-80">Huawei Cloud ECS block device usage exceeds 80%<a href="#huawei-cloud-ecs-block-device-usage-exceeds-80" class="hash-link" aria-label="Direct link to Huawei Cloud ECS block device usage exceeds 80%" title="Direct link to Huawei Cloud ECS block device usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_agt_SlAsH_disk_usedPercent &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run df -h to find the mount point and du -x --max-depth=1 for the largest directories;</li>
+<li class="">Clean logs and temporary files first, and use lsof +L1 for deleted-but-unreleased files;</li>
+<li class="">Expand the EVS disk online in the console, then use growpart plus resize2fs/xfs_growfs to grow the filesystem;</li>
+<li class="">Longer term, evaluate moving the data directory to a dedicated cloud disk.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-ecs-inbound-packet-loss-rate-exceeds-50">Huawei Cloud ECS inbound packet loss rate exceeds 50%<a href="#huawei-cloud-ecs-inbound-packet-loss-rate-exceeds-50" class="hash-link" aria-label="Direct link to Huawei Cloud ECS inbound packet loss rate exceeds 50%" title="Direct link to Huawei Cloud ECS inbound packet loss rate exceeds 50%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_agt_net_dropin &gt; 50</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run ip -s link show to confirm RX dropped is growing;</li>
+<li class="">Confirm whether the instance flavour&#x27;s bandwidth or PPS cap is saturated — cloud instances limit both;</li>
+<li class="">If capped, adjust bandwidth or change the flavour in the console;</li>
+<li class="">If not capped, raise the receive ring buffer with ethtool -G and consider enabling RPS.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-ecs-inbound-packet-error-rate-exceeds-50">Huawei Cloud ECS inbound packet error rate exceeds 50%<a href="#huawei-cloud-ecs-inbound-packet-error-rate-exceeds-50" class="hash-link" aria-label="Direct link to Huawei Cloud ECS inbound packet error rate exceeds 50%" title="Direct link to Huawei Cloud ECS inbound packet error rate exceeds 50%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_agt_net_errin &gt; 50</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run ip -s link show and ethtool -S to confirm the error counters;</li>
+<li class="">In the cloud the physical layer is the provider&#x27;s responsibility, so an abnormal error rate should go to a Huawei Cloud support ticket first;</li>
+<li class="">At the same time confirm whether the flavour&#x27;s bandwidth/PPS cap was exceeded;</li>
+<li class="">If redundancy exists, move traffic away.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-ecs-disk-write-iops-too-high">Huawei Cloud ECS disk write IOPS too high<a href="#huawei-cloud-ecs-disk-write-iops-too-high" class="hash-link" aria-label="Direct link to Huawei Cloud ECS disk write IOPS too high" title="Direct link to Huawei Cloud ECS disk write IOPS too high" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_agt_SlAsH_disk_agt_write_requests_rate &gt; 99</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run iostat -x 1 to check actual IOPS and await;</li>
+<li class="">Run iotop -oP to find the process writing the most;</li>
+<li class="">Compare against the EVS disk type&#x27;s IOPS ceiling to see whether it has topped out — ultra-high performance and general purpose disks differ greatly;</li>
+<li class="">If it has, upgrade the disk type or expand it in the console (IOPS usually scales linearly with capacity); if not, optimise the application&#x27;s write pattern.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-ecs-disk-read-iops-too-high">Huawei Cloud ECS disk read IOPS too high<a href="#huawei-cloud-ecs-disk-read-iops-too-high" class="hash-link" aria-label="Direct link to Huawei Cloud ECS disk read IOPS too high" title="Direct link to Huawei Cloud ECS disk read IOPS too high" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_agt_SlAsH_disk_agt_read_requests_rate &gt; 99</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run iostat -x 1 to check actual IOPS and await;</li>
+<li class="">Run iotop -oP to find the process reading the most;</li>
+<li class="">Compare against the EVS disk type&#x27;s IOPS ceiling to see whether it has topped out;</li>
+<li class="">If it has, upgrade the disk type or expand it; if not, reduce disk reads with caching and better indexes.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-elb-l4-inbound-bandwidth-usage-exceeds-80">Huawei Cloud ELB L4 inbound bandwidth usage exceeds 80%<a href="#huawei-cloud-elb-l4-inbound-bandwidth-usage-exceeds-80" class="hash-link" aria-label="Direct link to Huawei Cloud ELB L4 inbound bandwidth usage exceeds 80%" title="Direct link to Huawei Cloud ELB L4 inbound bandwidth usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 2 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_elb_l4_in_bps_usage &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check that ELB&#x27;s bandwidth monitoring curve in the console to tell sustained growth from a spike;</li>
+<li class="">Determine whether it is normal business growth or abnormal traffic (crawlers, attacks);</li>
+<li class="">For genuine growth, adjust the ELB specification or bandwidth cap in the console;</li>
+<li class="">For abnormal traffic, use WAF/DDoS protection to rate limit or block.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-elb-l4-outbound-bandwidth-usage-exceeds-80">Huawei Cloud ELB L4 outbound bandwidth usage exceeds 80%<a href="#huawei-cloud-elb-l4-outbound-bandwidth-usage-exceeds-80" class="hash-link" aria-label="Direct link to Huawei Cloud ELB L4 outbound bandwidth usage exceeds 80%" title="Direct link to Huawei Cloud ELB L4 outbound bandwidth usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 2 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_elb_l4_out_bps_usage &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check that ELB&#x27;s bandwidth monitoring curve in the console to tell sustained growth from a spike;</li>
+<li class="">Determine whether it is normal business growth or abnormal traffic (crawlers, attacks);</li>
+<li class="">For genuine growth, adjust the ELB specification or bandwidth cap in the console;</li>
+<li class="">For abnormal traffic, use WAF/DDoS protection to rate limit or block.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-elb-l4-concurrent-connection-usage-exceeds-80">Huawei Cloud ELB L4 concurrent connection usage exceeds 80%<a href="#huawei-cloud-elb-l4-concurrent-connection-usage-exceeds-80" class="hash-link" aria-label="Direct link to Huawei Cloud ELB L4 concurrent connection usage exceeds 80%" title="Direct link to Huawei Cloud ELB L4 concurrent connection usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 2 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_elb_l4_con_usage &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check that ELB&#x27;s connection count monitoring in the console for the growth trend;</li>
+<li class="">Check whether the backend is responding more slowly and causing connections to pile up — a high connection count is often a symptom of a slow backend rather than the cause;</li>
+<li class="">If the backend is fine, upgrade the ELB specification for the growth;</li>
+<li class="">Check whether clients are failing to reuse connections.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-elb-l4-new-connection-usage-exceeds-80">Huawei Cloud ELB L4 new connection usage exceeds 80%<a href="#huawei-cloud-elb-l4-new-connection-usage-exceeds-80" class="hash-link" aria-label="Direct link to Huawei Cloud ELB L4 new connection usage exceeds 80%" title="Direct link to Huawei Cloud ELB L4 new connection usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 2 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_elb_l4_ncps_usage &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check that ELB&#x27;s connection count monitoring in the console for the growth trend;</li>
+<li class="">Check whether the backend is responding more slowly and causing connections to pile up — a high connection count is often a symptom of a slow backend rather than the cause;</li>
+<li class="">If the backend is fine, upgrade the ELB specification for the growth;</li>
+<li class="">Check whether clients are failing to reuse connections.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-elb-l7-inbound-bandwidth-usage-exceeds-80">Huawei Cloud ELB L7 inbound bandwidth usage exceeds 80%<a href="#huawei-cloud-elb-l7-inbound-bandwidth-usage-exceeds-80" class="hash-link" aria-label="Direct link to Huawei Cloud ELB L7 inbound bandwidth usage exceeds 80%" title="Direct link to Huawei Cloud ELB L7 inbound bandwidth usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 2 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_elb_l7_in_bps_usage &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check that ELB&#x27;s bandwidth monitoring curve in the console to tell sustained growth from a spike;</li>
+<li class="">Determine whether it is normal business growth or abnormal traffic (crawlers, attacks);</li>
+<li class="">For genuine growth, adjust the ELB specification or bandwidth cap in the console;</li>
+<li class="">For abnormal traffic, use WAF/DDoS protection to rate limit or block.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-elb-l7-outbound-bandwidth-usage-exceeds-80">Huawei Cloud ELB L7 outbound bandwidth usage exceeds 80%<a href="#huawei-cloud-elb-l7-outbound-bandwidth-usage-exceeds-80" class="hash-link" aria-label="Direct link to Huawei Cloud ELB L7 outbound bandwidth usage exceeds 80%" title="Direct link to Huawei Cloud ELB L7 outbound bandwidth usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 2 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_elb_l7_out_bps_usage &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check that ELB&#x27;s bandwidth monitoring curve in the console to tell sustained growth from a spike;</li>
+<li class="">Determine whether it is normal business growth or abnormal traffic (crawlers, attacks);</li>
+<li class="">For genuine growth, adjust the ELB specification or bandwidth cap in the console;</li>
+<li class="">For abnormal traffic, use WAF/DDoS protection to rate limit or block.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-elb-l7-concurrent-connection-usage-exceeds-80">Huawei Cloud ELB L7 concurrent connection usage exceeds 80%<a href="#huawei-cloud-elb-l7-concurrent-connection-usage-exceeds-80" class="hash-link" aria-label="Direct link to Huawei Cloud ELB L7 concurrent connection usage exceeds 80%" title="Direct link to Huawei Cloud ELB L7 concurrent connection usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 2 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_elb_l7_con_usage &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check that ELB&#x27;s connection count monitoring in the console for the growth trend;</li>
+<li class="">Check whether the backend is responding more slowly and causing connections to pile up — a high connection count is often a symptom of a slow backend rather than the cause;</li>
+<li class="">If the backend is fine, upgrade the ELB specification for the growth;</li>
+<li class="">Check whether clients are failing to reuse connections.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-elb-l7-new-connection-usage-exceeds-80">Huawei Cloud ELB L7 new connection usage exceeds 80%<a href="#huawei-cloud-elb-l7-new-connection-usage-exceeds-80" class="hash-link" aria-label="Direct link to Huawei Cloud ELB L7 new connection usage exceeds 80%" title="Direct link to Huawei Cloud ELB L7 new connection usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 2 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_elb_l7_ncps_usage &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check that ELB&#x27;s connection count monitoring in the console for the growth trend;</li>
+<li class="">Check whether the backend is responding more slowly and causing connections to pile up — a high connection count is often a symptom of a slow backend rather than the cause;</li>
+<li class="">If the backend is fine, upgrade the ELB specification for the growth;</li>
+<li class="">Check whether clients are failing to reuse connections.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-elb-unhealthy-hosts-above-0">Huawei Cloud ELB unhealthy hosts above 0<a href="#huawei-cloud-elb-unhealthy-hosts-above-0" class="hash-link" aria-label="Direct link to Huawei Cloud ELB unhealthy hosts above 0" title="Direct link to Huawei Cloud ELB unhealthy hosts above 0" translate="no">​</a></h3>
+<p>S2 Warning · for 2 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_elb_m9_abnormal_servers &gt; 0</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">In the console&#x27;s backend server group, find the instances failing the health check;</li>
+<li class="">Log in to that instance and confirm the application process and port are alive;</li>
+<li class="">If the application is fine, verify the health check configuration (path, port, timeout, interval) matches reality;</li>
+<li class="">Confirm the remaining healthy instances can carry the traffic and scale out immediately if not.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-elb-query-rate-usage-exceeds-80">Huawei Cloud ELB query rate usage exceeds 80%<a href="#huawei-cloud-elb-query-rate-usage-exceeds-80" class="hash-link" aria-label="Direct link to Huawei Cloud ELB query rate usage exceeds 80%" title="Direct link to Huawei Cloud ELB query rate usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 2 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_elb_l7_qps_usage &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check that ELB&#x27;s bandwidth monitoring curve in the console to tell sustained growth from a spike;</li>
+<li class="">Determine whether it is normal business growth or abnormal traffic (crawlers, attacks);</li>
+<li class="">For genuine growth, adjust the ELB specification or bandwidth cap in the console;</li>
+<li class="">For abnormal traffic, use WAF/DDoS protection to rate limit or block.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-redis-average-cpu-usage-exceeds-80">Huawei Cloud Redis average CPU usage exceeds 80%<a href="#huawei-cloud-redis-average-cpu-usage-exceeds-80" class="hash-link" aria-label="Direct link to Huawei Cloud Redis average CPU usage exceeds 80%" title="Direct link to Huawei Cloud Redis average CPU usage exceeds 80%" translate="no">​</a></h3>
+<p>This metric samples the CPU usage of the measured object multiple times within the statistics period and reports the average. Only single-node/primary-standby/read-write-splitting instances are supported.</p>
+<p>S2 Warning · for 2 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_dcs_cpu_avg_usage &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run SLOWLOG GET 10 to find the slowest commands;</li>
+<li class="">Focus on O(N) commands such as KEYS, HGETALL and SMEMBERS and on big-key operations, switching to SCAN or batching;</li>
+<li class="">Check whether an RDB/AOF persistence run is causing the CPU spike;</li>
+<li class="">If it stays high after tuning, upgrade the instance flavour in the console.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-redis-memory-usage-exceeds-80">Huawei Cloud Redis memory usage exceeds 80%<a href="#huawei-cloud-redis-memory-usage-exceeds-80" class="hash-link" aria-label="Direct link to Huawei Cloud Redis memory usage exceeds 80%" title="Direct link to Huawei Cloud Redis memory usage exceeds 80%" translate="no">​</a></h3>
+<p>S1 Critical · for 2 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_dcs_memory_usage &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Use redis-cli --bigkeys to find large keys and split them or add TTLs;</li>
+<li class="">Use INFO memory to check the fragmentation ratio and enable activedefrag if it is high;</li>
+<li class="">Check whether keys without an expiry keep accumulating;</li>
+<li class="">Confirm maxmemory-policy, then expand the flavour in the console.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-redis-slow-log-detected">Huawei Cloud Redis slow log detected<a href="#huawei-cloud-redis-slow-log-detected" class="hash-link" aria-label="Direct link to Huawei Cloud Redis slow log detected" title="Direct link to Huawei Cloud Redis slow log detected" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_dcs_is_slow_log_exist == 1</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run SLOWLOG GET 10 for the specific slow commands and their timings;</li>
+<li class="">Focus on O(N) commands and big-key operations;</li>
+<li class="">Switching to SCAN with batching and splitting large keys is the real fix;</li>
+<li class="">If the slow commands come from a scheduled job, move it to off-peak hours.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-redis-bandwidth-usage-exceeds-90">Huawei Cloud Redis bandwidth usage exceeds 90%<a href="#huawei-cloud-redis-bandwidth-usage-exceeds-90" class="hash-link" aria-label="Direct link to Huawei Cloud Redis bandwidth usage exceeds 90%" title="Direct link to Huawei Cloud Redis bandwidth usage exceeds 90%" translate="no">​</a></h3>
+<p>This metric samples the CPU usage of the measured object multiple times within the statistics period and reports the average. Only single-node/primary-standby/read-write-splitting instances are supported.</p>
+<p>S2 Warning · for 2 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_dcs_bandwidth_usage &gt; 90</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Use INFO stats to check instantaneous_input_kbps / output_kbps and determine the direction;</li>
+<li class="">Use redis-cli --bigkeys to find large keys — reading and writing large keys is the most common cause of saturated bandwidth;</li>
+<li class="">Split large keys and reduce one-shot bulk reads;</li>
+<li class="">If you genuinely need more bandwidth, upgrade the flavour in the console.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-redis-new-connections-exceed-10000">Huawei Cloud Redis new connections exceed 10000<a href="#huawei-cloud-redis-new-connections-exceed-10000" class="hash-link" aria-label="Direct link to Huawei Cloud Redis new connections exceed 10000" title="Direct link to Huawei Cloud Redis new connections exceed 10000" translate="no">​</a></h3>
+<p>For single-node and primary-standby instances the connection limit is 10000; adjust the threshold to your workload.</p>
+<p>S3 Info · for 2 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_dcs_total_connections_received &gt; 10000</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Use CLIENT LIST grouped by source to find the clients reconnecting frequently;</li>
+<li class="">Switching the application to a connection pool with reused connections is the real fix;</li>
+<li class="">Check whether the client&#x27;s connection timeout is set too short and causing repeated reconnects;</li>
+<li class="">Confirm no throttling or memory alarm is causing the server to close connections.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-redis-max-cpu-usage-exceeds-80">Huawei Cloud Redis max CPU usage exceeds 80%<a href="#huawei-cloud-redis-max-cpu-usage-exceeds-80" class="hash-link" aria-label="Direct link to Huawei Cloud Redis max CPU usage exceeds 80%" title="Direct link to Huawei Cloud Redis max CPU usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 2 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_dcs_cpu_usage &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Identify the node with high CPU in the console;</li>
+<li class="">In cluster mode this is usually data skew — a hot key in one slot, findable with --hotkeys;</li>
+<li class="">Hot keys can be mitigated with a local cache or by splitting the key;</li>
+<li class="">If it stays high after rebalancing, upgrade the flavour.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-redis-active-clients-exceed-8000">Huawei Cloud Redis active clients exceed 8000<a href="#huawei-cloud-redis-active-clients-exceed-8000" class="hash-link" aria-label="Direct link to Huawei Cloud Redis active clients exceed 8000" title="Direct link to Huawei Cloud Redis active clients exceed 8000" translate="no">​</a></h3>
+<p>For single-node and primary-standby instances the connection limit is 10000; adjust the threshold to your workload.</p>
+<p>S2 Warning · for 2 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_dcs_connected_clients &gt; 8000</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check that DCS instance&#x27;s monitoring curves in the Huawei Cloud console;</li>
+<li class="">Connect with redis-cli and run INFO to confirm the real state of the relevant metric;</li>
+<li class="">Once the cause is identified, follow the usual Redis path (big keys, slow commands, connection leaks);</li>
+<li class="">If capacity is short, change the instance flavour in the console.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-redis-flow-control-count-above-0">Huawei Cloud Redis flow control count above 0<a href="#huawei-cloud-redis-flow-control-count-above-0" class="hash-link" aria-label="Direct link to Huawei Cloud Redis flow control count above 0" title="Direct link to Huawei Cloud Redis flow control count above 0" translate="no">​</a></h3>
+<p>Check spec limits together with instantaneous inbound/outbound traffic to decide whether scaling up resolves it.
+Only Redis 4.0+ instances support this metric; Redis 3.0 instances do not.</p>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_dcs_rx_controlled &gt; 0</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check when the throttling occurred in the console and compare against the bandwidth and QPS curves to see which limit was exceeded;</li>
+<li class="">For bandwidth, use --bigkeys to find and split large keys;</li>
+<li class="">For QPS, add a local cache or batch requests on the application side;</li>
+<li class="">If you genuinely need more capacity, change the instance flavour in the console.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="huawei-cloud-redis-proxy-node-active-clients-exceed-20000">Huawei Cloud Redis Proxy node active clients exceed 20000<a href="#huawei-cloud-redis-proxy-node-active-clients-exceed-20000" class="hash-link" aria-label="Direct link to Huawei Cloud Redis Proxy node active clients exceed 20000" title="Direct link to Huawei Cloud Redis Proxy node active clients exceed 20000" translate="no">​</a></h3>
+<p>For single-node and primary-standby instances the connection limit is 10000; adjust the threshold to your workload.</p>
+<p>S2 Warning · for 2 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_dcs_p_connected_clients &gt; 20000</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check that DCS instance&#x27;s monitoring curves in the Huawei Cloud console;</li>
+<li class="">Connect with redis-cli and run INFO to confirm the real state of the relevant metric;</li>
+<li class="">Once the cause is identified, follow the usual Redis path (big keys, slow commands, connection leaks);</li>
+<li class="">If capacity is short, change the instance flavour in the console.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rocketmq-broker-down">RocketMQ broker down<a href="#rocketmq-broker-down" class="hash-link" aria-label="Direct link to RocketMQ broker down" title="Direct link to RocketMQ broker down" translate="no">​</a></h3>
+<p>S1 Critical · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_dms_broker_alive == 0</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the instance and broker state in the Huawei Cloud console;</li>
+<li class="">Confirm clients have failed over to other brokers — with multiple brokers only some partitions are unavailable;</li>
+<li class="">If the console looks fine but clients report errors, check the network and security groups plus the client&#x27;s nameserver address;</li>
+<li class="">If it stays unavailable, open a ticket with Huawei Cloud.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rocketmq-per-core-cpu-load-exceeds-15">RocketMQ per-core CPU load exceeds 1.5<a href="#rocketmq-per-core-cpu-load-exceeds-15" class="hash-link" aria-label="Direct link to RocketMQ per-core CPU load exceeds 1.5" title="Direct link to RocketMQ per-core CPU load exceeds 1.5" translate="no">​</a></h3>
+<p>S1 Critical · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_dms_broker_cpu_core_load &gt; 1.5</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check that broker&#x27;s TPS and message backlog curves in the console to tell producer-side from consumer-side pressure;</li>
+<li class="">For a heavy consume backlog, scale out consumers first;</li>
+<li class="">For a produce spike, evaluate upgrading the instance flavour;</li>
+<li class="">Confirm no oversized messages or huge batch sends are overwhelming the broker.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rocketmq-memory-usage-exceeds-85">RocketMQ memory usage exceeds 85%<a href="#rocketmq-memory-usage-exceeds-85" class="hash-link" aria-label="Direct link to RocketMQ memory usage exceeds 85%" title="Direct link to RocketMQ memory usage exceeds 85%" translate="no">​</a></h3>
+<p>S1 Critical · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">huaweicloud_sys_dms_broker_memory_usage &gt; 85</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check the message backlog in the console — a backlog consumes significant memory;</li>
+<li class="">Restoring consumption to drain the backlog is the most direct fix;</li>
+<li class="">Check whether the message retention period is set too long;</li>
+<li class="">For sustained growth, upgrade the instance flavour.</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="metric-reference">Metric reference<a href="#metric-reference" class="hash-link" aria-label="Direct link to Metric reference" title="Direct link to Metric reference" translate="no">​</a></h2>
+<p>286 metrics, the ones the dashboards and rules above are built on.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Metric</th><th>Meaning</th><th>Unit</th></tr></thead><tbody><tr><td><code>huaweicloud_sys_dcs_auth_errors</code></td><td>Authentication Failures — Counts the number of authentication failures on the instance. Only single-node and master/standby instances are supported.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_blocked_clients</code></td><td>Blocked Clients — This metric measures the number of clients suspended by blocking operations, such as BLPOP, BRPOP, and BRPOPLPUSH.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_client_biggest_in_buf</code></td><td>Biggest Client Input Buffer — This metric measures the maximum input data length among all current client connections.</td><td>bytes</td></tr><tr><td><code>huaweicloud_sys_dcs_client_longest_out_list</code></td><td>Longest Client Output List — This metric measures the longest output list among all current client connections.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_command_max_delay</code></td><td>Maximum Command Latency — Measures the maximum command latency of the instance.</td><td>ms</td></tr><tr><td><code>huaweicloud_sys_dcs_connected_clients</code></td><td>Connected Clients — This metric counts the number of connected clients, including connections for system monitoring, configuration synchronization, and service traffic.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_cpu_usage</code></td><td>Maximum CPU Usage — This metric samples the CPU usage of the monitored object multiple times within the statistics period and reports the highest sampled value. For single-node and master/standby instances, this metric is the CPU usage of the master node. For Proxy Cluster instances, this metric is the average value across all proxy nodes.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_dcs_evicted_keys</code></td><td>Evicted Keys — This metric counts the number of keys deleted due to insufficient memory during the period.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_expired_keys</code></td><td>Expired Keys — This metric counts the number of keys deleted due to expiration during the period.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_instantaneous_input_kbps</code></td><td>Instantaneous Network Input Traffic — This metric measures the instantaneous input traffic.</td><td>bit/s</td></tr><tr><td><code>huaweicloud_sys_dcs_instantaneous_ops</code></td><td>Ops per Second — This metric counts the number of commands processed per second.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_instantaneous_output_kbps</code></td><td>Instantaneous Network Output Traffic — This metric measures the instantaneous output traffic.</td><td>bit/s</td></tr><tr><td><code>huaweicloud_sys_dcs_is_slow_log_exist</code></td><td>Slow Log Existence — Indicates whether slow logs exist on the instance. Slow logs caused by the migrate, slaveof, config, bgsave, and bgrewriteaof commands are not counted. Only single-node and master/standby instances are supported.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_keys</code></td><td>Total Keys — This metric counts the total number of keys in the Redis cache. Only single-node and master/standby instances are supported.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_keyspace_hits</code></td><td>Keyspace Hits — This metric counts the number of successful lookups in the main dictionary during the period.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_keyspace_hits_perc</code></td><td>Cache Hit Ratio — This metric measures the cache hit ratio of Redis, calculated as: keyspace_hits/(keyspace_hits+keyspace_misses)</td><td>%</td></tr><tr><td><code>huaweicloud_sys_dcs_keyspace_misses</code></td><td>Keyspace Misses — This metric counts the number of failed lookups in the main dictionary during the period.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_memory_frag_ratio</code></td><td>Memory Fragmentation Ratio — This metric measures the current memory fragmentation ratio, which equals used_memory_rss / used_memory.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_memory_usage</code></td><td>Memory Usage — This metric measures the memory usage of the monitored object (reserved memory is excluded from the calculation).</td><td>%</td></tr><tr><td><code>huaweicloud_sys_dcs_net_in_throughput</code></td><td>Network Input Throughput — This metric measures the average inbound traffic per second on the network port.</td><td>bytes/s</td></tr><tr><td><code>huaweicloud_sys_dcs_net_out_throughput</code></td><td>Network Output Throughput — This metric measures the average outbound traffic per second on the network port.</td><td>bytes/s</td></tr><tr><td><code>huaweicloud_sys_dcs_pubsub_channels</code></td><td>Pub/Sub Channels — This metric counts the number of Pub/Sub channels.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_pubsub_patterns</code></td><td>Pub/Sub Patterns — This metric counts the number of Pub/Sub patterns.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_rejected_connections</code></td><td>Rejected Connections — This metric counts the number of connections rejected during the period because the maxclients limit was exceeded.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_total_commands_processed</code></td><td>Commands Processed — This metric counts the number of commands processed during the period.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_total_connections_received</code></td><td>New Connections — This metric counts the number of connections created during the period.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_total_net_input_bytes</code></td><td>Network Input Bytes — This metric counts the number of bytes received during the period.</td><td>bytes</td></tr><tr><td><code>huaweicloud_sys_dcs_total_net_output_bytes</code></td><td>Network Output Bytes — This metric counts the number of bytes sent during the period.</td><td>bytes</td></tr><tr><td><code>huaweicloud_sys_dcs_used_memory</code></td><td>Used Memory — This metric measures the number of bytes of memory used by Redis.</td><td>bytes</td></tr><tr><td><code>huaweicloud_sys_dcs_used_memory_lua</code></td><td>Used Memory (Lua) — This metric measures the number of memory bytes used by the Lua engine.</td><td>bytes</td></tr><tr><td><code>huaweicloud_sys_dcs_used_memory_peak</code></td><td>Used Memory Peak — This metric measures the peak memory usage of Redis since the server started.</td><td>bytes</td></tr><tr><td><code>huaweicloud_sys_dcs_used_memory_rss</code></td><td>Used Memory RSS — This metric measures the RSS memory used by Redis, that is, the amount of memory actually resident in RAM, including heap memory but excluding swapped-out memory.</td><td>bytes</td></tr><tr><td><code>huaweicloud_sys_dcs_command_avg_rt</code></td><td>Average Latency — Average latency from when the node receives a command to when it sends a response.</td><td>μs</td></tr><tr><td><code>huaweicloud_sys_dcs_command_max_rt</code></td><td>Maximum Latency — Maximum latency from when the node receives a command to when it sends a response.</td><td>μs</td></tr><tr><td><code>huaweicloud_sys_dcs_command_p99_rt</code></td><td>P99 Latency — 99th percentile of command execution latency.</td><td>ms</td></tr><tr><td><code>huaweicloud_sys_dcs_connected_clients</code></td><td>Connected Clients — Number of connected clients, including connections for system monitoring, configuration synchronization, and services.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_connections_usage</code></td><td>Connection Usage — Percentage of the current number of connections to the maximum number of connections allowed.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_dcs_cpu_avg_usage</code></td><td>Average CPU Usage — The CPU usage of the monitored object is sampled multiple times within each monitoring period. This metric indicates the average of the sampled values.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_dcs_cpu_usage</code></td><td>Maximum CPU Usage — The CPU usage of the monitored object is sampled multiple times within each monitoring period. This metric indicates the maximum of the sampled values.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_dcs_instantaneous_input_kbps</code></td><td>Instantaneous Network Input Traffic — Instantaneous input traffic.</td><td>bit/s</td></tr><tr><td><code>huaweicloud_sys_dcs_instantaneous_ops</code></td><td>Ops per Second — Number of commands processed per second.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_instantaneous_output_kbps</code></td><td>Instantaneous Network Output Traffic — Instantaneous output traffic.</td><td>bit/s</td></tr><tr><td><code>huaweicloud_sys_dcs_memory_usage</code></td><td>Memory Usage — Memory usage of the monitored object.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_dcs_node_status</code></td><td>Instance Node Status — Indicates whether the Proxy node status is normal.</td><td></td></tr><tr><td><code>huaweicloud_sys_dcs_total_net_input_bytes</code></td><td>Network Input Bytes — Number of bytes received during the monitoring period.</td><td>bytes</td></tr><tr><td><code>huaweicloud_sys_dcs_total_net_output_bytes</code></td><td>Network Output Bytes — Number of bytes sent during the monitoring period.</td><td>bytes</td></tr><tr><td><code>huaweicloud_sys_agt_SlAsH_disk_agt_read_bytes_rate</code></td><td>(Agent) Disk Read Rate — This metric measures the volume of data read from the monitored object per second. Collection method (Linux): The disk read rate is calculated from the change in the sixth column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./<del>. Collection method (Windows): Disk I/O data is obtained from the WMI Win32_PerfFormattedData_PerfDisk_LogicalDisk object. The object is read once per collection period, and the instantaneous value it returns represents the metric value for that period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./</del>. Under high CPU usage, the query may time out, and monitoring data may fail to be collected.</td><td>bytes/s</td></tr><tr><td><code>huaweicloud_sys_agt_SlAsH_disk_agt_read_requests_rate</code></td><td>(Agent) Disk Read IOPS — This metric measures the number of read requests from the monitored object per second. Collection method (Linux): The disk read IOPS is calculated from the change in the fourth column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./<del>. Collection method (Windows): Disk I/O data is obtained from the WMI Win32_PerfFormattedData_PerfDisk_LogicalDisk object. The object is read once per collection period, and the instantaneous value it returns represents the metric value for that period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./</del>. Under high CPU usage, the query may time out, and monitoring data may fail to be collected.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_SlAsH_disk_agt_write_bytes_rate</code></td><td>(Agent) Disk Write Rate — This metric measures the volume of data written to the monitored object per second. Collection method (Linux): The disk write rate is calculated from the change in the tenth column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./<del>. Collection method (Windows): Disk I/O data is obtained from the WMI Win32_PerfFormattedData_PerfDisk_LogicalDisk object. The object is read once per collection period, and the instantaneous value it returns represents the metric value for that period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./</del>. Under high CPU usage, the query may time out, and monitoring data may fail to be collected.</td><td>bytes/s</td></tr><tr><td><code>huaweicloud_sys_agt_SlAsH_disk_agt_write_requests_rate</code></td><td>(Agent) Disk Write IOPS — This metric measures the number of write requests to the monitored object per second. Collection method (Linux): The disk write IOPS is calculated from the change in the eighth column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./<del>. Collection method (Windows): Disk I/O data is obtained from the WMI Win32_PerfFormattedData_PerfDisk_LogicalDisk object. The object is read once per collection period, and the instantaneous value it returns represents the metric value for that period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./</del>. Under high CPU usage, the query may time out, and monitoring data may fail to be collected.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_SlAsH_disk_device_used_percent</code></td><td>Block Device Usage — This metric measures the physical disk usage of the monitored object, in percent. It is calculated as: used storage of all mounted disk partitions / total disk storage. Collection method (Linux): The disk usage of each mount point is summed up, the total disk size is calculated from the disk sector size and sector count, and the overall disk usage is then derived. Collection method (Windows): Not supported yet.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_SlAsH_disk_fs_rwstate</code></td><td>(Agent) File System Read/Write Status — This metric indicates the read/write status of the file systems mounted on the monitored object. Status values: read/write (0) or read-only (1). Collection method (Linux): Obtained from the file system mount parameters in the fourth column of /proc/mounts.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_SlAsH_disk_inodesTotal</code></td><td>(Agent) Total inodes — This metric measures the total inode space of the current disk on the monitored object. Collection method (Linux): Run the df -i command and check the Inodes column. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_SlAsH_disk_inodesUsed</code></td><td>(Agent) Used inodes — This metric measures the used inode space of the current disk on the monitored object. Collection method (Linux): Run the df -i command and check the IUsed column. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_SlAsH_disk_inodesUsedPercent</code></td><td>(Agent) inode Usage — This metric measures the percentage of used inodes on the current disk of the monitored object. Collection method (Linux): Run the df -i command and check the IUse% column. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_SlAsH_disk_ioUtils</code></td><td>(Agent) Disk I/O Usage — This metric measures the disk I/O usage of the monitored object. Collection method (Linux): The disk I/O usage is calculated from the change in the thirteenth column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_SlAsH_disk_io_svctm</code></td><td>(Agent) Average I/O Service Time — This metric measures the average duration of each read or write I/O operation in the specified period. Collection method (Linux): The average I/O service time is calculated by dividing the change in the thirteenth column of the corresponding device in /proc/diskstats during the collection period by the sum of the changes in the fourth and eighth columns. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_SlAsH_disk_queue_length</code></td><td>(Agent) Average Queue Length — This metric reflects how busy the disk is in the specified period and can be used to evaluate disk I/O performance. A larger value indicates a busier disk and poorer I/O performance. Collection method (Linux): The metric value is calculated by dividing the change in the fourteenth column of the corresponding device in /proc/diskstats during the collection period by the collection period duration. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_SlAsH_disk_readTime</code></td><td>(Agent) Average Read Time — This metric measures the average time taken by disk read operations on the monitored object. Collection method (Linux): The average disk read time is calculated from the change in the seventh column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_SlAsH_disk_read_bytes_per_operation</code></td><td>(Agent) Average Read Operation Size — This metric measures the average number of bytes transferred per read I/O operation in the specified period. Collection method (Linux): The average read operation size is calculated by dividing the change in the sixth column of the corresponding device in /proc/diskstats during the collection period by the change in the fourth column. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_SlAsH_disk_writeTime</code></td><td>(Agent) Average Write Time — This metric measures the average time taken by disk write operations on the monitored object. Collection method (Linux): The average disk write time is calculated from the change in the eleventh column of the corresponding device in /proc/diskstats during the collection period. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_SlAsH_disk_write_bytes_per_operation</code></td><td>(Agent) Average Write Operation Size — This metric measures the average number of bytes transferred per write I/O operation in the specified period. Collection method (Linux): The average write operation size is calculated by dividing the change in the tenth column of the corresponding device in /proc/diskstats during the collection period by the change in the eighth column. The mount point prefix path cannot exceed 64 characters, must start with a letter, and can contain only 0-9/a-z/A-Z/-/./~. Collection method (Windows): Not supported yet.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_cpu_usage</code></td><td>(Agent) CPU Usage — This metric measures the current CPU usage of the monitored object. Collection method (Linux): The CPU usage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) value with the top command. Collection method (Windows): Obtained through the Windows API GetSystemTimes.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_cpu_usage_idle</code></td><td>(Agent) Idle CPU Usage — This metric measures the percentage of time the CPU of the monitored object is currently idle. Collection method (Linux): The idle CPU time percentage is calculated from the change in /proc/stat during the collection period. Collection method (Windows): Obtained through the Windows API GetSystemTimes.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_cpu_usage_iowait</code></td><td>(Agent) iowait CPU Usage — This metric measures the percentage of CPU time currently occupied by the iowait state on the monitored object. Collection method (Linux): The iowait percentage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) wa value with the top command. Collection method (Windows): Not supported yet.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_cpu_usage_irq</code></td><td>(Agent) CPU Interrupt Usage — This metric measures the percentage of CPU time currently spent handling interrupts on the monitored object. Collection method (Linux): The CPU interrupt time percentage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) hi value with the top command. Collection method (Windows): Not supported yet.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_cpu_usage_nice</code></td><td>(Agent) Nice Process CPU Usage — This metric measures the current CPU usage of nice processes on the monitored object. Collection method (Linux): The nice process CPU usage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) ni value with the top command. Collection method (Windows): Not supported yet.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_cpu_usage_other</code></td><td>(Agent) Other CPU Usage — This metric measures the CPU usage of other consumers on the monitored object. Collection method (Linux): Other CPU usage = 1 - idle CPU usage (%) - kernel space CPU usage - user space CPU usage. Collection method (Windows): Other CPU usage = 1 - idle CPU usage (%) - kernel space CPU usage - user space CPU usage.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_cpu_usage_softirq</code></td><td>(Agent) CPU Soft Interrupt Usage — This metric measures the percentage of CPU time currently spent handling soft interrupts on the monitored object. Collection method (Linux): The CPU soft interrupt time percentage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) si value with the top command. Collection method (Windows): Not supported yet.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_cpu_usage_system</code></td><td>(Agent) Kernel Space CPU Usage — This metric measures the current kernel space CPU usage of the monitored object. Collection method (Linux): The kernel space CPU usage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) sy value with the top command. Collection method (Windows): Obtained through the Windows API GetSystemTimes.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_cpu_usage_user</code></td><td>(Agent) User Space CPU Usage — This metric measures the current user space CPU usage of the monitored object. Collection method (Linux): The CPU usage is calculated from the change in /proc/stat during the collection period. You can check the %Cpu(s) us value with the top command. Collection method (Windows): Obtained through the Windows API GetSystemTimes.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_load_average1</code></td><td>(Agent) 1-Minute Load Average — This metric measures the average CPU load of the monitored object over the past 1 minute. Collection method (Linux): Obtained by dividing load1 in /proc/loadavg by the number of logical CPUs. You can check the load1 value with the top command.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_load_average15</code></td><td>(Agent) 15-Minute Load Average — This metric measures the average CPU load of the monitored object over the past 15 minutes. Collection method (Linux): Obtained by dividing load15 in /proc/loadavg by the number of logical CPUs. You can check the load15 value with the top command.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_load_average5</code></td><td>(Agent) 5-Minute Load Average — This metric measures the average CPU load of the monitored object over the past 5 minutes. Collection method (Linux): Obtained by dividing load5 in /proc/loadavg by the number of logical CPUs. You can check the load5 value with the top command.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_mem_available</code></td><td>(Agent) Available Memory — This metric measures the available memory of the monitored object. Collection method (Linux): Obtained from the /proc/meminfo file. If MemAvailable is present in /proc/meminfo, it is used directly; otherwise, MemAvailable = MemFree + Buffers + Cached. Collection method (Windows): Calculated as (total memory - used memory), obtained through the Windows API GlobalMemoryStatusEx.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_mem_buffers</code></td><td>(Agent) Buffers — This metric measures the amount of buffers memory on the monitored object. Collection method (Linux): Obtained from /proc/meminfo. You can check the KiB Mem: buffers value with the top command. Collection method (Windows): Not supported yet.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_mem_cached</code></td><td>(Agent) Cached Memory — This metric measures the amount of cache memory on the monitored object. Collection method (Linux): Obtained from /proc/meminfo. You can check the KiB Swap: cached Mem value with the top command. Collection method (Windows): Not supported yet.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_mem_free</code></td><td>(Agent) Free Memory — This metric measures the amount of free memory on the monitored object. Collection method (Linux): Obtained from /proc/meminfo. Collection method (Windows): Not supported yet.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_mem_usedPercent</code></td><td>(Agent) Memory Usage — This metric measures the memory usage of the monitored object. Collection method (Linux): Obtained from the /proc/meminfo file as (MemTotal - MemAvailable)/MemTotal. If MemAvailable is present in /proc/meminfo, MemUsedPercent = (MemTotal - MemAvailable)/MemTotal; otherwise, MemUsedPercent = (MemTotal - MemFree - Buffers - Cached)/MemTotal. Collection method (Windows): Calculated as (used memory / total memory * 100%).</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_net_bitRecv</code></td><td>(Agent) Outbound Bandwidth — This metric measures the number of bits sent by the NIC of the monitored object per second. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Network metric data is obtained from the WMI MibIfRow object.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_net_bitSent</code></td><td>(Agent) Inbound Bandwidth — This metric measures the number of bits received by the NIC of the monitored object per second. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Network metric data is obtained from the WMI MibIfRow object.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_net_dropin</code></td><td>(Agent) Receive Packet Loss Rate — This metric measures the percentage of packets received and discarded by the NIC of the monitored object per second, relative to the total packets received. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Not supported yet.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_net_dropout</code></td><td>(Agent) Send Packet Loss Rate — This metric measures the percentage of packets sent and discarded by the NIC of the monitored object per second, relative to the total packets sent. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Not supported yet.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_net_errin</code></td><td>(Agent) Receive Error Rate — This metric measures the percentage of error packets received by the NIC of the monitored object per second, relative to the total packets received. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Not supported yet.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_net_errout</code></td><td>(Agent) Send Error Rate — This metric measures the percentage of error packets sent by the NIC of the monitored object per second, relative to the total packets sent. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Not supported yet.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_net_packetRecv</code></td><td>(Agent) NIC Packet Receive Rate — This metric measures the number of packets received by the NIC of the monitored object per second. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Network metric data is obtained from the WMI MibIfRow object.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_net_packetSent</code></td><td>(Agent) NIC Packet Send Rate — This metric measures the number of packets sent by the NIC of the monitored object per second. Collection method (Linux): Calculated from the change in /proc/net/dev during the collection period. Collection method (Windows): Network metric data is obtained from the WMI MibIfRow object.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_net_tcp_close</code></td><td>(Agent) TCP CLOSE — This metric counts the number of closed or not-open TCP connections on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_net_tcp_close_wait</code></td><td>(Agent) TCP CLOSE_WAIT — This metric counts the number of TCP connections in the CLOSE_WAIT state on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_net_tcp_closing</code></td><td>(Agent) TCP CLOSING — This metric counts the number of TCP connections on the monitored object that are being actively closed by both the server and the client at the same time. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_net_tcp_established</code></td><td>(Agent) TCP ESTABLISHED — This metric counts the number of TCP connections in the ESTABLISHED state on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_net_tcp_fin_wait1</code></td><td>(Agent) TCP FIN_WAIT1 — This metric counts the number of TCP connections on the monitored object where the client has actively closed the connection but has not received the ACK from the server. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_net_tcp_fin_wait2</code></td><td>(Agent) TCP FIN_WAIT2 — This metric counts the number of TCP connections in the FIN_WAIT2 state on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_net_tcp_last_ack</code></td><td>(Agent) TCP LAST_ACK — This metric counts the number of TCP connections on the monitored object that are passively closed and waiting for the ACK packet. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_net_tcp_listen</code></td><td>(Agent) TCP LISTEN — This metric counts the number of TCP connections in the LISTEN state on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_net_tcp_retrans</code></td><td>(Agent) TCP Retransmission Rate — This metric measures the ratio of retransmitted packets to the total packets sent by the monitored object. Collection method (Linux): The corresponding data is obtained from the /proc/net/snmp file, and the ratio of retransmitted packets to sent packets during the collection period is calculated. Collection method (Windows): The retransmission rate is obtained through the Windows API GetTcpStatistics.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_net_tcp_sys_recv</code></td><td>(Agent) TCP SYS_RECV — This metric counts the number of TCP connection requests received by the server side of the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_net_tcp_sys_sent</code></td><td>(Agent) TCP SYS_SENT — This metric counts the number of TCP connections on the monitored object that are in the connection-requesting state. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_net_tcp_time_wait</code></td><td>(Agent) TCP TIME_WAIT — This metric counts the number of TCP connections in the TIME_WAIT state on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_net_tcp_total</code></td><td>(Agent) TCP TOTAL — This metric counts the total number of TCP connections in all states on the monitored object. Collection method (Linux): All TCP connections are obtained from the /proc/net/tcp file, and the number of connections in each state is counted. Collection method (Windows): Obtained through the Windows API GetTcpTable2.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_ntp_offset</code></td><td>(Agent) NTP Offset — This metric measures the current NTP offset of the monitored object. Collection method (Linux): Run the chronyc sources -v command to obtain the offset. Collection method (Windows): Not supported yet.</td><td>ms</td></tr><tr><td><code>huaweicloud_sys_agt_proc_blocked_count</code></td><td>(Agent) Blocked Processes — This metric counts the number of blocked processes on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): Not supported yet.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_proc_idle_count</code></td><td>(Agent) Idle Processes — This metric counts the number of processes in the idle state on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): Not supported yet.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_proc_pHashId_cpu</code></td><td>(Agent) Process CPU Usage — The percentage of CPU consumed by a process. pHashId is the md5 hash of (process name + process ID). Collection method (Linux): Calculated from the change in /proc/pid/stat. Collection method (Windows): Process CPU usage is obtained through the Windows API GetProcessTimes.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_proc_pHashId_file</code></td><td>(Agent) Process Open Files — The number of files opened by a process. pHashId is the md5 hash of (process name + process ID). Collection method (Linux): Run ls -l /proc/pid/fd to view the count. Collection method (Windows): Not supported yet.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_proc_pHashId_mem</code></td><td>(Agent) Process Memory Usage — The percentage of memory consumed by a process. pHashId is the md5 hash of (process name + process ID). Collection method (Linux): RSS*PAGESIZE/MemTotal, where RSS is obtained from the second column of /proc/pid/statm, PAGESIZE is obtained with the getconf PAGESIZE command, and MemTotal is obtained from /proc/meminfo. Collection method (Windows): The total memory is obtained through the Windows API GlobalMemoryStatusEx, the used memory is obtained through GetProcessMemoryInfo, and the memory usage is calculated as the ratio of the two.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_agt_proc_running_count</code></td><td>(Agent) Running Processes — This metric counts the number of processes in the running state on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): Not supported yet.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_proc_sleeping_count</code></td><td>(Agent) Sleeping Processes — This metric counts the number of processes in the sleeping state on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): Not supported yet.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_proc_specified_count</code></td><td>(Agent) Specified Processes — This metric counts the number of specified processes on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): The total number of processes is obtained through the psapi.dll system process status support module.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_proc_total_count</code></td><td>(Agent) Total Processes — This metric counts the total number of processes on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): The total number of processes is obtained through the psapi.dll system process status support module.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_proc_zombie_count</code></td><td>(Agent) Zombie Processes — This metric counts the number of zombie processes on the monitored object. Collection method (Linux): The status of each process is obtained from the Status value in /proc/pid/status, and the total number of processes in each state is counted. Collection method (Windows): Not supported yet.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_specified_process_file</code></td><td>(Agent) Open Files of Specified Process — This metric counts the number of files opened by the specified process on the monitored object. Collection method (Linux): Run ls -l /proc/pid/fd to view the count. Collection method (Windows): Not supported yet.</td><td></td></tr><tr><td><code>huaweicloud_sys_agt_total_open_files</code></td><td>(Agent) Total File Handles — This metric counts the total number of handles used by all processes on the monitored object. Collection method (Linux): The number of handles used by all processes is summed up from the /proc/{pid}/fd files. Collection method (Windows): Not supported yet.</td><td></td></tr><tr><td><code>huaweicloud_sys_elb_client_tls_negotiation_error</code></td><td>Client TLS Handshake Failures — Number of failed TLS handshakes initiated by clients per second. Supported protocols: HTTPS/TLS/QUIC</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_dropped_connections</code></td><td>Dropped Connections — Number of connections dropped by the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_dropped_packets</code></td><td>Dropped Packets — Number of data packets dropped by the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_dropped_traffic</code></td><td>Dropped Bandwidth — Network bandwidth dropped by the monitored object.</td><td></td></tr><tr><td><code>huaweicloud_sys_elb_elb_http_2xx</code></td><td>Load Balancer Status Codes (2XX) — Number of 2XX status codes returned by the load balancer per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_elb_http_3xx</code></td><td>Load Balancer Status Codes (3XX) — Number of 3XX status codes returned by the load balancer per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_elb_http_400</code></td><td>Load Balancer Status Code 400 — Number of 400 status codes returned by the load balancer per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_elb_http_404</code></td><td>Load Balancer Status Code 404 — Number of 404 status codes returned by the load balancer per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_elb_http_408</code></td><td>Load Balancer Status Code 408 — Number of 408 status codes returned by the load balancer per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_elb_http_499</code></td><td>Load Balancer Status Code 499 — Number of 499 status codes returned by the load balancer per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_elb_http_4xx</code></td><td>Load Balancer Status Codes (4XX) — Number of 4XX status codes returned by the load balancer per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_elb_http_502</code></td><td>Load Balancer Status Code 502 — Number of 502 status codes returned by the load balancer per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_elb_http_503</code></td><td>Load Balancer Status Code 503 — Number of 503 status codes returned by the load balancer per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_elb_http_504</code></td><td>Load Balancer Status Code 504 — Number of 504 status codes returned by the load balancer per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_elb_http_5xx</code></td><td>Load Balancer Status Codes (5XX) — Number of 5XX status codes returned by the load balancer per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_ipgroup_blocked_packets</code></td><td>Packets Blocked by Blacklist/Whitelist — Number of data packets destined for the monitored object that are blocked by the blacklist/whitelist per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_ipgroup_blocked_traffic</code></td><td>Bandwidth Blocked by Blacklist/Whitelist — Network bandwidth destined for the monitored object that is blocked by the blacklist/whitelist.</td><td></td></tr><tr><td><code>huaweicloud_sys_elb_l4_con_usage</code></td><td>Layer-4 Concurrent Connection Usage — Concurrent connection usage of the Layer-4 ELB instance.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_elb_l4_in_bps_usage</code></td><td>Layer-4 Inbound Bandwidth Usage — Inbound bandwidth usage of the Layer-4 ELB instance. Note: If the inbound bandwidth usage reaches 100%, the performance guaranteed by the ELB specification has been exceeded. Your services can continue to use higher bandwidth, but ELB cannot guarantee the service availability SLA for the excess bandwidth.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_elb_l4_ncps_usage</code></td><td>Layer-4 New Connection Usage — New connection usage of the Layer-4 ELB instance.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_elb_l4_out_bps_usage</code></td><td>Layer-4 Outbound Bandwidth Usage — Outbound bandwidth usage of the Layer-4 ELB instance. Note: If the outbound bandwidth usage reaches 100%, the performance guaranteed by the ELB specification has been exceeded. Your services can continue to use higher bandwidth, but ELB cannot guarantee the service availability SLA for the excess bandwidth.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_elb_l7_2xx_ratio</code></td><td>Layer-7 2XX Request Ratio — Percentage of Layer-7 2XX status codes.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_elb_l7_4xx_ratio</code></td><td>Layer-7 4XX Request Ratio — Percentage of Layer-7 4XX status codes.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_elb_l7_5xx_ratio</code></td><td>Layer-7 5XX Request Ratio — Percentage of Layer-7 5XX status codes.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_elb_l7_con_usage</code></td><td>Layer-7 Concurrent Connection Usage — Concurrent connection usage of the Layer-7 ELB instance.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_elb_l7_in_bps_usage</code></td><td>Layer-7 Inbound Bandwidth Usage — Inbound bandwidth usage of the Layer-7 ELB instance. Note: If the inbound bandwidth usage reaches 100%, the performance guaranteed by the ELB specification has been exceeded. Your services can continue to use higher bandwidth, but ELB cannot guarantee the service availability SLA for the excess bandwidth.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_elb_l7_ncps_usage</code></td><td>Layer-7 New Connection Usage — New connection usage of the Layer-7 ELB instance.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_elb_l7_out_bps_usage</code></td><td>Layer-7 Outbound Bandwidth Usage — Outbound bandwidth usage of the Layer-7 ELB instance. Note: If the outbound bandwidth usage reaches 100%, the performance guaranteed by the ELB specification has been exceeded. Your services can continue to use higher bandwidth, but ELB cannot guarantee the service availability SLA for the excess bandwidth.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_elb_l7_qps_usage</code></td><td>Layer-7 Query Rate Usage — Query rate usage of the Layer-7 ELB instance.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_elb_l7_upstream_101</code></td><td>Layer-7 Backend Status Code 101 — Number of Layer-7 101 status codes returned by the backend servers of the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_l7_upstream_400</code></td><td>Layer-7 Backend Status Code 400 — Number of Layer-7 400 status codes returned by the backend servers of the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_l7_upstream_403</code></td><td>Layer-7 Backend Status Code 403 — Number of Layer-7 403 status codes returned by the backend servers of the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_l7_upstream_404</code></td><td>Layer-7 Backend Status Code 404 — Number of Layer-7 404 status codes returned by the backend servers of the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_l7_upstream_500</code></td><td>Layer-7 Backend Status Code 500 — Number of Layer-7 500 status codes returned by the backend servers of the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_l7_upstream_501</code></td><td>Layer-7 Backend Status Code 501 — Number of Layer-7 501 status codes returned by the backend servers of the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_l7_upstream_502</code></td><td>Layer-7 Backend Status Code 502 — Number of Layer-7 502 status codes returned by the backend servers of the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_l7_upstream_503</code></td><td>Layer-7 Backend Status Code 503 — Number of Layer-7 503 status codes returned by the backend servers of the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_l7_upstream_504</code></td><td>Layer-7 Backend Status Code 504 — Number of Layer-7 504 status codes returned by the backend servers of the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_l7_upstream_other_status</code></td><td>Layer-7 Backend Status Codes (Others) — Number of Layer-7 other status codes returned by the backend servers of the monitored object per second. Excluding: 101, 2XX, 3XX, 400, 403, 404, 500, 501, 502, 503, and 504.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_m10_l7_http_other_status</code></td><td>Layer-7 Status Codes (Others) — Number of Layer-7 other status codes returned by the monitored object per second. Excluding: 2XX, 3XX, 404, 499, and 502.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_m11_l7_http_404</code></td><td>Layer-7 Status Code 404 — Number of Layer-7 404 status codes returned by the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_m12_l7_http_499</code></td><td>Layer-7 Status Code 499 — Number of Layer-7 499 status codes returned by the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_m13_l7_http_502</code></td><td>Layer-7 Status Code 502 — Number of Layer-7 502 status codes returned by the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_m14_l7_rt</code></td><td>Average Layer-7 Response Time — Average Layer-7 response time of the monitored object, measured from when the monitored object receives a client request to when it returns all responses to the client. Note: In WebSocket scenarios, the average RT may be very large and cannot be used as a latency reference.</td><td>ms</td></tr><tr><td><code>huaweicloud_sys_elb_m15_l7_upstream_4xx</code></td><td>Layer-7 Backend Status Codes (4XX) — Number of Layer-7 4XX series status codes returned by the backend servers of the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_m16_l7_upstream_5xx</code></td><td>Layer-7 Backend Status Codes (5XX) — Number of Layer-7 5XX series status codes returned by the backend servers of the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_m17_l7_upstream_rt</code></td><td>Average Layer-7 Backend Response Time — Average Layer-7 backend response time of the monitored object, measured from when the monitored object forwards a request to a backend server to when it receives the response from the backend server. Note: In WebSocket scenarios, the average RT may be very large and cannot be used as a latency reference.</td><td>ms</td></tr><tr><td><code>huaweicloud_sys_elb_m18_l7_upstream_2xx</code></td><td>Layer-7 Backend Status Codes (2XX) — Number of Layer-7 2XX series status codes returned by the backend servers of the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_m19_l7_upstream_3xx</code></td><td>Layer-7 Backend Status Codes (3XX) — Number of Layer-7 3XX series status codes returned by the backend servers of the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_m1_cps</code></td><td>Concurrent Connections — For Layer-4 load balancers, the total number of TCP and UDP connections established from the monitored object to backend servers. For Layer-7 load balancers, the total number of TCP connections established from clients to the ELB.</td><td></td></tr><tr><td><code>huaweicloud_sys_elb_m1a_l7_upstream_rt_max</code></td><td>Maximum Layer-7 Backend Response Time — Maximum Layer-7 backend response time of the monitored object, measured from when the monitored object forwards a request to a backend server to when it receives the response from the backend server.</td><td>ms</td></tr><tr><td><code>huaweicloud_sys_elb_m1b_l7_upstream_rt_min</code></td><td>Minimum Layer-7 Backend Response Time — Minimum Layer-7 backend response time of the monitored object, measured from when the monitored object forwards a request to a backend server to when it receives the response from the backend server.</td><td>ms</td></tr><tr><td><code>huaweicloud_sys_elb_m1c_l7_rt_max</code></td><td>Maximum Layer-7 Response Time — Maximum Layer-7 response time of the monitored object, measured from when the monitored object receives a client request to when it returns all responses to the client.</td><td>ms</td></tr><tr><td><code>huaweicloud_sys_elb_m1d_l7_rt_min</code></td><td>Minimum Layer-7 Response Time — Minimum Layer-7 response time of the monitored object, measured from when the monitored object receives a client request to when it returns all responses to the client.</td><td>ms</td></tr><tr><td><code>huaweicloud_sys_elb_m1e_server_rps</code></td><td>Reset Packets from Backend Servers — Number of reset (RST) packets sent from backend servers to clients per second. Reset packets are generated by backend servers and forwarded by the load balancer. Supported protocol: TCP</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_m1f_lvs_rps</code></td><td>Reset Packets from Load Balancer — Number of reset (RST) packets generated by the load balancer per second. Supported protocol: TCP</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_m21_client_rps</code></td><td>Reset Packets from Clients — Number of reset (RST) packets sent from clients to backend servers per second. Reset packets are generated by clients and forwarded by the load balancer. Supported protocol: TCP</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_m22_in_bandwidth</code></td><td>Inbound Bandwidth — Inbound bandwidth of the monitored object.</td><td></td></tr><tr><td><code>huaweicloud_sys_elb_m23_out_bandwidth</code></td><td>Outbound Bandwidth — Outbound bandwidth of the monitored object.</td><td></td></tr><tr><td><code>huaweicloud_sys_elb_m24_l7_req_Bps</code></td><td>Layer-7 Request Bandwidth — Bandwidth of Layer-7 requests received by the backend servers of the monitored object. Note: This metric cannot be used as a reference when HTTP/2 is enabled on the listener.</td><td></td></tr><tr><td><code>huaweicloud_sys_elb_m25_l7_resp_Bps</code></td><td>Layer-7 Response Bandwidth — Bandwidth of Layer-7 responses sent by the backend servers of the monitored object. Note: This metric cannot be used as a reference when HTTP/2 is enabled on the listener.</td><td></td></tr><tr><td><code>huaweicloud_sys_elb_m26_in_bandwidth_ipv6</code></td><td>IPv6 Inbound Bandwidth — IPv6 network bandwidth flowing into the monitored object.</td><td></td></tr><tr><td><code>huaweicloud_sys_elb_m27_out_bandwidth_ipv6</code></td><td>IPv6 Outbound Bandwidth — IPv6 network bandwidth flowing out of the monitored object.</td><td></td></tr><tr><td><code>huaweicloud_sys_elb_m2_act_conn</code></td><td>Active Connections — Number of active TCP and UDP connections established from the monitored object to backend servers. You can run the following command on both Windows and Linux servers to view them: netstat -an</td><td></td></tr><tr><td><code>huaweicloud_sys_elb_m3_inact_conn</code></td><td>Inactive Connections — Number of inactive TCP and UDP connections established from the monitored object to backend servers. You can run the following command on both Windows and Linux servers to view them: netstat -an</td><td></td></tr><tr><td><code>huaweicloud_sys_elb_m4_ncps</code></td><td>New Connections — Number of new connections established from clients to the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_m5_in_pps</code></td><td>Incoming Packets — Number of data packets received by the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_m6_out_pps</code></td><td>Outgoing Packets — Number of data packets sent by the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_m7_in_Bps</code></td><td>Network Inbound Rate — Network rate of traffic accessing the monitored object from external sources.</td><td></td></tr><tr><td><code>huaweicloud_sys_elb_m8_out_Bps</code></td><td>Network Outbound Rate — Network rate at which the monitored object accesses external sources.</td><td></td></tr><tr><td><code>huaweicloud_sys_elb_m9_abnormal_servers</code></td><td>Unhealthy Servers — Number of backend servers in the monitored object that fail health checks.</td><td></td></tr><tr><td><code>huaweicloud_sys_elb_ma_normal_servers</code></td><td>Healthy Servers — Number of backend servers in the monitored object that pass health checks.</td><td></td></tr><tr><td><code>huaweicloud_sys_elb_mb_l7_qps</code></td><td>Layer-7 Query Rate — Layer-7 query rate of the monitored object.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_mc_l7_http_2xx</code></td><td>Layer-7 Status Codes (2XX) — Number of Layer-7 2XX series status codes returned by the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_md_l7_http_3xx</code></td><td>Layer-7 Status Codes (3XX) — Number of Layer-7 3XX series status codes returned by the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_me_l7_http_4xx</code></td><td>Layer-7 Status Codes (4XX) — Number of Layer-7 4XX series status codes returned by the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_mf_l7_http_5xx</code></td><td>Layer-7 Status Codes (5XX) — Number of Layer-7 5XX series status codes returned by the monitored object per second.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_mirror_in_packets</code></td><td>Inbound Traffic Mirroring Packet Rate — Packet rate of inbound traffic mirroring on the monitored object.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_mirror_in_traffic</code></td><td>Inbound Traffic Mirroring Bandwidth — Bandwidth of inbound traffic mirroring on the monitored object.</td><td></td></tr><tr><td><code>huaweicloud_sys_elb_mirror_out_packets</code></td><td>Outbound Traffic Mirroring Packet Rate — Packet rate of outbound traffic mirroring on the monitored object.</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_elb_mirror_out_traffic</code></td><td>Outbound Traffic Mirroring Bandwidth — Bandwidth of outbound traffic mirroring on the monitored object.</td><td></td></tr><tr><td><code>huaweicloud_sys_elb_upstream_tls_negotiation_error</code></td><td>Backend TLS Handshake Failures — Number of failed TLS sessions initiated by the load balancer to backend servers per second. Supported protocols: HTTPS/TLS/QUIC</td><td>/s</td></tr><tr><td><code>huaweicloud_sys_rds_active_connections</code></td><td>Active Connections — Number of active connections to the database.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_cpu_sys_usage</code></td><td>Kernel-Mode CPU Time Percentage — Percentage of CPU time spent in kernel mode.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_rds_cpu_user_usage</code></td><td>User-Mode CPU Time Percentage — Percentage of CPU time spent in user mode.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_rds_cpu_wait_usage</code></td><td>Disk I/O Wait Time Percentage — Percentage of CPU time spent waiting for disk I/O.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_rds_data_disk_inode_used</code></td><td>Used Inodes — Number of inodes used on the data disk.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_db_max_age</code></td><td>Maximum Database Age — Maximum database age of the current instance, obtained as max(age(datfrozenxid)) from the pg_database table.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_dbuser_passwd_deadline</code></td><td>Earliest Database User Password Expiration Time — Queries database user password expiration times and returns the minimum value of expiration time minus the current time. Note: If no user password expiration time is set, this metric cannot be collected.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_disk_io_usage</code></td><td>Disk I/O Utilization — Disk I/O utilization, which is the percentage of time the disk spends processing I/O requests out of the total time. Note: A disk I/O utilization of 100% only indicates that data was continuously written to the disk during the statistical period. Disk performance should be evaluated together with other metrics such as IOPS, disk throughput, and read/write latency.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_rds_flush_lsn_replication_latency_size</code></td><td>Primary/Standby WAL Flush Latency — Latency of WAL logs flushed to disk on the standby node.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_idle_transaction_connections</code></td><td>Idle-in-Transaction Connections — Number of idle connections in the database.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_inactive_logical_replication_slot</code></td><td>Inactive Logical Replication Slots — Number of inactive logical replication slots in the current database.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_io_read_delay</code></td><td>I/O Read Latency — Average disk read response latency, in milliseconds.</td><td>ms</td></tr><tr><td><code>huaweicloud_sys_rds_io_write_delay</code></td><td>I/O Write Latency — Average disk write response latency, in milliseconds.</td><td>ms</td></tr><tr><td><code>huaweicloud_sys_rds_lock_waiting_sessions</code></td><td>Sessions Waiting for Locks — Number of sessions currently in a blocked state.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_long_transactions_active_five_second</code></td><td>Transactions Active for Over 5s — Number of long transactions that have been active for more than 5 seconds.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_long_transactions_active_one_second</code></td><td>Transactions Active for Over 1s — Number of long transactions that have been active for more than 1 second.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_long_transactions_active_three_second</code></td><td>Transactions Active for Over 3s — Number of long transactions that have been active for more than 3 seconds.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_long_transactions_idle_five_second</code></td><td>Transactions Idle for Over 5s — Number of long transactions that have been idle for more than 5 seconds.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_long_transactions_idle_one_second</code></td><td>Transactions Idle for Over 1s — Number of long transactions that have been idle for more than 1 second.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_long_transactions_idle_three_second</code></td><td>Transactions Idle for Over 3s — Number of long transactions that have been idle for more than 3 seconds.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_long_transactions_two_pc_five_second</code></td><td>Two-Phase Transactions Running for Over 5s — Number of long two-phase transactions that have been executing for more than 5 seconds.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_long_transactions_two_pc_one_second</code></td><td>Two-Phase Transactions Running for Over 1s — Number of long two-phase transactions that have been executing for more than 1 second.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_long_transactions_two_pc_three_second</code></td><td>Two-Phase Transactions Running for Over 3s — Number of long two-phase transactions that have been executing for more than 3 seconds.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_oldest_transaction_duration</code></td><td>Longest Transaction Duration — Duration of the longest-running transaction in the current database.</td><td>ms</td></tr><tr><td><code>huaweicloud_sys_rds_oldest_transaction_duration_2pc</code></td><td>Longest Prepared Transaction Duration — Duration of the longest-running prepared (two-phase) transaction in the current database.</td><td>ms</td></tr><tr><td><code>huaweicloud_sys_rds_os_cpu_process_autovacuum</code></td><td>autovacuum Process CPU Usage — CPU usage of the autovacuum process.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_rds_os_cpu_process_bgwriter</code></td><td>bgwriter Process CPU Usage — CPU usage of the bgwriter process.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_rds_os_cpu_process_checkpoint</code></td><td>checkpoint Process CPU Usage — CPU usage of the checkpoint process.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_rds_os_cpu_process_logger</code></td><td>logger Process CPU Usage — CPU usage of the logger process.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_rds_os_cpu_process_postmaster</code></td><td>postmaster Process CPU Usage — CPU usage of the postmaster process.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_rds_os_cpu_process_walwriter</code></td><td>walwriter Process CPU Usage — CPU usage of the walwriter process.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_rds_os_fs_size_base_dir</code></td><td>Data File Size (Excluding Logs and WAL) — Size of data files, excluding logs and WAL.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_os_iothroughput_total</code></td><td>Disk Read/Write Throughput — Total disk read and write throughput.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_os_mem_size_cache</code></td><td>Page Cache Memory Usage — Memory used by the page cache.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_os_mem_size_hugetlb_usage_2m</code></td><td>2 MB Huge Page Usage — Usage of 2 MB huge pages (available on instances with 32 GB of memory or more).</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_os_mem_size_mapped_file</code></td><td>Shared Memory Usage — Shared memory usage.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_os_mem_size_spec</code></td><td>Flavor Memory Size — Memory size defined by the instance flavor.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_os_mem_size_used</code></td><td>Memory Usage — Amount of memory used.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_os_mem_usage_process_autovacuum</code></td><td>autovacuum Process Memory Usage — Memory usage of the autovacuum process.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_os_mem_usage_process_bgwriter</code></td><td>bgwriter Process Memory Usage — Memory usage of the bgwriter process.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_os_mem_usage_process_checkpoint</code></td><td>checkpoint Process Memory Usage — Memory usage of the checkpoint process.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_os_mem_usage_process_logger</code></td><td>logger Process Memory Usage — Memory usage of the logger process.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_os_mem_usage_process_postmaster</code></td><td>postmaster Process Memory Usage — Memory usage of the postmaster process.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_os_mem_usage_process_walsender</code></td><td>walsender Process Memory Usage — Memory usage of the walsender process.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_os_mem_usage_process_walwriter</code></td><td>walwriter Process Memory Usage — Memory usage of the walwriter process.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_packet_loss_rate</code></td><td>Packet Loss Rate Between Primary and DR Host — Packet loss rate between the primary database host and the disaster recovery host.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_rds_pg_dr_repl_stat</code></td><td>DR Node Replication Status — Disaster recovery replication status. Values: 0: abnormal; 1: startup; 2: catchup; 3: streaming; 4: backup; 5: stopping.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_pg_dr_wal_delay</code></td><td>LSN Lag Between Primary and DR Host — Lag between the current LSN on the primary database host and the replay LSN on the disaster recovery host.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_pgaudit_log_size</code></td><td>Audit Log Size — Size of the current audit logs.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_rds001_cpu_util</code></td><td>CPU Usage — CPU usage of the monitored object, expressed as a percentage.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_rds_rds002_mem_util</code></td><td>Memory Usage — Memory usage of the monitored object, expressed as a percentage.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_rds_rds003_iops</code></td><td>IOPS — Average number of I/O requests processed by the system per unit time for the current instance.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_rds004_bytes_in</code></td><td>Network Input Throughput — Average inbound traffic per second across all network adapters of the monitored object.</td><td>bit/s</td></tr><tr><td><code>huaweicloud_sys_rds_rds005_bytes_out</code></td><td>Network Output Throughput — Average outbound traffic per second across all network adapters of the monitored object.</td><td>bit/s</td></tr><tr><td><code>huaweicloud_sys_rds_rds039_disk_util</code></td><td>Disk Utilization — Disk utilization of the monitored object, expressed as a percentage.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_rds_rds040_transaction_logs_usage</code></td><td>Transaction Log Usage — Disk space used by transaction logs.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_rds041_replication_slot_usage</code></td><td>Replication Slot Usage — Disk space used by replication slot files.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_rds042_database_connections</code></td><td>Database Connections — Number of backends currently connected to the database.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_rds043_maximum_used_transaction_ids</code></td><td>Maximum Used Transaction IDs — Maximum number of transaction IDs used.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_rds044_transaction_logs_generations</code></td><td>Transaction Log Generation Rate — Average size of transaction logs generated per second.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_rds045_oldest_replication_slot_lag</code></td><td>Oldest Replication Slot Lag — Lag of the most lagging replica among multiple replicas, based on the WAL data received.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_rds046_replication_lag</code></td><td>Replication Lag — Replica lag time.</td><td>ms</td></tr><tr><td><code>huaweicloud_sys_rds_rds047_disk_total_size</code></td><td>Total Disk Size — Total disk size of the monitored object.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_rds048_disk_used_size</code></td><td>Used Disk Size — Used disk space of the monitored object.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_rds049_disk_read_throughput</code></td><td>Disk Read Throughput — Number of bytes read from the disk per second.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_rds050_disk_write_throughput</code></td><td>Disk Write Throughput — Number of bytes written to the disk per second.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_rds082_tps</code></td><td>TPS — Number of transactions executed per second, including commits and rollbacks.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_rds083_conn_usage</code></td><td>Connection Usage — Percentage of PgSQL connections in use relative to the total number of connections.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_rds_read_count_per_second</code></td><td>Read IOPS — Average number of read I/O requests processed by the system per unit time for the current instance.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_replay_lsn_replication_latency_size</code></td><td>Primary/Standby WAL Replay Latency — Latency of WAL logs replayed on the standby node.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_round_trip_time</code></td><td>Network Latency Between Primary and DR Host — Round-trip time between the primary database host and the disaster recovery host.</td><td>ms</td></tr><tr><td><code>huaweicloud_sys_rds_row_per_second</code></td><td>Rows Operated per Second — Number of rows inserted, deleted, updated, and queried per second on the instance.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_sent_lsn_replication_latency_size</code></td><td>Primary/Standby WAL Send Latency — Latency of WAL logs pending to be sent from the primary node.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_slave_replication_status</code></td><td>Standby Streaming Replication Status — Streaming replication status of the standby node. 0: standby abnormal; 1: standby normal; 2: this instance is the primary. Standby here also includes read replicas.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_slow_sql_five_second</code></td><td>SQL Statements Running for Over 5s — Number of slow SQL statements that have been executing for more than 5 seconds. This is an instantaneous value at collection time, not a cumulative value over one minute.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_slow_sql_log_min_duration_statement</code></td><td>SQL Statements Running Longer Than log_min_duration_statement — Number of slow SQL statements whose execution time exceeds the log_min_duration_statement parameter, which can be adjusted based on service requirements. This is an instantaneous value at collection time, not a cumulative value over one minute.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_slow_sql_one_second</code></td><td>SQL Statements Running for Over 1s — Number of slow SQL statements that have been executing for more than 1 second. This is an instantaneous value at collection time, not a cumulative value over one minute.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_slow_sql_three_second</code></td><td>SQL Statements Running for Over 3s — Number of slow SQL statements that have been executing for more than 3 seconds. This is an instantaneous value at collection time, not a cumulative value over one minute.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_swap_in_rate</code></td><td>Swap-In Rate — Amount of data written from swap space to memory per second.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_swap_out_rate</code></td><td>Swap-Out Rate — Amount of memory written to swap space per second.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_swap_total_size</code></td><td>Total Swap Size — Total swap space size.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_swap_usage</code></td><td>Swap Usage — Swap space usage.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_rds_synchronous_replication_blocking_time</code></td><td>Synchronous Replication Blocking Time — Duration of replication blocking between the primary and standby nodes in synchronous replication.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_sys_memory_hit_rate</code></td><td>Memory Hit Ratio — Memory hit ratio.</td><td>%</td></tr><tr><td><code>huaweicloud_sys_rds_temporary_files_generation_num</code></td><td>Temporary Files Generated per Minute — Number of temporary files generated within one minute.</td><td>/min</td></tr><tr><td><code>huaweicloud_sys_rds_temporary_files_generation_size</code></td><td>Temporary File Size Generated per Minute — Size of temporary files generated within one minute.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_user_active_connections</code></td><td>User Active Connections — Number of active connections actually used by users (excluding built-in active connections used for monitoring and O&amp;M).</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_user_current_connections</code></td><td>User Connections — Number of connections actually used by users (excluding built-in connections used for monitoring and O&amp;M).</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_wal_size</code></td><td>WAL Space Usage — Space currently occupied by WAL logs.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_write_count_per_second</code></td><td>Write IOPS — Average number of write I/O requests processed by the system per unit time for the current instance.</td><td></td></tr><tr><td><code>huaweicloud_sys_rds_write_lsn_replication_latency_size</code></td><td>Primary/Standby WAL Write Latency — Latency of WAL logs written to disk on the standby node.</td><td></td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="related">Related<a href="#related" class="hash-link" aria-label="Direct link to Related" title="Direct link to Related" translate="no">​</a></h2>
+<ul>
+<li class=""><a href="https://github.com/ccfos/nightingale/tree/main/integrations/Huawei" target="_blank" rel="noopener noreferrer" class="">Huawei Cloud template source</a>: the raw JSON for dashboards, rules and collector config. Pull requests welcome.</li>
+<li class=""><a class="" href="/docs/data/integrations/import">Import dashboards and alert rules</a></li>
+<li class=""><a class="" href="/docs/data/integrations/verify">Verify that metrics are stored</a></li>
+<li class=""><a class="" href="/integrations">All integrations</a></li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><span class="n9e-doc-actions"><a href="https://github.com/ccfos/nightingale/tree/main/integrations/Huawei" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a><a href="https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fintegrations%2Fhuawei&amp;body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fintegrations%2Fhuawei%0A%0A" target="_blank" rel="noopener noreferrer" class="n9e-doc-issue">Report a problem</a></span></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/integrations/aliyun"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Alibaba Cloud</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/integrations/tencent"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Tencent Cloud</div></a></nav></div></div><div class="col col--3"><div class="n9e-toc"><p class="n9e-toc-title">On this page</p><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#whats-in-the-template" class="table-of-contents__link toc-highlight">What&#39;s in the template</a></li><li><a href="#how-to-connect" class="table-of-contents__link toc-highlight">How to connect</a></li><li><a href="#bundled-dashboards" class="table-of-contents__link toc-highlight">Bundled dashboards</a></li><li><a href="#bundled-alert-rules" class="table-of-contents__link toc-highlight">Bundled alert rules</a></li><li><a href="#metric-reference" class="table-of-contents__link toc-highlight">Metric reference</a></li><li><a href="#related" class="table-of-contents__link toc-highlight">Related</a></li></ul></div></div></div></div><footer class="footer_aQsI"><p class="copyright_HrmU">© 2026 Nightingale Contributors · Apache-2.0 License</p><div class="controls_xEY2"><nav class="locales_D62L" aria-label="Language"><a href="/integrations/huawei" target="_blank" rel="noopener noreferrer" class="locale_WPDf localeActive_aVX1" aria-current="page">English</a><a href="/zh/integrations/huawei" target="_blank" rel="noopener noreferrer" class="locale_WPDf">简体中文</a></nav><div class="toggle_vylO"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></footer></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Product</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs">Docs</a></li><li class="footer__item"><a class="footer__link-item" href="/download">Download</a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale/releases" target="_blank" rel="noopener noreferrer" class="footer__link-item">Release notes<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a class="footer__link-item" href="/categraf">Categraf collector</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Resources</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/integrations">Integrations</a></li><li class="footer__item"><a class="footer__link-item" href="/comparisons">Comparisons</a></li><li class="footer__item"><a class="footer__link-item" href="/comparisons/zabbix-alternatives">Zabbix alternatives</a></li><li class="footer__item"><a class="footer__link-item" href="/comparisons/open-source-alerting-platforms">Choosing an alerting platform</a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale#-mcp-server" target="_blank" rel="noopener noreferrer" class="footer__link-item">MCP Server<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ccfos/nightingale" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale/issues" target="_blank" rel="noopener noreferrer" class="footer__link-item">Issues<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://join.slack.com/t/n9e/shared_invite/zt-480klxytf-P9qm3C1M87kDmRPp_H30Kw" target="_blank" rel="noopener noreferrer" class="footer__link-item">Slack<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">About</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ccfos/nightingale/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="footer__link-item">Apache-2.0 License<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="themeRow_uGN8"><div class="toggle_vylO"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div><div class="localeRow_zDj8"><nav class="locales_D62L" aria-label="Language"><a href="/integrations/huawei" target="_blank" rel="noopener noreferrer" class="locale_WPDf localeActive_aVX1" aria-current="page">English</a><a href="/zh/integrations/huawei" target="_blank" rel="noopener noreferrer" class="locale_WPDf">简体中文</a></nav></div><div class="footer__copyright">© 2026 Nightingale Contributors · Apache-2.0 License</div></div></div></footer></div>
+</body>
+</html>

@@ -75,22 +75,22 @@ Each template bundles Categraf collector config, dashboards and a set of alert r
 
 All83Hosts & hardware14Databases & storage16Message queues8Web & middleware15Containers & cloud native8Cloud providers & CDN9Network & probes9DevOps & others4
 
-* [![Linux logo](https://n9e.github.io/img/integrations/Linux.png)Linux5 dashboards·4 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Linux/markdown/README.en_US.md)
-* [![Kubernetes logo](https://n9e.github.io/img/integrations/Kubernetes.png)Kubernetes17 dashboards·9 rule sets·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Kubernetes/markdown/README.en_US.md)
-* [![MySQL logo](https://n9e.github.io/img/integrations/MySQL.png)MySQL7 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/MySQL/markdown/README.en_US.md)
-* [![Redis logo](https://n9e.github.io/img/integrations/Redis.png)Redis3 dashboards·2 rule sets·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/Redis/markdown/README.en_US.md)
-* [![Windows logo](https://n9e.github.io/img/integrations/Windows.png)Windows6 dashboards·2 rule sets](https://github.com/ccfos/nightingale/blob/main/integrations/Windows/markdown/README.en_US.md)
-* [![Docker logo](https://n9e.github.io/img/integrations/Docker.png)Docker1 dashboard·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/Docker/markdown/README.en_US.md)
-* [![PostgreSQL logo](https://n9e.github.io/img/integrations/PostgreSQL.png)PostgreSQL1 dashboard·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/PostgreSQL/markdown/README.en_US.md)
-* [![Nginx logo](https://n9e.github.io/img/integrations/Nginx.png)Nginx3 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Nginx/markdown/README.en_US.md)
-* [![Elasticsearch logo](https://n9e.github.io/img/integrations/Elasticsearch.png)Elasticsearch5 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Elasticsearch/markdown/README.en_US.md)
-* [![Kafka logo](https://n9e.github.io/img/integrations/Kafka.png)Kafka2 dashboards·2 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Kafka/markdown/README.en_US.md)
-* [![MongoDB logo](https://n9e.github.io/img/integrations/MongoDB.png)MongoDB1 dashboard·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/MongoDB/markdown/README.en_US.md)
-* [![Java logo](https://n9e.github.io/img/integrations/Java.png)Java3 dashboards](https://github.com/ccfos/nightingale/blob/main/integrations/Java/markdown/README.en_US.md)
-* [![RabbitMQ logo](https://n9e.github.io/img/integrations/RabbitMQ.png)RabbitMQ4 dashboards·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/RabbitMQ/markdown/README.en_US.md)
-* [![SNMP logo](https://n9e.github.io/img/integrations/SNMP.png)SNMP9 dashboards·5 rule sets·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/SNMP/markdown/README.en_US.md)
-* [![Ping logo](https://n9e.github.io/img/integrations/Ping.png)Ping2 dashboards·1 rule set·collector config·metric docs](https://github.com/ccfos/nightingale/blob/main/integrations/Ping/markdown/README.en_US.md)
-* [![Alibaba Cloud logo](https://n9e.github.io/img/integrations/AliYun.png)Alibaba Cloud44 dashboards·12 rule sets·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/AliYun/markdown/README.en_US.md)
+* [![Linux logo](https://n9e.github.io/img/integrations/Linux.png)Linux5 dashboards·4 rule sets·collector config·metric docs](https://n9e.github.io/integrations/linux.md)
+* [![Kubernetes logo](https://n9e.github.io/img/integrations/Kubernetes.png)Kubernetes17 dashboards·9 rule sets·metric docs](https://n9e.github.io/integrations/kubernetes.md)
+* [![MySQL logo](https://n9e.github.io/img/integrations/MySQL.png)MySQL7 dashboards·2 rule sets·collector config·metric docs](https://n9e.github.io/integrations/mysql.md)
+* [![Redis logo](https://n9e.github.io/img/integrations/Redis.png)Redis3 dashboards·2 rule sets·collector config](https://n9e.github.io/integrations/redis.md)
+* [![Windows logo](https://n9e.github.io/img/integrations/Windows.png)Windows6 dashboards·2 rule sets](https://n9e.github.io/integrations/windows.md)
+* [![Docker logo](https://n9e.github.io/img/integrations/Docker.png)Docker1 dashboard·1 rule set·collector config](https://n9e.github.io/integrations/docker.md)
+* [![PostgreSQL logo](https://n9e.github.io/img/integrations/PostgreSQL.png)PostgreSQL1 dashboard·1 rule set·collector config](https://n9e.github.io/integrations/postgresql.md)
+* [![Nginx logo](https://n9e.github.io/img/integrations/Nginx.png)Nginx3 dashboards·2 rule sets·collector config·metric docs](https://n9e.github.io/integrations/nginx.md)
+* [![Elasticsearch logo](https://n9e.github.io/img/integrations/Elasticsearch.png)Elasticsearch5 dashboards·2 rule sets·collector config·metric docs](https://n9e.github.io/integrations/elasticsearch.md)
+* [![Kafka logo](https://n9e.github.io/img/integrations/Kafka.png)Kafka2 dashboards·2 rule sets·collector config·metric docs](https://n9e.github.io/integrations/kafka.md)
+* [![MongoDB logo](https://n9e.github.io/img/integrations/MongoDB.png)MongoDB1 dashboard·1 rule set·collector config](https://n9e.github.io/integrations/mongodb.md)
+* [![Java logo](https://n9e.github.io/img/integrations/Java.png)Java3 dashboards](https://n9e.github.io/integrations/java.md)
+* [![RabbitMQ logo](https://n9e.github.io/img/integrations/RabbitMQ.png)RabbitMQ4 dashboards·1 rule set·collector config](https://n9e.github.io/integrations/rabbitmq.md)
+* [![SNMP logo](https://n9e.github.io/img/integrations/SNMP.png)SNMP9 dashboards·5 rule sets·collector config·metric docs](https://n9e.github.io/integrations/snmp.md)
+* [![Ping logo](https://n9e.github.io/img/integrations/Ping.png)Ping2 dashboards·1 rule set·collector config·metric docs](https://n9e.github.io/integrations/ping.md)
+* [![Alibaba Cloud logo](https://n9e.github.io/img/integrations/AliYun.png)Alibaba Cloud44 dashboards·12 rule sets·collector config](https://n9e.github.io/integrations/aliyun.md)
 
 Show all 83 templates
 

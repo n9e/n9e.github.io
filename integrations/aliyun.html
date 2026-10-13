@@ -1,0 +1,994 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-integrations docs-version-current docs-doc-page docs-doc-id-aliyun" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">Monitor Alibaba Cloud with Nightingale | Nightingale</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://n9e.github.io/img/og-en.png"><meta data-rh="true" name="twitter:image" content="https://n9e.github.io/img/og-en.png"><meta data-rh="true" property="og:url" content="https://n9e.github.io/integrations/aliyun"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" property="og:locale:alternate" content="zh_CN"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" property="og:image:width" content="1200"><meta data-rh="true" property="og:image:height" content="630"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-integrations-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-integrations-current"><meta data-rh="true" property="og:title" content="Monitor Alibaba Cloud with Nightingale | Nightingale"><meta data-rh="true" name="description" content="Pulls ECS, RDS, Redis, SLB, CDN, ARMS and other product metrics through the CloudMonitor OpenAPI; the template ships dozens of per-product dashboards and rules."><meta data-rh="true" property="og:description" content="Pulls ECS, RDS, Redis, SLB, CDN, ARMS and other product metrics through the CloudMonitor OpenAPI; the template ships dozens of per-product dashboards and rules."><meta data-rh="true" property="og:type" content="article"><meta data-rh="true" property="article:modified_time" content="2026-10-13"><link data-rh="true" rel="icon" href="/img/favicon.png"><link data-rh="true" rel="canonical" href="https://n9e.github.io/integrations/aliyun"><link data-rh="true" rel="alternate" href="https://n9e.github.io/integrations/aliyun" hreflang="en"><link data-rh="true" rel="alternate" href="https://n9e.github.io/zh/integrations/aliyun" hreflang="zh-CN"><link data-rh="true" rel="alternate" href="https://n9e.github.io/integrations/aliyun" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Alibaba Cloud","item":"https://n9e.github.io/integrations/aliyun"}]}</script><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Monitor Alibaba Cloud with Nightingale","description":"Pulls ECS, RDS, Redis, SLB, CDN, ARMS and other product metrics through the CloudMonitor OpenAPI; the template ships dozens of per-product dashboards and rules.","inLanguage":"en","dateModified":"2026-10-13","url":"https://n9e.github.io/integrations/aliyun"}</script><link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-400-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-700-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-800-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/jetbrains-mono-latin-400-normal.woff2" crossorigin="anonymous">
+<style>@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/archivo-latin-ext-400-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/archivo-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/archivo-latin-ext-500-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/archivo-latin-500-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 600; src: url(/fonts/archivo-latin-ext-600-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 600; src: url(/fonts/archivo-latin-600-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/archivo-latin-ext-700-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/archivo-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 800; src: url(/fonts/archivo-latin-ext-800-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 800; src: url(/fonts/archivo-latin-800-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/jetbrains-mono-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/jetbrains-mono-latin-500-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/jetbrains-mono-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+
+/* 度量匹配的回退字体：Archivo 没到时用 Arial 占位，字宽和行高按 Archivo 的度量调过，切换时几乎不重排 */
+@font-face { font-family: 'Archivo Fallback'; font-weight: 400; src: local('Arial'), local('Liberation Sans'); size-adjust: 115.77%; ascent-override: 75.84%; descent-override: 18.14%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 500; src: local('Arial'), local('Liberation Sans'); size-adjust: 117.58%; ascent-override: 74.67%; descent-override: 17.86%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 600; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 110.34%; ascent-override: 79.57%; descent-override: 19.03%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 700; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 113.27%; ascent-override: 77.51%; descent-override: 18.54%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 800; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 117.65%; ascent-override: 74.63%; descent-override: 17.85%; line-gap-override: 0%; }
+/* JetBrains Mono 对 Menlo（macOS）；Consolas / DejaVu 只是兜底，度量按 Menlo 算 */
+@font-face { font-family: 'JetBrains Mono Fallback'; src: local('Menlo'), local('Consolas'), local('DejaVu Sans Mono'); size-adjust: 99.66%; ascent-override: 102.35%; descent-override: 30.10%; line-gap-override: 0%; }
+</style>
+<script>!function(){try{var e=window.location,t=e.pathname;if(t.length>1&&"/"===t.charAt(t.length-1)&&"/zh/"!==t)return void e.replace(t.replace(/\/+$/,"")+e.search+e.hash);var n,a=new URLSearchParams(e.search),r=window.self!==window.top;try{n=window.sessionStorage}catch(i){}function o(e){try{return n&&n.getItem(e)}catch(e){return null}}function h(e,t){try{n&&n.setItem(e,t)}catch(e){}}if(!(a.has("onlyContent")||r&&"1"===o("n9e-embed")))return;var c=a.get("theme");if("dark"!==c&&"light"!==c&&(c=r?o("n9e-embed-theme"):null),r&&(h("n9e-embed","1"),c&&h("n9e-embed-theme",c)),document.documentElement.setAttribute("data-n9e-embed",""),e.hash){var s=decodeURIComponent(e.hash.slice(1));window.addEventListener("load",function(){setTimeout(function(){var e=document.getElementById(s);e&&e.scrollIntoView({behavior:"instant",block:"start"})},0)})}c&&!a.has("docusaurus-theme")&&(a.set("docusaurus-theme",c),history.replaceState(history.state,"",t+"?"+a.toString()+e.hash))}catch(d){}}()</script>
+<script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?9d7cc507a7aae60b28b5e04bb995492a",e.async=!0;var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><link rel="stylesheet" href="/assets/css/styles.4f3e9aef.css">
+<script src="/assets/js/runtime~main.3eefea0d.js" defer="defer"></script>
+<script src="/assets/js/main.42aa04ff.js" defer="defer"></script>
+<link rel="alternate" type="text/markdown" href="https://n9e.github.io/integrations/aliyun.md"><link rel="describedby" href="https://n9e.github.io/llms.txt"></head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"dark"),document.documentElement.setAttribute("data-theme-choice",t||"dark")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo-mark.webp" alt="Nightingale" class="themedComponent_mlkZ themedComponent--light_NVdE" height="26" width="25"><img src="/img/logo-mark.webp" alt="Nightingale" class="themedComponent_mlkZ themedComponent--dark_xIcU" height="26" width="25"></div><b class="navbar__title text--truncate">Nightingale</b></a><a class="navbar__item navbar__link" href="/docs">Docs</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/integrations">Integrations</a><a class="navbar__item navbar__link" href="/comparisons">Comparisons</a><a class="navbar__item navbar__link" href="/download">Download</a><div class="navbar__item dropdown dropdown--hoverable"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">Community</a><ul class="dropdown__menu"><li><a href="https://github.com/ccfos/nightingale/issues" target="_blank" rel="noopener noreferrer" class="dropdown__link">Open an issue<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li><a href="https://join.slack.com/t/n9e/shared_invite/zt-480klxytf-P9qm3C1M87kDmRPp_H30Kw" target="_blank" rel="noopener noreferrer" class="dropdown__link">Slack<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://play.n9e.io/api/n9e/auth/demo-login" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">Live demo<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://github.com/ccfos/nightingale" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link navbar-github" aria-label="GitHub, 13337 stars">13.3k<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="mobileOnly_k8CN"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB n9e-docs-root n9e-docs-root--single"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><div class="searchWrap_zhtN"></div><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/integrations"><span class="linkLabel_WmDU">All integrations</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/linux"><span class="categoryLinkLabel_W154">Hosts &amp; hardware</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/linux"><span class="linkLabel_WmDU">Linux</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/windows"><span class="linkLabel_WmDU">Windows</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/systemd"><span class="linkLabel_WmDU">Systemd</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/smart"><span class="linkLabel_WmDU">SMART</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/ipmi"><span class="linkLabel_WmDU">IPMI</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/nvidia"><span class="linkLabel_WmDU">NVIDIA</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/amd-rocm-smi"><span class="linkLabel_WmDU">AMD ROCm SMI</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/exec"><span class="linkLabel_WmDU">Exec</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/mysql"><span class="categoryLinkLabel_W154">Databases &amp; storage</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/mysql"><span class="linkLabel_WmDU">MySQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/postgresql"><span class="linkLabel_WmDU">PostgreSQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/redis"><span class="linkLabel_WmDU">Redis</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/mongodb"><span class="linkLabel_WmDU">MongoDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/oracle"><span class="linkLabel_WmDU">Oracle</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/sqlserver"><span class="linkLabel_WmDU">SQLServer</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/elasticsearch"><span class="linkLabel_WmDU">Elasticsearch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/clickhouse"><span class="linkLabel_WmDU">ClickHouse</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/doris"><span class="linkLabel_WmDU">Doris</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/tidb"><span class="linkLabel_WmDU">TiDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/victoriametrics"><span class="linkLabel_WmDU">VictoriaMetrics</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/kafka"><span class="categoryLinkLabel_W154">Message queues</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/kafka"><span class="linkLabel_WmDU">Kafka</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/rabbitmq"><span class="linkLabel_WmDU">RabbitMQ</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/nsq"><span class="linkLabel_WmDU">NSQ</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/emqx"><span class="linkLabel_WmDU">EMQX</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/automq"><span class="linkLabel_WmDU">AutoMQ</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/nginx"><span class="categoryLinkLabel_W154">Web &amp; middleware</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/nginx"><span class="linkLabel_WmDU">Nginx</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/apache"><span class="linkLabel_WmDU">Apache</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/haproxy"><span class="linkLabel_WmDU">HAProxy</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/tomcat"><span class="linkLabel_WmDU">Tomcat</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/java"><span class="linkLabel_WmDU">Java</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/springboot"><span class="linkLabel_WmDU">SpringBoot</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/php"><span class="linkLabel_WmDU">PHP</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/consul"><span class="linkLabel_WmDU">Consul</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/ldap"><span class="linkLabel_WmDU">Ldap</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/bind"><span class="linkLabel_WmDU">Bind</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/logstash"><span class="linkLabel_WmDU">Logstash</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/mtail"><span class="linkLabel_WmDU">Mtail</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/kubernetes"><span class="categoryLinkLabel_W154">Containers &amp; cloud native</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/kubernetes"><span class="linkLabel_WmDU">Kubernetes</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/docker"><span class="linkLabel_WmDU">Docker</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/cadvisor"><span class="linkLabel_WmDU">cAdvisor</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/ceph"><span class="linkLabel_WmDU">Ceph</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/minio"><span class="linkLabel_WmDU">MinIO</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/openstack"><span class="linkLabel_WmDU">OpenStack</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/vsphere"><span class="linkLabel_WmDU">vSphere</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/integrations/aliyun"><span class="categoryLinkLabel_W154">Cloud providers &amp; CDN</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/integrations/aliyun"><span class="linkLabel_WmDU">Alibaba Cloud</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/huawei"><span class="linkLabel_WmDU">Huawei Cloud</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/tencent"><span class="linkLabel_WmDU">Tencent Cloud</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/cloudwatch"><span class="linkLabel_WmDU">CloudWatch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/azure"><span class="linkLabel_WmDU">Azure</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/snmp"><span class="categoryLinkLabel_W154">Network &amp; probes</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/snmp"><span class="linkLabel_WmDU">SNMP</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/switch-legacy"><span class="linkLabel_WmDU">Switch (legacy)</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/ping"><span class="linkLabel_WmDU">Ping</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/net-response"><span class="linkLabel_WmDU">Net Response</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/dns-query"><span class="linkLabel_WmDU">DNS Query</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/gitlab"><span class="categoryLinkLabel_W154">DevOps &amp; others</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/gitlab"><span class="linkLabel_WmDU">Gitlab</span></a></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Cloud providers &amp; CDN</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Alibaba Cloud</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header class="n9e-doc-header"><h1>Monitor Alibaba Cloud with Nightingale</h1><p class="n9e-doc-lead">Pulls ECS, RDS, Redis, SLB, CDN, ARMS and other product metrics through the CloudMonitor OpenAPI; the template ships dozens of per-product dashboards and rules.</p><p class="n9e-doc-reviewed">Last reviewed <time datetime="2026-10-13">2026-10-13</time></p></header><p>The <code>aliyun</code> input calls the CloudMonitor OpenAPI and pulls metrics per namespace: ECS, RDS, Redis, MongoDB, SLB/ALB, OSS, CDN, message queues, ARMS application monitoring and more. Metrics arrive named <code>aliyun_&lt;namespace&gt;_&lt;metric&gt;</code> with instance ID and region labels.</p>
+<p>Create a RAM user, grant <code>AliyunCloudMonitorReadOnlyAccess</code> and issue an AccessKey. CloudMonitor metrics are usually at 60-second granularity, so do not collect more often than that. This is one of the dashboard-richest templates in the catalog, one per product, and the rules cover ECS CPU and disk, RDS connections and IOPS, Redis memory, SLB backend health, CDN status codes and other everyday cases.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="whats-in-the-template">What&#x27;s in the template<a href="#whats-in-the-template" class="hash-link" aria-label="Direct link to What&#x27;s in the template" title="Direct link to What&#x27;s in the template" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>44 dashboards</strong>, 883 panels in total</li>
+<li class=""><strong>73 alert rules</strong>, each with runbook steps</li>
+<li class=""><strong>Categraf collector config</strong>: <code>input.aliyun</code></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-to-connect">How to connect<a href="#how-to-connect" class="hash-link" aria-label="Direct link to How to connect" title="Direct link to How to connect" translate="no">​</a></h2>
+<ol>
+<li class="">
+<p><a class="" href="/docs/data/categraf/install">Install Categraf</a>, put the config below in <code>conf/input.aliyun/cloud.toml</code>, fill in your own address and credentials, and restart Categraf. The startup log prints <code>input: local.aliyun started</code> once the plugin is loaded.</p>
+<div class="language-toml codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-toml codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token comment" style="color:rgb(98, 114, 164)"># # collect interval</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># interval = 60</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token punctuation" style="color:rgb(248, 248, 242)">[</span><span class="token punctuation" style="color:rgb(248, 248, 242)">[</span><span class="token table class-name">instances</span><span class="token punctuation" style="color:rgb(248, 248, 242)">]</span><span class="token punctuation" style="color:rgb(248, 248, 242)">]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># # endpoint region 参考 https://help.aliyun.com/document_detail/28616.html#section-72p-xhs-6qt</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># region=&quot;cn-beijing&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># endpoint=&quot;metrics.cn-hangzhou.aliyuncs.com&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># access_key_id=&quot;your-access-key-id&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># access_key_secret=&quot;your-access-key-secret&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># interval_times=4</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># delay=&quot;10m&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># period=&quot;60s&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># # namespace 参考 https://help.aliyun.com/document_detail/163515.htm?spm=a2c4g.11186623.0.0.44d65c58mhgNw3</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># namespaces=[&quot;acs_ecs_dashboard&quot;]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># [[instances.metric_filters]]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># # metric name 参考 https://help.aliyun.com/document_detail/163515.htm?spm=a2c4g.11186623.0.0.401d15c73Z0dZh</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># # 参考页面中的Metric Id 填入下面的metricName ,页面中包含中文的Metric Name对应接口中的Description</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># metric_names=[&quot;cpu_cores&quot;,&quot;vm.TcpCount&quot;]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># namespace=&quot;&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># ratelimit=25</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># catch_ttl=&quot;1h&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># timeout=&quot;5s&quot;</span><br></div></code></pre></div></div>
+</li>
+<li class="">
+<p>Open the integration center in Nightingale, find Alibaba Cloud, and <a class="" href="/docs/data/integrations/import">import the dashboards and alert rules</a> into a business group.</p>
+</li>
+<li class="">
+<p>Imported rules start disabled. <a class="" href="/docs/data/integrations/verify">Check that the metrics are arriving</a> first, then enable the rules one by one with thresholds that fit your environment.</p>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="bundled-dashboards">Bundled dashboards<a href="#bundled-dashboards" class="hash-link" aria-label="Direct link to Bundled dashboards" title="Direct link to Bundled dashboards" translate="no">​</a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Dashboard</th><th style="text-align:right">Panels</th></tr></thead><tbody><tr><td>AliYun-Message Queue for RabbitMQ</td><td style="text-align:right">21</td></tr><tr><td>ARMS-Application</td><td style="text-align:right">35</td></tr><tr><td>ARMS-DB</td><td style="text-align:right">5</td></tr><tr><td>AliYun ARMS-JVM-SERVICE</td><td style="text-align:right">14</td></tr><tr><td>ARMS-Machine</td><td style="text-align:right">7</td></tr><tr><td>AliYun ARMS-JVM</td><td style="text-align:right">14</td></tr><tr><td>AliYun CDN</td><td style="text-align:right">5</td></tr><tr><td>AliYun ECS</td><td style="text-align:right">5</td></tr><tr><td>AliYun MongoDB</td><td style="text-align:right">23</td></tr><tr><td>MSE Monitoring Dashboard</td><td style="text-align:right">8</td></tr><tr><td>AliYun MySQL</td><td style="text-align:right">15</td></tr><tr><td>AliYun NAT</td><td style="text-align:right">19</td></tr><tr><td>AliYun OSS</td><td style="text-align:right">43</td></tr><tr><td>AliYun POLARDB-MySQL</td><td style="text-align:right">11</td></tr><tr><td>AliYun RDS</td><td style="text-align:right">5</td></tr><tr><td>AliYun RDS_N</td><td style="text-align:right">8</td></tr><tr><td>AliYun REDIS</td><td style="text-align:right">5</td></tr><tr><td>AliYun REDIS Cluster</td><td style="text-align:right">32</td></tr><tr><td>AliYun REDIS_N</td><td style="text-align:right">7</td></tr><tr><td>AliYun REDIS Standard</td><td style="text-align:right">32</td></tr><tr><td>AliYun SLB</td><td style="text-align:right">6</td></tr><tr><td>AliYun-SLB (Load Balancer)</td><td style="text-align:right">17</td></tr><tr><td>AliYun WAF</td><td style="text-align:right">6</td></tr><tr><td>AliYun-ALB</td><td style="text-align:right">36</td></tr><tr><td>CDN Global Dashboard</td><td style="text-align:right">9</td></tr><tr><td>ECS Instance Detail</td><td style="text-align:right">36</td></tr><tr><td>AliYun-EIP</td><td style="text-align:right">11</td></tr><tr><td>AliYun-ES</td><td style="text-align:right">10</td></tr><tr><td>AliYun-Kafka</td><td style="text-align:right">17</td></tr><tr><td>AliYun-MSE Ingress Monitoring Center</td><td style="text-align:right">18</td></tr><tr><td>AliYun-MongoDB-ReplicaSet</td><td style="text-align:right">29</td></tr><tr><td>AliYun-OceanBase</td><td style="text-align:right">18</td></tr><tr><td>AliYun-PolarDB</td><td style="text-align:right">18</td></tr><tr><td>RDS-MySQL - Global Overview</td><td style="text-align:right">5</td></tr><tr><td>RDS-MySQL - Single Instance Monitoring</td><td style="text-align:right">26</td></tr><tr><td>AliYun-RabbitMQ</td><td style="text-align:right">25</td></tr><tr><td>Redis/Tair Memory Edition (Standard) Instance Detail Dashboard</td><td style="text-align:right">30</td></tr><tr><td>Redis/Tair Memory Edition (RW-Splitting/Cluster) Instance Detail Dashboard</td><td style="text-align:right">136</td></tr><tr><td>Redis Community Edition - Monitoring Dashboard - Standard</td><td style="text-align:right">17</td></tr><tr><td>Redis Community Edition - Monitoring Dashboard - Cluster</td><td style="text-align:right">25</td></tr><tr><td>Redis Community Edition - Monitoring Dashboard - RW-Splitting</td><td style="text-align:right">25</td></tr><tr><td>AliYun SLB</td><td style="text-align:right">17</td></tr><tr><td>WAF</td><td style="text-align:right">5</td></tr><tr><td>Enhanced NAT Gateway</td><td style="text-align:right">27</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="bundled-alert-rules">Bundled alert rules<a href="#bundled-alert-rules" class="hash-link" aria-label="Direct link to Bundled alert rules" title="Direct link to Bundled alert rules" translate="no">​</a></h2>
+<p>73 rules. Each lists its trigger condition (PromQL) and the steps to take when it fires. Thresholds are meant to be adjusted after import.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-cdn-edge-status-code-5xx-ratio-exceeds-1">AliYun CDN edge status code 5XX ratio exceeds 1%<a href="#aliyun-cdn-edge-status-code-5xx-ratio-exceeds-1" class="hash-link" aria-label="Direct link to AliYun CDN edge status code 5XX ratio exceeds 1%" title="Direct link to AliYun CDN edge status code 5XX ratio exceeds 1%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_cdn_code5xx_isp_value{} &gt; 1</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Use the console&#x27;s error code analysis to see which regions/ISPs are erroring;</li>
+<li class="">Check origin health — CDN 5xx is mostly caused by failed origin fetches;</li>
+<li class="">If the origin is healthy, check the origin configuration (origin HOST, protocol, timeout);</li>
+<li class="">For widespread failures, open a ticket with Alibaba Cloud and consider temporarily switching the origin address.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-cdn-edge-status-code-4xx-ratio-reaches-100">AliYun CDN edge status code 4XX ratio reaches 100%<a href="#aliyun-cdn-edge-status-code-4xx-ratio-reaches-100" class="hash-link" aria-label="Direct link to AliYun CDN edge status code 4XX ratio reaches 100%" title="Direct link to AliYun CDN edge status code 4XX ratio reaches 100%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_cdn_code4xx_isp_value{} ==100</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Use the console&#x27;s error code analysis to confirm whether it is 403 or 404;</li>
+<li class="">403 usually means the hotlink protection/Referer/URL auth configuration does not match the actual requests;</li>
+<li class="">404 usually means the origin resource was deleted or the origin path is misconfigured;</li>
+<li class="">After fixing, purge the CDN cache and retest.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mongo-replica-set---cpu-usage-exceeds-50">Mongo replica set - CPU usage exceeds 50%<a href="#mongo-replica-set---cpu-usage-exceeds-50" class="hash-link" aria-label="Direct link to Mongo replica set - CPU usage exceeds 50%" title="Direct link to Mongo replica set - CPU usage exceeds 50%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_mongodb_cpu_utilization_average &gt; 50</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm on the console instance monitoring page whether the CPU curve is sustained or a spike;</li>
+<li class="">Use the console&#x27;s one-click diagnosis or the slow log to find the SQL consuming the most CPU;</li>
+<li class="">Add indexes to slow SQL and eliminate full table scans — this is the most effective step;</li>
+<li class="">If it stays high after tuning, change the instance specification in the console, noting there will be a brief interruption.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mongo-replica-set---iops-usage-exceeds-80">Mongo replica set - IOPS usage exceeds 80%<a href="#mongo-replica-set---iops-usage-exceeds-80" class="hash-link" aria-label="Direct link to Mongo replica set - IOPS usage exceeds 80%" title="Direct link to Mongo replica set - IOPS usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_mongodb_iops_utilization_average &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the IOPS curve against the specification ceiling on the console monitoring page;</li>
+<li class="">Use the slow log to find the SQL scanning the most data — heavy random reads are the main cause of saturated IOPS;</li>
+<li class="">Add indexes to reduce scanning and avoid large batch write transactions;</li>
+<li class="">If it still tops out after tuning, upgrade the instance specification (IOPS scales with it).</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mongo-replica-set---qps-spike-exceeds-100">Mongo replica set - QPS spike exceeds 100%<a href="#mongo-replica-set---qps-spike-exceeds-100" class="hash-link" aria-label="Direct link to Mongo replica set - QPS spike exceeds 100%" title="Direct link to Mongo replica set - QPS spike exceeds 100%" translate="no">​</a></h3>
+<p>S3 Info · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_mongodb_qps_average offset 5m &gt; 0 and (aliyun_acs_mongodb_qps_average - aliyun_acs_mongodb_qps_average offset 5m) / (aliyun_acs_mongodb_qps_average offset 5m) * 100 &gt; 100</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm on the console monitoring page when the QPS curve jumped;</li>
+<li class="">Compare against the business release log and marketing activity to confirm whether the traffic is expected;</li>
+<li class="">If unexpected, use the slow/audit log to group by source, find the abnormal client and rate limit it;</li>
+<li class="">Confirm whether a cache layer failed and let requests through to the database.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mongo-replica-set---replication-lag-exceeds-5-seconds">Mongo replica set - replication lag exceeds 5 seconds<a href="#mongo-replica-set---replication-lag-exceeds-5-seconds" class="hash-link" aria-label="Direct link to Mongo replica set - replication lag exceeds 5 seconds" title="Direct link to Mongo replica set - replication lag exceeds 5 seconds" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_mongodb_replication_lag_average &gt; 5</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the lag curve and which node is lagging in the console;</li>
+<li class="">On the primary, look for large transactions or bulk DML loading data — this is the most common cause;</li>
+<li class="">If the read-only node itself is loaded, reduce queries to it or upgrade it;</li>
+<li class="">If lag keeps growing, move read traffic back to the primary first.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mongo-replica-set---memory-usage-exceeds-80">Mongo replica set - memory usage exceeds 80%<a href="#mongo-replica-set---memory-usage-exceeds-80" class="hash-link" aria-label="Direct link to Mongo replica set - memory usage exceeds 80%" title="Direct link to Mongo replica set - memory usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_mongodb_memory_utilization_average &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the memory growth trend on the console monitoring page;</li>
+<li class="">For MongoDB watch the WiredTiger cache share; for MySQL watch the buffer pool and per-connection memory (sort/join buffers);</li>
+<li class="">Look for large result set queries or an excessive connection count consuming memory;</li>
+<li class="">If it is still short after tuning, upgrade in the console.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mongo-replica-set---disk-usage-exceeds-80">Mongo replica set - disk usage exceeds 80%<a href="#mongo-replica-set---disk-usage-exceeds-80" class="hash-link" aria-label="Direct link to Mongo replica set - disk usage exceeds 80%" title="Direct link to Mongo replica set - disk usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_mongodb_disk_utilization_average &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Use the console&#x27;s space analysis to see whether data, logs or temporary files dominate;</li>
+<li class="">If binlog/redo dominates, shorten the log retention;</li>
+<li class="">If data itself is large, archive historical data — after deleting you still need OPTIMIZE TABLE or to wait for space reclamation;</li>
+<li class="">Expand the disk in the console as soon as possible; cloud disk expansion is usually online.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mongo-sharded-cluster---cpu-usage-exceeds-50">Mongo sharded cluster - CPU usage exceeds 50%<a href="#mongo-sharded-cluster---cpu-usage-exceeds-50" class="hash-link" aria-label="Direct link to Mongo sharded cluster - CPU usage exceeds 50%" title="Direct link to Mongo sharded cluster - CPU usage exceeds 50%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_mongodb_sharding_cpu_utilization_average &gt; 50</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm on the console instance monitoring page whether the CPU curve is sustained or a spike;</li>
+<li class="">Use the console&#x27;s one-click diagnosis or the slow log to find the SQL consuming the most CPU;</li>
+<li class="">Add indexes to slow SQL and eliminate full table scans — this is the most effective step;</li>
+<li class="">If it stays high after tuning, change the instance specification in the console, noting there will be a brief interruption.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mongo-sharded-cluster---iops-usage-exceeds-80">Mongo sharded cluster - IOPS usage exceeds 80%<a href="#mongo-sharded-cluster---iops-usage-exceeds-80" class="hash-link" aria-label="Direct link to Mongo sharded cluster - IOPS usage exceeds 80%" title="Direct link to Mongo sharded cluster - IOPS usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_mongodb_sharding_iops_utilization_average &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the IOPS curve against the specification ceiling on the console monitoring page;</li>
+<li class="">Use the slow log to find the SQL scanning the most data — heavy random reads are the main cause of saturated IOPS;</li>
+<li class="">Add indexes to reduce scanning and avoid large batch write transactions;</li>
+<li class="">If it still tops out after tuning, upgrade the instance specification (IOPS scales with it).</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mongo-sharded-cluster---qps-spike-exceeds-100">Mongo sharded cluster - QPS spike exceeds 100%<a href="#mongo-sharded-cluster---qps-spike-exceeds-100" class="hash-link" aria-label="Direct link to Mongo sharded cluster - QPS spike exceeds 100%" title="Direct link to Mongo sharded cluster - QPS spike exceeds 100%" translate="no">​</a></h3>
+<p>S3 Info · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_mongodb_sharding_qps_average offset 5m &gt; 0 and (aliyun_acs_mongodb_sharding_qps_average - aliyun_acs_mongodb_sharding_qps_average offset 5m) / (aliyun_acs_mongodb_sharding_qps_average offset 5m) * 100 &gt; 100</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm on the console monitoring page when the QPS curve jumped;</li>
+<li class="">Compare against the business release log and marketing activity to confirm whether the traffic is expected;</li>
+<li class="">If unexpected, use the slow/audit log to group by source, find the abnormal client and rate limit it;</li>
+<li class="">Confirm whether a cache layer failed and let requests through to the database.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mongo-sharded-cluster---replication-lag-exceeds-5-seconds">Mongo sharded cluster - replication lag exceeds 5 seconds<a href="#mongo-sharded-cluster---replication-lag-exceeds-5-seconds" class="hash-link" aria-label="Direct link to Mongo sharded cluster - replication lag exceeds 5 seconds" title="Direct link to Mongo sharded cluster - replication lag exceeds 5 seconds" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_mongodb_sharding_replication_lag_average &gt; 5</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the lag curve and which node is lagging in the console;</li>
+<li class="">On the primary, look for large transactions or bulk DML loading data — this is the most common cause;</li>
+<li class="">If the read-only node itself is loaded, reduce queries to it or upgrade it;</li>
+<li class="">If lag keeps growing, move read traffic back to the primary first.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mongo-sharded-cluster---memory-usage-exceeds-80">Mongo sharded cluster - memory usage exceeds 80%<a href="#mongo-sharded-cluster---memory-usage-exceeds-80" class="hash-link" aria-label="Direct link to Mongo sharded cluster - memory usage exceeds 80%" title="Direct link to Mongo sharded cluster - memory usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_mongodb_sharding_memory_utilization_average &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the memory growth trend on the console monitoring page;</li>
+<li class="">For MongoDB watch the WiredTiger cache share; for MySQL watch the buffer pool and per-connection memory (sort/join buffers);</li>
+<li class="">Look for large result set queries or an excessive connection count consuming memory;</li>
+<li class="">If it is still short after tuning, upgrade in the console.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mongo-sharded-cluster---disk-usage-exceeds-80">Mongo sharded cluster - disk usage exceeds 80%<a href="#mongo-sharded-cluster---disk-usage-exceeds-80" class="hash-link" aria-label="Direct link to Mongo sharded cluster - disk usage exceeds 80%" title="Direct link to Mongo sharded cluster - disk usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_mongodb_sharding_disk_utilization_average &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Use the console&#x27;s space analysis to see whether data, logs or temporary files dominate;</li>
+<li class="">If binlog/redo dominates, shorten the log retention;</li>
+<li class="">If data itself is large, archive historical data — after deleting you still need OPTIMIZE TABLE or to wait for space reclamation;</li>
+<li class="">Expand the disk in the console as soon as possible; cloud disk expansion is usually online.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mongo-standalone---disk-usage-exceeds-80">Mongo standalone - disk usage exceeds 80%<a href="#mongo-standalone---disk-usage-exceeds-80" class="hash-link" aria-label="Direct link to Mongo standalone - disk usage exceeds 80%" title="Direct link to Mongo standalone - disk usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_mongodb_single_node_disk_utilization_average &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Use the console&#x27;s space analysis to see whether data, logs or temporary files dominate;</li>
+<li class="">If binlog/redo dominates, shorten the log retention;</li>
+<li class="">If data itself is large, archive historical data — after deleting you still need OPTIMIZE TABLE or to wait for space reclamation;</li>
+<li class="">Expand the disk in the console as soon as possible; cloud disk expansion is usually online.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mongo-standalone---memory-usage-exceeds-80">Mongo standalone - memory usage exceeds 80%<a href="#mongo-standalone---memory-usage-exceeds-80" class="hash-link" aria-label="Direct link to Mongo standalone - memory usage exceeds 80%" title="Direct link to Mongo standalone - memory usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_mongodb_single_node_memory_utilization_average &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the memory growth trend on the console monitoring page;</li>
+<li class="">For MongoDB watch the WiredTiger cache share; for MySQL watch the buffer pool and per-connection memory (sort/join buffers);</li>
+<li class="">Look for large result set queries or an excessive connection count consuming memory;</li>
+<li class="">If it is still short after tuning, upgrade in the console.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mongo-standalone---cpu-usage-exceeds-50">Mongo standalone - CPU usage exceeds 50%<a href="#mongo-standalone---cpu-usage-exceeds-50" class="hash-link" aria-label="Direct link to Mongo standalone - CPU usage exceeds 50%" title="Direct link to Mongo standalone - CPU usage exceeds 50%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_mongodb_single_node_cpu_utilization_average &gt; 50</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm on the console instance monitoring page whether the CPU curve is sustained or a spike;</li>
+<li class="">Use the console&#x27;s one-click diagnosis or the slow log to find the SQL consuming the most CPU;</li>
+<li class="">Add indexes to slow SQL and eliminate full table scans — this is the most effective step;</li>
+<li class="">If it stays high after tuning, change the instance specification in the console, noting there will be a brief interruption.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mongo-standalone---qps-spike-exceeds-100">Mongo standalone - QPS spike exceeds 100%<a href="#mongo-standalone---qps-spike-exceeds-100" class="hash-link" aria-label="Direct link to Mongo standalone - QPS spike exceeds 100%" title="Direct link to Mongo standalone - QPS spike exceeds 100%" translate="no">​</a></h3>
+<p>S3 Info · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_mongodb_single_node_qps_average offset 5m &gt; 0 and (aliyun_acs_mongodb_single_node_qps_average - aliyun_acs_mongodb_single_node_qps_average offset 5m) / (aliyun_acs_mongodb_single_node_qps_average offset 5m) * 100 &gt; 100</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm on the console monitoring page when the QPS curve jumped;</li>
+<li class="">Compare against the business release log and marketing activity to confirm whether the traffic is expected;</li>
+<li class="">If unexpected, use the slow/audit log to group by source, find the abnormal client and rate limit it;</li>
+<li class="">Confirm whether a cache layer failed and let requests through to the database.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-nat---concurrent-connection-watermark-exceeds-80">AliYun-NAT - concurrent connection watermark exceeds 80%<a href="#aliyun-nat---concurrent-connection-watermark-exceeds-80" class="hash-link" aria-label="Direct link to AliYun-NAT - concurrent connection watermark exceeds 80%" title="Direct link to AliYun-NAT - concurrent connection watermark exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_nat_gateway_session_active_connection_water_lever_value &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm in the console whether it is concurrent connections or new connections that topped out;</li>
+<li class="">Use flow logs to find which ECS instances hold the most connections;</li>
+<li class="">The usual root cause is an application not reusing connections or a scanning job — switch to a connection pool;</li>
+<li class="">If you genuinely need more capacity, upgrade the NAT gateway specification.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-nat---new-connection-watermark-exceeds-80">AliYun-NAT - new connection watermark exceeds 80%<a href="#aliyun-nat---new-connection-watermark-exceeds-80" class="hash-link" aria-label="Direct link to AliYun-NAT - new connection watermark exceeds 80%" title="Direct link to AliYun-NAT - new connection watermark exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_nat_gateway_session_new_connection_water_lever_value &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm in the console whether it is concurrent connections or new connections that topped out;</li>
+<li class="">Use flow logs to find which ECS instances hold the most connections;</li>
+<li class="">The usual root cause is an application not reusing connections or a scanning job — switch to a connection pool;</li>
+<li class="">If you genuinely need more capacity, upgrade the NAT gateway specification.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-oss---getobject-average-latency-exceeds-100ms">AliYun-OSS - GetObject average latency exceeds 100ms<a href="#aliyun-oss---getobject-average-latency-exceeds-100ms" class="hash-link" aria-label="Direct link to AliYun-OSS - GetObject average latency exceeds 100ms" title="Direct link to AliYun-OSS - GetObject average latency exceeds 100ms" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_oss_dashboard_get_object_server_latency_value &gt; 100</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm on the console monitoring page whether the latency curve rises together with request volume;</li>
+<li class="">Check for heavy large-file reads or cross-region access — cross-region is the common cause of high latency;</li>
+<li class="">For frequent small-file reads, consider a CDN or a local cache;</li>
+<li class="">If it persists and is not a usage problem, open an Alibaba Cloud ticket.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-oss---availability-below-100">AliYun-OSS - availability below 100%<a href="#aliyun-oss---availability-below-100" class="hash-link" aria-label="Direct link to AliYun-OSS - availability below 100%" title="Direct link to AliYun-OSS - availability below 100%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_oss_dashboard_availability_value &lt; 100</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the time distribution and error code mix of the failed requests on the console monitoring page;</li>
+<li class="">Mostly 4xx means a client-side problem (permissions, signature, missing key) — check the application logic;</li>
+<li class="">Mostly 5xx is a server-side problem — open an Alibaba Cloud ticket immediately;</li>
+<li class="">Confirm the application has retry and fallback, and add them if not.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-oss---valid-request-ratio-below-100">AliYun-OSS - valid request ratio below 100%<a href="#aliyun-oss---valid-request-ratio-below-100" class="hash-link" aria-label="Direct link to AliYun-OSS - valid request ratio below 100%" title="Direct link to AliYun-OSS - valid request ratio below 100%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_oss_dashboard_request_valid_rate_value &lt; 100</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the time distribution and error code mix of the failed requests on the console monitoring page;</li>
+<li class="">Mostly 4xx means a client-side problem (permissions, signature, missing key) — check the application logic;</li>
+<li class="">Mostly 5xx is a server-side problem — open an Alibaba Cloud ticket immediately;</li>
+<li class="">Confirm the application has retry and fallback, and add them if not.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-oss---server-error-request-ratio-above-0">AliYun-OSS - server error request ratio above 0<a href="#aliyun-oss---server-error-request-ratio-above-0" class="hash-link" aria-label="Direct link to AliYun-OSS - server error request ratio above 0" title="Direct link to AliYun-OSS - server error request ratio above 0" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_oss_dashboard_server_error_rate_value &gt; 0</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the volume and duration of 5xx on the console monitoring page;</li>
+<li class="">Check whether it is concentrated on one bucket or one operation type;</li>
+<li class="">Server-side errors should go straight to an Alibaba Cloud ticket with the request IDs attached;</li>
+<li class="">Meanwhile confirm the application&#x27;s retry logic works so requests are not silently lost.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-oss---server-error-request-count-above-0">AliYun-OSS - server error request count above 0<a href="#aliyun-oss---server-error-request-count-above-0" class="hash-link" aria-label="Direct link to AliYun-OSS - server error request count above 0" title="Direct link to AliYun-OSS - server error request count above 0" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_oss_dashboard_server_error_count_value &gt; 0</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the volume and duration of 5xx on the console monitoring page;</li>
+<li class="">Check whether it is concentrated on one bucket or one operation type;</li>
+<li class="">Server-side errors should go straight to an Alibaba Cloud ticket with the request IDs attached;</li>
+<li class="">Meanwhile confirm the application&#x27;s retry logic works so requests are not silently lost.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="polardb-cpu-usage-exceeds-80">PolarDB CPU usage exceeds 80%<a href="#polardb-cpu-usage-exceeds-80" class="hash-link" aria-label="Direct link to PolarDB CPU usage exceeds 80%" title="Direct link to PolarDB CPU usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_polardb_cluster_cpu_utilization_average &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm on the console instance monitoring page whether the CPU curve is sustained or a spike;</li>
+<li class="">Use the console&#x27;s one-click diagnosis or the slow log to find the SQL consuming the most CPU;</li>
+<li class="">Add indexes to slow SQL and eliminate full table scans — this is the most effective step;</li>
+<li class="">If it stays high after tuning, change the instance specification in the console, noting there will be a brief interruption.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="polardb-inode-usage-exceeds-80">PolarDB inode usage exceeds 80%<a href="#polardb-inode-usage-exceeds-80" class="hash-link" aria-label="Direct link to PolarDB inode usage exceeds 80%" title="Direct link to PolarDB inode usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_polardb_cluster_inode_utilization_average &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Use the console&#x27;s space analysis to find the source of small files, usually too many partitions or accumulated temporary files;</li>
+<li class="">Reduce the partition count and drop unused tables;</li>
+<li class="">Check for many small tables that were never cleaned up;</li>
+<li class="">If it cannot be reduced, expand the disk in the console (inode count grows with capacity).</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="polardb-iops-usage-exceeds-80">PolarDB IOPS usage exceeds 80%<a href="#polardb-iops-usage-exceeds-80" class="hash-link" aria-label="Direct link to PolarDB IOPS usage exceeds 80%" title="Direct link to PolarDB IOPS usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_polardb_cluster_iops_usage_average &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the IOPS curve against the specification ceiling on the console monitoring page;</li>
+<li class="">Use the slow log to find the SQL scanning the most data — heavy random reads are the main cause of saturated IOPS;</li>
+<li class="">Add indexes to reduce scanning and avoid large batch write transactions;</li>
+<li class="">If it still tops out after tuning, upgrade the instance specification (IOPS scales with it).</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="polardb-proxy-cpu-usage-exceeds-80">PolarDB Proxy CPU usage exceeds 80%<a href="#polardb-proxy-cpu-usage-exceeds-80" class="hash-link" aria-label="Direct link to PolarDB Proxy CPU usage exceeds 80%" title="Direct link to PolarDB Proxy CPU usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_polardb_cluster_proxy_cpu_utilization_average &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check the Proxy&#x27;s connection count and QPS curves in the console;</li>
+<li class="">If connections are high, cap the application pool — Proxy overhead correlates strongly with connection count;</li>
+<li class="">Check whether an unnecessarily strong read/write splitting consistency level is enabled (strong consistency significantly increases Proxy overhead);</li>
+<li class="">If you genuinely need more capacity, upgrade the Proxy specification.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="polardb-read-only-node-replication-lag-exceeds-1-second">PolarDB read-only node replication lag exceeds 1 second<a href="#polardb-read-only-node-replication-lag-exceeds-1-second" class="hash-link" aria-label="Direct link to PolarDB read-only node replication lag exceeds 1 second" title="Direct link to PolarDB read-only node replication lag exceeds 1 second" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_polardb_cluster_replica_lag_average &gt; 1</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the lag curve and which node is lagging in the console;</li>
+<li class="">On the primary, look for large transactions or bulk DML loading data — this is the most common cause;</li>
+<li class="">If the read-only node itself is loaded, reduce queries to it or upgrade it;</li>
+<li class="">If lag keeps growing, move read traffic back to the primary first.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="polardb-memory-usage-exceeds-80">PolarDB memory usage exceeds 80%<a href="#polardb-memory-usage-exceeds-80" class="hash-link" aria-label="Direct link to PolarDB memory usage exceeds 80%" title="Direct link to PolarDB memory usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_polardb_cluster_memory_utilization_average &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the memory growth trend on the console monitoring page;</li>
+<li class="">For MongoDB watch the WiredTiger cache share; for MySQL watch the buffer pool and per-connection memory (sort/join buffers);</li>
+<li class="">Look for large result set queries or an excessive connection count consuming memory;</li>
+<li class="">If it is still short after tuning, upgrade in the console.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="polardb-slow-query-spike-exceeds-100">PolarDB slow query spike exceeds 100<a href="#polardb-slow-query-spike-exceeds-100" class="hash-link" aria-label="Direct link to PolarDB slow query spike exceeds 100" title="Direct link to PolarDB slow query spike exceeds 100" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">delta(aliyun_acs_polardb_cluster_slow_queries_ps_average{}[2m]) &gt; 100</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Sort the console slow log page by execution time to find the top slow SQL;</li>
+<li class="">Use EXPLAIN to inspect the plan and eliminate full table scans;</li>
+<li class="">Add indexes or rewrite the SQL and retest;</li>
+<li class="">Check whether it relates to a recently released feature and roll back that query first if so.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="polardb-disk-usage-exceeds-80">PolarDB disk usage exceeds 80%<a href="#polardb-disk-usage-exceeds-80" class="hash-link" aria-label="Direct link to PolarDB disk usage exceeds 80%" title="Direct link to PolarDB disk usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_polardb_cluster_disk_utilization_average &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Use the console&#x27;s space analysis to see whether data, logs or temporary files dominate;</li>
+<li class="">If binlog/redo dominates, shorten the log retention;</li>
+<li class="">If data itself is large, archive historical data — after deleting you still need OPTIMIZE TABLE or to wait for space reclamation;</li>
+<li class="">Expand the disk in the console as soon as possible; cloud disk expansion is usually online.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="polardb-connection-usage-exceeds-80">PolarDB connection usage exceeds 80%<a href="#polardb-connection-usage-exceeds-80" class="hash-link" aria-label="Direct link to PolarDB connection usage exceeds 80%" title="Direct link to PolarDB connection usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_polardb_cluster_connection_utilization_average &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check the connection count curve against the specification ceiling in the console;</li>
+<li class="">Group connections by source with SHOW PROCESSLIST (MySQL family) or db.currentOp() (MongoDB) to find the abnormal application;</li>
+<li class="">Tell business growth apart from a connection pool leak (many idle connections piling up);</li>
+<li class="">Upgrade as an emergency measure, and cap the application pool and shorten idle timeouts for the root cause.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-rds-mysql--cpu-usage-alert">AliYun RDS MySQL / CPU usage alert<a href="#aliyun-rds-mysql--cpu-usage-alert" class="hash-link" aria-label="Direct link to AliYun RDS MySQL / CPU usage alert" title="Direct link to AliYun RDS MySQL / CPU usage alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">AliyunRds_CpuUsage{engine=&quot;MySQL&quot;} &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm on the console instance monitoring page whether the CPU curve is sustained or a spike;</li>
+<li class="">Use the console&#x27;s one-click diagnosis or the slow log to find the SQL consuming the most CPU;</li>
+<li class="">Add indexes to slow SQL and eliminate full table scans — this is the most effective step;</li>
+<li class="">If it stays high after tuning, change the instance specification in the console, noting there will be a brief interruption.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-rds-mysql--iops-usage-alert">AliYun RDS MySQL / IOPS usage alert<a href="#aliyun-rds-mysql--iops-usage-alert" class="hash-link" aria-label="Direct link to AliYun RDS MySQL / IOPS usage alert" title="Direct link to AliYun RDS MySQL / IOPS usage alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">AliyunRds_IOPSUsage{engine=&quot;MySQL&quot;} &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the IOPS curve against the specification ceiling on the console monitoring page;</li>
+<li class="">Use the slow log to find the SQL scanning the most data — heavy random reads are the main cause of saturated IOPS;</li>
+<li class="">Add indexes to reduce scanning and avoid large batch write transactions;</li>
+<li class="">If it still tops out after tuning, upgrade the instance specification (IOPS scales with it).</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-rds-mysql--qps-fluctuation-alert">AliYun RDS MySQL / QPS fluctuation alert<a href="#aliyun-rds-mysql--qps-fluctuation-alert" class="hash-link" aria-label="Direct link to AliYun RDS MySQL / QPS fluctuation alert" title="Direct link to AliYun RDS MySQL / QPS fluctuation alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">100 * delta(AliyunRds_MySQL_QPS{}[5m]) / AliyunRds_MySQL_QPS{} offset 1m &gt; 30</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm on the console monitoring page when the QPS curve jumped;</li>
+<li class="">Compare against the business release log and marketing activity to confirm whether the traffic is expected;</li>
+<li class="">If unexpected, use the slow/audit log to group by source, find the abnormal client and rate limit it;</li>
+<li class="">Confirm whether a cache layer failed and let requests through to the database.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-rds-mysql--tps-fluctuation-alert">AliYun RDS MySQL / TPS fluctuation alert<a href="#aliyun-rds-mysql--tps-fluctuation-alert" class="hash-link" aria-label="Direct link to AliYun RDS MySQL / TPS fluctuation alert" title="Direct link to AliYun RDS MySQL / TPS fluctuation alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">100 * delta(AliyunRds_MySQL_TPS{}[5m]) / AliyunRds_MySQL_TPS{} offset 1m &gt; 30</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm on the console monitoring page when the QPS curve jumped;</li>
+<li class="">Compare against the business release log and marketing activity to confirm whether the traffic is expected;</li>
+<li class="">If unexpected, use the slow/audit log to group by source, find the abnormal client and rate limit it;</li>
+<li class="">Confirm whether a cache layer failed and let requests through to the database.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-rds-mysql--memory-usage-alert">AliYun RDS MySQL / memory usage alert<a href="#aliyun-rds-mysql--memory-usage-alert" class="hash-link" aria-label="Direct link to AliYun RDS MySQL / memory usage alert" title="Direct link to AliYun RDS MySQL / memory usage alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">AliyunRds_MemoryUsage{engine=&quot;MySQL&quot;} &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the memory growth trend on the console monitoring page;</li>
+<li class="">For MongoDB watch the WiredTiger cache share; for MySQL watch the buffer pool and per-connection memory (sort/join buffers);</li>
+<li class="">Look for large result set queries or an excessive connection count consuming memory;</li>
+<li class="">If it is still short after tuning, upgrade in the console.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-rds-mysql--total-connections-alert">AliYun RDS MySQL / total connections alert<a href="#aliyun-rds-mysql--total-connections-alert" class="hash-link" aria-label="Direct link to AliYun RDS MySQL / total connections alert" title="Direct link to AliYun RDS MySQL / total connections alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">AliyunRds_MySQL_ThreadsConnected{} &gt; 1200</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check the connection count curve against the specification ceiling in the console;</li>
+<li class="">Group connections by source with SHOW PROCESSLIST (MySQL family) or db.currentOp() (MongoDB) to find the abnormal application;</li>
+<li class="">Tell business growth apart from a connection pool leak (many idle connections piling up);</li>
+<li class="">Upgrade as an emergency measure, and cap the application pool and shorten idle timeouts for the root cause.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-rds-mysql--slow-query-ratio-above-1-alert">AliYun RDS MySQL / slow query ratio above 1 alert<a href="#aliyun-rds-mysql--slow-query-ratio-above-1-alert" class="hash-link" aria-label="Direct link to AliYun RDS MySQL / slow query ratio above 1 alert" title="Direct link to AliYun RDS MySQL / slow query ratio above 1 alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">100 * max(AliyunRds_MySQL_SlowQueries) by (instanceId, instanceName, regionId) / max(AliyunRds_MySQL_QPS) by (instanceId, instanceName, regionId) &gt; 1</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Sort the console slow log page by execution time to find the top slow SQL;</li>
+<li class="">Use EXPLAIN to inspect the plan and eliminate full table scans;</li>
+<li class="">Add indexes or rewrite the SQL and retest;</li>
+<li class="">Check whether it relates to a recently released feature and roll back that query first if so.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-rds-mysql--slow-query-alert">AliYun RDS MySQL / slow query alert<a href="#aliyun-rds-mysql--slow-query-alert" class="hash-link" aria-label="Direct link to AliYun RDS MySQL / slow query alert" title="Direct link to AliYun RDS MySQL / slow query alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">AliyunRds_MySQL_SlowQueries{} &gt; 100</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Sort the console slow log page by execution time to find the top slow SQL;</li>
+<li class="">Use EXPLAIN to inspect the plan and eliminate full table scans;</li>
+<li class="">Add indexes or rewrite the SQL and retest;</li>
+<li class="">Check whether it relates to a recently released feature and roll back that query first if so.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-rds-mysql--disk-space-usage-alert">AliYun RDS MySQL / disk space usage alert<a href="#aliyun-rds-mysql--disk-space-usage-alert" class="hash-link" aria-label="Direct link to AliYun RDS MySQL / disk space usage alert" title="Direct link to AliYun RDS MySQL / disk space usage alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">AliyunRds_DiskUsage{engine=&quot;MySQL&quot;} &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Use the console&#x27;s space analysis to see whether data, logs or temporary files dominate;</li>
+<li class="">If binlog/redo dominates, shorten the log retention;</li>
+<li class="">If data itself is large, archive historical data — after deleting you still need OPTIMIZE TABLE or to wait for space reclamation;</li>
+<li class="">Expand the disk in the console as soon as possible; cloud disk expansion is usually online.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-rds-mysql--instance-state-abnormal-alert">AliYun RDS MySQL / instance state abnormal alert<a href="#aliyun-rds-mysql--instance-state-abnormal-alert" class="hash-link" aria-label="Direct link to AliYun RDS MySQL / instance state abnormal alert" title="Direct link to AliYun RDS MySQL / instance state abnormal alert" translate="no">​</a></h3>
+<p>S1 Critical · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">{__name__=~&quot;AliyunRds_MySQL_(SlaveIO|SlaveSQL)Running&quot;} != 1</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the replication state and lag on the read-only instance page in the Alibaba Cloud console;</li>
+<li class="">The console usually offers a repair-replication entry — use it first;</li>
+<li class="">If it was caused by the primary&#x27;s binlog being purged, the read-only instance must be rebuilt;</li>
+<li class="">Move read traffic off that read-only instance before you start.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-rds-mysql--connection-usage-alert">AliYun RDS MySQL / connection usage alert<a href="#aliyun-rds-mysql--connection-usage-alert" class="hash-link" aria-label="Direct link to AliYun RDS MySQL / connection usage alert" title="Direct link to AliYun RDS MySQL / connection usage alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">AliyunRds_ConnectionUsage{engine=&quot;MySQL&quot;} &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check the connection count curve against the specification ceiling in the console;</li>
+<li class="">Group connections by source with SHOW PROCESSLIST (MySQL family) or db.currentOp() (MongoDB) to find the abnormal application;</li>
+<li class="">Tell business growth apart from a connection pool leak (many idle connections piling up);</li>
+<li class="">Upgrade as an emergency measure, and cap the application pool and shorten idle timeouts for the root cause.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rabbitmq-connections-exceed-1000">RabbitMQ connections exceed 1000<a href="#rabbitmq-connections-exceed-1000" class="hash-link" aria-label="Direct link to RabbitMQ connections exceed 1000" title="Direct link to RabbitMQ connections exceed 1000" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_amqp_instance_connections_value &gt; 1000</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the connection count curve against the specification ceiling in the console;</li>
+<li class="">Check whether clients open a new connection for every send/receive — the correct pattern is a reused long-lived connection with one channel per thread;</li>
+<li class="">Confirm no client is reconnecting abnormally;</li>
+<li class="">If you genuinely need more connections, upgrade the instance specification.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rabbitmq-consumer-count-is-0">RabbitMQ consumer count is 0<a href="#rabbitmq-consumer-count-is-0" class="hash-link" aria-label="Direct link to RabbitMQ consumer count is 0" title="Direct link to RabbitMQ consumer count is 0" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_amqp_instance_consumers_value &lt; 1</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm in the console which vhost/queue has no consumers;</li>
+<li class="">On the consumer side, confirm the application process is alive and not reporting connection or auth errors;</li>
+<li class="">If the consumer is healthy but not connected, verify the vhost, queue name and credentials;</li>
+<li class="">Once consumption resumes, watch the backlog start to drain.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="rabbitmq-message-backlog-exceeds-1000">RabbitMQ message backlog exceeds 1000<a href="#rabbitmq-message-backlog-exceeds-1000" class="hash-link" aria-label="Direct link to RabbitMQ message backlog exceeds 1000" title="Direct link to RabbitMQ message backlog exceeds 1000" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_amqp_instance_vhost_queue_message_accum_maximum &gt; 1000</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm in the console which queue has the largest backlog and how fast it is growing;</li>
+<li class="">Check whether the consumer count is zero or clearly insufficient — start or scale out consumers first;</li>
+<li class="">If consumers exist but are slow, check the consumer log for abnormal retries or downstream timeouts;</li>
+<li class="">For a huge backlog, consider temporarily increasing consumer concurrency.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-redis-cpu-usage-alert">AliYun Redis CPU usage alert<a href="#aliyun-redis-cpu-usage-alert" class="hash-link" aria-label="Direct link to AliYun Redis CPU usage alert" title="Direct link to AliYun Redis CPU usage alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">label_replace({__name__=~&quot;AliyunKvstore_(Standard|Sharding|ShardingProxy|Splitrw|SplitrwProxy)CpuUsage&quot;},&quot;redisType&quot;,&quot;$1&quot;,&quot;measure&quot;,&quot;(.+)CpuUsage&quot;) &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check the CPU curve under console performance monitoring and use real-time key analysis to find hot keys;</li>
+<li class="">Use the slow log to find O(N) commands (KEYS, HGETALL, wide ZRANGE) and rework them;</li>
+<li class="">Splitting large keys is the single most effective optimisation;</li>
+<li class="">If it stays high, upgrade the specification or move to the cluster edition to spread the load.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-redis-qps-usage-alert">AliYun Redis QPS usage alert<a href="#aliyun-redis-qps-usage-alert" class="hash-link" aria-label="Direct link to AliYun Redis QPS usage alert" title="Direct link to AliYun Redis QPS usage alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">label_replace({__name__=~&quot;AliyunKvstore_(Standard|Sharding|Splitrw)QPSUsage&quot;},&quot;redisType&quot;,&quot;$1&quot;,&quot;measure&quot;,&quot;(.+)QPSUsage&quot;) &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the QPS curve against the specification ceiling in the console;</li>
+<li class="">Determine whether it is business growth or cache breakdown letting requests through;</li>
+<li class="">Adding a local cache and batching requests on the application side reduces QPS significantly;</li>
+<li class="">If you genuinely need more capacity, upgrade or move to the cluster edition.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-redis-memory-usage-alert">AliYun Redis memory usage alert<a href="#aliyun-redis-memory-usage-alert" class="hash-link" aria-label="Direct link to AliYun Redis memory usage alert" title="Direct link to AliYun Redis memory usage alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">label_replace({__name__=~&quot;AliyunKvstore_(Standard|Sharding|Splitrw)MemoryUsage&quot;},&quot;redisType&quot;,&quot;$1&quot;,&quot;measure&quot;,&quot;(.+)MemoryUsage&quot;) &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Use the console&#x27;s cache analysis to find the key prefixes consuming the most memory;</li>
+<li class="">Split large keys and add TTLs to keys that have none;</li>
+<li class="">Confirm maxmemory-policy matches expectations;</li>
+<li class="">If capacity is genuinely short, upgrade the specification in the console.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-redis-hit-ratio-alert">AliYun Redis hit ratio alert<a href="#aliyun-redis-hit-ratio-alert" class="hash-link" aria-label="Direct link to AliYun Redis hit ratio alert" title="Direct link to AliYun Redis hit ratio alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">label_replace({__name__=~&quot;AliyunKvstore_(Standard|Sharding|Splitrw)HitRate&quot;},&quot;redisType&quot;,&quot;$1&quot;,&quot;measure&quot;,&quot;(.+)HitRate&quot;) &lt; 30</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">First rule out a cold start after a restart or resize;</li>
+<li class="">In the console, check whether it comes with heavy key eviction — if so treat it as insufficient memory;</li>
+<li class="">Review the cache key design and whether the TTL is too short;</li>
+<li class="">Confirm there is no flood of lookups for non-existent keys (cache penetration) — add null caching or a bloom filter if needed.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-redis-failure-count-alert">AliYun Redis failure count alert<a href="#aliyun-redis-failure-count-alert" class="hash-link" aria-label="Direct link to AliYun Redis failure count alert" title="Direct link to AliYun Redis failure count alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">label_replace({__name__=~&quot;AliyunKvstore_StandardFailedCount&quot;},&quot;redisType&quot;,&quot;$1&quot;,&quot;measure&quot;,&quot;(.+)FailedCount&quot;) &gt; 0</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Use the console audit log or the application log to identify the failing command type and error;</li>
+<li class="">Common causes are writes rejected for lack of memory, exceeding the connection limit, or a disabled command;</li>
+<li class="">Handle each accordingly (upgrade, reduce connections, use a supported command);</li>
+<li class="">Confirm the application has retry and fallback logic.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-redis-average-response-time-alert">AliYun Redis average response time alert<a href="#aliyun-redis-average-response-time-alert" class="hash-link" aria-label="Direct link to AliYun Redis average response time alert" title="Direct link to AliYun Redis average response time alert" translate="no">​</a></h3>
+<p>Unit: milliseconds</p>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">label_replace({__name__=~&quot;AliyunKvstore_(Standard|Sharding|ShardingProxy|Splitrw|SplitrwProxy)AvgRt&quot;},&quot;redisType&quot;,&quot;$1&quot;,&quot;measure&quot;,&quot;(.+)AvgRt&quot;) &gt; 100000</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Use the console slow log to find the slowest commands;</li>
+<li class="">Focus on O(N) commands and big-key operations, switching to SCAN or batching;</li>
+<li class="">Check whether throttling was triggered (bandwidth/QPS over specification);</li>
+<li class="">Once those are ruled out, upgrade the specification in the console.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-redis-data-sync-latency-alert">AliYun Redis data sync latency alert<a href="#aliyun-redis-data-sync-latency-alert" class="hash-link" aria-label="Direct link to AliYun Redis data sync latency alert" title="Direct link to AliYun Redis data sync latency alert" translate="no">​</a></h3>
+<p>Unit: milliseconds</p>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">label_replace({__name__=~&quot;AliyunKvstore_(Standard|Sharding|Splitrw)SyncDelayTime&quot;},&quot;redisType&quot;,&quot;$1&quot;,&quot;measure&quot;,&quot;(.+)SyncDelayTime&quot;) &gt; 5</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the lag curve and the instance architecture in the console;</li>
+<li class="">A spike in primary writes amplifies lag — check for bulk write jobs;</li>
+<li class="">Syncing large keys causes obvious latency spikes — use cache analysis to find and split them;</li>
+<li class="">If lag persists, move read traffic back to the primary.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-redis-max-response-time-alert">AliYun Redis max response time alert<a href="#aliyun-redis-max-response-time-alert" class="hash-link" aria-label="Direct link to AliYun Redis max response time alert" title="Direct link to AliYun Redis max response time alert" translate="no">​</a></h3>
+<p>Unit: milliseconds</p>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">label_replace({__name__=~&quot;AliyunKvstore_(Standard|Sharding|ShardingProxy|Splitrw|SplitrwProxy)MaxRt&quot;},&quot;redisType&quot;,&quot;$1&quot;,&quot;measure&quot;,&quot;(.+)MaxRt&quot;) &gt; 100000</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Use the console slow log to find the single slowest command;</li>
+<li class="">Tail latency usually comes from big-key operations or blocking commands — split large keys first;</li>
+<li class="">Check whether an RDB/AOF persistence fork is causing periodic stalls;</li>
+<li class="">If it persists after tuning, upgrade the specification in the console.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-redis-inbound-bandwidth-usage-alert">AliYun Redis inbound bandwidth usage alert<a href="#aliyun-redis-inbound-bandwidth-usage-alert" class="hash-link" aria-label="Direct link to AliYun Redis inbound bandwidth usage alert" title="Direct link to AliYun Redis inbound bandwidth usage alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">label_replace({__name__=~&quot;AliyunKvstore_(Standard|Sharding|Splitrw)IntranetInRatio&quot;},&quot;redisType&quot;,&quot;$1&quot;,&quot;measure&quot;,&quot;(.+)IntranetInRatio&quot;) &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the bandwidth curve against the specification ceiling in the console;</li>
+<li class="">Use cache analysis to find large keys — writing large keys is the main cause of saturated bandwidth;</li>
+<li class="">Split large keys and reduce one-shot bulk writes;</li>
+<li class="">If you genuinely need more bandwidth, upgrade the specification.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-redis-outbound-bandwidth-usage-alert">AliYun Redis outbound bandwidth usage alert<a href="#aliyun-redis-outbound-bandwidth-usage-alert" class="hash-link" aria-label="Direct link to AliYun Redis outbound bandwidth usage alert" title="Direct link to AliYun Redis outbound bandwidth usage alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">label_replace({__name__=~&quot;AliyunKvstore_(Standard|Sharding|Splitrw)IntranetOutRatio&quot;},&quot;redisType&quot;,&quot;$1&quot;,&quot;measure&quot;,&quot;(.+)IntranetOutRatio&quot;) &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the bandwidth curve against the specification ceiling in the console;</li>
+<li class="">Use cache analysis to find large keys — reading large keys is the main source of outbound bandwidth;</li>
+<li class="">Split large keys and avoid one-shot HGETALL/SMEMBERS full reads;</li>
+<li class="">If you genuinely need more bandwidth, upgrade the specification.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-redis-connection-usage-alert">AliYun Redis connection usage alert<a href="#aliyun-redis-connection-usage-alert" class="hash-link" aria-label="Direct link to AliYun Redis connection usage alert" title="Direct link to AliYun Redis connection usage alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">label_replace({__name__=~&quot;AliyunKvstore_(Standard|Sharding|ShardingProxy|Splitrw|SplitrwProxy)ConnectionUsage&quot;},&quot;redisType&quot;,&quot;$1&quot;,&quot;measure&quot;,&quot;(.+)ConnectionUsage&quot;)</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the connection count curve against the specification ceiling in the console;</li>
+<li class="">Check whether clients fail to reuse connections or the pool is oversized;</li>
+<li class="">As an emergency measure upgrade in the console to raise the connection limit;</li>
+<li class="">For the root cause, cap the application pool and enable connection reuse.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-redis-cached-key-count-alert">AliYun Redis cached key count alert<a href="#aliyun-redis-cached-key-count-alert" class="hash-link" aria-label="Direct link to AliYun Redis cached key count alert" title="Direct link to AliYun Redis cached key count alert" translate="no">​</a></h3>
+<p>S2 Warning · for 3 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">label_replace({__name__=~&quot;AliyunKvstore_(Standard|Sharding|Splitrw)Keys&quot;},&quot;redisType&quot;,&quot;$1&quot;,&quot;measure&quot;,&quot;(.+)Keys&quot;) &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Use the console&#x27;s cache analysis to count keys by prefix and find the fastest-growing prefix;</li>
+<li class="">Confirm whether those keys should have a TTL — cache keys without expiry are a classic memory leak;</li>
+<li class="">Add sensible expiry times and clean up the existing keys;</li>
+<li class="">Confirm the application is not using Redis as persistent storage.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-slb---l7-instance-upstream-5xx-countsecond-above-10">AliYun-SLB - L7 instance Upstream 5xx (Count/Second) above 10<a href="#aliyun-slb---l7-instance-upstream-5xx-countsecond-above-10" class="hash-link" aria-label="Direct link to AliYun-SLB - L7 instance Upstream 5xx (Count/Second) above 10" title="Direct link to AliYun-SLB - L7 instance Upstream 5xx (Count/Second) above 10" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_slb_dashboard_instance_upstream_code5xx_average &gt; 10</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">In the console, confirm whether it is Upstream 5xx (returned by the backend) or instance 5xx (from SLB itself);</li>
+<li class="">For Upstream 5xx, check the application logs on the backend ECS for the root cause;</li>
+<li class="">Instance 5xx usually means all backends are unhealthy — check the health check configuration and backend state;</li>
+<li class="">If it lines up with a recent release, roll back first.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-slb---l7-instance-status-code-5xx-countsecond-above-10">AliYun-SLB - L7 instance status code 5xx (Count/Second) above 10<a href="#aliyun-slb---l7-instance-status-code-5xx-countsecond-above-10" class="hash-link" aria-label="Direct link to AliYun-SLB - L7 instance status code 5xx (Count/Second) above 10" title="Direct link to AliYun-SLB - L7 instance status code 5xx (Count/Second) above 10" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_slb_dashboard_instance_status_code5xx_average &gt; 10</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">In the console, confirm whether it is Upstream 5xx (returned by the backend) or instance 5xx (from SLB itself);</li>
+<li class="">For Upstream 5xx, check the application logs on the backend ECS for the root cause;</li>
+<li class="">Instance 5xx usually means all backends are unhealthy — check the health check configuration and backend state;</li>
+<li class="">If it lines up with a recent release, roll back first.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-slb---l7-instance-qps-usage-exceeds-50">AliYun-SLB - L7 instance QPS usage exceeds 50%<a href="#aliyun-slb---l7-instance-qps-usage-exceeds-50" class="hash-link" aria-label="Direct link to AliYun-SLB - L7 instance QPS usage exceeds 50%" title="Direct link to AliYun-SLB - L7 instance QPS usage exceeds 50%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_slb_dashboard_instance_qps_utilization_average &gt; 50</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the QPS curve against the instance specification&#x27;s performance ceiling in the console;</li>
+<li class="">Determine whether it is genuine business growth or abnormal traffic;</li>
+<li class="">For growth, upgrade the SLB specification (guaranteed-performance instances let you set the ceiling);</li>
+<li class="">For abnormal traffic, add WAF/DDoS protection and rate limiting.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-slb---dropped-connections-above-0">AliYun-SLB - dropped connections above 0<a href="#aliyun-slb---dropped-connections-above-0" class="hash-link" aria-label="Direct link to AliYun-SLB - dropped connections above 0" title="Direct link to AliYun-SLB - dropped connections above 0" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_slb_dashboard_instance_drop_connection_average &gt; 0</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">In the console, compare the drop curve against the instance specification&#x27;s connection/bandwidth ceiling to see which one topped out;</li>
+<li class="">If it topped out, upgrade the specification immediately — shared-performance instances top out especially easily at peak;</li>
+<li class="">Check whether abnormal traffic is consuming the quota;</li>
+<li class="">After upgrading, confirm drops return to zero.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-slb---inbound-dropped-traffic-above-0">AliYun-SLB - inbound dropped traffic above 0<a href="#aliyun-slb---inbound-dropped-traffic-above-0" class="hash-link" aria-label="Direct link to AliYun-SLB - inbound dropped traffic above 0" title="Direct link to AliYun-SLB - inbound dropped traffic above 0" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_slb_dashboard_instance_drop_traffic_rx_average &gt; 0</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">In the console, compare the drop curve against the instance specification&#x27;s connection/bandwidth ceiling to see which one topped out;</li>
+<li class="">If it topped out, upgrade the specification immediately — shared-performance instances top out especially easily at peak;</li>
+<li class="">Check whether abnormal traffic is consuming the quota;</li>
+<li class="">After upgrading, confirm drops return to zero.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-slb---outbound-dropped-traffic-above-0">AliYun-SLB - outbound dropped traffic above 0<a href="#aliyun-slb---outbound-dropped-traffic-above-0" class="hash-link" aria-label="Direct link to AliYun-SLB - outbound dropped traffic above 0" title="Direct link to AliYun-SLB - outbound dropped traffic above 0" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_slb_dashboard_instance_drop_traffic_tx_average &gt; 0</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">In the console, compare the drop curve against the instance specification&#x27;s connection/bandwidth ceiling to see which one topped out;</li>
+<li class="">If it topped out, upgrade the specification immediately — shared-performance instances top out especially easily at peak;</li>
+<li class="">Check whether abnormal traffic is consuming the quota;</li>
+<li class="">After upgrading, confirm drops return to zero.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-slb---instance-new-connection-usage-exceeds-50">AliYun-SLB - instance new connection usage exceeds 50%<a href="#aliyun-slb---instance-new-connection-usage-exceeds-50" class="hash-link" aria-label="Direct link to AliYun-SLB - instance new connection usage exceeds 50%" title="Direct link to AliYun-SLB - instance new connection usage exceeds 50%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_slb_dashboard_instance_new_connection_utilization_average &gt; 50</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the max connection and new connection curves in the console;</li>
+<li class="">Check whether the backend is responding more slowly and causing connections to pile up — a high connection count is often a symptom of a slow backend;</li>
+<li class="">If the backend is fine, upgrade the SLB specification;</li>
+<li class="">Check whether clients are failing to reuse connections.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-slb---instance-max-connection-usage-exceeds-50">AliYun-SLB - instance max connection usage exceeds 50%<a href="#aliyun-slb---instance-max-connection-usage-exceeds-50" class="hash-link" aria-label="Direct link to AliYun-SLB - instance max connection usage exceeds 50%" title="Direct link to AliYun-SLB - instance max connection usage exceeds 50%" translate="no">​</a></h3>
+<p>S2 Warning · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">aliyun_acs_slb_dashboard_instance_max_connection_utilization_average &gt; 50</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the max connection and new connection curves in the console;</li>
+<li class="">Check whether the backend is responding more slowly and causing connections to pile up — a high connection count is often a symptom of a slow backend;</li>
+<li class="">If the backend is fine, upgrade the SLB specification;</li>
+<li class="">Check whether clients are failing to reuse connections.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-slb-4xx-ratio-alert-above-10">AliYun SLB 4XX ratio alert, above 10%<a href="#aliyun-slb-4xx-ratio-alert-above-10" class="hash-link" aria-label="Direct link to AliYun SLB 4XX ratio alert, above 10%" title="Direct link to AliYun SLB 4XX ratio alert, above 10%" translate="no">​</a></h3>
+<p>S2 Warning · for 5 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">100 * AliyunSlb_InstanceStatusCode4xx{} / on(loadBalancerId) group_left sum({__name__=~&quot;AliyunSlb_InstanceStatusCode.+&quot;}) by (loadBalancerId,loadBalancerName,regionId) &gt; 10</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check the 4xx breakdown in the console to see whether 404 or 403/401 dominates;</li>
+<li class="">A 404 spike usually means the frontend references a decommissioned endpoint — check the release log;</li>
+<li class="">A 403/401 spike points at an auth configuration change or expired credentials;</li>
+<li class="">For suspected scanning traffic, put a WAF in front to block it.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-slb-5xx-ratio-alert-above-10">AliYun SLB 5XX ratio alert, above 10%<a href="#aliyun-slb-5xx-ratio-alert-above-10" class="hash-link" aria-label="Direct link to AliYun SLB 5XX ratio alert, above 10%" title="Direct link to AliYun SLB 5XX ratio alert, above 10%" translate="no">​</a></h3>
+<p>S2 Warning · for 5 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">100 * AliyunSlb_InstanceStatusCode5xx{} / on(loadBalancerId) group_left sum({__name__=~&quot;AliyunSlb_InstanceStatusCode.+&quot;}) by (loadBalancerId,loadBalancerName,regionId) &gt; 10</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">In the console, confirm whether it is Upstream 5xx (returned by the backend) or instance 5xx (from SLB itself);</li>
+<li class="">For Upstream 5xx, check the application logs on the backend ECS for the root cause;</li>
+<li class="">Instance 5xx usually means all backends are unhealthy — check the health check configuration and backend state;</li>
+<li class="">If it lines up with a recent release, roll back first.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-slb-l7-instance-qps-usage-exceeds-80">AliYun SLB L7 instance QPS usage exceeds 80%<a href="#aliyun-slb-l7-instance-qps-usage-exceeds-80" class="hash-link" aria-label="Direct link to AliYun SLB L7 instance QPS usage exceeds 80%" title="Direct link to AliYun SLB L7 instance QPS usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 5 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">AliyunSlb_InstanceQpsUtilization{} &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the QPS curve against the instance specification&#x27;s performance ceiling in the console;</li>
+<li class="">Determine whether it is genuine business growth or abnormal traffic;</li>
+<li class="">For growth, upgrade the SLB specification (guaranteed-performance instances let you set the ceiling);</li>
+<li class="">For abnormal traffic, add WAF/DDoS protection and rate limiting.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-slb-instance-max-connection-usage-exceeds-80">AliYun SLB instance max connection usage exceeds 80%<a href="#aliyun-slb-instance-max-connection-usage-exceeds-80" class="hash-link" aria-label="Direct link to AliYun SLB instance max connection usage exceeds 80%" title="Direct link to AliYun SLB instance max connection usage exceeds 80%" translate="no">​</a></h3>
+<p>S2 Warning · for 5 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">AliyunSlb_InstanceMaxConnectionUtilization{} &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Confirm the max connection and new connection curves in the console;</li>
+<li class="">Check whether the backend is responding more slowly and causing connections to pile up — a high connection count is often a symptom of a slow backend;</li>
+<li class="">If the backend is fine, upgrade the SLB specification;</li>
+<li class="">Check whether clients are failing to reuse connections.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aliyun-slb-dropped-connections-exceed-10-per-second">AliYun SLB dropped connections exceed 10 per second<a href="#aliyun-slb-dropped-connections-exceed-10-per-second" class="hash-link" aria-label="Direct link to AliYun SLB dropped connections exceed 10 per second" title="Direct link to AliYun SLB dropped connections exceed 10 per second" translate="no">​</a></h3>
+<p>S2 Warning · for 5 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">AliyunSlb_DropConnection{} &gt; 10</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">In the console, compare the drop curve against the instance specification&#x27;s connection/bandwidth ceiling to see which one topped out;</li>
+<li class="">If it topped out, upgrade the specification immediately — shared-performance instances top out especially easily at peak;</li>
+<li class="">Check whether abnormal traffic is consuming the quota;</li>
+<li class="">After upgrading, confirm drops return to zero.</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="related">Related<a href="#related" class="hash-link" aria-label="Direct link to Related" title="Direct link to Related" translate="no">​</a></h2>
+<ul>
+<li class=""><a href="https://github.com/ccfos/nightingale/tree/main/integrations/AliYun" target="_blank" rel="noopener noreferrer" class="">Alibaba Cloud template source</a>: the raw JSON for dashboards, rules and collector config. Pull requests welcome.</li>
+<li class=""><a href="https://github.com/flashcatcloud/categraf/tree/main/inputs/aliyun" target="_blank" rel="noopener noreferrer" class="">Categraf <code>aliyun</code> plugin docs</a>: every config option and the full metric list.</li>
+<li class=""><a class="" href="/docs/data/integrations/import">Import dashboards and alert rules</a></li>
+<li class=""><a class="" href="/docs/data/integrations/verify">Verify that metrics are stored</a></li>
+<li class=""><a class="" href="/integrations">All integrations</a></li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><span class="n9e-doc-actions"><a href="https://github.com/ccfos/nightingale/tree/main/integrations/AliYun" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a><a href="https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fintegrations%2Faliyun&amp;body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fintegrations%2Faliyun%0A%0A" target="_blank" rel="noopener noreferrer" class="n9e-doc-issue">Report a problem</a></span></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/integrations/vsphere"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">vSphere</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/integrations/huawei"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Huawei Cloud</div></a></nav></div></div><div class="col col--3"><div class="n9e-toc"><p class="n9e-toc-title">On this page</p><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#whats-in-the-template" class="table-of-contents__link toc-highlight">What&#39;s in the template</a></li><li><a href="#how-to-connect" class="table-of-contents__link toc-highlight">How to connect</a></li><li><a href="#bundled-dashboards" class="table-of-contents__link toc-highlight">Bundled dashboards</a></li><li><a href="#bundled-alert-rules" class="table-of-contents__link toc-highlight">Bundled alert rules</a></li><li><a href="#related" class="table-of-contents__link toc-highlight">Related</a></li></ul></div></div></div></div><footer class="footer_aQsI"><p class="copyright_HrmU">© 2026 Nightingale Contributors · Apache-2.0 License</p><div class="controls_xEY2"><nav class="locales_D62L" aria-label="Language"><a href="/integrations/aliyun" target="_blank" rel="noopener noreferrer" class="locale_WPDf localeActive_aVX1" aria-current="page">English</a><a href="/zh/integrations/aliyun" target="_blank" rel="noopener noreferrer" class="locale_WPDf">简体中文</a></nav><div class="toggle_vylO"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></footer></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Product</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs">Docs</a></li><li class="footer__item"><a class="footer__link-item" href="/download">Download</a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale/releases" target="_blank" rel="noopener noreferrer" class="footer__link-item">Release notes<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a class="footer__link-item" href="/categraf">Categraf collector</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Resources</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/integrations">Integrations</a></li><li class="footer__item"><a class="footer__link-item" href="/comparisons">Comparisons</a></li><li class="footer__item"><a class="footer__link-item" href="/comparisons/zabbix-alternatives">Zabbix alternatives</a></li><li class="footer__item"><a class="footer__link-item" href="/comparisons/open-source-alerting-platforms">Choosing an alerting platform</a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale#-mcp-server" target="_blank" rel="noopener noreferrer" class="footer__link-item">MCP Server<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ccfos/nightingale" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale/issues" target="_blank" rel="noopener noreferrer" class="footer__link-item">Issues<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://join.slack.com/t/n9e/shared_invite/zt-480klxytf-P9qm3C1M87kDmRPp_H30Kw" target="_blank" rel="noopener noreferrer" class="footer__link-item">Slack<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">About</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ccfos/nightingale/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="footer__link-item">Apache-2.0 License<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="themeRow_uGN8"><div class="toggle_vylO"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div><div class="localeRow_zDj8"><nav class="locales_D62L" aria-label="Language"><a href="/integrations/aliyun" target="_blank" rel="noopener noreferrer" class="locale_WPDf localeActive_aVX1" aria-current="page">English</a><a href="/zh/integrations/aliyun" target="_blank" rel="noopener noreferrer" class="locale_WPDf">简体中文</a></nav></div><div class="footer__copyright">© 2026 Nightingale Contributors · Apache-2.0 License</div></div></div></footer></div>
+</body>
+</html>

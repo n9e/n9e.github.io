@@ -63,6 +63,330 @@ Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告�
 
 - [接上你已有的一切](https://n9e.github.io/zh/integrations.md): 数据源、采集器、通知媒介、内置模板——夜莺对接现成的东西，不要求你换体系。下面是全部清单，每一项都可以点进去看怎么接。
 
+#### aliyun
+
+通过云监控 OpenAPI 拉取 ECS、RDS、Redis、SLB、CDN、ARMS 等产品的指标，模板里有几十张按产品划分的仪表盘和告警规则。
+
+- [用夜莺监控阿里云](https://n9e.github.io/zh/integrations/aliyun.md): 通过云监控 OpenAPI 拉取 ECS、RDS、Redis、SLB、CDN、ARMS 等产品的指标，模板里有几十张按产品划分的仪表盘和告警规则。
+
+#### amd-rocm-smi
+
+调用 rocm-smi 采集 AMD GPU 的利用率、显存、温度、功耗和时钟，规则覆盖过热和显存吃满。
+
+- [用夜莺监控 AMD ROCm SMI](https://n9e.github.io/zh/integrations/amd-rocm-smi.md): 调用 rocm-smi 采集 AMD GPU 的利用率、显存、温度、功耗和时钟，规则覆盖过热和显存吃满。
+
+#### apache
+
+读取 mod_status 的 server-status?auto 输出，采集请求速率、busy/idle worker、CPU 和流量，规则盯 worker 耗尽和服务不可达。
+
+- [用夜莺监控 Apache](https://n9e.github.io/zh/integrations/apache.md): 读取 mod_status 的 server-status?auto 输出，采集请求速率、busy/idle worker、CPU 和流量，规则盯 worker 耗尽和服务不可达。
+
+#### automq
+
+AutoMQ 通过 OTel Collector 或自身的 Prometheus 端点暴露指标，模板覆盖集群总览、Broker、Topic、消费组和明细。
+
+- [用夜莺监控 AutoMQ](https://n9e.github.io/zh/integrations/automq.md): AutoMQ 通过 OTel Collector 或自身的 Prometheus 端点暴露指标，模板覆盖集群总览、Broker、Topic、消费组和明细。
+
+#### azure
+
+通过 Azure Monitor API 按资源类型拉取指标，用服务主体鉴权，只需 Monitoring Reader 角色。
+
+- [用夜莺监控 Azure Monitor](https://n9e.github.io/zh/integrations/azure.md): 通过 Azure Monitor API 按资源类型拉取指标，用服务主体鉴权，只需 Monitoring Reader 角色。
+
+#### bind
+
+通过 BIND 的 statistics channel（XML v3）采集查询计数、响应码、缓存和内存上下文，规则盯 SERVFAIL 升高和服务不可达。
+
+- [用夜莺监控 BIND DNS](https://n9e.github.io/zh/integrations/bind.md): 通过 BIND 的 statistics channel（XML v3）采集查询计数、响应码、缓存和内存上下文，规则盯 SERVFAIL 升高和服务不可达。
+
+#### cadvisor
+
+抓 kubelet 内置或独立部署的 cAdvisor，拿到每个容器的 CPU、内存、文件系统和网络指标，kubelet 模式下还能附加 Pod 的 label 和 annotation。
+
+- [用夜莺监控 cAdvisor](https://n9e.github.io/zh/integrations/cadvisor.md): 抓 kubelet 内置或独立部署的 cAdvisor，拿到每个容器的 CPU、内存、文件系统和网络指标，kubelet 模式下还能附加 Pod 的 label 和 annotation。
+
+#### ceph
+
+开启 Ceph 的 prometheus mgr 模块后直接抓 9283 端口，模板覆盖集群健康、OSD、PG、池容量和 IOPS。
+
+- [用夜莺监控 Ceph](https://n9e.github.io/zh/integrations/ceph.md): 开启 Ceph 的 prometheus mgr 模块后直接抓 9283 端口，模板覆盖集群健康、OSD、PG、池容量和 IOPS。
+
+#### clickhouse
+
+通过 HTTP 接口读取 system.metrics、system.events 和 system.asynchronous_metrics，查询、合并、复制队列和内存都有指标说明。
+
+- [用夜莺监控 ClickHouse](https://n9e.github.io/zh/integrations/clickhouse.md): 通过 HTTP 接口读取 system.metrics、system.events 和 system.asynchronous_metrics，查询、合并、复制队列和内存都有指标说明。
+
+#### cloudwatch
+
+通过 CloudWatch API 拉取任意 namespace 的指标统计值，EC2、RDS、ELB、Lambda 都能接；模板带 RDS 仪表盘和常用规则。
+
+- [用夜莺监控 AWS CloudWatch](https://n9e.github.io/zh/integrations/cloudwatch.md): 通过 CloudWatch API 拉取任意 namespace 的指标统计值，EC2、RDS、ELB、Lambda 都能接；模板带 RDS 仪表盘和常用规则。
+
+#### consul
+
+通过 Consul API 采集所有注册服务的健康检查状态，哪个服务在哪个节点上 critical 或 warning 一目了然。
+
+- [用夜莺监控 Consul](https://n9e.github.io/zh/integrations/consul.md): 通过 Consul API 采集所有注册服务的健康检查状态，哪个服务在哪个节点上 critical 或 warning 一目了然。
+
+#### dns-query
+
+用本机或指定的 DNS 服务器查询一组域名，上报解析耗时、返回码和记录数，第一时间发现解析慢或解析失败。
+
+- [用夜莺监控 DNS 解析质量](https://n9e.github.io/zh/integrations/dns-query.md): 用本机或指定的 DNS 服务器查询一组域名，上报解析耗时、返回码和记录数，第一时间发现解析慢或解析失败。
+
+#### docker
+
+通过 Docker API 采集每个容器的 CPU、内存、块设备和网络 IO 以及守护进程状态，仪表盘按 docker_* 指标编写并经过真实验证。
+
+- [用夜莺监控 Docker](https://n9e.github.io/zh/integrations/docker.md): 通过 Docker API 采集每个容器的 CPU、内存、块设备和网络 IO 以及守护进程状态，仪表盘按 docker_* 指标编写并经过真实验证。
+
+#### doris
+
+FE 和 BE 都自带 Prometheus 格式的 /metrics，用 Categraf 的 prometheus 插件抓取即可，模板覆盖查询、导入、Compaction 和节点状态。
+
+- [用夜莺监控 Doris](https://n9e.github.io/zh/integrations/doris.md): FE 和 BE 都自带 Prometheus 格式的 /metrics，用 Categraf 的 prometheus 插件抓取即可，模板覆盖查询、导入、Compaction 和节点状态。
+
+#### elasticsearch
+
+通过 ES 自己的 HTTP 接口采集集群健康、节点 JVM、线程池、索引和分片状态，小集群抓一个节点即可拿到全集群数据。
+
+- [用夜莺监控 Elasticsearch](https://n9e.github.io/zh/integrations/elasticsearch.md): 通过 ES 自己的 HTTP 接口采集集群健康、节点 JVM、线程池、索引和分片状态，小集群抓一个节点即可拿到全集群数据。
+
+#### emqx
+
+通过 EMQX Dashboard API 采集节点状态、连接数、订阅、消息收发与丢弃，支持 v3、v4、v5 三代版本。
+
+- [用夜莺监控 EMQX](https://n9e.github.io/zh/integrations/emqx.md): 通过 EMQX Dashboard API 采集节点状态、连接数、订阅、消息收发与丢弃，支持 v3、v4、v5 三代版本。
+
+#### exec
+
+现成插件覆盖不到的东西，写个脚本按 Prometheus、InfluxDB 行协议或 Open-Falcon 格式打印到 stdout，Categraf 负责采集和上报。
+
+- [用脚本给夜莺上报自定义指标（Exec）](https://n9e.github.io/zh/integrations/exec.md): 现成插件覆盖不到的东西，写个脚本按 Prometheus、InfluxDB 行协议或 Open-Falcon 格式打印到 stdout，Categraf 负责采集和上报。
+
+#### gitlab
+
+GitLab 软件包内置多个 exporter，分别抓主机、Rails/Sidekiq、Gitaly、Workhorse、PostgreSQL、Redis 和 NGINX 的指标，模板有五张仪表盘。
+
+- [用夜莺监控 GitLab](https://n9e.github.io/zh/integrations/gitlab.md): GitLab 软件包内置多个 exporter，分别抓主机、Rails/Sidekiq、Gitaly、Workhorse、PostgreSQL、Redis 和 NGINX 的指标，模板有五张仪表盘。
+
+#### haproxy
+
+读取 HAProxy 的 CSV stats 页面或 Runtime API，拿到每个 frontend、backend 和 server 的会话、队列、错误和健康状态。
+
+- [用夜莺监控 HAProxy](https://n9e.github.io/zh/integrations/haproxy.md): 读取 HAProxy 的 CSV stats 页面或 Runtime API，拿到每个 frontend、backend 和 server 的会话、队列、错误和健康状态。
+
+#### huawei
+
+用华为云 cloudeye-exporter 把云监控（CES）指标转成 Prometheus 格式后抓取，模板覆盖 ECS、RDS、DCS、ELB、Kafka、RocketMQ、CSS 和 WAF。
+
+- [用夜莺监控华为云](https://n9e.github.io/zh/integrations/huawei.md): 用华为云 cloudeye-exporter 把云监控（CES）指标转成 Prometheus 格式后抓取，模板覆盖 ECS、RDS、DCS、ELB、Kafka、RocketMQ、CSS 和 WAF。
+
+#### ipmi
+
+通过 IPMI 读取服务器带外的温度、风扇、电压、电源和传感器状态，本地或远程 BMC 都能采。
+
+- [用夜莺监控 IPMI](https://n9e.github.io/zh/integrations/ipmi.md): 通过 IPMI 读取服务器带外的温度、风扇、电压、电源和传感器状态，本地或远程 BMC 都能采。
+
+#### java
+
+JVM 内存、GC、线程和类加载，用 JMX Exporter 或 OpenTelemetry Java Agent 暴露，模板按这两种指标名各备一套仪表盘。
+
+- [用夜莺监控 Java 应用（JVM）](https://n9e.github.io/zh/integrations/java.md): JVM 内存、GC、线程和类加载，用 JMX Exporter 或 OpenTelemetry Java Agent 暴露，模板按这两种指标名各备一套仪表盘。
+
+#### kafka
+
+Broker 指标走 JMX，消费者延迟靠内置的 kafka_exporter 逻辑；模板分 Categraf 和 exporter 两套，规则盯积压、离线分区和 ISR 收缩。
+
+- [用夜莺监控 Kafka](https://n9e.github.io/zh/integrations/kafka.md): Broker 指标走 JMX，消费者延迟靠内置的 kafka_exporter 逻辑；模板分 Categraf 和 exporter 两套，规则盯积压、离线分区和 ISR 收缩。
+
+#### kubernetes
+
+抓 apiserver、kubelet、controller-manager、scheduler、kube-proxy、CoreDNS、kube-state-metrics 和 node-exporter 的原生 /metrics，模板覆盖控制面到 Pod 的每一层。
+
+- [用夜莺监控 Kubernetes](https://n9e.github.io/zh/integrations/kubernetes.md): 抓 apiserver、kubelet、controller-manager、scheduler、kube-proxy、CoreDNS、kube-state-metrics 和 node-exporter 的原生 /metrics，模板覆盖控制面到 Pod 的每一层。
+
+#### ldap
+
+读取 LDAP 服务器的 cn=Monitor 后端，采集连接、各类操作计数、等待者和线程状态，支持 OpenLDAP 和 389 Directory Server。
+
+- [用夜莺监控 LDAP（OpenLDAP、389ds）](https://n9e.github.io/zh/integrations/ldap.md): 读取 LDAP 服务器的 cn=Monitor 后端，采集连接、各类操作计数、等待者和线程状态，支持 OpenLDAP 和 389 Directory Server。
+
+#### linux
+
+CPU、内存、磁盘、网络、进程到内核参数，Categraf 装上就有数据，模板覆盖 Categraf、node_exporter 和 Telegraf 三种采集口径。
+
+- [用夜莺监控 Linux](https://n9e.github.io/zh/integrations/linux.md): CPU、内存、磁盘、网络、进程到内核参数，Categraf 装上就有数据，模板覆盖 Categraf、node_exporter 和 Telegraf 三种采集口径。
+
+#### logstash
+
+通过 Logstash 的节点 API 采集 pipeline 的事件进出与过滤耗时、队列和 JVM 状态，规则盯事件堆积和 JVM 压力。
+
+- [用夜莺监控 Logstash](https://n9e.github.io/zh/integrations/logstash.md): 通过 Logstash 的节点 API 采集 pipeline 的事件进出与过滤耗时、队列和 JVM 状态，规则盯事件堆积和 JVM 压力。
+
+#### minio
+
+MinIO 自带 Prometheus 端点，要同时抓 cluster、bucket 和 node 三个路径，模板才能把对象、Bucket、进程和磁盘面板填满。
+
+- [用夜莺监控 MinIO](https://n9e.github.io/zh/integrations/minio.md): MinIO 自带 Prometheus 端点，要同时抓 cluster、bucket 和 node 三个路径，模板才能把对象、Bucket、进程和磁盘面板填满。
+
+#### mongodb
+
+内置 mongodb_exporter 的采集逻辑，覆盖连接、操作计数、复制集与分片状态；仪表盘要求开启兼容模式的指标名。
+
+- [用夜莺监控 MongoDB](https://n9e.github.io/zh/integrations/mongodb.md): 内置 mongodb_exporter 的采集逻辑，覆盖连接、操作计数、复制集与分片状态；仪表盘要求开启兼容模式的指标名。
+
+#### mtail
+
+Categraf 内置了 mtail：用正则和表达式从日志里提取 counter、gauge、histogram，不用把日志先送进日志系统。
+
+- [用 mtail 把日志变成夜莺指标](https://n9e.github.io/zh/integrations/mtail.md): Categraf 内置了 mtail：用正则和表达式从日志里提取 counter、gauge、histogram，不用把日志先送进日志系统。
+
+#### mysql
+
+连上实例跑 SHOW STATUS、SHOW VARIABLES 和复制状态，慢查询堆积、连接数打满、主从中断与延迟都有现成规则和处置步骤。
+
+- [用夜莺监控 MySQL](https://n9e.github.io/zh/integrations/mysql.md): 连上实例跑 SHOW STATUS、SHOW VARIABLES 和复制状态，慢查询堆积、连接数打满、主从中断与延迟都有现成规则和处置步骤。
+
+#### net-response
+
+探测本机或远端的端口是否可连、响应是否符合预期，结果码 0 到 4 分别表示成功、超时、连接失败、读失败和内容不匹配。
+
+- [用夜莺做 TCP/UDP 端口探测](https://n9e.github.io/zh/integrations/net-response.md): 探测本机或远端的端口是否可连、响应是否符合预期，结果码 0 到 4 分别表示成功、超时、连接失败、读失败和内容不匹配。
+
+#### nginx
+
+stub_status 够看连接和请求总量，VTS 模块能到每个 server 和 upstream 的状态码与延迟；另带 upstream_check 健康检查插件。
+
+- [用夜莺监控 Nginx](https://n9e.github.io/zh/integrations/nginx.md): stub_status 够看连接和请求总量，VTS 模块能到每个 server 和 upstream 的状态码与延迟；另带 upstream_check 健康检查插件。
+
+#### nsq
+
+读取 nsqd 的 /stats 接口，拿到每个 topic 和 channel 的积压、在途消息、超时和客户端数，规则盯积压增长和消费者掉线。
+
+- [用夜莺监控 NSQ](https://n9e.github.io/zh/integrations/nsq.md): 读取 nsqd 的 /stats 接口，拿到每个 topic 和 channel 的积压、在途消息、超时和客户端数，规则盯积压增长和消费者掉线。
+
+#### nvidia
+
+两条路采 NVIDIA GPU：nvidia-smi 轻量够用，DCGM 指标更全；模板带 GPU 总览、单卡和训练任务视角的仪表盘。
+
+- [用夜莺监控 NVIDIA](https://n9e.github.io/zh/integrations/nvidia.md): 两条路采 NVIDIA GPU：nvidia-smi 轻量够用，DCGM 指标更全；模板带 GPU 总览、单卡和训练任务视角的仪表盘。
+
+#### openstack
+
+通过 OpenStack API 采集 Nova、Neutron、Cinder、Glance、Keystone 和 Heat 的资源与配额，以及每台实例的状态。
+
+- [用夜莺监控 OpenStack](https://n9e.github.io/zh/integrations/openstack.md): 通过 OpenStack API 采集 Nova、Neutron、Cinder、Glance、Keystone 和 Heat 的资源与配额，以及每台实例的状态。
+
+#### oracle
+
+用只读账号跑一组可自定义的 SQL 采集会话、表空间、等待事件和缓存命中率，Linux 上的 Categraf 也能远程监控 Windows 上的 Oracle。
+
+- [用夜莺监控 Oracle](https://n9e.github.io/zh/integrations/oracle.md): 用只读账号跑一组可自定义的 SQL 采集会话、表空间、等待事件和缓存命中率，Linux 上的 Categraf 也能远程监控 Windows 上的 Oracle。
+
+#### php
+
+开启 pm.status_path 后，插件通过 HTTP 或 Unix socket 读取 PHP-FPM 的进程池状态：活跃与空闲进程、请求队列、慢请求和达到上限的次数。
+
+- [用夜莺监控 PHP-FPM](https://n9e.github.io/zh/integrations/php.md): 开启 pm.status_path 后，插件通过 HTTP 或 Unix socket 读取 PHP-FPM 的进程池状态：活跃与空闲进程、请求队列、慢请求和达到上限的次数。
+
+#### ping
+
+从 Categraf 所在机器 ping 一批目标，得到丢包率、往返延迟和抖动，是判断机器存活最简单的手段。
+
+- [用夜莺做 Ping 探测](https://n9e.github.io/zh/integrations/ping.md): 从 Categraf 所在机器 ping 一批目标，得到丢包率、往返延迟和抖动，是判断机器存活最简单的手段。
+
+#### postgresql
+
+用 pg_monitor 角色的只读账号采集连接、事务、缓存命中、锁和复制状态，支持自定义业务表查询。
+
+- [用夜莺监控 PostgreSQL](https://n9e.github.io/zh/integrations/postgresql.md): 用 pg_monitor 角色的只读账号采集连接、事务、缓存命中、锁和复制状态，支持自定义业务表查询。
+
+#### rabbitmq
+
+3.8 以上直接抓内置 Prometheus 插件的 15692 端口，旧版本走管理 API；模板按版本分开，规则盯队列积压、未确认消息和节点状态。
+
+- [用夜莺监控 RabbitMQ](https://n9e.github.io/zh/integrations/rabbitmq.md): 3.8 以上直接抓内置 Prometheus 插件的 15692 端口，旧版本走管理 API；模板按版本分开，规则盯队列积压、未确认消息和节点状态。
+
+#### redis
+
+连上 Redis 执行 INFO 采集内存、命中率、连接、慢日志和主从状态，另带 Sentinel 插件和按 redis_exporter 写的模板。
+
+- [用夜莺监控 Redis](https://n9e.github.io/zh/integrations/redis.md): 连上 Redis 执行 INFO 采集内存、命中率、连接、慢日志和主从状态，另带 Sentinel 插件和按 redis_exporter 写的模板。
+
+#### smart
+
+调用 smartctl 读取 HDD、SSD 和 NVMe 的 S.M.A.R.T. 健康属性，在硬盘真正坏掉之前看到重映射扇区、温度和剩余寿命。
+
+- [用夜莺监控 SMART](https://n9e.github.io/zh/integrations/smart.md): 调用 smartctl 读取 HDD、SSD 和 NVMe 的 S.M.A.R.T. 健康属性，在硬盘真正坏掉之前看到重映射扇区、温度和剩余寿命。
+
+#### snmp
+
+配置 OID 就能采任意网络设备，还能把 OID 的值当标签用；模板带 Cisco、Juniper 和通用交换机的仪表盘与几十条规则。
+
+- [用夜莺通过 SNMP 监控网络设备](https://n9e.github.io/zh/integrations/snmp.md): 配置 OID 就能采任意网络设备，还能把 OID 的值当标签用；模板带 Cisco、Juniper 和通用交换机的仪表盘与几十条规则。
+
+#### springboot
+
+引入 Actuator 和 micrometer-registry-prometheus，应用自己暴露 /actuator/prometheus，模板带按应用名区分的 JVM 仪表盘。
+
+- [用夜莺监控 Spring Boot 应用](https://n9e.github.io/zh/integrations/springboot.md): 引入 Actuator 和 micrometer-registry-prometheus，应用自己暴露 /actuator/prometheus，模板带按应用名区分的 JVM 仪表盘。
+
+#### sqlserver
+
+基于 DMV 和性能计数器采集 SQL Server 的连接、等待、缓冲区、日志和数据库状态，只需 VIEW SERVER STATE 权限。
+
+- [用夜莺监控 SQLServer](https://n9e.github.io/zh/integrations/sqlserver.md): 基于 DMV 和性能计数器采集 SQL Server 的连接、等待、缓冲区、日志和数据库状态，只需 VIEW SERVER STATE 权限。
+
+#### switch-legacy
+
+给一组 IP 就能自动识别设备型号，采 CPU、内存和每个端口的流量、错包与状态，只支持 SNMP v2c。
+
+- [用夜莺零配置监控交换机（Switch Legacy）](https://n9e.github.io/zh/integrations/switch-legacy.md): 给一组 IP 就能自动识别设备型号，采 CPU、内存和每个端口的流量、错包与状态，只支持 SNMP v2c。
+
+#### systemd
+
+通过 D-Bus 读取 systemd unit 的状态、重启次数和启动耗时，服务挂了或反复拉起都能第一时间告警。
+
+- [用夜莺监控 Systemd](https://n9e.github.io/zh/integrations/systemd.md): 通过 D-Bus 读取 systemd unit 的状态、重启次数和启动耗时，服务挂了或反复拉起都能第一时间告警。
+
+#### tencent
+
+用 tencentcloud-exporter 把云监控指标转成 Prometheus 格式后抓取，模板覆盖 CVM、CKafka、PostgreSQL、Redis、TDSQL-C 和负载均衡。
+
+- [用夜莺监控腾讯云](https://n9e.github.io/zh/integrations/tencent.md): 用 tencentcloud-exporter 把云监控指标转成 Prometheus 格式后抓取，模板覆盖 CVM、CKafka、PostgreSQL、Redis、TDSQL-C 和负载均衡。
+
+#### tidb
+
+TiDB、PD、TiKV 都通过 /metrics 暴露 Prometheus 指标，模板覆盖 SQL 延迟、Region 调度、存储和节点健康。
+
+- [用夜莺监控 TiDB](https://n9e.github.io/zh/integrations/tidb.md): TiDB、PD、TiKV 都通过 /metrics 暴露 Prometheus 指标，模板覆盖 SQL 延迟、Region 调度、存储和节点健康。
+
+#### tomcat
+
+读取 Manager 应用的 /manager/status/all 接口，采集 JVM 内存、各连接器的线程与请求、流量和错误，需要 manager-gui 角色。
+
+- [用夜莺监控 Tomcat](https://n9e.github.io/zh/integrations/tomcat.md): 读取 Manager 应用的 /manager/status/all 接口，采集 JVM 内存、各连接器的线程与请求、流量和错误，需要 manager-gui 角色。
+
+#### victoriametrics
+
+单机版和集群版都自带 /metrics，模板分别覆盖 vmsingle 以及 vmstorage、vmselect、vminsert 三个集群组件。
+
+- [用夜莺监控 VictoriaMetrics](https://n9e.github.io/zh/integrations/victoriametrics.md): 单机版和集群版都自带 /metrics，模板分别覆盖 vmsingle 以及 vmstorage、vmselect、vminsert 三个集群组件。
+
+#### vsphere
+
+通过 vCenter API 采集 ESXi 主机、虚拟机、数据存储和集群的 CPU、内存、磁盘与网络性能计数器。
+
+- [用夜莺监控 vSphere](https://n9e.github.io/zh/integrations/vsphere.md): 通过 vCenter API 采集 ESXi 主机、虚拟机、数据存储和集群的 CPU、内存、磁盘与网络性能计数器。
+
+#### windows
+
+Categraf 在 Windows 上采集的指标和 Linux 同名，主机仪表盘与规则可以复用；另有按 windows_exporter 指标写的 AD、DNS、ADFS 仪表盘。
+
+- [用夜莺监控 Windows](https://n9e.github.io/zh/integrations/windows.md): Categraf 在 Windows 上采集的指标和 Linux 同名，主机仪表盘与规则可以复用；另有按 windows_exporter 指标写的 AD、DNS、ADFS 仪表盘。
+
 ### docs
 
 从这里开始。按你要办的事进去——接数据源、写告警规则、降噪、把告警送到值班人、部署到生产，或者接上 MCP。

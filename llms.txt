@@ -58,6 +58,330 @@ Data sources, collectors, notification channels and templates — Nightingale co
 
 - [Plugs into what you already run](https://n9e.github.io/integrations.md): Data sources, collectors, notification channels and templates — Nightingale connects to what exists rather than replacing it. The full list is below, and every entry links to how to wire it up.
 
+### aliyun
+
+Pulls ECS, RDS, Redis, SLB, CDN, ARMS and other product metrics through the CloudMonitor OpenAPI; the template ships dozens of per-product dashboards and rules.
+
+- [Monitor Alibaba Cloud with Nightingale](https://n9e.github.io/integrations/aliyun.md): Pulls ECS, RDS, Redis, SLB, CDN, ARMS and other product metrics through the CloudMonitor OpenAPI; the template ships dozens of per-product dashboards and rules.
+
+### amd-rocm-smi
+
+Runs rocm-smi to collect AMD GPU utilization, memory, temperature, power and clocks; rules cover overheating and full memory.
+
+- [Monitor AMD ROCm SMI with Nightingale](https://n9e.github.io/integrations/amd-rocm-smi.md): Runs rocm-smi to collect AMD GPU utilization, memory, temperature, power and clocks; rules cover overheating and full memory.
+
+### apache
+
+Reads the server-status?auto output of mod_status for request rate, busy and idle workers, CPU and traffic; rules watch worker exhaustion and unreachable servers.
+
+- [Monitor Apache with Nightingale](https://n9e.github.io/integrations/apache.md): Reads the server-status?auto output of mod_status for request rate, busy and idle workers, CPU and traffic; rules watch worker exhaustion and unreachable servers.
+
+### automq
+
+AutoMQ exposes metrics through an OTel Collector or its own Prometheus endpoint; templates cover cluster overview, brokers, topics, consumer groups and detail.
+
+- [Monitor AutoMQ with Nightingale](https://n9e.github.io/integrations/automq.md): AutoMQ exposes metrics through an OTel Collector or its own Prometheus endpoint; templates cover cluster overview, brokers, topics, consumer groups and detail.
+
+### azure
+
+Pulls metrics per resource type through the Azure Monitor API, authenticating with a service principal that only needs the Monitoring Reader role.
+
+- [Monitor Azure Monitor with Nightingale](https://n9e.github.io/integrations/azure.md): Pulls metrics per resource type through the Azure Monitor API, authenticating with a service principal that only needs the Monitoring Reader role.
+
+### bind
+
+Collects query counts, response codes, cache and memory contexts from BIND's statistics channel (XML v3); rules watch rising SERVFAIL and unreachable servers.
+
+- [Monitor BIND DNS with Nightingale](https://n9e.github.io/integrations/bind.md): Collects query counts, response codes, cache and memory contexts from BIND's statistics channel (XML v3); rules watch rising SERVFAIL and unreachable servers.
+
+### cadvisor
+
+Scrapes the cAdvisor built into kubelet or a standalone one for per-container CPU, memory, filesystem and network metrics; in kubelet mode it can attach Pod labels and annotations.
+
+- [Monitor cAdvisor with Nightingale](https://n9e.github.io/integrations/cadvisor.md): Scrapes the cAdvisor built into kubelet or a standalone one for per-container CPU, memory, filesystem and network metrics; in kubelet mode it can attach Pod labels and annotations.
+
+### ceph
+
+Enable Ceph's prometheus mgr module and scrape port 9283; templates cover cluster health, OSDs, PGs, pool capacity and IOPS.
+
+- [Monitor Ceph with Nightingale](https://n9e.github.io/integrations/ceph.md): Enable Ceph's prometheus mgr module and scrape port 9283; templates cover cluster health, OSDs, PGs, pool capacity and IOPS.
+
+### clickhouse
+
+Reads system.metrics, system.events and system.asynchronous_metrics over HTTP; queries, merges, replication queues and memory all come with metric descriptions.
+
+- [Monitor ClickHouse with Nightingale](https://n9e.github.io/integrations/clickhouse.md): Reads system.metrics, system.events and system.asynchronous_metrics over HTTP; queries, merges, replication queues and memory all come with metric descriptions.
+
+### cloudwatch
+
+Pulls metric statistics from any CloudWatch namespace through the API, so EC2, RDS, ELB and Lambda all fit; the template ships an RDS dashboard and common rules.
+
+- [Monitor AWS CloudWatch with Nightingale](https://n9e.github.io/integrations/cloudwatch.md): Pulls metric statistics from any CloudWatch namespace through the API, so EC2, RDS, ELB and Lambda all fit; the template ships an RDS dashboard and common rules.
+
+### consul
+
+Collects the health-check state of every registered service through the Consul API, so you see at once which service is critical or warning on which node.
+
+- [Monitor Consul with Nightingale](https://n9e.github.io/integrations/consul.md): Collects the health-check state of every registered service through the Consul API, so you see at once which service is critical or warning on which node.
+
+### dns-query
+
+Resolves a list of domains against the local or a named DNS server and reports query time, return code and record count, so slow or failing resolution shows up immediately.
+
+- [Monitor DNS resolution quality with Nightingale](https://n9e.github.io/integrations/dns-query.md): Resolves a list of domains against the local or a named DNS server and reports query time, return code and record count, so slow or failing resolution shows up immediately.
+
+### docker
+
+Collects per-container CPU, memory, block and network IO plus daemon state through the Docker API; the dashboard is written against docker_* metrics and verified on real hosts.
+
+- [Monitor Docker with Nightingale](https://n9e.github.io/integrations/docker.md): Collects per-container CPU, memory, block and network IO plus daemon state through the Docker API; the dashboard is written against docker_* metrics and verified on real hosts.
+
+### doris
+
+FE and BE both expose Prometheus-format /metrics; scrape them with the Categraf prometheus input. Templates cover queries, loads, compaction and node state.
+
+- [Monitor Doris with Nightingale](https://n9e.github.io/integrations/doris.md): FE and BE both expose Prometheus-format /metrics; scrape them with the Categraf prometheus input. Templates cover queries, loads, compaction and node state.
+
+### elasticsearch
+
+Collects cluster health, node JVM, thread pools, index and shard state through Elasticsearch's own HTTP API; one node is enough to see the whole cluster on small deployments.
+
+- [Monitor Elasticsearch with Nightingale](https://n9e.github.io/integrations/elasticsearch.md): Collects cluster health, node JVM, thread pools, index and shard state through Elasticsearch's own HTTP API; one node is enough to see the whole cluster on small deployments.
+
+### emqx
+
+Collects node state, connections, subscriptions, message throughput and drops through the EMQX Dashboard API; supports v3, v4 and v5.
+
+- [Monitor EMQX with Nightingale](https://n9e.github.io/integrations/emqx.md): Collects node state, connections, subscriptions, message throughput and drops through the EMQX Dashboard API; supports v3, v4 and v5.
+
+### exec
+
+For anything no plugin covers: write a script that prints Prometheus, InfluxDB line protocol or Open-Falcon format to stdout, and Categraf collects and ships it.
+
+- [Report custom metrics to Nightingale from scripts (Exec)](https://n9e.github.io/integrations/exec.md): For anything no plugin covers: write a script that prints Prometheus, InfluxDB line protocol or Open-Falcon format to stdout, and Categraf collects and ships it.
+
+### gitlab
+
+The GitLab package bundles several exporters for the host, Rails/Sidekiq, Gitaly, Workhorse, PostgreSQL, Redis and NGINX; the template ships five dashboards.
+
+- [Monitor GitLab with Nightingale](https://n9e.github.io/integrations/gitlab.md): The GitLab package bundles several exporters for the host, Rails/Sidekiq, Gitaly, Workhorse, PostgreSQL, Redis and NGINX; the template ships five dashboards.
+
+### haproxy
+
+Reads HAProxy's CSV stats page or Runtime API for sessions, queues, errors and health state per frontend, backend and server.
+
+- [Monitor HAProxy with Nightingale](https://n9e.github.io/integrations/haproxy.md): Reads HAProxy's CSV stats page or Runtime API for sessions, queues, errors and health state per frontend, backend and server.
+
+### huawei
+
+Scrape Cloud Eye (CES) metrics converted to Prometheus format by the cloudeye-exporter; templates cover ECS, RDS, DCS, ELB, Kafka, RocketMQ, CSS and WAF.
+
+- [Monitor Huawei Cloud with Nightingale](https://n9e.github.io/integrations/huawei.md): Scrape Cloud Eye (CES) metrics converted to Prometheus format by the cloudeye-exporter; templates cover ECS, RDS, DCS, ELB, Kafka, RocketMQ, CSS and WAF.
+
+### ipmi
+
+Reads out-of-band temperature, fan, voltage, power and sensor state over IPMI, from the local BMC or remote ones.
+
+- [Monitor IPMI with Nightingale](https://n9e.github.io/integrations/ipmi.md): Reads out-of-band temperature, fan, voltage, power and sensor state over IPMI, from the local BMC or remote ones.
+
+### java
+
+JVM memory, GC, threads and class loading exposed via the JMX Exporter or the OpenTelemetry Java Agent; one dashboard set for each metric naming.
+
+- [Monitor Java applications (JVM) with Nightingale](https://n9e.github.io/integrations/java.md): JVM memory, GC, threads and class loading exposed via the JMX Exporter or the OpenTelemetry Java Agent; one dashboard set for each metric naming.
+
+### kafka
+
+Broker metrics come from JMX, consumer lag from the embedded kafka_exporter logic; templates come in Categraf and exporter editions, rules watch lag, offline partitions and shrinking ISR.
+
+- [Monitor Kafka with Nightingale](https://n9e.github.io/integrations/kafka.md): Broker metrics come from JMX, consumer lag from the embedded kafka_exporter logic; templates come in Categraf and exporter editions, rules watch lag, offline partitions and shrinking ISR.
+
+### kubernetes
+
+Scrapes the native /metrics of the apiserver, kubelet, controller-manager, scheduler, kube-proxy, CoreDNS, kube-state-metrics and node-exporter; templates cover every layer from control plane to Pod.
+
+- [Monitor Kubernetes with Nightingale](https://n9e.github.io/integrations/kubernetes.md): Scrapes the native /metrics of the apiserver, kubelet, controller-manager, scheduler, kube-proxy, CoreDNS, kube-state-metrics and node-exporter; templates cover every layer from control plane to Pod.
+
+### ldap
+
+Reads the LDAP server's cn=Monitor backend for connections, operation counters, waiters and thread state; supports OpenLDAP and 389 Directory Server.
+
+- [Monitor LDAP (OpenLDAP, 389ds) with Nightingale](https://n9e.github.io/integrations/ldap.md): Reads the LDAP server's cn=Monitor backend for connections, operation counters, waiters and thread state; supports OpenLDAP and 389 Directory Server.
+
+### linux
+
+CPU, memory, disk, network, processes and kernel parameters out of the box; templates cover Categraf, node_exporter and Telegraf metric names.
+
+- [Monitor Linux with Nightingale](https://n9e.github.io/integrations/linux.md): CPU, memory, disk, network, processes and kernel parameters out of the box; templates cover Categraf, node_exporter and Telegraf metric names.
+
+### logstash
+
+Collects pipeline event in/out and filter time, queue state and JVM health from Logstash's node API; rules watch event backlog and JVM pressure.
+
+- [Monitor Logstash with Nightingale](https://n9e.github.io/integrations/logstash.md): Collects pipeline event in/out and filter time, queue state and JVM health from Logstash's node API; rules watch event backlog and JVM pressure.
+
+### minio
+
+MinIO ships a Prometheus endpoint; scrape the cluster, bucket and node paths together or the object, bucket, process and disk panels stay empty.
+
+- [Monitor MinIO with Nightingale](https://n9e.github.io/integrations/minio.md): MinIO ships a Prometheus endpoint; scrape the cluster, bucket and node paths together or the object, bucket, process and disk panels stay empty.
+
+### mongodb
+
+Embeds the mongodb_exporter collector for connections, op counters, replica set and sharding state; the dashboards need the compatible metric names turned on.
+
+- [Monitor MongoDB with Nightingale](https://n9e.github.io/integrations/mongodb.md): Embeds the mongodb_exporter collector for connections, op counters, replica set and sharding state; the dashboards need the compatible metric names turned on.
+
+### mtail
+
+Categraf embeds mtail: extract counters, gauges and histograms from log files with regular expressions and expressions, without shipping the logs to a log system first.
+
+- [Turn logs into Nightingale metrics with mtail](https://n9e.github.io/integrations/mtail.md): Categraf embeds mtail: extract counters, gauges and histograms from log files with regular expressions and expressions, without shipping the logs to a log system first.
+
+### mysql
+
+Connects to the instance and runs SHOW STATUS, SHOW VARIABLES and replica status; slow-query pileups, connection exhaustion and broken or lagging replication come with rules and runbooks.
+
+- [Monitor MySQL with Nightingale](https://n9e.github.io/integrations/mysql.md): Connects to the instance and runs SHOW STATUS, SHOW VARIABLES and replica status; slow-query pileups, connection exhaustion and broken or lagging replication come with rules and runbooks.
+
+### net-response
+
+Checks whether a local or remote port accepts connections and responds as expected; result codes 0 to 4 mean success, timeout, connection failure, read failure and content mismatch.
+
+- [TCP/UDP port probes with Nightingale](https://n9e.github.io/integrations/net-response.md): Checks whether a local or remote port accepts connections and responds as expected; result codes 0 to 4 mean success, timeout, connection failure, read failure and content mismatch.
+
+### nginx
+
+stub_status covers connections and request totals, the VTS module adds per-server and per-upstream status codes and latency; an upstream_check input reads health-check results.
+
+- [Monitor Nginx with Nightingale](https://n9e.github.io/integrations/nginx.md): stub_status covers connections and request totals, the VTS module adds per-server and per-upstream status codes and latency; an upstream_check input reads health-check results.
+
+### nsq
+
+Reads nsqd's /stats endpoint for per-topic and per-channel depth, in-flight, timeouts and client counts; rules watch growing backlog and lost consumers.
+
+- [Monitor NSQ with Nightingale](https://n9e.github.io/integrations/nsq.md): Reads nsqd's /stats endpoint for per-topic and per-channel depth, in-flight, timeouts and client counts; rules watch growing backlog and lost consumers.
+
+### nvidia
+
+Two ways to collect NVIDIA GPUs: nvidia-smi is light and usually enough, DCGM gives more; dashboards cover a fleet overview, single cards and training jobs.
+
+- [Monitor NVIDIA with Nightingale](https://n9e.github.io/integrations/nvidia.md): Two ways to collect NVIDIA GPUs: nvidia-smi is light and usually enough, DCGM gives more; dashboards cover a fleet overview, single cards and training jobs.
+
+### openstack
+
+Collects resources and quotas from Nova, Neutron, Cinder, Glance, Keystone and Heat through the OpenStack API, plus the state of every instance.
+
+- [Monitor OpenStack with Nightingale](https://n9e.github.io/integrations/openstack.md): Collects resources and quotas from Nova, Neutron, Cinder, Glance, Keystone and Heat through the OpenStack API, plus the state of every instance.
+
+### oracle
+
+Runs a customizable set of SQL queries with a read-only account to collect sessions, tablespaces, wait events and cache hit ratios; a Linux Categraf can monitor Oracle on Windows remotely.
+
+- [Monitor Oracle with Nightingale](https://n9e.github.io/integrations/oracle.md): Runs a customizable set of SQL queries with a read-only account to collect sessions, tablespaces, wait events and cache hit ratios; a Linux Categraf can monitor Oracle on Windows remotely.
+
+### php
+
+With pm.status_path enabled, the input reads the PHP-FPM pool status over HTTP or a Unix socket: active and idle processes, request queue, slow requests and max-children hits.
+
+- [Monitor PHP-FPM with Nightingale](https://n9e.github.io/integrations/php.md): With pm.status_path enabled, the input reads the PHP-FPM pool status over HTTP or a Unix socket: active and idle processes, request queue, slow requests and max-children hits.
+
+### ping
+
+Ping a list of targets from wherever Categraf runs and get packet loss, round-trip latency and jitter; the simplest liveness check there is.
+
+- [Ping probes with Nightingale](https://n9e.github.io/integrations/ping.md): Ping a list of targets from wherever Categraf runs and get packet loss, round-trip latency and jitter; the simplest liveness check there is.
+
+### postgresql
+
+Collects connections, transactions, cache hit ratio, locks and replication state with a read-only pg_monitor account; custom queries against business tables are supported.
+
+- [Monitor PostgreSQL with Nightingale](https://n9e.github.io/integrations/postgresql.md): Collects connections, transactions, cache hit ratio, locks and replication state with a read-only pg_monitor account; custom queries against business tables are supported.
+
+### rabbitmq
+
+On 3.8+ scrape the built-in Prometheus plugin on port 15692; older versions go through the management API. Templates are split by version; rules watch queue backlog, unacked messages and node state.
+
+- [Monitor RabbitMQ with Nightingale](https://n9e.github.io/integrations/rabbitmq.md): On 3.8+ scrape the built-in Prometheus plugin on port 15692; older versions go through the management API. Templates are split by version; rules watch queue backlog, unacked messages and node state.
+
+### redis
+
+Runs INFO against Redis to collect memory, hit ratio, connections, slowlog and replication state; includes a Sentinel input and templates for redis_exporter.
+
+- [Monitor Redis with Nightingale](https://n9e.github.io/integrations/redis.md): Runs INFO against Redis to collect memory, hit ratio, connections, slowlog and replication state; includes a Sentinel input and templates for redis_exporter.
+
+### smart
+
+Runs smartctl to read S.M.A.R.T. health attributes from HDDs, SSDs and NVMe drives, so you see reallocated sectors, temperature and wear before a disk actually dies.
+
+- [Monitor SMART with Nightingale](https://n9e.github.io/integrations/smart.md): Runs smartctl to read S.M.A.R.T. health attributes from HDDs, SSDs and NVMe drives, so you see reallocated sectors, temperature and wear before a disk actually dies.
+
+### snmp
+
+Collect any network device by listing OIDs, with OID values usable as labels; the template ships Cisco, Juniper and generic switch dashboards and dozens of rules.
+
+- [Monitor network devices over SNMP with Nightingale](https://n9e.github.io/integrations/snmp.md): Collect any network device by listing OIDs, with OID values usable as labels; the template ships Cisco, Juniper and generic switch dashboards and dozens of rules.
+
+### springboot
+
+Add Actuator and micrometer-registry-prometheus and the application exposes /actuator/prometheus itself; the template ships JVM dashboards split by application name.
+
+- [Monitor Spring Boot applications with Nightingale](https://n9e.github.io/integrations/springboot.md): Add Actuator and micrometer-registry-prometheus and the application exposes /actuator/prometheus itself; the template ships JVM dashboards split by application name.
+
+### sqlserver
+
+Collects connections, waits, buffer pool, log usage and database state from DMVs and performance counters; VIEW SERVER STATE is all the permission it needs.
+
+- [Monitor SQLServer with Nightingale](https://n9e.github.io/integrations/sqlserver.md): Collects connections, waits, buffer pool, log usage and database state from DMVs and performance counters; VIEW SERVER STATE is all the permission it needs.
+
+### switch-legacy
+
+Give it a list of IPs and it detects the device model and collects CPU, memory and per-port traffic, errors and state; SNMP v2c only.
+
+- [Monitor switches with zero config (Switch Legacy) in Nightingale](https://n9e.github.io/integrations/switch-legacy.md): Give it a list of IPs and it detects the device model and collects CPU, memory and per-port traffic, errors and state; SNMP v2c only.
+
+### systemd
+
+Reads systemd unit state, restart counts and startup time over D-Bus, so failed or flapping services page you right away.
+
+- [Monitor Systemd with Nightingale](https://n9e.github.io/integrations/systemd.md): Reads systemd unit state, restart counts and startup time over D-Bus, so failed or flapping services page you right away.
+
+### tencent
+
+Scrape Cloud Monitor metrics converted to Prometheus format by the tencentcloud-exporter; templates cover CVM, CKafka, PostgreSQL, Redis, TDSQL-C and load balancers.
+
+- [Monitor Tencent Cloud with Nightingale](https://n9e.github.io/integrations/tencent.md): Scrape Cloud Monitor metrics converted to Prometheus format by the tencentcloud-exporter; templates cover CVM, CKafka, PostgreSQL, Redis, TDSQL-C and load balancers.
+
+### tidb
+
+TiDB, PD and TiKV all expose Prometheus metrics on /metrics; the templates cover SQL latency, Region scheduling, storage and node health.
+
+- [Monitor TiDB with Nightingale](https://n9e.github.io/integrations/tidb.md): TiDB, PD and TiKV all expose Prometheus metrics on /metrics; the templates cover SQL latency, Region scheduling, storage and node health.
+
+### tomcat
+
+Reads the /manager/status/all endpoint of the Manager app for JVM memory, per-connector threads and requests, traffic and errors; needs the manager-gui role.
+
+- [Monitor Tomcat with Nightingale](https://n9e.github.io/integrations/tomcat.md): Reads the /manager/status/all endpoint of the Manager app for JVM memory, per-connector threads and requests, traffic and errors; needs the manager-gui role.
+
+### victoriametrics
+
+Both the single-node and cluster editions expose /metrics; templates cover vmsingle as well as the vmstorage, vmselect and vminsert cluster components.
+
+- [Monitor VictoriaMetrics with Nightingale](https://n9e.github.io/integrations/victoriametrics.md): Both the single-node and cluster editions expose /metrics; templates cover vmsingle as well as the vmstorage, vmselect and vminsert cluster components.
+
+### vsphere
+
+Pulls CPU, memory, disk and network performance counters for ESXi hosts, virtual machines, datastores and clusters through the vCenter API.
+
+- [Monitor vSphere with Nightingale](https://n9e.github.io/integrations/vsphere.md): Pulls CPU, memory, disk and network performance counters for ESXi hosts, virtual machines, datastores and clusters through the vCenter API.
+
+### windows
+
+Categraf reports the same metric names on Windows as on Linux, so host dashboards and rules carry over; extra dashboards cover AD, DNS and ADFS via windows_exporter.
+
+- [Monitor Windows with Nightingale](https://n9e.github.io/integrations/windows.md): Categraf reports the same metric names on Windows as on Linux, so host dashboards and rules carry over; extra dashboards cover AD, DNS and ADFS via windows_exporter.
+
 ## docs
 
 Start here. Find the task you are trying to finish — connecting a data source, writing a rule, cutting noise, delivering to on-call, deploying to production, or wiring up MCP.

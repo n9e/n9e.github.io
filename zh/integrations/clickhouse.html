@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="zh-CN" dir="ltr" class="docs-wrapper plugin-docs plugin-id-integrations docs-version-current docs-doc-page docs-doc-id-clickhouse" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">用夜莺监控 ClickHouse | 夜莺 Nightingale</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://n9e.github.io/zh/img/og.png"><meta data-rh="true" name="twitter:image" content="https://n9e.github.io/zh/img/og.png"><meta data-rh="true" property="og:url" content="https://n9e.github.io/zh/integrations/clickhouse"><meta data-rh="true" property="og:locale" content="zh_CN"><meta data-rh="true" property="og:locale:alternate" content="en"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" property="og:image:width" content="1200"><meta data-rh="true" property="og:image:height" content="630"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-integrations-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-integrations-current"><meta data-rh="true" property="og:title" content="用夜莺监控 ClickHouse | 夜莺 Nightingale"><meta data-rh="true" name="description" content="通过 HTTP 接口读取 system.metrics、system.events 和 system.asynchronous_metrics，查询、合并、复制队列和内存都有指标说明。"><meta data-rh="true" property="og:description" content="通过 HTTP 接口读取 system.metrics、system.events 和 system.asynchronous_metrics，查询、合并、复制队列和内存都有指标说明。"><meta data-rh="true" property="og:type" content="article"><meta data-rh="true" property="article:modified_time" content="2026-10-13"><link data-rh="true" rel="icon" href="/zh/img/favicon.png"><link data-rh="true" rel="canonical" href="https://n9e.github.io/zh/integrations/clickhouse"><link data-rh="true" rel="alternate" href="https://n9e.github.io/integrations/clickhouse" hreflang="en"><link data-rh="true" rel="alternate" href="https://n9e.github.io/zh/integrations/clickhouse" hreflang="zh-CN"><link data-rh="true" rel="alternate" href="https://n9e.github.io/integrations/clickhouse" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"ClickHouse","item":"https://n9e.github.io/zh/integrations/clickhouse"}]}</script><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"用夜莺监控 ClickHouse","description":"通过 HTTP 接口读取 system.metrics、system.events 和 system.asynchronous_metrics，查询、合并、复制队列和内存都有指标说明。","inLanguage":"zh-CN","dateModified":"2026-10-13","url":"https://n9e.github.io/zh/integrations/clickhouse"}</script><link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-400-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-700-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-800-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/jetbrains-mono-latin-400-normal.woff2" crossorigin="anonymous">
+<style>@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/archivo-latin-ext-400-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/archivo-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/archivo-latin-ext-500-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/archivo-latin-500-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 600; src: url(/fonts/archivo-latin-ext-600-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 600; src: url(/fonts/archivo-latin-600-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/archivo-latin-ext-700-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/archivo-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 800; src: url(/fonts/archivo-latin-ext-800-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 800; src: url(/fonts/archivo-latin-800-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/jetbrains-mono-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/jetbrains-mono-latin-500-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/jetbrains-mono-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+
+/* 度量匹配的回退字体：Archivo 没到时用 Arial 占位，字宽和行高按 Archivo 的度量调过，切换时几乎不重排 */
+@font-face { font-family: 'Archivo Fallback'; font-weight: 400; src: local('Arial'), local('Liberation Sans'); size-adjust: 115.77%; ascent-override: 75.84%; descent-override: 18.14%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 500; src: local('Arial'), local('Liberation Sans'); size-adjust: 117.58%; ascent-override: 74.67%; descent-override: 17.86%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 600; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 110.34%; ascent-override: 79.57%; descent-override: 19.03%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 700; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 113.27%; ascent-override: 77.51%; descent-override: 18.54%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 800; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 117.65%; ascent-override: 74.63%; descent-override: 17.85%; line-gap-override: 0%; }
+/* JetBrains Mono 对 Menlo（macOS）；Consolas / DejaVu 只是兜底，度量按 Menlo 算 */
+@font-face { font-family: 'JetBrains Mono Fallback'; src: local('Menlo'), local('Consolas'), local('DejaVu Sans Mono'); size-adjust: 99.66%; ascent-override: 102.35%; descent-override: 30.10%; line-gap-override: 0%; }
+</style>
+<script>!function(){try{var e=window.location,t=e.pathname;if(t.length>1&&"/"===t.charAt(t.length-1)&&"/zh/"!==t)return void e.replace(t.replace(/\/+$/,"")+e.search+e.hash);var n,a=new URLSearchParams(e.search),r=window.self!==window.top;try{n=window.sessionStorage}catch(i){}function o(e){try{return n&&n.getItem(e)}catch(e){return null}}function h(e,t){try{n&&n.setItem(e,t)}catch(e){}}if(!(a.has("onlyContent")||r&&"1"===o("n9e-embed")))return;var c=a.get("theme");if("dark"!==c&&"light"!==c&&(c=r?o("n9e-embed-theme"):null),r&&(h("n9e-embed","1"),c&&h("n9e-embed-theme",c)),document.documentElement.setAttribute("data-n9e-embed",""),e.hash){var s=decodeURIComponent(e.hash.slice(1));window.addEventListener("load",function(){setTimeout(function(){var e=document.getElementById(s);e&&e.scrollIntoView({behavior:"instant",block:"start"})},0)})}c&&!a.has("docusaurus-theme")&&(a.set("docusaurus-theme",c),history.replaceState(history.state,"",t+"?"+a.toString()+e.hash))}catch(d){}}()</script>
+<script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?9d7cc507a7aae60b28b5e04bb995492a",e.async=!0;var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><link rel="stylesheet" href="/zh/assets/css/styles.29db95b9.css">
+<script src="/zh/assets/js/runtime~main.2e3381b5.js" defer="defer"></script>
+<script src="/zh/assets/js/main.c6435b63.js" defer="defer"></script>
+<link rel="alternate" type="text/markdown" href="https://n9e.github.io/zh/integrations/clickhouse.md"><link rel="describedby" href="https://n9e.github.io/zh/llms.txt"></head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"dark"),document.documentElement.setAttribute("data-theme-choice",t||"dark")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/zh/"><div class="navbar__logo"><img src="/zh/img/logo-mark.webp" alt="Nightingale" class="themedComponent_mlkZ themedComponent--light_NVdE" height="26" width="25"><img src="/zh/img/logo-mark.webp" alt="Nightingale" class="themedComponent_mlkZ themedComponent--dark_xIcU" height="26" width="25"></div><b class="navbar__title text--truncate">夜莺</b></a><a class="navbar__item navbar__link" href="/zh/docs">文档</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/zh/integrations">集成</a><a class="navbar__item navbar__link" href="/zh/comparisons">对比</a><a class="navbar__item navbar__link" href="/zh/download">下载</a><div class="navbar__item dropdown dropdown--hoverable"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">社区</a><ul class="dropdown__menu"><li><a href="https://github.com/ccfos/nightingale/issues" target="_blank" rel="noopener noreferrer" class="dropdown__link">提交 Issue<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li><a href="https://join.slack.com/t/n9e/shared_invite/zt-480klxytf-P9qm3C1M87kDmRPp_H30Kw" target="_blank" rel="noopener noreferrer" class="dropdown__link">Slack<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://play.n9e.io/api/n9e/auth/demo-login" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">在线体验<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://github.com/ccfos/nightingale" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link navbar-github" aria-label="GitHub, 13337 stars">13.3k<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="mobileOnly_k8CN"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB n9e-docs-root n9e-docs-root--single"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><div class="searchWrap_zhtN"></div><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/integrations"><span class="linkLabel_WmDU">全部集成</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/linux"><span class="categoryLinkLabel_W154">主机与硬件</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/linux"><span class="linkLabel_WmDU">Linux</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/windows"><span class="linkLabel_WmDU">Windows</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/systemd"><span class="linkLabel_WmDU">Systemd</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/smart"><span class="linkLabel_WmDU">SMART</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/ipmi"><span class="linkLabel_WmDU">IPMI</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/nvidia"><span class="linkLabel_WmDU">NVIDIA</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/amd-rocm-smi"><span class="linkLabel_WmDU">AMD ROCm SMI</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/exec"><span class="linkLabel_WmDU">Exec</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/zh/integrations/mysql"><span class="categoryLinkLabel_W154">数据库与存储</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/mysql"><span class="linkLabel_WmDU">MySQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/postgresql"><span class="linkLabel_WmDU">PostgreSQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/redis"><span class="linkLabel_WmDU">Redis</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/mongodb"><span class="linkLabel_WmDU">MongoDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/oracle"><span class="linkLabel_WmDU">Oracle</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/sqlserver"><span class="linkLabel_WmDU">SQLServer</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/elasticsearch"><span class="linkLabel_WmDU">Elasticsearch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/zh/integrations/clickhouse"><span class="linkLabel_WmDU">ClickHouse</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/doris"><span class="linkLabel_WmDU">Doris</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/tidb"><span class="linkLabel_WmDU">TiDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/victoriametrics"><span class="linkLabel_WmDU">VictoriaMetrics</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/kafka"><span class="categoryLinkLabel_W154">消息队列</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/kafka"><span class="linkLabel_WmDU">Kafka</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/rabbitmq"><span class="linkLabel_WmDU">RabbitMQ</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/nsq"><span class="linkLabel_WmDU">NSQ</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/emqx"><span class="linkLabel_WmDU">EMQX</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/automq"><span class="linkLabel_WmDU">AutoMQ</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/nginx"><span class="categoryLinkLabel_W154">Web 与中间件</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/nginx"><span class="linkLabel_WmDU">Nginx</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/apache"><span class="linkLabel_WmDU">Apache</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/haproxy"><span class="linkLabel_WmDU">HAProxy</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/tomcat"><span class="linkLabel_WmDU">Tomcat</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/java"><span class="linkLabel_WmDU">Java</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/springboot"><span class="linkLabel_WmDU">SpringBoot</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/php"><span class="linkLabel_WmDU">PHP</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/consul"><span class="linkLabel_WmDU">Consul</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/ldap"><span class="linkLabel_WmDU">Ldap</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/bind"><span class="linkLabel_WmDU">Bind</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/logstash"><span class="linkLabel_WmDU">Logstash</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/mtail"><span class="linkLabel_WmDU">Mtail</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/kubernetes"><span class="categoryLinkLabel_W154">容器与云原生</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/kubernetes"><span class="linkLabel_WmDU">Kubernetes</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/docker"><span class="linkLabel_WmDU">Docker</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/cadvisor"><span class="linkLabel_WmDU">cAdvisor</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/ceph"><span class="linkLabel_WmDU">Ceph</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/minio"><span class="linkLabel_WmDU">MinIO</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/openstack"><span class="linkLabel_WmDU">OpenStack</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/vsphere"><span class="linkLabel_WmDU">vSphere</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/aliyun"><span class="categoryLinkLabel_W154">云厂商与 CDN</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/aliyun"><span class="linkLabel_WmDU">Alibaba Cloud</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/huawei"><span class="linkLabel_WmDU">Huawei Cloud</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/tencent"><span class="linkLabel_WmDU">Tencent Cloud</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/cloudwatch"><span class="linkLabel_WmDU">CloudWatch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/azure"><span class="linkLabel_WmDU">Azure</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/snmp"><span class="categoryLinkLabel_W154">网络与探测</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/snmp"><span class="linkLabel_WmDU">SNMP</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/switch-legacy"><span class="linkLabel_WmDU">Switch (legacy)</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/ping"><span class="linkLabel_WmDU">Ping</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/net-response"><span class="linkLabel_WmDU">Net Response</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/dns-query"><span class="linkLabel_WmDU">DNS Query</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/gitlab"><span class="categoryLinkLabel_W154">DevOps 与其他</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/gitlab"><span class="linkLabel_WmDU">Gitlab</span></a></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/zh/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">数据库与存储</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">ClickHouse</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header class="n9e-doc-header"><h1>用夜莺监控 ClickHouse</h1><p class="n9e-doc-lead">通过 HTTP 接口读取 system.metrics、system.events 和 system.asynchronous_metrics，查询、合并、复制队列和内存都有指标说明。</p><p class="n9e-doc-reviewed">最后校对于 <time datetime="2026-10-13">2026-10-13</time></p></header><p>ClickHouse 插件通过 HTTP 接口（默认 8123）查询 <code>system.metrics</code>、<code>system.events</code>、<code>system.asynchronous_metrics</code> 和 <code>system.parts</code> 等系统表：并发查询、合并与 mutation、复制队列与延迟、内存与缓存、parts 数量、ZooKeeper 会话。已在 ClickHouse 24.8 真实负载上验证。</p>
+<p>模板里的两张仪表盘用的指标族不同：<code>ClickHouse_Categraf</code> 对应本插件，<code>ClickHouse_Exporter</code> 对应 ClickHouse 自带的 Prometheus 端点暴露的 <code>clickhouse_*</code> 指标，不能互换。规则覆盖查询堆积、复制延迟、parts 过多、内存逼近上限和 ZooKeeper 断连。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="模板里有什么">模板里有什么<a href="#模板里有什么" class="hash-link" aria-label="模板里有什么的直接链接" title="模板里有什么的直接链接" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>2 张仪表盘</strong>，共 26 个面板</li>
+<li class=""><strong>10 条告警规则</strong>，每条附处置步骤</li>
+<li class=""><strong>81 条指标说明</strong></li>
+<li class=""><strong>Categraf 采集配置</strong>：<code>input.clickhouse</code></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="怎么接入">怎么接入<a href="#怎么接入" class="hash-link" aria-label="怎么接入的直接链接" title="怎么接入的直接链接" translate="no">​</a></h2>
+<ol>
+<li class="">
+<p><a class="" href="/zh/docs/data/categraf/install">安装 Categraf</a>，把下面的配置放到 <code>conf/input.clickhouse/clickhouse.toml</code>，按实际地址和凭据改好后重启 Categraf。启动日志里出现 <code>input: local.clickhouse started</code> 就说明插件已加载。</p>
+<div class="language-toml codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-toml codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token comment" style="color:rgb(98, 114, 164)"># # collect interval</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># interval = 15</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># Read metrics from one or many ClickHouse servers</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token punctuation" style="color:rgb(248, 248, 242)">[</span><span class="token punctuation" style="color:rgb(248, 248, 242)">[</span><span class="token table class-name">instances</span><span class="token punctuation" style="color:rgb(248, 248, 242)">]</span><span class="token punctuation" style="color:rgb(248, 248, 242)">]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## Username for authorization on ClickHouse server</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token key property">username</span><span class="token plain"> </span><span class="token punctuation" style="color:rgb(248, 248, 242)">=</span><span class="token plain"> </span><span class="token string" style="color:rgb(255, 121, 198)">&quot;default&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## Password for authorization on ClickHouse server</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)"># password = &quot;&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## HTTP(s) timeout while getting metrics values</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## The timeout includes connection time, any redirects, and reading the</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## response body.</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)"># timeout = 5</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## List of servers for metrics scraping</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## metrics scrape via HTTP(s) clickhouse interface</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## https://clickhouse.tech/docs/en/interfaces/http/</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)"># servers = [&quot;http://127.0.0.1:8123&quot;]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## If &quot;auto_discovery&quot;&quot; is &quot;true&quot; plugin tries to connect to all servers</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## available in the cluster with using same &quot;user:password&quot; described in</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## &quot;user&quot; and &quot;password&quot; parameters and get this server hostname list from</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## &quot;system.clusters&quot; table. See</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## - https://clickhouse.tech/docs/en/operations/system_tables/#system-clusters</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## - https://clickhouse.tech/docs/en/operations/server_settings/settings/#server_settings_remote_servers</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## - https://clickhouse.tech/docs/en/operations/table_engines/distributed/</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## - https://clickhouse.tech/docs/en/operations/table_engines/replication/#creating-replicated-tables</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)"># auto_discovery = true</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## Filter cluster names in &quot;system.clusters&quot; when &quot;auto_discovery&quot; is &quot;true&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## when this filter present then &quot;WHERE cluster IN (...)&quot; filter will apply</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## please use only full cluster names here, regexp and glob filters is not</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## allowed for &quot;/etc/clickhouse-server/config.d/remote.xml&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## &lt;yandex&gt;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">##  &lt;remote_servers&gt;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">##    &lt;my-own-cluster&gt;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">##        &lt;shard&gt;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">##          &lt;replica&gt;&lt;host&gt;clickhouse-ru-1.local&lt;/host&gt;&lt;port&gt;9000&lt;/port&gt;&lt;/replica&gt;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">##          &lt;replica&gt;&lt;host&gt;clickhouse-ru-2.local&lt;/host&gt;&lt;port&gt;9000&lt;/port&gt;&lt;/replica&gt;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">##        &lt;/shard&gt;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">##        &lt;shard&gt;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">##          &lt;replica&gt;&lt;host&gt;clickhouse-eu-1.local&lt;/host&gt;&lt;port&gt;9000&lt;/port&gt;&lt;/replica&gt;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">##          &lt;replica&gt;&lt;host&gt;clickhouse-eu-2.local&lt;/host&gt;&lt;port&gt;9000&lt;/port&gt;&lt;/replica&gt;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">##        &lt;/shard&gt;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">##    &lt;/my-own-cluster&gt;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">##  &lt;/remote_servers&gt;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">##</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## &lt;/yandex&gt;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">##</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## example: cluster_include = [&quot;my-own-cluster&quot;]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)"># cluster_include = []</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## Filter cluster names in &quot;system.clusters&quot; when &quot;auto_discovery&quot; is</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## &quot;true&quot; when this filter present then &quot;WHERE cluster NOT IN (...)&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## filter will apply</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">##    example: cluster_exclude = [&quot;my-internal-not-discovered-cluster&quot;]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)"># cluster_exclude = []</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## Optional TLS Config</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)"># tls_ca = &quot;/etc/telegraf/ca.pem&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)"># tls_cert = &quot;/etc/telegraf/cert.pem&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)"># tls_key = &quot;/etc/telegraf/key.pem&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)">## Use TLS but skip chain &amp; host verification</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token comment" style="color:rgb(98, 114, 164)"># insecure_skip_verify = false</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    </span><span class="token comment" style="color:rgb(98, 114, 164)"># [[instances.metrics]]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    </span><span class="token comment" style="color:rgb(98, 114, 164)"># measurement = &quot;sessions&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    </span><span class="token comment" style="color:rgb(98, 114, 164)"># metric_fields = [ &quot;value&quot; ]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    </span><span class="token comment" style="color:rgb(98, 114, 164)"># timeout = &quot;3s&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    </span><span class="token comment" style="color:rgb(98, 114, 164)"># request = &#x27;&#x27;&#x27;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    </span><span class="token comment" style="color:rgb(98, 114, 164)"># SELECT count() AS value FROM system.processes</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    </span><span class="token comment" style="color:rgb(98, 114, 164)"># &#x27;&#x27;&#x27;</span><br></div></code></pre></div></div>
+</li>
+<li class="">
+<p>在夜莺「集成中心」里找到 ClickHouse，把仪表盘和告警规则<a class="" href="/zh/docs/data/integrations/import">导入到业务组</a>。</p>
+</li>
+<li class="">
+<p>导入的告警规则默认是停用的。先<a class="" href="/zh/docs/data/integrations/verify">确认指标已经入库</a>，再按自己环境的阈值逐条启用。</p>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="内置仪表盘">内置仪表盘<a href="#内置仪表盘" class="hash-link" aria-label="内置仪表盘的直接链接" title="内置仪表盘的直接链接" translate="no">​</a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>仪表盘</th><th style="text-align:right">面板数</th></tr></thead><tbody><tr><td>ClickHouse_Categraf</td><td style="text-align:right">11</td></tr><tr><td>ClickHouse_Exporter</td><td style="text-align:right">15</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="内置告警规则">内置告警规则<a href="#内置告警规则" class="hash-link" aria-label="内置告警规则的直接链接" title="内置告警规则的直接链接" translate="no">​</a></h2>
+<p>共 10 条。每条给出触发条件（PromQL）和告警后的处置步骤，导入后可以直接改阈值。</p>
+<p>规则按采集方式分组，用哪种采集器就导哪一组。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="categraf-采集4">Categraf 采集（4）<a href="#categraf-采集4" class="hash-link" aria-label="Categraf 采集（4）的直接链接" title="Categraf 采集（4）的直接链接" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="clickhouse-categraf-副本进入只读">ClickHouse Categraf 副本进入只读<a href="#clickhouse-categraf-副本进入只读" class="hash-link" aria-label="ClickHouse Categraf 副本进入只读的直接链接" title="ClickHouse Categraf 副本进入只读的直接链接" translate="no">​</a></h4>
+<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">clickhouse_metrics_readonly_replica &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">执行 SELECT database, table, is_readonly, zookeeper_exception FROM system.replicas WHERE is_readonly 定位只读的表和原因；</li>
+<li class="">检查 ZooKeeper/Keeper 集群是否健康（echo ruok | nc &lt;zk&gt; 2181），以及 ClickHouse 到它的网络连通性；</li>
+<li class="">ZK 恢复后执行 SYSTEM RESTART REPLICA &lt;db&gt;.&lt;table&gt; 让副本重新建立会话；</li>
+<li class="">若是 ZK 上元数据丢失，需要 SYSTEM RESTORE REPLICA 重建，操作前先确认另有健康副本。</li>
+</ol>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="clickhouse-categraf-内存使用">ClickHouse Categraf 内存使用<a href="#clickhouse-categraf-内存使用" class="hash-link" aria-label="ClickHouse Categraf 内存使用的直接链接" title="ClickHouse Categraf 内存使用的直接链接" translate="no">​</a></h4>
+<p>内存使用报警</p>
+<p>S1 紧急 · 持续 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">clickhouse_metrics_memory_tracking / clickhouse_asynchronous_metrics_os_memory_total * 100 &gt; 90</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">clickhouse_metrics_memory_tracking/ clickhouse_asynchronous_metrics_os_memory_total * 100 &gt; 80</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">执行 SELECT query, memory_usage, elapsed FROM system.processes ORDER BY memory_usage DESC LIMIT 5 找当前吃内存的查询，必要时 KILL QUERY WHERE query_id=&#x27;...&#x27; 止血；</li>
+<li class="">查 system.query_log 里 memory_usage 最高的历史查询，定位缺少过滤条件或大 JOIN 的 SQL；</li>
+<li class="">用 max_memory_usage / max_bytes_before_external_group_by 给单查询设上限并允许落盘；</li>
+<li class="">确认 mark cache、uncompressed cache 配置是否过大。</li>
+</ol>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="clickhouse-categraf-磁盘使用">ClickHouse Categraf 磁盘使用<a href="#clickhouse-categraf-磁盘使用" class="hash-link" aria-label="ClickHouse Categraf 磁盘使用的直接链接" title="ClickHouse Categraf 磁盘使用的直接链接" translate="no">​</a></h4>
+<p>磁盘使用报警</p>
+<p>S1 紧急 · 持续 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">clickhouse_asynchronous_metrics_disk_available_default / (clickhouse_asynchronous_metrics_disk_available_default + clickhouse_asynchronous_metrics_disk_used_default) * 100 &lt; 10</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">clickhouse_asynchronous_metrics_disk_available_default / (clickhouse_asynchronous_metrics_disk_available_default + clickhouse_asynchronous_metrics_disk_used_default) * 100 &lt; 20</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">执行 SELECT name, free_space, total_space FROM system.disks 确认各磁盘水位；</li>
+<li class="">用 SELECT database, table, formatReadableSize(sum(bytes)) FROM system.parts WHERE active GROUP BY 1,2 ORDER BY sum(bytes) DESC 找出占用最大的表；</li>
+<li class="">对有 TTL 的表执行 ALTER TABLE ... MATERIALIZE TTL 触发清理，或直接 DROP PARTITION 删除过期分区；</li>
+<li class="">长期需扩容磁盘或配置多卷存储策略把冷数据下沉。</li>
+</ol>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="clickhouse-categraf-并发网络连接数过高">ClickHouse Categraf 并发网络连接数过高<a href="#clickhouse-categraf-并发网络连接数过高" class="hash-link" aria-label="ClickHouse Categraf 并发网络连接数过高的直接链接" title="ClickHouse Categraf 并发网络连接数过高的直接链接" translate="no">​</a></h4>
+<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">clickhouse_metrics_network_send &gt; 250 or clickhouse_metrics_network_receive &gt; 250</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">clickhouse_metrics_network_send &gt; 250 or clickhouse_metrics_network_receive &gt; 250</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(clickhouse_metrics_interserver_connection[5m]) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">执行 SELECT count(), user, client_hostname FROM system.processes GROUP BY 2,3 ORDER BY 1 DESC 看连接来自哪些客户端；</li>
+<li class="">对照 system.metrics 里的 Query、TCPConnection 判断是查询并发高还是连接泄漏；</li>
+<li class="">客户端未复用连接的，在应用侧改用连接池；</li>
+<li class="">确认 max_concurrent_queries 与 max_connections 配置是否与实例规格匹配，必要时限流。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="原生指标6">原生指标（6）<a href="#原生指标6" class="hash-link" aria-label="原生指标（6）的直接链接" title="原生指标（6）的直接链接" translate="no">​</a></h3>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="clickhouse-原生端点-认证错误">ClickHouse 原生端点 认证错误<a href="#clickhouse-原生端点-认证错误" class="hash-link" aria-label="ClickHouse 原生端点 认证错误的直接链接" title="ClickHouse 原生端点 认证错误的直接链接" translate="no">​</a></h4>
+<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(ClickHouseErrorMetric_AUTHENTICATION_FAILED[5m]) &gt; 0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(ClickHouseErrorMetric_RESOURCE_ACCESS_DENIED[5m]) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">查 SELECT event_time, user, client_hostname, exception FROM system.query_log WHERE type=&#x27;ExceptionBeforeStart&#x27; AND exception LIKE &#x27;%AUTHENTICATION_FAILED%&#x27; ORDER BY event_time DESC LIMIT 20 定位来源 IP 与用户名；</li>
+<li class="">来源是自家应用则核对配置里的账号密码与 users.xml；</li>
+<li class="">来源陌生 IP 则按入侵尝试处理，收紧 users.xml 的 networks 白名单并改密码；</li>
+<li class="">确认 ClickHouse 端口没有直接暴露在公网。</li>
+</ol>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="clickhouse-原生端点-副本进入只读">ClickHouse 原生端点 副本进入只读<a href="#clickhouse-原生端点-副本进入只读" class="hash-link" aria-label="ClickHouse 原生端点 副本进入只读的直接链接" title="ClickHouse 原生端点 副本进入只读的直接链接" translate="no">​</a></h4>
+<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">ClickHouseMetrics_ReadonlyReplica &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">执行 SELECT database, table, is_readonly, zookeeper_exception FROM system.replicas WHERE is_readonly 定位只读的表和原因；</li>
+<li class="">检查 ZooKeeper/Keeper 集群是否健康（echo ruok | nc &lt;zk&gt; 2181），以及 ClickHouse 到它的网络连通性；</li>
+<li class="">ZK 恢复后执行 SYSTEM RESTART REPLICA &lt;db&gt;.&lt;table&gt; 让副本重新建立会话；</li>
+<li class="">若是 ZK 上元数据丢失，需要 SYSTEM RESTORE REPLICA 重建，操作前先确认另有健康副本。</li>
+</ol>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="clickhouse-原生端点-内存使用">ClickHouse 原生端点 内存使用<a href="#clickhouse-原生端点-内存使用" class="hash-link" aria-label="ClickHouse 原生端点 内存使用的直接链接" title="ClickHouse 原生端点 内存使用的直接链接" translate="no">​</a></h4>
+<p>内存使用报警</p>
+<p>S1 紧急 · 持续 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">ClickHouseMetrics_MemoryTracking / ClickHouseAsyncMetrics_OSMemoryTotal * 100 &gt; 90</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">ClickHouseMetrics_MemoryTracking / ClickHouseAsyncMetrics_OSMemoryTotal * 100 &gt; 80</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">执行 SELECT query, memory_usage, elapsed FROM system.processes ORDER BY memory_usage DESC LIMIT 5 找当前吃内存的查询，必要时 KILL QUERY WHERE query_id=&#x27;...&#x27; 止血；</li>
+<li class="">查 system.query_log 里 memory_usage 最高的历史查询，定位缺少过滤条件或大 JOIN 的 SQL；</li>
+<li class="">用 max_memory_usage / max_bytes_before_external_group_by 给单查询设上限并允许落盘；</li>
+<li class="">确认 mark cache、uncompressed cache 配置是否过大。</li>
+</ol>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="clickhouse-原生端点-副本错误">ClickHouse 原生端点 副本错误<a href="#clickhouse-原生端点-副本错误" class="hash-link" aria-label="ClickHouse 原生端点 副本错误的直接链接" title="ClickHouse 原生端点 副本错误的直接链接" translate="no">​</a></h4>
+<p>S1 紧急 · 持续 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">ClickHouseErrorMetric_ALL_REPLICAS_ARE_STALE == 1 or ClickHouseErrorMetric_ALL_REPLICAS_LOST == 1</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"> ClickHouseErrorMetric_NO_AVAILABLE_REPLICA == 1</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"> ClickHouseErrorMetric_TOO_FEW_LIVE_REPLICAS == 1</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">执行 SELECT database, table, is_readonly, absolute_delay, zookeeper_exception FROM system.replicas 定位失效的表；</li>
+<li class="">absolute_delay 很大说明副本追不上，检查副本节点的 IO 与 merge 队列（system.replication_queue）；</li>
+<li class="">ALL_REPLICAS_LOST 通常是 ZooKeeper 上的元数据丢失，需要在健康副本上确认数据后执行 SYSTEM RESTORE REPLICA；</li>
+<li class="">恢复期间把查询路由到健康分片，避免持续报错。</li>
+</ol>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="clickhouse-原生端点-磁盘使用">ClickHouse 原生端点 磁盘使用<a href="#clickhouse-原生端点-磁盘使用" class="hash-link" aria-label="ClickHouse 原生端点 磁盘使用的直接链接" title="ClickHouse 原生端点 磁盘使用的直接链接" translate="no">​</a></h4>
+<p>磁盘使用报警</p>
+<p>S1 紧急 · 持续 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">ClickHouseAsyncMetrics_DiskAvailable_default / (ClickHouseAsyncMetrics_DiskAvailable_default + ClickHouseAsyncMetrics_DiskUsed_default) * 100 &lt; 10</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">ClickHouseAsyncMetrics_DiskAvailable_default / (ClickHouseAsyncMetrics_DiskAvailable_default + ClickHouseAsyncMetrics_DiskUsed_default) * 100 &lt; 20</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">ClickHouseAsyncMetrics_DiskAvailable_backups / (ClickHouseAsyncMetrics_DiskAvailable_backups + ClickHouseAsyncMetrics_DiskUsed_backups) * 100 &lt; 20</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">执行 SELECT name, free_space, total_space FROM system.disks 确认各磁盘水位；</li>
+<li class="">用 SELECT database, table, formatReadableSize(sum(bytes)) FROM system.parts WHERE active GROUP BY 1,2 ORDER BY sum(bytes) DESC 找出占用最大的表；</li>
+<li class="">对有 TTL 的表执行 ALTER TABLE ... MATERIALIZE TTL 触发清理，或直接 DROP PARTITION 删除过期分区；</li>
+<li class="">长期需扩容磁盘或配置多卷存储策略把冷数据下沉。</li>
+</ol>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="clickhouse-原生端点-并发网络连接数过高">ClickHouse 原生端点 并发网络连接数过高<a href="#clickhouse-原生端点-并发网络连接数过高" class="hash-link" aria-label="ClickHouse 原生端点 并发网络连接数过高的直接链接" title="ClickHouse 原生端点 并发网络连接数过高的直接链接" translate="no">​</a></h4>
+<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">ClickHouseMetrics_NetworkSend &gt; 250 or ClickHouseMetrics_NetworkReceive &gt; 250</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">ClickHouseMetrics_NetworkSend &gt; 250 or ClickHouseMetrics_NetworkReceive &gt; 250</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(ClickHouseMetrics_InterserverConnection[5m]) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">执行 SELECT count(), user, client_hostname FROM system.processes GROUP BY 2,3 ORDER BY 1 DESC 看连接来自哪些客户端；</li>
+<li class="">对照 system.metrics 里的 Query、TCPConnection 判断是查询并发高还是连接泄漏；</li>
+<li class="">客户端未复用连接的，在应用侧改用连接池；</li>
+<li class="">确认 max_concurrent_queries 与 max_connections 配置是否与实例规格匹配，必要时限流。</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="指标说明">指标说明<a href="#指标说明" class="hash-link" aria-label="指标说明的直接链接" title="指标说明的直接链接" translate="no">​</a></h2>
+<p>共 81 条，和仪表盘、告警规则里用到的指标一一对应。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>指标</th><th>含义</th><th>单位</th></tr></thead><tbody><tr><td><code>clickhouse_metrics_http_connection</code></td><td>ClickHouse HTTP 连接数 — 通过HTTP协议连接到ClickHouse服务器的客户端数量。</td><td>个</td></tr><tr><td><code>clickhouse_events_insert_query_time_microseconds_microseconds</code></td><td>ClickHouse INSERT查询平均时间 — 插入查询执行的平均时间（微秒）。</td><td>个</td></tr><tr><td><code>clickhouse_events_select_query</code></td><td>ClickHouse SELECT 查询数 — 执行的选择（SELECT）查询的数量</td><td></td></tr><tr><td><code>clickhouse_events_select_query_time_microseconds_microseconds</code></td><td>ClickHouse SELECT查询平均时间 — 选择查询执行的平均时间（微秒）。</td><td>个</td></tr><tr><td><code>clickhouse_metrics_tcp_connection</code></td><td>ClickHouse TCP 连接数 — 通过TCP协议连接到ClickHouse服务器的客户端数量。</td><td>个</td></tr><tr><td><code>clickhouse_metrics_parts_temporary</code></td><td>ClickHouse 临时数据量 — 临时数据部分的数量，这些部分当前正在生成。</td><td>个</td></tr><tr><td><code>clickhouse_metrics_distributed_send</code></td><td>ClickHouse 分布式表连接数 — 发送到分布式表的远程服务器的数据连接数。</td><td>个</td></tr><tr><td><code>clickhouse_metrics_parts_wide</code></td><td>ClickHouse 宽数据量 — 宽数据部分的数量。</td><td>个</td></tr><tr><td><code>clickhouse_metrics_distributed_files_to_insert</code></td><td>ClickHouse 待插入分布式表文件数 — 等待异步插入到分布式表的文件数量。</td><td>个</td></tr><tr><td><code>clickhouse_metrics_parts_pre_committed</code></td><td>ClickHouse 提交前数据量 — 提交前的数据部分数量，这些部分在data_parts列表中，但不用于SELECT查询。</td><td>个</td></tr><tr><td><code>clickhouse_metrics_parts_committed</code></td><td>ClickHouse 提交后数据量 — 提交后的数据部分数量，这些部分在data_parts列表中，并且用于SELECT查询。</td><td>个</td></tr><tr><td><code>clickhouse_events_inserted_bytes</code></td><td>ClickHouse 插入未压缩 —  插入操作写入的未压缩字节数。</td><td>个</td></tr><tr><td><code>clickhouse_events_inserted_rows</code></td><td>ClickHouse 插入行数</td><td></td></tr><tr><td><code>clickhouse_metrics_query_preempted</code></td><td>ClickHouse 查询优先级 — 由于优先级设置，被停止并等待的查询数量。</td><td>个</td></tr><tr><td><code>clickhouse_events_query</code></td><td>ClickHouse 查询总数 — ClickHouse执行的查询总数。</td><td></td></tr><tr><td><code>clickhouse_events_query_time_microseconds</code></td><td>ClickHouse 查询总时间 — 查询执行的总时间（微秒）。</td><td>ms</td></tr><tr><td><code>clickhouse_metrics_parts_deleting</code></td><td>ClickHouse 正被删除数据量 — 正在被删除的数据部分数量。</td><td>个</td></tr><tr><td><code>clickhouse_metrics_background_move_pool_task</code></td><td>ClickHouse 移动池活动任务数 — 后台移动池中的活动任务数，用于处理数据移动。</td><td>个</td></tr><tr><td><code>clickhouse_metrics_parts_compact</code></td><td>ClickHouse 紧凑数据量 — 紧凑数据部分的数量。</td><td>个</td></tr><tr><td><code>clickhouse_metrics_background_buffer_flush_schedule_pool_task</code></td><td>ClickHouse 缓冲区活动任务数 — 后台缓冲区冲洗调度池中的活动任务数，用于定期缓冲区冲洗。</td><td>个</td></tr><tr><td><code>clickhouse_metrics_parts_delete_on_destroy</code></td><td>ClickHouse 跨磁盘量 — 移动到另一个磁盘并应在析构函数中删除的数据部分数量。</td><td>个</td></tr><tr><td><code>clickhouse_metrics_parts_outdated</code></td><td>ClickHouse 过时数据量 —  过时的数据部分数量，这些部分不是活动数据部分，但当前SELECT查询可能使用它们。</td><td>个</td></tr><tr><td><code>clickhouse_metrics_memory_tracking</code></td><td>ClickHouse中内存使用情况 — ClickHouse服务器使用的总内存量。</td><td>个</td></tr><tr><td><code>clickhouse_asynchronous_metrics_number_of_databases</code></td><td>ClickHouse中数据库数量 — ClickHouse数据库数量</td><td></td></tr><tr><td><code>clickhouse_asynchronous_metrics_number_of_tables</code></td><td>ClickHouse中表的数量 — ClickHouse表数量</td><td></td></tr><tr><td><code>clickhouse_metrics_revision</code></td><td>ClickHouse修订 — ClickHouse服务器的修订号，通常是一个用于标识特定构建的数字。</td><td></td></tr><tr><td><code>clickhouse_asynchronous_metrics_uptime</code></td><td>ClickHouse服务器运行时间 — ClickHouse服务器自启动以来的运行时间。</td><td>个</td></tr><tr><td><code>clickhouse_metrics_version_integer</code></td><td>ClickHouse版本号 — ClickHouse服务器的版本号，以整数形式表示。</td><td></td></tr><tr><td><code>ClickHouseMetrics_TCPConnection</code></td><td>ClickHouse Tcp 连接数 — tcp连接数</td><td></td></tr><tr><td><code>ClickHouseMetrics_MemoryTracking</code></td><td>ClickHouse 内存 — 分配的内存总量</td><td>bit</td></tr><tr><td><code>increase(ClickHouseProfileEvents_InsertQueryTimeMicroseconds[1m]) / (increase(ClickHouseProfileEvents_InsertQuery[1m]) + 0.001)</code></td><td>INSERT查询平均延迟 — INSERT查询平均延迟</td><td>μs</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_InsertQuery[2m]) [1h:1m])</code></td><td>INSERT查询数 — 与查询数相同，但仅限于INSERT查询</td><td>次查询</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_Seek[2m]) [1h:1m])</code></td><td>lseek函数调用次数 — &#x27;lseek&#x27;函数被调用的次数</td><td>次</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_MergeTreeDataWriterCompressedBytes[2m]) [1h:1m])</code></td><td>MergeTree表写入的压缩字节数</td><td>bytes</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_MergeTreeDataWriterBlocks[2m]) [1h:1m])</code></td><td>MergeTree表插入的数据块数 — 插入到MergeTree表的数据块数。每个块形成一个数据部分</td><td>块</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_MergeTreeDataWriterUncompressedBytes[2m]) [1h:1m])</code></td><td>MergeTree表插入的未压缩字节数 — 插入到MergeTree表的未压缩字节数（列以它们在内存中存储的形式） 在ClickHouse数据库中，当数据被插入到MergeTree系列表（包括ReplicatedMergeTree等）时，在数据实际被写入磁盘并经过压缩处理之前，在内存中以原始格式暂存时所占用的字节数量。这里的“未压缩”意味着数据还未经过ClickHouse为了节省存储空间而在存储阶段执行的列式存储压缩算法处理</td><td>bytes</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_MergeTreeDataWriterRows[2m]) [1h:1m])</code></td><td>MergeTree表插入的行数 — 插入到MergeTree表的行数</td><td>行</td></tr><tr><td><code>increase(ClickHouseProfileEvents_SelectQueryTimeMicroseconds[1m]) / (increase(ClickHouseProfileEvents_SelectQuery[1m]) + 0.001)</code></td><td>SELECT查询平均延迟 — SELECT查询平均延迟</td><td>μs</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_SelectQuery[2m]) [1h:1m])</code></td><td>SELECT查询数 — SELECT查询的数量</td><td>次查询</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_SelectedBytes[2m]) [1h:1m])</code></td><td>SELECT查询的字节数 — 从所有表SELECT的字节数（未压缩列以它们在内存中存储的形式）</td><td>bytes</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_SelectedRows[2m]) [1h:1m])</code></td><td>SELECT查询的行数 — 从所有表SELECT的行数</td><td>行</td></tr><tr><td><code>ClickHouseMetrics_TCPConnection</code></td><td>TCP连接数 — 与 TCP 服务器（带本地接口的客户端）的连接数，也包括服务器-服务器连接</td><td>个连接</td></tr><tr><td><code>ClickHouseMetrics_PartsTemporary</code></td><td>临时部分数 — 目前正在生成的部分，不在数据部分列表中</td><td>parts</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_ReadBufferFromFileDescriptorReadFailed[2m]) [1h:1m])</code></td><td>从文件描述符读取失败次数 — 从文件描述符读取（read/pread）失败的次数</td><td>次</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_ReadBufferFromFileDescriptorRead[2m]) [1h:1m])</code></td><td>从文件描述符读取次数 — 从文件描述符进行读取（read/pread）的次数，不包括套接字</td><td>reads</td></tr><tr><td><code>irate(ClickHouseProfileEvents_ReadBufferFromFileDescriptorReadBytes[2m])</code></td><td>从文件描述符读取的字节数 — 从文件描述符读取的字节数。如果文件是压缩的，这将显示压缩后的数据大小</td><td>bytes</td></tr><tr><td><code>ClickHouseMetrics_DiskSpaceReservedForMerge</code></td><td>保留空间 — 为当前运行的后台合并保留的磁盘空间。它略大于当前合并部分的总大小</td><td>bytes</td></tr><tr><td><code>ClickHouseMetrics_MemoryTracking</code></td><td>内存占用 — 分配的内存总量</td><td>bytes</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_WriteBufferFromFileDescriptorWrite[2m]) [1h:1m])</code></td><td>写入文件描述符次数 — 写入文件描述符（write/pwrite）的次数，不包括套接字</td><td>writes</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_WriteBufferFromFileDescriptorWriteBytes[2m]) [1h:1m])</code></td><td>写入文件描述符的字节数 — 写入文件描述符的字节数。如果文件是压缩的，这将显示压缩后的数据大小</td><td>bytes</td></tr><tr><td><code>increase(ClickHouseProfileEvents_MergesTimeMilliseconds[1m]) / increase(ClickHouseProfileEvents_Merge[1m])</code></td><td>合并平均持续时间 — 合并的平均持续时间</td><td>ms</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_MergedUncompressedBytes[2m]) [1h:1m])</code></td><td>合并读取的未压缩字节数 — 后台合并读取的未压缩字节数（列以它们在内存中存储的形式）。这是合并前的字节数</td><td>bytes</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_MergedRows[2m]) [1h:1m])</code></td><td>合并读取的行数 — 后台合并读取的行数。这是合并前的行数</td><td>行</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_Merge[2m]) [1h:1m])</code></td><td>后台合并次数 — 启动的后台合并次数</td><td>次</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_ReplicatedPartMerges[2m]) [1h:1m])</code></td><td>复制部分合并次数 — ReplicatedMergeTree表的数据部分成功合并的次数</td><td>次</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_ReplicatedDataLoss[2m]) [1h:1m])</code></td><td>复制部分数据丢失次数 — 数据在任何副本上都不存在的次数（即使是现在离线的副本）。这些数据部分肯定丢失了。由于异步复制（如果未启用配额插入），当写入数据部分的副本失败并且在故障后重新联机时不包含该数据部分，这是正常现象</td><td>次</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_FailedInsertQuery[2m]) [1h:1m])</code></td><td>失败的INSERT查询数 — 与失败的查询相同，但仅限于INSERT查询</td><td>次</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_FailedSelectQuery[2m]) [1h:1m])</code></td><td>失败的SELECT查询数 — 与失败的查询相同，但仅限于SELECT查询</td><td>次查询</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_FailedQuery[2m]) [1h:1m])</code></td><td>失败的查询数 — 失败的查询数量</td><td>次查询</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_DelayedInserts[2m]) [1h:1m])</code></td><td>延迟插入次数 — 由于分区的活动数据部分数量过多，INSERT到MergeTree表的块被限制的次数</td><td>次</td></tr><tr><td><code>increase(ClickHouseProfileEvents_DelayedInsertsMilliseconds[1m]) / (increase(ClickHouseProfileEvents_DelayedInserts[1m]) + 0.01)</code></td><td>延迟插入阻塞的平均等待时间 — 由于分区的活动数据部分数量过多，INSERT到MergeTree表的块被限制时的总等待时间（毫秒）</td><td>ms</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_SlowRead[2m]) [1h:1m])</code></td><td>慢查询次数 — 从文件中进行慢查询读取的次数，这表明系统过载</td><td>次</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_FileOpen[2m]) [1h:1m])</code></td><td>打开的文件数 — 打开的文件数量</td><td>个文件</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_RejectedInserts[2m]) [1h:1m])</code></td><td>拒绝插入次数 — 由于分区的活动数据部分数量过多，INSERT到MergeTree表的块被拒绝的次数</td><td>次</td></tr><tr><td><code>ClickHouseMetrics_PartsCommitted</code></td><td>提交部分数 — 已经提交的数据部分的数量</td><td>parts</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_InsertedBytes[2m]) [1h:1m])</code></td><td>插入字节数 — 所有表INSERT的字节数（未压缩列以它们在内存中存储的形式）</td><td>bytes</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_InsertedRows[2m]) [1h:1m])</code></td><td>插入行数 — 所有表INSERT的行数</td><td>行</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_UncompressedCacheHits[2m]) [1h:1m])</code></td><td>未压缩缓存命中次数 — 未压缩缓存命中的次数</td><td>次</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_UncompressedCacheMisses[2m]) [1h:1m])</code></td><td>未压缩缓存未命中次数 — 未压缩缓存未命中的次数</td><td>次</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_QueryMemoryLimitExceeded[2m]) [1h:1m])</code></td><td>查询内存限制超标次数 — 查询内存限制超标的次数</td><td>次</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_ReadBackoff[2m]) [1h:1m])</code></td><td>查询处理线程降低次数 — 由于慢查询读取，降低查询处理线程数的次数</td><td>次</td></tr><tr><td><code>increase(ClickHouseProfileEvents_QueryTimeMicroseconds[1m]) / (increase(ClickHouseProfileEvents_Query[1m]) + 0.001)</code></td><td>查询平均延迟 — 查询平均延迟</td><td>μs</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_Query[2m]) [1h:1m])</code></td><td>查询总数 — 需要解释和可能执行的查询数量，不包括失败的查询</td><td>次查询</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_MarkCacheHits[2m]) [1h:1m])</code></td><td>标记缓存命中次数 — 标记缓存命中的次数</td><td>次</td></tr><tr><td><code>rate(ClickHouseProfileEvents_MarkCacheMisses[2m])</code></td><td>标记缓存未命中次数 — 标记缓存未命中的次数</td><td>次</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_CompressedReadBufferBlocks[2m]) [1h:1m])</code></td><td>读取的压缩块数 — 从压缩源（文件，网络）读取的压缩块数（独立压缩的数据块）</td><td>块</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_SelectedParts[2m]) [1h:1m])</code></td><td>读取的数据部分数 — 从MergeTree表读取的数据部分数</td><td>parts</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_CompressedReadBufferBytes[2m]) [1h:1m])</code></td><td>读取的未压缩字节数 — 从压缩源（文件，网络）读取的未压缩字节数（解压后的字节数）</td><td>bytes</td></tr><tr><td><code>irate(ClickHouseProfileEvents_SelectedMarks[2m])</code></td><td>读取的标记数 — 从MergeTree表读取的标记数（索引粒度）</td><td>marks</td></tr><tr><td><code>max_over_time(irate(ClickHouseProfileEvents_SelectedRanges[2m]) [1h:1m])</code></td><td>读取的范围数 — 从MergeTree表读取的所有数据部分中（非相邻）的范围数</td><td>ranges</td></tr><tr><td><code>ClickHouseMetrics_PartsPreCommitted</code></td><td>预提交部分数 — 在数据部分中，但不用于SELECT查询的部分</td><td>parts</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="相关链接">相关链接<a href="#相关链接" class="hash-link" aria-label="相关链接的直接链接" title="相关链接的直接链接" translate="no">​</a></h2>
+<ul>
+<li class="">[ClickHouse 模板源文件](<a href="https://github.com/ccfos/nightingale/tree/main/integrations/ClickHouse%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84" target="_blank" rel="noopener noreferrer" class="">https://github.com/ccfos/nightingale/tree/main/integrations/ClickHouse）：仪表盘、规则和采集配置的</a> JSON 原文，欢迎提 PR。</li>
+<li class=""><a href="https://github.com/flashcatcloud/categraf/tree/main/inputs/clickhouse" target="_blank" rel="noopener noreferrer" class="">Categraf <code>clickhouse</code> 插件文档</a>：完整配置项和指标列表。</li>
+<li class=""><a class="" href="/zh/docs/data/clickhouse-doris-iotdb">把 ClickHouse 接成数据源</a></li>
+<li class=""><a class="" href="/zh/docs/data/integrations/import">导入仪表盘和告警规则</a></li>
+<li class=""><a class="" href="/zh/docs/data/integrations/verify">核对指标是否入库</a></li>
+<li class=""><a class="" href="/zh/integrations">全部集成目录</a></li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><span class="n9e-doc-actions"><a href="https://github.com/ccfos/nightingale/tree/main/integrations/ClickHouse" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a><a href="https://github.com/n9e/n9e.github.io/issues/new?title=%E6%96%87%E6%A1%A3%E5%8F%8D%E9%A6%88%EF%BC%9A%2Fzh%2Fintegrations%2Fclickhouse&amp;body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fzh%2Fintegrations%2Fclickhouse%0A%0A" target="_blank" rel="noopener noreferrer" class="n9e-doc-issue">报告问题</a></span></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/zh/integrations/elasticsearch"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">Elasticsearch</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/zh/integrations/doris"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">Doris</div></a></nav></div></div><div class="col col--3"><div class="n9e-toc"><p class="n9e-toc-title">本页目录</p><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#模板里有什么" class="table-of-contents__link toc-highlight">模板里有什么</a></li><li><a href="#怎么接入" class="table-of-contents__link toc-highlight">怎么接入</a></li><li><a href="#内置仪表盘" class="table-of-contents__link toc-highlight">内置仪表盘</a></li><li><a href="#内置告警规则" class="table-of-contents__link toc-highlight">内置告警规则</a></li><li><a href="#指标说明" class="table-of-contents__link toc-highlight">指标说明</a></li><li><a href="#相关链接" class="table-of-contents__link toc-highlight">相关链接</a></li></ul></div></div></div></div><footer class="footer_aQsI"><p class="copyright_HrmU">© 2026 Nightingale Contributors · Apache-2.0</p><div class="controls_xEY2"><nav class="locales_D62L" aria-label="Language"><a href="/integrations/clickhouse" target="_blank" rel="noopener noreferrer" class="locale_WPDf">English</a><a href="/zh/integrations/clickhouse" target="_blank" rel="noopener noreferrer" class="locale_WPDf localeActive_aVX1" aria-current="page">简体中文</a></nav><div class="toggle_vylO"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></footer></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">产品</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/zh/docs">文档</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/download">下载</a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale/releases" target="_blank" rel="noopener noreferrer" class="footer__link-item">发布说明<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a class="footer__link-item" href="/zh/categraf">Categraf 采集器</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">资源</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/zh/integrations">集成生态</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/comparisons">产品对比</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/comparisons/zabbix-alternatives">Zabbix 替代方案</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/comparisons/open-source-alerting-platforms">开源告警平台选型</a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale#-mcp-server" target="_blank" rel="noopener noreferrer" class="footer__link-item">MCP Server<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ccfos/nightingale" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale/issues" target="_blank" rel="noopener noreferrer" class="footer__link-item">Issues<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://join.slack.com/t/n9e/shared_invite/zt-480klxytf-P9qm3C1M87kDmRPp_H30Kw" target="_blank" rel="noopener noreferrer" class="footer__link-item">Slack<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">关于</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ccfos/nightingale/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="footer__link-item">Apache-2.0 License<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="themeRow_uGN8"><div class="toggle_vylO"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div><div class="localeRow_zDj8"><nav class="locales_D62L" aria-label="Language"><a href="/integrations/clickhouse" target="_blank" rel="noopener noreferrer" class="locale_WPDf">English</a><a href="/zh/integrations/clickhouse" target="_blank" rel="noopener noreferrer" class="locale_WPDf localeActive_aVX1" aria-current="page">简体中文</a></nav></div><div class="footer__copyright">© 2026 Nightingale Contributors · Apache-2.0</div></div></div></footer></div>
+</body>
+</html>

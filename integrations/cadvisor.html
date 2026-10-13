@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-integrations docs-version-current docs-doc-page docs-doc-id-cadvisor" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">Monitor cAdvisor with Nightingale | Nightingale</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://n9e.github.io/img/og-en.png"><meta data-rh="true" name="twitter:image" content="https://n9e.github.io/img/og-en.png"><meta data-rh="true" property="og:url" content="https://n9e.github.io/integrations/cadvisor"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" property="og:locale:alternate" content="zh_CN"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" property="og:image:width" content="1200"><meta data-rh="true" property="og:image:height" content="630"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-integrations-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-integrations-current"><meta data-rh="true" property="og:title" content="Monitor cAdvisor with Nightingale | Nightingale"><meta data-rh="true" name="description" content="Scrapes the cAdvisor built into kubelet or a standalone one for per-container CPU, memory, filesystem and network metrics; in kubelet mode it can attach Pod labels and annotations."><meta data-rh="true" property="og:description" content="Scrapes the cAdvisor built into kubelet or a standalone one for per-container CPU, memory, filesystem and network metrics; in kubelet mode it can attach Pod labels and annotations."><meta data-rh="true" property="og:type" content="article"><meta data-rh="true" property="article:modified_time" content="2026-10-13"><link data-rh="true" rel="icon" href="/img/favicon.png"><link data-rh="true" rel="canonical" href="https://n9e.github.io/integrations/cadvisor"><link data-rh="true" rel="alternate" href="https://n9e.github.io/integrations/cadvisor" hreflang="en"><link data-rh="true" rel="alternate" href="https://n9e.github.io/zh/integrations/cadvisor" hreflang="zh-CN"><link data-rh="true" rel="alternate" href="https://n9e.github.io/integrations/cadvisor" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"cAdvisor","item":"https://n9e.github.io/integrations/cadvisor"}]}</script><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Monitor cAdvisor with Nightingale","description":"Scrapes the cAdvisor built into kubelet or a standalone one for per-container CPU, memory, filesystem and network metrics; in kubelet mode it can attach Pod labels and annotations.","inLanguage":"en","dateModified":"2026-10-13","url":"https://n9e.github.io/integrations/cadvisor"}</script><link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-400-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-700-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-800-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/jetbrains-mono-latin-400-normal.woff2" crossorigin="anonymous">
+<style>@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/archivo-latin-ext-400-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/archivo-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/archivo-latin-ext-500-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/archivo-latin-500-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 600; src: url(/fonts/archivo-latin-ext-600-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 600; src: url(/fonts/archivo-latin-600-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/archivo-latin-ext-700-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/archivo-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 800; src: url(/fonts/archivo-latin-ext-800-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 800; src: url(/fonts/archivo-latin-800-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/jetbrains-mono-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/jetbrains-mono-latin-500-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/jetbrains-mono-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+
+/* 度量匹配的回退字体：Archivo 没到时用 Arial 占位，字宽和行高按 Archivo 的度量调过，切换时几乎不重排 */
+@font-face { font-family: 'Archivo Fallback'; font-weight: 400; src: local('Arial'), local('Liberation Sans'); size-adjust: 115.77%; ascent-override: 75.84%; descent-override: 18.14%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 500; src: local('Arial'), local('Liberation Sans'); size-adjust: 117.58%; ascent-override: 74.67%; descent-override: 17.86%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 600; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 110.34%; ascent-override: 79.57%; descent-override: 19.03%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 700; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 113.27%; ascent-override: 77.51%; descent-override: 18.54%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 800; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 117.65%; ascent-override: 74.63%; descent-override: 17.85%; line-gap-override: 0%; }
+/* JetBrains Mono 对 Menlo（macOS）；Consolas / DejaVu 只是兜底，度量按 Menlo 算 */
+@font-face { font-family: 'JetBrains Mono Fallback'; src: local('Menlo'), local('Consolas'), local('DejaVu Sans Mono'); size-adjust: 99.66%; ascent-override: 102.35%; descent-override: 30.10%; line-gap-override: 0%; }
+</style>
+<script>!function(){try{var e=window.location,t=e.pathname;if(t.length>1&&"/"===t.charAt(t.length-1)&&"/zh/"!==t)return void e.replace(t.replace(/\/+$/,"")+e.search+e.hash);var n,a=new URLSearchParams(e.search),r=window.self!==window.top;try{n=window.sessionStorage}catch(i){}function o(e){try{return n&&n.getItem(e)}catch(e){return null}}function h(e,t){try{n&&n.setItem(e,t)}catch(e){}}if(!(a.has("onlyContent")||r&&"1"===o("n9e-embed")))return;var c=a.get("theme");if("dark"!==c&&"light"!==c&&(c=r?o("n9e-embed-theme"):null),r&&(h("n9e-embed","1"),c&&h("n9e-embed-theme",c)),document.documentElement.setAttribute("data-n9e-embed",""),e.hash){var s=decodeURIComponent(e.hash.slice(1));window.addEventListener("load",function(){setTimeout(function(){var e=document.getElementById(s);e&&e.scrollIntoView({behavior:"instant",block:"start"})},0)})}c&&!a.has("docusaurus-theme")&&(a.set("docusaurus-theme",c),history.replaceState(history.state,"",t+"?"+a.toString()+e.hash))}catch(d){}}()</script>
+<script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?9d7cc507a7aae60b28b5e04bb995492a",e.async=!0;var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><link rel="stylesheet" href="/assets/css/styles.4f3e9aef.css">
+<script src="/assets/js/runtime~main.3eefea0d.js" defer="defer"></script>
+<script src="/assets/js/main.42aa04ff.js" defer="defer"></script>
+<link rel="alternate" type="text/markdown" href="https://n9e.github.io/integrations/cadvisor.md"><link rel="describedby" href="https://n9e.github.io/llms.txt"></head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"dark"),document.documentElement.setAttribute("data-theme-choice",t||"dark")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo-mark.webp" alt="Nightingale" class="themedComponent_mlkZ themedComponent--light_NVdE" height="26" width="25"><img src="/img/logo-mark.webp" alt="Nightingale" class="themedComponent_mlkZ themedComponent--dark_xIcU" height="26" width="25"></div><b class="navbar__title text--truncate">Nightingale</b></a><a class="navbar__item navbar__link" href="/docs">Docs</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/integrations">Integrations</a><a class="navbar__item navbar__link" href="/comparisons">Comparisons</a><a class="navbar__item navbar__link" href="/download">Download</a><div class="navbar__item dropdown dropdown--hoverable"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">Community</a><ul class="dropdown__menu"><li><a href="https://github.com/ccfos/nightingale/issues" target="_blank" rel="noopener noreferrer" class="dropdown__link">Open an issue<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li><a href="https://join.slack.com/t/n9e/shared_invite/zt-480klxytf-P9qm3C1M87kDmRPp_H30Kw" target="_blank" rel="noopener noreferrer" class="dropdown__link">Slack<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://play.n9e.io/api/n9e/auth/demo-login" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">Live demo<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://github.com/ccfos/nightingale" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link navbar-github" aria-label="GitHub, 13337 stars">13.3k<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="mobileOnly_k8CN"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB n9e-docs-root n9e-docs-root--single"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><div class="searchWrap_zhtN"></div><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/integrations"><span class="linkLabel_WmDU">All integrations</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/linux"><span class="categoryLinkLabel_W154">Hosts &amp; hardware</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/linux"><span class="linkLabel_WmDU">Linux</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/windows"><span class="linkLabel_WmDU">Windows</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/systemd"><span class="linkLabel_WmDU">Systemd</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/smart"><span class="linkLabel_WmDU">SMART</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/ipmi"><span class="linkLabel_WmDU">IPMI</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/nvidia"><span class="linkLabel_WmDU">NVIDIA</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/amd-rocm-smi"><span class="linkLabel_WmDU">AMD ROCm SMI</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/exec"><span class="linkLabel_WmDU">Exec</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/mysql"><span class="categoryLinkLabel_W154">Databases &amp; storage</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/mysql"><span class="linkLabel_WmDU">MySQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/postgresql"><span class="linkLabel_WmDU">PostgreSQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/redis"><span class="linkLabel_WmDU">Redis</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/mongodb"><span class="linkLabel_WmDU">MongoDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/oracle"><span class="linkLabel_WmDU">Oracle</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/sqlserver"><span class="linkLabel_WmDU">SQLServer</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/elasticsearch"><span class="linkLabel_WmDU">Elasticsearch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/clickhouse"><span class="linkLabel_WmDU">ClickHouse</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/doris"><span class="linkLabel_WmDU">Doris</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/tidb"><span class="linkLabel_WmDU">TiDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/victoriametrics"><span class="linkLabel_WmDU">VictoriaMetrics</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/kafka"><span class="categoryLinkLabel_W154">Message queues</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/kafka"><span class="linkLabel_WmDU">Kafka</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/rabbitmq"><span class="linkLabel_WmDU">RabbitMQ</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/nsq"><span class="linkLabel_WmDU">NSQ</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/emqx"><span class="linkLabel_WmDU">EMQX</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/automq"><span class="linkLabel_WmDU">AutoMQ</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/nginx"><span class="categoryLinkLabel_W154">Web &amp; middleware</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/nginx"><span class="linkLabel_WmDU">Nginx</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/apache"><span class="linkLabel_WmDU">Apache</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/haproxy"><span class="linkLabel_WmDU">HAProxy</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/tomcat"><span class="linkLabel_WmDU">Tomcat</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/java"><span class="linkLabel_WmDU">Java</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/springboot"><span class="linkLabel_WmDU">SpringBoot</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/php"><span class="linkLabel_WmDU">PHP</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/consul"><span class="linkLabel_WmDU">Consul</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/ldap"><span class="linkLabel_WmDU">Ldap</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/bind"><span class="linkLabel_WmDU">Bind</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/logstash"><span class="linkLabel_WmDU">Logstash</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/mtail"><span class="linkLabel_WmDU">Mtail</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/integrations/kubernetes"><span class="categoryLinkLabel_W154">Containers &amp; cloud native</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/kubernetes"><span class="linkLabel_WmDU">Kubernetes</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/docker"><span class="linkLabel_WmDU">Docker</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/integrations/cadvisor"><span class="linkLabel_WmDU">cAdvisor</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/ceph"><span class="linkLabel_WmDU">Ceph</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/minio"><span class="linkLabel_WmDU">MinIO</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/openstack"><span class="linkLabel_WmDU">OpenStack</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/vsphere"><span class="linkLabel_WmDU">vSphere</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/aliyun"><span class="categoryLinkLabel_W154">Cloud providers &amp; CDN</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/aliyun"><span class="linkLabel_WmDU">Alibaba Cloud</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/huawei"><span class="linkLabel_WmDU">Huawei Cloud</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/tencent"><span class="linkLabel_WmDU">Tencent Cloud</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/cloudwatch"><span class="linkLabel_WmDU">CloudWatch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/azure"><span class="linkLabel_WmDU">Azure</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/snmp"><span class="categoryLinkLabel_W154">Network &amp; probes</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/snmp"><span class="linkLabel_WmDU">SNMP</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/switch-legacy"><span class="linkLabel_WmDU">Switch (legacy)</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/ping"><span class="linkLabel_WmDU">Ping</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/net-response"><span class="linkLabel_WmDU">Net Response</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/dns-query"><span class="linkLabel_WmDU">DNS Query</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/integrations/gitlab"><span class="categoryLinkLabel_W154">DevOps &amp; others</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/integrations/gitlab"><span class="linkLabel_WmDU">Gitlab</span></a></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">Containers &amp; cloud native</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">cAdvisor</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header class="n9e-doc-header"><h1>Monitor cAdvisor with Nightingale</h1><p class="n9e-doc-lead">Scrapes the cAdvisor built into kubelet or a standalone one for per-container CPU, memory, filesystem and network metrics; in kubelet mode it can attach Pod labels and annotations.</p><p class="n9e-doc-reviewed">Last reviewed <time datetime="2026-10-13">2026-10-13</time></p></header><p>The cAdvisor input collects the <code>container_*</code> metrics that cAdvisor exposes: per-container CPU usage and throttling, memory working set and OOM events, filesystem reads and writes, network traffic and drops. Two ways to connect: <code>type = &quot;kubelet&quot;</code> scrapes the kubelet&#x27;s <code>/metrics/cadvisor</code> (port 10250, authenticated) and can attach Pod labels and annotations to the metrics; <code>type = &quot;cadvisor&quot;</code> scrapes a standalone cAdvisor (port 8080 by default).</p>
+<p>The dashboard shows resource usage per container and the metric reference explains each <code>container_*</code> metric. The rules cover CPU throttling, memory near the limit, OOM kills and network drops.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="whats-in-the-template">What&#x27;s in the template<a href="#whats-in-the-template" class="hash-link" aria-label="Direct link to What&#x27;s in the template" title="Direct link to What&#x27;s in the template" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>1 dashboard</strong>, 5 panels in total</li>
+<li class=""><strong>6 alert rules</strong>, each with runbook steps</li>
+<li class=""><strong>45 metric descriptions</strong></li>
+<li class=""><strong>Categraf collector config</strong>: <code>input.cadvisor</code></li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-to-connect">How to connect<a href="#how-to-connect" class="hash-link" aria-label="Direct link to How to connect" title="Direct link to How to connect" translate="no">​</a></h2>
+<ol>
+<li class="">
+<p><a class="" href="/docs/data/categraf/install">Install Categraf</a>, put the config below in <code>conf/input.cadvisor/cadvisor.toml</code>, fill in your own address and credentials, and restart Categraf. The startup log prints <code>input: local.cadvisor started</code> once the plugin is loaded.</p>
+<div class="language-toml codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-toml codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token comment" style="color:rgb(98, 114, 164)"># # collect interval</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># interval = 15</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token punctuation" style="color:rgb(248, 248, 242)">[</span><span class="token punctuation" style="color:rgb(248, 248, 242)">[</span><span class="token table class-name">instances</span><span class="token punctuation" style="color:rgb(248, 248, 242)">]</span><span class="token punctuation" style="color:rgb(248, 248, 242)">]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># url = &quot;https://1.2.3.4:10250&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># type = &quot;kubelet&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)">## url = &quot;http://1.2.3.4:8080/metrics&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)">## type = &quot;cadvisor&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># url_label_key = &quot;instance&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># url_label_value = &quot;{{.Host}}&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># bearer_token_string = &quot;eyJlonglongxxxx.eyJlonglongyyyy.oQsXlonglongZZZ&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)">## bearer_token_file = &quot;/path/to/token/file&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># ignore_label_keys = [&quot;id&quot;,&quot;name&quot;, &quot;container_label*&quot;]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)">## choose_label_keys = [&quot;id&quot;]</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># timeout = &quot;3s&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)"># use_tls = true</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)">## tls_min_version = &quot;1.2&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)">## tls_ca = &quot;/etc/categraf/ca.pem&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)">## tls_cert = &quot;/etc/categraf/cert.pem&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)">## tls_key = &quot;/etc/categraf/key.pem&quot;</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)">## Use TLS but skip chain &amp; host verification</span><span class="token plain"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token comment" style="color:rgb(98, 114, 164)">## insecure_skip_verify = true</span><br></div></code></pre></div></div>
+</li>
+<li class="">
+<p>Open the integration center in Nightingale, find cAdvisor, and <a class="" href="/docs/data/integrations/import">import the dashboards and alert rules</a> into a business group.</p>
+</li>
+<li class="">
+<p>Imported rules start disabled. <a class="" href="/docs/data/integrations/verify">Check that the metrics are arriving</a> first, then enable the rules one by one with thresholds that fit your environment.</p>
+</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="bundled-dashboards">Bundled dashboards<a href="#bundled-dashboards" class="hash-link" aria-label="Direct link to Bundled dashboards" title="Direct link to Bundled dashboards" translate="no">​</a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Dashboard</th><th style="text-align:right">Panels</th></tr></thead><tbody><tr><td>cAdvisor</td><td style="text-align:right">5</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="bundled-alert-rules">Bundled alert rules<a href="#bundled-alert-rules" class="hash-link" aria-label="Direct link to Bundled alert rules" title="Direct link to Bundled alert rules" translate="no">​</a></h2>
+<p>6 rules. Each lists its trigger condition (PromQL) and the steps to take when it fires. Thresholds are meant to be adjusted after import.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="container-memory-approaching-its-limit">Container memory approaching its limit<a href="#container-memory-approaching-its-limit" class="hash-link" aria-label="Direct link to Container memory approaching its limit" title="Direct link to Container memory approaching its limit" translate="no">​</a></h3>
+<p>S1 Critical · for 5 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">container_memory_working_set_bytes{name!=&quot;&quot;} / (container_spec_memory_limit_bytes{name!=&quot;&quot;} &gt; 0) * 100 &gt; 90</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Take name from the alert labels and run docker stats &lt;name&gt; or kubectl top pod to confirm live usage;</li>
+<li class="">Use the application&#x27;s own memory analysis inside the container (jmap -histo:live for Java, pprof heap for Go) to separate normal growth from a leak;</li>
+<li class="">If the limit is simply too small, raise it and redeploy, adjusting the application&#x27;s own heap ceiling to match (-Xmx must leave room for off-heap memory);</li>
+<li class="">If it is a leak, estimate the remaining runway from the growth rate and add an automatic restart as a stopgap while you investigate the code.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="container-oom-killed">Container OOM killed<a href="#container-oom-killed" class="hash-link" aria-label="Direct link to Container OOM killed" title="Direct link to Container OOM killed" translate="no">​</a></h3>
+<p>S1 Critical · for 1 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(container_oom_events_total{name!=&quot;&quot;}[10m]) &gt; 0</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Take name from the alert labels and confirm the OOMKilled state via the State.OOMKilled field in docker inspect &lt;name&gt; output or with kubectl describe pod;</li>
+<li class="">Run dmesg -T | grep -i &#x27;killed process&#x27; to find the killed process and its memory usage at the time;</li>
+<li class="">Compare that usage against the limit and raise the limit if it is clearly too small;</li>
+<li class="">If usage looks abnormal, investigate it as a memory leak; for Java, -Xmx must be smaller than the container limit with room for off-heap memory or an OOM is guaranteed.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="container-cpu-heavily-throttled">Container CPU heavily throttled<a href="#container-cpu-heavily-throttled" class="hash-link" aria-label="Direct link to Container CPU heavily throttled" title="Direct link to Container CPU heavily throttled" translate="no">​</a></h3>
+<p>S2 Warning · for 5 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">rate(container_cpu_cfs_throttled_periods_total{name!=&quot;&quot;}[5m]) / (rate(container_cpu_cfs_periods_total{name!=&quot;&quot;}[5m]) &gt; 0) * 100 &gt; 25</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Take name from the alert labels and confirm the growth of nr_throttled and throttled_usec with cat /sys/fs/cgroup/cpu.stat (cgroup v2);</li>
+<li class="">Compare actual CPU usage against the limit; being throttled while below the limit usually means bursts are being sliced up by the 100 ms period, so raise the limit slightly or lower in-period concurrency;</li>
+<li class="">A common trigger is a JVM or Go runtime sizing thread pools from the host core count; set GOMAXPROCS or -XX:ActiveProcessorCount to match the limit;</li>
+<li class="">If more compute is genuinely needed, raise the CPU limit and watch the throttling ratio fall.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="container-filesystem-usage-too-high">Container filesystem usage too high<a href="#container-filesystem-usage-too-high" class="hash-link" aria-label="Direct link to Container filesystem usage too high" title="Direct link to Container filesystem usage too high" translate="no">​</a></h3>
+<p>S2 Warning · for 5 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">container_fs_usage_bytes{name!=&quot;&quot;} / (container_fs_limit_bytes{name!=&quot;&quot;} &gt; 0) * 100 &gt; 85</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Take name and device from the alert labels and run docker exec &lt;name&gt; du -sh /* 2&gt;/dev/null | sort -rh | head to find the biggest consumers;</li>
+<li class="">In the vast majority of cases application logs are not being rotated: configure logrotate or switch to writing to stdout and let the runtime rotate them;</li>
+<li class="">If the writable layer is filling up, mount a volume for directories that need persistence rather than writing into the layer;</li>
+<li class="">As an emergency measure run docker system prune to reclaim host space from unused images and stopped containers.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="container-restarting-repeatedly">Container restarting repeatedly<a href="#container-restarting-repeatedly" class="hash-link" aria-label="Direct link to Container restarting repeatedly" title="Direct link to Container restarting repeatedly" translate="no">​</a></h3>
+<p>S2 Warning · for 5 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">changes(container_start_time_seconds{name!=&quot;&quot;}[1h]) &gt; 3</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Take name from the alert labels and run docker logs --tail 200 &lt;name&gt; or kubectl logs --previous to read the logs from before the last exit;</li>
+<li class="">Run docker inspect &lt;name&gt; and check State.ExitCode and State.OOMKilled in the output to distinguish an OOM, a deliberate application exit, and a failing health check;</li>
+<li class="">Handle OOMKilled as a memory alert; for a non-zero exit code, find the start-up failure in the application logs (missing configuration, dependency not ready);</li>
+<li class="">If a health check is the cause, confirm the probe&#x27;s initial delay is longer than the real start-up time and raise the start period if needed.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="container-network-receive-packet-drops">Container network receive packet drops<a href="#container-network-receive-packet-drops" class="hash-link" aria-label="Direct link to Container network receive packet drops" title="Direct link to Container network receive packet drops" translate="no">​</a></h3>
+<p>S3 Info · for 5 min · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">rate(container_network_receive_packets_dropped_total{name!=&quot;&quot;}[5m]) &gt; 1</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Take name from the alert labels and run docker exec &lt;name&gt; cat /proc/net/dev plus ss -s to check drops and queue state;</li>
+<li class="">If the receive queue is overflowing, raise the kernel&#x27;s net.core.netdev_max_backlog and the application&#x27;s accept queue (somaxconn);</li>
+<li class="">Check whether the host NIC is also dropping packets (ethtool -S &lt;nic&gt; | grep -i drop); if the problem is at the host level, do not chase it inside the container;</li>
+<li class="">If traffic genuinely exceeds the container&#x27;s networking capacity, evaluate switching to host networking or raising the bandwidth allocation.</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="metric-reference">Metric reference<a href="#metric-reference" class="hash-link" aria-label="Direct link to Metric reference" title="Direct link to Metric reference" translate="no">​</a></h2>
+<p>45 metrics, the ones the dashboards and rules above are built on.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Metric</th><th>Meaning</th><th>Unit</th></tr></thead><tbody><tr><td><code>irate(container_cpu_system_seconds_total{image!=&quot;&quot;, image!~&quot;.*pause.*&quot;}[3m]) * 100</code></td><td>Container CPU utilization (system)</td><td>%</td></tr><tr><td><code>irate(container_cpu_user_seconds_total{image!=&quot;&quot;, image!~&quot;.*pause.*&quot;}[3m]) * 100</code></td><td>Container CPU utilization (user)</td><td>%</td></tr><tr><td><code>sum( irate(container_cpu_usage_seconds_total{image!=&quot;&quot;, image!~&quot;.*pause.*&quot;}[3m]) ) by (pod,namespace,container,image) / sum( container_spec_cpu_quota/container_spec_cpu_period ) by (pod,namespace,container,image)</code></td><td>Container CPU utilization (overall, the value will not be greater than 100) — Only containers with limit set can calculate this utilization</td><td>%</td></tr><tr><td><code>irate(container_cpu_usage_seconds_total{image!=&quot;&quot;, image!~&quot;.*pause.*&quot;}[3m]) * 100</code></td><td>Container CPU utilization (overall, value may be greater than 100) — If 200%, it means that 2 cores are occupied</td><td>%</td></tr><tr><td><code>irate(container_cpu_cfs_periods_total{}[3m])</code></td><td>How many periods does the container CPU have per second</td><td></td></tr><tr><td><code>irate(container_cpu_cfs_throttled_periods_total{}[3m])</code></td><td>The amount of periods that the container CPU is throttle per second — If the container limits the CPU and the app requires too many algorithms, it will be suppressed. container _ CPU _ cfs _ throttled _ periods _ total counts how many periods have been suppressed in total. If suppression occurs recently, it needs attention. Some delay-sensitive apps are particularly affected. If it is suppressed, there is a high probability that it needs to be upgraded.</td><td></td></tr><tr><td><code>irate(container_cpu_cfs_throttled_periods_total{}[3m]) / irate(container_cpu_cfs_periods_total{}[3m]) * 100</code></td><td>The proportion of container CPU being throttle — If this value is greater than 0, pay attention</td><td>%</td></tr><tr><td><code>container_fs_usage_bytes / container_fs_limit_bytes * 100</code></td><td>Container filesystem usage</td><td>%</td></tr><tr><td><code>container_fs_usage_bytes</code></td><td>Container filesystem usage</td><td>bytes</td></tr><tr><td><code>container_fs_io_current</code></td><td>Container filesystem Current IO times</td><td></td></tr><tr><td><code>container_fs_limit_bytes</code></td><td>Container filesystem Total</td><td>bytes</td></tr><tr><td><code>container_fs_inodes_free</code></td><td>Container inode free amount</td><td>count</td></tr><tr><td><code>container_fs_inodes_total</code></td><td>Container inode total</td><td>count</td></tr><tr><td><code>100 - container_fs_inodes_free / container_fs_inodes_total * 100</code></td><td>Container inode usage</td><td>%</td></tr><tr><td><code>sum(irate(container_fs_writes_bytes_total[3m])) by (namespace, pod)</code></td><td>Container IO writes bytes per second</td><td>bytes/s</td></tr><tr><td><code>sum(irate(container_fs_reads_bytes_total[3m])) by (namespace, pod)</code></td><td>Container IO reads bytes per second</td><td>bytes/s</td></tr><tr><td><code>container_memory_cache{image!=&quot;&quot;, image!~&quot;.*pause.*&quot;}</code></td><td>Container memory cache amount</td><td>bytes</td></tr><tr><td><code>100 * container_memory_usage_bytes/container_spec_memory_limit_bytes and container_spec_memory_limit_bytes != 0</code></td><td>Container memory Usage (Usage) — If there is a large number of file IO and a large number of container _ memory _ cache, the size of container _ memory _ usage _ bytes and container _ memory _ working _ set _ bytes will be different</td><td>%</td></tr><tr><td><code>100 * container_memory_working_set_bytes/container_spec_memory_limit_bytes and container_spec_memory_limit_bytes != 0</code></td><td>Container memory usage rate (Working Set) — If there is a large number of file IO and a large number of container _ memory _ cache, the size of container _ memory _ usage _ bytes and container _ memory _ working _ set _ bytes will be different</td><td>%</td></tr><tr><td><code>container_memory_mapped_file{image!=&quot;&quot;, image!~&quot;.*pause.*&quot;}</code></td><td>Container memory usage (mapped _ file)</td><td>bytes</td></tr><tr><td><code>container_memory_rss{image!=&quot;&quot;, image!~&quot;.*pause.*&quot;}</code></td><td>Container memory usage (RSS)</td><td>bytes</td></tr><tr><td><code>container_memory_swap{image!=&quot;&quot;, image!~&quot;.*pause.*&quot;}</code></td><td>Container memory usage (Swap)</td><td>bytes</td></tr><tr><td><code>container_memory_usage_bytes{image!=&quot;&quot;, image!~&quot;.*pause.*&quot;}</code></td><td>Container memory Usage — If there is a large number of file IO and a large number of container _ memory _ cache, the size of container _ memory _ usage _ bytes and container _ memory _ working _ set _ bytes will be different</td><td>bytes</td></tr><tr><td><code>container_memory_working_set_bytes{image!=&quot;&quot;, image!~&quot;.*pause.*&quot;}</code></td><td>Container memory usage (Working Set) — If there is a large number of file IO and a large number of container _ memory _ cache, the size of container _ memory _ usage _ bytes and container _ memory _ working _ set _ bytes will be different</td><td>bytes</td></tr><tr><td><code>rate(container_memory_failures_total{}[3m])</code></td><td>Container memory allocation failures (per second)</td><td></td></tr><tr><td><code>container_spec_memory_limit_bytes{image!=&quot;&quot;, image!~&quot;.*pause.*&quot;}</code></td><td>Container memory limit</td><td>bytes</td></tr><tr><td><code>sum(irate(container_network_transmit_bytes_total[3m])) by (namespace, pod) * 8</code></td><td>Container net sends bits per second</td><td>bit/s</td></tr><tr><td><code>sum(irate(container_network_transmit_bytes_total[3m])) by (namespace, pod)</code></td><td>Container net sends bytes per second</td><td>bytes/s</td></tr><tr><td><code>irate(container_network_transmit_packets_total[3m])</code></td><td>Number of packets sent per second by container net</td><td>count</td></tr><tr><td><code>irate(container_network_transmit_packets_dropped_total[3m])</code></td><td>Number of drop packets sent by container net per second</td><td>count</td></tr><tr><td><code>irate(container_network_transmit_errors_total[3m])</code></td><td>Number of wrong packets sent by container net per second</td><td>count</td></tr><tr><td><code>sum(irate(container_network_receive_bytes_total[3m])) by (namespace, pod) * 8</code></td><td>The amount of bits received by the container net per second</td><td>bit/s</td></tr><tr><td><code>sum(irate(container_network_receive_bytes_total[3m])) by (namespace, pod)</code></td><td>Container net receives bytes per second</td><td>bytes/s</td></tr><tr><td><code>irate(container_network_receive_packets_total[3m])</code></td><td>Number of packets received per second by container net</td><td>count</td></tr><tr><td><code>irate(container_network_receive_packets_dropped_total[3m])</code></td><td>Number of drop packets received by container net per second</td><td>count</td></tr><tr><td><code>irate(container_network_receive_errors_total[3m])</code></td><td>Number of wrong packets received by container net per second</td><td>count</td></tr><tr><td><code>container_threads_max{image!=&quot;&quot;, image!~&quot;.*pause.*&quot;}</code></td><td>The maximum number of threads the container is allowed to run</td><td></td></tr><tr><td><code>container_ulimits_soft{image!=&quot;&quot;, image!~&quot;.*pause.*&quot;}</code></td><td>Process No. 1 soft ulimit value in container — Soft ulimit value for process # 1 inside the container. If-1, there is no limit.</td><td></td></tr><tr><td><code>container_start_time_seconds{image!=&quot;&quot;, image!~&quot;.*pause.*&quot;}</code></td><td>How long the container has been running</td><td>s</td></tr><tr><td><code>container_sockets{image!=&quot;&quot;, image!~&quot;.*pause.*&quot;}</code></td><td>Number of currently open sockets in the container</td><td></td></tr><tr><td><code>container_file_descriptors{image!=&quot;&quot;, image!~&quot;.*pause.*&quot;}</code></td><td>Container Number of currently open file handles</td><td></td></tr><tr><td><code>container_threads{image!=&quot;&quot;, image!~&quot;.*pause.*&quot;}</code></td><td>Number of threads currently running in the container</td><td></td></tr><tr><td><code>container_processes{image!=&quot;&quot;, image!~&quot;.*pause.*&quot;}</code></td><td>Number of processes currently running in the container</td><td></td></tr><tr><td><code>container_accelerator_memory_total_bytes</code></td><td>Container Total GPU Accelerator Available Memory</td><td>bytes</td></tr><tr><td><code>container_accelerator_memory_used_bytes</code></td><td>The amount of GPU accelerator card memory the container is using</td><td>bytes</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="related">Related<a href="#related" class="hash-link" aria-label="Direct link to Related" title="Direct link to Related" translate="no">​</a></h2>
+<ul>
+<li class=""><a href="https://github.com/ccfos/nightingale/tree/main/integrations/cAdvisor" target="_blank" rel="noopener noreferrer" class="">cAdvisor template source</a>: the raw JSON for dashboards, rules and collector config. Pull requests welcome.</li>
+<li class=""><a href="https://github.com/flashcatcloud/categraf/tree/main/inputs/cadvisor" target="_blank" rel="noopener noreferrer" class="">Categraf <code>cadvisor</code> plugin docs</a>: every config option and the full metric list.</li>
+<li class=""><a class="" href="/docs/data/integrations/import">Import dashboards and alert rules</a></li>
+<li class=""><a class="" href="/docs/data/integrations/verify">Verify that metrics are stored</a></li>
+<li class=""><a class="" href="/integrations">All integrations</a></li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><span class="n9e-doc-actions"><a href="https://github.com/ccfos/nightingale/tree/main/integrations/cAdvisor" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a><a href="https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fintegrations%2Fcadvisor&amp;body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fintegrations%2Fcadvisor%0A%0A" target="_blank" rel="noopener noreferrer" class="n9e-doc-issue">Report a problem</a></span></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/integrations/docker"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Docker</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/integrations/ceph"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Ceph</div></a></nav></div></div><div class="col col--3"><div class="n9e-toc"><p class="n9e-toc-title">On this page</p><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#whats-in-the-template" class="table-of-contents__link toc-highlight">What&#39;s in the template</a></li><li><a href="#how-to-connect" class="table-of-contents__link toc-highlight">How to connect</a></li><li><a href="#bundled-dashboards" class="table-of-contents__link toc-highlight">Bundled dashboards</a></li><li><a href="#bundled-alert-rules" class="table-of-contents__link toc-highlight">Bundled alert rules</a></li><li><a href="#metric-reference" class="table-of-contents__link toc-highlight">Metric reference</a></li><li><a href="#related" class="table-of-contents__link toc-highlight">Related</a></li></ul></div></div></div></div><footer class="footer_aQsI"><p class="copyright_HrmU">© 2026 Nightingale Contributors · Apache-2.0 License</p><div class="controls_xEY2"><nav class="locales_D62L" aria-label="Language"><a href="/integrations/cadvisor" target="_blank" rel="noopener noreferrer" class="locale_WPDf localeActive_aVX1" aria-current="page">English</a><a href="/zh/integrations/cadvisor" target="_blank" rel="noopener noreferrer" class="locale_WPDf">简体中文</a></nav><div class="toggle_vylO"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></footer></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Product</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs">Docs</a></li><li class="footer__item"><a class="footer__link-item" href="/download">Download</a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale/releases" target="_blank" rel="noopener noreferrer" class="footer__link-item">Release notes<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a class="footer__link-item" href="/categraf">Categraf collector</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Resources</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/integrations">Integrations</a></li><li class="footer__item"><a class="footer__link-item" href="/comparisons">Comparisons</a></li><li class="footer__item"><a class="footer__link-item" href="/comparisons/zabbix-alternatives">Zabbix alternatives</a></li><li class="footer__item"><a class="footer__link-item" href="/comparisons/open-source-alerting-platforms">Choosing an alerting platform</a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale#-mcp-server" target="_blank" rel="noopener noreferrer" class="footer__link-item">MCP Server<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ccfos/nightingale" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale/issues" target="_blank" rel="noopener noreferrer" class="footer__link-item">Issues<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://join.slack.com/t/n9e/shared_invite/zt-480klxytf-P9qm3C1M87kDmRPp_H30Kw" target="_blank" rel="noopener noreferrer" class="footer__link-item">Slack<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">About</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ccfos/nightingale/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="footer__link-item">Apache-2.0 License<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="themeRow_uGN8"><div class="toggle_vylO"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div><div class="localeRow_zDj8"><nav class="locales_D62L" aria-label="Language"><a href="/integrations/cadvisor" target="_blank" rel="noopener noreferrer" class="locale_WPDf localeActive_aVX1" aria-current="page">English</a><a href="/zh/integrations/cadvisor" target="_blank" rel="noopener noreferrer" class="locale_WPDf">简体中文</a></nav></div><div class="footer__copyright">© 2026 Nightingale Contributors · Apache-2.0 License</div></div></div></footer></div>
+</body>
+</html>
