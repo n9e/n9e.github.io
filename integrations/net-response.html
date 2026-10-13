@@ -31,8 +31,8 @@
 @font-face { font-family: 'JetBrains Mono Fallback'; src: local('Menlo'), local('Consolas'), local('DejaVu Sans Mono'); size-adjust: 99.66%; ascent-override: 102.35%; descent-override: 30.10%; line-gap-override: 0%; }
 </style>
 <script>!function(){try{var e=window.location,t=e.pathname;if(t.length>1&&"/"===t.charAt(t.length-1)&&"/zh/"!==t)return void e.replace(t.replace(/\/+$/,"")+e.search+e.hash);var n,a=new URLSearchParams(e.search),r=window.self!==window.top;try{n=window.sessionStorage}catch(i){}function o(e){try{return n&&n.getItem(e)}catch(e){return null}}function h(e,t){try{n&&n.setItem(e,t)}catch(e){}}if(!(a.has("onlyContent")||r&&"1"===o("n9e-embed")))return;var c=a.get("theme");if("dark"!==c&&"light"!==c&&(c=r?o("n9e-embed-theme"):null),r&&(h("n9e-embed","1"),c&&h("n9e-embed-theme",c)),document.documentElement.setAttribute("data-n9e-embed",""),e.hash){var s=decodeURIComponent(e.hash.slice(1));window.addEventListener("load",function(){setTimeout(function(){var e=document.getElementById(s);e&&e.scrollIntoView({behavior:"instant",block:"start"})},0)})}c&&!a.has("docusaurus-theme")&&(a.set("docusaurus-theme",c),history.replaceState(history.state,"",t+"?"+a.toString()+e.hash))}catch(d){}}()</script>
-<script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?9d7cc507a7aae60b28b5e04bb995492a",e.async=!0;var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><link rel="stylesheet" href="/assets/css/styles.4f3e9aef.css">
-<script src="/assets/js/runtime~main.3eefea0d.js" defer="defer"></script>
+<script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?9d7cc507a7aae60b28b5e04bb995492a",e.async=!0;var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><link rel="stylesheet" href="/assets/css/styles.f84208d0.css">
+<script src="/assets/js/runtime~main.e2e9de74.js" defer="defer"></script>
 <script src="/assets/js/main.42aa04ff.js" defer="defer"></script>
 <link rel="alternate" type="text/markdown" href="https://n9e.github.io/integrations/net-response.md"><link rel="describedby" href="https://n9e.github.io/llms.txt"></head>
 <body>
@@ -114,7 +114,7 @@
 
 
 
-<table><thead><tr><th>Metric</th><th>Meaning</th><th>Unit</th></tr></thead><tbody><tr><td><code>net_response_result_code</code></td><td>NET Probe Result Status Code — A value of 0 means normal, and a value greater than 0 means abnormal. The meanings of each value are as follows: -0: Success 1: Timeout 2: ConnectionFailed -3: ReadFailed 4: StringMismatch</td><td></td></tr><tr><td><code>net_response_response_time</code></td><td>NET probe time-consuming</td><td>s</td></tr></tbody></table>
+<table><thead><tr><th>Metric</th><th>Meaning</th><th>Unit</th></tr></thead><tbody><tr><td><code>net_response_result_code</code></td><td>NET Probe Result Status Code — A value of 0 means normal, and a value greater than 0 means abnormal. The meanings of each value are as follows:; 0: Success 1: Timeout 2: ConnectionFailed; 3: ReadFailed 4: StringMismatch</td><td></td></tr><tr><td><code>net_response_response_time</code></td><td>NET probe time-consuming</td><td>s</td></tr></tbody></table>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="related">Related<a href="#related" class="hash-link" aria-label="Direct link to Related" title="Direct link to Related" translate="no">​</a></h2>
 <ul>
 <li class=""><a href="https://github.com/ccfos/nightingale/tree/main/integrations/Net_Response" target="_blank" rel="noopener noreferrer" class="">Net Response template source</a>: the raw JSON for dashboards, rules and collector config. Pull requests welcome.</li>

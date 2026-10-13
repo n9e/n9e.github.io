@@ -133,7 +133,7 @@ Runbook:
 
 | Metric                       | Meaning                                                                                                                                                                                                                     | Unit |
 | ---------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
-| `net_response_result_code`   | NET Probe Result Status Code — A value of 0 means normal, and a value greater than 0 means abnormal. The meanings of each value are as follows: -0: Success 1: Timeout 2: ConnectionFailed -3: ReadFailed 4: StringMismatch |      |
+| `net_response_result_code`   | NET Probe Result Status Code — A value of 0 means normal, and a value greater than 0 means abnormal. The meanings of each value are as follows:; 0: Success 1: Timeout 2: ConnectionFailed; 3: ReadFailed 4: StringMismatch |      |
 | `net_response_response_time` | NET probe time-consuming                                                                                                                                                                                                    | s    |
 
 ## Related[​](#related "Direct link to Related")
