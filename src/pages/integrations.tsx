@@ -127,13 +127,20 @@ export default function IntegrationsPage(): React.ReactElement {
   const categories = CATEGORY_ORDER.filter((c) => catalog.items.some((i) => i.category === c));
   // 没搜索、没选分类、没点展开时是概览：只露最常用的四行
   const overview = category === 'all' && !q && !expanded;
+  const shownTemplates = overview ? featured(byQuery) : visibleTemplates;
+  const shownTemplateIds = new Set(shownTemplates.map((item) => item.ident));
+  // 完整目录始终在 HTML 中，分类和搜索只控制显隐。概览把精选卡片排在前面，
+  // 保留手机 / 窄屏按前 4 / 8 张展示的规则；展开与筛选仍沿用目录原顺序。
+  const orderedTemplates = overview
+    ? [...shownTemplates, ...catalog.items.filter((item) => !shownTemplateIds.has(item.ident))]
+    : catalog.items;
 
   function collapse() {
     setExpanded(false);
     document.getElementById('templates')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  function renderCard(item: Template): React.ReactElement {
+  function renderCard(item: Template, hidden: boolean): React.ReactElement {
     const onlyLang = item.readme.zh && !item.readme.en ? 'zh' : item.readme.en && !item.readme.zh ? 'en' : null;
     const bundle = [
       item.dashboards > 0 && plural(page.templates.badges.dashboards, item.dashboards),
@@ -142,7 +149,7 @@ export default function IntegrationsPage(): React.ReactElement {
       item.metrics > 0 && page.templates.badges.metrics,
     ].filter(Boolean) as string[];
     return (
-      <li key={item.ident}>
+      <li key={item.ident} hidden={hidden}>
         <Link
           className={styles.card}
           to={PAGE_SLUG.has(item.ident) ? `/integrations/${PAGE_SLUG.get(item.ident)}` : readmeUrl(item, i18n.currentLocale)}
@@ -331,28 +338,20 @@ export default function IntegrationsPage(): React.ReactElement {
               })}
             </div>
 
-            {overview ? (
-              // 「全部」不平铺 83 张：先给最常用的四行，想看全的展开或点分类
-              <>
-                <ul className={clsx(styles.cards, styles.cardsFeatured)}>
-                  {featured(byQuery).map(renderCard)}
-                </ul>
-                <button type="button" className={styles.expand} onClick={() => setExpanded(true)}>
-                  {page.templates.showAll.replace('{n}', String(byQuery.length))} ↓
-                </button>
-              </>
-            ) : visibleTemplates.length > 0 ? (
-              <>
-                <ul className={styles.cards}>
-                  {visibleTemplates.map(renderCard)}
-                </ul>
-                {expanded && category === 'all' && !q && (
-                  <button type="button" className={styles.expand} onClick={collapse}>
-                    {page.templates.showLess} ↑
-                  </button>
-                )}
-              </>
-            ) : (
+            <ul className={clsx(styles.cards, overview && styles.cardsFeatured)} hidden={shownTemplates.length === 0}>
+              {orderedTemplates.map((item) => renderCard(item, !shownTemplateIds.has(item.ident)))}
+            </ul>
+            {overview && (
+              <button type="button" className={styles.expand} onClick={() => setExpanded(true)}>
+                {page.templates.showAll.replace('{n}', String(byQuery.length))} ↓
+              </button>
+            )}
+            {expanded && category === 'all' && !q && (
+              <button type="button" className={styles.expand} onClick={collapse}>
+                {page.templates.showLess} ↑
+              </button>
+            )}
+            {shownTemplates.length === 0 && (
               <div className={styles.empty}>
                 <h3>{page.search.emptyTitle}</h3>
                 <p>{page.search.emptyBody}</p>

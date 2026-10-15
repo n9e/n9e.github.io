@@ -235,6 +235,12 @@
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+/* 卡片始终预渲染；显式保留 hidden 的效果，避免列表布局样式覆盖浏览器默认规则。 */
+.cards[hidden],
+.cards > li[hidden] {
+  display: none;
+}
+
 .expand {
   display: flex;
   align-items: center;
