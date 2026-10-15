@@ -100,7 +100,7 @@ export const en: SiteCopy = {
         body: 'Storms collapse into an aggregated view by business group and severity. Mute rules, subscriptions and event pipelines filter what is left, and the survivors reach people through 20 notification channels. Wire up ibex when an alert should fix itself.',
         points: [
           'DingTalk, Feishu, WeCom, phone, SMS, Slack and 15 more',
-          'Event pipelines group similar alerts, rewrite labels and route conditionally',
+          'Event pipelines rewrite labels and route conditionally',
         ],
         shot: 'img/step-automate-en.webp',
         shotSize: [1600, 830],

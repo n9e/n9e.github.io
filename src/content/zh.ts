@@ -93,7 +93,7 @@ export const zh: SiteCopy = {
         body: '告警风暴先在聚合视图里按业务组和级别收敛，再经屏蔽规则、订阅规则、事件 Pipeline 逐层过滤，最后按人按组送到 20 种通知媒介。需要自动处置就接 ibex 跑自愈脚本。',
         points: [
           '钉钉、飞书、企业微信、电话、短信、Slack 等 20 种内置媒介',
-          '事件 Pipeline：聚合相似告警、改写标签、按条件路由',
+          '事件 Pipeline：改写标签、按条件路由',
         ],
         shot: 'img/step-automate.webp',
         shotSize: [1600, 654],
