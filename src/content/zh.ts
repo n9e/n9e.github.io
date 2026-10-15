@@ -570,7 +570,7 @@ export const zh: SiteCopy = {
         themColumn: 'Zabbix',
         rows: [
           { label: '采集模型', us: { level: 'partial', text: 'Categraf 或已有 exporter，按 Remote Write 推送' }, them: { level: 'full', text: 'Zabbix Agent / Agent2、SNMP、IPMI、JMX，自动发现与 LLD' } },
-          { label: '数据存储', us: { level: 'full', text: '不自存，直接读 Prometheus、VictoriaMetrics、ES、ClickHouse；小规模可用内置时序库' }, them: { level: 'full', text: '自带 Server + MySQL / PostgreSQL / TimescaleDB' } },
+          { label: '数据存储', us: { level: 'full', text: '内置时序库适合小规模单 Center；也可直接读 Prometheus、VictoriaMetrics、ES、ClickHouse，多 Center 部署使用外部时序库' }, them: { level: 'full', text: '自带 Server + MySQL / PostgreSQL / TimescaleDB' } },
           { label: '告警对象', us: { level: 'full', text: '一条规则覆盖查询返回的所有序列' }, them: { level: 'partial', text: '触发器逐主机生成，一个模板挂 1000 台就是 1000 组' } },
           { label: '规则语法', us: { level: 'full', text: 'PromQL / SQL / LogQL，随数据源' }, them: { level: 'full', text: '触发器表达式与函数库' } },
           { label: '严重级别', us: { level: 'partial', text: 'S1 / S2 / S3 三档' }, them: { level: 'full', text: '六档' } },

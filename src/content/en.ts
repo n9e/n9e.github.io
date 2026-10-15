@@ -617,7 +617,7 @@ export const en: SiteCopy = {
         themColumn: 'Zabbix',
         rows: [
           { label: 'Collection model', us: { level: 'partial', text: 'Categraf or your existing exporters, pushed over Remote Write' }, them: { level: 'full', text: 'Zabbix agent / agent 2, SNMP, IPMI, JMX, auto-discovery and LLD' } },
-          { label: 'Storage', us: { level: 'full', text: 'None of its own: reads Prometheus, VictoriaMetrics, Elasticsearch, ClickHouse; embedded TSDB for small setups' }, them: { level: 'full', text: 'Its own server with MySQL / PostgreSQL / TimescaleDB' } },
+          { label: 'Storage', us: { level: 'full', text: 'Embedded TSDB for small, single-Center setups; also reads Prometheus, VictoriaMetrics, Elasticsearch and ClickHouse. Multi-Center deployments use an external TSDB' }, them: { level: 'full', text: 'Its own server with MySQL / PostgreSQL / TimescaleDB' } },
           { label: 'What a rule covers', us: { level: 'full', text: 'One rule covers every series the query returns' }, them: { level: 'partial', text: 'Triggers are generated per host; a template on 1,000 hosts is 1,000 trigger sets' } },
           { label: 'Rule language', us: { level: 'full', text: 'PromQL / SQL / LogQL, depending on the source' }, them: { level: 'full', text: 'Trigger expressions and function library' } },
           { label: 'Severity levels', us: { level: 'partial', text: 'Three: S1 / S2 / S3' }, them: { level: 'full', text: 'Six' } },

@@ -2,13 +2,14 @@
 title: "发布说明"
 sidebar_label: "发布说明"
 description: "除 GitHub 变更记录之外，每个版本带升级影响说明的整理版。"
-last_reviewed: 2026-10-10
+last_reviewed: 2026-10-15
 ---
 
 这页不复述变更列表——完整的逐条改动一直在 GitHub 上，而且比这里更新得快。
 这页只回答一件事：**升到某个版本，我需要动什么。**
 
-整理到 **v9.1.1（2026-08-18）**。比它新的版本请直接看 GitHub。
+整理到 **[v9.2.0（2026-10-11）](https://github.com/ccfos/nightingale/releases/tag/v9.2.0)**。
+后续版本的完整改动请看 [GitHub Releases](https://github.com/ccfos/nightingale/releases)。
 
 ## 权威变更记录在哪
 
@@ -35,11 +36,10 @@ last_reviewed: 2026-10-10
 
 | 版本 | 日期 | 升级前必须处理 |
 |---|---|---|
+| **v9.2.0** | 2026-10-11 | 同步替换二进制和 `integrations` 目录；需要新增语言的指标说明时再替换 `etc/metrics.yaml`。确认数据库可执行本版表结构变更；沿用旧配置不会自动启用内置时序库。见下方检查清单 |
 | **v9.1.1** | 2026-08-18 | 无。纯修复版本，直接换二进制重启 |
 | **v9.1.0** | 2026-08-06 | ① **判定记录默认开启**，告警引擎写本地 `./evallog`，保留 8 天、上限 20 GB——磁盘要留量，或在 `[Alert.EvalLog]` 里关掉；② **内置时序库不会被自动打开**，`[EmbeddedTSDB]` 只存在于新版 `etc/config.toml`，沿用旧配置就等于没开；③ `notification_record` 的两个索引在启动后在线创建，大表上要跑一阵 |
 | **v9.0.0** | 2026-07-25 | ① **Redis 必须 ≥ 5.0**（AI 助手依赖 Redis Streams），Cluster 用户建议 7.0+；② 用 telegraf 的，写入地址要追加 `ignore_host=false`，否则那些机器不再进设备列表；③ 跑了 `n9e-edge` / `n9e-pushgw` 的要同批升级 |
-
-完整的升级步骤、验证和回退见 [v8 升级 v9](../migration/v8-to-v9.md)。
 
 各版本的主要功能（一句话版，细节看 GitHub）：
 
@@ -49,6 +49,27 @@ last_reviewed: 2026-10-10
 - **v9.1.0**：内置时序库；从 Grafana 一键导入数据源；逐轮判定记录；
   通知媒介可测试、消息模板可预览；工作流支持模拟事件试跑；内置告警规则模板大幅扩充。
 - **v9.1.1**：列表页把当前页码记进 URL；日志查看器改用虚拟列表；一批修复。
+- **v9.2.0**：新增 Jira、Discord、JSM Alert、Slack、Mattermost 原生通知渠道；
+  仪表盘支持混合数据源查询、限时匿名分享和 Grafana 导入转换报告；账号可禁用后恢复；
+  AI 助手可通过 ibex 分派脚本任务；补充多语言内容，并修复多实例登录循环等问题。
+
+### v9.2.0 升级检查清单 {#v920-upgrade-checklist}
+
+1. **先备份元数据库和配置，确认数据库变更权限。** 本版新增 `source_token.note`、
+   `source_token.token` 上的 `idx_source_token_token` 索引，以及 `users.disabled`。
+   有相应 DDL 权限时由夜莺启动时自动迁移；没有权限时，先由 DBA 按
+   [v9.2.0 发布说明中的 MySQL / PostgreSQL SQL](https://github.com/ccfos/nightingale/releases/tag/v9.2.0)
+   补齐本版尚未执行的变更。预期结果：启动迁移没有权限或表结构错误。
+2. **同步更新文件。** 替换二进制和 `integrations` 目录；需要新增语言的指标说明时，同时替换
+   `etc/metrics.yaml`。保留现有连接配置后重启；使用 `n9e-edge` / `n9e-pushgw` 的一起升级。
+   预期结果：相关进程正常启动，新集成模板可见。
+3. **按部署方式选择指标存储。** 如果希望启用内置时序库，需要把
+   [v9.2.0 配置](https://github.com/ccfos/nightingale/blob/v9.2.0/etc/config.toml)
+   中的 `[EmbeddedTSDB]` 段合入旧配置；只替换二进制不会开启它。它只适合小规模单 Center，
+   多 Center 部署继续使用外部时序库。预期结果：现有数据源查询、仪表盘和告警规则仍能取得数据。
+
+从 v8 升级时，还需按 [v8 升级 v9](../migration/v8-to-v9.md)处理 Redis、telegraf 写入参数等兼容事项，
+并完成其中的验证和回退准备。
 
 ## 读发布说明时重点看三段
 
@@ -56,8 +77,8 @@ GitHub 上每篇发布说明结构是固定的，升级前至少读这三段：
 
 1. **Upgrade note ⚠️ / Notes** —— 唯一会写「你必须先做什么」的地方，
    比如 Redis 版本要求、必须手工补的配置段。**跳过这段是升级出事的头号原因。**
-2. **Schema changes** —— 说明表结构怎么变。数据库账号有建表权限的话可以略过，
-   夜莺启动时会自己改表；没有权限的要把 `migrate.sql` 交给 DBA。
+2. **Schema changes** —— 说明表结构怎么变。确认数据库账号具有对应的建表、改表和建索引权限，
+   夜莺启动时会自动迁移；没有权限时，把所需版本的变更交给 DBA，不要重复执行整个累计迁移文件。
 3. **What's Changed** 里带 `fix:` 前缀的条目 —— 确认你正在忍受的那个 bug 是不是被修了。
 
 ## 版本号怎么读
