@@ -41,7 +41,7 @@ Fired
 
 Delivered![Slack](https://n9e.github.io/img/logos/slack.png)![PagerDuty](https://n9e.github.io/img/logos/pagerduty.png)![Telegram](https://n9e.github.io/img/logos/telegram.png)
 
-13,355GitHub stars
+13,357GitHub stars
 
 10+Data source types
 
@@ -90,7 +90,7 @@ event
 Storms collapse into an aggregated view by business group and severity. Mute rules, subscriptions and event pipelines filter what is left, and the survivors reach people through 20 notification channels. Wire up ibex when an alert should fix itself.
 
 * DingTalk, Feishu, WeCom, phone, SMS, Slack and 15 more
-* Event pipelines group similar alerts, rewrite labels and route conditionally
+* Event pipelines rewrite labels and route conditionally
 
 ![Nightingale aggregated alert events](https://n9e.github.io/img/step-automate-en.webp)
 

@@ -38,7 +38,7 @@ S1CPU 使用率持续高于 90%
 
 已送达![钉钉](https://n9e.github.io/zh/img/logos/dingtalk.png)![飞书](https://n9e.github.io/zh/img/logos/feishu.png)![Slack](https://n9e.github.io/zh/img/logos/slack.png)
 
-13,355GitHub Stars
+13,357GitHub Stars
 
 10+数据源类型
 
@@ -87,7 +87,7 @@ event
 告警风暴先在聚合视图里按业务组和级别收敛，再经屏蔽规则、订阅规则、事件 Pipeline 逐层过滤，最后按人按组送到 20 种通知媒介。需要自动处置就接 ibex 跑自愈脚本。
 
 * 钉钉、飞书、企业微信、电话、短信、Slack 等 20 种内置媒介
-* 事件 Pipeline：聚合相似告警、改写标签、按条件路由
+* 事件 Pipeline：改写标签、按条件路由
 
 ![夜莺告警事件聚合视图](https://n9e.github.io/zh/img/step-automate.webp)
 
