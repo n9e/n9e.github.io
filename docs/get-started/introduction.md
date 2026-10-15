@@ -1,19 +1,21 @@
 # What Nightingale (n9e) is
 
-Nightingale (n9e, 夜莺) is an open-source alerting engine: it evaluates rules on the stores you already run, cuts the noise and delivers to on-call; it needs no copy of your data and no new collectors.
+Nightingale (n9e, 夜莺) is an open-source alerting engine for existing data sources, with an embedded TSDB for small, single-Center deployments.
 
-Last reviewed 2026-10-12
+Last reviewed 2026-10-15
 
-Nightingale (夜莺, also known as **n9e**) is an open-source alerting engine, hosted by the China Computer Federation's open-source committee (CCF ODTC) and developed on [GitHub](https://github.com/ccfos/nightingale) under Apache-2.0. It does not need a copy of your telemetry and it does not replace your collectors — it sits on top of the databases you already run, evaluates rules against them, cuts the noise, and delivers what survives to the people on call.
+Nightingale (夜莺, also known as **n9e**) is an open-source alerting engine, hosted by the China Computer Federation's open-source committee (CCF ODTC) and developed on [GitHub](https://github.com/ccfos/nightingale) under Apache-2.0. It queries your existing Prometheus, log stores and databases to evaluate alert rules, reduce noise and deliver notifications. You can keep your data and collectors in place.
+
+Without an external time series store, small, single-Center deployments can use the embedded TSDB. Multi-Center or larger deployments should use an external TSDB. See [Embedded TSDB and external storage](https://n9e.github.io/docs/concepts/storage.md) for the limits and migration path.
 
 ## What it owns[​](#what-it-owns "Direct link to What it owns")
 
-| Layer                                     | Nightingale                                                       |
-| ----------------------------------------- | ----------------------------------------------------------------- |
-| Storage                                   | ❌ — keep Prometheus, VictoriaMetrics, ElasticSearch, ClickHouse… |
-| Collection                                | ❌ — Categraf, Telegraf, Datadog Agent and exporters all write in |
-| **Alert rules, noise reduction, routing** | ✅ **this is the layer it owns**                                  |
-| Dashboards                                | ✅ built in, but Grafana stays a first-class option               |
+| Layer                                     | Nightingale                                                                                                                |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Storage                                   | Reuse Prometheus, VictoriaMetrics, Elasticsearch or ClickHouse; an embedded TSDB supports small, single-Center deployments |
+| Collection                                | ❌ — Categraf, Telegraf, Datadog Agent and exporters all write in                                                          |
+| **Alert rules, noise reduction, routing** | ✅ **this is the layer it owns**                                                                                           |
+| Dashboards                                | ✅ built in, but Grafana stays a first-class option                                                                        |
 
 ## Where it fits[​](#where-it-fits "Direct link to Where it fits")
 

@@ -500,7 +500,7 @@ Categraf 在 Windows 上采集的指标和 Linux 同名，主机仪表盘与规�
 - [已有日志库或数据库](https://n9e.github.io/zh/docs/get-started/choose-your-path/existing-logs-databases.md): 用和指标同一套规则体系，对 ElasticSearch、Loki、ClickHouse、MySQL 这类日志库和数据库做告警。
 - [已有 Prometheus / VictoriaMetrics](https://n9e.github.io/zh/docs/get-started/choose-your-path/existing-metrics.md): 把现有存储注册为数据源，抓取配置原样保留，让第一条规则在它上面跑起来——数据不用搬。
 - [想启用 Nightingale AI](https://n9e.github.io/zh/docs/get-started/choose-your-path/nightingale-ai.md): 配置一个大模型提供方，打开内置助手和 MCP 端点，再接上 Claude Code 这类客户端。
-- [夜莺监控（Nightingale）是什么](https://n9e.github.io/zh/docs/get-started/introduction.md): 夜莺监控（Nightingale，n9e）是开源告警引擎：接上已有的 Prometheus、日志库和数据库做规则判定、降噪和分发，数据不用搬、采集器不用换。
+- [夜莺监控（Nightingale）是什么](https://n9e.github.io/zh/docs/get-started/introduction.md): 夜莺监控（Nightingale，n9e）是开源告警引擎：复用已有数据源做规则判定、降噪和分发，也可在小规模单 Center 部署中使用内置时序库。
 - [在线体验导览](https://n9e.github.io/zh/docs/get-started/live-demo.md): 登录公共演示环境，按快速开始的顺序走一遍：从数据源到告警送达，不用安装任何东西。
 - [上生产前的检查清单](https://n9e.github.io/zh/docs/get-started/production-checklist.md): 真正上线前要改掉的东西：默认密码、外置数据库、时序库选型、高可用、备份与自监控。
 - [五分钟拉起夜莺](https://n9e.github.io/zh/docs/get-started/quick-start.md): docker compose up -d 一条命令拉起夜莺及依赖，以 root 登录 17000 端口，然后接数据源、写规则、配通知。
@@ -902,7 +902,7 @@ Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告�
 
 基于各项目 2026 年 8 月开源版本的公开能力，只作选型参考。我们尽量把对方的长处写清楚——选型建议不老实，社区口碑也就没了。
 
-* **13,337**GitHub Stars
+* **13,355**GitHub Stars
 * **10+**&#x6570;据源类型
 * **20**通知媒介
 * **74**MCP 工具
@@ -1572,23 +1572,23 @@ Zabbix 二十多年的积累在传统 IT 一体化监控上非常成熟：网络
 
 ## 逐项对照
 
-| 能力对比        | 夜莺 v9                                                                                        | Zabbix                                                                        |
-| --------------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| 采集模型        | 部分支持或需扩展<!-- -->: Categraf 或已有 exporter，按 Remote Write 推送                       | 内置<!-- -->: Zabbix Agent / Agent2、SNMP、IPMI、JMX，自动发现与 LLD          |
-| 数据存储        | 内置<!-- -->: 不自存，直接读 Prometheus、VictoriaMetrics、ES、ClickHouse；小规模可用内置时序库 | 内置<!-- -->: 自带 Server + MySQL / PostgreSQL / TimescaleDB                  |
-| 告警对象        | 内置<!-- -->: 一条规则覆盖查询返回的所有序列                                                   | 部分支持或需扩展<!-- -->: 触发器逐主机生成，一个模板挂 1000 台就是 1000 组    |
-| 规则语法        | 内置<!-- -->: PromQL / SQL / LogQL，随数据源                                                   | 内置<!-- -->: 触发器表达式与函数库                                            |
-| 严重级别        | 部分支持或需扩展<!-- -->: S1 / S2 / S3 三档                                                    | 内置<!-- -->: 六档                                                            |
-| 触发器依赖      | 部分支持或需扩展<!-- -->: 没有声明式依赖，用事件 Pipeline 改写                                 | 内置<!-- -->: 触发器依赖、事件关联                                            |
-| 维护期 / 屏蔽   | 内置<!-- -->: 固定与周期屏蔽，可只屏蔽通知保留事件                                             | 内置<!-- -->: 维护期                                                          |
-| 通知媒介        | 内置<!-- -->: 20 种内置，电话、短信、钉钉、飞书、企业微信开箱即用                              | 部分支持或需扩展<!-- -->: 邮件、脚本和 webhook 媒介类型，国内 IM 多靠社区模板 |
-| 升级阶梯        | 部分支持或需扩展<!-- -->: 订阅规则按持续时长超时抄送                                           | 内置<!-- -->: 多步骤 Escalation                                               |
-| 权限            | 内置<!-- -->: 用户、团队、业务组 RBAC，业务组就是权限边界                                      | 内置<!-- -->: 用户组、角色、主机组权限                                        |
-| Kubernetes      | 内置<!-- -->: 读 Prometheus 数据即可，Categraf 带 K8s 插件                                     | 部分支持或需扩展<!-- -->: 官方 Helm 与模板，需要部署它的 agent                |
-| 网络设备 / SNMP | 部分支持或需扩展<!-- -->: Categraf 有 SNMP 插件，没有自动发现                                  | 内置<!-- -->: 主场：SNMP、自动发现、网络设备模板                              |
-| 日志告警        | 内置<!-- -->: ES、OpenSearch、Loki、VictoriaLogs、ClickHouse                                   | 部分支持或需扩展<!-- -->: 日志监控项加正则，不是查询日志库                    |
-| AI / MCP        | 内置<!-- -->: 内置助手与 74 个 MCP 工具                                                        | 不支持<!-- -->: 无                                                            |
-| 许可证          | 内置<!-- -->: Apache-2.0                                                                       | 部分支持或需扩展<!-- -->: AGPL-3.0（7.0 起）                                  |
+| 能力对比        | 夜莺 v9                                                                                                                           | Zabbix                                                                        |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| 采集模型        | 部分支持或需扩展<!-- -->: Categraf 或已有 exporter，按 Remote Write 推送                                                          | 内置<!-- -->: Zabbix Agent / Agent2、SNMP、IPMI、JMX，自动发现与 LLD          |
+| 数据存储        | 内置<!-- -->: 内置时序库适合小规模单 Center；也可直接读 Prometheus、VictoriaMetrics、ES、ClickHouse，多 Center 部署使用外部时序库 | 内置<!-- -->: 自带 Server + MySQL / PostgreSQL / TimescaleDB                  |
+| 告警对象        | 内置<!-- -->: 一条规则覆盖查询返回的所有序列                                                                                      | 部分支持或需扩展<!-- -->: 触发器逐主机生成，一个模板挂 1000 台就是 1000 组    |
+| 规则语法        | 内置<!-- -->: PromQL / SQL / LogQL，随数据源                                                                                      | 内置<!-- -->: 触发器表达式与函数库                                            |
+| 严重级别        | 部分支持或需扩展<!-- -->: S1 / S2 / S3 三档                                                                                       | 内置<!-- -->: 六档                                                            |
+| 触发器依赖      | 部分支持或需扩展<!-- -->: 没有声明式依赖，用事件 Pipeline 改写                                                                    | 内置<!-- -->: 触发器依赖、事件关联                                            |
+| 维护期 / 屏蔽   | 内置<!-- -->: 固定与周期屏蔽，可只屏蔽通知保留事件                                                                                | 内置<!-- -->: 维护期                                                          |
+| 通知媒介        | 内置<!-- -->: 20 种内置，电话、短信、钉钉、飞书、企业微信开箱即用                                                                 | 部分支持或需扩展<!-- -->: 邮件、脚本和 webhook 媒介类型，国内 IM 多靠社区模板 |
+| 升级阶梯        | 部分支持或需扩展<!-- -->: 订阅规则按持续时长超时抄送                                                                              | 内置<!-- -->: 多步骤 Escalation                                               |
+| 权限            | 内置<!-- -->: 用户、团队、业务组 RBAC，业务组就是权限边界                                                                         | 内置<!-- -->: 用户组、角色、主机组权限                                        |
+| Kubernetes      | 内置<!-- -->: 读 Prometheus 数据即可，Categraf 带 K8s 插件                                                                        | 部分支持或需扩展<!-- -->: 官方 Helm 与模板，需要部署它的 agent                |
+| 网络设备 / SNMP | 部分支持或需扩展<!-- -->: Categraf 有 SNMP 插件，没有自动发现                                                                     | 内置<!-- -->: 主场：SNMP、自动发现、网络设备模板                              |
+| 日志告警        | 内置<!-- -->: ES、OpenSearch、Loki、VictoriaLogs、ClickHouse                                                                      | 部分支持或需扩展<!-- -->: 日志监控项加正则，不是查询日志库                    |
+| AI / MCP        | 内置<!-- -->: 内置助手与 74 个 MCP 工具                                                                                           | 不支持<!-- -->: 无                                                            |
+| 许可证          | 内置<!-- -->: Apache-2.0                                                                                                          | 部分支持或需扩展<!-- -->: AGPL-3.0（7.0 起）                                  |
 
 * 内置
 * 部分支持或需扩展
@@ -1933,6 +1933,73 @@ BUILT-IN TEMPLATES
 * [![SNMP logo](https://n9e.github.io/zh/img/integrations/SNMP.png)SNMP9 仪表盘·5 组规则·采集配置·指标说明](https://n9e.github.io/zh/integrations/snmp.md)
 * [![Ping logo](https://n9e.github.io/zh/img/integrations/Ping.png)Ping2 仪表盘·1 组规则·采集配置·指标说明](https://n9e.github.io/zh/integrations/ping.md)
 * [![Alibaba Cloud logo](https://n9e.github.io/zh/img/integrations/AliYun.png)Alibaba Cloud44 仪表盘·12 组规则·采集配置](https://n9e.github.io/zh/integrations/aliyun.md)
+* [![AMD ROCm SMI logo](https://n9e.github.io/zh/img/integrations/AMD_ROCm_SMI.png)AMD ROCm SMI1 组规则·采集配置](https://n9e.github.io/zh/integrations/amd-rocm-smi.md)
+* [![Exec logo](https://n9e.github.io/zh/img/integrations/Exec.png)Exec采集配置](https://n9e.github.io/zh/integrations/exec.md)
+* [![Filecount logo](https://n9e.github.io/zh/img/integrations/Filecount.png)Filecount采集配置仅中文](https://github.com/ccfos/nightingale/blob/main/integrations/Filecount/markdown/README.md)
+* [![IPMI logo](https://n9e.github.io/zh/img/integrations/IPMI.png)IPMI3 仪表盘·1 组规则·采集配置·指标说明](https://n9e.github.io/zh/integrations/ipmi.md)
+* [![IPVS logo](https://n9e.github.io/zh/img/integrations/IPVS.png)IPVS1 组规则·采集配置仅中文](https://github.com/ccfos/nightingale/blob/main/integrations/IPVS/markdown/README.md)
+* [![Netstat Filter logo](https://n9e.github.io/zh/img/integrations/Netstat_Filter.png)Netstat Filter1 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/Netstat_Filter/markdown/README.md)
+* [![NFSClient logo](https://n9e.github.io/zh/img/integrations/NFSClient.png)NFSClient1 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/NFSClient/markdown/README.md)
+* [![NVIDIA logo](https://n9e.github.io/zh/img/integrations/NVIDIA.png)NVIDIA3 仪表盘·1 组规则·采集配置·指标说明](https://n9e.github.io/zh/integrations/nvidia.md)
+* [![Procstat logo](https://n9e.github.io/zh/img/integrations/Procstat.png)Procstat1 仪表盘·1 组规则·采集配置·指标说明仅英文](https://github.com/ccfos/nightingale/blob/main/integrations/Procstat/markdown/README.en_US.md)
+* [![Redfish logo](https://n9e.github.io/zh/img/integrations/Redfish.png)Redfish采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/Redfish/markdown/README.md)
+* [![SMART logo](https://n9e.github.io/zh/img/integrations/SMART.png)SMART1 仪表盘·1 组规则·采集配置·指标说明](https://n9e.github.io/zh/integrations/smart.md)
+* [![Systemd logo](https://n9e.github.io/zh/img/integrations/Systemd.png)Systemd1 仪表盘·1 组规则·采集配置·指标说明](https://n9e.github.io/zh/integrations/systemd.md)
+* [![ClickHouse logo](https://n9e.github.io/zh/img/integrations/ClickHouse.png)ClickHouse2 仪表盘·2 组规则·采集配置·指标说明仅中文](https://n9e.github.io/zh/integrations/clickhouse.md)
+* [![Dameng logo](https://n9e.github.io/zh/img/integrations/Dameng.png)Dameng1 仪表盘·1 组规则·采集配置·指标说明仅英文](https://github.com/ccfos/nightingale/blob/main/integrations/Dameng/markdown/README.en_US.md)
+* [![Doris logo](https://n9e.github.io/zh/img/integrations/Doris.svg)Doris1 仪表盘·1 组规则·采集配置](https://n9e.github.io/zh/integrations/doris.md)
+* [![Greenplum logo](https://n9e.github.io/zh/img/integrations/Greenplum.png)Greenplum1 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/Greenplum/markdown/README.md)
+* [![Kingbase logo](https://n9e.github.io/zh/img/integrations/Kingbase.png)Kingbase1 仪表盘仅英文](https://github.com/ccfos/nightingale/blob/main/integrations/Kingbase/markdown/README.en_US.md)
+* [![Oracle logo](https://n9e.github.io/zh/img/integrations/Oracle.png)Oracle1 仪表盘·1 组规则·采集配置](https://n9e.github.io/zh/integrations/oracle.md)
+* [![Prometheus logo](https://n9e.github.io/zh/img/integrations/Prometheus.png)Prometheus采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/Prometheus/markdown/README.md)
+* [![SQLServer logo](https://n9e.github.io/zh/img/integrations/SQLServer.png)SQLServer1 仪表盘·1 组规则·采集配置](https://n9e.github.io/zh/integrations/sqlserver.md)
+* [![TDengine logo](https://n9e.github.io/zh/img/integrations/TDEngine.png)TDengine1 仪表盘](https://github.com/ccfos/nightingale/blob/main/integrations/TDEngine/markdown/README.md)
+* [![TiDB logo](https://n9e.github.io/zh/img/integrations/TiDB.png)TiDB1 仪表盘·1 组规则](https://n9e.github.io/zh/integrations/tidb.md)
+* [![VictoriaMetrics logo](https://n9e.github.io/zh/img/integrations/VictoriaMetrics.png)VictoriaMetrics2 仪表盘·1 组规则](https://n9e.github.io/zh/integrations/victoriametrics.md)
+* [![AutoMQ logo](https://n9e.github.io/zh/img/integrations/AutoMQ.png)AutoMQ5 仪表盘·1 组规则·采集配置·指标说明仅英文](https://n9e.github.io/zh/integrations/automq.md)
+* [![Canal logo](https://n9e.github.io/zh/img/integrations/Canal.png)Canal1 仪表盘](https://github.com/ccfos/nightingale/blob/main/integrations/Canal/markdown/README.md)
+* [![EMQX logo](https://n9e.github.io/zh/img/integrations/EMQX.png)EMQX1 组规则·采集配置](https://n9e.github.io/zh/integrations/emqx.md)
+* [![NSQ logo](https://n9e.github.io/zh/img/integrations/NSQ.png)NSQ1 组规则·采集配置](https://n9e.github.io/zh/integrations/nsq.md)
+* [![RocketMQ logo](https://n9e.github.io/zh/img/integrations/RocketMQ.png)RocketMQ采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/RocketMQ/markdown/README.md)
+* [![ZooKeeper logo](https://n9e.github.io/zh/img/integrations/ZooKeeper.png)ZooKeeper1 仪表盘·1 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/ZooKeeper/markdown/README.md)
+* [![Apache logo](https://n9e.github.io/zh/img/integrations/Apache.png)Apache1 组规则·采集配置](https://n9e.github.io/zh/integrations/apache.md)
+* [![Bind logo](https://n9e.github.io/zh/img/integrations/Bind.png)Bind1 组规则·采集配置](https://n9e.github.io/zh/integrations/bind.md)
+* [![Consul logo](https://n9e.github.io/zh/img/integrations/Consul.png)Consul1 组规则·采集配置仅中文](https://n9e.github.io/zh/integrations/consul.md)
+* [![HAProxy logo](https://n9e.github.io/zh/img/integrations/HAProxy.png)HAProxy1 仪表盘·1 组规则·采集配置](https://n9e.github.io/zh/integrations/haproxy.md)
+* [![IIS logo](https://n9e.github.io/zh/img/integrations/IIS.png)IIS采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/IIS/markdown/README.md)
+* [![Jolokia Agent logo](https://n9e.github.io/zh/img/integrations/Jolokia_Agent.png)Jolokia Agent采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/Jolokia_Agent/markdown/README.md)
+* [![Ldap logo](https://n9e.github.io/zh/img/integrations/Ldap.png)Ldap1 组规则·采集配置仅中文](https://n9e.github.io/zh/integrations/ldap.md)
+* [![Logstash logo](https://n9e.github.io/zh/img/integrations/Logstash.png)Logstash1 仪表盘·1 组规则·采集配置](https://n9e.github.io/zh/integrations/logstash.md)
+* [![Mtail logo](https://n9e.github.io/zh/img/integrations/Mtail.png)Mtail采集配置](https://n9e.github.io/zh/integrations/mtail.md)
+* [![PHP logo](https://n9e.github.io/zh/img/integrations/PHP.png)PHP1 组规则·采集配置](https://n9e.github.io/zh/integrations/php.md)
+* [![Radius logo](https://n9e.github.io/zh/img/integrations/Radius.png)Radius采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/Radius/markdown/README.md)
+* [![SpringBoot logo](https://n9e.github.io/zh/img/integrations/SpringBoot.png)SpringBoot2 仪表盘·1 组规则](https://n9e.github.io/zh/integrations/springboot.md)
+* [![Tomcat logo](https://n9e.github.io/zh/img/integrations/Tomcat.png)Tomcat1 仪表盘·1 组规则·采集配置](https://n9e.github.io/zh/integrations/tomcat.md)
+* [![cAdvisor logo](https://n9e.github.io/zh/img/integrations/cAdvisor.png)cAdvisor1 仪表盘·1 组规则·采集配置·指标说明](https://n9e.github.io/zh/integrations/cadvisor.md)
+* [![Ceph logo](https://n9e.github.io/zh/img/integrations/Ceph.png)Ceph1 仪表盘·1 组规则](https://n9e.github.io/zh/integrations/ceph.md)
+* [![MinIO logo](https://n9e.github.io/zh/img/integrations/MinIO.png)MinIO2 仪表盘·1 组规则](https://n9e.github.io/zh/integrations/minio.md)
+* [![OpenStack logo](https://n9e.github.io/zh/img/integrations/OpenStack.png)OpenStack1 组规则·采集配置](https://n9e.github.io/zh/integrations/openstack.md)
+* [![vSphere logo](https://n9e.github.io/zh/img/integrations/vSphere.png)vSphere2 仪表盘·1 组规则·采集配置](https://n9e.github.io/zh/integrations/vsphere.md)
+* [![XSKY logo](https://n9e.github.io/zh/img/integrations/XSKYApi.png)XSKY1 组规则·采集配置仅中文](https://github.com/ccfos/nightingale/blob/main/integrations/XSKYApi/markdown/README.md)
+* [![Akamai logo](https://n9e.github.io/zh/img/integrations/Akamai.svg)Akamai1 仪表盘·1 组规则·采集配置仅英文](https://github.com/ccfos/nightingale/blob/main/integrations/Akamai/markdown/README.en_US.md)
+* [![Azure logo](https://n9e.github.io/zh/img/integrations/Azure.svg)Azure采集配置仅英文](https://n9e.github.io/zh/integrations/azure.md)
+* [![CDN logo](https://n9e.github.io/zh/img/integrations/CDN.png)CDN1 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/CDN/markdown/README.md)
+* [![Cloudflare logo](https://n9e.github.io/zh/img/integrations/Cloudflare.png)Cloudflare1 仪表盘·1 组规则·采集配置仅英文](https://github.com/ccfos/nightingale/blob/main/integrations/Cloudflare/markdown/README.en_US.md)
+* [![CloudWatch logo](https://n9e.github.io/zh/img/integrations/CloudWatch.png)CloudWatch1 仪表盘·1 组规则·采集配置仅中文](https://n9e.github.io/zh/integrations/cloudwatch.md)
+* [![GoogleCloud logo](https://n9e.github.io/zh/img/integrations/GoogleCloud.png)GoogleCloud采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/GoogleCloud/markdown/README.md)
+* [![Huawei Cloud logo](https://n9e.github.io/zh/img/integrations/Huawei.svg)Huawei Cloud14 仪表盘·4 组规则·指标说明](https://n9e.github.io/zh/integrations/huawei.md)
+* [![Tencent Cloud logo](https://n9e.github.io/zh/img/integrations/Tencent.svg)Tencent Cloud7 仪表盘仅英文](https://n9e.github.io/zh/integrations/tencent.md)
+* [![DNS Query logo](https://n9e.github.io/zh/img/integrations/Dns_Query.png)DNS Query1 组规则·采集配置·指标说明](https://n9e.github.io/zh/integrations/dns-query.md)
+* [![HTTP Response logo](https://n9e.github.io/zh/img/integrations/HTTP_Response.png)HTTP Response1 仪表盘·1 组规则·采集配置·指标说明仅英文](https://github.com/ccfos/nightingale/blob/main/integrations/HTTP_Response/markdown/README.en_US.md)
+* [![Meraki logo](https://n9e.github.io/zh/img/integrations/Meraki.png)Meraki采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/Meraki/markdown/README.md)
+* [![Net Response logo](https://n9e.github.io/zh/img/integrations/Net_Response.png)Net Response2 仪表盘·1 组规则·采集配置·指标说明](https://n9e.github.io/zh/integrations/net-response.md)
+* [![Switch (legacy) logo](https://n9e.github.io/zh/img/integrations/Switch_Legacy.png)Switch (legacy)1 仪表盘·1 组规则·采集配置](https://n9e.github.io/zh/integrations/switch-legacy.md)
+* [![Whois logo](https://n9e.github.io/zh/img/integrations/Whois.png)Whois1 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/Whois/markdown/README.md)
+* [![X.509 Certificate logo](https://n9e.github.io/zh/img/integrations/X509_Cert.png)X.509 Certificate采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/X509_Cert/markdown/README.md)
+* [![AppDynamics logo](https://n9e.github.io/zh/img/integrations/AppDynamics.png)AppDynamics采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/AppDynamics/markdown/README.md)
+* [![Gitlab logo](https://n9e.github.io/zh/img/integrations/Gitlab.png)Gitlab5 仪表盘·1 组规则](https://n9e.github.io/zh/integrations/gitlab.md)
+* [![Jenkins logo](https://n9e.github.io/zh/img/integrations/Jenkins.png)Jenkins1 组规则·采集配置](https://github.com/ccfos/nightingale/blob/main/integrations/Jenkins/markdown/README.md)
+* [![Zabbix logo](https://n9e.github.io/zh/img/integrations/Zabbix.svg)Zabbix1 仪表盘·采集配置仅英文](https://github.com/ccfos/nightingale/blob/main/integrations/Zabbix/markdown/README.en_US.md)
 
 展开全部 83 个模板
 
@@ -1940,7 +2007,7 @@ BUILT-IN TEMPLATES
 
 ↓
 
-[在 GitHub 查看全部模板<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-10-13
+[在 GitHub 查看全部模板<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-10-15
 
 COLLECTORS
 
@@ -9965,20 +10032,22 @@ MCPToolsets = ["alerts", "dashboards"]
 
 # 夜莺监控（Nightingale）是什么
 
-夜莺监控（Nightingale，n9e）是开源告警引擎：接上已有的 Prometheus、日志库和数据库做规则判定、降噪和分发，数据不用搬、采集器不用换。
+夜莺监控（Nightingale，n9e）是开源告警引擎：复用已有数据源做规则判定、降噪和分发，也可在小规模单 Center 部署中使用内置时序库。
 
-最后校对于 2026-10-12
+最后校对于 2026-10-15
 
-夜莺监控（Nightingale，简称 **n9e**）是一个开源告警引擎，由中国计算机学会开源发展技术委员会（CCF ODTC） 托管，代码在 [GitHub](https://github.com/ccfos/nightingale)，Apache-2.0 许可。它不要求你把数据搬过来，也不替你采集—— 它长在你已有的数据库之上，在其上做告警判定、降噪，把最后剩下的送到值班人手里。
+夜莺监控（Nightingale，简称 **n9e**）是一个开源告警引擎，由中国计算机学会开源发展技术委员会（CCF ODTC） 托管，代码在 [GitHub](https://github.com/ccfos/nightingale)，Apache-2.0 许可。它可以直接查询你已有的 Prometheus、日志库和数据库，做告警判定、降噪和通知分发，数据不用搬、采集器不用换。
+
+没有外部时序库时，小规模单 Center 部署也可以使用内置时序库。多 Center 或更大规模部署应使用外部时序库， 适用范围与切换方式见[内置时序库与外部存储](https://n9e.github.io/zh/docs/concepts/storage.md)。
 
 ## 它负责哪一层[​](#它负责哪一层 "它负责哪一层的直接链接")
 
-| 层次                     | 夜莺                                                                |
-| ------------------------ | ------------------------------------------------------------------- |
-| 存储                     | ❌ —— Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 继续用 |
-| 采集                     | ❌ —— Categraf、Telegraf、Datadog Agent、各类 exporter 都能写入     |
-| **告警规则、降噪、分发** | ✅ **这一层才是它的主场**                                           |
-| 仪表盘                   | ✅ 内置，但 Grafana 依然是一等公民                                  |
+| 层次                     | 夜莺                                                                                              |
+| ------------------------ | ------------------------------------------------------------------------------------------------- |
+| 存储                     | 可复用 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse；内置时序库适合小规模单 Center 部署 |
+| 采集                     | ❌ —— Categraf、Telegraf、Datadog Agent、各类 exporter 都能写入                                   |
+| **告警规则、降噪、分发** | ✅ **这一层才是它的主场**                                                                         |
+| 仪表盘                   | ✅ 内置，但 Grafana 依然是一等公民                                                                |
 
 ## 数据怎么流转[​](#数据怎么流转 "数据怎么流转的直接链接")
 
@@ -10304,11 +10373,11 @@ docker compose up -d
 
 除 GitHub 变更记录之外，每个版本带升级影响说明的整理版。
 
-最后校对于 2026-10-10
+最后校对于 2026-10-15
 
 这页不复述变更列表——完整的逐条改动一直在 GitHub 上，而且比这里更新得快。 这页只回答一件事：**升到某个版本，我需要动什么。**
 
-整理到 **v9.1.1（2026-08-18）**。比它新的版本请直接看 GitHub。
+整理到 **[v9.2.0（2026-10-11）](https://github.com/ccfos/nightingale/releases/tag/v9.2.0)**。 后续版本的完整改动请看 [GitHub Releases](https://github.com/ccfos/nightingale/releases)。
 
 ## 权威变更记录在哪[​](#权威变更记录在哪 "权威变更记录在哪的直接链接")
 
@@ -10331,24 +10400,32 @@ docker compose up -d
 
 | 版本       | 日期       | 升级前必须处理                                                                                                                                                                                                                                                                                  |
 | ---------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **v9.2.0** | 2026-10-11 | 同步替换二进制和 `integrations` 目录；需要新增语言的指标说明时再替换 `etc/metrics.yaml`。确认数据库可执行本版表结构变更；沿用旧配置不会自动启用内置时序库。见下方检查清单                                                                                                                       |
 | **v9.1.1** | 2026-08-18 | 无。纯修复版本，直接换二进制重启                                                                                                                                                                                                                                                                |
 | **v9.1.0** | 2026-08-06 | ① **判定记录默认开启**，告警引擎写本地 `./evallog`，保留 8 天、上限 20 GB——磁盘要留量，或在 `[Alert.EvalLog]` 里关掉；② **内置时序库不会被自动打开**，`[EmbeddedTSDB]` 只存在于新版 `etc/config.toml`，沿用旧配置就等于没开；③ `notification_record` 的两个索引在启动后在线创建，大表上要跑一阵 |
 | **v9.0.0** | 2026-07-25 | ① **Redis 必须 ≥ 5.0**（AI 助手依赖 Redis Streams），Cluster 用户建议 7.0+；② 用 telegraf 的，写入地址要追加 `ignore_host=false`，否则那些机器不再进设备列表；③ 跑了 `n9e-edge` / `n9e-pushgw` 的要同批升级                                                                                     |
-
-完整的升级步骤、验证和回退见 [v8 升级 v9](https://n9e.github.io/zh/docs/migration/v8-to-v9.md)。
 
 各版本的主要功能（一句话版，细节看 GitHub）：
 
 * **v9.0.0**：Nightingale AI（助手、技能市场、大模型配置）；告警规则「试运行」； 屏蔽规则新增「只屏蔽通知」；内置 `/mcp` 端点；导航、布局和表格全面重做； 告警规则 / 屏蔽 / 订阅 / 通知规则表单重构。
 * **v9.1.0**：内置时序库；从 Grafana 一键导入数据源；逐轮判定记录； 通知媒介可测试、消息模板可预览；工作流支持模拟事件试跑；内置告警规则模板大幅扩充。
 * **v9.1.1**：列表页把当前页码记进 URL；日志查看器改用虚拟列表；一批修复。
+* **v9.2.0**：新增 Jira、Discord、JSM Alert、Slack、Mattermost 原生通知渠道； 仪表盘支持混合数据源查询、限时匿名分享和 Grafana 导入转换报告；账号可禁用后恢复； AI 助手可通过 ibex 分派脚本任务；补充多语言内容，并修复多实例登录循环等问题。
+
+### v9.2.0 升级检查清单[​](#v920-upgrade-checklist "v9.2.0 升级检查清单的直接链接")
+
+1. **先备份元数据库和配置，确认数据库变更权限。** 本版新增 `source_token.note`、 `source_token.token` 上的 `idx_source_token_token` 索引，以及 `users.disabled`。 有相应 DDL 权限时由夜莺启动时自动迁移；没有权限时，先由 DBA 按 [v9.2.0 发布说明中的 MySQL / PostgreSQL SQL](https://github.com/ccfos/nightingale/releases/tag/v9.2.0) 补齐本版尚未执行的变更。预期结果：启动迁移没有权限或表结构错误。
+2. **同步更新文件。** 替换二进制和 `integrations` 目录；需要新增语言的指标说明时，同时替换 `etc/metrics.yaml`。保留现有连接配置后重启；使用 `n9e-edge` / `n9e-pushgw` 的一起升级。 预期结果：相关进程正常启动，新集成模板可见。
+3. **按部署方式选择指标存储。** 如果希望启用内置时序库，需要把 [v9.2.0 配置](https://github.com/ccfos/nightingale/blob/v9.2.0/etc/config.toml) 中的 `[EmbeddedTSDB]` 段合入旧配置；只替换二进制不会开启它。它只适合小规模单 Center， 多 Center 部署继续使用外部时序库。预期结果：现有数据源查询、仪表盘和告警规则仍能取得数据。
+
+从 v8 升级时，还需按 [v8 升级 v9](https://n9e.github.io/zh/docs/migration/v8-to-v9.md)处理 Redis、telegraf 写入参数等兼容事项， 并完成其中的验证和回退准备。
 
 ## 读发布说明时重点看三段[​](#读发布说明时重点看三段 "读发布说明时重点看三段的直接链接")
 
 GitHub 上每篇发布说明结构是固定的，升级前至少读这三段：
 
 1. **Upgrade note ⚠️ / Notes** —— 唯一会写「你必须先做什么」的地方， 比如 Redis 版本要求、必须手工补的配置段。**跳过这段是升级出事的头号原因。**
-2. **Schema changes** —— 说明表结构怎么变。数据库账号有建表权限的话可以略过， 夜莺启动时会自己改表；没有权限的要把 `migrate.sql` 交给 DBA。
+2. **Schema changes** —— 说明表结构怎么变。确认数据库账号具有对应的建表、改表和建索引权限， 夜莺启动时会自动迁移；没有权限时，把所需版本的变更交给 DBA，不要重复执行整个累计迁移文件。
 3. **What's Changed** 里带 `fix:` 前缀的条目 —— 确认你正在忍受的那个 bug 是不是被修了。
 
 ## 版本号怎么读[​](#版本号怎么读 "版本号怎么读的直接链接")
@@ -43950,7 +44027,7 @@ S1CPU 使用率持续高于 90%
 
 已送达![钉钉](https://n9e.github.io/zh/img/logos/dingtalk.png)![飞书](https://n9e.github.io/zh/img/logos/feishu.png)![Slack](https://n9e.github.io/zh/img/logos/slack.png)
 
-13,337GitHub Stars
+13,355GitHub Stars
 
 10+数据源类型
 

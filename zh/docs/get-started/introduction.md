@@ -1,19 +1,21 @@
 # 夜莺监控（Nightingale）是什么
 
-夜莺监控（Nightingale，n9e）是开源告警引擎：接上已有的 Prometheus、日志库和数据库做规则判定、降噪和分发，数据不用搬、采集器不用换。
+夜莺监控（Nightingale，n9e）是开源告警引擎：复用已有数据源做规则判定、降噪和分发，也可在小规模单 Center 部署中使用内置时序库。
 
-最后校对于 2026-10-12
+最后校对于 2026-10-15
 
-夜莺监控（Nightingale，简称 **n9e**）是一个开源告警引擎，由中国计算机学会开源发展技术委员会（CCF ODTC） 托管，代码在 [GitHub](https://github.com/ccfos/nightingale)，Apache-2.0 许可。它不要求你把数据搬过来，也不替你采集—— 它长在你已有的数据库之上，在其上做告警判定、降噪，把最后剩下的送到值班人手里。
+夜莺监控（Nightingale，简称 **n9e**）是一个开源告警引擎，由中国计算机学会开源发展技术委员会（CCF ODTC） 托管，代码在 [GitHub](https://github.com/ccfos/nightingale)，Apache-2.0 许可。它可以直接查询你已有的 Prometheus、日志库和数据库，做告警判定、降噪和通知分发，数据不用搬、采集器不用换。
+
+没有外部时序库时，小规模单 Center 部署也可以使用内置时序库。多 Center 或更大规模部署应使用外部时序库， 适用范围与切换方式见[内置时序库与外部存储](https://n9e.github.io/zh/docs/concepts/storage.md)。
 
 ## 它负责哪一层[​](#它负责哪一层 "它负责哪一层的直接链接")
 
-| 层次                     | 夜莺                                                                |
-| ------------------------ | ------------------------------------------------------------------- |
-| 存储                     | ❌ —— Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 继续用 |
-| 采集                     | ❌ —— Categraf、Telegraf、Datadog Agent、各类 exporter 都能写入     |
-| **告警规则、降噪、分发** | ✅ **这一层才是它的主场**                                           |
-| 仪表盘                   | ✅ 内置，但 Grafana 依然是一等公民                                  |
+| 层次                     | 夜莺                                                                                              |
+| ------------------------ | ------------------------------------------------------------------------------------------------- |
+| 存储                     | 可复用 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse；内置时序库适合小规模单 Center 部署 |
+| 采集                     | ❌ —— Categraf、Telegraf、Datadog Agent、各类 exporter 都能写入                                   |
+| **告警规则、降噪、分发** | ✅ **这一层才是它的主场**                                                                         |
+| 仪表盘                   | ✅ 内置，但 Grafana 依然是一等公民                                                                |
 
 ## 数据怎么流转[​](#数据怎么流转 "数据怎么流转的直接链接")
 

@@ -495,7 +495,7 @@ Find CPU alerting advice, Prometheus rule imports, subscriptions and data troubl
 - [I already have logs or databases](https://n9e.github.io/docs/get-started/choose-your-path/existing-logs-databases.md): Alert on ElasticSearch, Loki, ClickHouse, MySQL and the other SQL-queried stores using the same rule model as metrics.
 - [I already have Prometheus / VictoriaMetrics](https://n9e.github.io/docs/get-started/choose-your-path/existing-metrics.md): Register the store as a data source, keep scraping exactly as before, and get the first rule evaluating against it — no data moves.
 - [I want to enable Nightingale AI](https://n9e.github.io/docs/get-started/choose-your-path/nightingale-ai.md): Configure an LLM provider, turn on the built-in assistant and the MCP endpoint, and connect a client such as Claude Code.
-- [What Nightingale (n9e) is](https://n9e.github.io/docs/get-started/introduction.md): Nightingale (n9e, 夜莺) is an open-source alerting engine: it evaluates rules on the stores you already run, cuts the noise and delivers to on-call; it needs no copy of your data and no new collectors.
+- [What Nightingale (n9e) is](https://n9e.github.io/docs/get-started/introduction.md): Nightingale (n9e, 夜莺) is an open-source alerting engine for existing data sources, with an embedded TSDB for small, single-Center deployments.
 - [Guided live demo](https://n9e.github.io/docs/get-started/live-demo.md): Sign in to the public demo and walk the path from data source to delivered alert, in the same order as the quick start — no install needed.
 - [Production readiness checklist](https://n9e.github.io/docs/get-started/production-checklist.md): What to change before real traffic: default credentials, external database, TSDB choice, HA, backups and self-monitoring.
 - [Bring up Nightingale in five minutes](https://n9e.github.io/docs/get-started/quick-start.md): One docker compose up -d brings up Nightingale with its dependencies; sign in on port 17000 as root, then register a data source, write a rule and add a channel.
@@ -897,7 +897,7 @@ Prometheus, Zabbix and Grafana each have their ground. Nightingale argues for on
 
 Based on the publicly documented capabilities of each project’s open-source edition as of August 2026. We try to state what the other tools are good at — advice you cannot trust is worth nothing to a community.
 
-* **13,337**GitHub stars
+* **13,355**GitHub stars
 * **10+**&#x44;ata source types
 * **20**Notification channels
 * **74**MCP tools
@@ -1567,23 +1567,23 @@ Categraf fills only the gaps
 
 ## Side by side
 
-| Capability comparison | Nightingale v9                                                                                                                  | Zabbix                                                                                                          |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| Collection model      | Partial or via add-on<!-- -->: Categraf or your existing exporters, pushed over Remote Write                                    | Built in<!-- -->: Zabbix agent / agent 2, SNMP, IPMI, JMX, auto-discovery and LLD                               |
-| Storage               | Built in<!-- -->: None of its own: reads Prometheus, VictoriaMetrics, Elasticsearch, ClickHouse; embedded TSDB for small setups | Built in<!-- -->: Its own server with MySQL / PostgreSQL / TimescaleDB                                          |
-| What a rule covers    | Built in<!-- -->: One rule covers every series the query returns                                                                | Partial or via add-on<!-- -->: Triggers are generated per host; a template on 1,000 hosts is 1,000 trigger sets |
-| Rule language         | Built in<!-- -->: PromQL / SQL / LogQL, depending on the source                                                                 | Built in<!-- -->: Trigger expressions and function library                                                      |
-| Severity levels       | Partial or via add-on<!-- -->: Three: S1 / S2 / S3                                                                              | Built in<!-- -->: Six                                                                                           |
-| Trigger dependencies  | Partial or via add-on<!-- -->: No declarative dependencies; rewrite with an event pipeline                                      | Built in<!-- -->: Trigger dependencies and event correlation                                                    |
-| Maintenance / mutes   | Built in<!-- -->: Fixed and recurring mutes, mute-notifications-only keeps the event                                            | Built in<!-- -->: Maintenance periods                                                                           |
-| Notification channels | Built in<!-- -->: 20 built in; phone, SMS, DingTalk, Feishu and WeCom work out of the box                                       | Partial or via add-on<!-- -->: Email, script and webhook media types; Chinese IM mostly via community templates |
-| Escalation            | Partial or via add-on<!-- -->: Subscription rules escalate after a duration                                                     | Built in<!-- -->: Multi-step escalations                                                                        |
-| Permissions           | Built in<!-- -->: Users, teams, business-group RBAC; the business group is the boundary                                         | Built in<!-- -->: User groups, roles, host-group permissions                                                    |
-| Kubernetes            | Built in<!-- -->: Reads Prometheus data as is; Categraf ships Kubernetes plugins                                                | Partial or via add-on<!-- -->: Official Helm chart and templates, needs its own agents                          |
-| Network gear / SNMP   | Partial or via add-on<!-- -->: Categraf has an SNMP plugin, no auto-discovery                                                   | Built in<!-- -->: Home ground: SNMP, discovery, network templates                                               |
-| Log alerting          | Built in<!-- -->: Elasticsearch, OpenSearch, Loki, VictoriaLogs, ClickHouse                                                     | Partial or via add-on<!-- -->: Log items with regex, not queries against a log store                            |
-| AI / MCP              | Built in<!-- -->: Built-in assistant and 74 MCP tools                                                                           | Not available<!-- -->: None                                                                                     |
-| License               | Built in<!-- -->: Apache-2.0                                                                                                    | Partial or via add-on<!-- -->: AGPL-3.0 since 7.0                                                               |
+| Capability comparison | Nightingale v9                                                                                                                                                                       | Zabbix                                                                                                          |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
+| Collection model      | Partial or via add-on<!-- -->: Categraf or your existing exporters, pushed over Remote Write                                                                                         | Built in<!-- -->: Zabbix agent / agent 2, SNMP, IPMI, JMX, auto-discovery and LLD                               |
+| Storage               | Built in<!-- -->: Embedded TSDB for small, single-Center setups; also reads Prometheus, VictoriaMetrics, Elasticsearch and ClickHouse. Multi-Center deployments use an external TSDB | Built in<!-- -->: Its own server with MySQL / PostgreSQL / TimescaleDB                                          |
+| What a rule covers    | Built in<!-- -->: One rule covers every series the query returns                                                                                                                     | Partial or via add-on<!-- -->: Triggers are generated per host; a template on 1,000 hosts is 1,000 trigger sets |
+| Rule language         | Built in<!-- -->: PromQL / SQL / LogQL, depending on the source                                                                                                                      | Built in<!-- -->: Trigger expressions and function library                                                      |
+| Severity levels       | Partial or via add-on<!-- -->: Three: S1 / S2 / S3                                                                                                                                   | Built in<!-- -->: Six                                                                                           |
+| Trigger dependencies  | Partial or via add-on<!-- -->: No declarative dependencies; rewrite with an event pipeline                                                                                           | Built in<!-- -->: Trigger dependencies and event correlation                                                    |
+| Maintenance / mutes   | Built in<!-- -->: Fixed and recurring mutes, mute-notifications-only keeps the event                                                                                                 | Built in<!-- -->: Maintenance periods                                                                           |
+| Notification channels | Built in<!-- -->: 20 built in; phone, SMS, DingTalk, Feishu and WeCom work out of the box                                                                                            | Partial or via add-on<!-- -->: Email, script and webhook media types; Chinese IM mostly via community templates |
+| Escalation            | Partial or via add-on<!-- -->: Subscription rules escalate after a duration                                                                                                          | Built in<!-- -->: Multi-step escalations                                                                        |
+| Permissions           | Built in<!-- -->: Users, teams, business-group RBAC; the business group is the boundary                                                                                              | Built in<!-- -->: User groups, roles, host-group permissions                                                    |
+| Kubernetes            | Built in<!-- -->: Reads Prometheus data as is; Categraf ships Kubernetes plugins                                                                                                     | Partial or via add-on<!-- -->: Official Helm chart and templates, needs its own agents                          |
+| Network gear / SNMP   | Partial or via add-on<!-- -->: Categraf has an SNMP plugin, no auto-discovery                                                                                                        | Built in<!-- -->: Home ground: SNMP, discovery, network templates                                               |
+| Log alerting          | Built in<!-- -->: Elasticsearch, OpenSearch, Loki, VictoriaLogs, ClickHouse                                                                                                          | Partial or via add-on<!-- -->: Log items with regex, not queries against a log store                            |
+| AI / MCP              | Built in<!-- -->: Built-in assistant and 74 MCP tools                                                                                                                                | Not available<!-- -->: None                                                                                     |
+| License               | Built in<!-- -->: Apache-2.0                                                                                                                                                         | Partial or via add-on<!-- -->: AGPL-3.0 since 7.0                                                               |
 
 * Built in
 * Partial or via add-on
@@ -1928,6 +1928,73 @@ All83Hosts & hardware14Databases & storage16Message queues8Web & middleware15Con
 * [![SNMP logo](https://n9e.github.io/img/integrations/SNMP.png)SNMP9 dashboards·5 rule sets·collector config·metric docs](https://n9e.github.io/integrations/snmp.md)
 * [![Ping logo](https://n9e.github.io/img/integrations/Ping.png)Ping2 dashboards·1 rule set·collector config·metric docs](https://n9e.github.io/integrations/ping.md)
 * [![Alibaba Cloud logo](https://n9e.github.io/img/integrations/AliYun.png)Alibaba Cloud44 dashboards·12 rule sets·collector config](https://n9e.github.io/integrations/aliyun.md)
+* [![AMD ROCm SMI logo](https://n9e.github.io/img/integrations/AMD_ROCm_SMI.png)AMD ROCm SMI1 rule set·collector config](https://n9e.github.io/integrations/amd-rocm-smi.md)
+* [![Exec logo](https://n9e.github.io/img/integrations/Exec.png)Execcollector config](https://n9e.github.io/integrations/exec.md)
+* [![Filecount logo](https://n9e.github.io/img/integrations/Filecount.png)Filecountcollector configChinese only](https://github.com/ccfos/nightingale/blob/main/integrations/Filecount/markdown/README.md)
+* [![IPMI logo](https://n9e.github.io/img/integrations/IPMI.png)IPMI3 dashboards·1 rule set·collector config·metric docs](https://n9e.github.io/integrations/ipmi.md)
+* [![IPVS logo](https://n9e.github.io/img/integrations/IPVS.png)IPVS1 rule set·collector configChinese only](https://github.com/ccfos/nightingale/blob/main/integrations/IPVS/markdown/README.md)
+* [![Netstat Filter logo](https://n9e.github.io/img/integrations/Netstat_Filter.png)Netstat Filter1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/Netstat_Filter/markdown/README.en_US.md)
+* [![NFSClient logo](https://n9e.github.io/img/integrations/NFSClient.png)NFSClient1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/NFSClient/markdown/README.en_US.md)
+* [![NVIDIA logo](https://n9e.github.io/img/integrations/NVIDIA.png)NVIDIA3 dashboards·1 rule set·collector config·metric docs](https://n9e.github.io/integrations/nvidia.md)
+* [![Procstat logo](https://n9e.github.io/img/integrations/Procstat.png)Procstat1 dashboard·1 rule set·collector config·metric docsEnglish only](https://github.com/ccfos/nightingale/blob/main/integrations/Procstat/markdown/README.en_US.md)
+* [![Redfish logo](https://n9e.github.io/img/integrations/Redfish.png)Redfishcollector config](https://github.com/ccfos/nightingale/blob/main/integrations/Redfish/markdown/README.en_US.md)
+* [![SMART logo](https://n9e.github.io/img/integrations/SMART.png)SMART1 dashboard·1 rule set·collector config·metric docs](https://n9e.github.io/integrations/smart.md)
+* [![Systemd logo](https://n9e.github.io/img/integrations/Systemd.png)Systemd1 dashboard·1 rule set·collector config·metric docs](https://n9e.github.io/integrations/systemd.md)
+* [![ClickHouse logo](https://n9e.github.io/img/integrations/ClickHouse.png)ClickHouse2 dashboards·2 rule sets·collector config·metric docsChinese only](https://n9e.github.io/integrations/clickhouse.md)
+* [![Dameng logo](https://n9e.github.io/img/integrations/Dameng.png)Dameng1 dashboard·1 rule set·collector config·metric docsEnglish only](https://github.com/ccfos/nightingale/blob/main/integrations/Dameng/markdown/README.en_US.md)
+* [![Doris logo](https://n9e.github.io/img/integrations/Doris.svg)Doris1 dashboard·1 rule set·collector config](https://n9e.github.io/integrations/doris.md)
+* [![Greenplum logo](https://n9e.github.io/img/integrations/Greenplum.png)Greenplum1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/Greenplum/markdown/README.en_US.md)
+* [![Kingbase logo](https://n9e.github.io/img/integrations/Kingbase.png)Kingbase1 dashboardEnglish only](https://github.com/ccfos/nightingale/blob/main/integrations/Kingbase/markdown/README.en_US.md)
+* [![Oracle logo](https://n9e.github.io/img/integrations/Oracle.png)Oracle1 dashboard·1 rule set·collector config](https://n9e.github.io/integrations/oracle.md)
+* [![Prometheus logo](https://n9e.github.io/img/integrations/Prometheus.png)Prometheuscollector config](https://github.com/ccfos/nightingale/blob/main/integrations/Prometheus/markdown/README.en_US.md)
+* [![SQLServer logo](https://n9e.github.io/img/integrations/SQLServer.png)SQLServer1 dashboard·1 rule set·collector config](https://n9e.github.io/integrations/sqlserver.md)
+* [![TDengine logo](https://n9e.github.io/img/integrations/TDEngine.png)TDengine1 dashboard](https://github.com/ccfos/nightingale/blob/main/integrations/TDEngine/markdown/README.en_US.md)
+* [![TiDB logo](https://n9e.github.io/img/integrations/TiDB.png)TiDB1 dashboard·1 rule set](https://n9e.github.io/integrations/tidb.md)
+* [![VictoriaMetrics logo](https://n9e.github.io/img/integrations/VictoriaMetrics.png)VictoriaMetrics2 dashboards·1 rule set](https://n9e.github.io/integrations/victoriametrics.md)
+* [![AutoMQ logo](https://n9e.github.io/img/integrations/AutoMQ.png)AutoMQ5 dashboards·1 rule set·collector config·metric docsEnglish only](https://n9e.github.io/integrations/automq.md)
+* [![Canal logo](https://n9e.github.io/img/integrations/Canal.png)Canal1 dashboard](https://github.com/ccfos/nightingale/blob/main/integrations/Canal/markdown/README.en_US.md)
+* [![EMQX logo](https://n9e.github.io/img/integrations/EMQX.png)EMQX1 rule set·collector config](https://n9e.github.io/integrations/emqx.md)
+* [![NSQ logo](https://n9e.github.io/img/integrations/NSQ.png)NSQ1 rule set·collector config](https://n9e.github.io/integrations/nsq.md)
+* [![RocketMQ logo](https://n9e.github.io/img/integrations/RocketMQ.png)RocketMQcollector config](https://github.com/ccfos/nightingale/blob/main/integrations/RocketMQ/markdown/README.en_US.md)
+* [![ZooKeeper logo](https://n9e.github.io/img/integrations/ZooKeeper.png)ZooKeeper1 dashboard·1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/ZooKeeper/markdown/README.en_US.md)
+* [![Apache logo](https://n9e.github.io/img/integrations/Apache.png)Apache1 rule set·collector config](https://n9e.github.io/integrations/apache.md)
+* [![Bind logo](https://n9e.github.io/img/integrations/Bind.png)Bind1 rule set·collector config](https://n9e.github.io/integrations/bind.md)
+* [![Consul logo](https://n9e.github.io/img/integrations/Consul.png)Consul1 rule set·collector configChinese only](https://n9e.github.io/integrations/consul.md)
+* [![HAProxy logo](https://n9e.github.io/img/integrations/HAProxy.png)HAProxy1 dashboard·1 rule set·collector config](https://n9e.github.io/integrations/haproxy.md)
+* [![IIS logo](https://n9e.github.io/img/integrations/IIS.png)IIScollector config](https://github.com/ccfos/nightingale/blob/main/integrations/IIS/markdown/README.en_US.md)
+* [![Jolokia Agent logo](https://n9e.github.io/img/integrations/Jolokia_Agent.png)Jolokia Agentcollector config](https://github.com/ccfos/nightingale/blob/main/integrations/Jolokia_Agent/markdown/README.en_US.md)
+* [![Ldap logo](https://n9e.github.io/img/integrations/Ldap.png)Ldap1 rule set·collector configChinese only](https://n9e.github.io/integrations/ldap.md)
+* [![Logstash logo](https://n9e.github.io/img/integrations/Logstash.png)Logstash1 dashboard·1 rule set·collector config](https://n9e.github.io/integrations/logstash.md)
+* [![Mtail logo](https://n9e.github.io/img/integrations/Mtail.png)Mtailcollector config](https://n9e.github.io/integrations/mtail.md)
+* [![PHP logo](https://n9e.github.io/img/integrations/PHP.png)PHP1 rule set·collector config](https://n9e.github.io/integrations/php.md)
+* [![Radius logo](https://n9e.github.io/img/integrations/Radius.png)Radiuscollector config](https://github.com/ccfos/nightingale/blob/main/integrations/Radius/markdown/README.en_US.md)
+* [![SpringBoot logo](https://n9e.github.io/img/integrations/SpringBoot.png)SpringBoot2 dashboards·1 rule set](https://n9e.github.io/integrations/springboot.md)
+* [![Tomcat logo](https://n9e.github.io/img/integrations/Tomcat.png)Tomcat1 dashboard·1 rule set·collector config](https://n9e.github.io/integrations/tomcat.md)
+* [![cAdvisor logo](https://n9e.github.io/img/integrations/cAdvisor.png)cAdvisor1 dashboard·1 rule set·collector config·metric docs](https://n9e.github.io/integrations/cadvisor.md)
+* [![Ceph logo](https://n9e.github.io/img/integrations/Ceph.png)Ceph1 dashboard·1 rule set](https://n9e.github.io/integrations/ceph.md)
+* [![MinIO logo](https://n9e.github.io/img/integrations/MinIO.png)MinIO2 dashboards·1 rule set](https://n9e.github.io/integrations/minio.md)
+* [![OpenStack logo](https://n9e.github.io/img/integrations/OpenStack.png)OpenStack1 rule set·collector config](https://n9e.github.io/integrations/openstack.md)
+* [![vSphere logo](https://n9e.github.io/img/integrations/vSphere.png)vSphere2 dashboards·1 rule set·collector config](https://n9e.github.io/integrations/vsphere.md)
+* [![XSKY logo](https://n9e.github.io/img/integrations/XSKYApi.png)XSKY1 rule set·collector configChinese only](https://github.com/ccfos/nightingale/blob/main/integrations/XSKYApi/markdown/README.md)
+* [![Akamai logo](https://n9e.github.io/img/integrations/Akamai.svg)Akamai1 dashboard·1 rule set·collector configEnglish only](https://github.com/ccfos/nightingale/blob/main/integrations/Akamai/markdown/README.en_US.md)
+* [![Azure logo](https://n9e.github.io/img/integrations/Azure.svg)Azurecollector configEnglish only](https://n9e.github.io/integrations/azure.md)
+* [![CDN logo](https://n9e.github.io/img/integrations/CDN.png)CDN1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/CDN/markdown/README.en_US.md)
+* [![Cloudflare logo](https://n9e.github.io/img/integrations/Cloudflare.png)Cloudflare1 dashboard·1 rule set·collector configEnglish only](https://github.com/ccfos/nightingale/blob/main/integrations/Cloudflare/markdown/README.en_US.md)
+* [![CloudWatch logo](https://n9e.github.io/img/integrations/CloudWatch.png)CloudWatch1 dashboard·1 rule set·collector configChinese only](https://n9e.github.io/integrations/cloudwatch.md)
+* [![GoogleCloud logo](https://n9e.github.io/img/integrations/GoogleCloud.png)GoogleCloudcollector config](https://github.com/ccfos/nightingale/blob/main/integrations/GoogleCloud/markdown/README.en_US.md)
+* [![Huawei Cloud logo](https://n9e.github.io/img/integrations/Huawei.svg)Huawei Cloud14 dashboards·4 rule sets·metric docs](https://n9e.github.io/integrations/huawei.md)
+* [![Tencent Cloud logo](https://n9e.github.io/img/integrations/Tencent.svg)Tencent Cloud7 dashboardsEnglish only](https://n9e.github.io/integrations/tencent.md)
+* [![DNS Query logo](https://n9e.github.io/img/integrations/Dns_Query.png)DNS Query1 rule set·collector config·metric docs](https://n9e.github.io/integrations/dns-query.md)
+* [![HTTP Response logo](https://n9e.github.io/img/integrations/HTTP_Response.png)HTTP Response1 dashboard·1 rule set·collector config·metric docsEnglish only](https://github.com/ccfos/nightingale/blob/main/integrations/HTTP_Response/markdown/README.en_US.md)
+* [![Meraki logo](https://n9e.github.io/img/integrations/Meraki.png)Merakicollector config](https://github.com/ccfos/nightingale/blob/main/integrations/Meraki/markdown/README.en_US.md)
+* [![Net Response logo](https://n9e.github.io/img/integrations/Net_Response.png)Net Response2 dashboards·1 rule set·collector config·metric docs](https://n9e.github.io/integrations/net-response.md)
+* [![Switch (legacy) logo](https://n9e.github.io/img/integrations/Switch_Legacy.png)Switch (legacy)1 dashboard·1 rule set·collector config](https://n9e.github.io/integrations/switch-legacy.md)
+* [![Whois logo](https://n9e.github.io/img/integrations/Whois.png)Whois1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/Whois/markdown/README.en_US.md)
+* [![X.509 Certificate logo](https://n9e.github.io/img/integrations/X509_Cert.png)X.509 Certificatecollector config](https://github.com/ccfos/nightingale/blob/main/integrations/X509_Cert/markdown/README.en_US.md)
+* [![AppDynamics logo](https://n9e.github.io/img/integrations/AppDynamics.png)AppDynamicscollector config](https://github.com/ccfos/nightingale/blob/main/integrations/AppDynamics/markdown/README.en_US.md)
+* [![Gitlab logo](https://n9e.github.io/img/integrations/Gitlab.png)Gitlab5 dashboards·1 rule set](https://n9e.github.io/integrations/gitlab.md)
+* [![Jenkins logo](https://n9e.github.io/img/integrations/Jenkins.png)Jenkins1 rule set·collector config](https://github.com/ccfos/nightingale/blob/main/integrations/Jenkins/markdown/README.en_US.md)
+* [![Zabbix logo](https://n9e.github.io/img/integrations/Zabbix.svg)Zabbix1 dashboard·collector configEnglish only](https://github.com/ccfos/nightingale/blob/main/integrations/Zabbix/markdown/README.en_US.md)
 
 Show all 83 templates
 
@@ -1935,7 +2002,7 @@ Show all 83 templates
 
 ↓
 
-[Browse every template on GitHub<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-10-13
+[Browse every template on GitHub<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-10-15
 
 COLLECTORS
 
@@ -9965,20 +10032,22 @@ Verify with something read-only, such as "list all alert rules".
 
 # What Nightingale (n9e) is
 
-Nightingale (n9e, 夜莺) is an open-source alerting engine: it evaluates rules on the stores you already run, cuts the noise and delivers to on-call; it needs no copy of your data and no new collectors.
+Nightingale (n9e, 夜莺) is an open-source alerting engine for existing data sources, with an embedded TSDB for small, single-Center deployments.
 
-Last reviewed 2026-10-12
+Last reviewed 2026-10-15
 
-Nightingale (夜莺, also known as **n9e**) is an open-source alerting engine, hosted by the China Computer Federation's open-source committee (CCF ODTC) and developed on [GitHub](https://github.com/ccfos/nightingale) under Apache-2.0. It does not need a copy of your telemetry and it does not replace your collectors — it sits on top of the databases you already run, evaluates rules against them, cuts the noise, and delivers what survives to the people on call.
+Nightingale (夜莺, also known as **n9e**) is an open-source alerting engine, hosted by the China Computer Federation's open-source committee (CCF ODTC) and developed on [GitHub](https://github.com/ccfos/nightingale) under Apache-2.0. It queries your existing Prometheus, log stores and databases to evaluate alert rules, reduce noise and deliver notifications. You can keep your data and collectors in place.
+
+Without an external time series store, small, single-Center deployments can use the embedded TSDB. Multi-Center or larger deployments should use an external TSDB. See [Embedded TSDB and external storage](https://n9e.github.io/docs/concepts/storage.md) for the limits and migration path.
 
 ## What it owns[​](#what-it-owns "Direct link to What it owns")
 
-| Layer                                     | Nightingale                                                       |
-| ----------------------------------------- | ----------------------------------------------------------------- |
-| Storage                                   | ❌ — keep Prometheus, VictoriaMetrics, ElasticSearch, ClickHouse… |
-| Collection                                | ❌ — Categraf, Telegraf, Datadog Agent and exporters all write in |
-| **Alert rules, noise reduction, routing** | ✅ **this is the layer it owns**                                  |
-| Dashboards                                | ✅ built in, but Grafana stays a first-class option               |
+| Layer                                     | Nightingale                                                                                                                |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Storage                                   | Reuse Prometheus, VictoriaMetrics, Elasticsearch or ClickHouse; an embedded TSDB supports small, single-Center deployments |
+| Collection                                | ❌ — Categraf, Telegraf, Datadog Agent and exporters all write in                                                          |
+| **Alert rules, noise reduction, routing** | ✅ **this is the layer it owns**                                                                                           |
+| Dashboards                                | ✅ built in, but Grafana stays a first-class option                                                                        |
 
 ## Where it fits[​](#where-it-fits "Direct link to Where it fits")
 
@@ -10304,11 +10373,11 @@ Two things you may find by reading the source or watching a network trace. Both 
 
 Curated notes per release with upgrade impact, in addition to the GitHub changelog.
 
-Last reviewed 2026-10-10
+Last reviewed 2026-10-15
 
 This page does not mirror the changelog — the full per-commit list lives on GitHub and is updated faster than this page could be. It answers one question instead: **if I move to this version, what do I have to change?**
 
-Curated through **v9.1.1 (2026-08-18)**. For anything newer, go straight to GitHub.
+Curated through **[v9.2.0 (2026-10-11)](https://github.com/ccfos/nightingale/releases/tag/v9.2.0)**. For later releases, see the full changes on [GitHub Releases](https://github.com/ccfos/nightingale/releases).
 
 ## Where the authoritative record is[​](#where-the-authoritative-record-is "Direct link to Where the authoritative record is")
 
@@ -10331,24 +10400,32 @@ On startup Nightingale checks GitHub for the latest tag and compares it with its
 
 | Version    | Date       | What to handle before upgrading                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **v9.2.0** | 2026-10-11 | Replace both the binary and the `integrations` directory; also replace `etc/metrics.yaml` if you need metric descriptions in the added languages. Check database permissions for this release's schema changes. Keeping an old config does not enable the embedded TSDB. See the checklist below                                                                                                                                                                                 |
 | **v9.1.1** | 2026-08-18 | Nothing. A pure fix release: replace the binary and restart                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | **v9.1.0** | 2026-08-06 | 1. **Evaluation records are on by default** — the alerting engine writes to its local `./evallog`, retained 8 days and capped at 20 GB, so leave disk headroom or turn it off under `[Alert.EvalLog]`. 2. **The embedded TSDB is not switched on for you**: `[EmbeddedTSDB]` exists only in the new `etc/config.toml`, so carrying an old config over leaves it off. 3. Two `notification_record` indexes are created online after startup, which takes a while on a large table |
 | **v9.0.0** | 2026-07-25 | 1. **Redis 5.0 or later is required** (the AI assistant relies on Redis Streams); 7.0+ is recommended on Cluster. 2. telegraf users must append `ignore_host=false` to the write URL, or those machines stop appearing in the host list. 3. `n9e-edge` and `n9e-pushgw` must be upgraded in the same pass                                                                                                                                                                        |
-
-The full upgrade procedure, verification and rollback are in [v8 to v9](https://n9e.github.io/docs/migration/v8-to-v9.md).
 
 Headline features per release, one line each — details on GitHub:
 
 * **v9.0.0**: Nightingale AI (assistant, skills marketplace, LLM configs); **test fire** on alert rules; **mute notifications only** on mute rules; a built-in `/mcp` endpoint; navigation, layout and tables redesigned; the alert rule / mute / subscription / notification rule forms rebuilt.
 * **v9.1.0**: the embedded TSDB; one-click data source import from Grafana; per-cycle evaluation records; testable media types and previewable message templates; mock events in workflow try runs; a much larger library of built-in alert rule templates.
 * **v9.1.1**: list pages keep the current page in the URL; the log viewer renders through a virtual list; a batch of fixes.
+* **v9.2.0**: native Jira, Discord, JSM Alert, Slack and Mattermost channels; mixed-datasource dashboard queries, time-limited anonymous sharing and Grafana import reports; reversible account disabling; AI script tasks through ibex; more languages and fixes including multi-instance login loops.
+
+### v9.2.0 upgrade checklist[​](#v920-upgrade-checklist "Direct link to v9.2.0 upgrade checklist")
+
+1. **Back up the metadata database and config, then check schema-change permissions.** This release adds `source_token.note`, the `idx_source_token_token` index on `source_token.token`, and `users.disabled`. Nightingale migrates them at startup when its database account has the required DDL permissions. Otherwise, have a DBA apply the missing changes using the [MySQL or PostgreSQL SQL in the v9.2.0 release notes](https://github.com/ccfos/nightingale/releases/tag/v9.2.0). Expected result: startup migration reports no permission or schema errors.
+2. **Update the files together.** Replace the binary and the `integrations` directory. Also replace `etc/metrics.yaml` if you need metric descriptions in the added languages. Preserve your connection settings and restart; upgrade `n9e-edge` / `n9e-pushgw` in the same pass if you run them. Expected result: the processes start normally and the new integration templates are available.
+3. **Choose metric storage for your deployment.** To enable the embedded TSDB, merge the `[EmbeddedTSDB]` section from the [v9.2.0 config](https://github.com/ccfos/nightingale/blob/v9.2.0/etc/config.toml) into your old config; replacing the binary alone does not enable it. It suits small, single-Center deployments only. Multi-Center deployments should keep an external TSDB. Expected result: existing data source queries, dashboards and alert rules still return data.
+
+When upgrading from v8, also follow [v8 to v9](https://n9e.github.io/docs/migration/v8-to-v9.md) for Redis requirements, telegraf write parameters, verification and rollback preparation.
 
 ## Three sections to read in any release note[​](#three-sections-to-read-in-any-release-note "Direct link to Three sections to read in any release note")
 
 Every GitHub release follows the same shape. Before upgrading, read at least these three:
 
 1. **Upgrade note ⚠️ / Notes** — the only place that says "you must do this first", such as the Redis version requirement or a config section you have to add by hand. **Skipping this section is the number one cause of a bad upgrade.**
-2. **Schema changes** — how the tables change. Skippable if the database account may create tables, since Nightingale alters them at startup; if it may not, hand `migrate.sql` to the DBA.
+2. **Schema changes** — how the tables change. Check that the database account can create and alter tables and add indexes, so Nightingale can migrate at startup. Otherwise, give the DBA the changes for the versions you need; do not rerun the entire cumulative migration file.
 3. The `fix:` entries under **What's Changed** — to find out whether the bug you have been living with is gone.
 
 ## Reading the version number[​](#reading-the-version-number "Direct link to Reading the version number")

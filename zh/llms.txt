@@ -500,7 +500,7 @@ Categraf 在 Windows 上采集的指标和 Linux 同名，主机仪表盘与规�
 - [已有日志库或数据库](https://n9e.github.io/zh/docs/get-started/choose-your-path/existing-logs-databases.md): 用和指标同一套规则体系，对 ElasticSearch、Loki、ClickHouse、MySQL 这类日志库和数据库做告警。
 - [已有 Prometheus / VictoriaMetrics](https://n9e.github.io/zh/docs/get-started/choose-your-path/existing-metrics.md): 把现有存储注册为数据源，抓取配置原样保留，让第一条规则在它上面跑起来——数据不用搬。
 - [想启用 Nightingale AI](https://n9e.github.io/zh/docs/get-started/choose-your-path/nightingale-ai.md): 配置一个大模型提供方，打开内置助手和 MCP 端点，再接上 Claude Code 这类客户端。
-- [夜莺监控（Nightingale）是什么](https://n9e.github.io/zh/docs/get-started/introduction.md): 夜莺监控（Nightingale，n9e）是开源告警引擎：接上已有的 Prometheus、日志库和数据库做规则判定、降噪和分发，数据不用搬、采集器不用换。
+- [夜莺监控（Nightingale）是什么](https://n9e.github.io/zh/docs/get-started/introduction.md): 夜莺监控（Nightingale，n9e）是开源告警引擎：复用已有数据源做规则判定、降噪和分发，也可在小规模单 Center 部署中使用内置时序库。
 - [在线体验导览](https://n9e.github.io/zh/docs/get-started/live-demo.md): 登录公共演示环境，按快速开始的顺序走一遍：从数据源到告警送达，不用安装任何东西。
 - [上生产前的检查清单](https://n9e.github.io/zh/docs/get-started/production-checklist.md): 真正上线前要改掉的东西：默认密码、外置数据库、时序库选型、高可用、备份与自监控。
 - [五分钟拉起夜莺](https://n9e.github.io/zh/docs/get-started/quick-start.md): docker compose up -d 一条命令拉起夜莺及依赖，以 root 登录 17000 端口，然后接数据源、写规则、配通知。
