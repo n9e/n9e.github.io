@@ -4,7 +4,7 @@ DOWNLOAD
 
 Every package here is built from a tagged release and published on GitHub. Say what you are trying to do and the page shows only the commands for that path.
 
-**v9.2.0**released<!-- --> <!-- -->2026-10-11[Release notes<!-- --> →](https://github.com/ccfos/nightingale/releases/tag/v9.2.0)
+**v9.3.0**released<!-- --> <!-- -->2026-10-21[Release notes<!-- --> →](https://github.com/ccfos/nightingale/releases/tag/v9.3.0)
 
 ## What do you want to do?
 

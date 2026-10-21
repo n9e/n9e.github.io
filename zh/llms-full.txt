@@ -902,7 +902,7 @@ Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告�
 
 基于各项目 2026 年 8 月开源版本的公开能力，只作选型参考。我们尽量把对方的长处写清楚——选型建议不老实，社区口碑也就没了。
 
-* **13,357**GitHub Stars
+* **13,375**GitHub Stars
 * **10+**&#x6570;据源类型
 * **20**通知媒介
 * **74**MCP 工具
@@ -1778,7 +1778,7 @@ DOWNLOAD
 
 这里的每个包都来自打了标签的正式发布，发布在 GitHub 上。先说你要做什么，页面只给这条路上用得到的命令。
 
-**v9.2.0**发布于<!-- --> <!-- -->2026-10-11[发布说明<!-- --> →](https://github.com/ccfos/nightingale/releases/tag/v9.2.0)
+**v9.3.0**发布于<!-- --> <!-- -->2026-10-21[发布说明<!-- --> →](https://github.com/ccfos/nightingale/releases/tag/v9.3.0)
 
 ## 你要做什么
 
@@ -2007,7 +2007,7 @@ BUILT-IN TEMPLATES
 
 ↓
 
-[在 GitHub 查看全部模板<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-10-15
+[在 GitHub 查看全部模板<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-10-21
 
 COLLECTORS
 
@@ -2064,7 +2064,7 @@ node\_exporter、mysqld\_exporter 这些 Prometheus 生态的 exporter 由 Categ
 
 ---
 
-NIGHTINGALE DOCSv9.2.0
+NIGHTINGALE DOCSv9.3.0
 
 # 夜莺文档
 
@@ -44027,7 +44027,7 @@ S1CPU 使用率持续高于 90%
 
 已送达![钉钉](https://n9e.github.io/zh/img/logos/dingtalk.png)![飞书](https://n9e.github.io/zh/img/logos/feishu.png)![Slack](https://n9e.github.io/zh/img/logos/slack.png)
 
-13,357GitHub Stars
+13,375GitHub Stars
 
 10+数据源类型
 

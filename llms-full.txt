@@ -897,7 +897,7 @@ Prometheus, Zabbix and Grafana each have their ground. Nightingale argues for on
 
 Based on the publicly documented capabilities of each project’s open-source edition as of August 2026. We try to state what the other tools are good at — advice you cannot trust is worth nothing to a community.
 
-* **13,357**GitHub stars
+* **13,375**GitHub stars
 * **10+**&#x44;ata source types
 * **20**Notification channels
 * **74**MCP tools
@@ -1773,7 +1773,7 @@ DOWNLOAD
 
 Every package here is built from a tagged release and published on GitHub. Say what you are trying to do and the page shows only the commands for that path.
 
-**v9.2.0**released<!-- --> <!-- -->2026-10-11[Release notes<!-- --> →](https://github.com/ccfos/nightingale/releases/tag/v9.2.0)
+**v9.3.0**released<!-- --> <!-- -->2026-10-21[Release notes<!-- --> →](https://github.com/ccfos/nightingale/releases/tag/v9.3.0)
 
 ## What do you want to do?
 
@@ -2002,7 +2002,7 @@ Show all 83 templates
 
 ↓
 
-[Browse every template on GitHub<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-10-15
+[Browse every template on GitHub<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-10-21
 
 COLLECTORS
 
@@ -2059,7 +2059,7 @@ The template list comes straight from the open-source repo, where a template is 
 
 ---
 
-NIGHTINGALE DOCSv9.2.0
+NIGHTINGALE DOCSv9.3.0
 
 # Nightingale docs
 

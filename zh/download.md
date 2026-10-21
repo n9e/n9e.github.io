@@ -4,7 +4,7 @@ DOWNLOAD
 
 这里的每个包都来自打了标签的正式发布，发布在 GitHub 上。先说你要做什么，页面只给这条路上用得到的命令。
 
-**v9.2.0**发布于<!-- --> <!-- -->2026-10-11[发布说明<!-- --> →](https://github.com/ccfos/nightingale/releases/tag/v9.2.0)
+**v9.3.0**发布于<!-- --> <!-- -->2026-10-21[发布说明<!-- --> →](https://github.com/ccfos/nightingale/releases/tag/v9.3.0)
 
 ## 你要做什么
 

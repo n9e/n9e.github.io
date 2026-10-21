@@ -6,13 +6,13 @@
     <description>开源监控告警引擎：版本发布与文档更新。</description>
     <language>zh-CN</language>
     <atom:link href="https://n9e.github.io/zh/index.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Sun, 11 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 21 Oct 2026 00:00:00 GMT</lastBuildDate>
     <item>
-      <title>Nightingale v9.2.0 发布</title>
-      <link>https://github.com/ccfos/nightingale/releases/tag/v9.2.0</link>
-      <guid isPermaLink="false">https://github.com/ccfos/nightingale/releases/tag/v9.2.0#2026-10-11</guid>
-      <pubDate>Sun, 11 Oct 2026 00:00:00 GMT</pubDate>
-      <description>https://github.com/ccfos/nightingale/releases/tag/v9.2.0</description>
+      <title>Nightingale v9.3.0 发布</title>
+      <link>https://github.com/ccfos/nightingale/releases/tag/v9.3.0</link>
+      <guid isPermaLink="false">https://github.com/ccfos/nightingale/releases/tag/v9.3.0#2026-10-21</guid>
+      <pubDate>Wed, 21 Oct 2026 00:00:00 GMT</pubDate>
+      <description>https://github.com/ccfos/nightingale/releases/tag/v9.3.0</description>
     </item>
     <item>
       <title>文档已迁移到 n9e.github.io</title>
