@@ -134,6 +134,13 @@ const config: Config = {
     [
       'classic',
       {
+        // 首屏由 gtag 自动上报，站内路由切换由官方插件上报。
+        // GA4 数据流中关闭「Page changes based on browser history events」，避免重复 PV。
+        // 官方插件仅在 production 构建启用，npm start 不上报开发访问。
+        gtag: {
+          trackingID: 'G-W860H4Z5JM',
+          anonymizeIP: true,
+        },
         // 一级目录见 sidebars.ts。一期仅 v9 一套正文，不做多版本快照。
         docs: {
           path: 'docs',

@@ -49,6 +49,21 @@ and publishes `build/` to the `gh-pages` branch, which GitHub Pages serves at
 <https://n9e.github.io>. **Pushing to `main` is a production release.** The workflow can also be
 run by hand from the Actions tab.
 
+## Analytics
+
+Google Analytics 4 uses the `Nightingale (n9e.github.io)` property, the `Nightingale Website`
+web stream and measurement ID `G-W860H4Z5JM`. Reports use China time (UTC+8). The Google tag is
+configured through the classic preset in `docusaurus.config.ts`; the bundled official gtag
+plugin loads it asynchronously in production and reports client-side route changes. Development
+with `npm start` does not load GA4. Production build previews do contain the tag, so block
+analytics requests when testing them locally.
+
+In the GA4 web stream's enhanced measurement settings, keep **Page loads** enabled and
+**Page changes based on browser history events** disabled. Docusaurus already sends route-change
+page views; enabling automatic history measurement as well would double-count them. Other
+enhanced measurements, including outbound clicks, site search and file downloads, remain enabled.
+Baidu Analytics continues to use its existing tag and route-change client module.
+
 ## Layout
 
 ```
