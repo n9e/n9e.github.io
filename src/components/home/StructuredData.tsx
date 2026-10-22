@@ -6,6 +6,7 @@ import repo from '@site/src/data/stats.json';
 
 const GITHUB = 'https://github.com/ccfos/nightingale';
 const DOCKER_HUB = 'https://hub.docker.com/r/flashcatcloud/nightingale';
+const WIKIDATA = 'https://www.wikidata.org/wiki/Q141806446';
 
 /**
  * 首页的 JSON-LD。两段：
@@ -38,7 +39,7 @@ export default function StructuredData(): React.ReactElement {
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
     downloadUrl: `${base}download`,
     softwareHelp: { '@type': 'CreativeWork', url: `${base}docs` },
-    sameAs: [GITHUB, DOCKER_HUB],
+    sameAs: [GITHUB, DOCKER_HUB, WIKIDATA],
   };
 
   const website = {
