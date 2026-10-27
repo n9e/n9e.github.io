@@ -2,7 +2,7 @@
 
 通过 HTTP 接口读取 system.metrics、system.events 和 system.asynchronous\_metrics，查询、合并、复制队列和内存都有指标说明。
 
-最后校对于 2026-10-13
+最后校对于 2026-10-27
 
 ClickHouse 插件通过 HTTP 接口（默认 8123）查询 `system.metrics`、`system.events`、`system.asynchronous_metrics` 和 `system.parts` 等系统表：并发查询、合并与 mutation、复制队列与延迟、内存与缓存、parts 数量、ZooKeeper 会话。已在 ClickHouse 24.8 真实负载上验证。
 

@@ -2,7 +2,7 @@
 
 With pm.status\_path enabled, the input reads the PHP-FPM pool status over HTTP or a Unix socket: active and idle processes, request queue, slow requests and max-children hits.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The PHP-FPM input is adapted from Telegraf's phpfpm plugin and reads the pool status page: accepted connections, listen queue length and maximum, idle and active processes, total processes, how often `max_children` was reached and the slow request count. These are the direct indicators of a saturated PHP application.
 

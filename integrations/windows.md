@@ -2,7 +2,7 @@
 
 Categraf reports the same metric names on Windows as on Linux, so host dashboards and rules carry over; extra dashboards cover AD, DNS and ADFS via windows\_exporter.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Categraf runs on Windows too, and the basic CPU, memory, disk and network metrics keep the same names as on Linux. Host-level alert rules and dashboards therefore do not need a separate Windows edition.
 

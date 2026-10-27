@@ -2,7 +2,7 @@
 
 On 3.8+ scrape the built-in Prometheus plugin on port 15692; older versions go through the management API. Templates are split by version; rules watch queue backlog, unacked messages and node state.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 RabbitMQ 3.8 and later ship the `rabbitmq_prometheus` plugin: run `rabbitmq-plugins enable rabbitmq_prometheus` and `/metrics` appears on port 15692, which the Categraf `prometheus` input scrapes. Versions below 3.8 enable `rabbitmq_management` instead and use the Categraf `rabbitmq` input against the management API on 15672.
 

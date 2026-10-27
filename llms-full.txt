@@ -897,7 +897,7 @@ Prometheus, Zabbix and Grafana each have their ground. Nightingale argues for on
 
 Based on the publicly documented capabilities of each project’s open-source edition as of August 2026. We try to state what the other tools are good at — advice you cannot trust is worth nothing to a community.
 
-* **13,375**GitHub stars
+* **13,396**GitHub stars
 * **10+**&#x44;ata source types
 * **20**Notification channels
 * **74**MCP tools
@@ -1801,16 +1801,16 @@ Five containers: n9e, MySQL, Redis, VictoriaMetrics, and Categraf collecting the
 
 ## Categraf, the collector
 
-**v0.5.18**released<!-- --> <!-- -->2026-08-31[Release notes<!-- --> →](https://github.com/flashcatcloud/categraf/releases/tag/v0.5.18)
+**v0.5.19**released<!-- --> <!-- -->2026-10-26[Release notes<!-- --> →](https://github.com/flashcatcloud/categraf/releases/tag/v0.5.19)
 
 One agent per host for operating systems, middleware, databases and Kubernetes, writing over Prometheus Remote Write. Install it wherever Nightingale should see data.
 
 | Platform                      | Size  | SHA256              |                                                                                                                     |
 | ----------------------------- | ----- | ------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| Linux<!-- --> <!-- -->amd64   | 55 MB | `d8e1a69d4262a4c9…` | [Download](https://github.com/flashcatcloud/categraf/releases/download/v0.5.18/categraf-v0.5.18-linux-amd64.tar.gz) |
-| Linux<!-- --> <!-- -->arm64   | 49 MB | `5d98d263348ec5b0…` | [Download](https://github.com/flashcatcloud/categraf/releases/download/v0.5.18/categraf-v0.5.18-linux-arm64.tar.gz) |
-| Windows<!-- --> <!-- -->amd64 | 56 MB | `a45e3625340b9a7d…` | [Download](https://github.com/flashcatcloud/categraf/releases/download/v0.5.18/categraf-v0.5.18-windows-amd64.zip)  |
-| Windows<!-- --> <!-- -->arm64 | 49 MB | `ea2850040a10adbd…` | [Download](https://github.com/flashcatcloud/categraf/releases/download/v0.5.18/categraf-v0.5.18-windows-arm64.zip)  |
+| Linux<!-- --> <!-- -->amd64   | 55 MB | `e2c77c76a1969300…` | [Download](https://github.com/flashcatcloud/categraf/releases/download/v0.5.19/categraf-v0.5.19-linux-amd64.tar.gz) |
+| Linux<!-- --> <!-- -->arm64   | 49 MB | `42a088253a396c46…` | [Download](https://github.com/flashcatcloud/categraf/releases/download/v0.5.19/categraf-v0.5.19-linux-arm64.tar.gz) |
+| Windows<!-- --> <!-- -->amd64 | 56 MB | `464ca080ae0ad464…` | [Download](https://github.com/flashcatcloud/categraf/releases/download/v0.5.19/categraf-v0.5.19-windows-amd64.zip)  |
+| Windows<!-- --> <!-- -->arm64 | 49 MB | `79e6b5b31d945e11…` | [Download](https://github.com/flashcatcloud/categraf/releases/download/v0.5.19/categraf-v0.5.19-windows-arm64.zip)  |
 
 A slim build with metrics collection only, and one with the NVIDIA DCGM plugin, are on the release page.<!-- --> [All Categraf builds<!-- --> →](https://github.com/flashcatcloud/categraf/releases/latest)
 
@@ -1828,7 +1828,7 @@ Minor versions roll the binary. Across v8 to v9, back up the database first and 
 
 The community answers on Slack and GitHub Issues.
 
-[Slack #n9e<!-- --> →](https://join.slack.com/t/n9e/shared_invite/zt-480klxytf-P9qm3C1M87kDmRPp_H30Kw)[GitHub Issues<!-- --> →](https://github.com/ccfos/nightingale/issues)
+[Slack #n9e<!-- --> →](https://join.slack.com/t/n9e/shared_invite/zt-4ejx42fd0-S9aVULH4FTdH~jEAz80U7g)[GitHub Issues<!-- --> →](https://github.com/ccfos/nightingale/issues)
 
 [All releases on GitHub<!-- --> →](https://github.com/ccfos/nightingale/releases)
 
@@ -2002,7 +2002,7 @@ Show all 83 templates
 
 ↓
 
-[Browse every template on GitHub<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-10-21
+[Browse every template on GitHub<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-10-27
 
 COLLECTORS
 
@@ -2089,7 +2089,7 @@ REFERENCE
 
 RELEASES AND HELP
 
-[Release notes](https://github.com/ccfos/nightingale/releases)[Comparisons](https://n9e.github.io/comparisons.md)[Integrations](https://n9e.github.io/integrations.md)[Open an issue](https://github.com/ccfos/nightingale/issues)[Slack](https://join.slack.com/t/n9e/shared_invite/zt-480klxytf-P9qm3C1M87kDmRPp_H30Kw)
+[Release notes](https://github.com/ccfos/nightingale/releases)[Comparisons](https://n9e.github.io/comparisons.md)[Integrations](https://n9e.github.io/integrations.md)[Open an issue](https://github.com/ccfos/nightingale/issues)[Slack](https://join.slack.com/t/n9e/shared_invite/zt-4ejx42fd0-S9aVULH4FTdH~jEAz80U7g)
 
 
 ---
@@ -22549,7 +22549,7 @@ Continue from this former catalogue to the current guides and the practical arti
 
 Pulls ECS, RDS, Redis, SLB, CDN, ARMS and other product metrics through the CloudMonitor OpenAPI; the template ships dozens of per-product dashboards and rules.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The `aliyun` input calls the CloudMonitor OpenAPI and pulls metrics per namespace: ECS, RDS, Redis, MongoDB, SLB/ALB, OSS, CDN, message queues, ARMS application monitoring and more. Metrics arrive named `aliyun_<namespace>_<metric>` with instance ID and region labels.
 
@@ -23782,7 +23782,7 @@ Runbook:
 
 Runs rocm-smi to collect AMD GPU utilization, memory, temperature, power and clocks; rules cover overheating and full memory.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The AMD ROCm SMI input is ported from Telegraf. It runs the `rocm-smi` binary that ships with ROCm and parses the output into per-GPU utilization, memory usage, temperature, power draw, fan speed and clock frequencies.
 
@@ -23892,7 +23892,7 @@ Runbook:
 
 Reads the server-status?auto output of mod\_status for request rate, busy and idle workers, CPU and traffic; rules watch worker exhaustion and unreachable servers.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 With `mod_status` enabled, Apache httpd serves a machine-readable status page at `/server-status?auto`. The input scrapes it for total accesses and traffic, requests per second, busy and idle workers, CPU load, uptime and the distribution of worker states.
 
@@ -24023,7 +24023,7 @@ Runbook:
 
 AutoMQ exposes metrics through an OTel Collector or its own Prometheus endpoint; templates cover cluster overview, brokers, topics, consumer groups and detail.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 AutoMQ is a Kafka-compatible messaging system with separated compute and storage. It sends metrics to an OTel Collector's Prometheus exporter or exposes Prometheus-format data on its own endpoint (8890 in the reference test). Scrape that with the Categraf `prometheus` input, using whatever port your deployment configures.
 
@@ -24357,7 +24357,7 @@ Runbook:
 
 Pulls metrics per resource type through the Azure Monitor API, authenticating with a service principal that only needs the Monitoring Reader role.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The Azure input calls the Azure Monitor metrics API and pulls metrics by subscription, resource group or resource type (virtual machines, storage accounts, SQL databases, App Service and so on). The config lets you name the metrics and aggregations to collect per resource type.
 
@@ -24517,7 +24517,7 @@ Register a service principal, grant it the `Monitoring Reader` role, and put the
 
 Collects query counts, response codes, cache and memory contexts from BIND's statistics channel (XML v3); rules watch rising SERVFAIL and unreachable servers.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The BIND input is ported from Telegraf and reads the statistics channel of named (`http://localhost:8053/xml/v3` by default): incoming queries by type, responses by rcode, recursive clients, socket and network counters, cache state per view and memory context usage.
 
@@ -24648,7 +24648,7 @@ Runbook:
 
 Scrapes the cAdvisor built into kubelet or a standalone one for per-container CPU, memory, filesystem and network metrics; in kubelet mode it can attach Pod labels and annotations.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The cAdvisor input collects the `container_*` metrics that cAdvisor exposes: per-container CPU usage and throttling, memory working set and OOM events, filesystem reads and writes, network traffic and drops. Two ways to connect: `type = "kubelet"` scrapes the kubelet's `/metrics/cadvisor` (port 10250, authenticated) and can attach Pod labels and annotations to the metrics; `type = "cadvisor"` scrapes a standalone cAdvisor (port 8080 by default).
 
@@ -24890,7 +24890,7 @@ Runbook:
 
 Enable Ceph's prometheus mgr module and scrape port 9283; templates cover cluster health, OSDs, PGs, pool capacity and IOPS.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Ceph's mgr ships a prometheus module: after `ceph mgr module enable prometheus`, `/metrics` is served on port 9283 and the Categraf `prometheus` input scrapes it without any dedicated plugin.
 
@@ -25197,7 +25197,7 @@ Runbook:
 
 Reads system.metrics, system.events and system.asynchronous\_metrics over HTTP; queries, merges, replication queues and memory all come with metric descriptions.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The ClickHouse input queries the system tables over HTTP (port 8123 by default): `system.metrics`, `system.events`, `system.asynchronous_metrics`, `system.parts` and others. That yields concurrent queries, merges and mutations, replication queue and lag, memory and caches, part counts and ZooKeeper sessions. Verified against a real ClickHouse 24.8 workload.
 
@@ -25695,7 +25695,7 @@ Runbook:
 
 Pulls metric statistics from any CloudWatch namespace through the API, so EC2, RDS, ELB and Lambda all fit; the template ships an RDS dashboard and common rules.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The CloudWatch input is ported from Telegraf. It calls the GetMetricData API to pull statistics per namespace (`AWS/EC2`, `AWS/RDS`, `AWS/ELB` and so on), with dimension filters to limit collection to the resources you care about. Authentication follows the standard credential chain: `role_arn`, explicit access keys, a named profile, environment variables, the shared credentials file and the EC2 instance profile, tried in that order.
 
@@ -26072,7 +26072,7 @@ Runbook:
 
 Collects the health-check state of every registered service through the Consul API, so you see at once which service is critical or warning on which node.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The Consul input calls the Consul health API and turns every registered health check into a metric with service name, node, check name and current state (passing, warning, critical). It does not collect Consul's own telemetry, which Consul can emit over StatsD or its built-in Prometheus endpoint; its single job is answering "is anything registered in Consul unhealthy".
 
@@ -26301,7 +26301,7 @@ Runbook:
 
 Resolves a list of domains against the local or a named DNS server and reports query time, return code and record count, so slow or failing resolution shows up immediately.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The dns\_query input resolves the names in `domains` against the configured DNS servers (the host's own resolver or external public ones), supporting A, AAAA, CNAME, MX, TXT and other record types. It reports query time, rcode, the number of records returned and the result values.
 
@@ -26478,7 +26478,7 @@ Runbook:
 
 Collects per-container CPU, memory, block and network IO plus daemon state through the Docker API; the dashboard is written against docker\_\* metrics and verified on real hosts.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The Docker input is based on Telegraf's docker plugin. It connects to the Docker daemon socket (`unix:///var/run/docker.sock`) or a TCP endpoint and collects engine-level container counts and states, image count and storage driver information, plus CPU, memory, blkio and network IO for every container. Swarm services and extended memory statistics are optional.
 
@@ -26743,7 +26743,7 @@ Runbook:
 
 FE and BE both expose Prometheus-format /metrics; scrape them with the Categraf prometheus input. Templates cover queries, loads, compaction and node state.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Doris FE (port 8030 by default) and BE (8040) processes both expose Prometheus metrics on `/metrics`, so no dedicated plugin is needed. Label each node type with `group` and `job`; the dashboards use those labels to separate FE from BE and one cluster from another.
 
@@ -27152,7 +27152,7 @@ Runbook:
 
 Collects cluster health, node JVM, thread pools, index and shard state through Elasticsearch's own HTTP API; one node is enough to see the whole cluster on small deployments.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Elasticsearch exposes its state over HTTP JSON. The input reads `_cluster/health`, `_cluster/stats`, `_nodes/stats` and index statistics: cluster colour, unassigned shards, node JVM heap and GC, circuit breakers, thread pool rejections, indexing and search latency, and disk watermarks.
 
@@ -27704,7 +27704,7 @@ Runbook:
 
 Collects node state, connections, subscriptions, message throughput and drops through the EMQX Dashboard API; supports v3, v4 and v5.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The EMQX input calls the Dashboard API (port 18083 by default). It first reads `/nodes` for each node's version, running state, connection count, processes and memory, then the cluster-level subscription count, routes, message sent, received and dropped counters, sessions and retained messages. Listing several node addresses for one cluster makes it pick a reachable one at random; use separate `[[instances]]` blocks for separate clusters.
 
@@ -27896,7 +27896,7 @@ Runbook:
 
 For anything no plugin covers: write a script that prints Prometheus, InfluxDB line protocol or Open-Falcon format to stdout, and Categraf collects and ships it.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The exec input is Categraf's catch-all. You write a script, the script prints metrics to standard output, and Categraf runs it on a schedule and parses the result. Any language works; the output must be one of three formats, chosen with `data_format`: Prometheus text exposition, InfluxDB line protocol (`measurement,label=v field=1`) or Open-Falcon JSON.
 
@@ -27964,7 +27964,7 @@ Use it for business metrics, health checks of legacy systems and one-off inspect
 
 The GitLab package bundles several exporters for the host, Rails/Sidekiq, Gitaly, Workhorse, PostgreSQL, Redis and NGINX; the template ships five dashboards.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The GitLab Linux Package comes with a full set of exporters: node\_exporter (host), gitlab\_exporter (Rails and Sidekiq), Gitaly, Workhorse, postgres\_exporter, redis\_exporter and NGINX VTS. The five dashboards (overview, machine performance, NGINX, PostgreSQL, Redis) each use part of that set, so scrape all of these endpoints rather than a single `/metrics`.
 
@@ -28205,7 +28205,7 @@ Runbook:
 
 Reads HAProxy's CSV stats page or Runtime API for sessions, queues, errors and health state per frontend, backend and server.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The HAProxy input reads the CSV output of the stats page (`/stats;csv`) or the Runtime API Unix socket. It collects current and maximum sessions, queue length, request rate, status code classes, connection and response errors, retries and redispatches at frontend, backend and server level, plus the health-check result of every backend server. Verified against real backend traffic.
 
@@ -28416,7 +28416,7 @@ Runbook:
 
 Scrape Cloud Eye (CES) metrics converted to Prometheus format by the cloudeye-exporter; templates cover ECS, RDS, DCS, ELB, Kafka, RocketMQ, CSS and WAF.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Huawei Cloud metrics come from the Cloud Eye service (CES). The `cloudeye-exporter` maintained by Huawei Cloud converts CES metrics per product namespace into Prometheus metrics named `huaweicloud_sys_<service>_<metric>`, which the Categraf `prometheus` input scrapes.
 
@@ -29318,7 +29318,7 @@ Runbook:
 
 Reads out-of-band temperature, fan, voltage, power and sensor state over IPMI, from the local BMC or remote ones.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The IPMI input is ported from ipmi\_exporter. It runs a set of FreeIPMI commands and turns the output into metrics: temperatures, fan speeds, voltages, power draw, the health of every sensor and the chassis power state. The data comes from the BMC, so it is still available when the operating system is down.
 
@@ -29520,7 +29520,7 @@ Runbook:
 
 JVM memory, GC, threads and class loading exposed via the JMX Exporter or the OpenTelemetry Java Agent; one dashboard set for each metric naming.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Monitoring a Java application mostly means monitoring the JVM: heap and non-heap memory, GC count and pause time per generation, thread count and deadlocks, class loading, file descriptors. The two common ways of exposing these produce different metric names, so the templates are split:
 
@@ -29579,7 +29579,7 @@ Put the application name in the `job` label; the dashboards filter on it. If a P
 
 Broker metrics come from JMX, consumer lag from the embedded kafka\_exporter logic; templates come in Categraf and exporter editions, rules watch lag, offline partitions and shrinking ISR.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Kafka's core broker metrics are exposed over JMX; collect those with jolokia or jmx\_exporter. The Categraf `kafka` input fills the gap JMX cannot: consumer group lag, per-partition offsets and consumption rate. It is forked from the davidmparrott flavour of kafka\_exporter, whose metric names differ slightly from the danielqsj flavour; set `rename_uncommit_offset_to_lag = true` to switch to the more common `kafka_consumergroup_lag` naming.
 
@@ -29918,7 +29918,7 @@ Runbook:
 
 Scrapes the native /metrics of the apiserver, kubelet, controller-manager, scheduler, kube-proxy, CoreDNS, kube-state-metrics and node-exporter; templates cover every layer from control plane to Pod.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Every Kubernetes component exposes Prometheus-format `/metrics`. The recommended path is to scrape them directly with the Categraf `prometheus` input and deploy kube-state-metrics (workload state) and node-exporter (node resources). The old Categraf kubernetes input is deprecated, but the dashboards and rules in this template keep working.
 
@@ -33390,7 +33390,7 @@ Runbook:
 
 Reads the LDAP server's cn=Monitor backend for connections, operation counters, waiters and thread state; supports OpenLDAP and 389 Directory Server.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The LDAP input queries the server's monitoring backend (`cn=Monitor`) for current and total connections, counters for bind, search, modify, add, delete and other operations, pending reads and writes, thread pool state and uptime. OpenLDAP and 389ds dialects are both supported, with slightly different metric names.
 
@@ -33579,7 +33579,7 @@ Runbook:
 
 CPU, memory, disk, network, processes and kernel parameters out of the box; templates cover Categraf, node\_exporter and Telegraf metric names.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Linux hosts are where most monitoring starts. Categraf's cpu, mem, disk, diskio, net, netstat, kernel and processes inputs are enabled by default and report as soon as the agent starts. The configs listed below are the plugins that have options worth tuning.
 
@@ -35389,7 +35389,7 @@ Runbook:
 
 Collects pipeline event in/out and filter time, queue state and JVM health from Logstash's node API; rules watch event backlog and JVM pressure.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Logstash serves an HTTP API on port 9600 by default. The input reads `_node/stats`: input, filter and output event counts and durations per pipeline, persistent queue capacity and backlog, JVM heap, GC and threads, and process CPU and file descriptors.
 
@@ -35610,7 +35610,7 @@ Runbook:
 
 MinIO ships a Prometheus endpoint; scrape the cluster, bucket and node paths together or the object, bucket, process and disk panels stay empty.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 MinIO exposes Prometheus metrics under `/minio/v2/metrics/` on three paths: `cluster`, `bucket` and `node`. The two bundled dashboards use all three families, so scraping `/cluster` alone leaves the object count, bucket usage, process and disk panels without data.
 
@@ -35713,7 +35713,7 @@ Runbook:
 
 Embeds the mongodb\_exporter collector for connections, op counters, replica set and sharding state; the dashboards need the compatible metric names turned on.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The MongoDB input wraps Percona's mongodb\_exporter and collects connections, op counters, queues, WiredTiger cache, replica set member state and oplog window via `serverStatus`, `replSetGetStatus` and related commands. For sharded clusters, the `mongodb_cluster` input collects from the mongos side.
 
@@ -36106,7 +36106,7 @@ Runbook:
 
 Categraf embeds mtail: extract counters, gauges and histograms from log files with regular expressions and expressions, without shipping the logs to a log system first.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The mtail input turns logs into metrics. Input is a log file, output is a set of counters, gauges and histograms defined in mtail syntax; underneath it is Go regular expressions plus expression evaluation. It suits cases such as status-code distribution from Nginx access logs or error counts from application logs, with no need to ship the logs into Elasticsearch or Loki first.
 
@@ -36158,7 +36158,7 @@ Each `[[instances]]` block points at a set of `progs` (mtail program files or a 
 
 Connects to the instance and runs SHOW STATUS, SHOW VARIABLES and replica status; slow-query pileups, connection exhaustion and broken or lagging replication come with rules and runbooks.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The MySQL input is straightforward: it connects to the instance, runs `SHOW GLOBAL STATUS`, `SHOW GLOBAL VARIABLES`, `SHOW SLAVE STATUS` and friends, and turns the results into metrics. Basic status and replication are collected by default; extended InnoDB metrics, the processlist and schema and table sizes are opt-in. Custom SQL can also be turned into metrics.
 
@@ -36715,7 +36715,7 @@ Runbook:
 
 Checks whether a local or remote port accepts connections and responds as expected; result codes 0 to 4 mean success, timeout, connection failure, read failure and content mismatch.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The net\_response input opens a TCP connection or exchanges a UDP packet with each `host:port` in `targets`, optionally sending a payload and matching the reply against `expect`. The outcome is reported as `net_response_result_code`: 0 success, 1 timeout, 2 connection failed, 3 read failed, 4 response mismatch, along with the connect time.
 
@@ -36865,7 +36865,7 @@ Runbook:
 
 stub\_status covers connections and request totals, the VTS module adds per-server and per-upstream status codes and latency; an upstream\_check input reads health-check results.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Nginx can be monitored at three levels. The built-in `stub_status` module reports active connections, accepts, handled, requests and reading/writing/waiting counts, enough for liveness and traffic trends. The VTS module (`nginx-module-vts`) breaks requests, status codes, response time and traffic down by server zone and upstream, which is the recommended path; scrape its `/status/format/prometheus` with the Categraf `prometheus` input. The third is the `nginx_upstream_check` input, which reads the results of the upstream\_check module.
 
@@ -37141,7 +37141,7 @@ Runbook:
 
 Reads nsqd's /stats endpoint for per-topic and per-channel depth, in-flight, timeouts and client counts; rules watch growing backlog and lost consumers.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The NSQ input is ported from Telegraf and reads the `/stats` HTTP endpoint of nsqd: message counts and depth per topic, depth, in-flight, deferred, requeue and timeout counters per channel, and ready and in-flight state per client connection.
 
@@ -37296,7 +37296,7 @@ Runbook:
 
 Two ways to collect NVIDIA GPUs: nvidia-smi is light and usually enough, DCGM gives more; dashboards cover a fleet overview, single cards and training jobs.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 There are two collection paths for NVIDIA GPUs. The `nvidia_smi` input runs the local `nvidia-smi` command and parses its output, so nothing else needs installing; utilization, memory, temperature, power and clocks are all there, and remote hosts can be reached over SSH. The `dcgm` input talks to NVIDIA DCGM for finer metrics such as SM activity, NVLink traffic and XID errors, but needs the with-cgo-plugin build of Categraf and DCGM on the host.
 
@@ -37548,7 +37548,7 @@ Runbook:
 
 Collects resources and quotas from Nova, Neutron, Cinder, Glance, Keystone and Heat through the OpenStack API, plus the state of every instance.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The OpenStack input calls each service's API with a read-capable account: Nova instances, hypervisors and quotas; Neutron networks, subnets, ports, floating IPs and security groups; Cinder volumes and snapshots; Glance images; Keystone projects and users; Heat stacks. Every instance's state, project and flavor is reported as a metric too.
 
@@ -37956,7 +37956,7 @@ Runbook:
 
 Runs a customizable set of SQL queries with a read-only account to collect sessions, tablespaces, wait events and cache hit ratios; a Linux Categraf can monitor Oracle on Windows remotely.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The Oracle input connects to the instance and runs the queries defined in `metric.toml`: session counts, active sessions, tablespace usage, wait events, SGA and PGA, cache hit ratios, archive logs and more. Every query can be edited or extended. Connection settings and query definitions live in separate files so they can be trimmed per version and environment.
 
@@ -38421,7 +38421,7 @@ Runbook:
 
 With pm.status\_path enabled, the input reads the PHP-FPM pool status over HTTP or a Unix socket: active and idle processes, request queue, slow requests and max-children hits.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The PHP-FPM input is adapted from Telegraf's phpfpm plugin and reads the pool status page: accepted connections, listen queue length and maximum, idle and active processes, total processes, how often `max_children` was reached and the slow request count. These are the direct indicators of a saturated PHP application.
 
@@ -38628,7 +38628,7 @@ Runbook:
 
 Ping a list of targets from wherever Categraf runs and get packet loss, round-trip latency and jitter; the simplest liveness check there is.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The ping input sends ICMP probes to the addresses in `targets` and reports packet loss, minimum, average, maximum and standard deviation RTT, and TTL. As long as the targets do not block ping, it is the cheapest liveness check; running one Categraf per site and pinging across sites also gives a picture of link quality.
 
@@ -38792,7 +38792,7 @@ Runbook:
 
 Collects connections, transactions, cache hit ratio, locks and replication state with a read-only pg\_monitor account; custom queries against business tables are supported.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The PostgreSQL input connects as a client and reads the `pg_stat_*` monitoring views: connections per database, commits and rollbacks, cache hit ratio, deadlocks, temp files and replication lag. Custom queries can turn numbers from your own tables into metrics as well.
 
@@ -39022,7 +39022,7 @@ Runbook:
 
 On 3.8+ scrape the built-in Prometheus plugin on port 15692; older versions go through the management API. Templates are split by version; rules watch queue backlog, unacked messages and node state.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 RabbitMQ 3.8 and later ship the `rabbitmq_prometheus` plugin: run `rabbitmq-plugins enable rabbitmq_prometheus` and `/metrics` appears on port 15692, which the Categraf `prometheus` input scrapes. Versions below 3.8 enable `rabbitmq_management` instead and use the Categraf `rabbitmq` input against the management API on 15672.
 
@@ -39446,7 +39446,7 @@ Runbook:
 
 Runs INFO against Redis to collect memory, hit ratio, connections, slowlog and replication state; includes a Sentinel input and templates for redis\_exporter.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The Redis input connects to the instance, runs `INFO` and parses the result into memory usage and fragmentation, keyspace hit ratio, connected and blocked clients, persistence state and replication status. Add one `[[instances]]` block per instance and give each an `instance` label; the dashboards filter on it.
 
@@ -39816,7 +39816,7 @@ Runbook:
 
 Runs smartctl to read S.M.A.R.T. health attributes from HDDs, SSDs and NVMe drives, so you see reallocated sectors, temperature and wear before a disk actually dies.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 S.M.A.R.T. is the self-monitoring built into hard drives and SSDs. The Categraf smart input runs `smartctl` (and the `nvme` tool for NVMe devices) and emits `smart_device` for overall health plus `smart_attribute` for individual attributes: reallocated sectors, pending sectors, temperature, power-on hours, SSD wear and more.
 
@@ -40087,7 +40087,7 @@ Runbook:
 
 Collect any network device by listing OIDs, with OID values usable as labels; the template ships Cisco, Juniper and generic switch dashboards and dozens of rules.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Categraf has included Telegraf's snmp input since v0.2.13. The idea is simple: list the OIDs for the metrics you want. `[[instances.field]]` reads single values, `[[instances.table]]` walks a table into multiple rows, and selected OIDs in a table (interface names, say) can become labels. Generic OIDs for interface traffic, errors and state work on almost every device; vendor-specific OIDs for CPU and memory are configured per vendor and model.
 
@@ -41185,7 +41185,7 @@ Runbook:
 
 Add Actuator and micrometer-registry-prometheus and the application exposes /actuator/prometheus itself; the template ships JVM dashboards split by application name.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Spring Boot applications need no external agent. Add the `spring-boot-starter-actuator` and `micrometer-registry-prometheus` dependencies, expose the prometheus endpoint, and the application serves JVM, HTTP request, datasource pool, executor and custom metrics on `/actuator/prometheus`. Actuator is built on Micrometer underneath.
 
@@ -41314,7 +41314,7 @@ Runbook:
 
 Collects connections, waits, buffer pool, log usage and database state from DMVs and performance counters; VIEW SERVER STATE is all the permission it needs.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The SQL Server input is based on the Telegraf plugin of the same name and reads dynamic management views (DMVs) and performance counters: connections and requests, wait statistics, buffer cache hit ratio, page life expectancy, transaction log usage, database state and size, and Always On availability group health. It has been verified against SQL Server 2022.
 
@@ -41714,7 +41714,7 @@ Runbook:
 
 Give it a list of IPs and it detects the device model and collects CPU, memory and per-port traffic, errors and state; SNMP v2c only.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The switch\_legacy input is forked from swcollector and targets the "just get the switches in quickly" case. List IPs in the config (single addresses, subnets or ranges), and the input detects the device model and uses generic OIDs to collect CPU and memory usage plus traffic, packets, errors, discards and up/down state for every port. No OIDs to write.
 
@@ -42025,7 +42025,7 @@ Runbook:
 
 Reads systemd unit state, restart counts and startup time over D-Bus, so failed or flapping services page you right away.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The systemd input talks to systemd over D-Bus and collects each unit's active state, enabled flag, restart count, task count and startup time. Unlike a plain process check, it tells "the service exists but is failed" apart from "the service keeps getting restarted".
 
@@ -42184,7 +42184,7 @@ Runbook:
 
 Scrape Cloud Monitor metrics converted to Prometheus format by the tencentcloud-exporter; templates cover CVM, CKafka, PostgreSQL, Redis, TDSQL-C and load balancers.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Tencent Cloud metrics come from its Cloud Monitor service. The `tencentcloud-exporter` maintained by Tencent Cloud converts them per product into Prometheus metrics named `qce_<product>_<metric>`, which the Categraf `prometheus` input scrapes.
 
@@ -42241,7 +42241,7 @@ labels = { job = "tencentcloud" }
 
 TiDB, PD and TiKV all expose Prometheus metrics on /metrics; the templates cover SQL latency, Region scheduling, storage and node health.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Every TiDB component ships a Prometheus endpoint: TiDB Server on 10080, PD on 2379, TiKV on 20180, with TiFlash and TiCDC on whatever ports they are configured with. Scrape them with the Categraf `prometheus` input, or add the Prometheus that TiUP deploys as a Nightingale data source.
 
@@ -42789,7 +42789,7 @@ Runbook:
 
 Reads the /manager/status/all endpoint of the Manager app for JVM memory, per-connector threads and requests, traffic and errors; needs the manager-gui role.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The Tomcat input calls the Manager app's `/manager/status/all` endpoint and parses JVM heap and memory pool usage, thread pool size and busy count per connector (HTTP, AJP), request counts, processing time, errors and bytes sent and received.
 
@@ -42987,7 +42987,7 @@ Runbook:
 
 Both the single-node and cluster editions expose /metrics; templates cover vmsingle as well as the vmstorage, vmselect and vminsert cluster components.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 VictoriaMetrics is often both Nightingale's time-series store and something that needs monitoring itself. The single-node edition exposes `/metrics` on port 8428; the cluster edition must be scraped per component, vmstorage (8482), vmselect (8481) and vminsert (8480), or you only see part of the picture.
 
@@ -43182,7 +43182,7 @@ Runbook:
 
 Pulls CPU, memory, disk and network performance counters for ESXi hosts, virtual machines, datastores and clusters through the vCenter API.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The vSphere input pulls performance data through the vCenter Server API across five levels: datacenter, cluster, ESXi host, virtual machine and datastore. That includes CPU ready time and usage, active memory and ballooning, disk latency and IOPS, network throughput and datastore capacity. A vCenter is required; connecting to a bare ESXi host does not work.
 
@@ -43709,7 +43709,7 @@ Runbook:
 
 Categraf reports the same metric names on Windows as on Linux, so host dashboards and rules carry over; extra dashboards cover AD, DNS and ADFS via windows\_exporter.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Categraf runs on Windows too, and the basic CPU, memory, disk and network metrics keep the same names as on Linux. Host-level alert rules and dashboards therefore do not need a separate Windows edition.
 

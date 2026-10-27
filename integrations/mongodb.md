@@ -2,7 +2,7 @@
 
 Embeds the mongodb\_exporter collector for connections, op counters, replica set and sharding state; the dashboards need the compatible metric names turned on.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The MongoDB input wraps Percona's mongodb\_exporter and collects connections, op counters, queues, WiredTiger cache, replica set member state and oplog window via `serverStatus`, `replSetGetStatus` and related commands. For sharded clusters, the `mongodb_cluster` input collects from the mongos side.
 

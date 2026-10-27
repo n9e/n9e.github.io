@@ -2,7 +2,7 @@
 
 Collect any network device by listing OIDs, with OID values usable as labels; the template ships Cisco, Juniper and generic switch dashboards and dozens of rules.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Categraf has included Telegraf's snmp input since v0.2.13. The idea is simple: list the OIDs for the metrics you want. `[[instances.field]]` reads single values, `[[instances.table]]` walks a table into multiple rows, and selected OIDs in a table (interface names, say) can become labels. Generic OIDs for interface traffic, errors and state work on almost every device; vendor-specific OIDs for CPU and memory are configured per vendor and model.
 

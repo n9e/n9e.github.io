@@ -2,7 +2,7 @@
 
 Reads systemd unit state, restart counts and startup time over D-Bus, so failed or flapping services page you right away.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The systemd input talks to systemd over D-Bus and collects each unit's active state, enabled flag, restart count, task count and startup time. Unlike a plain process check, it tells "the service exists but is failed" apart from "the service keeps getting restarted".
 

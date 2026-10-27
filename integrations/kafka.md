@@ -2,7 +2,7 @@
 
 Broker metrics come from JMX, consumer lag from the embedded kafka\_exporter logic; templates come in Categraf and exporter editions, rules watch lag, offline partitions and shrinking ISR.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Kafka's core broker metrics are exposed over JMX; collect those with jolokia or jmx\_exporter. The Categraf `kafka` input fills the gap JMX cannot: consumer group lag, per-partition offsets and consumption rate. It is forked from the davidmparrott flavour of kafka\_exporter, whose metric names differ slightly from the danielqsj flavour; set `rename_uncommit_offset_to_lag = true` to switch to the more common `kafka_consumergroup_lag` naming.
 

@@ -2,7 +2,7 @@
 
 内置 mongodb\_exporter 的采集逻辑，覆盖连接、操作计数、复制集与分片状态；仪表盘要求开启兼容模式的指标名。
 
-最后校对于 2026-10-13
+最后校对于 2026-10-27
 
 MongoDB 插件由 percona 的 mongodb\_exporter 封装而来，通过 `serverStatus`、`replSetGetStatus` 等命令采集连接数、操作计数、队列、WiredTiger 缓存、复制集成员状态和 oplog 窗口。分片集群用 `mongodb_cluster` 插件从 mongos 侧采集。
 

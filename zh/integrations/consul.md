@@ -2,7 +2,7 @@
 
 通过 Consul API 采集所有注册服务的健康检查状态，哪个服务在哪个节点上 critical 或 warning 一目了然。
 
-最后校对于 2026-10-13
+最后校对于 2026-10-27
 
 Consul 插件调用 Consul 的健康检查 API，把每一项注册的 health check 转成指标：服务名、节点、检查名、当前状态（passing、warning、critical）。它不采集 Consul 自身的 telemetry（那部分 Consul 可以通过 StatsD 或自带的 Prometheus 端点输出），专注于「注册在 Consul 里的服务有没有挂」这一个问题。
 

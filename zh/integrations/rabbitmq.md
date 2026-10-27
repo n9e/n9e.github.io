@@ -2,7 +2,7 @@
 
 3.8 以上直接抓内置 Prometheus 插件的 15692 端口，旧版本走管理 API；模板按版本分开，规则盯队列积压、未确认消息和节点状态。
 
-最后校对于 2026-10-13
+最后校对于 2026-10-27
 
 RabbitMQ 3.8 起内置 `rabbitmq_prometheus` 插件，`rabbitmq-plugins enable rabbitmq_prometheus` 后在 15692 端口暴露 `/metrics`，推荐用 Categraf 的 `prometheus` 插件抓取。低于 3.8 的版本启用 `rabbitmq_management`，用 Categraf 的 `rabbitmq` 插件访问 15672 的管理 API。
 

@@ -41,7 +41,7 @@ Fired
 
 Delivered![Slack](https://n9e.github.io/img/logos/slack.png)![PagerDuty](https://n9e.github.io/img/logos/pagerduty.png)![Telegram](https://n9e.github.io/img/logos/telegram.png)
 
-13,375GitHub stars
+13,396GitHub stars
 
 10+Data source types
 
@@ -319,4 +319,4 @@ Bring up Nightingale in five minutes, point it at your data, and watch the first
 
 [ →](https://github.com/ccfos/nightingale)
 
-Community·[Slack #n9e](https://join.slack.com/t/n9e/shared_invite/zt-480klxytf-P9qm3C1M87kDmRPp_H30Kw)·[GitHub Issues](https://github.com/ccfos/nightingale/issues)
+Community·[Slack #n9e](https://join.slack.com/t/n9e/shared_invite/zt-4ejx42fd0-S9aVULH4FTdH~jEAz80U7g)·[GitHub Issues](https://github.com/ccfos/nightingale/issues)

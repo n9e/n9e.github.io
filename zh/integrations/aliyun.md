@@ -2,7 +2,7 @@
 
 通过云监控 OpenAPI 拉取 ECS、RDS、Redis、SLB、CDN、ARMS 等产品的指标，模板里有几十张按产品划分的仪表盘和告警规则。
 
-最后校对于 2026-10-13
+最后校对于 2026-10-27
 
 阿里云插件用 `aliyun` 插件调用云监控（CloudMonitor）的 OpenAPI，按 namespace 拉取各产品的指标：ECS、RDS、Redis、MongoDB、SLB/ALB、OSS、CDN、消息队列、ARMS 应用监控等。拉下来的指标以 `aliyun_<namespace>_<metric>` 命名，带实例 ID 和地域标签。
 

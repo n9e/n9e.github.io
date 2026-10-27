@@ -2,7 +2,7 @@
 
 现成插件覆盖不到的东西，写个脚本按 Prometheus、InfluxDB 行协议或 Open-Falcon 格式打印到 stdout，Categraf 负责采集和上报。
 
-最后校对于 2026-10-13
+最后校对于 2026-10-27
 
 exec 插件是 Categraf 的万能兜底：你写脚本，脚本把监控数据打印到标准输出，Categraf 定时执行并解析。脚本用什么语言无所谓，输出格式三选一：Prometheus 文本格式、InfluxDB 行协议（`measurement,label=v field=1`）或 Open-Falcon 的 JSON，由 `data_format` 指定。
 

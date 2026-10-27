@@ -2,7 +2,7 @@
 
 Runs INFO against Redis to collect memory, hit ratio, connections, slowlog and replication state; includes a Sentinel input and templates for redis\_exporter.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The Redis input connects to the instance, runs `INFO` and parses the result into memory usage and fragmentation, keyspace hit ratio, connected and blocked clients, persistence state and replication status. Add one `[[instances]]` block per instance and give each an `instance` label; the dashboards filter on it.
 

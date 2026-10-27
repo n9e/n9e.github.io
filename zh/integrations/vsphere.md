@@ -2,7 +2,7 @@
 
 通过 vCenter API 采集 ESXi 主机、虚拟机、数据存储和集群的 CPU、内存、磁盘与网络性能计数器。
 
-最后校对于 2026-10-13
+最后校对于 2026-10-27
 
 vSphere 插件通过 vCenter Server 的 API 拉取性能数据，覆盖数据中心、集群、ESXi 主机、虚拟机和数据存储五个层级：CPU 就绪时间与使用率、内存活跃与 ballooning、磁盘延迟与 IOPS、网络吞吐、数据存储容量。监控 vSphere 必须有 vCenter，直接连 ESXi 不行。
 

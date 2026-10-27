@@ -2,7 +2,7 @@
 
 Reads HAProxy's CSV stats page or Runtime API for sessions, queues, errors and health state per frontend, backend and server.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The HAProxy input reads the CSV output of the stats page (`/stats;csv`) or the Runtime API Unix socket. It collects current and maximum sessions, queue length, request rate, status code classes, connection and response errors, retries and redispatches at frontend, backend and server level, plus the health-check result of every backend server. Verified against real backend traffic.
 

@@ -2,7 +2,7 @@
 
 Checks whether a local or remote port accepts connections and responds as expected; result codes 0 to 4 mean success, timeout, connection failure, read failure and content mismatch.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The net\_response input opens a TCP connection or exchanges a UDP packet with each `host:port` in `targets`, optionally sending a payload and matching the reply against `expect`. The outcome is reported as `net_response_result_code`: 0 success, 1 timeout, 2 connection failed, 3 read failed, 4 response mismatch, along with the connect time.
 

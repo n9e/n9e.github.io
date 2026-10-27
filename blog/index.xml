@@ -6,7 +6,14 @@
     <description>Open-source alerting engine: releases and documentation updates.</description>
     <language>en</language>
     <atom:link href="https://n9e.github.io/index.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Wed, 21 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 26 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Categraf v0.5.19 released</title>
+      <link>https://github.com/flashcatcloud/categraf/releases/tag/v0.5.19</link>
+      <guid isPermaLink="false">https://github.com/flashcatcloud/categraf/releases/tag/v0.5.19#2026-10-26</guid>
+      <pubDate>Mon, 26 Oct 2026 00:00:00 GMT</pubDate>
+      <description>https://github.com/flashcatcloud/categraf/releases/tag/v0.5.19</description>
+    </item>
     <item>
       <title>Nightingale v9.3.0 released</title>
       <link>https://github.com/ccfos/nightingale/releases/tag/v9.3.0</link>
@@ -20,13 +27,6 @@
       <guid isPermaLink="false">https://n9e.github.io/docs#2026-10-10</guid>
       <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
       <description>The Nightingale documentation now lives at n9e.github.io/docs. This feed only carries release announcements.</description>
-    </item>
-    <item>
-      <title>Categraf v0.5.18 released</title>
-      <link>https://github.com/flashcatcloud/categraf/releases/tag/v0.5.18</link>
-      <guid isPermaLink="false">https://github.com/flashcatcloud/categraf/releases/tag/v0.5.18#2026-08-31</guid>
-      <pubDate>Mon, 31 Aug 2026 00:00:00 GMT</pubDate>
-      <description>https://github.com/flashcatcloud/categraf/releases/tag/v0.5.18</description>
     </item>
   </channel>
 </rss>

@@ -2,7 +2,7 @@
 
 通过 CloudWatch API 拉取任意 namespace 的指标统计值，EC2、RDS、ELB、Lambda 都能接；模板带 RDS 仪表盘和常用规则。
 
-最后校对于 2026-10-13
+最后校对于 2026-10-27
 
 CloudWatch 插件从 Telegraf 移植，调用 CloudWatch 的 GetMetricData API 按 namespace（`AWS/EC2`、`AWS/RDS`、`AWS/ELB` 等）拉取指标的统计值，可以按维度过滤只采自己关心的资源。认证走标准的凭证链：`role_arn`、显式 AK/SK、profile、环境变量、共享凭证文件、EC2 实例角色，按这个顺序尝试。
 

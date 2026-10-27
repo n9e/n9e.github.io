@@ -2,7 +2,7 @@
 
 For anything no plugin covers: write a script that prints Prometheus, InfluxDB line protocol or Open-Falcon format to stdout, and Categraf collects and ships it.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The exec input is Categraf's catch-all. You write a script, the script prints metrics to standard output, and Categraf runs it on a schedule and parses the result. Any language works; the output must be one of three formats, chosen with `data_format`: Prometheus text exposition, InfluxDB line protocol (`measurement,label=v field=1`) or Open-Falcon JSON.
 

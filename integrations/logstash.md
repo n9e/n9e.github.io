@@ -2,7 +2,7 @@
 
 Collects pipeline event in/out and filter time, queue state and JVM health from Logstash's node API; rules watch event backlog and JVM pressure.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Logstash serves an HTTP API on port 9600 by default. The input reads `_node/stats`: input, filter and output event counts and durations per pipeline, persistent queue capacity and backlog, JVM heap, GC and threads, and process CPU and file descriptors.
 

@@ -2,7 +2,7 @@
 
 两条路采 NVIDIA GPU：nvidia-smi 轻量够用，DCGM 指标更全；模板带 GPU 总览、单卡和训练任务视角的仪表盘。
 
-最后校对于 2026-10-13
+最后校对于 2026-10-27
 
 NVIDIA GPU 有两种采集方式。`nvidia_smi` 插件执行本机的 `nvidia-smi` 命令并解析输出，不需要额外安装东西，利用率、显存、温度、功耗、时钟都有；也可以通过 SSH 采远端机器。`dcgm` 插件对接 NVIDIA DCGM，指标更细（SM 活跃度、NVLink、XID 错误等），但需要 Categraf 的 with-cgo-plugin 版本和主机上的 DCGM。
 

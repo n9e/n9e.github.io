@@ -2,7 +2,7 @@
 
 FE 和 BE 都自带 Prometheus 格式的 /metrics，用 Categraf 的 prometheus 插件抓取即可，模板覆盖查询、导入、Compaction 和节点状态。
 
-最后校对于 2026-10-13
+最后校对于 2026-10-27
 
 Doris 的 FE（默认 8030）和 BE（默认 8040）进程都通过 `/metrics` 暴露 Prometheus 协议的监控数据，不需要专门插件。给每类节点打上 `group` 和 `job` 标签，仪表盘按这两个标签区分 FE/BE 和集群。
 

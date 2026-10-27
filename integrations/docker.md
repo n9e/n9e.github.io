@@ -2,7 +2,7 @@
 
 Collects per-container CPU, memory, block and network IO plus daemon state through the Docker API; the dashboard is written against docker\_\* metrics and verified on real hosts.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The Docker input is based on Telegraf's docker plugin. It connects to the Docker daemon socket (`unix:///var/run/docker.sock`) or a TCP endpoint and collects engine-level container counts and states, image count and storage driver information, plus CPU, memory, blkio and network IO for every container. Swarm services and extended memory statistics are optional.
 

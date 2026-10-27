@@ -2,7 +2,7 @@
 
 Broker 指标走 JMX，消费者延迟靠内置的 kafka\_exporter 逻辑；模板分 Categraf 和 exporter 两套，规则盯积压、离线分区和 ISR 收缩。
 
-最后校对于 2026-10-13
+最后校对于 2026-10-27
 
 Kafka 的核心指标通过 JMX 暴露，这部分用 jolokia 或 jmx\_exporter 采集即可。Categraf 的 `kafka` 插件解决的是 JMX 拿不到的那块：消费组的 lag、每个分区的 offset 和消费速率。它 fork 自 davidmparrott 版本的 kafka\_exporter，指标名和 danielqsj 版本略有差异，设置 `rename_uncommit_offset_to_lag = true` 可以切回更常见的 `kafka_consumergroup_lag` 命名。
 

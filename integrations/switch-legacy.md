@@ -2,7 +2,7 @@
 
 Give it a list of IPs and it detects the device model and collects CPU, memory and per-port traffic, errors and state; SNMP v2c only.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The switch\_legacy input is forked from swcollector and targets the "just get the switches in quickly" case. List IPs in the config (single addresses, subnets or ranges), and the input detects the device model and uses generic OIDs to collect CPU and memory usage plus traffic, packets, errors, discards and up/down state for every port. No OIDs to write.
 

@@ -32,16 +32,16 @@ DOWNLOAD
 
 ## 采集器 Categraf
 
-**v0.5.18**发布于<!-- --> <!-- -->2026-08-31[发布说明<!-- --> →](https://github.com/flashcatcloud/categraf/releases/tag/v0.5.18)
+**v0.5.19**发布于<!-- --> <!-- -->2026-10-26[发布说明<!-- --> →](https://github.com/flashcatcloud/categraf/releases/tag/v0.5.19)
 
 一台主机一个 agent，覆盖操作系统、中间件、数据库和 Kubernetes，用 Prometheus Remote Write 写入。哪里的数据要让夜莺看到，就装在哪里。
 
 | 平台                          | 大小  | SHA256              |                                                                                                                 |
 | ----------------------------- | ----- | ------------------- | --------------------------------------------------------------------------------------------------------------- |
-| Linux<!-- --> <!-- -->amd64   | 55 MB | `d8e1a69d4262a4c9…` | [下载](https://github.com/flashcatcloud/categraf/releases/download/v0.5.18/categraf-v0.5.18-linux-amd64.tar.gz) |
-| Linux<!-- --> <!-- -->arm64   | 49 MB | `5d98d263348ec5b0…` | [下载](https://github.com/flashcatcloud/categraf/releases/download/v0.5.18/categraf-v0.5.18-linux-arm64.tar.gz) |
-| Windows<!-- --> <!-- -->amd64 | 56 MB | `a45e3625340b9a7d…` | [下载](https://github.com/flashcatcloud/categraf/releases/download/v0.5.18/categraf-v0.5.18-windows-amd64.zip)  |
-| Windows<!-- --> <!-- -->arm64 | 49 MB | `ea2850040a10adbd…` | [下载](https://github.com/flashcatcloud/categraf/releases/download/v0.5.18/categraf-v0.5.18-windows-arm64.zip)  |
+| Linux<!-- --> <!-- -->amd64   | 55 MB | `e2c77c76a1969300…` | [下载](https://github.com/flashcatcloud/categraf/releases/download/v0.5.19/categraf-v0.5.19-linux-amd64.tar.gz) |
+| Linux<!-- --> <!-- -->arm64   | 49 MB | `42a088253a396c46…` | [下载](https://github.com/flashcatcloud/categraf/releases/download/v0.5.19/categraf-v0.5.19-linux-arm64.tar.gz) |
+| Windows<!-- --> <!-- -->amd64 | 56 MB | `464ca080ae0ad464…` | [下载](https://github.com/flashcatcloud/categraf/releases/download/v0.5.19/categraf-v0.5.19-windows-amd64.zip)  |
+| Windows<!-- --> <!-- -->arm64 | 49 MB | `79e6b5b31d945e11…` | [下载](https://github.com/flashcatcloud/categraf/releases/download/v0.5.19/categraf-v0.5.19-windows-arm64.zip)  |
 
 只采指标的精简版，以及带 NVIDIA DCGM 插件的构建，在发布页上。<!-- --> [Categraf 全部构建<!-- --> →](https://github.com/flashcatcloud/categraf/releases/latest)
 
@@ -59,6 +59,6 @@ DOWNLOAD
 
 社区在 Slack 和 GitHub Issues 上答疑。
 
-[Slack #n9e<!-- --> →](https://join.slack.com/t/n9e/shared_invite/zt-480klxytf-P9qm3C1M87kDmRPp_H30Kw)[GitHub Issues<!-- --> →](https://github.com/ccfos/nightingale/issues)
+[Slack #n9e<!-- --> →](https://join.slack.com/t/n9e/shared_invite/zt-4ejx42fd0-S9aVULH4FTdH~jEAz80U7g)[GitHub Issues<!-- --> →](https://github.com/ccfos/nightingale/issues)
 
 [GitHub 上的全部版本<!-- --> →](https://github.com/ccfos/nightingale/releases)

@@ -2,7 +2,7 @@
 
 单机版和集群版都自带 /metrics，模板分别覆盖 vmsingle 以及 vmstorage、vmselect、vminsert 三个集群组件。
 
-最后校对于 2026-10-13
+最后校对于 2026-10-27
 
 VictoriaMetrics 通常既是夜莺的时序库，也是需要被监控的对象。单机版在 8428 端口暴露 `/metrics`；集群版要分别抓 vmstorage（8482）、vmselect（8481）和 vminsert（8480），只抓一个组件看不到全貌。
 

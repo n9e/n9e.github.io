@@ -2,7 +2,7 @@
 
 Pulls ECS, RDS, Redis, SLB, CDN, ARMS and other product metrics through the CloudMonitor OpenAPI; the template ships dozens of per-product dashboards and rules.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The `aliyun` input calls the CloudMonitor OpenAPI and pulls metrics per namespace: ECS, RDS, Redis, MongoDB, SLB/ALB, OSS, CDN, message queues, ARMS application monitoring and more. Metrics arrive named `aliyun_<namespace>_<metric>` with instance ID and region labels.
 

@@ -2,7 +2,7 @@
 
 Pulls metric statistics from any CloudWatch namespace through the API, so EC2, RDS, ELB and Lambda all fit; the template ships an RDS dashboard and common rules.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The CloudWatch input is ported from Telegraf. It calls the GetMetricData API to pull statistics per namespace (`AWS/EC2`, `AWS/RDS`, `AWS/ELB` and so on), with dimension filters to limit collection to the resources you care about. Authentication follows the standard credential chain: `role_arn`, explicit access keys, a named profile, environment variables, the shared credentials file and the EC2 instance profile, tried in that order.
 

@@ -2,7 +2,7 @@
 
 CPU, memory, disk, network, processes and kernel parameters out of the box; templates cover Categraf, node\_exporter and Telegraf metric names.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Linux hosts are where most monitoring starts. Categraf's cpu, mem, disk, diskio, net, netstat, kernel and processes inputs are enabled by default and report as soon as the agent starts. The configs listed below are the plugins that have options worth tuning.
 

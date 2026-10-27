@@ -2,7 +2,7 @@
 
 TiDB, PD and TiKV all expose Prometheus metrics on /metrics; the templates cover SQL latency, Region scheduling, storage and node health.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 Every TiDB component ships a Prometheus endpoint: TiDB Server on 10080, PD on 2379, TiKV on 20180, with TiFlash and TiCDC on whatever ports they are configured with. Scrape them with the Categraf `prometheus` input, or add the Prometheus that TiUP deploys as a Nightingale data source.
 

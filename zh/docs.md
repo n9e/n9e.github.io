@@ -28,4 +28,4 @@ REFERENCE
 
 RELEASES AND HELP
 
-[发布说明](https://github.com/ccfos/nightingale/releases)[产品对比](https://n9e.github.io/zh/comparisons.md)[集成生态](https://n9e.github.io/zh/integrations.md)[提交 Issue](https://github.com/ccfos/nightingale/issues)[Slack 社区](https://join.slack.com/t/n9e/shared_invite/zt-480klxytf-P9qm3C1M87kDmRPp_H30Kw)
+[发布说明](https://github.com/ccfos/nightingale/releases)[产品对比](https://n9e.github.io/zh/comparisons.md)[集成生态](https://n9e.github.io/zh/integrations.md)[提交 Issue](https://github.com/ccfos/nightingale/issues)[Slack 社区](https://join.slack.com/t/n9e/shared_invite/zt-4ejx42fd0-S9aVULH4FTdH~jEAz80U7g)

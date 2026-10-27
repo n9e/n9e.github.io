@@ -2,7 +2,7 @@
 
 Reads out-of-band temperature, fan, voltage, power and sensor state over IPMI, from the local BMC or remote ones.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The IPMI input is ported from ipmi\_exporter. It runs a set of FreeIPMI commands and turns the output into metrics: temperatures, fan speeds, voltages, power draw, the health of every sensor and the chassis power state. The data comes from the BMC, so it is still available when the operating system is down.
 

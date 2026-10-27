@@ -2,7 +2,7 @@
 
 Pulls CPU, memory, disk and network performance counters for ESXi hosts, virtual machines, datastores and clusters through the vCenter API.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 The vSphere input pulls performance data through the vCenter Server API across five levels: datacenter, cluster, ESXi host, virtual machine and datastore. That includes CPU ready time and usage, active memory and ballooning, disk latency and IOPS, network throughput and datastore capacity. A vCenter is required; connecting to a bare ESXi host does not work.
 

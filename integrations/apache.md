@@ -2,7 +2,7 @@
 
 Reads the server-status?auto output of mod\_status for request rate, busy and idle workers, CPU and traffic; rules watch worker exhaustion and unreachable servers.
 
-Last reviewed 2026-10-13
+Last reviewed 2026-10-27
 
 With `mod_status` enabled, Apache httpd serves a machine-readable status page at `/server-status?auto`. The input scrapes it for total accesses and traffic, requests per second, busy and idle workers, CPU load, uptime and the distribution of worker states.
 

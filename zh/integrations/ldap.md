@@ -2,7 +2,7 @@
 
 读取 LDAP 服务器的 cn=Monitor 后端，采集连接、各类操作计数、等待者和线程状态，支持 OpenLDAP 和 389 Directory Server。
 
-最后校对于 2026-10-13
+最后校对于 2026-10-27
 
 LDAP 插件查询服务器的监控后端（`cn=Monitor`），得到当前与累计连接数、bind、search、modify、add、delete 等操作的计数、等待中的读写、线程池状态和运行时长。支持 OpenLDAP 和 389ds 两种方言，指标名按方言略有不同。
 

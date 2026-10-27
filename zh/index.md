@@ -38,7 +38,7 @@ S1CPU 使用率持续高于 90%
 
 已送达![钉钉](https://n9e.github.io/zh/img/logos/dingtalk.png)![飞书](https://n9e.github.io/zh/img/logos/feishu.png)![Slack](https://n9e.github.io/zh/img/logos/slack.png)
 
-13,375GitHub Stars
+13,396GitHub Stars
 
 10+数据源类型
 
@@ -256,4 +256,4 @@ WHO USES NIGHTINGALE
 
 [ →](https://github.com/ccfos/nightingale)
 
-社区·[Slack #n9e](https://join.slack.com/t/n9e/shared_invite/zt-480klxytf-P9qm3C1M87kDmRPp_H30Kw)·[GitHub Issues](https://github.com/ccfos/nightingale/issues)·微信群加 picobyte，备注"夜莺互助群"
+社区·[Slack #n9e](https://join.slack.com/t/n9e/shared_invite/zt-4ejx42fd0-S9aVULH4FTdH~jEAz80U7g)·[GitHub Issues](https://github.com/ccfos/nightingale/issues)·微信群加 picobyte，备注"夜莺互助群"

@@ -2,7 +2,7 @@
 
 调用 smartctl 读取 HDD、SSD 和 NVMe 的 S.M.A.R.T. 健康属性，在硬盘真正坏掉之前看到重映射扇区、温度和剩余寿命。
 
-最后校对于 2026-10-13
+最后校对于 2026-10-27
 
 S.M.A.R.T. 是硬盘和固态盘内建的自检机制。Categraf 的 smart 插件执行 `smartctl`（以及 NVMe 的 `nvme` 工具）读取这些属性，输出 `smart_device` 整体健康指标和 `smart_attribute` 逐项属性，重映射扇区、待处理扇区、温度、通电时间、SSD 磨损这些指标都在其中。
 
