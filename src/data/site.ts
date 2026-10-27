@@ -13,7 +13,7 @@
  * 换链接只改这一处。
  */
 export const SLACK_INVITE =
-  'https://join.slack.com/t/n9e/shared_invite/zt-480klxytf-P9qm3C1M87kDmRPp_H30Kw';
+  'https://join.slack.com/t/n9e/shared_invite/zt-4ejx42fd0-S9aVULH4FTdH~jEAz80U7g';
 
 /**
  * Live Demo 演示站（设计文档 §6.1）。
