@@ -5,9 +5,9 @@
 
 ## zh
 
-夜莺监控（Nightingale，n9e）是开源监控告警引擎：对接 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等数据源，统一告警规则、降噪与分发，内置 AI 助手与 MCP Server。自托管，Apache-2.0。
+夜莺监控（Nightingale，n9e）是开源监控告警引擎：对接 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等数据源，统一告警规则、降噪与分发。内置 AI Agent、MCP Server 与 A2A 接口，支持 OpenAI 兼容、Claude、Gemini 模型。自托管，Apache-2.0。
 
-- [开源监控告警专家](https://n9e.github.io/zh/index.md): 夜莺监控（Nightingale，n9e）是开源监控告警引擎：对接 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等数据源，统一告警规则、降噪与分发，内置 AI 助手与 MCP Server。自托管，Apache-2.0。
+- [开源监控告警专家](https://n9e.github.io/zh/index.md): 夜莺监控（Nightingale，n9e）是开源监控告警引擎：对接 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等数据源，统一告警规则、降噪与分发。内置 AI Agent、MCP Server 与 A2A 接口，支持 OpenAI 兼容、Claude、Gemini 模型。自托管，Apache-2.0。
 
 ### categraf
 

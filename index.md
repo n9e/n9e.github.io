@@ -2,10 +2,12 @@ APACHE-2.0 · SELF-HOSTED · NO VENDOR LOCK-IN
 
 # Open-Source Alerting for Your Existing Stack
 
-Nightingale (n9e) is an open-source alerting engine. Keep your metrics and logs where they are: write and run alert rules across Prometheus, VictoriaMetrics, Elasticsearch, ClickHouse, and more — from one place — and send alerts to Slack, PagerDuty, or whatever your team already uses.
+Nightingale (n9e) is an open-source alerting engine. Run alert rules across Prometheus, VictoriaMetrics, Elasticsearch, ClickHouse and more from one place, and route alerts to Slack, PagerDuty or whatever your team already uses. A built-in AI agent writes rules from plain language, explains why a rule didn't fire, and can attach an AI summary to each notification.
 
-* Built-in AI assistant
-* MCP server
+* Built-in AI agent
+* 20+ skills
+* MCP & A2A
+* Bring your own model
 
 [Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)No sign-up
 
@@ -100,7 +102,7 @@ agent
 
 Since v9 the n9e process is itself an MCP server. Claude Code, Cursor and anything else that speaks MCP connect to /mcp and manage alerting in plain language. There is no extra process to deploy.
 
-* Nightingale AI assistant and Skills included
+* Built-in AI agent with 20+ skills
 * Permissions follow the token — identical RBAC to that user in the UI
 
 \~/.claude.json
@@ -117,23 +119,31 @@ Since v9 the n9e process is itself an MCP server. Claude Code, Cursor and anythi
 }
 ```
 
-BUILT-IN MCP SERVER
+NIGHTINGALE AI
 
-## 74 tools, nothing extra to deploy
+## One AI agent, three ways in
 
-The MCP endpoint lives inside the n9e process, so it is not one more component to operate. Every tool call is dispatched onto Nightingale’s own HTTP API carrying your token — a client can never reach anything its token’s owner cannot.
+All of it runs inside the n9e process, with nothing extra to deploy. Every path shares one permission model: the AI sees and changes exactly what the current user can in the UI.
 
-42read tools
+1. Inside Nightingale
 
-32write tools
+   ### A built-in agent with 20+ skills
 
-13toolsets
+   Create alert rules and dashboards, write PromQL and SQL, find out why a rule didn't fire, diagnose hosts, draft notification templates and self-healing scripts. Turn your team's runbooks into new skills with skill-creator, or install them from git.
 
-Toolsets
+2. In the alert pipeline
 
-alertstargetsdatasourcemutesbusi\_groupsnotify\_rulesalert\_subscribesevent\_pipelinesusersmetricslogsdashboardsroles
+   ### An AI summary with the alert
 
-The write tools are not registered until you turn them on in config. Authenticate with a personal token or OAuth 2.1: Nightingale can act as the authorization server itself, so hosted clients like Claude and ChatGPT connect with zero pre-registration, or as a resource server in front of your existing Keycloak, Entra ID or Okta.
+   Add an AI summary step to an event pipeline, and the on-call engineer gets the model's analysis in Slack or PagerDuty with the alert.
+
+3. From outside
+
+   ### Two endpoints: MCP and A2A
+
+   Claude Code and Cursor connect to /mcp (74 tools, write tools off by default); other agents call Nightingale over /a2a. One token for both, or OAuth 2.1 with Keycloak, Entra ID or Okta.
+
+Bring your own model: OpenAI-compatible, Claude or Gemini, including models running inside your network.
 
 claude — nightingale via MCP
 
