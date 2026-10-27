@@ -6,7 +6,7 @@ import { useCopy } from '@site/src/content';
 import Hero from '@site/src/components/home/Hero';
 import Stats from '@site/src/components/home/Stats';
 import Pipeline from '@site/src/components/home/Pipeline';
-import Mcp from '@site/src/components/home/Mcp';
+import Ai from '@site/src/components/home/Ai';
 import Integrations from '@site/src/components/home/Integrations';
 import Deploy from '@site/src/components/home/Deploy';
 import Compare from '@site/src/components/home/Compare';
@@ -22,7 +22,10 @@ export default function Home(): React.ReactElement {
     <Layout description={hero.metaDescription}>
       <Head>
         <title>{hero.metaTitle}</title>
-        <meta property="og:title" content={hero.metaTitle} />
+        {/* 分享卡片的标题单独写（shareTitle），搜索结果里的 <title> 保持不变。
+            X 优先读 twitter:title，没有才退回 og:title，两个都写上 */}
+        <meta property="og:title" content={hero.shareTitle} />
+        <meta name="twitter:title" content={hero.shareTitle} />
         <meta property="og:type" content="website" />
       </Head>
       <StructuredData />
@@ -30,7 +33,7 @@ export default function Home(): React.ReactElement {
         <Hero />
         <Stats />
         <Pipeline />
-        <Mcp />
+        <Ai />
         <Integrations />
         <Deploy />
         <Compare />

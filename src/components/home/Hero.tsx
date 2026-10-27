@@ -30,7 +30,15 @@ export default function Hero(): React.ReactElement {
       <HeroShader />
       <div className={clsx('n9e-container', styles.heroGrid)}>
         <div>
-          <p className={styles.kicker}>{hero.kicker}</p>
+          <p className={styles.kicker}>
+            {hero.kickerHref ? (
+              <Link className={styles.kickerLink} to={hero.kickerHref}>
+                {hero.kicker} <span aria-hidden="true">→</span>
+              </Link>
+            ) : (
+              hero.kicker
+            )}
+          </p>
           {/* 标题里的 \n 是指定的断行点：宽屏两栏时按它断成固定的两行，单栏时退回自然折行 */}
           <h1 className={styles.title}>
             {hero.title.split('\n').map((line, i) => (

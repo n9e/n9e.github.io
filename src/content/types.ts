@@ -23,6 +23,8 @@ export interface NotifyChannel {
 
 export interface Hero {
   kicker: string;
+  /** 填了 kicker 就渲染成链接（如 '#ai' 跳到首页 AI 区块）；不填就是纯文字 */
+  kickerHref?: string;
   /** Live Demo 按钮文案。地址来自 src/data/site.ts 的 DEMO_URL，留空则整个按钮不渲染 */
   demoLabel: string;
   /** 按钮下的一行微文案，用来消解点击顾虑（"要不要注册？会不会弄坏？"） */
@@ -33,10 +35,13 @@ export interface Hero {
   /** <title> 与 og:title，和 H1 分开写：品牌 + 别名（夜莺监控 / n9e）+ 品类词。
    *  "Nightingale" 单独一个词歧义太大（人名、公司名都叫这个），搜索引擎和 AI 靠这里认出项目 */
   metaTitle: string;
+  /** 只给 og:title / twitter:title 用：在 X、Slack 等处贴链接时卡片上显示的标题。
+   *  和 metaTitle 分开，是为了不动搜索结果里的 <title>，卡片上可以更直接地讲卖点 */
+  shareTitle: string;
   /** <meta name=description> 与 og:description，控制在 160 字符内；lead 是给人看的，可以更长 */
   metaDescription: string;
   lead: string;
-  /** 副标题下单独一行的能力点，按 " · " 拆成一个个小标签，如 "Built-in AI assistant · MCP server"；不填则不渲染 */
+  /** 副标题下单独一行的能力点，按 " · " 拆成一个个小标签，如 "Built-in AI agent · MCP & A2A"；不填则不渲染 */
   highlights?: string;
   ctaPrimary: LinkItem;
   ctaSecondary: LinkItem;
@@ -90,11 +95,6 @@ export interface Pipeline {
   steps: PipelineStep[];
 }
 
-export interface McpFigure {
-  value: string;
-  label: string;
-}
-
 export type TermKind = 'user' | 'tool' | 'out';
 
 export interface TermLine {
@@ -104,13 +104,19 @@ export interface TermLine {
   ok?: boolean;
 }
 
-export interface Mcp {
+/** AI 区块的一层：AI 出现在哪里（夜莺里 / 告警流程里 / 外部调用） */
+export interface AiTier {
+  label: string;
+  title: string;
+  body: string;
+}
+
+export interface HomeAi {
   eyebrow: string;
   title: string;
   lead: string;
-  figures: McpFigure[];
-  toolsetsLabel: string;
-  toolsets: string[];
+  tiers: AiTier[];
+  /** 区块底部一行补充，如可接入的模型 */
   note: string;
   terminal: { title: string; lines: TermLine[] };
 }
@@ -650,7 +656,7 @@ export interface SiteCopy {
   hero: Hero;
   stats: Stats;
   pipeline: Pipeline;
-  mcp: Mcp;
+  ai: HomeAi;
   integrations: IntegrationsSection;
   deploy: DeploySection;
   compare: CompareSection;
