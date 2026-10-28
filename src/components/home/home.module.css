@@ -83,6 +83,16 @@
   flex: none;
 }
 
+.kickerLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.kickerLink:hover {
+  color: var(--n9e-ink);
+  text-decoration: none;
+}
+
 .title {
   font-size: clamp(2.5rem, 5.6vw, 4.1rem);
   font-weight: 800;
@@ -723,7 +733,7 @@ html[lang='en'] .title {
 }
 
 /* ============================================================
-   MCP
+   AI
    ============================================================ */
 
 .mcp {
@@ -738,51 +748,40 @@ html[lang='en'] .title {
   align-items: center;
 }
 
-.figures {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.75rem;
-  margin-top: 2rem;
+.aiTiers {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
 }
 
-.figValue {
-  display: block;
-  font-family: var(--n9e-font-mono);
-  font-size: clamp(1.5rem, 2.4vw, 1.9rem);
-  font-weight: 700;
-  color: var(--n9e-violet);
-  line-height: 1;
+.aiTier {
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--n9e-line);
+  border-radius: var(--n9e-radius);
+  background: var(--n9e-paper-raised);
 }
 
-.figLabel {
-  display: block;
-  margin-top: 0.4rem;
-  font-size: 0.85rem;
-  color: var(--n9e-ink);
-}
-
-.toolsetsLabel {
-  margin: 2rem 0 0.65rem;
+.aiTierLabel {
   font-family: var(--n9e-font-mono);
   font-size: 0.66rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--n9e-ink-faint);
+  color: var(--n9e-violet);
 }
 
-.toolsets {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
+.aiTierTitle {
+  margin: 0.35rem 0 0.4rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--n9e-ink);
 }
 
-.toolset {
-  font-family: var(--n9e-font-mono);
-  font-size: 0.72rem;
-  padding: 0.22rem 0.5rem;
-  border: 1px solid var(--n9e-line-strong);
-  border-radius: 5px;
-  background: var(--n9e-paper-raised);
+.aiTierBody {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.7;
   color: var(--n9e-ink-soft);
 }
 

@@ -9,16 +9,21 @@ import { SLACK_INVITE } from '../data/site';
  */
 export const zh: SiteCopy = {
   hero: {
-    kicker: 'THE OPEN-SOURCE ALERTING EXPERT',
+    // 中文 H1 已经是「开源监控告警专家」，kicker 不再重复定位，改成指向 AI 区块的 v9 版本标签
+    kicker: 'v9 · 内置 AI AGENT 与 MCP SERVER',
+    kickerHref: '#ai',
     demoLabel: '在线体验',
     demoNote: '无需注册',
     ctaPrimaryNote: '自托管部署',
     // 「夜莺监控」是中文搜索的品牌主词：H1 里保留「监控」二字，<title> 和首段写全称
     title: '开源监控告警专家',
     metaTitle: '夜莺监控 Nightingale (n9e)：开源监控告警引擎',
+    shareTitle: '夜莺监控 Nightingale：开源告警引擎，内置 AI Agent',
     metaDescription:
-      '夜莺监控（Nightingale，n9e）是开源监控告警引擎：对接 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等数据源，统一告警规则、降噪与分发，内置 AI 助手与 MCP Server。自托管，Apache-2.0。',
-    lead: '夜莺监控（Nightingale，n9e）是一款开源告警引擎：接入你已有的 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等 10+ 数据源，统一告警规则、降噪与分发。内置 AI 助手与 MCP Server，不用多部署一个进程。',
+      '夜莺监控（Nightingale，n9e）是开源监控告警引擎：对接 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等数据源，统一告警规则、降噪与分发。内置 AI Agent、MCP Server 与 A2A 接口，支持 OpenAI 兼容、Claude、Gemini 模型。自托管，Apache-2.0。',
+    lead: '夜莺监控（Nightingale，n9e）是一款开源告警引擎：接入你已有的 Prometheus、VictoriaMetrics、ElasticSearch、ClickHouse 等 10+ 数据源，统一告警规则、降噪与分发。内置 AI Agent，一句话就能建规则、查清规则为什么没触发，通知里还可以附上 AI 分析摘要。',
+    // 「20+」对应 v9.3.0 内置的 22 个 skill（aiagent/skill/embedded/builtin），新增 skill 不用跟着改
+    highlights: '20+ 内置 AI Skill · MCP / A2A 接口 · 模型自选',
     ctaPrimary: { label: '5 分钟安装', href: '/docs/get-started/quick-start' },
     ctaSecondary: { label: 'GitHub', href: 'https://github.com/ccfos/nightingale' },
     installCaption: '本机跑一套完整环境',
@@ -104,7 +109,7 @@ export const zh: SiteCopy = {
         stage: 'ai',
         title: '交给 AI 处理',
         body: 'v9 起，n9e 进程自身就是一个 MCP Server。Claude Code、Cursor 这类客户端直连 /mcp，用自然语言查告警、看指标、加屏蔽，不用再部署一个进程。',
-        points: ['内置 Nightingale AI 助手与 Skills 市场', '权限跟着 token 走，RBAC 与该用户在页面上完全一致'],
+        points: ['内置 AI Agent 与 20+ 个 Skill', '权限跟着 token 走，RBAC 与该用户在页面上完全一致'],
         code: {
           filename: '~/.claude.json',
           language: 'json',
@@ -122,32 +127,28 @@ export const zh: SiteCopy = {
     ],
   },
 
-  mcp: {
-    eyebrow: 'BUILT-IN MCP SERVER',
-    title: `${figures.mcpTools} 个工具，零额外部署`,
-    lead: 'MCP 端点内置在 n9e 进程里，不是又一个要运维的组件。每次工具调用都带着你的 token 落到夜莺自己的 HTTP API 上，所以客户端拿不到 token 主人看不到的东西。',
-    figures: [
-      { value: figures.mcpReadTools, label: '读工具' },
-      { value: figures.mcpWriteTools, label: '写工具' },
-      { value: figures.mcpToolsets, label: '工具集' },
+  ai: {
+    eyebrow: 'NIGHTINGALE AI',
+    title: '一套 AI，三种用法',
+    lead: 'AI 能力都在 n9e 进程里，不用另外部署组件。三种用法共用一套权限：AI 能看到、能改的，和当前用户在页面上一样。',
+    tiers: [
+      {
+        label: '在夜莺里用',
+        title: '内置 AI Agent 与 20+ 个 Skill',
+        body: '能建告警规则和仪表盘，能生成 PromQL / SQL，能排查规则为什么没触发、诊断主机健康，还能写通知模板和自愈脚本。团队自己的排查流程可以用 skill-creator 做成新 Skill，也可以从 git 仓库安装。',
+      },
+      {
+        label: '在告警流程里用',
+        title: '通知里附上 AI 分析摘要',
+        body: '在事件 Pipeline 里加一个 AI 摘要节点，大模型在通知发出前写好分析，值班的人在钉钉、飞书、Slack 里就能直接看到。',
+      },
+      {
+        label: '从外部调用',
+        title: 'MCP 与 A2A，两个入口',
+        body: `Claude Code、Cursor 这类客户端连 /mcp（${figures.mcpTools} 个工具，写工具默认关闭），其他 Agent 通过 /a2a 调用夜莺。两个入口用同一个 token，也支持 OAuth 2.1 对接 Keycloak、Entra ID、Okta。`,
+      },
     ],
-    toolsetsLabel: '工具集',
-    toolsets: [
-      'alerts',
-      'targets',
-      'datasource',
-      'mutes',
-      'busi_groups',
-      'notify_rules',
-      'alert_subscribes',
-      'event_pipelines',
-      'users',
-      'metrics',
-      'logs',
-      'dashboards',
-      'roles',
-    ],
-    note: '写工具默认不注册，要在配置里显式打开。鉴权支持个人 Token 与 OAuth 2.1——夜莺可以自己做授权服务器（Claude、ChatGPT 这类托管客户端零预注册接入），也能作为资源服务器对接企业既有的 Keycloak、Entra ID、Okta。',
+    note: '模型自选：OpenAI 兼容接口、Claude、Gemini，私有部署也能接内网模型。',
     terminal: {
       title: 'claude — nightingale via MCP',
       lines: [
