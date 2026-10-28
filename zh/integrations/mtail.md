@@ -2,7 +2,7 @@
 
 Categraf 内置了 mtail：用正则和表达式从日志里提取 counter、gauge、histogram，不用把日志先送进日志系统。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 mtail 插件把日志变成指标：输入是日志文件，输出是按 mtail 语法定义的 counter、gauge 和 histogram，本质是 Go 正则提取加表达式计算。适合从 Nginx 访问日志统计状态码分布、从应用日志数错误次数这类场景，不需要先把日志送进 Elasticsearch 或 Loki。
 

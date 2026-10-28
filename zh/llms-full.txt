@@ -902,7 +902,7 @@ Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告�
 
 基于各项目 2026 年 8 月开源版本的公开能力，只作选型参考。我们尽量把对方的长处写清楚——选型建议不老实，社区口碑也就没了。
 
-* **13,396**GitHub Stars
+* **13,400**GitHub Stars
 * **10+**&#x6570;据源类型
 * **20**通知媒介
 * **74**MCP 工具
@@ -2007,7 +2007,7 @@ BUILT-IN TEMPLATES
 
 ↓
 
-[在 GitHub 查看全部模板<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-10-27
+[在 GitHub 查看全部模板<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-10-28
 
 COLLECTORS
 
@@ -22547,7 +22547,7 @@ INFO dispatch/dispatch.go:453 notify send timeMatch:true severityMatch:true tagM
 
 通过云监控 OpenAPI 拉取 ECS、RDS、Redis、SLB、CDN、ARMS 等产品的指标，模板里有几十张按产品划分的仪表盘和告警规则。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 阿里云插件用 `aliyun` 插件调用云监控（CloudMonitor）的 OpenAPI，按 namespace 拉取各产品的指标：ECS、RDS、Redis、MongoDB、SLB/ALB、OSS、CDN、消息队列、ARMS 应用监控等。拉下来的指标以 `aliyun_<namespace>_<metric>` 命名，带实例 ID 和地域标签。
 
@@ -23780,7 +23780,7 @@ AliyunSlb_DropConnection{} > 10
 
 调用 rocm-smi 采集 AMD GPU 的利用率、显存、温度、功耗和时钟，规则覆盖过热和显存吃满。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 AMD ROCm SMI 插件从 Telegraf 移植，执行 ROCm 自带的 `rocm-smi` 二进制并解析输出，得到每张 AMD GPU 的使用率、显存占用、温度、功耗、风扇和各级时钟。
 
@@ -23890,7 +23890,7 @@ amd_rocm_smi_temperature_sensor_memory > 95
 
 读取 mod\_status 的 server-status?auto 输出，采集请求速率、busy/idle worker、CPU 和流量，规则盯 worker 耗尽和服务不可达。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Apache httpd 开启 `mod_status` 后，`/server-status?auto` 以机器可读格式输出运行状态。插件抓这个页面，得到总访问量与流量、每秒请求数、busy 与 idle worker、CPU 负载、运行时长，以及各个 worker 的状态分布。
 
@@ -24021,7 +24021,7 @@ apache_uptime_seconds_total < 300
 
 AutoMQ 通过 OTel Collector 或自身的 Prometheus 端点暴露指标，模板覆盖集群总览、Broker、Topic、消费组和明细。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 AutoMQ 是存算分离的 Kafka 兼容消息系统。它把指标发给 OTel Collector 的 Prometheus exporter，或直接在自己的端点（实测用的是 8890）暴露 Prometheus 格式数据，用 Categraf 的 `prometheus` 插件抓取即可，端口按部署配置为准。
 
@@ -24355,7 +24355,7 @@ sum(rate(kafka_broker_network_io_bytes_total{direction="out"}[1m])) by (job) > 2
 
 通过 Azure Monitor API 按资源类型拉取指标，用服务主体鉴权，只需 Monitoring Reader 角色。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Azure 插件调用 Azure Monitor 的指标 API，按订阅、资源组或资源类型（虚拟机、存储账户、SQL 数据库、应用服务等）拉取指标，配置里可以按资源类型指定要采的指标名和聚合方式。
 
@@ -24515,7 +24515,7 @@ Azure 插件调用 Azure Monitor 的指标 API，按订阅、资源组或资源�
 
 通过 BIND 的 statistics channel（XML v3）采集查询计数、响应码、缓存和内存上下文，规则盯 SERVFAIL 升高和服务不可达。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 BIND 插件从 Telegraf 移植，读取 named 的 statistics channel（默认 `http://localhost:8053/xml/v3`）：收到的各类查询、按 rcode 分类的响应、递归客户端数、socket 与网络计数、各 view 的缓存状态，以及内存上下文的使用。
 
@@ -24646,7 +24646,7 @@ sum without (type) (increase(bind_counter_QryDropped[5m])) > 0
 
 抓 kubelet 内置或独立部署的 cAdvisor，拿到每个容器的 CPU、内存、文件系统和网络指标，kubelet 模式下还能附加 Pod 的 label 和 annotation。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 cAdvisor 插件采集 cAdvisor 暴露的 `container_*` 指标：容器级的 CPU 使用与限流、内存工作集与 OOM、文件系统读写、网络收发与丢包。两种接法：`type = "kubelet"` 抓 kubelet 的 `/metrics/cadvisor`（10250 端口，需要鉴权），并且可以把 Pod 的 label 和 annotation 附加到指标上；`type = "cadvisor"` 直接抓独立部署的 cAdvisor（默认 8080）。
 
@@ -24888,7 +24888,7 @@ rate(container_network_receive_packets_dropped_total{name!=""}[5m]) > 1
 
 开启 Ceph 的 prometheus mgr 模块后直接抓 9283 端口，模板覆盖集群健康、OSD、PG、池容量和 IOPS。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Ceph 的 mgr 自带 prometheus 模块：`ceph mgr module enable prometheus` 之后在 9283 端口暴露 `/metrics`，用 Categraf 的 `prometheus` 插件抓取即可，不需要专门插件。
 
@@ -25195,7 +25195,7 @@ ceph_osd_up == 0
 
 通过 HTTP 接口读取 system.metrics、system.events 和 system.asynchronous\_metrics，查询、合并、复制队列和内存都有指标说明。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 ClickHouse 插件通过 HTTP 接口（默认 8123）查询 `system.metrics`、`system.events`、`system.asynchronous_metrics` 和 `system.parts` 等系统表：并发查询、合并与 mutation、复制队列与延迟、内存与缓存、parts 数量、ZooKeeper 会话。已在 ClickHouse 24.8 真实负载上验证。
 
@@ -25693,7 +25693,7 @@ increase(ClickHouseMetrics_InterserverConnection[5m]) > 0
 
 通过 CloudWatch API 拉取任意 namespace 的指标统计值，EC2、RDS、ELB、Lambda 都能接；模板带 RDS 仪表盘和常用规则。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 CloudWatch 插件从 Telegraf 移植，调用 CloudWatch 的 GetMetricData API 按 namespace（`AWS/EC2`、`AWS/RDS`、`AWS/ELB` 等）拉取指标的统计值，可以按维度过滤只采自己关心的资源。认证走标准的凭证链：`role_arn`、显式 AK/SK、profile、环境变量、共享凭证文件、EC2 实例角色，按这个顺序尝试。
 
@@ -26070,7 +26070,7 @@ cloudwatch_aws_rds_swap_usage_average > 268435456
 
 通过 Consul API 采集所有注册服务的健康检查状态，哪个服务在哪个节点上 critical 或 warning 一目了然。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Consul 插件调用 Consul 的健康检查 API，把每一项注册的 health check 转成指标：服务名、节点、检查名、当前状态（passing、warning、critical）。它不采集 Consul 自身的 telemetry（那部分 Consul 可以通过 StatsD 或自带的 Prometheus 端点输出），专注于「注册在 Consul 里的服务有没有挂」这一个问题。
 
@@ -26299,7 +26299,7 @@ consul_serf_lan_member_status != 1
 
 用本机或指定的 DNS 服务器查询一组域名，上报解析耗时、返回码和记录数，第一时间发现解析慢或解析失败。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 dns\_query 插件向指定的 DNS 服务器（可以是本机配置的，也可以是外部的公共 DNS）查询 `domains` 里的域名，支持 A、AAAA、CNAME、MX、TXT 等记录类型，上报查询耗时、rcode、返回的记录数和结果值。
 
@@ -26476,7 +26476,7 @@ dns_query_result_value == 2
 
 通过 Docker API 采集每个容器的 CPU、内存、块设备和网络 IO 以及守护进程状态，仪表盘按 docker\_\* 指标编写并经过真实验证。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Docker 插件基于 Telegraf 的 docker 插件，连接 Docker 守护进程的 socket（`unix:///var/run/docker.sock`）或 TCP 端点，采集引擎层面的容器数量与状态、镜像数、存储驱动信息，以及每个容器的 CPU、内存、blkio 和网络 IO。可选采集 Swarm service 和扩展内存统计。
 
@@ -26741,7 +26741,7 @@ rate(docker_container_cpu_throttling_throttled_periods[5m]) / rate(docker_contai
 
 FE 和 BE 都自带 Prometheus 格式的 /metrics，用 Categraf 的 prometheus 插件抓取即可，模板覆盖查询、导入、Compaction 和节点状态。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Doris 的 FE（默认 8030）和 BE（默认 8040）进程都通过 `/metrics` 暴露 Prometheus 协议的监控数据，不需要专门插件。给每类节点打上 `group` 和 `job` 标签，仪表盘按这两个标签区分 FE/BE 和集群。
 
@@ -27150,7 +27150,7 @@ increase(doris_fe_txn_counter{type="reject"}[5m]) > 0
 
 通过 ES 自己的 HTTP 接口采集集群健康、节点 JVM、线程池、索引和分片状态，小集群抓一个节点即可拿到全集群数据。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Elasticsearch 通过 HTTP JSON 接口暴露自身状态，插件抓 `_cluster/health`、`_cluster/stats`、`_nodes/stats` 和索引统计：集群颜色、未分配分片、节点 JVM 堆与 GC、断路器、线程池拒绝、索引写入与查询延迟、磁盘水位。
 
@@ -27702,7 +27702,7 @@ elasticsearch_cluster_health_unassigned_shards > 0
 
 通过 EMQX Dashboard API 采集节点状态、连接数、订阅、消息收发与丢弃，支持 v3、v4、v5 三代版本。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 EMQX 插件调用 Dashboard API（默认 18083）采集：先从 `/nodes` 拿到每个节点的版本、运行状态、连接数、进程与内存，再采集集群级的订阅数、路由、消息收发与丢弃计数、会话与保留消息。一个集群写多个节点地址会随机挑一个可用的连，多个集群拆成多个 `[[instances]]`。
 
@@ -27894,7 +27894,7 @@ emqx_node_uptime_seconds < 300
 
 现成插件覆盖不到的东西，写个脚本按 Prometheus、InfluxDB 行协议或 Open-Falcon 格式打印到 stdout，Categraf 负责采集和上报。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 exec 插件是 Categraf 的万能兜底：你写脚本，脚本把监控数据打印到标准输出，Categraf 定时执行并解析。脚本用什么语言无所谓，输出格式三选一：Prometheus 文本格式、InfluxDB 行协议（`measurement,label=v field=1`）或 Open-Falcon 的 JSON，由 `data_format` 指定。
 
@@ -27962,7 +27962,7 @@ exec 插件是 Categraf 的万能兜底：你写脚本，脚本把监控数据�
 
 GitLab 软件包内置多个 exporter，分别抓主机、Rails/Sidekiq、Gitaly、Workhorse、PostgreSQL、Redis 和 NGINX 的指标，模板有五张仪表盘。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 GitLab Linux Package 自带一整套 exporter：node\_exporter（主机）、gitlab\_exporter（Rails 与 Sidekiq）、Gitaly、Workhorse、postgres\_exporter、redis\_exporter 和 NGINX VTS。模板里的五张仪表盘（总览、机器性能、NGINX、PostgreSQL、Redis）各用其中一部分，要完整使用需要把这些端点都抓下来，而不是只抓一个 `/metrics`。
 
@@ -28203,7 +28203,7 @@ S2 警告 · 触发条件:
 
 读取 HAProxy 的 CSV stats 页面或 Runtime API，拿到每个 frontend、backend 和 server 的会话、队列、错误和健康状态。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 HAProxy 插件读取 stats 页面的 CSV 输出（`/stats;csv`）或 Runtime API 的 Unix socket，按 frontend、backend、server 三个层级采集当前与最大会话数、队列长度、请求速率、各类状态码、连接与响应错误、重试与重分发，以及每个后端 server 的健康检查结果。已在真实后端流量上验证。
 
@@ -28414,7 +28414,7 @@ increase(haproxy_backend_connection_errors_total[5m]) > 0
 
 用华为云 cloudeye-exporter 把云监控（CES）指标转成 Prometheus 格式后抓取，模板覆盖 ECS、RDS、DCS、ELB、Kafka、RocketMQ、CSS 和 WAF。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 华为云的指标来自云监控服务（Cloud Eye）。华为云官方维护的 `cloudeye-exporter` 会按产品 namespace 把 CES 指标转成 `huaweicloud_sys_<service>_<metric>` 形式的 Prometheus 指标，用 Categraf 的 `prometheus` 插件抓取即可。
 
@@ -29316,7 +29316,7 @@ huaweicloud_sys_dms_broker_memory_usage > 85
 
 通过 IPMI 读取服务器带外的温度、风扇、电压、电源和传感器状态，本地或远程 BMC 都能采。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 IPMI 插件从 ipmi\_exporter 移植而来，原理是执行 FreeIPMI 的一系列命令并把输出转换成指标：温度、风扇转速、电压、功耗、各传感器的健康状态，以及机箱电源状态。这些数据来自 BMC，操作系统挂了也能读到。
 
@@ -29518,7 +29518,7 @@ ipmi_system_temp > 90 or ipmi_pch_temp > 90
 
 JVM 内存、GC、线程和类加载，用 JMX Exporter 或 OpenTelemetry Java Agent 暴露，模板按这两种指标名各备一套仪表盘。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 监控 Java 应用通常就是监控 JVM：堆与非堆内存、各代 GC 的次数与耗时、线程数与死锁、类加载、文件描述符。两种常见的暴露方式指标名不同，模板也分开：
 
@@ -29577,7 +29577,7 @@ labels = { job = "order-service" }
 
 Broker 指标走 JMX，消费者延迟靠内置的 kafka\_exporter 逻辑；模板分 Categraf 和 exporter 两套，规则盯积压、离线分区和 ISR 收缩。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Kafka 的核心指标通过 JMX 暴露，这部分用 jolokia 或 jmx\_exporter 采集即可。Categraf 的 `kafka` 插件解决的是 JMX 拿不到的那块：消费组的 lag、每个分区的 offset 和消费速率。它 fork 自 davidmparrott 版本的 kafka\_exporter，指标名和 danielqsj 版本略有差异，设置 `rename_uncommit_offset_to_lag = true` 可以切回更常见的 `kafka_consumergroup_lag` 命名。
 
@@ -29916,7 +29916,7 @@ max by (topic) (kafka_topic_partition_under_replicated_partition) > 0
 
 抓 apiserver、kubelet、controller-manager、scheduler、kube-proxy、CoreDNS、kube-state-metrics 和 node-exporter 的原生 /metrics，模板覆盖控制面到 Pod 的每一层。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Kubernetes 的每个组件都自带 Prometheus 格式的 `/metrics`，推荐用 Categraf 的 `prometheus` 插件直接抓取，再部署 kube-state-metrics（工作负载状态）和 node-exporter（节点资源）。旧的 Categraf kubernetes 插件已废弃，但模板里的仪表盘和规则照常可用。
 
@@ -33388,7 +33388,7 @@ increase(prometheus_tsdb_reloads_failures_total{job="prometheus-k8s",namespace="
 
 读取 LDAP 服务器的 cn=Monitor 后端，采集连接、各类操作计数、等待者和线程状态，支持 OpenLDAP 和 389 Directory Server。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 LDAP 插件查询服务器的监控后端（`cn=Monitor`），得到当前与累计连接数、bind、search、modify、add、delete 等操作的计数、等待中的读写、线程池状态和运行时长。支持 OpenLDAP 和 389ds 两种方言，指标名按方言略有不同。
 
@@ -33577,7 +33577,7 @@ openldap_uptime_time < 300
 
 CPU、内存、磁盘、网络、进程到内核参数，Categraf 装上就有数据，模板覆盖 Categraf、node\_exporter 和 Telegraf 三种采集口径。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Linux 主机是绝大多数监控的起点。Categraf 自带的 cpu、mem、disk、diskio、net、netstat、kernel、processes 等插件默认开启，装好就上报，不用额外配置；下面列出的是那些有可调项的插件。
 
@@ -35387,7 +35387,7 @@ procstat_lookup_running == 0
 
 通过 Logstash 的节点 API 采集 pipeline 的事件进出与过滤耗时、队列和 JVM 状态，规则盯事件堆积和 JVM 压力。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Logstash 默认在 9600 端口提供 HTTP API，插件抓 `_node/stats`：每个 pipeline 的输入、过滤、输出事件数与耗时，持久化队列的容量与积压，JVM 堆、GC 与线程，以及进程的 CPU 和文件描述符。
 
@@ -35608,7 +35608,7 @@ logstash_process_cpu_percent > 90
 
 MinIO 自带 Prometheus 端点，要同时抓 cluster、bucket 和 node 三个路径，模板才能把对象、Bucket、进程和磁盘面板填满。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 MinIO 在 `/minio/v2/metrics/` 下按 `cluster`、`bucket`、`node` 三个路径暴露 Prometheus 指标。模板里的两张仪表盘同时用到三类指标，只抓 `/cluster` 会导致对象数、Bucket 用量、进程和磁盘面板缺数据。
 
@@ -35711,7 +35711,7 @@ avg_over_time(minio_cluster_nodes_offline_total{}[5m]) > 0
 
 内置 mongodb\_exporter 的采集逻辑，覆盖连接、操作计数、复制集与分片状态；仪表盘要求开启兼容模式的指标名。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 MongoDB 插件由 percona 的 mongodb\_exporter 封装而来，通过 `serverStatus`、`replSetGetStatus` 等命令采集连接数、操作计数、队列、WiredTiger 缓存、复制集成员状态和 oplog 窗口。分片集群用 `mongodb_cluster` 插件从 mongos 侧采集。
 
@@ -36104,7 +36104,7 @@ S1 紧急 · 持续 1 分钟 · 触发条件:
 
 Categraf 内置了 mtail：用正则和表达式从日志里提取 counter、gauge、histogram，不用把日志先送进日志系统。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 mtail 插件把日志变成指标：输入是日志文件，输出是按 mtail 语法定义的 counter、gauge 和 histogram，本质是 Go 正则提取加表达式计算。适合从 Nginx 访问日志统计状态码分布、从应用日志数错误次数这类场景，不需要先把日志送进 Elasticsearch 或 Loki。
 
@@ -36156,7 +36156,7 @@ mtail 插件把日志变成指标：输入是日志文件，输出是按 mtail �
 
 连上实例跑 SHOW STATUS、SHOW VARIABLES 和复制状态，慢查询堆积、连接数打满、主从中断与延迟都有现成规则和处置步骤。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 MySQL 插件的原理很直接：连到实例，执行 `SHOW GLOBAL STATUS`、`SHOW GLOBAL VARIABLES`、`SHOW SLAVE STATUS` 等语句，把结果整理成指标。默认采集基础状态和复制状态，InnoDB 扩展指标、processlist、库表大小这些按需打开。还可以写自定义 SQL，把查询结果当指标上报。
 
@@ -36713,7 +36713,7 @@ mysql_up == 0
 
 探测本机或远端的端口是否可连、响应是否符合预期，结果码 0 到 4 分别表示成功、超时、连接失败、读失败和内容不匹配。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 net\_response 插件对 `targets` 里的 `host:port` 做 TCP 连接或 UDP 收发探测，可选发送一段数据并用 `expect` 匹配响应。结果上报为 `net_response_result_code`：0 成功、1 超时、2 连接失败、3 读失败、4 响应内容不匹配，同时上报连接耗时。
 
@@ -36863,7 +36863,7 @@ net_response_result_code != 0
 
 stub\_status 够看连接和请求总量，VTS 模块能到每个 server 和 upstream 的状态码与延迟；另带 upstream\_check 健康检查插件。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Nginx 监控有三个层次。`stub_status` 模块自带，给出活跃连接、accepts、handled、requests 和读写等待数，够做存活与流量趋势。VTS 模块（`nginx-module-vts`）能按 server zone 和 upstream 细分请求数、状态码、响应时间和流量，是最推荐的方式，用 Categraf 的 `prometheus` 插件抓它的 `/status/format/prometheus`。第三个是 `nginx_upstream_check` 插件，读取 upstream\_check 模块的健康检查结果。
 
@@ -37139,7 +37139,7 @@ nginx_upstream_check_status_code == 2
 
 读取 nsqd 的 /stats 接口，拿到每个 topic 和 channel 的积压、在途消息、超时和客户端数，规则盯积压增长和消费者掉线。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 NSQ 插件从 Telegraf 移植，访问 nsqd 的 `/stats` HTTP 接口，采集 topic 级别的消息总数与积压、channel 级别的 depth、in-flight、deferred、requeue 和 timeout 计数，以及每个客户端连接的 ready 与 in-flight 状态。
 
@@ -37294,7 +37294,7 @@ rate(nsq_channel_requeue_count[5m]) > 10
 
 两条路采 NVIDIA GPU：nvidia-smi 轻量够用，DCGM 指标更全；模板带 GPU 总览、单卡和训练任务视角的仪表盘。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 NVIDIA GPU 有两种采集方式。`nvidia_smi` 插件执行本机的 `nvidia-smi` 命令并解析输出，不需要额外安装东西，利用率、显存、温度、功耗、时钟都有；也可以通过 SSH 采远端机器。`dcgm` 插件对接 NVIDIA DCGM，指标更细（SM 活跃度、NVLink、XID 错误等），但需要 Categraf 的 with-cgo-plugin 版本和主机上的 DCGM。
 
@@ -37546,7 +37546,7 @@ sum by (Hostname, modelName, gpu) (DCGM_FI_DEV_GPU_TEMP > 85)
 
 通过 OpenStack API 采集 Nova、Neutron、Cinder、Glance、Keystone 和 Heat 的资源与配额，以及每台实例的状态。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 OpenStack 插件以一个有读取权限的账号调用各服务的 API：Nova 的实例、hypervisor 与配额，Neutron 的网络、子网、端口、浮动 IP 与安全组，Cinder 的卷与快照，Glance 的镜像，Keystone 的项目与用户，Heat 的栈。每台实例的状态、所属项目和 flavor 也会作为指标上报。
 
@@ -37954,7 +37954,7 @@ openstack_hypervisor_local_gb_used / (openstack_hypervisor_local_gb > 0) * 100 >
 
 用只读账号跑一组可自定义的 SQL 采集会话、表空间、等待事件和缓存命中率，Linux 上的 Categraf 也能远程监控 Windows 上的 Oracle。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Oracle 插件连接实例并执行 `metric.toml` 里定义的一组 SQL：会话数、活动会话、表空间使用率、等待事件、SGA/PGA、缓存命中率、归档日志等，每条 SQL 都能改、能加。连接配置和查询定义分在两个文件，方便按版本和环境裁剪。
 
@@ -38419,7 +38419,7 @@ oracle_tablespace_bytes/oracle_tablespace_max_bytes*100>95
 
 开启 pm.status\_path 后，插件通过 HTTP 或 Unix socket 读取 PHP-FPM 的进程池状态：活跃与空闲进程、请求队列、慢请求和达到上限的次数。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 PHP-FPM 插件由 Telegraf 的 phpfpm 改造而来，读取进程池的状态页：接受的连接数、监听队列长度与最大值、空闲与活跃进程、总进程数、达到 `max_children` 的次数、慢请求数。这些是判断 PHP 应用是否被打满的直接依据。
 
@@ -38626,7 +38626,7 @@ phpfpm_start_since < 300
 
 从 Categraf 所在机器 ping 一批目标，得到丢包率、往返延迟和抖动，是判断机器存活最简单的手段。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 ping 插件向 `targets` 里的地址发 ICMP 探测，上报丢包率、最小/平均/最大/标准差 RTT 和 TTL。只要目标没禁 ping，这就是最省事的存活探测；也可以在多个机房各部署一个 Categraf，互相 ping 来观察链路质量。
 
@@ -38790,7 +38790,7 @@ ping_result_code != 0
 
 用 pg\_monitor 角色的只读账号采集连接、事务、缓存命中、锁和复制状态，支持自定义业务表查询。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 PostgreSQL 插件以客户端身份连上数据库，读取 `pg_stat_*` 系列监控视图：每个库的连接数、提交和回滚、缓存命中率、死锁、临时文件，以及复制延迟。还可以配自定义查询，把业务表里的数字当指标上报。
 
@@ -39020,7 +39020,7 @@ rate(postgresql_blks_hit[5m])*100/(rate(postgresql_blks_hit[5m])+rate(postgresql
 
 3.8 以上直接抓内置 Prometheus 插件的 15692 端口，旧版本走管理 API；模板按版本分开，规则盯队列积压、未确认消息和节点状态。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 RabbitMQ 3.8 起内置 `rabbitmq_prometheus` 插件，`rabbitmq-plugins enable rabbitmq_prometheus` 后在 15692 端口暴露 `/metrics`，推荐用 Categraf 的 `prometheus` 插件抓取。低于 3.8 的版本启用 `rabbitmq_management`，用 Categraf 的 `rabbitmq` 插件访问 15672 的管理 API。
 
@@ -39444,7 +39444,7 @@ sum (increase(rabbitmq_channel_messages_unroutable_dropped_total[5m])) >= 1 or s
 
 连上 Redis 执行 INFO 采集内存、命中率、连接、慢日志和主从状态，另带 Sentinel 插件和按 redis\_exporter 写的模板。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Redis 插件连上实例执行 `INFO` 命令并解析，得到内存使用与碎片率、键空间命中率、连接数、阻塞客户端、持久化状态、主从复制状态等指标。多个实例就写多个 `[[instances]]`，建议给每个实例一个 `instance` 标签，仪表盘靠它区分。
 
@@ -39814,7 +39814,7 @@ redis_uptime_in_seconds < 600
 
 调用 smartctl 读取 HDD、SSD 和 NVMe 的 S.M.A.R.T. 健康属性，在硬盘真正坏掉之前看到重映射扇区、温度和剩余寿命。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 S.M.A.R.T. 是硬盘和固态盘内建的自检机制。Categraf 的 smart 插件执行 `smartctl`（以及 NVMe 的 `nvme` 工具）读取这些属性，输出 `smart_device` 整体健康指标和 `smart_attribute` 逐项属性，重映射扇区、待处理扇区、温度、通电时间、SSD 磨损这些指标都在其中。
 
@@ -40085,7 +40085,7 @@ increase(smart_attribute_program_fail_count[1h]) > 0
 
 配置 OID 就能采任意网络设备，还能把 OID 的值当标签用；模板带 Cisco、Juniper 和通用交换机的仪表盘与几十条规则。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Categraf 从 v0.2.13 起集成了 Telegraf 的 snmp 插件。核心逻辑是：要采什么指标，配置对应的 OID；`[[instances.field]]` 采单个值，`[[instances.table]]` 按表采多行，表里的某些 OID（比如接口名）可以作为标签。通用 OID（接口流量、错误、状态）对绝大多数设备都有效，CPU、内存这类私有 OID 则按厂商和型号配置。
 
@@ -41181,7 +41181,7 @@ snmp_network_status_admin_status == 1 and snmp_network_status_ostatus offset 4m 
 
 引入 Actuator 和 micrometer-registry-prometheus，应用自己暴露 /actuator/prometheus，模板带按应用名区分的 JVM 仪表盘。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Spring Boot 应用不需要外挂 agent：引入 `spring-boot-starter-actuator` 和 `micrometer-registry-prometheus` 两个依赖，开放 prometheus 端点，应用就在 `/actuator/prometheus` 暴露 JVM、HTTP 请求、数据源连接池、线程池和自定义指标。Actuator 底层用的就是 Micrometer。
 
@@ -41310,7 +41310,7 @@ sum by (instance) (increase(logback_events_total{level="error"}[5m])) > 0
 
 基于 DMV 和性能计数器采集 SQL Server 的连接、等待、缓冲区、日志和数据库状态，只需 VIEW SERVER STATE 权限。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 SQL Server 插件基于 Telegraf 的同名插件，通过动态管理视图（DMV）和性能计数器采集：连接与请求、等待统计、缓冲区命中率、页生命周期、事务日志使用、数据库状态与大小、Always On 可用性组状态。已在 SQL Server 2022 上完成真实采集验证。
 
@@ -41710,7 +41710,7 @@ rate(sqlserver_database_io_write_latency_ms[5m]) / (rate(sqlserver_database_io_w
 
 给一组 IP 就能自动识别设备型号，采 CPU、内存和每个端口的流量、错包与状态，只支持 SNMP v2c。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 switch\_legacy 插件 fork 自 swcollector，面向「只想把交换机快速接进来」的场景：配置里给 IP 列表（单个、网段或范围），插件自动探测设备型号，用通用 OID 采集 CPU、内存使用率以及每个网口的流量、包数、错包、丢包和 up/down 状态，不用自己写 OID。
 
@@ -42021,7 +42021,7 @@ switch_legacy_if_out_speed_percent > 80
 
 通过 D-Bus 读取 systemd unit 的状态、重启次数和启动耗时，服务挂了或反复拉起都能第一时间告警。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 systemd 插件通过 D-Bus 接口和 systemd 通信，采集每个 unit 的运行状态、是否 enabled、重启次数、任务数和启动耗时。相比只看进程是否存在，它能分辨「服务在但处于 failed」和「服务被反复拉起」这两种更隐蔽的故障。
 
@@ -42180,7 +42180,7 @@ systemd_system_running == 0
 
 用 tencentcloud-exporter 把云监控指标转成 Prometheus 格式后抓取，模板覆盖 CVM、CKafka、PostgreSQL、Redis、TDSQL-C 和负载均衡。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 腾讯云的指标来自云监控（Cloud Monitor）。腾讯云官方维护的 `tencentcloud-exporter` 按产品把这些指标转成 `qce_<product>_<metric>` 形式的 Prometheus 指标，用 Categraf 的 `prometheus` 插件抓取即可。
 
@@ -42237,7 +42237,7 @@ labels = { job = "tencentcloud" }
 
 TiDB、PD、TiKV 都通过 /metrics 暴露 Prometheus 指标，模板覆盖 SQL 延迟、Region 调度、存储和节点健康。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 TiDB 集群的各组件都自带 Prometheus 指标端点：TiDB Server 在 10080、PD 在 2379、TiKV 在 20180，TiFlash、TiCDC 等按各自配置。用 Categraf 的 `prometheus` 插件逐个抓取，或者直接把 TiUP 部署时自带的 Prometheus 接成夜莺数据源。
 
@@ -42785,7 +42785,7 @@ S1 紧急 · 持续 1 分钟 · 触发条件:
 
 读取 Manager 应用的 /manager/status/all 接口，采集 JVM 内存、各连接器的线程与请求、流量和错误，需要 manager-gui 角色。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Tomcat 插件访问 Manager 应用的 `/manager/status/all` 接口，解析出 JVM 堆与各内存池的使用、每个连接器（HTTP、AJP）的线程池大小与忙碌数、请求数、处理时间、错误数、收发字节。
 
@@ -42983,7 +42983,7 @@ tomcat_jvm_memorypool_used{name=~".*Old Gen|Tenured Gen"} / (tomcat_jvm_memorypo
 
 单机版和集群版都自带 /metrics，模板分别覆盖 vmsingle 以及 vmstorage、vmselect、vminsert 三个集群组件。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 VictoriaMetrics 通常既是夜莺的时序库，也是需要被监控的对象。单机版在 8428 端口暴露 `/metrics`；集群版要分别抓 vmstorage（8482）、vmselect（8481）和 vminsert（8480），只抓一个组件看不到全貌。
 
@@ -43178,7 +43178,7 @@ up{service=~"vmstorage.+"} < 1
 
 通过 vCenter API 采集 ESXi 主机、虚拟机、数据存储和集群的 CPU、内存、磁盘与网络性能计数器。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 vSphere 插件通过 vCenter Server 的 API 拉取性能数据，覆盖数据中心、集群、ESXi 主机、虚拟机和数据存储五个层级：CPU 就绪时间与使用率、内存活跃与 ballooning、磁盘延迟与 IOPS、网络吞吐、数据存储容量。监控 vSphere 必须有 vCenter，直接连 ESXi 不行。
 
@@ -43705,7 +43705,7 @@ sum(vsphere_datastore_disk_used_latest{vcenter=~".+"}/vsphere_datastore_disk_cap
 
 Categraf 在 Windows 上采集的指标和 Linux 同名，主机仪表盘与规则可以复用；另有按 windows\_exporter 指标写的 AD、DNS、ADFS 仪表盘。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Categraf 同样支持 Windows，而且 CPU、内存、磁盘、网络这些基础指标的命名和 Linux 保持一致，所以主机类的告警规则和仪表盘不用为 Windows 另写一份。
 
@@ -44031,7 +44031,7 @@ S1CPU 使用率持续高于 90%
 
 已送达![钉钉](https://n9e.github.io/zh/img/logos/dingtalk.png)![飞书](https://n9e.github.io/zh/img/logos/feishu.png)![Slack](https://n9e.github.io/zh/img/logos/slack.png)
 
-13,396GitHub Stars
+13,400GitHub Stars
 
 10+数据源类型
 

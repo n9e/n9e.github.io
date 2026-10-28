@@ -2,7 +2,7 @@
 
 Scrape Cloud Monitor metrics converted to Prometheus format by the tencentcloud-exporter; templates cover CVM, CKafka, PostgreSQL, Redis, TDSQL-C and load balancers.
 
-Last reviewed 2026-10-27
+Last reviewed 2026-10-28
 
 Tencent Cloud metrics come from its Cloud Monitor service. The `tencentcloud-exporter` maintained by Tencent Cloud converts them per product into Prometheus metrics named `qce_<product>_<metric>`, which the Categraf `prometheus` input scrapes.
 

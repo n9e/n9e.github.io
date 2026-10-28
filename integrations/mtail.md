@@ -2,7 +2,7 @@
 
 Categraf embeds mtail: extract counters, gauges and histograms from log files with regular expressions and expressions, without shipping the logs to a log system first.
 
-Last reviewed 2026-10-27
+Last reviewed 2026-10-28
 
 The mtail input turns logs into metrics. Input is a log file, output is a set of counters, gauges and histograms defined in mtail syntax; underneath it is Go regular expressions plus expression evaluation. It suits cases such as status-code distribution from Nginx access logs or error counts from application logs, with no need to ship the logs into Elasticsearch or Loki first.
 

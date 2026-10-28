@@ -2,7 +2,7 @@
 
 TiDB、PD、TiKV 都通过 /metrics 暴露 Prometheus 指标，模板覆盖 SQL 延迟、Region 调度、存储和节点健康。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 TiDB 集群的各组件都自带 Prometheus 指标端点：TiDB Server 在 10080、PD 在 2379、TiKV 在 20180，TiFlash、TiCDC 等按各自配置。用 Categraf 的 `prometheus` 插件逐个抓取，或者直接把 TiUP 部署时自带的 Prometheus 接成夜莺数据源。
 

@@ -2,7 +2,7 @@
 
 stub\_status 够看连接和请求总量，VTS 模块能到每个 server 和 upstream 的状态码与延迟；另带 upstream\_check 健康检查插件。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Nginx 监控有三个层次。`stub_status` 模块自带，给出活跃连接、accepts、handled、requests 和读写等待数，够做存活与流量趋势。VTS 模块（`nginx-module-vts`）能按 server zone 和 upstream 细分请求数、状态码、响应时间和流量，是最推荐的方式，用 Categraf 的 `prometheus` 插件抓它的 `/status/format/prometheus`。第三个是 `nginx_upstream_check` 插件，读取 upstream\_check 模块的健康检查结果。
 

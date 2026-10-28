@@ -2,7 +2,7 @@
 
 读取 mod\_status 的 server-status?auto 输出，采集请求速率、busy/idle worker、CPU 和流量，规则盯 worker 耗尽和服务不可达。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Apache httpd 开启 `mod_status` 后，`/server-status?auto` 以机器可读格式输出运行状态。插件抓这个页面，得到总访问量与流量、每秒请求数、busy 与 idle worker、CPU 负载、运行时长，以及各个 worker 的状态分布。
 

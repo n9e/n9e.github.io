@@ -2,7 +2,7 @@
 
 Categraf 在 Windows 上采集的指标和 Linux 同名，主机仪表盘与规则可以复用；另有按 windows\_exporter 指标写的 AD、DNS、ADFS 仪表盘。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Categraf 同样支持 Windows，而且 CPU、内存、磁盘、网络这些基础指标的命名和 Linux 保持一致，所以主机类的告警规则和仪表盘不用为 Windows 另写一份。
 

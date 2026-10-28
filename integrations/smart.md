@@ -2,7 +2,7 @@
 
 Runs smartctl to read S.M.A.R.T. health attributes from HDDs, SSDs and NVMe drives, so you see reallocated sectors, temperature and wear before a disk actually dies.
 
-Last reviewed 2026-10-27
+Last reviewed 2026-10-28
 
 S.M.A.R.T. is the self-monitoring built into hard drives and SSDs. The Categraf smart input runs `smartctl` (and the `nvme` tool for NVMe devices) and emits `smart_device` for overall health plus `smart_attribute` for individual attributes: reallocated sectors, pending sectors, temperature, power-on hours, SSD wear and more.
 

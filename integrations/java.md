@@ -2,7 +2,7 @@
 
 JVM memory, GC, threads and class loading exposed via the JMX Exporter or the OpenTelemetry Java Agent; one dashboard set for each metric naming.
 
-Last reviewed 2026-10-27
+Last reviewed 2026-10-28
 
 Monitoring a Java application mostly means monitoring the JVM: heap and non-heap memory, GC count and pause time per generation, thread count and deadlocks, class loading, file descriptors. The two common ways of exposing these produce different metric names, so the templates are split:
 

@@ -2,7 +2,7 @@
 
 Collects resources and quotas from Nova, Neutron, Cinder, Glance, Keystone and Heat through the OpenStack API, plus the state of every instance.
 
-Last reviewed 2026-10-27
+Last reviewed 2026-10-28
 
 The OpenStack input calls each service's API with a read-capable account: Nova instances, hypervisors and quotas; Neutron networks, subnets, ports, floating IPs and security groups; Cinder volumes and snapshots; Glance images; Keystone projects and users; Heat stacks. Every instance's state, project and flavor is reported as a metric too.
 

@@ -2,7 +2,7 @@
 
 引入 Actuator 和 micrometer-registry-prometheus，应用自己暴露 /actuator/prometheus，模板带按应用名区分的 JVM 仪表盘。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Spring Boot 应用不需要外挂 agent：引入 `spring-boot-starter-actuator` 和 `micrometer-registry-prometheus` 两个依赖，开放 prometheus 端点，应用就在 `/actuator/prometheus` 暴露 JVM、HTTP 请求、数据源连接池、线程池和自定义指标。Actuator 底层用的就是 Micrometer。
 

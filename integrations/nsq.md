@@ -2,7 +2,7 @@
 
 Reads nsqd's /stats endpoint for per-topic and per-channel depth, in-flight, timeouts and client counts; rules watch growing backlog and lost consumers.
 
-Last reviewed 2026-10-27
+Last reviewed 2026-10-28
 
 The NSQ input is ported from Telegraf and reads the `/stats` HTTP endpoint of nsqd: message counts and depth per topic, depth, in-flight, deferred, requeue and timeout counters per channel, and ready and in-flight state per client connection.
 

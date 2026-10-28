@@ -2,7 +2,7 @@
 
 Add Actuator and micrometer-registry-prometheus and the application exposes /actuator/prometheus itself; the template ships JVM dashboards split by application name.
 
-Last reviewed 2026-10-27
+Last reviewed 2026-10-28
 
 Spring Boot applications need no external agent. Add the `spring-boot-starter-actuator` and `micrometer-registry-prometheus` dependencies, expose the prometheus endpoint, and the application serves JVM, HTTP request, datasource pool, executor and custom metrics on `/actuator/prometheus`. Actuator is built on Micrometer underneath.
 

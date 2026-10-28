@@ -2,7 +2,7 @@
 
 读取 HAProxy 的 CSV stats 页面或 Runtime API，拿到每个 frontend、backend 和 server 的会话、队列、错误和健康状态。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 HAProxy 插件读取 stats 页面的 CSV 输出（`/stats;csv`）或 Runtime API 的 Unix socket，按 frontend、backend、server 三个层级采集当前与最大会话数、队列长度、请求速率、各类状态码、连接与响应错误、重试与重分发，以及每个后端 server 的健康检查结果。已在真实后端流量上验证。
 

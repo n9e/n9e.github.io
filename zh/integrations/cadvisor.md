@@ -2,7 +2,7 @@
 
 抓 kubelet 内置或独立部署的 cAdvisor，拿到每个容器的 CPU、内存、文件系统和网络指标，kubelet 模式下还能附加 Pod 的 label 和 annotation。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 cAdvisor 插件采集 cAdvisor 暴露的 `container_*` 指标：容器级的 CPU 使用与限流、内存工作集与 OOM、文件系统读写、网络收发与丢包。两种接法：`type = "kubelet"` 抓 kubelet 的 `/metrics/cadvisor`（10250 端口，需要鉴权），并且可以把 Pod 的 label 和 annotation 附加到指标上；`type = "cadvisor"` 直接抓独立部署的 cAdvisor（默认 8080）。
 

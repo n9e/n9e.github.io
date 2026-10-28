@@ -2,7 +2,7 @@
 
 Collects cluster health, node JVM, thread pools, index and shard state through Elasticsearch's own HTTP API; one node is enough to see the whole cluster on small deployments.
 
-Last reviewed 2026-10-27
+Last reviewed 2026-10-28
 
 Elasticsearch exposes its state over HTTP JSON. The input reads `_cluster/health`, `_cluster/stats`, `_nodes/stats` and index statistics: cluster colour, unassigned shards, node JVM heap and GC, circuit breakers, thread pool rejections, indexing and search latency, and disk watermarks.
 

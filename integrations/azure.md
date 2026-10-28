@@ -2,7 +2,7 @@
 
 Pulls metrics per resource type through the Azure Monitor API, authenticating with a service principal that only needs the Monitoring Reader role.
 
-Last reviewed 2026-10-27
+Last reviewed 2026-10-28
 
 The Azure input calls the Azure Monitor metrics API and pulls metrics by subscription, resource group or resource type (virtual machines, storage accounts, SQL databases, App Service and so on). The config lets you name the metrics and aggregations to collect per resource type.
 

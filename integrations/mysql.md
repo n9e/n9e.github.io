@@ -2,7 +2,7 @@
 
 Connects to the instance and runs SHOW STATUS, SHOW VARIABLES and replica status; slow-query pileups, connection exhaustion and broken or lagging replication come with rules and runbooks.
 
-Last reviewed 2026-10-27
+Last reviewed 2026-10-28
 
 The MySQL input is straightforward: it connects to the instance, runs `SHOW GLOBAL STATUS`, `SHOW GLOBAL VARIABLES`, `SHOW SLAVE STATUS` and friends, and turns the results into metrics. Basic status and replication are collected by default; extended InnoDB metrics, the processlist and schema and table sizes are opt-in. Custom SQL can also be turned into metrics.
 

@@ -2,7 +2,7 @@
 
 抓 apiserver、kubelet、controller-manager、scheduler、kube-proxy、CoreDNS、kube-state-metrics 和 node-exporter 的原生 /metrics，模板覆盖控制面到 Pod 的每一层。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Kubernetes 的每个组件都自带 Prometheus 格式的 `/metrics`，推荐用 Categraf 的 `prometheus` 插件直接抓取，再部署 kube-state-metrics（工作负载状态）和 node-exporter（节点资源）。旧的 Categraf kubernetes 插件已废弃，但模板里的仪表盘和规则照常可用。
 

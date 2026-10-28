@@ -2,7 +2,7 @@
 
 Collects query counts, response codes, cache and memory contexts from BIND's statistics channel (XML v3); rules watch rising SERVFAIL and unreachable servers.
 
-Last reviewed 2026-10-27
+Last reviewed 2026-10-28
 
 The BIND input is ported from Telegraf and reads the statistics channel of named (`http://localhost:8053/xml/v3` by default): incoming queries by type, responses by rcode, recursive clients, socket and network counters, cache state per view and memory context usage.
 

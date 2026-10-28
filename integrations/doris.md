@@ -2,7 +2,7 @@
 
 FE and BE both expose Prometheus-format /metrics; scrape them with the Categraf prometheus input. Templates cover queries, loads, compaction and node state.
 
-Last reviewed 2026-10-27
+Last reviewed 2026-10-28
 
 Doris FE (port 8030 by default) and BE (8040) processes both expose Prometheus metrics on `/metrics`, so no dedicated plugin is needed. Label each node type with `group` and `job`; the dashboards use those labels to separate FE from BE and one cluster from another.
 

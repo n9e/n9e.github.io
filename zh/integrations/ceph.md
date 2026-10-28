@@ -2,7 +2,7 @@
 
 开启 Ceph 的 prometheus mgr 模块后直接抓 9283 端口，模板覆盖集群健康、OSD、PG、池容量和 IOPS。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Ceph 的 mgr 自带 prometheus 模块：`ceph mgr module enable prometheus` 之后在 9283 端口暴露 `/metrics`，用 Categraf 的 `prometheus` 插件抓取即可，不需要专门插件。
 

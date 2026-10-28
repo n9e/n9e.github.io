@@ -2,7 +2,7 @@
 
 CPU、内存、磁盘、网络、进程到内核参数，Categraf 装上就有数据，模板覆盖 Categraf、node\_exporter 和 Telegraf 三种采集口径。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Linux 主机是绝大多数监控的起点。Categraf 自带的 cpu、mem、disk、diskio、net、netstat、kernel、processes 等插件默认开启，装好就上报，不用额外配置；下面列出的是那些有可调项的插件。
 

@@ -2,7 +2,7 @@
 
 连上实例跑 SHOW STATUS、SHOW VARIABLES 和复制状态，慢查询堆积、连接数打满、主从中断与延迟都有现成规则和处置步骤。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 MySQL 插件的原理很直接：连到实例，执行 `SHOW GLOBAL STATUS`、`SHOW GLOBAL VARIABLES`、`SHOW SLAVE STATUS` 等语句，把结果整理成指标。默认采集基础状态和复制状态，InnoDB 扩展指标、processlist、库表大小这些按需打开。还可以写自定义 SQL，把查询结果当指标上报。
 

@@ -2,7 +2,7 @@
 
 Resolves a list of domains against the local or a named DNS server and reports query time, return code and record count, so slow or failing resolution shows up immediately.
 
-Last reviewed 2026-10-27
+Last reviewed 2026-10-28
 
 The dns\_query input resolves the names in `domains` against the configured DNS servers (the host's own resolver or external public ones), supporting A, AAAA, CNAME, MX, TXT and other record types. It reports query time, rcode, the number of records returned and the result values.
 

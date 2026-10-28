@@ -2,7 +2,7 @@
 
 通过 Logstash 的节点 API 采集 pipeline 的事件进出与过滤耗时、队列和 JVM 状态，规则盯事件堆积和 JVM 压力。
 
-最后校对于 2026-10-27
+最后校对于 2026-10-28
 
 Logstash 默认在 9600 端口提供 HTTP API，插件抓 `_node/stats`：每个 pipeline 的输入、过滤、输出事件数与耗时，持久化队列的容量与积压，JVM 堆、GC 与线程，以及进程的 CPU 和文件描述符。
 

@@ -2,7 +2,7 @@
 
 Collects the health-check state of every registered service through the Consul API, so you see at once which service is critical or warning on which node.
 
-Last reviewed 2026-10-27
+Last reviewed 2026-10-28
 
 The Consul input calls the Consul health API and turns every registered health check into a metric with service name, node, check name and current state (passing, warning, critical). It does not collect Consul's own telemetry, which Consul can emit over StatsD or its built-in Prometheus endpoint; its single job is answering "is anything registered in Consul unhealthy".
 
