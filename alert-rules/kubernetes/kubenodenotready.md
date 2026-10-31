@@ -1,0 +1,77 @@
+---
+title: "KubeNodeNotReady alert: what it means and how to fix it"
+sidebar_label: "KubeNodeNotReady"
+sidebar_position: 14
+description: "What the KubeNodeNotReady Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML."
+last_reviewed: 2026-10-13
+custom_edit_url: https://github.com/n9e/n9e.github.io/blob/main/scripts/alert-rules/alerts.mjs
+toc_max_heading_level: 2
+mdx:
+  format: md
+---
+
+A node's `Ready` condition has not been `True` for 15 minutes; it is either `False` (the kubelet reports a problem) or `Unknown` (the kubelet has stopped reporting). New Pods are not scheduled there, and Pods already on it are evicted once the not-ready or unreachable taint outlasts their toleration, which is 300 seconds by default.
+
+- **Severity**: Warning (`warning`)
+- **Fires after**: 15m
+- Part of the [Kubernetes alert rules](/alert-rules/kubernetes) (`kubernetes.yml`)
+
+## The rule
+
+```promql
+kube_node_status_condition{job="kube-state-metrics",condition="Ready",status="true"} == 0
+```
+
+Alert message: `{{ $labels.node }} has been unready for more than 15 minutes.`
+
+## Common causes
+
+- The kubelet or the container runtime (containerd, CRI-O) has stopped or keeps restarting.
+- The node cannot reach the API server: network partition, firewall change, or a broken route.
+- The node is out of resources: memory, disk, or process IDs, so the kubelet itself cannot work.
+- The kubelet client certificate expired and the node can no longer authenticate.
+- The machine was shut down, rebooted or reclaimed (for example a spot instance) without being drained.
+
+## How to fix it
+
+1. Run kubectl describe node \<node> for Conditions and Events to tell MemoryPressure, DiskPressure and a lost kubelet apart;
+1. Log in to the node and check kubelet and the container runtime (systemctl status kubelet containerd);
+1. Use journalctl -u kubelet -n 200 to locate the problem;
+1. If the node cannot recover soon, run kubectl drain so the Pods move promptly instead of waiting for the eviction timeout.
+
+## Notes
+
+- The expression `status="true" == 0` covers both `False` and `Unknown`. `kubectl describe node <node>` shows which one and the last heartbeat time, which separates "the kubelet says something is wrong" from "the kubelet is gone".
+- The expression selects `job="kube-state-metrics"`. If your scrape job or namespace is named differently, change these matchers or the rule never matches.
+
+## Metrics it uses
+
+- `kube_node_status_condition` (kube-state-metrics)
+
+## Related alerts
+
+- [KubeletDown](/alert-rules/kubernetes/kubeletdown): Kubelet has disappeared from Prometheus target discovery.
+- [KubePodNotReady](/alert-rules/kubernetes/kubepodnotready): Pod …/… has been in a non-ready state for longer than 15 minutes.
+- [KubeletTooManyPods](/alert-rules/kubernetes/kubelettoomanypods): Kubelet '…' is running at … of its Pod capacity.
+
+## Prometheus rule YAML
+
+Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](pathname:///alert-rules/kubernetes.yml).
+
+```yaml
+- alert: KubeNodeNotReady
+  expr: |-
+    kube_node_status_condition{job="kube-state-metrics",condition="Ready",status="true"} == 0
+  for: 15m
+  labels:
+    severity: warning
+  annotations:
+    summary: "{{ $labels.node }} has been unready for more than 15 minutes."
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubenodenotready"
+```
+
+**With Nightingale**: this rule ships in the [Kubernetes integration](/integrations/kubernetes) template; [import it into a business group](/docs/data/integrations/import) and Nightingale attaches the runbook to every alert it sends.
+
+## Sources and license
+
+The rule expression is adapted from [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin) (Apache-2.0). The runbook steps come from [Nightingale's integration templates](https://github.com/ccfos/nightingale/tree/main/integrations) (Apache-2.0); the explanation and causes are written for this page.

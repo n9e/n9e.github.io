@@ -23,9 +23,16 @@ An alert rule is only half the job: when it fires at 3 a.m., someone needs to kn
 | [MongoDB](/alert-rules/mongodb) | 8 | mongodb_exporter | [`mongodb.yml`](pathname:///alert-rules/mongodb.yml) |
 | [Windows](/alert-rules/windows) | 13 | windows_exporter, Categraf | [`windows.yml`](pathname:///alert-rules/windows.yml) |
 
+## Runbooks by alert name
+
+These standard alert names, used by kubernetes-mixin and kube-prometheus, each have their own page with the meaning, common causes, the rule and the runbook.
+
+- **Kubernetes**: [KubeClientCertificateExpiration](/alert-rules/kubernetes/kubeclientcertificateexpiration), [KubeAPIErrorBudgetBurn](/alert-rules/kubernetes/kubeapierrorbudgetburn), [KubeAggregatedAPIDown](/alert-rules/kubernetes/kubeaggregatedapidown), [KubeContainerWaiting](/alert-rules/kubernetes/kubecontainerwaiting), [KubeCPUOvercommit](/alert-rules/kubernetes/kubecpuovercommit), [KubeDaemonSetMisScheduled](/alert-rules/kubernetes/kubedaemonsetmisscheduled), [KubeDeploymentReplicasMismatch](/alert-rules/kubernetes/kubedeploymentreplicasmismatch), [KubeDeploymentRolloutStuck](/alert-rules/kubernetes/kubedeploymentrolloutstuck), [KubeHpaMaxedOut](/alert-rules/kubernetes/kubehpamaxedout), [KubeJobFailed](/alert-rules/kubernetes/kubejobfailed), [KubeletDown](/alert-rules/kubernetes/kubeletdown), [KubeletTooManyPods](/alert-rules/kubernetes/kubelettoomanypods), [KubeMemoryOvercommit](/alert-rules/kubernetes/kubememoryovercommit), [KubeNodeNotReady](/alert-rules/kubernetes/kubenodenotready), [KubePersistentVolumeFillingUp](/alert-rules/kubernetes/kubepersistentvolumefillingup), [KubePodCrashLooping](/alert-rules/kubernetes/kubepodcrashlooping), [KubePodNotReady](/alert-rules/kubernetes/kubepodnotready), [KubeQuotaAlmostFull](/alert-rules/kubernetes/kubequotaalmostfull), [KubeStatefulSetReplicasMismatch](/alert-rules/kubernetes/kubestatefulsetreplicasmismatch)
+- **Prometheus**: [PrometheusOperatorRejectedResources](/alert-rules/prometheus/prometheusoperatorrejectedresources), [PrometheusBadConfig](/alert-rules/prometheus/prometheusbadconfig), [PrometheusNotConnectedToAlertmanagers](/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers), [PrometheusRemoteWriteBehind](/alert-rules/prometheus/prometheusremotewritebehind), [PrometheusRemoteWriteDesiredShards](/alert-rules/prometheus/prometheusremotewritedesiredshards), [PrometheusRuleFailures](/alert-rules/prometheus/prometheusrulefailures), [PrometheusTargetLimitHit](/alert-rules/prometheus/prometheustargetlimithit)
+
 ## Rule format
 
-- Each page lists every rule with its PromQL condition, severity, `for` duration and runbook steps, grouped by the collector that produces the metrics.
+- Each service page lists every rule with its PromQL condition, severity, `for` duration and runbook steps, grouped by the collector that produces the metrics. Standard alert names with their own page appear there as a short entry with a link.
 - Each `.yml` file is a standard Prometheus rules file and passes `promtool check rules`. Severity is a `severity` label (critical / warning / info), the summary is in `annotations.summary`, and `annotations.runbook_url` links to the rule page.
 - Thresholds are starting points, not recommendations for every environment. Review them before you enable a rule.
 

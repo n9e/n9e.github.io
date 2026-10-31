@@ -23,9 +23,16 @@ mdx:
 | [MongoDB](/alert-rules/mongodb) | 8 | mongodb_exporter | [`mongodb.yml`](pathname:///alert-rules/mongodb.yml) |
 | [Windows](/alert-rules/windows) | 13 | windows_exporter, Categraf | [`windows.yml`](pathname:///alert-rules/windows.yml) |
 
+## 按告警名查处置手册
+
+下面这些是 kubernetes-mixin 和 kube-prometheus 使用的标准告警名，每个都有单独一页，写明含义、常见原因、规则和处置步骤。
+
+- **Kubernetes**: [KubeClientCertificateExpiration](/alert-rules/kubernetes/kubeclientcertificateexpiration), [KubeAPIErrorBudgetBurn](/alert-rules/kubernetes/kubeapierrorbudgetburn), [KubeAggregatedAPIDown](/alert-rules/kubernetes/kubeaggregatedapidown), [KubeContainerWaiting](/alert-rules/kubernetes/kubecontainerwaiting), [KubeCPUOvercommit](/alert-rules/kubernetes/kubecpuovercommit), [KubeDaemonSetMisScheduled](/alert-rules/kubernetes/kubedaemonsetmisscheduled), [KubeDeploymentReplicasMismatch](/alert-rules/kubernetes/kubedeploymentreplicasmismatch), [KubeDeploymentRolloutStuck](/alert-rules/kubernetes/kubedeploymentrolloutstuck), [KubeHpaMaxedOut](/alert-rules/kubernetes/kubehpamaxedout), [KubeJobFailed](/alert-rules/kubernetes/kubejobfailed), [KubeletDown](/alert-rules/kubernetes/kubeletdown), [KubeletTooManyPods](/alert-rules/kubernetes/kubelettoomanypods), [KubeMemoryOvercommit](/alert-rules/kubernetes/kubememoryovercommit), [KubeNodeNotReady](/alert-rules/kubernetes/kubenodenotready), [KubePersistentVolumeFillingUp](/alert-rules/kubernetes/kubepersistentvolumefillingup), [KubePodCrashLooping](/alert-rules/kubernetes/kubepodcrashlooping), [KubePodNotReady](/alert-rules/kubernetes/kubepodnotready), [KubeQuotaAlmostFull](/alert-rules/kubernetes/kubequotaalmostfull), [KubeStatefulSetReplicasMismatch](/alert-rules/kubernetes/kubestatefulsetreplicasmismatch)
+- **Prometheus**: [PrometheusOperatorRejectedResources](/alert-rules/prometheus/prometheusoperatorrejectedresources), [PrometheusBadConfig](/alert-rules/prometheus/prometheusbadconfig), [PrometheusNotConnectedToAlertmanagers](/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers), [PrometheusRemoteWriteBehind](/alert-rules/prometheus/prometheusremotewritebehind), [PrometheusRemoteWriteDesiredShards](/alert-rules/prometheus/prometheusremotewritedesiredshards), [PrometheusRuleFailures](/alert-rules/prometheus/prometheusrulefailures), [PrometheusTargetLimitHit](/alert-rules/prometheus/prometheustargetlimithit)
+
 ## 规则格式
 
-- 每个服务一页，列出全部规则的 PromQL 触发条件、级别、持续时间和处置步骤，按产生指标的采集器分组。
+- 每个服务一页，列出全部规则的 PromQL 触发条件、级别、持续时间和处置步骤，按产生指标的采集器分组。有单独页面的标准告警名，在服务页上只留简短条目和链接。
 - 每个 `.yml` 文件都是标准 Prometheus 规则文件，并通过了 `promtool check rules`。级别写在 `severity` 标签（critical / warning / info），摘要在 `annotations.summary`，`annotations.runbook_url` 指向对应的规则页。
 - 阈值只是起点，不是对所有环境都合适的推荐值。启用前请逐条确认。
 

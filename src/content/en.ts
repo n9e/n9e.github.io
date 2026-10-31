@@ -315,7 +315,11 @@ export const en: SiteCopy = {
   },
 
   comparisonsPage: {
-    pageTitle: 'Comparisons',
+    meta: {
+      title: "Nightingale vs Prometheus, Zabbix and Grafana Alerting",
+      description:
+        "How Nightingale compares with Prometheus + Alertmanager, Zabbix and Grafana Alerting for open-source alerting: capability matrix, where each tool fits, and what migrating costs.",
+    },
     label: 'Nightingale vs',
     title: 'Keep your storage.\nChange who owns alerting.',
     lead: 'Prometheus, Zabbix and Grafana each have their ground. Nightingale argues for one thing only: the alerting layer should belong to a tool built for it.',
@@ -877,6 +881,11 @@ export const en: SiteCopy = {
   },
 
   integrationsPage: {
+    meta: {
+      title: "Nightingale integrations: data sources, collectors, notifications",
+      description:
+        "Every Nightingale integration in one list: data sources such as Prometheus, VictoriaMetrics, Elasticsearch and ClickHouse, collectors, notification channels, and built-in alert and dashboard templates.",
+    },
     title: 'Plugs into what you already run',
     lead: 'Data sources, collectors, notification channels and templates — Nightingale connects to what exists rather than replacing it. The full list is below, and every entry links to how to wire it up.',
     counts: { templates: 'Built-in templates', sources: 'Data source types', channels: 'Notification channels', channelsValue: figures.notificationChannels },
@@ -984,7 +993,11 @@ export const en: SiteCopy = {
   },
 
   downloadPage: {
-    pageTitle: 'Download',
+    meta: {
+      title: "Download & install Nightingale (Docker, binary, Helm)",
+      description:
+        "Download the latest Nightingale release and install it with Docker Compose, Linux binaries, a Docker image or the Helm chart. Every package comes from a tagged GitHub release with SHA256 checksums.",
+    },
     title: 'Up in five minutes,\nor deployed the way production needs.',
     lead: 'Every package here is built from a tagged release and published on GitHub. Say what you are trying to do and the page shows only the commands for that path.',
     releasedLabel: 'released',
@@ -1112,6 +1125,11 @@ export const en: SiteCopy = {
   },
 
   categrafPage: {
+    meta: {
+      title: "Categraf: open-source metrics agent, a Telegraf alternative",
+      description:
+        "Categraf is an MIT-licensed metrics agent for hosts, middleware, databases, network devices and Kubernetes. It writes over Prometheus Remote Write. Install, configure, and compare it with Telegraf.",
+    },
     title: 'Categraf',
     lead: 'Nightingale evaluates alerts on data you already have. Categraf is one way to put it there: a single agent covering operating systems, middleware, databases, network gear and Kubernetes, writing over Prometheus Remote Write. MIT licensed, built by the team behind Nightingale.',
     facts: [

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
+import PageMeta from '@site/src/components/common/PageMeta';
 import { useCopy } from '@site/src/content';
 import type { InstallPathId, PlatformId } from '@site/src/content/types';
 import releases from '@site/src/data/releases.json';
@@ -90,7 +91,8 @@ export default function Download(): React.ReactElement {
   const activePath = page.paths.find((p) => p.id === path) ?? page.paths[0];
 
   return (
-    <Layout title={page.pageTitle} description={page.lead}>
+    <Layout description={page.meta.description}>
+      <PageMeta meta={page.meta} />
       <main className={styles.page}>
         <header className={styles.hero}>
           <div className="n9e-container">

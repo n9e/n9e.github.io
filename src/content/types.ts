@@ -364,8 +364,8 @@ export interface ComparisonDetailLabels {
 }
 
 export interface ComparisonsPage {
-  /** 浏览器标签页与导航里用的短页名；大标题 title 是一句立场，太长不适合做 <title> */
-  pageTitle: string;
+  /** 搜索结果里的整句 <title> 与描述（不再拼站点名后缀）。大标题是口号，不含用户的搜索词，所以分开写 */
+  meta: PageMeta;
   /** 一句立场。可以用 \n 指定换行点，组件会渲染成 <br> */
   title: string;
   /** 大标题上方的一行小字，后面跟三个对手名（链到各自章节） */
@@ -449,6 +449,8 @@ export interface CollectorCard {
 export type Plural = [one: string, other: string];
 
 export interface IntegrationsPage {
+  /** 搜索结果里的整句 <title> 与描述（不再拼站点名后缀）。大标题是口号，不含用户的搜索词，所以分开写 */
+  meta: PageMeta;
   title: string;
   lead: string;
   /** hero 数字条的标签；模板数和数据源数由数据算出，通知媒介数按产品口径写死 */
@@ -520,8 +522,8 @@ export type PlatformId = 'linux-amd64' | 'linux-arm64' | 'docker' | 'kubernetes'
  * 文案里的命令用 {tag} {version} {url} {name} {checksums} 占位，组件渲染时替换。
  */
 export interface DownloadPage {
-  /** 浏览器标签页用的短页名 */
-  pageTitle: string;
+  /** 搜索结果里的整句 <title> 与描述（不再拼站点名后缀）。大标题是口号，不含用户的搜索词，所以分开写 */
+  meta: PageMeta;
   /** 大标题，可用 \n 指定换行点 */
   title: string;
   lead: string;
@@ -574,6 +576,8 @@ export interface DownloadPage {
  * 中文站的入口仍然直达 GitHub —— 那边的中文内容对中文读者本来就合适。
  */
 export interface CategrafPage {
+  /** 搜索结果里的整句 <title> 与描述（不再拼站点名后缀）。大标题是口号，不含用户的搜索词，所以分开写 */
+  meta: PageMeta;
   title: string;
   lead: string;
   facts: StatItem[];
@@ -668,4 +672,10 @@ export interface SiteCopy {
   categrafPage: CategrafPage;
   docsHome: DocsHomePage;
   docsPlanned: DocsPlanned;
+}
+
+/** 独立页面的 <title> 与 meta description */
+export interface PageMeta {
+  title: string;
+  description: string;
 }

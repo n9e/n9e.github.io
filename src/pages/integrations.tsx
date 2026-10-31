@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
+import PageMeta from '@site/src/components/common/PageMeta';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { useBaseUrlUtils } from '@docusaurus/useBaseUrl';
 import { useCopy } from '@site/src/content';
@@ -189,7 +190,8 @@ export default function IntegrationsPage(): React.ReactElement {
   ];
 
   return (
-    <Layout title={page.title} description={page.lead}>
+    <Layout description={page.meta.description}>
+      <PageMeta meta={page.meta} />
       <main>
         <header className={pageStyles.pageHeader}>
           <div className="n9e-container">

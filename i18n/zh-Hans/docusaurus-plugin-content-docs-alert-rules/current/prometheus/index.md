@@ -28,28 +28,28 @@ mdx:
 | PrometheusOperatorNodeLookupErrors | 警告 | 10 分钟 |
 | PrometheusOperatorNotReady | 警告 | 5 分钟 |
 | PrometheusOperatorReconcileErrors | 警告 | 10 分钟 |
-| PrometheusOperatorRejectedResources | 警告 | 5 分钟 |
+| [PrometheusOperatorRejectedResources](/alert-rules/prometheus/prometheusoperatorrejectedresources) | 警告 | 5 分钟 |
 | PrometheusOperatorSyncFailed | 警告 | 10 分钟 |
 | PrometheusOperatorWatchErrors | 警告 | 15 分钟 |
-| PrometheusBadConfig | 紧急 | 10 分钟 |
+| [PrometheusBadConfig](/alert-rules/prometheus/prometheusbadconfig) | 紧急 | 10 分钟 |
 | PrometheusDuplicateTimestamps | 警告 | 10 分钟 |
 | PrometheusErrorSendingAlertsToAnyAlertmanager | 紧急 | 15 分钟 |
 | PrometheusErrorSendingAlertsToSomeAlertmanagers | 警告 | 15 分钟 |
 | PrometheusHighQueryLoad | 警告 | 15 分钟 |
 | PrometheusLabelLimitHit | 警告 | 15 分钟 |
 | PrometheusMissingRuleEvaluations | 警告 | 15 分钟 |
-| PrometheusNotConnectedToAlertmanagers | 警告 | 10 分钟 |
+| [PrometheusNotConnectedToAlertmanagers](/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers) | 警告 | 10 分钟 |
 | PrometheusNotificationQueueRunningFull | 警告 | 15 分钟 |
 | PrometheusNotIngestingSamples | 警告 | 10 分钟 |
 | PrometheusOutOfOrderTimestamps | 警告 | 10 分钟 |
 | PrometheusRemoteStorageFailures | 紧急 | 15 分钟 |
-| PrometheusRemoteWriteBehind | 紧急 | 15 分钟 |
-| PrometheusRemoteWriteDesiredShards | 警告 | 15 分钟 |
-| PrometheusRuleFailures | 紧急 | 15 分钟 |
+| [PrometheusRemoteWriteBehind](/alert-rules/prometheus/prometheusremotewritebehind) | 紧急 | 15 分钟 |
+| [PrometheusRemoteWriteDesiredShards](/alert-rules/prometheus/prometheusremotewritedesiredshards) | 警告 | 15 分钟 |
+| [PrometheusRuleFailures](/alert-rules/prometheus/prometheusrulefailures) | 紧急 | 15 分钟 |
 | PrometheusScrapeBodySizeLimitHit | 警告 | 15 分钟 |
 | PrometheusScrapeSampleLimitHit | 警告 | 15 分钟 |
 | PrometheusSDRefreshFailure | 警告 | 20 分钟 |
-| PrometheusTargetLimitHit | 警告 | 15 分钟 |
+| [PrometheusTargetLimitHit](/alert-rules/prometheus/prometheustargetlimithit) | 警告 | 15 分钟 |
 | PrometheusTargetSyncFailure | 紧急 | 5 分钟 |
 | PrometheusTSDBCompactionsFailing | 警告 | 240 分钟 |
 | PrometheusTSDBReloadsFailing | 警告 | 240 分钟 |
@@ -146,18 +146,7 @@ min by (cluster,controller,namespace) (max_over_time(prometheus_operator_ready{j
 
 Prometheus operator in \{\{ $labels.namespace \}\} namespace rejected \{\{ printf "%0.0f" $value \}\} \{\{ $labels.controller \}\}/\{\{ $labels.resource \}\} resources.
 
-警告 · 5 分钟 · 触发条件:
-
-```promql
-min_over_time(prometheus_operator_managed_resources{state="rejected",job="prometheus-operator",namespace="monitoring"}[5m]) > 0
-```
-
-处置步骤:
-
-1. kubectl logs -n \<ns> deploy/prometheus-operator 看具体报错；
-1. 权限类报错核对 Operator 的 ClusterRole 是否覆盖了所需资源；
-1. Reconcile/Sync 失败的检查对应的 CRD 对象是否配置有误（kubectl describe servicemonitor/prometheusrule）；
-1. 被拒绝的资源用 kubectl describe 看拒绝原因，通常是字段校验不通过。
+警告 · 5 分钟 · PromQL、常见原因与处置步骤：[PrometheusOperatorRejectedResources](/alert-rules/prometheus/prometheusoperatorrejectedresources)
 
 ### PrometheusOperatorSyncFailed
 
@@ -197,20 +186,7 @@ Errors while performing watch operations in controller \{\{$labels.controller\}\
 
 Prometheus \{\{$labels.namespace\}\}/\{\{$labels.pod\}\} has failed to reload its configuration.
 
-紧急 · 10 分钟 · 触发条件:
-
-```promql
-# Without max_over_time, failed scrapes could create false negatives, see
-# https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
-max_over_time(prometheus_config_last_reload_successful{job="prometheus-k8s",namespace="monitoring"}[5m]) == 0
-```
-
-处置步骤:
-
-1. kubectl logs 或实例日志里找配置解析报错的具体行；
-1. 用 promtool check config prometheus.yml 本地校验；
-1. K8s 上通常由 Operator 生成配置，检查 ServiceMonitor/PrometheusRule 是否有非法字段；
-1. 修正后确认 /-/reload 成功且 /config 页显示新配置。
+紧急 · 10 分钟 · PromQL、常见原因与处置步骤：[PrometheusBadConfig](/alert-rules/prometheus/prometheusbadconfig)
 
 ### PrometheusDuplicateTimestamps
 
@@ -330,20 +306,7 @@ increase(prometheus_rule_group_iterations_missed_total{job="prometheus-k8s",name
 
 Prometheus \{\{$labels.namespace\}\}/\{\{$labels.pod\}\} is not connected to any Alertmanagers.
 
-警告 · 10 分钟 · 触发条件:
-
-```promql
-# Without max_over_time, failed scrapes could create false negatives, see
-# https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
-max_over_time(prometheus_notifications_alertmanagers_discovered{job="prometheus-k8s",namespace="monitoring"}[5m]) < 1
-```
-
-处置步骤:
-
-1. 检查 Alertmanager 实例是否健康、网络是否连通；
-1. 在 Prometheus 的 /status 页确认 Alertmanager 发现是否正常；
-1. 队列满的排查 Alertmanager 处理是否卡住，或告警量是否异常暴涨；
-1. 恢复后确认 Alertmanager 已收到告警，避免静默失败。
+警告 · 10 分钟 · PromQL、常见原因与处置步骤：[PrometheusNotConnectedToAlertmanagers](/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers)
 
 ### PrometheusNotificationQueueRunningFull
 
@@ -441,65 +404,19 @@ Prometheus \{\{$labels.namespace\}\}/\{\{$labels.pod\}\} failed to send \{\{ pri
 
 Prometheus \{\{$labels.namespace\}\}/\{\{$labels.pod\}\} remote write is \{\{ printf "%.1f" $value \}\}s behind for \{\{ $labels.remote_name\}\}:\{\{ $labels.url \}\}.
 
-紧急 · 15 分钟 · 触发条件:
-
-```promql
-# Without max_over_time, failed scrapes could create false negatives, see
-# https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
-(
-  max_over_time(prometheus_remote_storage_highest_timestamp_in_seconds{job="prometheus-k8s",namespace="monitoring"}[5m])
-- ignoring(remote_name, url) group_right
-  max_over_time(prometheus_remote_storage_queue_highest_sent_timestamp_seconds{job="prometheus-k8s",namespace="monitoring"}[5m])
-)
-> 120
-```
-
-处置步骤:
-
-1. 看 Prometheus 日志中 remote_write 或 tsdb 相关报错；
-1. 远程写入失败的确认远端存储可用性与鉴权配置，并看是否触发了限流；
-1. 本地存储失败的检查磁盘空间与权限，TSDB 损坏时可能需要清理 WAL；
-1. 确认队列积压是否在下降，持续积压需要调大 queue_config 或降低写入量。
+紧急 · 15 分钟 · PromQL、常见原因与处置步骤：[PrometheusRemoteWriteBehind](/alert-rules/prometheus/prometheusremotewritebehind)
 
 ### PrometheusRemoteWriteDesiredShards
 
 Prometheus \{\{$labels.namespace\}\}/\{\{$labels.pod\}\} remote write desired shards calculation wants to run \{\{ $value \}\} shards for queue \{\{ $labels.remote_name\}\}:\{\{ $labels.url \}\}, which is more than the max of \{\{ printf `prometheus_remote_storage_shards_max\{instance="%s",job="prometheus-k8s",namespace="monitoring"\}` $labels.instance | query | first | value \}\}.
 
-警告 · 15 分钟 · 触发条件:
-
-```promql
-# Without max_over_time, failed scrapes could create false negatives, see
-# https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
-(
-  max_over_time(prometheus_remote_storage_shards_desired{job="prometheus-k8s",namespace="monitoring"}[5m])
->
-  max_over_time(prometheus_remote_storage_shards_max{job="prometheus-k8s",namespace="monitoring"}[5m])
-)
-```
-
-处置步骤:
-
-1. 看 Prometheus 日志中 remote_write 或 tsdb 相关报错；
-1. 远程写入失败的确认远端存储可用性与鉴权配置，并看是否触发了限流；
-1. 本地存储失败的检查磁盘空间与权限，TSDB 损坏时可能需要清理 WAL；
-1. 确认队列积压是否在下降，持续积压需要调大 queue_config 或降低写入量。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[PrometheusRemoteWriteDesiredShards](/alert-rules/prometheus/prometheusremotewritedesiredshards)
 
 ### PrometheusRuleFailures
 
 Prometheus \{\{$labels.namespace\}\}/\{\{$labels.pod\}\} has failed to evaluate \{\{ printf "%.0f" $value \}\} rules in the last 5m.
 
-紧急 · 15 分钟 · 触发条件:
-
-```promql
-increase(prometheus_rule_evaluation_failures_total{job="prometheus-k8s",namespace="monitoring"}[5m]) > 0
-```
-
-处置步骤:
-
-1. 看日志中失败规则的名称与错误；
-1. 常见为规则里的查询语法错误、引用了不存在的指标、或返回数据量过大；
-1. 用 promtool check rules 校验规则文件；
-1. 修正后确认 /rules 页该规则状态为 ok。
+紧急 · 15 分钟 · PromQL、常见原因与处置步骤：[PrometheusRuleFailures](/alert-rules/prometheus/prometheusrulefailures)
 
 ### PrometheusScrapeBodySizeLimitHit
 
@@ -556,18 +473,7 @@ increase(prometheus_sd_refresh_failures_total{job="prometheus-k8s",namespace="mo
 
 Prometheus \{\{$labels.namespace\}\}/\{\{$labels.pod\}\} has dropped \{\{ printf "%.0f" $value \}\} targets because the number of targets exceeded the configured target_limit.
 
-警告 · 15 分钟 · 触发条件:
-
-```promql
-increase(prometheus_target_scrape_pool_exceeded_target_limit_total{job="prometheus-k8s",namespace="monitoring"}[5m]) > 0
-```
-
-处置步骤:
-
-1. 在 /targets 页确认当前目标数与限制；
-1. 检查 ServiceMonitor 的 selector 是否过于宽泛，抓取了不需要的目标；
-1. 收敛 selector 或按业务拆分到多个 Prometheus 实例；
-1. 确需更多目标的调大 target_limit 并评估资源。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[PrometheusTargetLimitHit](/alert-rules/prometheus/prometheustargetlimithit)
 
 ### PrometheusTargetSyncFailure
 
@@ -622,7 +528,7 @@ increase(prometheus_tsdb_reloads_failures_total{job="prometheus-k8s",namespace="
 
 ## 怎么使用这些规则
 
-- **用 Prometheus 或 vmalert**：下载 [`prometheus.yml`](pathname:///alert-rules/prometheus.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页。
+- **用 Prometheus 或 vmalert**：下载 [`prometheus.yml`](pathname:///alert-rules/prometheus.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
 - **用夜莺**：同样的规则内置在 [Kubernetes](/integrations/kubernetes) 集成模板里。在集成中心把规则[导入到业务组](/docs/data/integrations/import)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可

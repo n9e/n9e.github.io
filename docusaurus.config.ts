@@ -128,6 +128,7 @@ const config: Config = {
   clientModules: [
     require.resolve('./src/clientModules/legacyDocRedirects.ts'),
     require.resolve('./src/clientModules/baiduAnalytics.ts'),
+    require.resolve('./src/clientModules/ymlDownloads.ts'),
   ],
 
   presets: [

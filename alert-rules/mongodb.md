@@ -156,7 +156,7 @@ Runbook:
 
 ## How to use these rules
 
-- **With Prometheus or vmalert**: download [`mongodb.yml`](pathname:///alert-rules/mongodb.yml), add it to `rule_files` (or `-rule` for vmalert), check the metric names against your exporter version, and tune thresholds. Severity is set as a `severity` label (critical / warning / info), and `runbook_url` points back to this page.
+- **With Prometheus or vmalert**: download [`mongodb.yml`](pathname:///alert-rules/mongodb.yml), add it to `rule_files` (or `-rule` for vmalert), check the metric names against your exporter version, and tune thresholds. Severity is set as a `severity` label (critical / warning / info), and `runbook_url` points back to this page, or to the rule's own page where it has one.
 - **With Nightingale**: the same rules ship in the [MongoDB](/integrations/mongodb) integration template. Open the integration center, [import the rules into a business group](/docs/data/integrations/import), and enable them one by one. Nightingale keeps the runbook with each alert and can evaluate the rules against Prometheus, VictoriaMetrics and other data sources.
 
 ## Sources and license

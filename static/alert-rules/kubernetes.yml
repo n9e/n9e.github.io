@@ -100,7 +100,7 @@ groups:
           severity: warning
         annotations:
           summary: "A client certificate used to authenticate to the apiserver is expiring in less than 7.0 days."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
       - alert: "KubeClientCertificateExpiration-S1"
         expr: |-
           apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0 and on(job) histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="apiserver"}[5m]))) < 86400
@@ -108,7 +108,7 @@ groups:
           severity: critical
         annotations:
           summary: "A client certificate used to authenticate to the apiserver is expiring in less than 24.0 hours."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
       - alert: "AggregatedAPIErrors"
         expr: |-
           sum by(name, namespace)(increase(aggregator_unavailable_apiservice_count[5m])) > 2
@@ -145,7 +145,7 @@ groups:
           severity: critical
         annotations:
           summary: "The API server is burning too much error budget."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
       - alert: "KubeAPIErrorBudgetBurn-S1-900s"
         expr: |-
           sum(apiserver_request:burnrate6h) > (6.00 * 0.01000)
@@ -156,7 +156,7 @@ groups:
           severity: critical
         annotations:
           summary: "The API server is burning too much error budget."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
       - alert: "KubeAPIErrorBudgetBurn-S2-3600s"
         expr: |-
           sum(apiserver_request:burnrate1d) > (3.00 * 0.01000)
@@ -167,7 +167,7 @@ groups:
           severity: warning
         annotations:
           summary: "The API server is burning too much error budget."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
       - alert: "KubeAPIErrorBudgetBurn-S2-10800s"
         expr: |-
           sum(apiserver_request:burnrate3d) > (1.00 * 0.01000)
@@ -178,7 +178,7 @@ groups:
           severity: warning
         annotations:
           summary: "The API server is burning too much error budget."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
       - alert: "Deployment replicas mismatch"
         expr: |-
           kube_deployment_spec_replicas{job="kube-state-metrics"} != kube_deployment_status_replicas_available{job="kube-state-metrics"}
@@ -253,7 +253,7 @@ groups:
           severity: warning
         annotations:
           summary: "Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }} has been only {{ $value | humanize }}% available over the last 10m."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeaggregatedapidown"
       - alert: "KubeAggregatedAPIErrors"
         expr: |-
           sum by(name, namespace, cluster)(increase(aggregator_unavailable_apiservice_total{job="apiserver"}[10m])) > 4
@@ -291,7 +291,7 @@ groups:
           severity: warning
         annotations:
           summary: "pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on container {{ $labels.container}} has been in waiting state for longer than 1 hour."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubecontainerwaiting"
       - alert: "KubeControllerManagerDown"
         expr: |-
           absent(up{job="kube-controller-manager"} == 1)
@@ -311,7 +311,7 @@ groups:
           severity: warning
         annotations:
           summary: "Cluster {{ $labels.cluster }} has overcommitted CPU resource requests for Pods by {{ $value }} CPU shares and cannot tolerate node failure."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubecpuovercommit"
       - alert: "KubeCPUQuotaOvercommit"
         expr: |-
           sum(min without(resource) (kube_resourcequota{job="kube-state-metrics", type="hard", resource=~"(cpu|requests.cpu)"})) by (cluster)
@@ -332,7 +332,7 @@ groups:
           severity: warning
         annotations:
           summary: "{{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} are running where they are not supposed to run."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubedaemonsetmisscheduled"
       - alert: "KubeDaemonSetNotScheduled"
         expr: |-
           kube_daemonset_status_desired_number_scheduled{job="kube-state-metrics"}
@@ -402,7 +402,7 @@ groups:
           severity: warning
         annotations:
           summary: "Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not matched the expected number of replicas for longer than 15 minutes."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubedeploymentreplicasmismatch"
       - alert: "KubeDeploymentRolloutStuck"
         expr: |-
           kube_deployment_status_condition{condition="Progressing", status="false",job="kube-state-metrics"}
@@ -412,7 +412,7 @@ groups:
           severity: warning
         annotations:
           summary: "Rollout of deployment {{ $labels.namespace }}/{{ $labels.deployment }} is not progressing for longer than 15 minutes."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubedeploymentrolloutstuck"
       - alert: "KubeHpaMaxedOut"
         expr: |-
           kube_horizontalpodautoscaler_status_current_replicas{job="kube-state-metrics"}
@@ -423,7 +423,7 @@ groups:
           severity: warning
         annotations:
           summary: "HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler  }} has been running at max replicas for longer than 15 minutes."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubehpamaxedout"
       - alert: "KubeHpaReplicasMismatch"
         expr: |-
           (kube_horizontalpodautoscaler_status_desired_replicas{job="kube-state-metrics"}
@@ -453,7 +453,7 @@ groups:
           severity: warning
         annotations:
           summary: "Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete. Removing failed job after investigation should clear this alert."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubejobfailed"
       - alert: "KubeJobNotCompleted"
         expr: |-
           time() - max by(namespace, job_name, cluster) (kube_job_status_start_time{job="kube-state-metrics"}
@@ -489,7 +489,7 @@ groups:
           severity: critical
         annotations:
           summary: "Kubelet has disappeared from Prometheus target discovery."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeletdown"
       - alert: "KubeletPlegDurationHigh"
         expr: |-
           node_quantile:kubelet_pleg_relist_duration_seconds:histogram_quantile{quantile="0.99"} >= 10
@@ -539,7 +539,7 @@ groups:
           severity: info
         annotations:
           summary: "Kubelet '{{ $labels.node }}' is running at {{ $value | humanizePercentage }} of its Pod capacity."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubelettoomanypods"
       - alert: "KubeMemoryOvercommit"
         expr: |-
           sum(namespace_memory:kube_pod_container_resource_requests:sum{}) by (cluster) - (sum(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) by (cluster) - max(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) by (cluster)) > 0
@@ -550,7 +550,7 @@ groups:
           severity: warning
         annotations:
           summary: "Cluster {{ $labels.cluster }} has overcommitted memory resource requests for Pods by {{ $value | humanize }} bytes and cannot tolerate node failure."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubememoryovercommit"
       - alert: "KubeMemoryQuotaOvercommit"
         expr: |-
           sum(min without(resource) (kube_resourcequota{job="kube-state-metrics", type="hard", resource=~"(memory|requests.memory)"})) by (cluster)
@@ -571,7 +571,7 @@ groups:
           severity: warning
         annotations:
           summary: "{{ $labels.node }} has been unready for more than 15 minutes."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubenodenotready"
       - alert: "KubeNodeReadinessFlapping"
         expr: |-
           sum(changes(kube_node_status_condition{job="kube-state-metrics",status="true",condition="Ready"}[15m])) by (cluster, node) > 2
@@ -617,7 +617,7 @@ groups:
           severity: critical
         annotations:
           summary: "The PersistentVolume claimed by {{ $labels.persistentvolumeclaim }} in Namespace {{ $labels.namespace }} is only {{ $value | humanizePercentage }} free."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubepersistentvolumefillingup"
       - alert: "KubePersistentVolumeInodesFillingUp"
         expr: |-
           (
@@ -645,7 +645,7 @@ groups:
           severity: warning
         annotations:
           summary: "Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is in waiting state (reason: \"CrashLoopBackOff\")."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubepodcrashlooping"
       - alert: "KubePodNotReady"
         expr: |-
           sum by (namespace, pod, cluster) (
@@ -660,7 +660,7 @@ groups:
           severity: warning
         annotations:
           summary: "Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 15 minutes."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubepodnotready"
       - alert: "KubeQuotaAlmostFull"
         expr: |-
           kube_resourcequota{job="kube-state-metrics", type="used"}
@@ -672,7 +672,7 @@ groups:
           severity: info
         annotations:
           summary: "Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubequotaalmostfull"
       - alert: "KubeQuotaExceeded"
         expr: |-
           kube_resourcequota{job="kube-state-metrics", type="used"}
@@ -733,7 +733,7 @@ groups:
           severity: warning
         annotations:
           summary: "StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} has not matched the expected number of replicas for longer than 15 minutes."
-          runbook_url: "https://n9e.github.io/alert-rules/kubernetes"
+          runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubestatefulsetreplicasmismatch"
       - alert: "KubeStatefulSetUpdateNotRolledOut"
         expr: |-
           (

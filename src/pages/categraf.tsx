@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
+import PageMeta from '@site/src/components/common/PageMeta';
 import { useCopy } from '@site/src/content';
 import styles from './pages.module.css';
 
@@ -8,7 +9,8 @@ export default function CategrafPage(): React.ReactElement {
   const { categrafPage: page } = useCopy();
 
   return (
-    <Layout title={page.title} description={page.lead}>
+    <Layout description={page.meta.description}>
+      <PageMeta meta={page.meta} />
       <main>
         <header className={styles.pageHeader}>
           <div className="n9e-container">

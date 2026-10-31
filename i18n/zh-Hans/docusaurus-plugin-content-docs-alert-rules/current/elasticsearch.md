@@ -206,7 +206,7 @@ elasticsearch_cluster_health_unassigned_shards > 0
 
 ## 怎么使用这些规则
 
-- **用 Prometheus 或 vmalert**：下载 [`elasticsearch.yml`](pathname:///alert-rules/elasticsearch.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页。
+- **用 Prometheus 或 vmalert**：下载 [`elasticsearch.yml`](pathname:///alert-rules/elasticsearch.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
 - **用夜莺**：同样的规则内置在 [Elasticsearch](/integrations/elasticsearch) 集成模板里。在集成中心把规则[导入到业务组](/docs/data/integrations/import)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可

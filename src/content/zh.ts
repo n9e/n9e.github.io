@@ -271,7 +271,11 @@ export const zh: SiteCopy = {
   /* ---------------- 子页面 ---------------- */
 
   comparisonsPage: {
-    pageTitle: '产品对比',
+    meta: {
+      title: "夜莺 vs Prometheus、Zabbix、Grafana：开源监控告警对比",
+      description:
+        "夜莺与 Prometheus + Alertmanager、Zabbix、Grafana Alerting 的开源监控告警对比：能力矩阵、各自适合的场景，以及迁移成本。",
+    },
     label: '夜莺 vs',
     title: '存储不用换，\n换掉的是告警这一层。',
     lead: 'Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告警这一层，该交给专门做告警的工具。',
@@ -833,6 +837,11 @@ export const zh: SiteCopy = {
   },
 
   integrationsPage: {
+    meta: {
+      title: "夜莺集成：数据源、采集器、通知媒介与监控模板",
+      description:
+        "夜莺监控的全部集成：Prometheus、VictoriaMetrics、Elasticsearch、ClickHouse 等数据源，采集器，钉钉、飞书、企业微信等通知媒介，以及内置的告警规则与仪表盘模板。",
+    },
     title: '接上你已有的一切',
     lead: '数据源、采集器、通知媒介、内置模板——夜莺对接现成的东西，不要求你换体系。下面是全部清单，每一项都可以点进去看怎么接。',
     counts: { templates: '内置集成模板', sources: '数据源类型', channels: '通知媒介', channelsValue: figures.notificationChannels },
@@ -940,7 +949,11 @@ export const zh: SiteCopy = {
   },
 
   downloadPage: {
-    pageTitle: '下载与安装',
+    meta: {
+      title: "夜莺监控下载与安装部署（Docker / 二进制 / K8s）",
+      description:
+        "下载夜莺监控最新版本，用 Docker Compose、二进制包、Docker 镜像或 Helm Chart 在 Kubernetes 上安装部署。所有安装包来自 GitHub 正式发布，附 SHA256 校验值。",
+    },
     title: '五分钟装起来，\n或者按生产的要求部署。',
     lead: '这里的每个包都来自打了标签的正式发布，发布在 GitHub 上。先说你要做什么，页面只给这条路上用得到的命令。',
     releasedLabel: '发布于',
@@ -1061,6 +1074,11 @@ export const zh: SiteCopy = {
   },
 
   categrafPage: {
+    meta: {
+      title: "Categraf 采集器：是什么、怎么安装配置 | 夜莺监控",
+      description:
+        "Categraf 是 MIT 协议开源的指标采集器，覆盖操作系统、中间件、数据库、网络设备与 Kubernetes，按 Prometheus Remote Write 推送数据。介绍安装、配置，以及和 Telegraf 的区别。",
+    },
     title: 'Categraf',
     lead: '夜莺在你已有的数据上做告警分析，Categraf 负责把数据送进来：一个 agent 覆盖操作系统、中间件、数据库、网络设备与 Kubernetes，按 Prometheus Remote Write 协议推送。MIT 协议开源，与夜莺出自同一个团队。',
     facts: [
