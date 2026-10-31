@@ -29,7 +29,7 @@ MySQL 告警规则，覆盖实际最常把人叫起来的几类问题：实例�
 | The MySQL instance is down                                                  | 紧急 | —      |
 | Mysql has opened a large number of file handles. Please be aware - categraf | 警告 | 2 分钟 |
 
-## Prometheus exporter（10）[​](#prometheus-exporter10 "Prometheus exporter（10）的直接链接")
+## Prometheus exporter（10）[​](#prometheus-exporter10 "Prometheus exporter（10）的直接�链接")
 
 本组 10 条中有 9 条规则对用 Categraf 采集的实例同样适用，指标名完全一致。
 
@@ -220,7 +220,7 @@ avg by (instance) (mysql_global_status_open_files) / avg by (instance)(mysql_glo
 
 ## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直接链接")
 
-* **用 Prometheus 或 vmalert**：下载 [`mysql.yml`](https://n9e.github.io/zh/alert-rules/mysql.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页。
+* **用 Prometheus 或 vmalert**：下载 [`mysql.yml`](https://n9e.github.io/zh/alert-rules/mysql.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
 * **用夜莺**：同样的规则内置在 [MySQL](https://n9e.github.io/zh/integrations/mysql.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")

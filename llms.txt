@@ -6,15 +6,15 @@
 
 ## categraf
 
-Nightingale evaluates alerts on data you already have. Categraf is one way to put it there: a single agent covering operating systems, middleware, databases, network gear and Kubernetes, writing over Prometheus Remote Write. MIT licensed, built by the team behind Nightingale.
+Categraf is an MIT-licensed metrics agent for hosts, middleware, databases, network devices and Kubernetes. It writes over Prometheus Remote Write. Install, configure, and compare it with Telegraf.
 
-- [Categraf](https://n9e.github.io/categraf.md): Nightingale evaluates alerts on data you already have. Categraf is one way to put it there: a single agent covering operating systems, middleware, databases, network gear and Kubernetes, writing over Prometheus Remote Write. MIT licensed, built by the team behind Nightingale.
+- [Categraf](https://n9e.github.io/categraf.md): Categraf is an MIT-licensed metrics agent for hosts, middleware, databases, network devices and Kubernetes. It writes over Prometheus Remote Write. Install, configure, and compare it with Telegraf.
 
 ## comparisons
 
-Prometheus, Zabbix and Grafana each have their ground. Nightingale argues for one thing only: the alerting layer should belong to a tool built for it.
+How Nightingale compares with Prometheus + Alertmanager, Zabbix and Grafana Alerting for open-source alerting: capability matrix, where each tool fits, and what migrating costs.
 
-- [Keep your storage. Change who owns alerting.](https://n9e.github.io/comparisons.md): Prometheus, Zabbix and Grafana each have their ground. Nightingale argues for one thing only: the alerting layer should belong to a tool built for it.
+- [Keep your storage. Change who owns alerting.](https://n9e.github.io/comparisons.md): How Nightingale compares with Prometheus + Alertmanager, Zabbix and Grafana Alerting for open-source alerting: capability matrix, where each tool fits, and what migrating costs.
 
 ### grafana-alerting
 
@@ -48,15 +48,15 @@ Thinking of replacing Zabbix? Prometheus + Alertmanager, Nightingale (n9e), Graf
 
 ## download
 
-Every package here is built from a tagged release and published on GitHub. Say what you are trying to do and the page shows only the commands for that path.
+Download the latest Nightingale release and install it with Docker Compose, Linux binaries, a Docker image or the Helm chart. Every package comes from a tagged GitHub release with SHA256 checksums.
 
-- [Up in five minutes, or deployed the way production needs.](https://n9e.github.io/download.md): Every package here is built from a tagged release and published on GitHub. Say what you are trying to do and the page shows only the commands for that path.
+- [Up in five minutes, or deployed the way production needs.](https://n9e.github.io/download.md): Download the latest Nightingale release and install it with Docker Compose, Linux binaries, a Docker image or the Helm chart. Every package comes from a tagged GitHub release with SHA256 checksums.
 
 ## integrations
 
-Data sources, collectors, notification channels and templates — Nightingale connects to what exists rather than replacing it. The full list is below, and every entry links to how to wire it up.
+Every Nightingale integration in one list: data sources such as Prometheus, VictoriaMetrics, Elasticsearch and ClickHouse, collectors, notification channels, and built-in alert and dashboard templates.
 
-- [Plugs into what you already run](https://n9e.github.io/integrations.md): Data sources, collectors, notification channels and templates — Nightingale connects to what exists rather than replacing it. The full list is below, and every entry links to how to wire it up.
+- [Plugs into what you already run](https://n9e.github.io/integrations.md): Every Nightingale integration in one list: data sources such as Prometheus, VictoriaMetrics, Elasticsearch and ClickHouse, collectors, notification channels, and built-in alert and dashboard templates.
 
 ### aliyun
 
@@ -399,6 +399,25 @@ Categraf reports the same metric names on Windows as on Linux, so host dashboard
 77 ready-to-use Kubernetes alert rules in PromQL, each with severity, duration and runbook steps. Metrics from kube-state-metrics, cAdvisor (kubelet), apiserver. Download as a Prometheus rules file or import into Nightingale.
 
 - [Kubernetes alert rules for Prometheus: 77 rules with runbooks](https://n9e.github.io/alert-rules/kubernetes.md): 77 ready-to-use Kubernetes alert rules in PromQL, each with severity, duration and runbook steps. Metrics from kube-state-metrics, cAdvisor (kubelet), apiserver. Download as a Prometheus rules file or import into Nightingale.
+- [KubeAggregatedAPIDown alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubeaggregatedapidown.md): What the KubeAggregatedAPIDown Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [KubeAPIErrorBudgetBurn alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md): What the KubeAPIErrorBudgetBurn Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [KubeClientCertificateExpiration alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration.md): What the KubeClientCertificateExpiration Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [KubeContainerWaiting alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubecontainerwaiting.md): What the KubeContainerWaiting Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [KubeCPUOvercommit alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubecpuovercommit.md): What the KubeCPUOvercommit Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [KubeDaemonSetMisScheduled alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubedaemonsetmisscheduled.md): What the KubeDaemonSetMisScheduled Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [KubeDeploymentReplicasMismatch alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md): What the KubeDeploymentReplicasMismatch Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [KubeDeploymentRolloutStuck alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubedeploymentrolloutstuck.md): What the KubeDeploymentRolloutStuck Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [KubeHpaMaxedOut alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubehpamaxedout.md): What the KubeHpaMaxedOut Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [KubeJobFailed alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubejobfailed.md): What the KubeJobFailed Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [KubeletDown alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubeletdown.md): What the KubeletDown Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [KubeletTooManyPods alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubelettoomanypods.md): What the KubeletTooManyPods Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [KubeMemoryOvercommit alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubememoryovercommit.md): What the KubeMemoryOvercommit Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [KubeNodeNotReady alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubenodenotready.md): What the KubeNodeNotReady Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [KubePersistentVolumeFillingUp alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubepersistentvolumefillingup.md): What the KubePersistentVolumeFillingUp Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [KubePodCrashLooping alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubepodcrashlooping.md): What the KubePodCrashLooping Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [KubePodNotReady alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubepodnotready.md): What the KubePodNotReady Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [KubeQuotaAlmostFull alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubequotaalmostfull.md): What the KubeQuotaAlmostFull Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [KubeStatefulSetReplicasMismatch alert: what it means and how to fix it](https://n9e.github.io/alert-rules/kubernetes/kubestatefulsetreplicasmismatch.md): What the KubeStatefulSetReplicasMismatch Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
 ### linux
 
@@ -423,6 +442,13 @@ Categraf reports the same metric names on Windows as on Linux, so host dashboard
 30 ready-to-use Prometheus alert rules in PromQL, each with severity, duration and runbook steps. Metrics from Prometheus's own /metrics, Prometheus Operator. Download as a Prometheus rules file or import into Nightingale.
 
 - [Prometheus alert rules for Prometheus: 30 rules with runbooks](https://n9e.github.io/alert-rules/prometheus.md): 30 ready-to-use Prometheus alert rules in PromQL, each with severity, duration and runbook steps. Metrics from Prometheus's own /metrics, Prometheus Operator. Download as a Prometheus rules file or import into Nightingale.
+- [PrometheusBadConfig alert: what it means and how to fix it](https://n9e.github.io/alert-rules/prometheus/prometheusbadconfig.md): What the PrometheusBadConfig Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [PrometheusNotConnectedToAlertmanagers alert: what it means and how to fix it](https://n9e.github.io/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers.md): What the PrometheusNotConnectedToAlertmanagers Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [PrometheusOperatorRejectedResources alert: what it means and how to fix it](https://n9e.github.io/alert-rules/prometheus/prometheusoperatorrejectedresources.md): What the PrometheusOperatorRejectedResources Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [PrometheusRemoteWriteBehind alert: what it means and how to fix it](https://n9e.github.io/alert-rules/prometheus/prometheusremotewritebehind.md): What the PrometheusRemoteWriteBehind Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [PrometheusRemoteWriteDesiredShards alert: what it means and how to fix it](https://n9e.github.io/alert-rules/prometheus/prometheusremotewritedesiredshards.md): What the PrometheusRemoteWriteDesiredShards Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [PrometheusRuleFailures alert: what it means and how to fix it](https://n9e.github.io/alert-rules/prometheus/prometheusrulefailures.md): What the PrometheusRuleFailures Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
+- [PrometheusTargetLimitHit alert: what it means and how to fix it](https://n9e.github.io/alert-rules/prometheus/prometheustargetlimithit.md): What the PrometheusTargetLimitHit Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
 ### redis
 

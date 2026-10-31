@@ -15,85 +15,85 @@
 
 ## 规则一览[​](#规则一览 "规则一览的直接链接")
 
-| 规则                                              | 级别 | 持续     |
-| ------------------------------------------------- | ---- | -------- |
-| Deployment Pod 可用性不足70%（replica超过9个pod） | 紧急 | 1 分钟   |
-| Job执行失败                                       | 提醒 | 1 分钟   |
-| Pod启动超时                                       | 警告 | 1 分钟   |
-| Pod状态异常                                       | 紧急 | 1 分钟   |
-| Pod频繁重启                                       | 警告 | 1 分钟   |
-| 容器CPU使用率超过80%                              | 提醒 | 1 分钟   |
-| 容器内存超过80%                                   | 提醒 | 1 分钟   |
-| Node CPU使用率超过90%                             | 提醒 | 1 分钟   |
-| Node内存使用率超过90%                             | 警告 | 1 分钟   |
-| Node状态异常                                      | 紧急 | 1 分钟   |
-| Node磁盘使用率超过90%                             | 提醒 | 1 分钟   |
-| KubeClientCertificateExpiration-S2                | 警告 | —        |
-| KubeClientCertificateExpiration-S1                | 紧急 | —        |
-| AggregatedAPIErrors                               | 警告 | —        |
-| AggregatedAPIDown                                 | 警告 | 5 分钟   |
-| KubeAPIDown                                       | 紧急 | 15 分钟  |
-| KubeAPIErrorBudgetBurn-S1-120秒                   | 紧急 | 2 分钟   |
-| KubeAPIErrorBudgetBurn-S1-900秒                   | 紧急 | 15 分钟  |
-| KubeAPIErrorBudgetBurn-S2-3600秒                  | 警告 | 60 分钟  |
-| KubeAPIErrorBudgetBurn-S2-10800秒                 | 警告 | 180 分钟 |
-| Deployment副本异常                                | 警告 | 10 分钟  |
-| StatefulSet副本异常                               | 警告 | 10 分钟  |
-| DaemonSet未就绪Pod                                | 警告 | 10 分钟  |
-| HPA扩容失败                                       | 警告 | 5 分钟   |
-| Pod处于Failed状态                                 | 警告 | 5 分钟   |
-| Job执行失败                                       | 警告 | 5 分钟   |
-| CPUThrottlingHigh                                 | 提醒 | 15 分钟  |
-| KubeAggregatedAPIDown                             | 警告 | 5 分钟   |
-| KubeAggregatedAPIErrors                           | 警告 | —        |
-| KubeAPITerminatedRequests                         | 警告 | 5 分钟   |
-| KubeClientErrors                                  | 警告 | 15 分钟  |
-| KubeContainerWaiting                              | 警告 | 60 分钟  |
-| KubeControllerManagerDown                         | 紧急 | 15 分钟  |
-| KubeCPUOvercommit                                 | 警告 | 10 分钟  |
-| KubeCPUQuotaOvercommit                            | 警告 | 5 分钟   |
-| KubeDaemonSetMisScheduled                         | 警告 | 15 分钟  |
-| KubeDaemonSetNotScheduled                         | 警告 | 10 分钟  |
-| KubeDaemonSetRolloutStuck                         | 警告 | 15 分钟  |
-| KubeDeploymentGenerationMismatch                  | 警告 | 15 分钟  |
-| KubeDeploymentReplicasMismatch                    | 警告 | 15 分钟  |
-| KubeDeploymentRolloutStuck                        | 警告 | 15 分钟  |
-| KubeHpaMaxedOut                                   | 警告 | 15 分钟  |
-| KubeHpaReplicasMismatch                           | 警告 | 15 分钟  |
-| KubeJobFailed                                     | 警告 | 15 分钟  |
-| KubeJobNotCompleted                               | 警告 | —        |
-| KubeletClientCertificateExpiration                | 警告 | —        |
-| KubeletClientCertificateRenewalErrors             | 警告 | 15 分钟  |
-| KubeletDown                                       | 紧急 | 15 分钟  |
-| KubeletPlegDurationHigh                           | 警告 | 5 分钟   |
-| KubeletPodStartUpLatencyHigh                      | 警告 | 15 分钟  |
-| KubeletServerCertificateExpiration                | 警告 | —        |
-| KubeletServerCertificateRenewalErrors             | 警告 | 15 分钟  |
-| KubeletTooManyPods                                | 提醒 | 15 分钟  |
-| KubeMemoryOvercommit                              | 警告 | 10 分钟  |
-| KubeMemoryQuotaOvercommit                         | 警告 | 5 分钟   |
-| KubeNodeNotReady                                  | 警告 | 15 分钟  |
-| KubeNodeReadinessFlapping                         | 警告 | 15 分钟  |
-| KubeNodeUnreachable                               | 警告 | 15 分钟  |
-| KubePersistentVolumeErrors                        | 紧急 | 5 分钟   |
-| KubePersistentVolumeFillingUp                     | 紧急 | 1 分钟   |
-| KubePersistentVolumeInodesFillingUp               | 紧急 | 1 分钟   |
-| KubePodCrashLooping                               | 警告 | 15 分钟  |
-| KubePodNotReady                                   | 警告 | 15 分钟  |
-| KubeQuotaAlmostFull                               | 提醒 | 15 分钟  |
-| KubeQuotaExceeded                                 | 警告 | 15 分钟  |
-| KubeQuotaFullyUsed                                | 提醒 | 15 分钟  |
-| KubeSchedulerDown                                 | 紧急 | 15 分钟  |
-| KubeStatefulSetGenerationMismatch                 | 警告 | 15 分钟  |
-| KubeStatefulSetReplicasMismatch                   | 警告 | 15 分钟  |
-| KubeStatefulSetUpdateNotRolledOut                 | 警告 | 15 分钟  |
-| KubeVersionMismatch                               | 警告 | 15 分钟  |
-| Node运行太多Pod                                   | 警告 | 15 分钟  |
-| Node状态抖动                                      | 警告 | 15 分钟  |
-| Pod启动耗时高                                     | 警告 | 15 分钟  |
-| 客户端证书过期-S1                                 | 紧急 | —        |
-| 服务端证书过期-S1                                 | 紧急 | —        |
-| kubelet故障                                       | 紧急 | 15 分钟  |
+| 规则                                                                                                                     | 级别 | 持续     |
+| ------------------------------------------------------------------------------------------------------------------------ | ---- | -------- |
+| Deployment Pod 可用性不足70%（replica超过9个pod）                                                                        | 紧急 | 1 分钟   |
+| Job执行失败                                                                                                              | 提醒 | 1 分钟   |
+| Pod启动超时                                                                                                              | 警告 | 1 分钟   |
+| Pod状态异常                                                                                                              | 紧急 | 1 分钟   |
+| Pod频繁重启                                                                                                              | 警告 | 1 分钟   |
+| 容器CPU使用率超过80%                                                                                                     | 提醒 | 1 分钟   |
+| 容器内存超过80%                                                                                                          | 提醒 | 1 分钟   |
+| Node CPU使用率超过90%                                                                                                    | 提醒 | 1 分钟   |
+| Node内存使用率超过90%                                                                                                    | 警告 | 1 分钟   |
+| Node状态异常                                                                                                             | 紧急 | 1 分钟   |
+| Node磁盘使用率超过90%                                                                                                    | 提醒 | 1 分钟   |
+| [KubeClientCertificateExpiration-S2](https://n9e.github.io/zh/alert-rules/kubernetes/kubeclientcertificateexpiration.md) | 警告 | —        |
+| [KubeClientCertificateExpiration-S1](https://n9e.github.io/zh/alert-rules/kubernetes/kubeclientcertificateexpiration.md) | 紧急 | —        |
+| AggregatedAPIErrors                                                                                                      | 警告 | —        |
+| AggregatedAPIDown                                                                                                        | 警告 | 5 分钟   |
+| KubeAPIDown                                                                                                              | 紧急 | 15 分钟  |
+| [KubeAPIErrorBudgetBurn-S1-120秒](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)             | 紧急 | 2 分钟   |
+| [KubeAPIErrorBudgetBurn-S1-900秒](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)             | 紧急 | 15 分钟  |
+| [KubeAPIErrorBudgetBurn-S2-3600秒](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)            | 警告 | 60 分钟  |
+| [KubeAPIErrorBudgetBurn-S2-10800秒](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)           | 警告 | 180 分钟 |
+| Deployment副本异常                                                                                                       | 警告 | 10 分钟  |
+| StatefulSet副本异常                                                                                                      | 警告 | 10 分钟  |
+| DaemonSet未就绪Pod                                                                                                       | 警告 | 10 分钟  |
+| HPA扩容失败                                                                                                              | 警告 | 5 分钟   |
+| Pod处于Failed状态                                                                                                        | 警告 | 5 分钟   |
+| Job执行失败                                                                                                              | 警告 | 5 分钟   |
+| CPUThrottlingHigh                                                                                                        | 提醒 | 15 分钟  |
+| [KubeAggregatedAPIDown](https://n9e.github.io/zh/alert-rules/kubernetes/kubeaggregatedapidown.md)                        | 警告 | 5 分钟   |
+| KubeAggregatedAPIErrors                                                                                                  | 警告 | —        |
+| KubeAPITerminatedRequests                                                                                                | 警告 | 5 分钟   |
+| KubeClientErrors                                                                                                         | 警告 | 15 分钟  |
+| [KubeContainerWaiting](https://n9e.github.io/zh/alert-rules/kubernetes/kubecontainerwaiting.md)                          | 警告 | 60 分钟  |
+| KubeControllerManagerDown                                                                                                | 紧急 | 15 分钟  |
+| [KubeCPUOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes/kubecpuovercommit.md)                                | 警告 | 10 分钟  |
+| KubeCPUQuotaOvercommit                                                                                                   | 警告 | 5 分钟   |
+| [KubeDaemonSetMisScheduled](https://n9e.github.io/zh/alert-rules/kubernetes/kubedaemonsetmisscheduled.md)                | 警告 | 15 分钟  |
+| KubeDaemonSetNotScheduled                                                                                                | 警告 | 10 分钟  |
+| KubeDaemonSetRolloutStuck                                                                                                | 警告 | 15 分钟  |
+| KubeDeploymentGenerationMismatch                                                                                         | 警告 | 15 分钟  |
+| [KubeDeploymentReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md)      | 警告 | 15 分钟  |
+| [KubeDeploymentRolloutStuck](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentrolloutstuck.md)              | 警告 | 15 分钟  |
+| [KubeHpaMaxedOut](https://n9e.github.io/zh/alert-rules/kubernetes/kubehpamaxedout.md)                                    | 警告 | 15 分钟  |
+| KubeHpaReplicasMismatch                                                                                                  | 警告 | 15 分钟  |
+| [KubeJobFailed](https://n9e.github.io/zh/alert-rules/kubernetes/kubejobfailed.md)                                        | 警告 | 15 分钟  |
+| KubeJobNotCompleted                                                                                                      | 警告 | —        |
+| KubeletClientCertificateExpiration                                                                                       | 警告 | —        |
+| KubeletClientCertificateRenewalErrors                                                                                    | 警告 | 15 分钟  |
+| [KubeletDown](https://n9e.github.io/zh/alert-rules/kubernetes/kubeletdown.md)                                            | 紧急 | 15 分钟  |
+| KubeletPlegDurationHigh                                                                                                  | 警告 | 5 分钟   |
+| KubeletPodStartUpLatencyHigh                                                                                             | 警告 | 15 分钟  |
+| KubeletServerCertificateExpiration                                                                                       | 警告 | —        |
+| KubeletServerCertificateRenewalErrors                                                                                    | 警告 | 15 分钟  |
+| [KubeletTooManyPods](https://n9e.github.io/zh/alert-rules/kubernetes/kubelettoomanypods.md)                              | 提醒 | 15 分钟  |
+| [KubeMemoryOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes/kubememoryovercommit.md)                          | 警告 | 10 分钟  |
+| KubeMemoryQuotaOvercommit                                                                                                | 警告 | 5 分钟   |
+| [KubeNodeNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubenodenotready.md)                                  | 警告 | 15 分钟  |
+| KubeNodeReadinessFlapping                                                                                                | 警告 | 15 分钟  |
+| KubeNodeUnreachable                                                                                                      | 警告 | 15 分钟  |
+| KubePersistentVolumeErrors                                                                                               | 紧急 | 5 分钟   |
+| [KubePersistentVolumeFillingUp](https://n9e.github.io/zh/alert-rules/kubernetes/kubepersistentvolumefillingup.md)        | 紧急 | 1 分钟   |
+| KubePersistentVolumeInodesFillingUp                                                                                      | 紧急 | 1 分钟   |
+| [KubePodCrashLooping](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodcrashlooping.md)                            | 警告 | 15 分钟  |
+| [KubePodNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodnotready.md)                                    | 警告 | 15 分钟  |
+| [KubeQuotaAlmostFull](https://n9e.github.io/zh/alert-rules/kubernetes/kubequotaalmostfull.md)                            | 提醒 | 15 分钟  |
+| KubeQuotaExceeded                                                                                                        | 警告 | 15 分钟  |
+| KubeQuotaFullyUsed                                                                                                       | 提醒 | 15 分钟  |
+| KubeSchedulerDown                                                                                                        | 紧急 | 15 分钟  |
+| KubeStatefulSetGenerationMismatch                                                                                        | 警告 | 15 分钟  |
+| [KubeStatefulSetReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes/kubestatefulsetreplicasmismatch.md)    | 警告 | 15 分钟  |
+| KubeStatefulSetUpdateNotRolledOut                                                                                        | 警告 | 15 分钟  |
+| KubeVersionMismatch                                                                                                      | 警告 | 15 分钟  |
+| Node运行太多Pod                                                                                                          | 警告 | 15 分钟  |
+| Node状态抖动                                                                                                             | 警告 | 15 分钟  |
+| Pod启动耗时高                                                                                                            | 警告 | 15 分钟  |
+| 客户端证书过期-S1                                                                                                        | 紧急 | —        |
+| 服务端证书过期-S1                                                                                                        | 紧急 | —        |
+| kubelet故障                                                                                                              | 紧急 | 15 分钟  |
 
 ## kube-state-metrics、cAdvisor 与控制面（77）[​](#kube-state-metricscadvisor-与控制面77 "kube-state-metrics、cAdvisor 与控制面（77）的直接链接")
 
@@ -266,35 +266,13 @@ disk_used_percent > 90
 
 A client certificate used to authenticate to the apiserver is expiring in less than 7.0 days.
 
-警告 · — · 触发条件:
-
-```
-apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0 and on(job) histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="apiserver"}[5m]))) < 604800
-```
-
-处置步骤:
-
-1. 用 kubeadm certs check-expiration（kubeadm 集群）或 openssl x509 -noout -dates 确认到期时间；
-2. kubeadm 集群用 kubeadm certs renew all 续期后重启控制面组件；
-3. kubelet 客户端证书通常自动轮换，未轮换的检查 rotateCertificates 配置与 CSR 审批是否正常；
-4. 续期后务必验证组件已加载新证书（重启对应进程），并复查所有节点。
+警告 · — · PromQL、常见原因与处置步骤：[KubeClientCertificateExpiration](https://n9e.github.io/zh/alert-rules/kubernetes/kubeclientcertificateexpiration.md)
 
 ### KubeClientCertificateExpiration-S1[​](#kubeclientcertificateexpiration-s1 "KubeClientCertificateExpiration-S1的直接链接")
 
 A client certificate used to authenticate to the apiserver is expiring in less than 24.0 hours.
 
-紧急 · — · 触发条件:
-
-```
-apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0 and on(job) histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="apiserver"}[5m]))) < 86400
-```
-
-处置步骤:
-
-1. 用 kubeadm certs check-expiration（kubeadm 集群）或 openssl x509 -noout -dates 确认到期时间；
-2. kubeadm 集群用 kubeadm certs renew all 续期后重启控制面组件；
-3. kubelet 客户端证书通常自动轮换，未轮换的检查 rotateCertificates 配置与 CSR 审批是否正常；
-4. 续期后务必验证组件已加载新证书（重启对应进程），并复查所有节点。
+紧急 · — · PromQL、常见原因与处置步骤：[KubeClientCertificateExpiration](https://n9e.github.io/zh/alert-rules/kubernetes/kubeclientcertificateexpiration.md)
 
 ### AggregatedAPIErrors[​](#aggregatedapierrors "AggregatedAPIErrors的直接链接")
 
@@ -351,85 +329,25 @@ absent(up{job="apiserver"} == 1)
 
 The API server is burning too much error budget.
 
-紧急 · 2 分钟 · 触发条件:
-
-```
-sum(apiserver_request:burnrate1h) > (14.40 * 0.01000)
-
-and
-
-sum(apiserver_request:burnrate5m) > (14.40 * 0.01000)
-```
-
-处置步骤:
-
-1. 看 apiserver 的错误码与延迟分布，确认是读还是写请求在劣化；
-2. 写请求劣化优先排查 etcd 的磁盘延迟——这是最常见根因；
-3. 读请求劣化排查是否有客户端在做大范围 LIST（无 resourceVersion 的全量列举）；
-4. 定位到异常客户端的对其限流，并考虑开启 APF（API Priority and Fairness）。
+紧急 · 2 分钟 · PromQL、常见原因与处置步骤：[KubeAPIErrorBudgetBurn](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)
 
 ### KubeAPIErrorBudgetBurn-S1-900秒[​](#kubeapierrorbudgetburn-s1-900秒 "KubeAPIErrorBudgetBurn-S1-900秒的直接链接")
 
 The API server is burning too much error budget.
 
-紧急 · 15 分钟 · 触发条件:
-
-```
-sum(apiserver_request:burnrate6h) > (6.00 * 0.01000)
-
-and
-
-sum(apiserver_request:burnrate30m) > (6.00 * 0.01000)
-```
-
-处置步骤:
-
-1. 看 apiserver 的错误码与延迟分布，确认是读还是写请求在劣化；
-2. 写请求劣化优先排查 etcd 的磁盘延迟——这是最常见根因；
-3. 读请求劣化排查是否有客户端在做大范围 LIST（无 resourceVersion 的全量列举）；
-4. 定位到异常客户端的对其限流，并考虑开启 APF（API Priority and Fairness）。
+紧急 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeAPIErrorBudgetBurn](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)
 
 ### KubeAPIErrorBudgetBurn-S2-3600秒[​](#kubeapierrorbudgetburn-s2-3600秒 "KubeAPIErrorBudgetBurn-S2-3600秒的直接链接")
 
 The API server is burning too much error budget.
 
-警告 · 60 分钟 · 触发条件:
-
-```
-sum(apiserver_request:burnrate1d) > (3.00 * 0.01000)
-
-and
-
-sum(apiserver_request:burnrate2h) > (3.00 * 0.01000)
-```
-
-处置步骤:
-
-1. 看 apiserver 的错误码与延迟分布，确认是读还是写请求在劣化；
-2. 写请求劣化优先排查 etcd 的磁盘延迟——这是最常见根因；
-3. 读请求劣化排查是否有客户端在做大范围 LIST（无 resourceVersion 的全量列举）；
-4. 定位到异常客户端的对其限流，并考虑开启 APF（API Priority and Fairness）。
+警告 · 60 分钟 · PromQL、常见原因与处置步骤：[KubeAPIErrorBudgetBurn](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)
 
 ### KubeAPIErrorBudgetBurn-S2-10800秒[​](#kubeapierrorbudgetburn-s2-10800秒 "KubeAPIErrorBudgetBurn-S2-10800秒的直接链接")
 
 The API server is burning too much error budget.
 
-警告 · 180 分钟 · 触发条件:
-
-```
-sum(apiserver_request:burnrate3d) > (1.00 * 0.01000)
-
-and
-
-sum(apiserver_request:burnrate6h) > (1.00 * 0.01000)
-```
-
-处置步骤:
-
-1. 看 apiserver 的错误码与延迟分布，确认是读还是写请求在劣化；
-2. 写请求劣化优先排查 etcd 的磁盘延迟——这是最常见根因；
-3. 读请求劣化排查是否有客户端在做大范围 LIST（无 resourceVersion 的全量列举）；
-4. 定位到异常客户端的对其限流，并考虑开启 APF（API Priority and Fairness）。
+警告 · 180 分钟 · PromQL、常见原因与处置步骤：[KubeAPIErrorBudgetBurn](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)
 
 ### Deployment副本异常[​](#deployment副本异常 "Deployment副本异常的直接链接")
 
@@ -560,18 +478,7 @@ sum(increase(container_cpu_cfs_periods_total{}[5m])) by (container, pod, namespa
 
 Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }} has been only {{ $value | humanize }}% available over the last 10m.
 
-警告 · 5 分钟 · 触发条件:
-
-```
-(1 - max by(name, namespace, cluster)(avg_over_time(aggregator_unavailable_apiservice{job="apiserver"}[10m]))) * 100 < 85
-```
-
-处置步骤:
-
-1. kubectl get apiservice 确认是哪个 APIService；
-2. kubectl -n \<ns> get pod 检查其后端 Pod 是否健康；
-3. 查看该 Pod 日志定位启动或运行错误；
-4. 恢复后用 kubectl top node 之类命令验证功能已回来。
+警告 · 5 分钟 · PromQL、常见原因与处置步骤：[KubeAggregatedAPIDown](https://n9e.github.io/zh/alert-rules/kubernetes/kubeaggregatedapidown.md)
 
 ### KubeAggregatedAPIErrors[​](#kubeaggregatedapierrors "KubeAggregatedAPIErrors的直接链接")
 
@@ -634,18 +541,7 @@ sum(rate(rest_client_requests_total{job="apiserver"}[5m])) by (cluster, instance
 
 pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on container {{ $labels.container}} has been in waiting state for longer than 1 hour.
 
-警告 · 60 分钟 · 触发条件:
-
-```
-sum by (namespace, pod, container, cluster) (kube_pod_container_status_waiting_reason{job="kube-state-metrics"}) > 0
-```
-
-处置步骤:
-
-1. kubectl describe pod \<pod> -n \<ns> 看 Waiting 的 Reason；
-2. ImagePullBackOff 检查镜像名、tag 与拉取凭据（imagePullSecrets）；
-3. CreateContainerConfigError 检查引用的 ConfigMap/Secret 是否存在；
-4. CrashLoopBackOff 按崩溃循环路径处理，看 --previous 日志。
+警告 · 60 分钟 · PromQL、常见原因与处置步骤：[KubeContainerWaiting](https://n9e.github.io/zh/alert-rules/kubernetes/kubecontainerwaiting.md)
 
 ### KubeControllerManagerDown[​](#kubecontrollermanagerdown "KubeControllerManagerDown的直接链接")
 
@@ -668,22 +564,7 @@ absent(up{job="kube-controller-manager"} == 1)
 
 Cluster {{ $labels.cluster }} has overcommitted CPU resource requests for Pods by {{ $value }} CPU shares and cannot tolerate node failure.
 
-警告 · 10 分钟 · 触发条件:
-
-```
-sum(namespace_cpu:kube_pod_container_resource_requests:sum{job="kube-state-metrics",}) by (cluster) - (sum(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster) - max(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster)) > 0
-
-and
-
-(sum(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster) - max(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster)) > 0
-```
-
-处置步骤:
-
-1. kubectl describe node | grep -A5 'Allocated resources' 汇总各节点的分配率；
-2. 这是容量规划信号而非即时故障——评估节点故障时是否还有冗余承接；
-3. 检查是否有 Pod 的 requests 设置得过高（远超实际用量），下调可释放大量可调度容量；
-4. 冗余确实不足的扩容节点。
+警告 · 10 分钟 · PromQL、常见原因与处置步骤：[KubeCPUOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes/kubecpuovercommit.md)
 
 ### KubeCPUQuotaOvercommit[​](#kubecpuquotaovercommit "KubeCPUQuotaOvercommit的直接链接")
 
@@ -712,18 +593,7 @@ sum(kube_node_status_allocatable{resource="cpu", job="kube-state-metrics"}) by (
 
 {{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} are running where they are not supposed to run.
 
-警告 · 15 分钟 · 触发条件:
-
-```
-kube_daemonset_status_number_misscheduled{job="kube-state-metrics"} > 0
-```
-
-处置步骤:
-
-1. kubectl get pod -n \<ns> -l \<selector> -o wide 看被误调度到哪些节点；
-2. 检查 DaemonSet 的 nodeSelector/affinity 与节点标签是否匹配；
-3. 通常是节点标签被改动或 DaemonSet 配置更新导致，修正后多余 Pod 会被自动清理；
-4. 未自动清理的手工删除对应 Pod。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeDaemonSetMisScheduled](https://n9e.github.io/zh/alert-rules/kubernetes/kubedaemonsetmisscheduled.md)
 
 ### KubeDaemonSetNotScheduled[​](#kubedaemonsetnotscheduled "KubeDaemonSetNotScheduled的直接链接")
 
@@ -832,74 +702,19 @@ kube_deployment_metadata_generation{job="kube-state-metrics"}
 
 Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not matched the expected number of replicas for longer than 15 minutes.
 
-警告 · 15 分钟 · 触发条件:
-
-```
-(
-
-  kube_deployment_spec_replicas{job="kube-state-metrics"}
-
-    >
-
-  kube_deployment_status_replicas_available{job="kube-state-metrics"}
-
-) and (
-
-  changes(kube_deployment_status_replicas_updated{job="kube-state-metrics"}[10m])
-
-    ==
-
-  0
-
-)
-```
-
-处置步骤:
-
-1. kubectl describe deploy \<name> -n \<ns> 看 Conditions 与 Events；
-2. kubectl get pod -n \<ns> -l \<selector> 看未就绪 Pod 的状态与原因；
-3. 常见为资源不足无法调度、镜像拉取失败、就绪探针不通过；
-4. 按 Pod 的具体状态排查，资源不足的扩容节点或调低 requests。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeDeploymentReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md)
 
 ### KubeDeploymentRolloutStuck[​](#kubedeploymentrolloutstuck "KubeDeploymentRolloutStuck的直接链接")
 
 Rollout of deployment {{ $labels.namespace }}/{{ $labels.deployment }} is not progressing for longer than 15 minutes.
 
-警告 · 15 分钟 · 触发条件:
-
-```
-kube_deployment_status_condition{condition="Progressing", status="false",job="kube-state-metrics"}
-
-!= 0
-```
-
-处置步骤:
-
-1. kubectl rollout status deploy/\<name> -n \<ns> 确认卡在第几个副本；
-2. kubectl describe pod 看新版本 Pod 为何未就绪（镜像、探针、资源）；
-3. 短期无法修复的用 kubectl rollout undo deploy/\<name> 回滚到上一版本；
-4. 修复后重新发布，并检查 maxSurge/maxUnavailable 配置是否合理。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeDeploymentRolloutStuck](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentrolloutstuck.md)
 
 ### KubeHpaMaxedOut[​](#kubehpamaxedout "KubeHpaMaxedOut的直接链接")
 
 HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler }} has been running at max replicas for longer than 15 minutes.
 
-警告 · 15 分钟 · 触发条件:
-
-```
-kube_horizontalpodautoscaler_status_current_replicas{job="kube-state-metrics"}
-
-  ==
-
-kube_horizontalpodautoscaler_spec_max_replicas{job="kube-state-metrics"}
-```
-
-处置步骤:
-
-1. kubectl describe hpa \<name> -n \<ns> 看当前指标值与目标值的差距；
-2. 确认集群是否还有资源支撑更多副本（节点余量）；
-3. 有余量的调大 maxReplicas；没余量的先扩容节点；
-4. 同时评估单副本的处理能力是否偏低，优化应用比无限扩副本更有效。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeHpaMaxedOut](https://n9e.github.io/zh/alert-rules/kubernetes/kubehpamaxedout.md)
 
 ### KubeHpaReplicasMismatch[​](#kubehpareplicasmismatch "KubeHpaReplicasMismatch的直接链接")
 
@@ -946,18 +761,7 @@ changes(kube_horizontalpodautoscaler_status_current_replicas{job="kube-state-met
 
 Job {{ $labels.namespace }}/{{ $labels.job\_name }} failed to complete. Removing failed job after investigation should clear this alert.
 
-警告 · 15 分钟 · 触发条件:
-
-```
-kube_job_failed{job="kube-state-metrics"}  > 0
-```
-
-处置步骤:
-
-1. kubectl get job \<job> -n \<ns> 看失败次数，再 kubectl logs job/\<job> 看失败原因；
-2. kubectl describe job 看 Events，确认是否因 backoffLimit 耗尽而放弃；
-3. 修复根因后 kubectl delete job 再重新提交，或让 CronJob 下次调度重跑；
-4. 确认该任务失败是否有下游影响（数据未产出、清理未执行），需要时手工补做。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeJobFailed](https://n9e.github.io/zh/alert-rules/kubernetes/kubejobfailed.md)
 
 ### KubeJobNotCompleted[​](#kubejobnotcompleted "KubeJobNotCompleted的直接链接")
 
@@ -1018,18 +822,7 @@ increase(kubelet_certificate_manager_client_expiration_renew_errors[5m]) > 0
 
 Kubelet has disappeared from Prometheus target discovery.
 
-紧急 · 15 分钟 · 触发条件:
-
-```
-absent(up{job="kubelet", metrics_path="/metrics"} == 1)
-```
-
-处置步骤:
-
-1. 登录节点执行 systemctl status kubelet 确认进程状态；
-2. journalctl -u kubelet -n 200 --no-pager 定位退出或报错原因；
-3. 常见为证书过期、配置错误、容器运行时不可用；
-4. 恢复后确认节点回到 Ready，并检查期间是否有 Pod 被误驱逐。
+紧急 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeletDown](https://n9e.github.io/zh/alert-rules/kubernetes/kubeletdown.md)
 
 ### KubeletPlegDurationHigh[​](#kubeletplegdurationhigh "KubeletPlegDurationHigh的直接链接")
 
@@ -1103,51 +896,13 @@ increase(kubelet_server_expiration_renew_errors[5m]) > 0
 
 Kubelet '{{ $labels.node }}' is running at {{ $value | humanizePercentage }} of its Pod capacity.
 
-提醒 · 15 分钟 · 触发条件:
-
-```
-count by(cluster, node) (
-
-  (kube_pod_status_phase{job="kube-state-metrics",phase="Running"} == 1) * on(instance,pod,namespace,cluster) group_left(node) topk by(instance,pod,namespace,cluster) (1, kube_pod_info{job="kube-state-metrics"})
-
-)
-
-/
-
-max by(cluster, node) (
-
-  kube_node_status_capacity{job="kube-state-metrics",resource="pods"} != 1
-
-) > 0.95
-```
-
-处置步骤:
-
-1. kubectl get pod -A -o wide --field-selector spec.nodeName=\<node> | wc -l 确认实际数量；
-2. 对照 kubelet 的 maxPods 配置（默认 110）；
-3. 用 kubectl drain 或调整调度策略把部分 Pod 迁到其他节点；
-4. 确需更高密度的调大 maxPods，但要同步评估节点的 CPU/内存/PLEG 压力。
+提醒 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeletTooManyPods](https://n9e.github.io/zh/alert-rules/kubernetes/kubelettoomanypods.md)
 
 ### KubeMemoryOvercommit[​](#kubememoryovercommit "KubeMemoryOvercommit的直接链接")
 
 Cluster {{ $labels.cluster }} has overcommitted memory resource requests for Pods by {{ $value | humanize }} bytes and cannot tolerate node failure.
 
-警告 · 10 分钟 · 触发条件:
-
-```
-sum(namespace_memory:kube_pod_container_resource_requests:sum{}) by (cluster) - (sum(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) by (cluster) - max(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) by (cluster)) > 0
-
-and
-
-(sum(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) by (cluster) - max(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) by (cluster)) > 0
-```
-
-处置步骤:
-
-1. kubectl describe node | grep -A5 'Allocated resources' 汇总各节点的分配率；
-2. 这是容量规划信号而非即时故障——评估节点故障时是否还有冗余承接；
-3. 检查是否有 Pod 的 requests 设置得过高（远超实际用量），下调可释放大量可调度容量；
-4. 冗余确实不足的扩容节点。
+警告 · 10 分钟 · PromQL、常见原因与处置步骤：[KubeMemoryOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes/kubememoryovercommit.md)
 
 ### KubeMemoryQuotaOvercommit[​](#kubememoryquotaovercommit "KubeMemoryQuotaOvercommit的直接链接")
 
@@ -1176,18 +931,7 @@ sum(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) b
 
 {{ $labels.node }} has been unready for more than 15 minutes.
 
-警告 · 15 分钟 · 触发条件:
-
-```
-kube_node_status_condition{job="kube-state-metrics",condition="Ready",status="true"} == 0
-```
-
-处置步骤:
-
-1. kubectl describe node \<node> 看 Conditions 与 Events，确认是 MemoryPressure、DiskPressure 还是 kubelet 失联；
-2. 登录节点确认 kubelet 与容器运行时进程状态（systemctl status kubelet containerd）；
-3. kubelet 日志用 journalctl -u kubelet -n 200 定位；
-4. 节点短期无法恢复的执行 kubectl drain 让 Pod 尽快迁走，避免等待驱逐超时。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeNodeNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubenodenotready.md)
 
 ### KubeNodeReadinessFlapping[​](#kubenodereadinessflapping "KubeNodeReadinessFlapping的直接链接")
 
@@ -1244,38 +988,7 @@ kube_persistentvolume_status_phase{phase=~"Failed|Pending",job="kube-state-metri
 
 The PersistentVolume claimed by {{ $labels.persistentvolumeclaim }} in Namespace {{ $labels.namespace }} is only {{ $value | humanizePercentage }} free.
 
-紧急 · 1 分钟 · 触发条件:
-
-```
-(
-
-  kubelet_volume_stats_available_bytes{job="kubelet", metrics_path="/metrics"}
-
-    /
-
-  kubelet_volume_stats_capacity_bytes{job="kubelet", metrics_path="/metrics"}
-
-) < 0.03
-
-and
-
-kubelet_volume_stats_used_bytes{job="kubelet", metrics_path="/metrics"} > 0
-
-unless on(namespace, persistentvolumeclaim)
-
-kube_persistentvolumeclaim_access_mode{ access_mode="ReadOnlyMany"} == 1
-
-unless on(namespace, persistentvolumeclaim)
-
-kube_persistentvolumeclaim_labels{label_excluded_from_alerts="true"} == 1
-```
-
-处置步骤:
-
-1. kubectl get pvc -n \<ns> 定位对应的 PVC 与 PV；
-2. 进到使用该卷的 Pod 里用 du 找出占用最大的目录（kubectl exec）；
-3. 清理日志与临时数据；
-4. StorageClass 支持在线扩容的直接 kubectl edit pvc 调大 spec.resources.requests.storage，不支持的需要迁移数据。
+紧急 · 1 分钟 · PromQL、常见原因与处置步骤：[KubePersistentVolumeFillingUp](https://n9e.github.io/zh/alert-rules/kubernetes/kubepersistentvolumefillingup.md)
 
 ### KubePersistentVolumeInodesFillingUp[​](#kubepersistentvolumeinodesfillingup "KubePersistentVolumeInodesFillingUp的直接链接")
 
@@ -1318,70 +1031,19 @@ kube_persistentvolumeclaim_labels{label_excluded_from_alerts="true"} == 1
 
 Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is in waiting state (reason: "CrashLoopBackOff").
 
-警告 · 15 分钟 · 触发条件:
-
-```
-max_over_time(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff", job="kube-state-metrics"}[5m]) >= 1
-```
-
-处置步骤:
-
-1. kubectl logs \<pod> -n \<ns> --previous 看上一次退出前的日志，这是最关键的一步；
-2. kubectl describe pod 看退出码与 Events：137 通常是 OOM 或被 kill，1/2 多为应用自身启动失败；
-3. 配置或依赖问题（连不上数据库、ConfigMap/Secret 缺失）先修依赖再拉起；
-4. OOM 的对照 resources.limits.memory 与实际用量调整，或修复应用内存泄漏。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[KubePodCrashLooping](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodcrashlooping.md)
 
 ### KubePodNotReady[​](#kubepodnotready "KubePodNotReady的直接链接")
 
 Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 15 minutes.
 
-警告 · 15 分钟 · 触发条件:
-
-```
-sum by (namespace, pod, cluster) (
-
-  max by(namespace, pod, cluster) (
-
-    kube_pod_status_phase{job="kube-state-metrics", phase=~"Pending|Unknown|Failed"}
-
-  ) * on(namespace, pod, cluster) group_left(owner_kind) topk by(namespace, pod, cluster) (
-
-    1, max by(namespace, pod, owner_kind, cluster) (kube_pod_owner{owner_kind!="Job"})
-
-  )
-
-) > 0
-```
-
-处置步骤:
-
-1. kubectl get pod \<pod> -n \<ns> -o wide 看 STATUS 与 READY，再 kubectl describe pod 看 Events；
-2. Pending 多为资源不足或调度约束（节点亲和、污点、PVC 未绑定）；ImagePullBackOff 查镜像地址与拉取凭据；
-3. Running 但未 Ready 的看就绪探针配置与 kubectl logs \<pod> 里的启动报错；
-4. 确认副本数是否已不足以承载流量，不足的先扩容其他健康副本。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[KubePodNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodnotready.md)
 
 ### KubeQuotaAlmostFull[​](#kubequotaalmostfull "KubeQuotaAlmostFull的直接链接")
 
 Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota.
 
-提醒 · 15 分钟 · 触发条件:
-
-```
-kube_resourcequota{job="kube-state-metrics", type="used"}
-
-  / ignoring(instance, job, type)
-
-(kube_resourcequota{job="kube-state-metrics", type="hard"} > 0)
-
-  > 0.9 < 1
-```
-
-处置步骤:
-
-1. kubectl describe quota -n \<ns> 看是哪一项（cpu/memory/pods/storage）触顶；
-2. kubectl get pod -n \<ns> -o custom-columns 统计各工作负载的 requests 占用，找出大户；
-3. 确认是否有已停止但未清理的资源仍占着配额；
-4. 确需更多配额的联系集群管理员调整 ResourceQuota。
+提醒 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeQuotaAlmostFull](https://n9e.github.io/zh/alert-rules/kubernetes/kubequotaalmostfull.md)
 
 ### KubeQuotaExceeded[​](#kubequotaexceeded "KubeQuotaExceeded的直接链接")
 
@@ -1471,34 +1133,7 @@ kube_statefulset_metadata_generation{job="kube-state-metrics"}
 
 StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} has not matched the expected number of replicas for longer than 15 minutes.
 
-警告 · 15 分钟 · 触发条件:
-
-```
-(
-
-  kube_statefulset_status_replicas_ready{job="kube-state-metrics"}
-
-    !=
-
-  kube_statefulset_status_replicas{job="kube-state-metrics"}
-
-) and (
-
-  changes(kube_statefulset_status_replicas_updated{job="kube-state-metrics"}[10m])
-
-    ==
-
-  0
-
-)
-```
-
-处置步骤:
-
-1. kubectl get pod -n \<ns> -l \<selector> 按序号看是哪个副本卡住；
-2. kubectl describe pod 排查该副本的 PVC 是否绑定成功——这是有状态服务最常见的卡点；
-3. 存储问题排查 PV/StorageClass 与 CSI 驱动；
-4. 应用自身问题看 kubectl logs，修复后 StatefulSet 会自动继续。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeStatefulSetReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes/kubestatefulsetreplicasmismatch.md)
 
 ### KubeStatefulSetUpdateNotRolledOut[​](#kubestatefulsetupdatenotrolledout "KubeStatefulSetUpdateNotRolledOut的直接链接")
 
@@ -1682,7 +1317,7 @@ absent(up{job="kubelet"} == 1)
 
 ## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直接链接")
 
-* **用 Prometheus 或 vmalert**：下载 [`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页。
+* **用 Prometheus 或 vmalert**：下载 [`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
 * **用夜莺**：同样的规则内置在 [Kubernetes](https://n9e.github.io/zh/integrations/kubernetes.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")

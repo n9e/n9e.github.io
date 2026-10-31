@@ -230,16 +230,16 @@ rate(redis_keyspace_hits[5m])
 3. 应急执行 CONFIG SET maxclients <更大值>，同时确认系统 ulimit -n 足够；
 4. 根因侧收敛应用连接池大小、开启连接复用。
 
-## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直�接链接")
+## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直接链接")
 
-* **用 Prometheus 或 vmalert**：下载 [`redis.yml`](https://n9e.github.io/zh/alert-rules/redis.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页。
+* **用 Prometheus 或 vmalert**：下载 [`redis.yml`](https://n9e.github.io/zh/alert-rules/redis.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
 * **用夜莺**：同样的规则内置在 [Redis](https://n9e.github.io/zh/integrations/redis.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 
 处置步骤和其余规则来自夜莺的集成模板（[Redis](https://github.com/ccfos/nightingale/tree/main/integrations/Redis)，Apache-2.0），欢迎在那里提 PR 修正。
 
-## 相关链接[​](#相关链接 "相关链接的直接链接")
+## 相关链接[​](#�相关链接 "相关链接的直接链接")
 
 * [用夜莺监控 Redis](https://n9e.github.io/zh/integrations/redis.md)：采集配置、仪表盘与指标说明
 * [在夜莺里写指标告警规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)

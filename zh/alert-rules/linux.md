@@ -687,7 +687,7 @@ and
 3. K8s 节点常见是容器层与日志碎片，清理无用镜像通常能释放大量 inode；
 4. 长期可提高 inode 密度或把小文件业务隔离到独立分区。
 
-### 节点磁盘快满了-S2-inodes-5[​](#节点磁盘快满了-s2-inodes-5 "节点磁盘快满了-S2-inodes-5的直接链接")
+### 节点磁盘快满了-S2-inodes-5[​](#节点磁盘快满了-s2-inodes-5 "节点磁盘快满了-S2-inodes-5的直接�链接")
 
 Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf "%.2f" $value }}% available inodes left.
 
@@ -993,7 +993,7 @@ conntrack_ip_conntrack_count / conntrack_ip_conntrack_max > 0.8
 3. 应急调大：sysctl -w net.netfilter.nf\_conntrack\_max=<更大值>，并同步调大 nf\_conntrack\_buckets；
 4. 同时缩短 nf\_conntrack\_tcp\_timeout\_time\_wait 等超时，或对不需要跟踪的流量用 iptables raw 表 NOTRACK。
 
-### CPU利用率较高[​](#cpu利用率较高 "CPU利用率较高的直接链接")
+### CPU利用率较高[​](#cpu利用率较高 "CPU利��用率较高的直接链接")
 
 提醒 · 1 分钟 · 触发条件:
 
@@ -1436,7 +1436,7 @@ procstat_lookup_running == 0
 
 ## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直接链接")
 
-* **用 Prometheus 或 vmalert**：下载 [`linux.yml`](https://n9e.github.io/zh/alert-rules/linux.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页。
+* **用 Prometheus 或 vmalert**：下载 [`linux.yml`](https://n9e.github.io/zh/alert-rules/linux.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
 * **用夜莺**：同样的规则内置在 [Kubernetes](https://n9e.github.io/zh/integrations/kubernetes.md)、[Linux](https://n9e.github.io/zh/integrations/linux.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")

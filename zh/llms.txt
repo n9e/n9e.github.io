@@ -11,15 +11,15 @@
 
 ### categraf
 
-夜莺在你已有的数据上做告警分析，Categraf 负责把数据送进来：一个 agent 覆盖操作系统、中间件、数据库、网络设备与 Kubernetes，按 Prometheus Remote Write 协议推送。MIT 协议开源，与夜莺出自同一个团队。
+Categraf 是 MIT 协议开源的指标采集器，覆盖操作系统、中间件、数据库、网络设备与 Kubernetes，按 Prometheus Remote Write 推送数据。介绍安装、配置，以及和 Telegraf 的区别。
 
-- [Categraf](https://n9e.github.io/zh/categraf.md): 夜莺在你已有的数据上做告警分析，Categraf 负责把数据送进来：一个 agent 覆盖操作系统、中间件、数据库、网络设备与 Kubernetes，按 Prometheus Remote Write 协议推送。MIT 协议开源，与夜莺出自同一个团队。
+- [Categraf](https://n9e.github.io/zh/categraf.md): Categraf 是 MIT 协议开源的指标采集器，覆盖操作系统、中间件、数据库、网络设备与 Kubernetes，按 Prometheus Remote Write 推送数据。介绍安装、配置，以及和 Telegraf 的区别。
 
 ### comparisons
 
-Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告警这一层，该交给专门做告警的工具。
+夜莺与 Prometheus + Alertmanager、Zabbix、Grafana Alerting 的开源监控告警对比：能力矩阵、各自适合的场景，以及迁移成本。
 
-- [存储不用换， 换掉的是告警这一层。](https://n9e.github.io/zh/comparisons.md): Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告警这一层，该交给专门做告警的工具。
+- [存储不用换， 换掉的是告警这一层。](https://n9e.github.io/zh/comparisons.md): 夜莺与 Prometheus + Alertmanager、Zabbix、Grafana Alerting 的开源监控告警对比：能力矩阵、各自适合的场景，以及迁移成本。
 
 #### grafana-alerting
 
@@ -53,15 +53,15 @@ Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告�
 
 ### download
 
-这里的每个包都来自打了标签的正式发布，发布在 GitHub 上。先说你要做什么，页面只给这条路上用得到的命令。
+下载夜莺监控最新版本，用 Docker Compose、二进制包、Docker 镜像或 Helm Chart 在 Kubernetes 上安装部署。所有安装包来自 GitHub 正式发布，附 SHA256 校验值。
 
-- [五分钟装起来， 或者按生产的要求部署。](https://n9e.github.io/zh/download.md): 这里的每个包都来自打了标签的正式发布，发布在 GitHub 上。先说你要做什么，页面只给这条路上用得到的命令。
+- [五分钟装起来， 或者按生产的要求部署。](https://n9e.github.io/zh/download.md): 下载夜莺监控最新版本，用 Docker Compose、二进制包、Docker 镜像或 Helm Chart 在 Kubernetes 上安装部署。所有安装包来自 GitHub 正式发布，附 SHA256 校验值。
 
 ### integrations
 
-数据源、采集器、通知媒介、内置模板——夜莺对接现成的东西，不要求你换体系。下面是全部清单，每一项都可以点进去看怎么接。
+夜莺监控的全部集成：Prometheus、VictoriaMetrics、Elasticsearch、ClickHouse 等数据源，采集器，钉钉、飞书、企业微信等通知媒介，以及内置的告警规则与仪表盘模板。
 
-- [接上你已有的一切](https://n9e.github.io/zh/integrations.md): 数据源、采集器、通知媒介、内置模板——夜莺对接现成的东西，不要求你换体系。下面是全部清单，每一项都可以点进去看怎么接。
+- [接上你已有的一切](https://n9e.github.io/zh/integrations.md): 夜莺监控的全部集成：Prometheus、VictoriaMetrics、Elasticsearch、ClickHouse 等数据源，采集器，钉钉、飞书、企业微信等通知媒介，以及内置的告警规则与仪表盘模板。
 
 #### aliyun
 
@@ -404,6 +404,25 @@ Categraf 在 Windows 上采集的指标和 Linux 同名，主机仪表盘与规�
 77 条开箱可用的 Kubernetes 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 kube-state-metrics, cAdvisor (kubelet), apiserver。可下载为 Prometheus 规则文件，或导入夜莺。
 
 - [Kubernetes 告警规则：77 条 PromQL 规则与处置步骤](https://n9e.github.io/zh/alert-rules/kubernetes.md): 77 条开箱可用的 Kubernetes 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 kube-state-metrics, cAdvisor (kubelet), apiserver。可下载为 Prometheus 规则文件，或导入夜莺。
+- [KubeAggregatedAPIDown 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubeaggregatedapidown.md): Prometheus 告警 KubeAggregatedAPIDown 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeAPIErrorBudgetBurn 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md): Prometheus 告警 KubeAPIErrorBudgetBurn 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeClientCertificateExpiration 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubeclientcertificateexpiration.md): Prometheus 告警 KubeClientCertificateExpiration 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeContainerWaiting 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubecontainerwaiting.md): Prometheus 告警 KubeContainerWaiting 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeCPUOvercommit 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubecpuovercommit.md): Prometheus 告警 KubeCPUOvercommit 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeDaemonSetMisScheduled 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubedaemonsetmisscheduled.md): Prometheus 告警 KubeDaemonSetMisScheduled 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeDeploymentReplicasMismatch 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md): Prometheus 告警 KubeDeploymentReplicasMismatch 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeDeploymentRolloutStuck 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentrolloutstuck.md): Prometheus 告警 KubeDeploymentRolloutStuck 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeHpaMaxedOut 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubehpamaxedout.md): Prometheus 告警 KubeHpaMaxedOut 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeJobFailed 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubejobfailed.md): Prometheus 告警 KubeJobFailed 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeletDown 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubeletdown.md): Prometheus 告警 KubeletDown 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeletTooManyPods 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubelettoomanypods.md): Prometheus 告警 KubeletTooManyPods 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeMemoryOvercommit 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubememoryovercommit.md): Prometheus 告警 KubeMemoryOvercommit 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeNodeNotReady 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubenodenotready.md): Prometheus 告警 KubeNodeNotReady 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubePersistentVolumeFillingUp 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubepersistentvolumefillingup.md): Prometheus 告警 KubePersistentVolumeFillingUp 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubePodCrashLooping 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodcrashlooping.md): Prometheus 告警 KubePodCrashLooping 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubePodNotReady 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodnotready.md): Prometheus 告警 KubePodNotReady 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeQuotaAlmostFull 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubequotaalmostfull.md): Prometheus 告警 KubeQuotaAlmostFull 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeStatefulSetReplicasMismatch 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubestatefulsetreplicasmismatch.md): Prometheus 告警 KubeStatefulSetReplicasMismatch 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
 #### linux
 
@@ -428,6 +447,13 @@ Categraf 在 Windows 上采集的指标和 Linux 同名，主机仪表盘与规�
 30 条开箱可用的 Prometheus 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 Prometheus's own /metrics, Prometheus Operator。可下载为 Prometheus 规则文件，或导入夜莺。
 
 - [Prometheus 告警规则：30 条 PromQL 规则与处置步骤](https://n9e.github.io/zh/alert-rules/prometheus.md): 30 条开箱可用的 Prometheus 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 Prometheus's own /metrics, Prometheus Operator。可下载为 Prometheus 规则文件，或导入夜莺。
+- [PrometheusBadConfig 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/prometheus/prometheusbadconfig.md): Prometheus 告警 PrometheusBadConfig 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [PrometheusNotConnectedToAlertmanagers 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers.md): Prometheus 告警 PrometheusNotConnectedToAlertmanagers 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [PrometheusOperatorRejectedResources 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/prometheus/prometheusoperatorrejectedresources.md): Prometheus 告警 PrometheusOperatorRejectedResources 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [PrometheusRemoteWriteBehind 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/prometheus/prometheusremotewritebehind.md): Prometheus 告警 PrometheusRemoteWriteBehind 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [PrometheusRemoteWriteDesiredShards 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/prometheus/prometheusremotewritedesiredshards.md): Prometheus 告警 PrometheusRemoteWriteDesiredShards 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [PrometheusRuleFailures 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/prometheus/prometheusrulefailures.md): Prometheus 告警 PrometheusRuleFailures 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [PrometheusTargetLimitHit 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/prometheus/prometheustargetlimithit.md): Prometheus 告警 PrometheusTargetLimitHit 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
 #### redis
 

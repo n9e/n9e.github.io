@@ -11,15 +11,15 @@
 
 ### categraf
 
-夜莺在你已有的数据上做告警分析，Categraf 负责把数据送进来：一个 agent 覆盖操作系统、中间件、数据库、网络设备与 Kubernetes，按 Prometheus Remote Write 协议推送。MIT 协议开源，与夜莺出自同一个团队。
+Categraf 是 MIT 协议开源的指标采集器，覆盖操作系统、中间件、数据库、网络设备与 Kubernetes，按 Prometheus Remote Write 推送数据。介绍安装、配置，以及和 Telegraf 的区别。
 
-- [Categraf](https://n9e.github.io/zh/categraf.md): 夜莺在你已有的数据上做告警分析，Categraf 负责把数据送进来：一个 agent 覆盖操作系统、中间件、数据库、网络设备与 Kubernetes，按 Prometheus Remote Write 协议推送。MIT 协议开源，与夜莺出自同一个团队。
+- [Categraf](https://n9e.github.io/zh/categraf.md): Categraf 是 MIT 协议开源的指标采集器，覆盖操作系统、中间件、数据库、网络设备与 Kubernetes，按 Prometheus Remote Write 推送数据。介绍安装、配置，以及和 Telegraf 的区别。
 
 ### comparisons
 
-Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告警这一层，该交给专门做告警的工具。
+夜莺与 Prometheus + Alertmanager、Zabbix、Grafana Alerting 的开源监控告警对比：能力矩阵、各自适合的场景，以及迁移成本。
 
-- [存储不用换， 换掉的是告警这一层。](https://n9e.github.io/zh/comparisons.md): Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告警这一层，该交给专门做告警的工具。
+- [存储不用换， 换掉的是告警这一层。](https://n9e.github.io/zh/comparisons.md): 夜莺与 Prometheus + Alertmanager、Zabbix、Grafana Alerting 的开源监控告警对比：能力矩阵、各自适合的场景，以及迁移成本。
 
 #### grafana-alerting
 
@@ -53,15 +53,15 @@ Prometheus、Zabbix、Grafana 各有各的主场。夜莺只争一件事：告�
 
 ### download
 
-这里的每个包都来自打了标签的正式发布，发布在 GitHub 上。先说你要做什么，页面只给这条路上用得到的命令。
+下载夜莺监控最新版本，用 Docker Compose、二进制包、Docker 镜像或 Helm Chart 在 Kubernetes 上安装部署。所有安装包来自 GitHub 正式发布，附 SHA256 校验值。
 
-- [五分钟装起来， 或者按生产的要求部署。](https://n9e.github.io/zh/download.md): 这里的每个包都来自打了标签的正式发布，发布在 GitHub 上。先说你要做什么，页面只给这条路上用得到的命令。
+- [五分钟装起来， 或者按生产的要求部署。](https://n9e.github.io/zh/download.md): 下载夜莺监控最新版本，用 Docker Compose、二进制包、Docker 镜像或 Helm Chart 在 Kubernetes 上安装部署。所有安装包来自 GitHub 正式发布，附 SHA256 校验值。
 
 ### integrations
 
-数据源、采集器、通知媒介、内置模板——夜莺对接现成的东西，不要求你换体系。下面是全部清单，每一项都可以点进去看怎么接。
+夜莺监控的全部集成：Prometheus、VictoriaMetrics、Elasticsearch、ClickHouse 等数据源，采集器，钉钉、飞书、企业微信等通知媒介，以及内置的告警规则与仪表盘模板。
 
-- [接上你已有的一切](https://n9e.github.io/zh/integrations.md): 数据源、采集器、通知媒介、内置模板——夜莺对接现成的东西，不要求你换体系。下面是全部清单，每一项都可以点进去看怎么接。
+- [接上你已有的一切](https://n9e.github.io/zh/integrations.md): 夜莺监控的全部集成：Prometheus、VictoriaMetrics、Elasticsearch、ClickHouse 等数据源，采集器，钉钉、飞书、企业微信等通知媒介，以及内置的告警规则与仪表盘模板。
 
 #### aliyun
 
@@ -404,6 +404,25 @@ Categraf 在 Windows 上采集的指标和 Linux 同名，主机仪表盘与规�
 77 条开箱可用的 Kubernetes 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 kube-state-metrics, cAdvisor (kubelet), apiserver。可下载为 Prometheus 规则文件，或导入夜莺。
 
 - [Kubernetes 告警规则：77 条 PromQL 规则与处置步骤](https://n9e.github.io/zh/alert-rules/kubernetes.md): 77 条开箱可用的 Kubernetes 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 kube-state-metrics, cAdvisor (kubelet), apiserver。可下载为 Prometheus 规则文件，或导入夜莺。
+- [KubeAggregatedAPIDown 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubeaggregatedapidown.md): Prometheus 告警 KubeAggregatedAPIDown 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeAPIErrorBudgetBurn 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md): Prometheus 告警 KubeAPIErrorBudgetBurn 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeClientCertificateExpiration 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubeclientcertificateexpiration.md): Prometheus 告警 KubeClientCertificateExpiration 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeContainerWaiting 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubecontainerwaiting.md): Prometheus 告警 KubeContainerWaiting 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeCPUOvercommit 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubecpuovercommit.md): Prometheus 告警 KubeCPUOvercommit 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeDaemonSetMisScheduled 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubedaemonsetmisscheduled.md): Prometheus 告警 KubeDaemonSetMisScheduled 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeDeploymentReplicasMismatch 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md): Prometheus 告警 KubeDeploymentReplicasMismatch 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeDeploymentRolloutStuck 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentrolloutstuck.md): Prometheus 告警 KubeDeploymentRolloutStuck 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeHpaMaxedOut 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubehpamaxedout.md): Prometheus 告警 KubeHpaMaxedOut 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeJobFailed 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubejobfailed.md): Prometheus 告警 KubeJobFailed 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeletDown 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubeletdown.md): Prometheus 告警 KubeletDown 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeletTooManyPods 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubelettoomanypods.md): Prometheus 告警 KubeletTooManyPods 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeMemoryOvercommit 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubememoryovercommit.md): Prometheus 告警 KubeMemoryOvercommit 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeNodeNotReady 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubenodenotready.md): Prometheus 告警 KubeNodeNotReady 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubePersistentVolumeFillingUp 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubepersistentvolumefillingup.md): Prometheus 告警 KubePersistentVolumeFillingUp 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubePodCrashLooping 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodcrashlooping.md): Prometheus 告警 KubePodCrashLooping 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubePodNotReady 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodnotready.md): Prometheus 告警 KubePodNotReady 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeQuotaAlmostFull 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubequotaalmostfull.md): Prometheus 告警 KubeQuotaAlmostFull 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [KubeStatefulSetReplicasMismatch 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/kubernetes/kubestatefulsetreplicasmismatch.md): Prometheus 告警 KubeStatefulSetReplicasMismatch 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
 #### linux
 
@@ -428,6 +447,13 @@ Categraf 在 Windows 上采集的指标和 Linux 同名，主机仪表盘与规�
 30 条开箱可用的 Prometheus 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 Prometheus's own /metrics, Prometheus Operator。可下载为 Prometheus 规则文件，或导入夜莺。
 
 - [Prometheus 告警规则：30 条 PromQL 规则与处置步骤](https://n9e.github.io/zh/alert-rules/prometheus.md): 30 条开箱可用的 Prometheus 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 Prometheus's own /metrics, Prometheus Operator。可下载为 Prometheus 规则文件，或导入夜莺。
+- [PrometheusBadConfig 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/prometheus/prometheusbadconfig.md): Prometheus 告警 PrometheusBadConfig 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [PrometheusNotConnectedToAlertmanagers 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers.md): Prometheus 告警 PrometheusNotConnectedToAlertmanagers 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [PrometheusOperatorRejectedResources 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/prometheus/prometheusoperatorrejectedresources.md): Prometheus 告警 PrometheusOperatorRejectedResources 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [PrometheusRemoteWriteBehind 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/prometheus/prometheusremotewritebehind.md): Prometheus 告警 PrometheusRemoteWriteBehind 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [PrometheusRemoteWriteDesiredShards 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/prometheus/prometheusremotewritedesiredshards.md): Prometheus 告警 PrometheusRemoteWriteDesiredShards 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [PrometheusRuleFailures 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/prometheus/prometheusrulefailures.md): Prometheus 告警 PrometheusRuleFailures 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+- [PrometheusTargetLimitHit 告警：含义、常见原因与处置](https://n9e.github.io/zh/alert-rules/prometheus/prometheustargetlimithit.md): Prometheus 告警 PrometheusTargetLimitHit 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
 #### redis
 
@@ -2149,13 +2175,20 @@ node\_exporter、mysqld\_exporter 这些 Prometheus 生态的 exporter 由 Categ
 | [MongoDB](https://n9e.github.io/zh/alert-rules/mongodb.md)             | 8      | mongodb\_exporter                                 | [`mongodb.yml`](https://n9e.github.io/zh/alert-rules/mongodb.yml)             |
 | [Windows](https://n9e.github.io/zh/alert-rules/windows.md)             | 13     | windows\_exporter, Categraf                       | [`windows.yml`](https://n9e.github.io/zh/alert-rules/windows.yml)             |
 
+## 按告警名查处置手册[​](#按告警名查处置手册 "按告警名查处置手册的直接链接")
+
+下面这些是 kubernetes-mixin 和 kube-prometheus 使用的标准告警名，每个都有单独一页，写明含义、常见原因、规则和处置步骤。
+
+* **Kubernetes**: [KubeClientCertificateExpiration](https://n9e.github.io/zh/alert-rules/kubernetes/kubeclientcertificateexpiration.md), [KubeAPIErrorBudgetBurn](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md), [KubeAggregatedAPIDown](https://n9e.github.io/zh/alert-rules/kubernetes/kubeaggregatedapidown.md), [KubeContainerWaiting](https://n9e.github.io/zh/alert-rules/kubernetes/kubecontainerwaiting.md), [KubeCPUOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes/kubecpuovercommit.md), [KubeDaemonSetMisScheduled](https://n9e.github.io/zh/alert-rules/kubernetes/kubedaemonsetmisscheduled.md), [KubeDeploymentReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md), [KubeDeploymentRolloutStuck](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentrolloutstuck.md), [KubeHpaMaxedOut](https://n9e.github.io/zh/alert-rules/kubernetes/kubehpamaxedout.md), [KubeJobFailed](https://n9e.github.io/zh/alert-rules/kubernetes/kubejobfailed.md), [KubeletDown](https://n9e.github.io/zh/alert-rules/kubernetes/kubeletdown.md), [KubeletTooManyPods](https://n9e.github.io/zh/alert-rules/kubernetes/kubelettoomanypods.md), [KubeMemoryOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes/kubememoryovercommit.md), [KubeNodeNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubenodenotready.md), [KubePersistentVolumeFillingUp](https://n9e.github.io/zh/alert-rules/kubernetes/kubepersistentvolumefillingup.md), [KubePodCrashLooping](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodcrashlooping.md), [KubePodNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodnotready.md), [KubeQuotaAlmostFull](https://n9e.github.io/zh/alert-rules/kubernetes/kubequotaalmostfull.md), [KubeStatefulSetReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes/kubestatefulsetreplicasmismatch.md)
+* **Prometheus**: [PrometheusOperatorRejectedResources](https://n9e.github.io/zh/alert-rules/prometheus/prometheusoperatorrejectedresources.md), [PrometheusBadConfig](https://n9e.github.io/zh/alert-rules/prometheus/prometheusbadconfig.md), [PrometheusNotConnectedToAlertmanagers](https://n9e.github.io/zh/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers.md), [PrometheusRemoteWriteBehind](https://n9e.github.io/zh/alert-rules/prometheus/prometheusremotewritebehind.md), [PrometheusRemoteWriteDesiredShards](https://n9e.github.io/zh/alert-rules/prometheus/prometheusremotewritedesiredshards.md), [PrometheusRuleFailures](https://n9e.github.io/zh/alert-rules/prometheus/prometheusrulefailures.md), [PrometheusTargetLimitHit](https://n9e.github.io/zh/alert-rules/prometheus/prometheustargetlimithit.md)
+
 ## 规则格式[​](#规则格式 "规则格式的直接链接")
 
-* 每个服务一页，列出全部规则的 PromQL 触发条件、级别、持续时间和处置步骤，按产生指标的采集器分组。
+* 每个服务一页，列出全部规则的 PromQL 触发条件、级别、持续时间和处置步骤，按产生指标的采集器分组。有单独页面的标准告警名，在服务页上只留简短条目和链接。
 * 每个 `.yml` 文件都是标准 Prometheus 规则文件，并通过了 `promtool check rules`。级别写在 `severity` 标签（critical / warning / info），摘要在 `annotations.summary`，`annotations.runbook_url` 指向对应的规则页。
 * 阈值只是起点，不是对所有环境都合适的推荐值。启用前请逐条确认。
 
-## 为什么要附处置步骤[​](#为什么要附处置步骤 "为什么要附处置步骤的直接链接")
+## 为什么要附处置步骤[​](#为什么要附处置��步骤 "为什么要附处置步骤的直接链接")
 
 没有处置步骤的规则，等于把排查工作整个丢给值班的人。这里的步骤写明了先看什么（上次重启前的日志、退出码、慢查询列表、复制线程状态）以及通常怎么修，让告警自带第一步响应。
 
@@ -2374,7 +2407,7 @@ elasticsearch_cluster_health_unassigned_shards > 0
 
 ## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直接链接")
 
-* **用 Prometheus 或 vmalert**：下载 [`elasticsearch.yml`](https://n9e.github.io/zh/alert-rules/elasticsearch.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页。
+* **用 Prometheus 或 vmalert**：下载 [`elasticsearch.yml`](https://n9e.github.io/zh/alert-rules/elasticsearch.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
 * **用夜莺**：同样的规则内置在 [Elasticsearch](https://n9e.github.io/zh/integrations/elasticsearch.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
@@ -2407,85 +2440,85 @@ elasticsearch_cluster_health_unassigned_shards > 0
 
 ## 规则一览[​](#规则一览 "规则一览的直接链接")
 
-| 规则                                              | 级别 | 持续     |
-| ------------------------------------------------- | ---- | -------- |
-| Deployment Pod 可用性不足70%（replica超过9个pod） | 紧急 | 1 分钟   |
-| Job执行失败                                       | 提醒 | 1 分钟   |
-| Pod启动超时                                       | 警告 | 1 分钟   |
-| Pod状态异常                                       | 紧急 | 1 分钟   |
-| Pod频繁重启                                       | 警告 | 1 分钟   |
-| 容器CPU使用率超过80%                              | 提醒 | 1 分钟   |
-| 容器内存超过80%                                   | 提醒 | 1 分钟   |
-| Node CPU使用率超过90%                             | 提醒 | 1 分钟   |
-| Node内存使用率超过90%                             | 警告 | 1 分钟   |
-| Node状态异常                                      | 紧急 | 1 分钟   |
-| Node磁盘使用率超过90%                             | 提醒 | 1 分钟   |
-| KubeClientCertificateExpiration-S2                | 警告 | —        |
-| KubeClientCertificateExpiration-S1                | 紧急 | —        |
-| AggregatedAPIErrors                               | 警告 | —        |
-| AggregatedAPIDown                                 | 警告 | 5 分钟   |
-| KubeAPIDown                                       | 紧急 | 15 分钟  |
-| KubeAPIErrorBudgetBurn-S1-120秒                   | 紧急 | 2 分钟   |
-| KubeAPIErrorBudgetBurn-S1-900秒                   | 紧急 | 15 分钟  |
-| KubeAPIErrorBudgetBurn-S2-3600秒                  | 警告 | 60 分钟  |
-| KubeAPIErrorBudgetBurn-S2-10800秒                 | 警告 | 180 分钟 |
-| Deployment副本异常                                | 警告 | 10 分钟  |
-| StatefulSet副本异常                               | 警告 | 10 分钟  |
-| DaemonSet未就绪Pod                                | 警告 | 10 分钟  |
-| HPA扩容失败                                       | 警告 | 5 分钟   |
-| Pod处于Failed状态                                 | 警告 | 5 分钟   |
-| Job执行失败                                       | 警告 | 5 分钟   |
-| CPUThrottlingHigh                                 | 提醒 | 15 分钟  |
-| KubeAggregatedAPIDown                             | 警告 | 5 分钟   |
-| KubeAggregatedAPIErrors                           | 警告 | —        |
-| KubeAPITerminatedRequests                         | 警告 | 5 分钟   |
-| KubeClientErrors                                  | 警告 | 15 分钟  |
-| KubeContainerWaiting                              | 警告 | 60 分钟  |
-| KubeControllerManagerDown                         | 紧急 | 15 分钟  |
-| KubeCPUOvercommit                                 | 警告 | 10 分钟  |
-| KubeCPUQuotaOvercommit                            | 警告 | 5 分钟   |
-| KubeDaemonSetMisScheduled                         | 警告 | 15 分钟  |
-| KubeDaemonSetNotScheduled                         | 警告 | 10 分钟  |
-| KubeDaemonSetRolloutStuck                         | 警告 | 15 分钟  |
-| KubeDeploymentGenerationMismatch                  | 警告 | 15 分钟  |
-| KubeDeploymentReplicasMismatch                    | 警告 | 15 分钟  |
-| KubeDeploymentRolloutStuck                        | 警告 | 15 分钟  |
-| KubeHpaMaxedOut                                   | 警告 | 15 分钟  |
-| KubeHpaReplicasMismatch                           | 警告 | 15 分钟  |
-| KubeJobFailed                                     | 警告 | 15 分钟  |
-| KubeJobNotCompleted                               | 警告 | —        |
-| KubeletClientCertificateExpiration                | 警告 | —        |
-| KubeletClientCertificateRenewalErrors             | 警告 | 15 分钟  |
-| KubeletDown                                       | 紧急 | 15 分钟  |
-| KubeletPlegDurationHigh                           | 警告 | 5 分钟   |
-| KubeletPodStartUpLatencyHigh                      | 警告 | 15 分钟  |
-| KubeletServerCertificateExpiration                | 警告 | —        |
-| KubeletServerCertificateRenewalErrors             | 警告 | 15 分钟  |
-| KubeletTooManyPods                                | 提醒 | 15 分钟  |
-| KubeMemoryOvercommit                              | 警告 | 10 分钟  |
-| KubeMemoryQuotaOvercommit                         | 警告 | 5 分钟   |
-| KubeNodeNotReady                                  | 警告 | 15 分钟  |
-| KubeNodeReadinessFlapping                         | 警告 | 15 分钟  |
-| KubeNodeUnreachable                               | 警告 | 15 分钟  |
-| KubePersistentVolumeErrors                        | 紧急 | 5 分钟   |
-| KubePersistentVolumeFillingUp                     | 紧急 | 1 分钟   |
-| KubePersistentVolumeInodesFillingUp               | 紧急 | 1 分钟   |
-| KubePodCrashLooping                               | 警告 | 15 分钟  |
-| KubePodNotReady                                   | 警告 | 15 分钟  |
-| KubeQuotaAlmostFull                               | 提醒 | 15 分钟  |
-| KubeQuotaExceeded                                 | 警告 | 15 分钟  |
-| KubeQuotaFullyUsed                                | 提醒 | 15 分钟  |
-| KubeSchedulerDown                                 | 紧急 | 15 分钟  |
-| KubeStatefulSetGenerationMismatch                 | 警告 | 15 分钟  |
-| KubeStatefulSetReplicasMismatch                   | 警告 | 15 分钟  |
-| KubeStatefulSetUpdateNotRolledOut                 | 警告 | 15 分钟  |
-| KubeVersionMismatch                               | 警告 | 15 分钟  |
-| Node运行太多Pod                                   | 警告 | 15 分钟  |
-| Node状态抖动                                      | 警告 | 15 分钟  |
-| Pod启动耗时高                                     | 警告 | 15 分钟  |
-| 客户端证书过期-S1                                 | 紧急 | —        |
-| 服务端证书过期-S1                                 | 紧急 | —        |
-| kubelet故障                                       | 紧急 | 15 分钟  |
+| 规则                                                                                                                     | 级别 | 持续     |
+| ------------------------------------------------------------------------------------------------------------------------ | ---- | -------- |
+| Deployment Pod 可用性不足70%（replica超过9个pod）                                                                        | 紧急 | 1 分钟   |
+| Job执行失败                                                                                                              | 提醒 | 1 分钟   |
+| Pod启动超时                                                                                                              | 警告 | 1 分钟   |
+| Pod状态异常                                                                                                              | 紧急 | 1 分钟   |
+| Pod频繁重启                                                                                                              | 警告 | 1 分钟   |
+| 容器CPU使用率超过80%                                                                                                     | 提醒 | 1 分钟   |
+| 容器内存超过80%                                                                                                          | 提醒 | 1 分钟   |
+| Node CPU使用率超过90%                                                                                                    | 提醒 | 1 分钟   |
+| Node内存使用率超过90%                                                                                                    | 警告 | 1 分钟   |
+| Node状态异常                                                                                                             | 紧急 | 1 分钟   |
+| Node磁盘使用率超过90%                                                                                                    | 提醒 | 1 分钟   |
+| [KubeClientCertificateExpiration-S2](https://n9e.github.io/zh/alert-rules/kubernetes/kubeclientcertificateexpiration.md) | 警告 | —        |
+| [KubeClientCertificateExpiration-S1](https://n9e.github.io/zh/alert-rules/kubernetes/kubeclientcertificateexpiration.md) | 紧急 | —        |
+| AggregatedAPIErrors                                                                                                      | 警告 | —        |
+| AggregatedAPIDown                                                                                                        | 警告 | 5 分钟   |
+| KubeAPIDown                                                                                                              | 紧急 | 15 分钟  |
+| [KubeAPIErrorBudgetBurn-S1-120秒](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)             | 紧急 | 2 分钟   |
+| [KubeAPIErrorBudgetBurn-S1-900秒](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)             | 紧急 | 15 分钟  |
+| [KubeAPIErrorBudgetBurn-S2-3600秒](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)            | 警告 | 60 分钟  |
+| [KubeAPIErrorBudgetBurn-S2-10800秒](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)           | 警告 | 180 分钟 |
+| Deployment副本异常                                                                                                       | 警告 | 10 分钟  |
+| StatefulSet副本异常                                                                                                      | 警告 | 10 分钟  |
+| DaemonSet未就绪Pod                                                                                                       | 警告 | 10 分钟  |
+| HPA扩容失败                                                                                                              | 警告 | 5 分钟   |
+| Pod处于Failed状态                                                                                                        | 警告 | 5 分钟   |
+| Job执行失败                                                                                                              | 警告 | 5 分钟   |
+| CPUThrottlingHigh                                                                                                        | 提醒 | 15 分钟  |
+| [KubeAggregatedAPIDown](https://n9e.github.io/zh/alert-rules/kubernetes/kubeaggregatedapidown.md)                        | 警告 | 5 分钟   |
+| KubeAggregatedAPIErrors                                                                                                  | 警告 | —        |
+| KubeAPITerminatedRequests                                                                                                | 警告 | 5 分钟   |
+| KubeClientErrors                                                                                                         | 警告 | 15 分钟  |
+| [KubeContainerWaiting](https://n9e.github.io/zh/alert-rules/kubernetes/kubecontainerwaiting.md)                          | 警告 | 60 分钟  |
+| KubeControllerManagerDown                                                                                                | 紧急 | 15 分钟  |
+| [KubeCPUOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes/kubecpuovercommit.md)                                | 警告 | 10 分钟  |
+| KubeCPUQuotaOvercommit                                                                                                   | 警告 | 5 分钟   |
+| [KubeDaemonSetMisScheduled](https://n9e.github.io/zh/alert-rules/kubernetes/kubedaemonsetmisscheduled.md)                | 警告 | 15 分钟  |
+| KubeDaemonSetNotScheduled                                                                                                | 警告 | 10 分钟  |
+| KubeDaemonSetRolloutStuck                                                                                                | 警告 | 15 分钟  |
+| KubeDeploymentGenerationMismatch                                                                                         | 警告 | 15 分钟  |
+| [KubeDeploymentReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md)      | 警告 | 15 分钟  |
+| [KubeDeploymentRolloutStuck](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentrolloutstuck.md)              | 警告 | 15 分钟  |
+| [KubeHpaMaxedOut](https://n9e.github.io/zh/alert-rules/kubernetes/kubehpamaxedout.md)                                    | 警告 | 15 分钟  |
+| KubeHpaReplicasMismatch                                                                                                  | 警告 | 15 分钟  |
+| [KubeJobFailed](https://n9e.github.io/zh/alert-rules/kubernetes/kubejobfailed.md)                                        | 警告 | 15 分钟  |
+| KubeJobNotCompleted                                                                                                      | 警告 | —        |
+| KubeletClientCertificateExpiration                                                                                       | 警告 | —        |
+| KubeletClientCertificateRenewalErrors                                                                                    | 警告 | 15 分钟  |
+| [KubeletDown](https://n9e.github.io/zh/alert-rules/kubernetes/kubeletdown.md)                                            | 紧急 | 15 分钟  |
+| KubeletPlegDurationHigh                                                                                                  | 警告 | 5 分钟   |
+| KubeletPodStartUpLatencyHigh                                                                                             | 警告 | 15 分钟  |
+| KubeletServerCertificateExpiration                                                                                       | 警告 | —        |
+| KubeletServerCertificateRenewalErrors                                                                                    | 警告 | 15 分钟  |
+| [KubeletTooManyPods](https://n9e.github.io/zh/alert-rules/kubernetes/kubelettoomanypods.md)                              | 提醒 | 15 分钟  |
+| [KubeMemoryOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes/kubememoryovercommit.md)                          | 警告 | 10 分钟  |
+| KubeMemoryQuotaOvercommit                                                                                                | 警告 | 5 分钟   |
+| [KubeNodeNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubenodenotready.md)                                  | 警告 | 15 分钟  |
+| KubeNodeReadinessFlapping                                                                                                | 警告 | 15 分钟  |
+| KubeNodeUnreachable                                                                                                      | 警告 | 15 分钟  |
+| KubePersistentVolumeErrors                                                                                               | 紧急 | 5 分钟   |
+| [KubePersistentVolumeFillingUp](https://n9e.github.io/zh/alert-rules/kubernetes/kubepersistentvolumefillingup.md)        | 紧急 | 1 分钟   |
+| KubePersistentVolumeInodesFillingUp                                                                                      | 紧急 | 1 分钟   |
+| [KubePodCrashLooping](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodcrashlooping.md)                            | 警告 | 15 分钟  |
+| [KubePodNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodnotready.md)                                    | 警告 | 15 分钟  |
+| [KubeQuotaAlmostFull](https://n9e.github.io/zh/alert-rules/kubernetes/kubequotaalmostfull.md)                            | 提醒 | 15 分钟  |
+| KubeQuotaExceeded                                                                                                        | 警告 | 15 分钟  |
+| KubeQuotaFullyUsed                                                                                                       | 提醒 | 15 分钟  |
+| KubeSchedulerDown                                                                                                        | 紧急 | 15 分钟  |
+| KubeStatefulSetGenerationMismatch                                                                                        | 警告 | 15 分钟  |
+| [KubeStatefulSetReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes/kubestatefulsetreplicasmismatch.md)    | 警告 | 15 分钟  |
+| KubeStatefulSetUpdateNotRolledOut                                                                                        | 警告 | 15 分钟  |
+| KubeVersionMismatch                                                                                                      | 警告 | 15 分钟  |
+| Node运行太多Pod                                                                                                          | 警告 | 15 分钟  |
+| Node状态抖动                                                                                                             | 警告 | 15 分钟  |
+| Pod启动耗时高                                                                                                            | 警告 | 15 分钟  |
+| 客户端证书过期-S1                                                                                                        | 紧急 | —        |
+| 服务端证书过期-S1                                                                                                        | 紧急 | —        |
+| kubelet故障                                                                                                              | 紧急 | 15 分钟  |
 
 ## kube-state-metrics、cAdvisor 与控制面（77）[​](#kube-state-metricscadvisor-与控制面77 "kube-state-metrics、cAdvisor 与控制面（77）的直接链接")
 
@@ -2658,35 +2691,13 @@ disk_used_percent > 90
 
 A client certificate used to authenticate to the apiserver is expiring in less than 7.0 days.
 
-警告 · — · 触发条件:
-
-```
-apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0 and on(job) histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="apiserver"}[5m]))) < 604800
-```
-
-处置步骤:
-
-1. 用 kubeadm certs check-expiration（kubeadm 集群）或 openssl x509 -noout -dates 确认到期时间；
-2. kubeadm 集群用 kubeadm certs renew all 续期后重启控制面组件；
-3. kubelet 客户端证书通常自动轮换，未轮换的检查 rotateCertificates 配置与 CSR 审批是否正常；
-4. 续期后务必验证组件已加载新证书（重启对应进程），并复查所有节点。
+警告 · — · PromQL、常见原因与处置步骤：[KubeClientCertificateExpiration](https://n9e.github.io/zh/alert-rules/kubernetes/kubeclientcertificateexpiration.md)
 
 ### KubeClientCertificateExpiration-S1[​](#kubeclientcertificateexpiration-s1 "KubeClientCertificateExpiration-S1的直接链接")
 
 A client certificate used to authenticate to the apiserver is expiring in less than 24.0 hours.
 
-紧急 · — · 触发条件:
-
-```
-apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0 and on(job) histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="apiserver"}[5m]))) < 86400
-```
-
-处置步骤:
-
-1. 用 kubeadm certs check-expiration（kubeadm 集群）或 openssl x509 -noout -dates 确认到期时间；
-2. kubeadm 集群用 kubeadm certs renew all 续期后重启控制面组件；
-3. kubelet 客户端证书通常自动轮换，未轮换的检查 rotateCertificates 配置与 CSR 审批是否正常；
-4. 续期后务必验证组件已加载新证书（重启对应进程），并复查所有节点。
+紧急 · — · PromQL、常见原因与处置步骤：[KubeClientCertificateExpiration](https://n9e.github.io/zh/alert-rules/kubernetes/kubeclientcertificateexpiration.md)
 
 ### AggregatedAPIErrors[​](#aggregatedapierrors "AggregatedAPIErrors的直接链接")
 
@@ -2743,85 +2754,25 @@ absent(up{job="apiserver"} == 1)
 
 The API server is burning too much error budget.
 
-紧急 · 2 分钟 · 触发条件:
-
-```
-sum(apiserver_request:burnrate1h) > (14.40 * 0.01000)
-
-and
-
-sum(apiserver_request:burnrate5m) > (14.40 * 0.01000)
-```
-
-处置步骤:
-
-1. 看 apiserver 的错误码与延迟分布，确认是读还是写请求在劣化；
-2. 写请求劣化优先排查 etcd 的磁盘延迟——这是最常见根因；
-3. 读请求劣化排查是否有客户端在做大范围 LIST（无 resourceVersion 的全量列举）；
-4. 定位到异常客户端的对其限流，并考虑开启 APF（API Priority and Fairness）。
+紧急 · 2 分钟 · PromQL、常见原因与处置步骤：[KubeAPIErrorBudgetBurn](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)
 
 ### KubeAPIErrorBudgetBurn-S1-900秒[​](#kubeapierrorbudgetburn-s1-900秒 "KubeAPIErrorBudgetBurn-S1-900秒的直接链接")
 
 The API server is burning too much error budget.
 
-紧急 · 15 分钟 · 触发条件:
-
-```
-sum(apiserver_request:burnrate6h) > (6.00 * 0.01000)
-
-and
-
-sum(apiserver_request:burnrate30m) > (6.00 * 0.01000)
-```
-
-处置步骤:
-
-1. 看 apiserver 的错误码与延迟分布，确认是读还是写请求在劣化；
-2. 写请求劣化优先排查 etcd 的磁盘延迟——这是最常见根因；
-3. 读请求劣化排查是否有客户端在做大范围 LIST（无 resourceVersion 的全量列举）；
-4. 定位到异常客户端的对其限流，并考虑开启 APF（API Priority and Fairness）。
+紧急 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeAPIErrorBudgetBurn](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)
 
 ### KubeAPIErrorBudgetBurn-S2-3600秒[​](#kubeapierrorbudgetburn-s2-3600秒 "KubeAPIErrorBudgetBurn-S2-3600秒的直接链接")
 
 The API server is burning too much error budget.
 
-警告 · 60 分钟 · 触发条件:
-
-```
-sum(apiserver_request:burnrate1d) > (3.00 * 0.01000)
-
-and
-
-sum(apiserver_request:burnrate2h) > (3.00 * 0.01000)
-```
-
-处置步骤:
-
-1. 看 apiserver 的错误码与延迟分布，确认是读还是写请求在劣化；
-2. 写请求劣化优先排查 etcd 的磁盘延迟——这是最常见根因；
-3. 读请求劣化排查是否有客户端在做大范围 LIST（无 resourceVersion 的全量列举）；
-4. 定位到异常客户端的对其限流，并考虑开启 APF（API Priority and Fairness）。
+警告 · 60 分钟 · PromQL、常见原因与处置步骤：[KubeAPIErrorBudgetBurn](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)
 
 ### KubeAPIErrorBudgetBurn-S2-10800秒[​](#kubeapierrorbudgetburn-s2-10800秒 "KubeAPIErrorBudgetBurn-S2-10800秒的直接链接")
 
 The API server is burning too much error budget.
 
-警告 · 180 分钟 · 触发条件:
-
-```
-sum(apiserver_request:burnrate3d) > (1.00 * 0.01000)
-
-and
-
-sum(apiserver_request:burnrate6h) > (1.00 * 0.01000)
-```
-
-处置步骤:
-
-1. 看 apiserver 的错误码与延迟分布，确认是读还是写请求在劣化；
-2. 写请求劣化优先排查 etcd 的磁盘延迟——这是最常见根因；
-3. 读请求劣化排查是否有客户端在做大范围 LIST（无 resourceVersion 的全量列举）；
-4. 定位到异常客户端的对其限流，并考虑开启 APF（API Priority and Fairness）。
+警告 · 180 分钟 · PromQL、常见原因与处置步骤：[KubeAPIErrorBudgetBurn](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)
 
 ### Deployment副本异常[​](#deployment副本异常 "Deployment副本异常的直接链接")
 
@@ -2952,18 +2903,7 @@ sum(increase(container_cpu_cfs_periods_total{}[5m])) by (container, pod, namespa
 
 Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }} has been only {{ $value | humanize }}% available over the last 10m.
 
-警告 · 5 分钟 · 触发条件:
-
-```
-(1 - max by(name, namespace, cluster)(avg_over_time(aggregator_unavailable_apiservice{job="apiserver"}[10m]))) * 100 < 85
-```
-
-处置步骤:
-
-1. kubectl get apiservice 确认是哪个 APIService；
-2. kubectl -n \<ns> get pod 检查其后端 Pod 是否健康；
-3. 查看该 Pod 日志定位启动或运行错误；
-4. 恢复后用 kubectl top node 之类命令验证功能已回来。
+警告 · 5 分钟 · PromQL、常见原因与处置步骤：[KubeAggregatedAPIDown](https://n9e.github.io/zh/alert-rules/kubernetes/kubeaggregatedapidown.md)
 
 ### KubeAggregatedAPIErrors[​](#kubeaggregatedapierrors "KubeAggregatedAPIErrors的直接链接")
 
@@ -3026,18 +2966,7 @@ sum(rate(rest_client_requests_total{job="apiserver"}[5m])) by (cluster, instance
 
 pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on container {{ $labels.container}} has been in waiting state for longer than 1 hour.
 
-警告 · 60 分钟 · 触发条件:
-
-```
-sum by (namespace, pod, container, cluster) (kube_pod_container_status_waiting_reason{job="kube-state-metrics"}) > 0
-```
-
-处置步骤:
-
-1. kubectl describe pod \<pod> -n \<ns> 看 Waiting 的 Reason；
-2. ImagePullBackOff 检查镜像名、tag 与拉取凭据（imagePullSecrets）；
-3. CreateContainerConfigError 检查引用的 ConfigMap/Secret 是否存在；
-4. CrashLoopBackOff 按崩溃循环路径处理，看 --previous 日志。
+警告 · 60 分钟 · PromQL、常见原因与处置步骤：[KubeContainerWaiting](https://n9e.github.io/zh/alert-rules/kubernetes/kubecontainerwaiting.md)
 
 ### KubeControllerManagerDown[​](#kubecontrollermanagerdown "KubeControllerManagerDown的直接链接")
 
@@ -3060,22 +2989,7 @@ absent(up{job="kube-controller-manager"} == 1)
 
 Cluster {{ $labels.cluster }} has overcommitted CPU resource requests for Pods by {{ $value }} CPU shares and cannot tolerate node failure.
 
-警告 · 10 分钟 · 触发条件:
-
-```
-sum(namespace_cpu:kube_pod_container_resource_requests:sum{job="kube-state-metrics",}) by (cluster) - (sum(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster) - max(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster)) > 0
-
-and
-
-(sum(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster) - max(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster)) > 0
-```
-
-处置步骤:
-
-1. kubectl describe node | grep -A5 'Allocated resources' 汇总各节点的分配率；
-2. 这是容量规划信号而非即时故障——评估节点故障时是否还有冗余承接；
-3. 检查是否有 Pod 的 requests 设置得过高（远超实际用量），下调可释放大量可调度容量；
-4. 冗余确实不足的扩容节点。
+警告 · 10 分钟 · PromQL、常见原因与处置步骤：[KubeCPUOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes/kubecpuovercommit.md)
 
 ### KubeCPUQuotaOvercommit[​](#kubecpuquotaovercommit "KubeCPUQuotaOvercommit的直接链接")
 
@@ -3104,18 +3018,7 @@ sum(kube_node_status_allocatable{resource="cpu", job="kube-state-metrics"}) by (
 
 {{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} are running where they are not supposed to run.
 
-警告 · 15 分钟 · 触发条件:
-
-```
-kube_daemonset_status_number_misscheduled{job="kube-state-metrics"} > 0
-```
-
-处置步骤:
-
-1. kubectl get pod -n \<ns> -l \<selector> -o wide 看被误调度到哪些节点；
-2. 检查 DaemonSet 的 nodeSelector/affinity 与节点标签是否匹配；
-3. 通常是节点标签被改动或 DaemonSet 配置更新导致，修正后多余 Pod 会被自动清理；
-4. 未自动清理的手工删除对应 Pod。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeDaemonSetMisScheduled](https://n9e.github.io/zh/alert-rules/kubernetes/kubedaemonsetmisscheduled.md)
 
 ### KubeDaemonSetNotScheduled[​](#kubedaemonsetnotscheduled "KubeDaemonSetNotScheduled的直接链接")
 
@@ -3224,74 +3127,19 @@ kube_deployment_metadata_generation{job="kube-state-metrics"}
 
 Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not matched the expected number of replicas for longer than 15 minutes.
 
-警告 · 15 分钟 · 触发条件:
-
-```
-(
-
-  kube_deployment_spec_replicas{job="kube-state-metrics"}
-
-    >
-
-  kube_deployment_status_replicas_available{job="kube-state-metrics"}
-
-) and (
-
-  changes(kube_deployment_status_replicas_updated{job="kube-state-metrics"}[10m])
-
-    ==
-
-  0
-
-)
-```
-
-处置步骤:
-
-1. kubectl describe deploy \<name> -n \<ns> 看 Conditions 与 Events；
-2. kubectl get pod -n \<ns> -l \<selector> 看未就绪 Pod 的状态与原因；
-3. 常见为资源不足无法调度、镜像拉取失败、就绪探针不通过；
-4. 按 Pod 的具体状态排查，资源不足的扩容节点或调低 requests。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeDeploymentReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md)
 
 ### KubeDeploymentRolloutStuck[​](#kubedeploymentrolloutstuck "KubeDeploymentRolloutStuck的直接链接")
 
 Rollout of deployment {{ $labels.namespace }}/{{ $labels.deployment }} is not progressing for longer than 15 minutes.
 
-警告 · 15 分钟 · 触发条件:
-
-```
-kube_deployment_status_condition{condition="Progressing", status="false",job="kube-state-metrics"}
-
-!= 0
-```
-
-处置步骤:
-
-1. kubectl rollout status deploy/\<name> -n \<ns> 确认卡在第几个副本；
-2. kubectl describe pod 看新版本 Pod 为何未就绪（镜像、探针、资源）；
-3. 短期无法修复的用 kubectl rollout undo deploy/\<name> 回滚到上一版本；
-4. 修复后重新发布，并检查 maxSurge/maxUnavailable 配置是否合理。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeDeploymentRolloutStuck](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentrolloutstuck.md)
 
 ### KubeHpaMaxedOut[​](#kubehpamaxedout "KubeHpaMaxedOut的直接链接")
 
 HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler }} has been running at max replicas for longer than 15 minutes.
 
-警告 · 15 分钟 · 触发条件:
-
-```
-kube_horizontalpodautoscaler_status_current_replicas{job="kube-state-metrics"}
-
-  ==
-
-kube_horizontalpodautoscaler_spec_max_replicas{job="kube-state-metrics"}
-```
-
-处置步骤:
-
-1. kubectl describe hpa \<name> -n \<ns> 看当前指标值与目标值的差距；
-2. 确认集群是否还有资源支撑更多副本（节点余量）；
-3. 有余量的调大 maxReplicas；没余量的先扩容节点；
-4. 同时评估单副本的处理能力是否偏低，优化应用比无限扩副本更有效。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeHpaMaxedOut](https://n9e.github.io/zh/alert-rules/kubernetes/kubehpamaxedout.md)
 
 ### KubeHpaReplicasMismatch[​](#kubehpareplicasmismatch "KubeHpaReplicasMismatch的直接链接")
 
@@ -3338,18 +3186,7 @@ changes(kube_horizontalpodautoscaler_status_current_replicas{job="kube-state-met
 
 Job {{ $labels.namespace }}/{{ $labels.job\_name }} failed to complete. Removing failed job after investigation should clear this alert.
 
-警告 · 15 分钟 · 触发条件:
-
-```
-kube_job_failed{job="kube-state-metrics"}  > 0
-```
-
-处置步骤:
-
-1. kubectl get job \<job> -n \<ns> 看失败次数，再 kubectl logs job/\<job> 看失败原因；
-2. kubectl describe job 看 Events，确认是否因 backoffLimit 耗尽而放弃；
-3. 修复根因后 kubectl delete job 再重新提交，或让 CronJob 下次调度重跑；
-4. 确认该任务失败是否有下游影响（数据未产出、清理未执行），需要时手工补做。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeJobFailed](https://n9e.github.io/zh/alert-rules/kubernetes/kubejobfailed.md)
 
 ### KubeJobNotCompleted[​](#kubejobnotcompleted "KubeJobNotCompleted的直接链接")
 
@@ -3410,18 +3247,7 @@ increase(kubelet_certificate_manager_client_expiration_renew_errors[5m]) > 0
 
 Kubelet has disappeared from Prometheus target discovery.
 
-紧急 · 15 分钟 · 触发条件:
-
-```
-absent(up{job="kubelet", metrics_path="/metrics"} == 1)
-```
-
-处置步骤:
-
-1. 登录节点执行 systemctl status kubelet 确认进程状态；
-2. journalctl -u kubelet -n 200 --no-pager 定位退出或报错原因；
-3. 常见为证书过期、配置错误、容器运行时不可用；
-4. 恢复后确认节点回到 Ready，并检查期间是否有 Pod 被误驱逐。
+紧急 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeletDown](https://n9e.github.io/zh/alert-rules/kubernetes/kubeletdown.md)
 
 ### KubeletPlegDurationHigh[​](#kubeletplegdurationhigh "KubeletPlegDurationHigh的直接链接")
 
@@ -3495,51 +3321,13 @@ increase(kubelet_server_expiration_renew_errors[5m]) > 0
 
 Kubelet '{{ $labels.node }}' is running at {{ $value | humanizePercentage }} of its Pod capacity.
 
-提醒 · 15 分钟 · 触发条件:
-
-```
-count by(cluster, node) (
-
-  (kube_pod_status_phase{job="kube-state-metrics",phase="Running"} == 1) * on(instance,pod,namespace,cluster) group_left(node) topk by(instance,pod,namespace,cluster) (1, kube_pod_info{job="kube-state-metrics"})
-
-)
-
-/
-
-max by(cluster, node) (
-
-  kube_node_status_capacity{job="kube-state-metrics",resource="pods"} != 1
-
-) > 0.95
-```
-
-处置步骤:
-
-1. kubectl get pod -A -o wide --field-selector spec.nodeName=\<node> | wc -l 确认实际数量；
-2. 对照 kubelet 的 maxPods 配置（默认 110）；
-3. 用 kubectl drain 或调整调度策略把部分 Pod 迁到其他节点；
-4. 确需更高密度的调大 maxPods，但要同步评估节点的 CPU/内存/PLEG 压力。
+提醒 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeletTooManyPods](https://n9e.github.io/zh/alert-rules/kubernetes/kubelettoomanypods.md)
 
 ### KubeMemoryOvercommit[​](#kubememoryovercommit "KubeMemoryOvercommit的直接链接")
 
 Cluster {{ $labels.cluster }} has overcommitted memory resource requests for Pods by {{ $value | humanize }} bytes and cannot tolerate node failure.
 
-警告 · 10 分钟 · 触发条件:
-
-```
-sum(namespace_memory:kube_pod_container_resource_requests:sum{}) by (cluster) - (sum(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) by (cluster) - max(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) by (cluster)) > 0
-
-and
-
-(sum(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) by (cluster) - max(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) by (cluster)) > 0
-```
-
-处置步骤:
-
-1. kubectl describe node | grep -A5 'Allocated resources' 汇总各节点的分配率；
-2. 这是容量规划信号而非即时故障——评估节点故障时是否还有冗余承接；
-3. 检查是否有 Pod 的 requests 设置得过高（远超实际用量），下调可释放大量可调度容量；
-4. 冗余确实不足的扩容节点。
+警告 · 10 分钟 · PromQL、常见原因与处置步骤：[KubeMemoryOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes/kubememoryovercommit.md)
 
 ### KubeMemoryQuotaOvercommit[​](#kubememoryquotaovercommit "KubeMemoryQuotaOvercommit的直接链接")
 
@@ -3568,18 +3356,7 @@ sum(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) b
 
 {{ $labels.node }} has been unready for more than 15 minutes.
 
-警告 · 15 分钟 · 触发条件:
-
-```
-kube_node_status_condition{job="kube-state-metrics",condition="Ready",status="true"} == 0
-```
-
-处置步骤:
-
-1. kubectl describe node \<node> 看 Conditions 与 Events，确认是 MemoryPressure、DiskPressure 还是 kubelet 失联；
-2. 登录节点确认 kubelet 与容器运行时进程状态（systemctl status kubelet containerd）；
-3. kubelet 日志用 journalctl -u kubelet -n 200 定位；
-4. 节点短期无法恢复的执行 kubectl drain 让 Pod 尽快迁走，避免等待驱逐超时。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeNodeNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubenodenotready.md)
 
 ### KubeNodeReadinessFlapping[​](#kubenodereadinessflapping "KubeNodeReadinessFlapping的直接链接")
 
@@ -3636,38 +3413,7 @@ kube_persistentvolume_status_phase{phase=~"Failed|Pending",job="kube-state-metri
 
 The PersistentVolume claimed by {{ $labels.persistentvolumeclaim }} in Namespace {{ $labels.namespace }} is only {{ $value | humanizePercentage }} free.
 
-紧急 · 1 分钟 · 触发条件:
-
-```
-(
-
-  kubelet_volume_stats_available_bytes{job="kubelet", metrics_path="/metrics"}
-
-    /
-
-  kubelet_volume_stats_capacity_bytes{job="kubelet", metrics_path="/metrics"}
-
-) < 0.03
-
-and
-
-kubelet_volume_stats_used_bytes{job="kubelet", metrics_path="/metrics"} > 0
-
-unless on(namespace, persistentvolumeclaim)
-
-kube_persistentvolumeclaim_access_mode{ access_mode="ReadOnlyMany"} == 1
-
-unless on(namespace, persistentvolumeclaim)
-
-kube_persistentvolumeclaim_labels{label_excluded_from_alerts="true"} == 1
-```
-
-处置步骤:
-
-1. kubectl get pvc -n \<ns> 定位对应的 PVC 与 PV；
-2. 进到使用该卷的 Pod 里用 du 找出占用最大的目录（kubectl exec）；
-3. 清理日志与临时数据；
-4. StorageClass 支持在线扩容的直接 kubectl edit pvc 调大 spec.resources.requests.storage，不支持的需要迁移数据。
+紧急 · 1 分钟 · PromQL、常见原因与处置步骤：[KubePersistentVolumeFillingUp](https://n9e.github.io/zh/alert-rules/kubernetes/kubepersistentvolumefillingup.md)
 
 ### KubePersistentVolumeInodesFillingUp[​](#kubepersistentvolumeinodesfillingup "KubePersistentVolumeInodesFillingUp的直接链接")
 
@@ -3710,70 +3456,19 @@ kube_persistentvolumeclaim_labels{label_excluded_from_alerts="true"} == 1
 
 Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is in waiting state (reason: "CrashLoopBackOff").
 
-警告 · 15 分钟 · 触发条件:
-
-```
-max_over_time(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff", job="kube-state-metrics"}[5m]) >= 1
-```
-
-处置步骤:
-
-1. kubectl logs \<pod> -n \<ns> --previous 看上一次退出前的日志，这是最关键的一步；
-2. kubectl describe pod 看退出码与 Events：137 通常是 OOM 或被 kill，1/2 多为应用自身启动失败；
-3. 配置或依赖问题（连不上数据库、ConfigMap/Secret 缺失）先修依赖再拉起；
-4. OOM 的对照 resources.limits.memory 与实际用量调整，或修复应用内存泄漏。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[KubePodCrashLooping](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodcrashlooping.md)
 
 ### KubePodNotReady[​](#kubepodnotready "KubePodNotReady的直接链接")
 
 Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 15 minutes.
 
-警告 · 15 分钟 · 触发条件:
-
-```
-sum by (namespace, pod, cluster) (
-
-  max by(namespace, pod, cluster) (
-
-    kube_pod_status_phase{job="kube-state-metrics", phase=~"Pending|Unknown|Failed"}
-
-  ) * on(namespace, pod, cluster) group_left(owner_kind) topk by(namespace, pod, cluster) (
-
-    1, max by(namespace, pod, owner_kind, cluster) (kube_pod_owner{owner_kind!="Job"})
-
-  )
-
-) > 0
-```
-
-处置步骤:
-
-1. kubectl get pod \<pod> -n \<ns> -o wide 看 STATUS 与 READY，再 kubectl describe pod 看 Events；
-2. Pending 多为资源不足或调度约束（节点亲和、污点、PVC 未绑定）；ImagePullBackOff 查镜像地址与拉取凭据；
-3. Running 但未 Ready 的看就绪探针配置与 kubectl logs \<pod> 里的启动报错；
-4. 确认副本数是否已不足以承载流量，不足的先扩容其他健康副本。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[KubePodNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodnotready.md)
 
 ### KubeQuotaAlmostFull[​](#kubequotaalmostfull "KubeQuotaAlmostFull的直接链接")
 
 Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota.
 
-提醒 · 15 分钟 · 触发条件:
-
-```
-kube_resourcequota{job="kube-state-metrics", type="used"}
-
-  / ignoring(instance, job, type)
-
-(kube_resourcequota{job="kube-state-metrics", type="hard"} > 0)
-
-  > 0.9 < 1
-```
-
-处置步骤:
-
-1. kubectl describe quota -n \<ns> 看是哪一项（cpu/memory/pods/storage）触顶；
-2. kubectl get pod -n \<ns> -o custom-columns 统计各工作负载的 requests 占用，找出大户；
-3. 确认是否有已停止但未清理的资源仍占着配额；
-4. 确需更多配额的联系集群管理员调整 ResourceQuota。
+提醒 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeQuotaAlmostFull](https://n9e.github.io/zh/alert-rules/kubernetes/kubequotaalmostfull.md)
 
 ### KubeQuotaExceeded[​](#kubequotaexceeded "KubeQuotaExceeded的直接链接")
 
@@ -3863,34 +3558,7 @@ kube_statefulset_metadata_generation{job="kube-state-metrics"}
 
 StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} has not matched the expected number of replicas for longer than 15 minutes.
 
-警告 · 15 分钟 · 触发条件:
-
-```
-(
-
-  kube_statefulset_status_replicas_ready{job="kube-state-metrics"}
-
-    !=
-
-  kube_statefulset_status_replicas{job="kube-state-metrics"}
-
-) and (
-
-  changes(kube_statefulset_status_replicas_updated{job="kube-state-metrics"}[10m])
-
-    ==
-
-  0
-
-)
-```
-
-处置步骤:
-
-1. kubectl get pod -n \<ns> -l \<selector> 按序号看是哪个副本卡住；
-2. kubectl describe pod 排查该副本的 PVC 是否绑定成功——这是有状态服务最常见的卡点；
-3. 存储问题排查 PV/StorageClass 与 CSI 驱动；
-4. 应用自身问题看 kubectl logs，修复后 StatefulSet 会自动继续。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[KubeStatefulSetReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes/kubestatefulsetreplicasmismatch.md)
 
 ### KubeStatefulSetUpdateNotRolledOut[​](#kubestatefulsetupdatenotrolledout "KubeStatefulSetUpdateNotRolledOut的直接链接")
 
@@ -4074,7 +3742,7 @@ absent(up{job="kubelet"} == 1)
 
 ## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直接链接")
 
-* **用 Prometheus 或 vmalert**：下载 [`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页。
+* **用 Prometheus 或 vmalert**：下载 [`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
 * **用夜莺**：同样的规则内置在 [Kubernetes](https://n9e.github.io/zh/integrations/kubernetes.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
@@ -4086,6 +3754,1921 @@ absent(up{job="kubelet"} == 1)
 * [用夜莺监控 Kubernetes](https://n9e.github.io/zh/integrations/kubernetes.md)：采集配置、仪表盘与指标说明
 * [在夜莺里写指标告警规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)
 * [全部告警规则](https://n9e.github.io/zh/alert-rules.md)
+
+
+---
+
+# KubeAggregatedAPIDown 告警：含义、常见原因与处置
+
+Prometheus 告警 KubeAggregatedAPIDown 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+某个聚合 API（由 Kubernetes API Server 代理转发到其它服务的 APIService）在过去 10 分钟里可用时间低于 85%。最常见的是 metrics-server 提供的 `v1beta1.metrics.k8s.io`，其它的来自 prometheus-adapter、自定义指标适配器和各类 Operator。
+
+* **级别**：警告（`warning`）
+* **持续**：5 分钟
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+(1 - max by(name, namespace, cluster)(avg_over_time(aggregator_unavailable_apiservice{job="apiserver"}[10m]))) * 100 < 85
+```
+
+告警信息：`Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }} has been only {{ $value | humanize }}% available over the last 10m.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* 后端 Pod（metrics-server、prometheus-adapter）在崩溃、未就绪，或者副本数被缩到 0。
+* API Server 访问不到后端服务：网络策略、防火墙，或者 Service、Endpoints 有问题。
+* API Server 与后端之间的 TLS 有问题，比如服务端证书过期，或者 APIService 上的 `caBundle` 不对。
+* APIService 还在，但它指向的服务已经卸载了。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. kubectl get apiservice 确认是哪个 APIService；
+2. kubectl -n \<ns> get pod 检查其后端 Pod 是否健康；
+3. 查看该 Pod 日志定位启动或运行错误；
+4. 恢复后用 kubectl top node 之类命令验证功能已回来。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 影响取决于是哪个 API。metrics API 不可用时，`kubectl top` 会失败，按 CPU 或内存扩缩的 HPA 也不再扩缩。坏掉的 APIService 还可能让命名空间删除卡住，因为命名空间控制器列不出那个 API 组下的资源。
+* 表达式里限定了 `job="apiserver"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `aggregator_unavailable_apiservice`（kube-apiserver）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubeAggregatedAPIErrors](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubeaggregatedapierrors)：Kubernetes aggregated API …/… has reported errors. It has appeared unavailable … times averaged over the past 10m.
+* [KubeAPIErrorBudgetBurn](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)：The API server is burning too much error budget.
+* [KubeHpaReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubehpareplicasmismatch)：HPA …/… has not matched the desired number of replicas for longer than 15 minutes.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubeAggregatedAPIDown
+
+  expr: |-
+
+    (1 - max by(name, namespace, cluster)(avg_over_time(aggregator_unavailable_apiservice{job="apiserver"}[10m]))) * 100 < 85
+
+  for: 5m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }} has been only {{ $value | humanize }}% available over the last 10m."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeaggregatedapidown"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# KubeAPIErrorBudgetBurn 告警：含义、常见原因与处置
+
+Prometheus 告警 KubeAPIErrorBudgetBurn 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+Kubernetes API Server 失败或变慢的请求太多，正在提前耗尽错误预算。规则采用 Google SRE Workbook 的多窗口燃烧率方法，可用性目标为 99%。每条规则搭配一长一短两个窗口，两个都超过阈值才触发：1h 与 5m 超过 14.4、6h 与 30m 超过 6 为紧急；1d 与 2h 超过 3、3d 与 6h 超过 1 为警告。燃烧率 14.4 时，30 天的错误预算大约两天就会用完。控制器、kubectl、CI 流水线都要经过 API Server，它出错会波及所有地方。
+
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+模板把这个告警按阈值、时间窗口和级别拆成了 4 条规则，请一起加载。
+
+### KubeAPIErrorBudgetBurn-S1-120s[​](#kubeapierrorbudgetburn-s1-120s "KubeAPIErrorBudgetBurn-S1-120s的直接链接")
+
+紧急（`critical`） · 持续：2 分钟
+
+```
+sum(apiserver_request:burnrate1h) > (14.40 * 0.01000)
+
+and
+
+sum(apiserver_request:burnrate5m) > (14.40 * 0.01000)
+```
+
+### KubeAPIErrorBudgetBurn-S1-900s[​](#kubeapierrorbudgetburn-s1-900s "KubeAPIErrorBudgetBurn-S1-900s的直接链接")
+
+紧急（`critical`） · 持续：15 分钟
+
+```
+sum(apiserver_request:burnrate6h) > (6.00 * 0.01000)
+
+and
+
+sum(apiserver_request:burnrate30m) > (6.00 * 0.01000)
+```
+
+### KubeAPIErrorBudgetBurn-S2-3600s[​](#kubeapierrorbudgetburn-s2-3600s "KubeAPIErrorBudgetBurn-S2-3600s的直接链接")
+
+警告（`warning`） · 持续：60 分钟
+
+```
+sum(apiserver_request:burnrate1d) > (3.00 * 0.01000)
+
+and
+
+sum(apiserver_request:burnrate2h) > (3.00 * 0.01000)
+```
+
+### KubeAPIErrorBudgetBurn-S2-10800s[​](#kubeapierrorbudgetburn-s2-10800s "KubeAPIErrorBudgetBurn-S2-10800s的直接链接")
+
+警告（`warning`） · 持续：180 分钟
+
+```
+sum(apiserver_request:burnrate3d) > (1.00 * 0.01000)
+
+and
+
+sum(apiserver_request:burnrate6h) > (1.00 * 0.01000)
+```
+
+告警信息：`The API server is burning too much error budget.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* etcd 变慢，最常见的是磁盘延迟高，写请求受影响最明显。
+* 客户端发起昂贵请求，比如不带 `resourceVersion` 的全命名空间 LIST，把延迟推过了 SLO。
+* 某个聚合 API（metrics-server、准入 webhook 的后端）出故障，依赖它的请求跟着失败。
+* 准入 webhook 变慢或宕机，被它拦截的每个写请求都要等它。
+* API Server 自身 CPU 或内存不够，或者多个副本中有一个不健康。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. 看 apiserver 的错误码与延迟分布，确认是读还是写请求在劣化；
+2. 写请求劣化优先排查 etcd 的磁盘延迟——这是最常见根因；
+3. 读请求劣化排查是否有客户端在做大范围 LIST（无 resourceVersion 的全量列举）；
+4. 定位到异常客户端的对其限流，并考虑开启 APF（API Priority and Fairness）。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 表达式读的是 kubernetes-mixin 里的 recording rule `apiserver_request:burnrate*`。要一并加载这些 recording rule，否则规则永远不会触发。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `apiserver_request:burnrate1h`（kubernetes-mixin 的 recording rule）
+* `apiserver_request:burnrate5m`（kubernetes-mixin 的 recording rule）
+* `apiserver_request:burnrate6h`（kubernetes-mixin 的 recording rule）
+* `apiserver_request:burnrate30m`（kubernetes-mixin 的 recording rule）
+* `apiserver_request:burnrate1d`（kubernetes-mixin 的 recording rule）
+* `apiserver_request:burnrate2h`（kubernetes-mixin 的 recording rule）
+* `apiserver_request:burnrate3d`（kubernetes-mixin 的 recording rule）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubeAPIDown](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubeapidown)：KubeAPI has disappeared from Prometheus target discovery.
+* [KubeClientErrors](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubeclienterrors)：Kubernetes API server client '…/…' is experiencing … errors.'
+* [KubeAggregatedAPIDown](https://n9e.github.io/zh/alert-rules/kubernetes/kubeaggregatedapidown.md)：Kubernetes aggregated API …/… has been only …% available over the last 10m.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubeAPIErrorBudgetBurn-S1-120s
+
+  expr: |-
+
+    sum(apiserver_request:burnrate1h) > (14.40 * 0.01000)
+
+    and
+
+    sum(apiserver_request:burnrate5m) > (14.40 * 0.01000)
+
+  for: 2m
+
+  labels:
+
+    severity: critical
+
+  annotations:
+
+    summary: "The API server is burning too much error budget."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+
+- alert: KubeAPIErrorBudgetBurn-S1-900s
+
+  expr: |-
+
+    sum(apiserver_request:burnrate6h) > (6.00 * 0.01000)
+
+    and
+
+    sum(apiserver_request:burnrate30m) > (6.00 * 0.01000)
+
+  for: 15m
+
+  labels:
+
+    severity: critical
+
+  annotations:
+
+    summary: "The API server is burning too much error budget."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+
+- alert: KubeAPIErrorBudgetBurn-S2-3600s
+
+  expr: |-
+
+    sum(apiserver_request:burnrate1d) > (3.00 * 0.01000)
+
+    and
+
+    sum(apiserver_request:burnrate2h) > (3.00 * 0.01000)
+
+  for: 60m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "The API server is burning too much error budget."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+
+- alert: KubeAPIErrorBudgetBurn-S2-10800s
+
+  expr: |-
+
+    sum(apiserver_request:burnrate3d) > (1.00 * 0.01000)
+
+    and
+
+    sum(apiserver_request:burnrate6h) > (1.00 * 0.01000)
+
+  for: 180m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "The API server is burning too much error budget."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# KubeClientCertificateExpiration 告警：含义、常见原因与处置
+
+Prometheus 告警 KubeClientCertificateExpiration 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+过去 5 分钟里客户端向 API Server 出示的证书中，至少有 1% 会在 7 天内（警告）或 24 小时内（紧急）过期。规则取的是剩余有效期的第 1 百分位。过期后这些客户端会收到 `401 Unauthorized`。如果它们属于 kubelet、控制器或调度器，节点会变成 NotReady，或者控制面停止调和。
+
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+模板把这个告警按阈值、时间窗口和级别拆成了 2 条规则，请一起加载。
+
+### KubeClientCertificateExpiration-S2[​](#kubeclientcertificateexpiration-s2 "KubeClientCertificateExpiration-S2的直接链接")
+
+警告（`warning`） · 持续：—
+
+```
+apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0 and on(job) histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="apiserver"}[5m]))) < 604800
+```
+
+### KubeClientCertificateExpiration-S1[​](#kubeclientcertificateexpiration-s1 "KubeClientCertificateExpiration-S1的直接链接")
+
+紧急（`critical`） · 持续：—
+
+```
+apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0 and on(job) histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="apiserver"}[5m]))) < 86400
+```
+
+告警信息：`A client certificate used to authenticate to the apiserver is expiring in less than 7.0 days.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* kubeadm 签发的控制面证书有效期一年，在 `kubeadm upgrade` 时续期。一年没升级过的集群会遇到这个问题。
+* kubelet 客户端证书轮换没有开启，或者它发起的 CSR 没有被批准。
+* 发给人员或 CI 系统、使用客户端证书认证的长期 kubeconfig 文件。
+* 手工或外部工具生成的证书，没有配续期任务。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. 用 kubeadm certs check-expiration（kubeadm 集群）或 openssl x509 -noout -dates 确认到期时间；
+2. kubeadm 集群用 kubeadm certs renew all 续期后重启控制面组件；
+3. kubelet 客户端证书通常自动轮换，未轮换的检查 rotateCertificates 配置与 CSR 审批是否正常；
+4. 续期后务必验证组件已加载新证书（重启对应进程），并复查所有节点。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 指标来自客户端实际出示的证书，所以只反映最近连接过的客户端，也看不出是哪个客户端。kubeadm 集群可以用 `kubeadm certs check-expiration` 列出控制面自己的证书。
+* 表达式里限定了 `job="apiserver"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `apiserver_client_certificate_expiration_seconds_count`（kube-apiserver）
+* `apiserver_client_certificate_expiration_seconds_bucket`（kube-apiserver）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubeletClientCertificateExpiration](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubeletclientcertificateexpiration)：Client certificate for Kubelet on node … expires in ….
+* [KubeletServerCertificateExpiration](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubeletservercertificateexpiration)：Server certificate for Kubelet on node … expires in ….
+* [KubeNodeNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubenodenotready.md)：… has been unready for more than 15 minutes.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubeClientCertificateExpiration-S2
+
+  expr: |-
+
+    apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0 and on(job) histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="apiserver"}[5m]))) < 604800
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "A client certificate used to authenticate to the apiserver is expiring in less than 7.0 days."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
+
+- alert: KubeClientCertificateExpiration-S1
+
+  expr: |-
+
+    apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0 and on(job) histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="apiserver"}[5m]))) < 86400
+
+  labels:
+
+    severity: critical
+
+  annotations:
+
+    summary: "A client certificate used to authenticate to the apiserver is expiring in less than 24.0 hours."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# KubeContainerWaiting 告警：含义、常见原因与处置
+
+Prometheus 告警 KubeContainerWaiting 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+一个容器处于 `Waiting` 状态已经超过 1 小时：既没运行，也没终止。等待原因说明它卡在哪一步，可能是拉镜像、挂卷，也可能是崩溃重启之间的退避等待。
+
+* **级别**：警告（`warning`）
+* **持续**：60 分钟
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+sum by (namespace, pod, container, cluster) (kube_pod_container_status_waiting_reason{job="kube-state-metrics"}) > 0
+```
+
+告警信息：`pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on container {{ $labels.container}} has been in waiting state for longer than 1 hour.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* `ImagePullBackOff` 或 `ErrImagePull`：镜像名或标签写错、缺拉取凭据、镜像仓库不可达或限流。
+* `CreateContainerConfigError`：容器引用的 ConfigMap、Secret 或其中的 key 不存在。
+* 长时间 `ContainerCreating`：卷挂载失败，或者网络插件没能给 Pod 配好网络。
+* `CrashLoopBackOff`：容器反复崩溃，KubePodCrashLooping 也会同时告警。
+* `PodInitializing`：init 容器还没执行完。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. kubectl describe pod \<pod> -n \<ns> 看 Waiting 的 Reason；
+2. ImagePullBackOff 检查镜像名、tag 与拉取凭据（imagePullSecrets）；
+3. CreateContainerConfigError 检查引用的 ConfigMap/Secret 是否存在；
+4. CrashLoopBackOff 按崩溃循环路径处理，看 --previous 日志。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 规则对 `kube_pod_container_status_waiting_reason` 求和时没有按原因过滤，所有等待原因都算。可以按 `reason` 标签给告警分组，或者用 `kubectl get pod <pod> -n <ns> -o jsonpath='{.status.containerStatuses[*].state.waiting}'` 查看。
+* 表达式里限定了 `job="kube-state-metrics"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `kube_pod_container_status_waiting_reason`（kube-state-metrics）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubePodCrashLooping](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodcrashlooping.md)：Pod …/… (…) is in waiting state (reason: "CrashLoopBackOff").
+* [KubePodNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodnotready.md)：Pod …/… has been in a non-ready state for longer than 15 minutes.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubeContainerWaiting
+
+  expr: |-
+
+    sum by (namespace, pod, container, cluster) (kube_pod_container_status_waiting_reason{job="kube-state-metrics"}) > 0
+
+  for: 60m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on container {{ $labels.container}} has been in waiting state for longer than 1 hour."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubecontainerwaiting"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# KubeCPUOvercommit 告警：含义、常见原因与处置
+
+Prometheus 告警 KubeCPUOvercommit 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+集群里所有 Pod 申请的 CPU，已经超过「去掉最大那台节点后」集群能提供的量。换句话说，集群扛不住任何一台节点宕机：那台节点上的 Pod 将无处可调度。这是容量预警，不是故障；它看的是 requests，不是实际 CPU 用量。
+
+* **级别**：警告（`warning`）
+* **持续**：10 分钟
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+sum(namespace_cpu:kube_pod_container_resource_requests:sum{job="kube-state-metrics",}) by (cluster) - (sum(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster) - max(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster)) > 0
+
+and
+
+(sum(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster) - max(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster)) > 0
+```
+
+告警信息：`Cluster {{ $labels.cluster }} has overcommitted CPU resource requests for Pods by {{ $value }} CPU shares and cannot tolerate node failure.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* 负载增长（副本数增加、HPA 扩容），节点池却没有跟着扩。
+* 节点被手动或被自动扩缩容缩掉了。
+* requests 设得远高于容器实际用量，集群看起来比实际更满。
+* 有一台节点比其它节点大很多，「去掉最大节点」预留的量就很大。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. kubectl describe node | grep -A5 'Allocated resources' 汇总各节点的分配率；
+2. 这是容量规划信号而非即时故障——评估节点故障时是否还有冗余承接；
+3. 检查是否有 Pod 的 requests 设置得过高（远超实际用量），下调可释放大量可调度容量；
+4. 冗余确实不足的扩容节点。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 表达式用到 kubernetes-mixin 里的 recording rule `namespace_cpu:kube_pod_container_resource_requests:sum`。没加载这条 recording rule，规则永远不会触发。
+* 表达式里限定了 `job="kube-state-metrics"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `namespace_cpu:kube_pod_container_resource_requests:sum`（kubernetes-mixin 的 recording rule）
+* `kube_node_status_allocatable`（kube-state-metrics）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubeMemoryOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes/kubememoryovercommit.md)：Cluster … has overcommitted memory resource requests for Pods by … bytes and cannot tolerate node failure.
+* [KubeCPUQuotaOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubecpuquotaovercommit)：Cluster … has overcommitted CPU resource requests for Namespaces.
+* [KubeHpaMaxedOut](https://n9e.github.io/zh/alert-rules/kubernetes/kubehpamaxedout.md)：HPA …/… has been running at max replicas for longer than 15 minutes.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubeCPUOvercommit
+
+  expr: |-
+
+    sum(namespace_cpu:kube_pod_container_resource_requests:sum{job="kube-state-metrics",}) by (cluster) - (sum(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster) - max(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster)) > 0
+
+    and
+
+    (sum(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster) - max(kube_node_status_allocatable{job="kube-state-metrics",resource="cpu"}) by (cluster)) > 0
+
+  for: 10m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "Cluster {{ $labels.cluster }} has overcommitted CPU resource requests for Pods by {{ $value }} CPU shares and cannot tolerate node failure."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubecpuovercommit"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# KubeDaemonSetMisScheduled 告警：含义、常见原因与处置
+
+Prometheus 告警 KubeDaemonSetMisScheduled 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+DaemonSet 有一部分 Pod 运行在按它当前的节点选择器、亲和性和节点污点来看「不该运行」的节点上。这本身很少直接造成故障，但说明 DaemonSet 的部署范围和集群的节点布局对不上了。
+
+* **级别**：警告（`warning`）
+* **持续**：15 分钟
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+kube_daemonset_status_number_misscheduled{job="kube-state-metrics"} > 0
+```
+
+告警信息：`{{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} are running where they are not supposed to run.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* 节点标签变了，不再匹配 DaemonSet 的节点选择器或亲和性。
+* 节点被加了 `NoSchedule` 污点。已经在上面的 Pod 会继续运行，但不再算作放对了位置。
+* DaemonSet 的定义改了，覆盖的节点变少了。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. kubectl get pod -n \<ns> -l \<selector> -o wide 看被误调度到哪些节点；
+2. 检查 DaemonSet 的 nodeSelector/affinity 与节点标签是否匹配；
+3. 通常是节点标签被改动或 DaemonSet 配置更新导致，修正后多余 Pod 会被自动清理；
+4. 未自动清理的手工删除对应 Pod。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 先判断哪一边是对的。如果 DaemonSet 仍然应该在那些节点上运行，就修它的选择器或加容忍；如果不应该，就清掉残留的 Pod。
+* 表达式里限定了 `job="kube-state-metrics"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `kube_daemonset_status_number_misscheduled`（kube-state-metrics）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubeDaemonSetNotScheduled](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubedaemonsetnotscheduled)：… Pods of DaemonSet …/… are not scheduled.
+* [KubeDaemonSetRolloutStuck](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubedaemonsetrolloutstuck)：DaemonSet …/… has not finished or progressed for at least 15 minutes.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubeDaemonSetMisScheduled
+
+  expr: |-
+
+    kube_daemonset_status_number_misscheduled{job="kube-state-metrics"} > 0
+
+  for: 15m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "{{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} are running where they are not supposed to run."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubedaemonsetmisscheduled"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# KubeDeploymentReplicasMismatch 告警：含义、常见原因与处置
+
+Prometheus 告警 KubeDeploymentReplicasMismatch 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+一个 Deployment 的可用副本数已经 15 分钟低于期望值，并且当前没有在发布（最近 10 分钟内已更新副本数没有变化）。有副本缺失或未就绪，服务在低于计划容量的状态下运行。
+
+* **级别**：警告（`warning`）
+* **持续**：15 分钟
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+(
+
+  kube_deployment_spec_replicas{job="kube-state-metrics"}
+
+    >
+
+  kube_deployment_status_replicas_available{job="kube-state-metrics"}
+
+) and (
+
+  changes(kube_deployment_status_replicas_updated{job="kube-state-metrics"}[10m])
+
+    ==
+
+  0
+
+)
+```
+
+告警信息：`Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not matched the expected number of replicas for longer than 15 minutes.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* 新 Pod 调度不上去：CPU 或内存不够，或者亲和性规则、污点让所有节点都不满足条件。
+* Pod 在崩溃循环或就绪探针一直失败，始终不计入可用副本。
+* 部分节点上拉不下镜像。
+* 命名空间配额用满，ReplicaSet 创建不了缺的 Pod（看 ReplicaSet 上的 `exceeded quota` 事件）。
+* 节点故障带走了副本，替补的 Pod 又因为上面某个原因卡住。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. kubectl describe deploy \<name> -n \<ns> 看 Conditions 与 Events；
+2. kubectl get pod -n \<ns> -l \<selector> 看未就绪 Pod 的状态与原因；
+3. 常见为资源不足无法调度、镜像拉取失败、就绪探针不通过；
+4. 按 Pod 的具体状态排查，资源不足的扩容节点或调低 requests。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* `changes(...[10m]) == 0` 这一段让规则在正常滚动发布期间保持安静。发布本身卡住不动时，告警的是 KubeDeploymentRolloutStuck。
+* 表达式里限定了 `job="kube-state-metrics"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `kube_deployment_spec_replicas`（kube-state-metrics）
+* `kube_deployment_status_replicas_available`（kube-state-metrics）
+* `kube_deployment_status_replicas_updated`（kube-state-metrics）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubeDeploymentRolloutStuck](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentrolloutstuck.md)：Rollout of deployment …/… is not progressing for longer than 15 minutes.
+* [KubePodNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodnotready.md)：Pod …/… has been in a non-ready state for longer than 15 minutes.
+* [KubePodCrashLooping](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodcrashlooping.md)：Pod …/… (…) is in waiting state (reason: "CrashLoopBackOff").
+* [KubeHpaMaxedOut](https://n9e.github.io/zh/alert-rules/kubernetes/kubehpamaxedout.md)：HPA …/… has been running at max replicas for longer than 15 minutes.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubeDeploymentReplicasMismatch
+
+  expr: |-
+
+    (
+
+      kube_deployment_spec_replicas{job="kube-state-metrics"}
+
+        >
+
+      kube_deployment_status_replicas_available{job="kube-state-metrics"}
+
+    ) and (
+
+      changes(kube_deployment_status_replicas_updated{job="kube-state-metrics"}[10m])
+
+        ==
+
+      0
+
+    )
+
+  for: 15m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not matched the expected number of replicas for longer than 15 minutes."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubedeploymentreplicasmismatch"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# KubeDeploymentRolloutStuck 告警：含义、常见原因与处置
+
+Prometheus 告警 KubeDeploymentRolloutStuck 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+Deployment 的 `Progressing` 状态为 `False`。发布在 `progressDeadlineSeconds`（默认 600 秒）内没有进展时，Kubernetes 会把它置为 False，原因是 `ProgressDeadlineExceeded`。Kubernetes 不会自动回滚：新旧 ReplicaSet 保持原样，在有人处理之前，线上可能是新旧版本混跑。
+
+* **级别**：警告（`warning`）
+* **持续**：15 分钟
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+kube_deployment_status_condition{condition="Progressing", status="false",job="kube-state-metrics"}
+
+!= 0
+```
+
+告警信息：`Rollout of deployment {{ $labels.namespace }}/{{ $labels.deployment }} is not progressing for longer than 15 minutes.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* 新版本崩溃或就绪探针失败，新 Pod 一直不可用。
+* 新 Pod 调度不上去，或者镜像拉不下来。
+* 新版本需要的 CPU 或内存超过了命名空间配额或节点剩余容量。
+* `maxUnavailable` 为 0，而集群没有空间放下额外的 surge Pod。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. kubectl rollout status deploy/\<name> -n \<ns> 确认卡在第几个副本；
+2. kubectl describe pod 看新版本 Pod 为何未就绪（镜像、探针、资源）；
+3. 短期无法修复的用 kubectl rollout undo deploy/\<name> 回滚到上一版本；
+4. 修复后重新发布，并检查 maxSurge/maxUnavailable 配置是否合理。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 超过期限后 `kubectl rollout status deploy/<name> -n <ns>` 会报错退出，CI/CD 流水线可以靠它在这条告警之前就失败。
+* 表达式里限定了 `job="kube-state-metrics"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `kube_deployment_status_condition`（kube-state-metrics）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubeDeploymentReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md)：Deployment …/… has not matched the expected number of replicas for longer than 15 minutes.
+* [KubePodCrashLooping](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodcrashlooping.md)：Pod …/… (…) is in waiting state (reason: "CrashLoopBackOff").
+* [KubeContainerWaiting](https://n9e.github.io/zh/alert-rules/kubernetes/kubecontainerwaiting.md)：pod/… in namespace … on container … has been in waiting state for longer than 1 hour.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubeDeploymentRolloutStuck
+
+  expr: |-
+
+    kube_deployment_status_condition{condition="Progressing", status="false",job="kube-state-metrics"}
+
+    != 0
+
+  for: 15m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "Rollout of deployment {{ $labels.namespace }}/{{ $labels.deployment }} is not progressing for longer than 15 minutes."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubedeploymentrolloutstuck"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# KubeHpaMaxedOut 告警：含义、常见原因与处置
+
+Prometheus 告警 KubeHpaMaxedOut 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+一个 HorizontalPodAutoscaler 已经在 `maxReplicas` 上运行了 15 分钟。它不能再加副本，如果负载继续上涨，压力会摊到每个副本身上，延迟和错误率随之上升。
+
+* **级别**：警告（`warning`）
+* **持续**：15 分钟
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+kube_horizontalpodautoscaler_status_current_replicas{job="kube-state-metrics"}
+
+  ==
+
+kube_horizontalpodautoscaler_spec_max_replicas{job="kube-state-metrics"}
+```
+
+告警信息：`HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler }} has been running at max replicas for longer than 15 minutes.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* 流量或任务量确实增长，超过了配置的上限。
+* `maxReplicas` 是有意设低的（出于成本或下游承载能力），现在成了瓶颈。
+* 目标值相对指标设得太低。CPU 利用率是按 requests 计算的，requests 设得很小的容器会一直显得很忙。
+* 应用变慢了（依赖变慢、版本回归），每个副本处理得更少，HPA 只能不停扩容。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. kubectl describe hpa \<name> -n \<ns> 看当前指标值与目标值的差距；
+2. 确认集群是否还有资源支撑更多副本（节点余量）；
+3. 有余量的调大 maxReplicas；没余量的先扩容节点；
+4. 同时评估单副本的处理能力是否偏低，优化应用比无限扩副本更有效。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 只有集群还放得下更多 Pod，调大 `maxReplicas` 才有用。调之前先看 KubeCPUOvercommit、KubeMemoryOvercommit，或者集群自动扩缩容的状态。
+* 表达式里限定了 `job="kube-state-metrics"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `kube_horizontalpodautoscaler_status_current_replicas`（kube-state-metrics）
+* `kube_horizontalpodautoscaler_spec_max_replicas`（kube-state-metrics）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubeHpaReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubehpareplicasmismatch)：HPA …/… has not matched the desired number of replicas for longer than 15 minutes.
+* [KubeCPUOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes/kubecpuovercommit.md)：Cluster … has overcommitted CPU resource requests for Pods by … CPU shares and cannot tolerate node failure.
+* [KubeMemoryOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes/kubememoryovercommit.md)：Cluster … has overcommitted memory resource requests for Pods by … bytes and cannot tolerate node failure.
+* [KubeDeploymentReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md)：Deployment …/… has not matched the expected number of replicas for longer than 15 minutes.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubeHpaMaxedOut
+
+  expr: |-
+
+    kube_horizontalpodautoscaler_status_current_replicas{job="kube-state-metrics"}
+
+      ==
+
+    kube_horizontalpodautoscaler_spec_max_replicas{job="kube-state-metrics"}
+
+  for: 15m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler  }} has been running at max replicas for longer than 15 minutes."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubehpamaxedout"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# KubeJobFailed 告警：含义、常见原因与处置
+
+Prometheus 告警 KubeJobFailed 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+一个 Job 被标记为 `Failed`（`kube_job_failed > 0`）：它用完了 `backoffLimit`（默认重试 6 次），或者超过了 `activeDeadlineSeconds`，原本要做的批处理工作（备份、报表、数据同步）没有完成。
+
+* **级别**：警告（`warning`）
+* **持续**：15 分钟
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+kube_job_failed{job="kube-state-metrics"}  > 0
+```
+
+告警信息：`Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete. Removing failed job after investigation should clear this alert.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* 任务本身出错：输入数据有问题、查询失败、依赖服务不可用。
+* Pod 超出内存限制被杀，或者在资源紧张的节点上被驱逐。
+* Job 运行时间超过 `activeDeadlineSeconds`。
+* 容器镜像或命令改了，和 Job 的参数对不上了。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. kubectl get job \<job> -n \<ns> 看失败次数，再 kubectl logs job/\<job> 看失败原因；
+2. kubectl describe job 看 Events，确认是否因 backoffLimit 耗尽而放弃；
+3. 修复根因后 kubectl delete job 再重新提交，或让 CronJob 下次调度重跑；
+4. 确认该任务失败是否有下游影响（数据未产出、清理未执行），需要时手工补做。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 只要失败的 Job 对象还在，这条告警就会一直响，哪怕后来的执行已经成功。排查完把这个 Job 删掉。CronJob 保留多少个失败 Job 由 `failedJobsHistoryLimit` 控制（默认 1）。
+* 表达式里限定了 `job="kube-state-metrics"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `kube_job_failed`（kube-state-metrics）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubeJobNotCompleted](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubejobnotcompleted)：Job …/… is taking more than … to complete.
+* [KubePodCrashLooping](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodcrashlooping.md)：Pod …/… (…) is in waiting state (reason: "CrashLoopBackOff").
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubeJobFailed
+
+  expr: |-
+
+    kube_job_failed{job="kube-state-metrics"}  > 0
+
+  for: 15m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete. Removing failed job after investigation should clear this alert."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubejobfailed"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# KubeletDown 告警：含义、常见原因与处置
+
+Prometheus 告警 KubeletDown 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+Prometheus 里没有任何一个 kubelet 目标处于 `up == 1`。规则把整个选择器包在 `absent()` 里，所以只有所有 kubelet 都消失或都抓取失败时才会触发，单个节点坏了不会触发。它一响，整个集群的 kubelet 和 cAdvisor 指标（容器 CPU、内存、卷用量）都断了，依赖这些指标的规则也会跟着失声。
+
+* **级别**：紧急（`critical`）
+* **持续**：15 分钟
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+absent(up{job="kubelet", metrics_path="/metrics"} == 1)
+```
+
+告警信息：`Kubelet has disappeared from Prometheus target discovery.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* 采集配置变了：kubelet 的 ServiceMonitor 被删，或者它的选择器、端口名、路径对不上了。
+* Prometheus 在 10250 端口上认证不了 kubelet：bearer token 过期或缺失、TLS 校验失败，或者 RBAC 不再授予 `nodes/metrics` 权限。
+* 网络策略或防火墙挡住了 Prometheus 到节点的访问。
+* 少见情况：集群里的 kubelet 真的全挂了，比如推了一份错误配置。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. 登录节点执行 systemctl status kubelet 确认进程状态；
+2. journalctl -u kubelet -n 200 --no-pager 定位退出或报错原因；
+3. 常见为证书过期、配置错误、容器运行时不可用；
+4. 恢复后确认节点回到 Ready，并检查期间是否有 Pod 被误驱逐。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 单个 kubelet 挂掉表现为 KubeNodeNotReady，而不是这条告警。KubeletDown 响了，先按监控链路的问题处理：打开 Prometheus 的 `/targets` 页面，看 kubelet 任务的抓取报错。
+* 表达式里限定了 `job="kubelet"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `up`（Prometheus 自身指标）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubeNodeNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubenodenotready.md)：… has been unready for more than 15 minutes.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubeletDown
+
+  expr: |-
+
+    absent(up{job="kubelet", metrics_path="/metrics"} == 1)
+
+  for: 15m
+
+  labels:
+
+    severity: critical
+
+  annotations:
+
+    summary: "Kubelet has disappeared from Prometheus target discovery."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeletdown"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# KubeletTooManyPods 告警：含义、常见原因与处置
+
+Prometheus 告警 KubeletTooManyPods 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+一个节点上运行的 Pod 数超过了它能容纳数量的 95%，上限由 kubelet 的 `maxPods` 决定（默认 110）。到上限后，本该落到这台节点的新 Pod 会一直 Pending；Pod 太密的节点也更容易出现 kubelet 变慢的问题。
+
+* **级别**：提醒（`info`）
+* **持续**：15 分钟
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+count by(cluster, node) (
+
+  (kube_pod_status_phase{job="kube-state-metrics",phase="Running"} == 1) * on(instance,pod,namespace,cluster) group_left(node) topk by(instance,pod,namespace,cluster) (1, kube_pod_info{job="kube-state-metrics"})
+
+)
+
+/
+
+max by(cluster, node) (
+
+  kube_node_status_capacity{job="kube-state-metrics",resource="pods"} != 1
+
+) > 0.95
+```
+
+告警信息：`Kubelet '{{ $labels.node }}' is running at {{ $value | humanizePercentage }} of its Pod capacity.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* 大节点上塞了很多小 Pod，CPU 和内存还没用完，Pod 数先到顶了。
+* DaemonSet 和带大量 sidecar 的负载在每个节点上都占了名额。
+* 已完成或失败的 Pod 还没被回收。
+* 有些托管集群的 Pod 上限和节点能分到的 IP 数挂钩，比 110 低。比如 Amazon EKS 使用 VPC CNI 时，上限取决于实例类型。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. kubectl get pod -A -o wide --field-selector spec.nodeName=\<node> | wc -l 确认实际数量；
+2. 对照 kubelet 的 maxPods 配置（默认 110）；
+3. 用 kubectl drain 或调整调度策略把部分 Pod 迁到其他节点；
+4. 确需更高密度的调大 maxPods，但要同步评估节点的 CPU/内存/PLEG 压力。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 比值是 `Running` 阶段的 Pod 数除以 kube-state-metrics 报告的节点容量。
+* 表达式里限定了 `job="kube-state-metrics"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的�指标 "用到的指标的直接链接")
+
+* `kube_pod_status_phase`（kube-state-metrics）
+* `kube_pod_info`（kube-state-metrics）
+* `kube_node_status_capacity`（kube-state-metrics）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubeNodeNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubenodenotready.md)：… has been unready for more than 15 minutes.
+* [KubePodNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodnotready.md)：Pod …/… has been in a non-ready state for longer than 15 minutes.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubeletTooManyPods
+
+  expr: |-
+
+    count by(cluster, node) (
+
+      (kube_pod_status_phase{job="kube-state-metrics",phase="Running"} == 1) * on(instance,pod,namespace,cluster) group_left(node) topk by(instance,pod,namespace,cluster) (1, kube_pod_info{job="kube-state-metrics"})
+
+    )
+
+    /
+
+    max by(cluster, node) (
+
+      kube_node_status_capacity{job="kube-state-metrics",resource="pods"} != 1
+
+    ) > 0.95
+
+  for: 15m
+
+  labels:
+
+    severity: info
+
+  annotations:
+
+    summary: "Kubelet '{{ $labels.node }}' is running at {{ $value | humanizePercentage }} of its Pod capacity."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubelettoomanypods"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# KubeMemoryOvercommit 告警：含义、常见原因与处置
+
+Prometheus 告警 KubeMemoryOvercommit 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+集群里所有 Pod 申请的内存，已经超过「去掉最大那台节点后」集群能提供的量，任何一台节点宕机都会让一部分 Pod 无处可调度。和 CPU 那条一样，看的是 requests 而不是实际用量；但内存没有弹性，放不下的 Pod 会一直 Pending，而不是跑得慢一点。
+
+* **级别**：警告（`warning`）
+* **持续**：10 分钟
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+sum(namespace_memory:kube_pod_container_resource_requests:sum{}) by (cluster) - (sum(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) by (cluster) - max(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) by (cluster)) > 0
+
+and
+
+(sum(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) by (cluster) - max(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) by (cluster)) > 0
+```
+
+告警信息：`Cluster {{ $labels.cluster }} has overcommitted memory resource requests for Pods by {{ $value | humanize }} bytes and cannot tolerate node failure.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* 负载增长，节点池没有跟着扩。
+* 节点被缩掉了。
+* 内存 requests 设得远高于实际用量。
+* 有一台节点比其它节点大很多，为它预留的量就很大。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. kubectl describe node | grep -A5 'Allocated resources' 汇总各节点的分配率；
+2. 这是容量规划信号而非即时故障——评估节点故障时是否还有冗余承接；
+3. 检查是否有 Pod 的 requests 设置得过高（远超实际用量），下调可释放大量可调度容量；
+4. 冗余确实不足的扩容节点。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 表达式用到 kubernetes-mixin 里的 recording rule `namespace_memory:kube_pod_container_resource_requests:sum`。没加载它，规则永远不会触发。
+* 表达式里限定了 `job="kube-state-metrics"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `namespace_memory:kube_pod_container_resource_requests:sum`（kubernetes-mixin 的 recording rule）
+* `kube_node_status_allocatable`（kube-state-metrics）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubeCPUOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes/kubecpuovercommit.md)：Cluster … has overcommitted CPU resource requests for Pods by … CPU shares and cannot tolerate node failure.
+* [KubeMemoryQuotaOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubememoryquotaovercommit)：Cluster … has overcommitted memory resource requests for Namespaces.
+* [KubeHpaMaxedOut](https://n9e.github.io/zh/alert-rules/kubernetes/kubehpamaxedout.md)：HPA …/… has been running at max replicas for longer than 15 minutes.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubeMemoryOvercommit
+
+  expr: |-
+
+    sum(namespace_memory:kube_pod_container_resource_requests:sum{}) by (cluster) - (sum(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) by (cluster) - max(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) by (cluster)) > 0
+
+    and
+
+    (sum(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) by (cluster) - max(kube_node_status_allocatable{resource="memory", job="kube-state-metrics"}) by (cluster)) > 0
+
+  for: 10m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "Cluster {{ $labels.cluster }} has overcommitted memory resource requests for Pods by {{ $value | humanize }} bytes and cannot tolerate node failure."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubememoryovercommit"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# KubeNodeNotReady 告警：含义、常见原因与处置
+
+Prometheus 告警 KubeNodeNotReady 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+节点的 `Ready` 状态已经 15 分钟不是 `True`：要么是 `False`（kubelet 报告了问题），要么是 `Unknown`（kubelet 不再上报）。新的 Pod 不会再调度上来；节点上已有的 Pod，在 not-ready 或 unreachable 污点持续时间超过它的容忍时间（默认 300 秒）后会被驱逐。
+
+* **级别**：警告（`warning`）
+* **持续**：15 分钟
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+kube_node_status_condition{job="kube-state-metrics",condition="Ready",status="true"} == 0
+```
+
+告警信息：`{{ $labels.node }} has been unready for more than 15 minutes.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* kubelet 或容器运行时（containerd、CRI-O）停止或反复重启。
+* 节点连不上 API Server：网络分区、防火墙变更、路由故障。
+* 节点资源耗尽：内存、磁盘或进程号用光，kubelet 自己都跑不动。
+* kubelet 客户端证书过期，节点无法再通过认证。
+* 机器被关机、重启或回收（比如竞价实例），事先没有 drain。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. kubectl describe node \<node> 看 Conditions 与 Events，确认是 MemoryPressure、DiskPressure 还是 kubelet 失联；
+2. 登录节点确认 kubelet 与容器运行时进程状态（systemctl status kubelet containerd）；
+3. kubelet 日志用 journalctl -u kubelet -n 200 定位；
+4. 节点短期无法恢复的执行 kubectl drain 让 Pod 尽快迁走，避免等待驱逐超时。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 表达式 `status="true" == 0` 同时覆盖 `False` 和 `Unknown` 两种情况。`kubectl describe node <node>` 能看到是哪一种以及最后一次心跳时间，据此区分「kubelet 报告有问题」和「kubelet 已经失联」。
+* 表达式里限定了 `job="kube-state-metrics"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `kube_node_status_condition`（kube-state-metrics）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubeletDown](https://n9e.github.io/zh/alert-rules/kubernetes/kubeletdown.md)：Kubelet has disappeared from Prometheus target discovery.
+* [KubePodNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodnotready.md)：Pod …/… has been in a non-ready state for longer than 15 minutes.
+* [KubeletTooManyPods](https://n9e.github.io/zh/alert-rules/kubernetes/kubelettoomanypods.md)：Kubelet '…' is running at … of its Pod capacity.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubeNodeNotReady
+
+  expr: |-
+
+    kube_node_status_condition{job="kube-state-metrics",condition="Ready",status="true"} == 0
+
+  for: 15m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "{{ $labels.node }} has been unready for more than 15 minutes."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubenodenotready"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# KubePersistentVolumeFillingUp 告警：含义、常见原因与处置
+
+Prometheus 告警 KubePersistentVolumeFillingUp 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+一个 PersistentVolume 剩余空间不足 3%，数据来自挂载它的节点上的 kubelet。数据库、队列等有状态服务在卷写满后通常会拒绝写入或直接崩溃，所以这条是紧急级别。
+
+* **级别**：紧急（`critical`）
+* **持续**：1 分钟
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+(
+
+  kubelet_volume_stats_available_bytes{job="kubelet", metrics_path="/metrics"}
+
+    /
+
+  kubelet_volume_stats_capacity_bytes{job="kubelet", metrics_path="/metrics"}
+
+) < 0.03
+
+and
+
+kubelet_volume_stats_used_bytes{job="kubelet", metrics_path="/metrics"} > 0
+
+unless on(namespace, persistentvolumeclaim)
+
+kube_persistentvolumeclaim_access_mode{ access_mode="ReadOnlyMany"} == 1
+
+unless on(namespace, persistentvolumeclaim)
+
+kube_persistentvolumeclaim_labels{label_excluded_from_alerts="true"} == 1
+```
+
+告警信息：`The PersistentVolume claimed by {{ $labels.persistentvolumeclaim }} in Namespace {{ $labels.namespace }} is only {{ $value | humanizePercentage }} free.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* 数据正常增长：表、索引、topic 日志或对象数量超过了创建时预估的大小。
+* 保留或清理机制失效：日志轮转、compaction、TTL 任务、清理旧备份的任务没在跑。
+* 临时文件、导出文件或 core 文件写进了数据卷，没人清理。
+* 卷按测试环境的大小创建，后来直接用到了生产。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. kubectl get pvc -n \<ns> 定位对应的 PVC 与 PV；
+2. 进到使用该卷的 Pod 里用 du 找出占用最大的目录（kubectl exec）；
+3. 清理日志与临时数据；
+4. StorageClass 支持在线扩容的直接 kubectl edit pvc 调大 spec.resources.requests.storage，不支持的需要迁移数据。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 被多个 Pod 只读挂载（`ReadOnlyMany`）的卷不告警。也可以给某个 PVC 打上 `excluded_from_alerts=true` 标签来屏蔽，但 kube-state-metrics 只导出 `--metric-labels-allowlist` 参数里列出的 PVC 标签，要先把这个标签加进去。
+* 指标来自 kubelet（`kubelet_volume_stats_*`）。存储驱动不上报用量统计的卷不会有这些指标，规则对它们不起作用。
+* 表达式里限定了 `job="kubelet"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `kubelet_volume_stats_available_bytes`（kubelet）
+* `kubelet_volume_stats_capacity_bytes`（kubelet）
+* `kubelet_volume_stats_used_bytes`（kubelet）
+* `kube_persistentvolumeclaim_access_mode`（kube-state-metrics）
+* `kube_persistentvolumeclaim_labels`（kube-state-metrics）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubePersistentVolumeInodesFillingUp](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubepersistentvolumeinodesfillingup)：The PersistentVolume claimed by … in Namespace … only has … free inodes.
+* [KubePersistentVolumeErrors](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubepersistentvolumeerrors)：The persistent volume … has status ….
+* [KubeStatefulSetReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes/kubestatefulsetreplicasmismatch.md)：StatefulSet …/… has not matched the expected number of replicas for longer than 15 minutes.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubePersistentVolumeFillingUp
+
+  expr: |-
+
+    (
+
+      kubelet_volume_stats_available_bytes{job="kubelet", metrics_path="/metrics"}
+
+        /
+
+      kubelet_volume_stats_capacity_bytes{job="kubelet", metrics_path="/metrics"}
+
+    ) < 0.03
+
+    and
+
+    kubelet_volume_stats_used_bytes{job="kubelet", metrics_path="/metrics"} > 0
+
+    unless on(namespace, persistentvolumeclaim)
+
+    kube_persistentvolumeclaim_access_mode{ access_mode="ReadOnlyMany"} == 1
+
+    unless on(namespace, persistentvolumeclaim)
+
+    kube_persistentvolumeclaim_labels{label_excluded_from_alerts="true"} == 1
+
+  for: 1m
+
+  labels:
+
+    severity: critical
+
+  annotations:
+
+    summary: "The PersistentVolume claimed by {{ $labels.persistentvolumeclaim }} in Namespace {{ $labels.namespace }} is only {{ $value | humanizePercentage }} free."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubepersistentvolumefillingup"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# KubePodCrashLooping 告警：含义、常见原因与处置
+
+Prometheus 告警 KubePodCrashLooping 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+容器反复退出，kubelet 以逐渐拉长的退避间隔（从 10 秒到最长 5 分钟）重启它，等待原因显示为 `CrashLoopBackOff`。规则的条件是：最近 5 分钟内 kube-state-metrics 报告过这个原因，并且持续 15 分钟。循环期间这个容器不提供服务；如果所有副本都在循环，这个负载就等于挂了。
+
+* **级别**：警告（`warning`）
+* **持续**：15 分钟
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+max_over_time(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff", job="kube-state-metrics"}[5m]) >= 1
+```
+
+告警信息：`Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is in waiting state (reason: "CrashLoopBackOff").`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* 应用启动即退出：配置值写错、缺环境变量、数据库迁移失败。
+* 依赖连不上（数据库、消息队列、其它服务），进程直接退出而不是重试。
+* 容器超出内存限制被杀，`lastState.terminated.reason` 显示 `OOMKilled`，退出码 137。
+* 存活探针（liveness probe）太严，或者在应用就绪前就开始检测，把正常的容器反复杀掉。
+* 镜像的启动命令或 entrypoint 写错，或者镜像的 CPU 架构不对。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. kubectl logs \<pod> -n \<ns> --previous 看上一次退出前的日志，这是最关键的一步；
+2. kubectl describe pod 看退出码与 Events：137 通常是 OOM 或被 kill，1/2 多为应用自身启动失败；
+3. 配置或依赖问题（连不上数据库、ConfigMap/Secret 缺失）先修依赖再拉起；
+4. OOM 的对照 resources.limits.memory 与实际用量调整，或修复应用内存泄漏。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 想最快看到上一次为什么退出，执行 `kubectl get pod <pod> -n <ns> -o jsonpath='{.status.containerStatuses[*].lastState.terminated}'`，会打印退出原因、退出码和时间。
+* 表达式里限定了 `job="kube-state-metrics"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `kube_pod_container_status_waiting_reason`（kube-state-metrics）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubeContainerWaiting](https://n9e.github.io/zh/alert-rules/kubernetes/kubecontainerwaiting.md)：pod/… in namespace … on container … has been in waiting state for longer than 1 hour.
+* [KubePodNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodnotready.md)：Pod …/… has been in a non-ready state for longer than 15 minutes.
+* [KubeDeploymentReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md)：Deployment …/… has not matched the expected number of replicas for longer than 15 minutes.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubePodCrashLooping
+
+  expr: |-
+
+    max_over_time(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff", job="kube-state-metrics"}[5m]) >= 1
+
+  for: 15m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is in waiting state (reason: \"CrashLoopBackOff\")."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubepodcrashlooping"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# KubePodNotReady 告警：含义、常见原因与处置
+
+Prometheus 告警 KubePodNotReady 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+一个不属于 Job 的 Pod 已经处于 `Pending`、`Unknown` 或 `Failed` 阶段 15 分钟。Pending 表示容器还没全部启动（常常是还没调度上）；Unknown 通常是所在节点失联；Failed 表示 Pod 已经终止、不会再起来。无论哪种，这个 Pod 都没在提供服务，负载的实际副本数低于期望值。
+
+* **级别**：警告（`warning`）
+* **持续**：15 分钟
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+sum by (namespace, pod, cluster) (
+
+  max by(namespace, pod, cluster) (
+
+    kube_pod_status_phase{job="kube-state-metrics", phase=~"Pending|Unknown|Failed"}
+
+  ) * on(namespace, pod, cluster) group_left(owner_kind) topk by(namespace, pod, cluster) (
+
+    1, max by(namespace, pod, owner_kind, cluster) (kube_pod_owner{owner_kind!="Job"})
+
+  )
+
+) > 0
+```
+
+告警信息：`Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 15 minutes.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* 没有节点能接收这个 Pod：CPU 或内存不够满足 requests，或者节点选择器、亲和性规则、污点把所有节点都排除了。
+* 挂载的 PVC 没有绑定，或者卷所在的可用区与所有可调度节点都不一致。
+* 镜像拉不下来（名字或标签写错、缺 `imagePullSecrets`、镜像仓库限流）。
+* Pod 所在节点与控制面失联，Pod 被标成 `Unknown`。
+* 命名空间的 ResourceQuota 用满，Pod 无法创建。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. kubectl get pod \<pod> -n \<ns> -o wide 看 STATUS 与 READY，再 kubectl describe pod 看 Events；
+2. Pending 多为资源不足或调度约束（节点亲和、污点、PVC 未绑定）；ImagePullBackOff 查镜像地址与拉取凭据；
+3. Running 但未 Ready 的看就绪探针配置与 kubectl logs \<pod> 里的启动报错；
+4. 确认副本数是否已不足以承载流量，不足的先扩容其他健康副本。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 名字叫 NotReady，但规则看的是 Pod 阶段，不是 `Ready` 状态。`Running` 但就绪探针失败的 Pod 不会触发它，这种情况通常由 KubeDeploymentReplicasMismatch 或 KubeStatefulSetReplicasMismatch 发现。
+* 属于 Job 的 Pod 被排除在外，批处理任务结束或失败不会通过这条规则告警，那种情况看 KubeJobFailed。
+* 表达式里限定了 `job="kube-state-metrics"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `kube_pod_status_phase`（kube-state-metrics）
+* `kube_pod_owner`（kube-state-metrics）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubeContainerWaiting](https://n9e.github.io/zh/alert-rules/kubernetes/kubecontainerwaiting.md)：pod/… in namespace … on container … has been in waiting state for longer than 1 hour.
+* [KubePodCrashLooping](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodcrashlooping.md)：Pod …/… (…) is in waiting state (reason: "CrashLoopBackOff").
+* [KubeNodeNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubenodenotready.md)：… has been unready for more than 15 minutes.
+* [KubeQuotaAlmostFull](https://n9e.github.io/zh/alert-rules/kubernetes/kubequotaalmostfull.md)：Namespace … is using … of its … quota.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubePodNotReady
+
+  expr: |-
+
+    sum by (namespace, pod, cluster) (
+
+      max by(namespace, pod, cluster) (
+
+        kube_pod_status_phase{job="kube-state-metrics", phase=~"Pending|Unknown|Failed"}
+
+      ) * on(namespace, pod, cluster) group_left(owner_kind) topk by(namespace, pod, cluster) (
+
+        1, max by(namespace, pod, owner_kind, cluster) (kube_pod_owner{owner_kind!="Job"})
+
+      )
+
+    ) > 0
+
+  for: 15m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 15 minutes."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubepodnotready"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# KubeQuotaAlmostFull 告警：含义、常见原因与处置
+
+Prometheus 告警 KubeQuotaAlmostFull 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+一个命名空间的某项 ResourceQuota（CPU、内存、Pod 数、存储等）已用到 90% 到 100% 之间。现在还没出问题；配额一旦用满，API Server 会拒绝在这个命名空间创建新的 Pod 和对象，通常表现为发布失败，或者该扩容时扩不出来。
+
+* **级别**：提醒（`info`）
+* **持续**：15 分钟
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+kube_resourcequota{job="kube-state-metrics", type="used"}
+
+  / ignoring(instance, job, type)
+
+(kube_resourcequota{job="kube-state-metrics", type="hard"} > 0)
+
+  > 0.9 < 1
+```
+
+告警信息：`Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* 团队的负载增长了，配额一直没调整。
+* HPA 扩容后接近了配额允许的上限。
+* 已结束的 Pod、旧的 ReplicaSet、不再使用的 PVC 仍然占着配额。
+* 发布时需要在现有副本之外再放下 surge Pod。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. kubectl describe quota -n \<ns> 看是哪一项（cpu/memory/pods/storage）触顶；
+2. kubectl get pod -n \<ns> -o custom-columns 统计各工作负载的 requests 占用，找出大户；
+3. 确认是否有已停止但未清理的资源仍占着配额；
+4. 确需更多配额的联系集群管理员调整 ResourceQuota。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 这是提醒级别的规则，应该发给命名空间的负责人。更紧急的后续告警是 KubeQuotaFullyUsed 和 KubeQuotaExceeded。
+* 表达式里限定了 `job="kube-state-metrics"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `kube_resourcequota`（kube-state-metrics）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubeQuotaFullyUsed](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubequotafullyused)：Namespace … is using … of its … quota.
+* [KubeQuotaExceeded](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubequotaexceeded)：Namespace … is using … of its … quota.
+* [KubePodNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodnotready.md)：Pod …/… has been in a non-ready state for longer than 15 minutes.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubeQuotaAlmostFull
+
+  expr: |-
+
+    kube_resourcequota{job="kube-state-metrics", type="used"}
+
+      / ignoring(instance, job, type)
+
+    (kube_resourcequota{job="kube-state-metrics", type="hard"} > 0)
+
+      > 0.9 < 1
+
+  for: 15m
+
+  labels:
+
+    severity: info
+
+  annotations:
+
+    summary: "Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubequotaalmostfull"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# KubeStatefulSetReplicasMismatch 告警：含义、常见原因与处置
+
+Prometheus 告警 KubeStatefulSetReplicasMismatch 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+一个 StatefulSet 的就绪副本数已经 15 分钟与实际副本数不一致，并且当前没有在更新。有状态服务往往依赖多数派（etcd、ZooKeeper、Kafka、数据库），少一个副本可能意味着冗余下降，少两个就可能直接不可用。
+
+* **级别**：警告（`warning`）
+* **持续**：15 分钟
+* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+(
+
+  kube_statefulset_status_replicas_ready{job="kube-state-metrics"}
+
+    !=
+
+  kube_statefulset_status_replicas{job="kube-state-metrics"}
+
+) and (
+
+  changes(kube_statefulset_status_replicas_updated{job="kube-state-metrics"}[10m])
+
+    ==
+
+  0
+
+)
+```
+
+告警信息：`StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} has not matched the expected number of replicas for longer than 15 minutes.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* Pod 的 PVC 绑定或挂载失败，比如卷和节点不在同一个可用区（`volume node affinity conflict`）。
+* 某个副本在崩溃循环或就绪探针失败，常见原因是磁盘上的数据损坏，或者其它成员不让它重新加入。
+* Pod 调度不上去：没有节点满足它的 requests、反亲和性规则或可用区约束。
+* 默认的 `OrderedReady` Pod 管理策略下，一个 Pod 卡住，序号比它大的 Pod 都不会被创建。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. kubectl get pod -n \<ns> -l \<selector> 按序号看是哪个副本卡住；
+2. kubectl describe pod 排查该副本的 PVC 是否绑定成功——这是有状态服务最常见的卡点；
+3. 存储问题排查 PV/StorageClass 与 CSI 驱动；
+4. 应用自身问题看 kubectl logs，修复后 StatefulSet 会自动继续。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 按序号检查 Pod（`<name>-0`、`<name>-1`……）。序号最小的那个未就绪 Pod 通常就是要修的，后面的都在排队等它。
+* 表达式里限定了 `job="kube-state-metrics"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `kube_statefulset_status_replicas_ready`（kube-state-metrics）
+* `kube_statefulset_status_replicas`（kube-state-metrics）
+* `kube_statefulset_status_replicas_updated`（kube-state-metrics）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [KubePodNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodnotready.md)：Pod …/… has been in a non-ready state for longer than 15 minutes.
+* [KubePersistentVolumeFillingUp](https://n9e.github.io/zh/alert-rules/kubernetes/kubepersistentvolumefillingup.md)：The PersistentVolume claimed by … in Namespace … is only … free.
+* [KubePersistentVolumeErrors](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubepersistentvolumeerrors)：The persistent volume … has status ….
+* [KubeDeploymentReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md)：Deployment …/… has not matched the expected number of replicas for longer than 15 minutes.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+
+```
+- alert: KubeStatefulSetReplicasMismatch
+
+  expr: |-
+
+    (
+
+      kube_statefulset_status_replicas_ready{job="kube-state-metrics"}
+
+        !=
+
+      kube_statefulset_status_replicas{job="kube-state-metrics"}
+
+    ) and (
+
+      changes(kube_statefulset_status_replicas_updated{job="kube-state-metrics"}[10m])
+
+        ==
+
+      0
+
+    )
+
+  for: 15m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} has not matched the expected number of replicas for longer than 15 minutes."
+
+    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubestatefulsetreplicasmismatch"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
 
 
 ---
@@ -4779,7 +6362,7 @@ and
 3. K8s 节点常见是容器层与日志碎片，清理无用镜像通常能释放大量 inode；
 4. 长期可提高 inode 密度或把小文件业务隔离到独立分区。
 
-### 节点磁盘快满了-S2-inodes-5[​](#节点磁盘快满了-s2-inodes-5 "节点磁盘快满了-S2-inodes-5的直接链接")
+### 节点磁盘快满了-S2-inodes-5[​](#节点磁盘快满了-s2-inodes-5 "节点磁盘快满了-S2-inodes-5的直接�链接")
 
 Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf "%.2f" $value }}% available inodes left.
 
@@ -5085,7 +6668,7 @@ conntrack_ip_conntrack_count / conntrack_ip_conntrack_max > 0.8
 3. 应急调大：sysctl -w net.netfilter.nf\_conntrack\_max=<更大值>，并同步调大 nf\_conntrack\_buckets；
 4. 同时缩短 nf\_conntrack\_tcp\_timeout\_time\_wait 等超时，或对不需要跟踪的流量用 iptables raw 表 NOTRACK。
 
-### CPU利用率较高[​](#cpu利用率较高 "CPU利用率较高的直接链接")
+### CPU利用率较高[​](#cpu利用率较高 "CPU利��用率较高的直接链接")
 
 提醒 · 1 分钟 · 触发条件:
 
@@ -5528,7 +7111,7 @@ procstat_lookup_running == 0
 
 ## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直接链接")
 
-* **用 Prometheus 或 vmalert**：下载 [`linux.yml`](https://n9e.github.io/zh/alert-rules/linux.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页。
+* **用 Prometheus 或 vmalert**：下载 [`linux.yml`](https://n9e.github.io/zh/alert-rules/linux.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
 * **用夜莺**：同样的规则内置在 [Kubernetes](https://n9e.github.io/zh/integrations/kubernetes.md)、[Linux](https://n9e.github.io/zh/integrations/linux.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
@@ -5697,7 +7280,7 @@ mongodb_up == 0
 
 ## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直接链接")
 
-* **用 Prometheus 或 vmalert**：下载 [`mongodb.yml`](https://n9e.github.io/zh/alert-rules/mongodb.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页。
+* **用 Prometheus 或 vmalert**：下载 [`mongodb.yml`](https://n9e.github.io/zh/alert-rules/mongodb.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
 * **用夜莺**：同样的规则内置在 [MongoDB](https://n9e.github.io/zh/integrations/mongodb.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
@@ -5744,7 +7327,7 @@ MySQL 告警规则，覆盖实际最常把人叫起来的几类问题：实例�
 | The MySQL instance is down                                                  | 紧急 | —      |
 | Mysql has opened a large number of file handles. Please be aware - categraf | 警告 | 2 分钟 |
 
-## Prometheus exporter（10）[​](#prometheus-exporter10 "Prometheus exporter（10）的直接链接")
+## Prometheus exporter（10）[​](#prometheus-exporter10 "Prometheus exporter（10）的直接�链接")
 
 本组 10 条中有 9 条规则对用 Categraf 采集的实例同样适用，指标名完全一致。
 
@@ -5935,7 +7518,7 @@ avg by (instance) (mysql_global_status_open_files) / avg by (instance)(mysql_glo
 
 ## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直接链接")
 
-* **用 Prometheus 或 vmalert**：下载 [`mysql.yml`](https://n9e.github.io/zh/alert-rules/mysql.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页。
+* **用 Prometheus 或 vmalert**：下载 [`mysql.yml`](https://n9e.github.io/zh/alert-rules/mysql.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
 * **用夜莺**：同样的规则内置在 [MySQL](https://n9e.github.io/zh/integrations/mysql.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
@@ -5968,38 +7551,38 @@ avg by (instance) (mysql_global_status_open_files) / avg by (instance)(mysql_glo
 
 ## 规则一览[​](#规则一览 "规则一览的直接链接")
 
-| 规则                                            | 级别 | 持续     |
-| ----------------------------------------------- | ---- | -------- |
-| ConfigReloaderSidecarErrors                     | 警告 | 10 分钟  |
-| PrometheusOperatorListErrors                    | 警告 | 15 分钟  |
-| PrometheusOperatorNodeLookupErrors              | 警告 | 10 分钟  |
-| PrometheusOperatorNotReady                      | 警告 | 5 分钟   |
-| PrometheusOperatorReconcileErrors               | 警告 | 10 分钟  |
-| PrometheusOperatorRejectedResources             | 警告 | 5 分钟   |
-| PrometheusOperatorSyncFailed                    | 警告 | 10 分钟  |
-| PrometheusOperatorWatchErrors                   | 警告 | 15 分钟  |
-| PrometheusBadConfig                             | 紧急 | 10 分钟  |
-| PrometheusDuplicateTimestamps                   | 警告 | 10 分钟  |
-| PrometheusErrorSendingAlertsToAnyAlertmanager   | 紧急 | 15 分钟  |
-| PrometheusErrorSendingAlertsToSomeAlertmanagers | 警告 | 15 分钟  |
-| PrometheusHighQueryLoad                         | 警告 | 15 分钟  |
-| PrometheusLabelLimitHit                         | 警告 | 15 分钟  |
-| PrometheusMissingRuleEvaluations                | 警告 | 15 分钟  |
-| PrometheusNotConnectedToAlertmanagers           | 警告 | 10 分钟  |
-| PrometheusNotificationQueueRunningFull          | 警告 | 15 分钟  |
-| PrometheusNotIngestingSamples                   | 警告 | 10 分钟  |
-| PrometheusOutOfOrderTimestamps                  | 警告 | 10 分钟  |
-| PrometheusRemoteStorageFailures                 | 紧急 | 15 分钟  |
-| PrometheusRemoteWriteBehind                     | 紧急 | 15 分钟  |
-| PrometheusRemoteWriteDesiredShards              | 警告 | 15 分钟  |
-| PrometheusRuleFailures                          | 紧急 | 15 分钟  |
-| PrometheusScrapeBodySizeLimitHit                | 警告 | 15 分钟  |
-| PrometheusScrapeSampleLimitHit                  | 警告 | 15 分钟  |
-| PrometheusSDRefreshFailure                      | 警告 | 20 分钟  |
-| PrometheusTargetLimitHit                        | 警告 | 15 分钟  |
-| PrometheusTargetSyncFailure                     | 紧急 | 5 分钟   |
-| PrometheusTSDBCompactionsFailing                | 警告 | 240 分钟 |
-| PrometheusTSDBReloadsFailing                    | 警告 | 240 分钟 |
+| 规则                                                                                                                              | 级别 | 持续     |
+| --------------------------------------------------------------------------------------------------------------------------------- | ---- | -------- |
+| ConfigReloaderSidecarErrors                                                                                                       | 警告 | 10 分钟  |
+| PrometheusOperatorListErrors                                                                                                      | 警告 | 15 分钟  |
+| PrometheusOperatorNodeLookupErrors                                                                                                | 警告 | 10 分钟  |
+| PrometheusOperatorNotReady                                                                                                        | 警告 | 5 分钟   |
+| PrometheusOperatorReconcileErrors                                                                                                 | 警告 | 10 分钟  |
+| [PrometheusOperatorRejectedResources](https://n9e.github.io/zh/alert-rules/prometheus/prometheusoperatorrejectedresources.md)     | 警告 | 5 分钟   |
+| PrometheusOperatorSyncFailed                                                                                                      | 警告 | 10 分钟  |
+| PrometheusOperatorWatchErrors                                                                                                     | 警告 | 15 分钟  |
+| [PrometheusBadConfig](https://n9e.github.io/zh/alert-rules/prometheus/prometheusbadconfig.md)                                     | 紧急 | 10 分钟  |
+| PrometheusDuplicateTimestamps                                                                                                     | 警告 | 10 分钟  |
+| PrometheusErrorSendingAlertsToAnyAlertmanager                                                                                     | 紧急 | 15 分钟  |
+| PrometheusErrorSendingAlertsToSomeAlertmanagers                                                                                   | 警告 | 15 分钟  |
+| PrometheusHighQueryLoad                                                                                                           | 警告 | 15 分钟  |
+| PrometheusLabelLimitHit                                                                                                           | 警告 | 15 分钟  |
+| PrometheusMissingRuleEvaluations                                                                                                  | 警告 | 15 分钟  |
+| [PrometheusNotConnectedToAlertmanagers](https://n9e.github.io/zh/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers.md) | 警告 | 10 分钟  |
+| PrometheusNotificationQueueRunningFull                                                                                            | 警告 | 15 分钟  |
+| PrometheusNotIngestingSamples                                                                                                     | 警告 | 10 分钟  |
+| PrometheusOutOfOrderTimestamps                                                                                                    | 警告 | 10 分钟  |
+| PrometheusRemoteStorageFailures                                                                                                   | 紧急 | 15 分钟  |
+| [PrometheusRemoteWriteBehind](https://n9e.github.io/zh/alert-rules/prometheus/prometheusremotewritebehind.md)                     | 紧急 | 15 分钟  |
+| [PrometheusRemoteWriteDesiredShards](https://n9e.github.io/zh/alert-rules/prometheus/prometheusremotewritedesiredshards.md)       | 警告 | 15 分钟  |
+| [PrometheusRuleFailures](https://n9e.github.io/zh/alert-rules/prometheus/prometheusrulefailures.md)                               | 紧急 | 15 分钟  |
+| PrometheusScrapeBodySizeLimitHit                                                                                                  | 警告 | 15 分钟  |
+| PrometheusScrapeSampleLimitHit                                                                                                    | 警告 | 15 分钟  |
+| PrometheusSDRefreshFailure                                                                                                        | 警告 | 20 分钟  |
+| [PrometheusTargetLimitHit](https://n9e.github.io/zh/alert-rules/prometheus/prometheustargetlimithit.md)                           | 警告 | 15 分钟  |
+| PrometheusTargetSyncFailure                                                                                                       | 紧急 | 5 分钟   |
+| PrometheusTSDBCompactionsFailing                                                                                                  | 警告 | 240 分钟 |
+| PrometheusTSDBReloadsFailing                                                                                                      | 警告 | 240 分钟 |
 
 ## Prometheus 自监控（30）[​](#prometheus-自监控30 "Prometheus 自监控（30）的直接链接")
 
@@ -6092,18 +7675,7 @@ min by (cluster,controller,namespace) (max_over_time(prometheus_operator_ready{j
 
 Prometheus operator in {{ $labels.namespace }} namespace rejected {{ printf "%0.0f" $value }} {{ $labels.controller }}/{{ $labels.resource }} resources.
 
-警告 · 5 分钟 · 触发条件:
-
-```
-min_over_time(prometheus_operator_managed_resources{state="rejected",job="prometheus-operator",namespace="monitoring"}[5m]) > 0
-```
-
-处置步骤:
-
-1. kubectl logs -n \<ns> deploy/prometheus-operator 看具体报错；
-2. 权限类报错核对 Operator 的 ClusterRole 是否覆盖了所需资源；
-3. Reconcile/Sync 失败的检查对应的 CRD 对象是否配置有误（kubectl describe servicemonitor/prometheusrule）；
-4. 被拒绝的资源用 kubectl describe 看拒绝原因，通常是字段校验不通过。
+警告 · 5 分钟 · PromQL、常见原因与处置步骤：[PrometheusOperatorRejectedResources](https://n9e.github.io/zh/alert-rules/prometheus/prometheusoperatorrejectedresources.md)
 
 ### PrometheusOperatorSyncFailed[​](#prometheusoperatorsyncfailed "PrometheusOperatorSyncFailed的直接链接")
 
@@ -6143,22 +7715,7 @@ Errors while performing watch operations in controller {{$labels.controller}} in
 
 Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to reload its configuration.
 
-紧急 · 10 分钟 · 触发条件:
-
-```
-# Without max_over_time, failed scrapes could create false negatives, see
-
-# https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
-
-max_over_time(prometheus_config_last_reload_successful{job="prometheus-k8s",namespace="monitoring"}[5m]) == 0
-```
-
-处置步骤:
-
-1. kubectl logs 或实例日志里找配置解析报错的具体行；
-2. 用 promtool check config prometheus.yml 本地校验；
-3. K8s 上通常由 Operator 生成配置，检查 ServiceMonitor/PrometheusRule 是否有非法字段；
-4. 修正后确认 /-/reload 成功且 /config 页显示新配置。
+紧急 · 10 分钟 · PromQL、常见原因与处置步骤：[PrometheusBadConfig](https://n9e.github.io/zh/alert-rules/prometheus/prometheusbadconfig.md)
 
 ### PrometheusDuplicateTimestamps[​](#prometheusduplicatetimestamps "PrometheusDuplicateTimestamps的直接链接")
 
@@ -6290,22 +7847,7 @@ increase(prometheus_rule_group_iterations_missed_total{job="prometheus-k8s",name
 
 Prometheus {{$labels.namespace}}/{{$labels.pod}} is not connected to any Alertmanagers.
 
-警告 · 10 分钟 · 触发条件:
-
-```
-# Without max_over_time, failed scrapes could create false negatives, see
-
-# https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
-
-max_over_time(prometheus_notifications_alertmanagers_discovered{job="prometheus-k8s",namespace="monitoring"}[5m]) < 1
-```
-
-处置步骤:
-
-1. 检查 Alertmanager 实例是否健康、网络是否连通；
-2. 在 Prometheus 的 /status 页确认 Alertmanager 发现是否正常；
-3. 队列满的排查 Alertmanager 处理是否卡住，或告警量是否异常暴涨；
-4. 恢复后确认 Alertmanager 已收到告警，避免静默失败。
+警告 · 10 分钟 · PromQL、常见原因与处置步骤：[PrometheusNotConnectedToAlertmanagers](https://n9e.github.io/zh/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers.md)
 
 ### PrometheusNotificationQueueRunningFull[​](#prometheusnotificationqueuerunningfull "PrometheusNotificationQueueRunningFull的直接链接")
 
@@ -6427,78 +7969,19 @@ Prometheus {{$labels.namespace}}/{{$labels.pod}} failed to send {{ printf "%.1f"
 
 Prometheus {{$labels.namespace}}/{{$labels.pod}} remote write is {{ printf "%.1f" $value }}s behind for {{ $labels.remote\_name}}:{{ $labels.url }}.
 
-紧急 · 15 分钟 · 触发条件:
-
-```
-# Without max_over_time, failed scrapes could create false negatives, see
-
-# https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
-
-(
-
-  max_over_time(prometheus_remote_storage_highest_timestamp_in_seconds{job="prometheus-k8s",namespace="monitoring"}[5m])
-
-- ignoring(remote_name, url) group_right
-
-  max_over_time(prometheus_remote_storage_queue_highest_sent_timestamp_seconds{job="prometheus-k8s",namespace="monitoring"}[5m])
-
-)
-
-> 120
-```
-
-处置步骤:
-
-1. 看 Prometheus 日志中 remote\_write 或 tsdb 相关报错；
-2. 远程写入失败的确认远端存储可用性与鉴权配置，并看是否触发了限流；
-3. 本地存储失败的检查磁盘空间与权限，TSDB 损坏时可能需要清理 WAL；
-4. 确认队列积压是否在下降，持续积压需要调大 queue\_config 或降低写入量。
+紧急 · 15 分钟 · PromQL、常见原因与处置步骤：[PrometheusRemoteWriteBehind](https://n9e.github.io/zh/alert-rules/prometheus/prometheusremotewritebehind.md)
 
 ### PrometheusRemoteWriteDesiredShards[​](#prometheusremotewritedesiredshards "PrometheusRemoteWriteDesiredShards的直接链接")
 
 Prometheus {{$labels.namespace}}/{{$labels.pod}} remote write desired shards calculation wants to run {{ $value }} shards for queue {{ $labels.remote\_name}}:{{ $labels.url }}, which is more than the max of {{ printf `prometheus_remote_storage_shards_max\{instance="%s",job="prometheus-k8s",namespace="monitoring"\}` $labels.instance | query | first | value }}.
 
-警告 · 15 分钟 · 触发条件:
-
-```
-# Without max_over_time, failed scrapes could create false negatives, see
-
-# https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
-
-(
-
-  max_over_time(prometheus_remote_storage_shards_desired{job="prometheus-k8s",namespace="monitoring"}[5m])
-
->
-
-  max_over_time(prometheus_remote_storage_shards_max{job="prometheus-k8s",namespace="monitoring"}[5m])
-
-)
-```
-
-处置步骤:
-
-1. 看 Prometheus 日志中 remote\_write 或 tsdb 相关报错；
-2. 远程写入失败的确认远端存储可用性与鉴权配置，并看是否触发了限流；
-3. 本地存储失败的检查磁盘空间与权限，TSDB 损坏时可能需要清理 WAL；
-4. 确认队列积压是否在下降，持续积压需要调大 queue\_config 或降低写入量。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[PrometheusRemoteWriteDesiredShards](https://n9e.github.io/zh/alert-rules/prometheus/prometheusremotewritedesiredshards.md)
 
 ### PrometheusRuleFailures[​](#prometheusrulefailures "PrometheusRuleFailures的直接链接")
 
 Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to evaluate {{ printf "%.0f" $value }} rules in the last 5m.
 
-紧急 · 15 分钟 · 触发条件:
-
-```
-increase(prometheus_rule_evaluation_failures_total{job="prometheus-k8s",namespace="monitoring"}[5m]) > 0
-```
-
-处置步骤:
-
-1. 看日志中失败规则的名称与错误；
-2. 常见为规则里的查询语法错误、引用了不存在的指标、或返回数据量过大；
-3. 用 promtool check rules 校验规则文件；
-4. 修正后确认 /rules 页该规则状态为 ok。
+紧急 · 15 分钟 · PromQL、常见原因与处置步骤：[PrometheusRuleFailures](https://n9e.github.io/zh/alert-rules/prometheus/prometheusrulefailures.md)
 
 ### PrometheusScrapeBodySizeLimitHit[​](#prometheusscrapebodysizelimithit "PrometheusScrapeBodySizeLimitHit的直接链接")
 
@@ -6555,18 +8038,7 @@ increase(prometheus_sd_refresh_failures_total{job="prometheus-k8s",namespace="mo
 
 Prometheus {{$labels.namespace}}/{{$labels.pod}} has dropped {{ printf "%.0f" $value }} targets because the number of targets exceeded the configured target\_limit.
 
-警告 · 15 分钟 · 触发条件:
-
-```
-increase(prometheus_target_scrape_pool_exceeded_target_limit_total{job="prometheus-k8s",namespace="monitoring"}[5m]) > 0
-```
-
-处置步骤:
-
-1. 在 /targets 页确认当前目标数与限制；
-2. 检查 ServiceMonitor 的 selector 是否过于宽泛，抓取了不需要的目标；
-3. 收敛 selector 或按业务拆分到多个 Prometheus 实例；
-4. 确需更多目标的调大 target\_limit 并评估资源。
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[PrometheusTargetLimitHit](https://n9e.github.io/zh/alert-rules/prometheus/prometheustargetlimithit.md)
 
 ### PrometheusTargetSyncFailure[​](#prometheustargetsyncfailure "PrometheusTargetSyncFailure的直接链接")
 
@@ -6621,7 +8093,7 @@ increase(prometheus_tsdb_reloads_failures_total{job="prometheus-k8s",namespace="
 
 ## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直接链接")
 
-* **用 Prometheus 或 vmalert**：下载 [`prometheus.yml`](https://n9e.github.io/zh/alert-rules/prometheus.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页。
+* **用 Prometheus 或 vmalert**：下载 [`prometheus.yml`](https://n9e.github.io/zh/alert-rules/prometheus.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
 * **用夜莺**：同样的规则内置在 [Kubernetes](https://n9e.github.io/zh/integrations/kubernetes.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
@@ -6633,6 +8105,647 @@ increase(prometheus_tsdb_reloads_failures_total{job="prometheus-k8s",namespace="
 * [用夜莺监控 Kubernetes](https://n9e.github.io/zh/integrations/kubernetes.md)：采集配置、仪表盘与指标说明
 * [在夜莺里写指标告警规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)
 * [全部告警规则](https://n9e.github.io/zh/alert-rules.md)
+
+
+---
+
+# PrometheusBadConfig 告警：含义、常见原因与处置
+
+Prometheus 告警 PrometheusBadConfig 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+最近一次重载 Prometheus 配置失败。Prometheus 会继续用旧配置运行，所以不会立刻出问题；但此后的所有改动（新的采集目标、新的规则文件、新的 Alertmanager 配置）都没有生效。如果配置文件一直是坏的，下次重启时 Prometheus 可能起不来。
+
+* **级别**：紧急（`critical`）
+* **持续**：10 分钟
+* 属于 [Prometheus 告警规则](https://n9e.github.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+# Without max_over_time, failed scrapes could create false negatives, see
+
+# https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
+
+max_over_time(prometheus_config_last_reload_successful{job="prometheus-k8s",namespace="monitoring"}[5m]) == 0
+```
+
+告警信息：`Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to reload its configuration.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* `prometheus.yml` 有 YAML 语法错误或未知字段。
+* `rule_files` 里列出的某个规则文件解析失败。
+* 引用的文件（TLS 证书、密码文件、file\_sd 目标列表）不存在或不可读。
+* 在 Kubernetes 上，某个 ServiceMonitor、PodMonitor 或 PrometheusRule 被 Operator 生成成了无效配置。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. kubectl logs 或实例日志里找配置解析报错的具体行；
+2. 用 promtool check config prometheus.yml 本地校验；
+3. K8s 上通常由 Operator 生成配置，检查 ServiceMonitor/PrometheusRule 是否有非法字段；
+4. 修正后确认 /-/reload 成功且 /config 页显示新配置。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 每次重载前先跑 `promtool check config prometheus.yml`。用 Operator 时，生成的配置放在一个 Secret 里，重载错误可以在 config-reloader sidecar 的日志里看到。
+* 表达式里限定了 `job="prometheus-k8s"`、`namespace="monitoring"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `prometheus_config_last_reload_successful`（Prometheus 自身指标）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [PrometheusRuleFailures](https://n9e.github.io/zh/alert-rules/prometheus/prometheusrulefailures.md)：Prometheus …/… has failed to evaluate … rules in the last 5m.
+* [PrometheusOperatorRejectedResources](https://n9e.github.io/zh/alert-rules/prometheus/prometheusoperatorrejectedresources.md)：Prometheus operator in … namespace rejected … …/… resources.
+* [PrometheusOperatorReconcileErrors](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheusoperatorreconcileerrors)：… of reconciling operations failed for … controller in … namespace.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.github.io/zh/alert-rules/prometheus.yml)。
+
+```
+- alert: PrometheusBadConfig
+
+  expr: |-
+
+    # Without max_over_time, failed scrapes could create false negatives, see
+
+    # https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
+
+    max_over_time(prometheus_config_last_reload_successful{job="prometheus-k8s",namespace="monitoring"}[5m]) == 0
+
+  for: 10m
+
+  labels:
+
+    severity: critical
+
+  annotations:
+
+    summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to reload its configuration."
+
+    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusbadconfig"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# PrometheusNotConnectedToAlertmanagers 告警：含义、常见原因与处置
+
+Prometheus 告警 PrometheusNotConnectedToAlertmanagers 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+Prometheus 没有发现任何可以发送告警的 Alertmanager。规则照常求值，告警在 Prometheus 的 `/alerts` 页面上照样显示为触发，但没有任何通知发出去。一切都静悄悄的、看不出异常，所以这条告警应该走一条不依赖同一个 Alertmanager 的通道发出。
+
+* **级别**：警告（`warning`）
+* **持续**：10 分钟
+* 属于 [Prometheus 告警规则](https://n9e.github.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+# Without max_over_time, failed scrapes could create false negatives, see
+
+# https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
+
+max_over_time(prometheus_notifications_alertmanagers_discovered{job="prometheus-k8s",namespace="monitoring"}[5m]) < 1
+```
+
+告警信息：`Prometheus {{$labels.namespace}}/{{$labels.pod}} is not connected to any Alertmanagers.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* 配置里的 `alerting` 段缺失或被删了。
+* Alertmanager 服务发现没有结果：服务名、命名空间或端口名写错。用 Operator 的话，检查 Prometheus 资源里的 `spec.alerting.alertmanagers`。
+* Prometheus 没有 RBAC 权限列出 Alertmanager 服务的 endpoints。
+* Alertmanager 的 Pod 全挂了，服务下没有任何 endpoint。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. 检查 Alertmanager 实例是否健康、网络是否连通；
+2. 在 Prometheus 的 /status 页确认 Alertmanager 发现是否正常；
+3. 队列满的排查 Alertmanager 处理是否卡住，或告警量是否异常暴涨；
+4. 恢复后确认 Alertmanager 已收到告警，避免静默失败。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* Prometheus 的 `/status` 页面（Runtime & Build Information）会列出已发现的 Alertmanager。
+* 表达式里限定了 `job="prometheus-k8s"`、`namespace="monitoring"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `prometheus_notifications_alertmanagers_discovered`（Prometheus 自身指标）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [PrometheusErrorSendingAlertsToAnyAlertmanager](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheuserrorsendingalertstoanyalertmanager)：…% minimum errors while sending alerts from Prometheus …/… to any Alertmanager.
+* [PrometheusErrorSendingAlertsToSomeAlertmanagers](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheuserrorsendingalertstosomealertmanagers)：…% errors while sending alerts from Prometheus …/… to Alertmanager ….
+* [PrometheusNotificationQueueRunningFull](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheusnotificationqueuerunningfull)：Alert notification queue of Prometheus …/… is running full.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.github.io/zh/alert-rules/prometheus.yml)。
+
+```
+- alert: PrometheusNotConnectedToAlertmanagers
+
+  expr: |-
+
+    # Without max_over_time, failed scrapes could create false negatives, see
+
+    # https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
+
+    max_over_time(prometheus_notifications_alertmanagers_discovered{job="prometheus-k8s",namespace="monitoring"}[5m]) < 1
+
+  for: 10m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} is not connected to any Alertmanagers."
+
+    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# PrometheusOperatorRejectedResources 告警：含义、常见原因与处置
+
+Prometheus 告警 PrometheusOperatorRejectedResources 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+Prometheus Operator 拒绝了一个或多个监控资源（ServiceMonitor、PodMonitor、Probe、PrometheusRule、AlertmanagerConfig），没有把它们放进生成的配置。这些资源在集群里照样存在，`kubectl apply` 也成功了，但它们描述的目标没有被采集，里面的规则也没有加载。除了这条告警，没有别的地方会提醒你。
+
+* **级别**：警告（`warning`）
+* **持续**：5 分钟
+* 属于 [Prometheus 告警规则](https://n9e.github.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+min_over_time(prometheus_operator_managed_resources{state="rejected",job="prometheus-operator",namespace="monitoring"}[5m]) > 0
+```
+
+告警信息：`Prometheus operator in {{ $labels.namespace }} namespace rejected {{ printf "%0.0f" $value }} {{ $labels.controller }}/{{ $labels.resource }} resources.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* PrometheusRule 里有解析不了的规则，比如 PromQL 写错或时长格式不对。
+* ServiceMonitor 或 PodMonitor 要读取 Prometheus 所在文件系统里的文件（`bearerTokenFile`、TLS 文件路径），而 Operator 配置为禁止这种用法。
+* 资源引用的 Secret 或 ConfigMap 不存在，或者在 Operator 无权读取的命名空间里。
+* AlertmanagerConfig 使用的接收器或字段没有通过 Operator 的校验。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. kubectl logs -n \<ns> deploy/prometheus-operator 看具体报错；
+2. 权限类报错核对 Operator 的 ClusterRole 是否覆盖了所需资源；
+3. Reconcile/Sync 失败的检查对应的 CRD 对象是否配置有误（kubectl describe servicemonitor/prometheusrule）；
+4. 被拒绝的资源用 kubectl describe 看拒绝原因，通常是字段校验不通过。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 告警上的 `controller` 和 `resource` 标签说明了被拒的是哪类对象，Operator 日志里有具体对象名和原因。
+* 表达式里限定了 `job="prometheus-operator"`、`namespace="monitoring"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `prometheus_operator_managed_resources`（Prometheus Operator）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [PrometheusOperatorReconcileErrors](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheusoperatorreconcileerrors)：… of reconciling operations failed for … controller in … namespace.
+* [PrometheusOperatorSyncFailed](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheusoperatorsyncfailed)：Controller … in … namespace fails to reconcile … objects.
+* [PrometheusBadConfig](https://n9e.github.io/zh/alert-rules/prometheus/prometheusbadconfig.md)：Prometheus …/… has failed to reload its configuration.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.github.io/zh/alert-rules/prometheus.yml)。
+
+```
+- alert: PrometheusOperatorRejectedResources
+
+  expr: |-
+
+    min_over_time(prometheus_operator_managed_resources{state="rejected",job="prometheus-operator",namespace="monitoring"}[5m]) > 0
+
+  for: 5m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "Prometheus operator in {{ $labels.namespace }} namespace rejected {{ printf \"%0.0f\" $value }} {{ $labels.controller }}/{{ $labels.resource }} resources."
+
+    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusoperatorrejectedresources"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# PrometheusRemoteWriteBehind 告警：含义、常见原因与处置
+
+Prometheus 告警 PrometheusRemoteWriteBehind 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+Remote Write 落后超过 2 分钟：Prometheus 已接收的最新样本，比已发往远端的最新样本新了 120 秒以上。读远端存储（VictoriaMetrics、Thanos Receive、Mimir、托管服务）的仪表盘和告警看到的都是旧数据。落后量如果持续扩大，可能有样本在发出去之前就被丢掉。
+
+* **级别**：紧急（`critical`）
+* **持续**：15 分钟
+* 属于 [Prometheus 告警规则](https://n9e.github.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+# Without max_over_time, failed scrapes could create false negatives, see
+
+# https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
+
+(
+
+  max_over_time(prometheus_remote_storage_highest_timestamp_in_seconds{job="prometheus-k8s",namespace="monitoring"}[5m])
+
+- ignoring(remote_name, url) group_right
+
+  max_over_time(prometheus_remote_storage_queue_highest_sent_timestamp_seconds{job="prometheus-k8s",namespace="monitoring"}[5m])
+
+)
+
+> 120
+```
+
+告警信息：`Prometheus {{$labels.namespace}}/{{$labels.pod}} remote write is {{ printf "%.1f" $value }}s behind for {{ $labels.remote_name}}:{{ $labels.url }}.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* 远端写入慢或拒绝写入：过载、用 HTTP 429 限流，或者返回错误。
+* Prometheus 到远端的网络延迟或带宽撑不住写入量。
+* Remote Write 的分片（shard）上限相对序列数太低（见 PrometheusRemoteWriteDesiredShards）。
+* 序列数突增（比如新增了一个高基数标签），写入量成倍增加。
+* Prometheus 重启后在回放大量 WAL，正在追赶。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. 看 Prometheus 日志中 remote\_write 或 tsdb 相关报错；
+2. 远程写入失败的确认远端存储可用性与鉴权配置，并看是否触发了限流；
+3. 本地存储失败的检查磁盘空间与权限，TSDB 损坏时可能需要清理 WAL；
+4. 确认队列积压是否在下降，持续积压需要调大 queue\_config 或降低写入量。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 表达式里限定了 `job="prometheus-k8s"`、`namespace="monitoring"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `prometheus_remote_storage_highest_timestamp_in_seconds`（Prometheus 自身指标）
+* `prometheus_remote_storage_queue_highest_sent_timestamp_seconds`（Prometheus 自身指标）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [PrometheusRemoteWriteDesiredShards](https://n9e.github.io/zh/alert-rules/prometheus/prometheusremotewritedesiredshards.md)：Prometheus …/… remote write desired shards calculation wants to run … shards for queue …:…, which is more than the max of {{ printf `prometheus_remote_storage_shards_max\{instance="%s",job="prometheus-k8s",namespace="monitoring"\}` $labels.instance | query | first | value }}.
+* [PrometheusRemoteStorageFailures](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheusremotestoragefailures)：Prometheus …/… failed to send …% of the samples to …:…
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.github.io/zh/alert-rules/prometheus.yml)。
+
+```
+- alert: PrometheusRemoteWriteBehind
+
+  expr: |-
+
+    # Without max_over_time, failed scrapes could create false negatives, see
+
+    # https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
+
+    (
+
+      max_over_time(prometheus_remote_storage_highest_timestamp_in_seconds{job="prometheus-k8s",namespace="monitoring"}[5m])
+
+    - ignoring(remote_name, url) group_right
+
+      max_over_time(prometheus_remote_storage_queue_highest_sent_timestamp_seconds{job="prometheus-k8s",namespace="monitoring"}[5m])
+
+    )
+
+    > 120
+
+  for: 15m
+
+  labels:
+
+    severity: critical
+
+  annotations:
+
+    summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} remote write is {{ printf \"%.1f\" $value }}s behind for {{ $labels.remote_name}}:{{ $labels.url }}."
+
+    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusremotewritebehind"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# PrometheusRemoteWriteDesiredShards 告警：含义、常见原因与处置
+
+Prometheus 告警 PrometheusRemoteWriteDesiredShards 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+Remote Write 会根据进来的样本速度，计算需要多少个并行分片（shard）才能跟上。这条告警在这个计算值连续 15 分钟高于配置的 `max_shards` 时触发：Remote Write 加不了它需要的分片，如果情况不变，就会开始落后（PrometheusRemoteWriteBehind）。
+
+* **级别**：警告（`warning`）
+* **持续**：15 分钟
+* 属于 [Prometheus 告警规则](https://n9e.github.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+# Without max_over_time, failed scrapes could create false negatives, see
+
+# https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
+
+(
+
+  max_over_time(prometheus_remote_storage_shards_desired{job="prometheus-k8s",namespace="monitoring"}[5m])
+
+>
+
+  max_over_time(prometheus_remote_storage_shards_max{job="prometheus-k8s",namespace="monitoring"}[5m])
+
+)
+```
+
+告警信息：Prometheus {{$labels.namespace}}/{{$labels.pod}} remote write desired shards calculation wants to run {{ $value }} shards for queue {{ $labels.remote\_name}}:{{ $labels.url }}, which is more than the max of {{ printf `prometheus_remote_storage_shards_max\{instance="%s",job="prometheus-k8s",namespace="monitoring"\}` $labels.instance | query | first | value }}.
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* 序列数或采集频率增加了，每秒要发的样本更多。
+* 远端或网络变慢，每次发送耗时变长，同样的吞吐需要更多分片。
+* `queue_config` 里的 `max_shards` 设得比实际需要低。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. 看 Prometheus 日志中 remote\_write 或 tsdb 相关报错；
+2. 远程写入失败的确认远端存储可用性与鉴权配置，并看是否触发了限流；
+3. 本地存储失败的检查磁盘空间与权限，TSDB 损坏时可能需要清理 WAL；
+4. 确认队列积压是否在下降，持续积压需要调大 queue\_config 或降低写入量。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* 先解决原因，再调上限。远端慢的话，加分片只会给它更大压力；写入量确实涨了，再调大 `max_shards`，或调大 `max_samples_per_send` 让每批发得更多，同时确认 Prometheus 有足够的内存承载更大的队列。
+* 表达式里限定了 `job="prometheus-k8s"`、`namespace="monitoring"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `prometheus_remote_storage_shards_desired`（Prometheus 自身指标）
+* `prometheus_remote_storage_shards_max`（Prometheus 自身指标）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [PrometheusRemoteWriteBehind](https://n9e.github.io/zh/alert-rules/prometheus/prometheusremotewritebehind.md)：Prometheus …/… remote write is …s behind for …:….
+* [PrometheusRemoteStorageFailures](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheusremotestoragefailures)：Prometheus …/… failed to send …% of the samples to …:…
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.github.io/zh/alert-rules/prometheus.yml)。
+
+```
+- alert: PrometheusRemoteWriteDesiredShards
+
+  expr: |-
+
+    # Without max_over_time, failed scrapes could create false negatives, see
+
+    # https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
+
+    (
+
+      max_over_time(prometheus_remote_storage_shards_desired{job="prometheus-k8s",namespace="monitoring"}[5m])
+
+    >
+
+      max_over_time(prometheus_remote_storage_shards_max{job="prometheus-k8s",namespace="monitoring"}[5m])
+
+    )
+
+  for: 15m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} remote write desired shards calculation wants to run {{ $value }} shards for queue {{ $labels.remote_name}}:{{ $labels.url }}, which is more than the max of {{ printf `prometheus_remote_storage_shards_max{instance=\"%s\",job=\"prometheus-k8s\",namespace=\"monitoring\"}` $labels.instance | query | first | value }}."
+
+    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusremotewritedesiredshards"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# PrometheusRuleFailures 告警：含义、常见原因与处置
+
+Prometheus 告警 PrometheusRuleFailures 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+Prometheus 在过去 5 分钟里有告警规则或 recording rule 求值失败。求值失败的规则不产生结果：本该触发的告警不会响，recording rule 会出现数据断档，依赖它的其它规则和仪表盘也跟着读到空值。
+
+* **级别**：紧急（`critical`）
+* **持续**：15 分钟
+* 属于 [Prometheus 告警规则](https://n9e.github.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+increase(prometheus_rule_evaluation_failures_total{job="prometheus-k8s",namespace="monitoring"}[5m]) > 0
+```
+
+告警信息：`Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to evaluate {{ printf "%.0f" $value }} rules in the last 5m.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* 只在特定数据下出现的向量匹配错误：新增了一个标签或出现重复目标后，报 `many-to-many matching not allowed` 或 `found duplicate series for the match group`。
+* 查询超过了查询超时时间，或超过了允许加载的最大样本数。
+* 规则引用的 recording rule 或指标改了名，组合表达式开始报错。
+* 求值时远程读或存储出错。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. 看日志中失败规则的名称与错误；
+2. 常见为规则里的查询语法错误、引用了不存在的指标、或返回数据量过大；
+3. 用 promtool check rules 校验规则文件；
+4. 修正后确认 /rules 页该规则状态为 ok。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* Prometheus 界面的 `/rules` 页面会显示每条规则最近一次的错误，比翻日志快。这类错误有些和数据有关，所以 `promtool check rules` 能通过，求值时仍然会失败。
+* 表达式里限定了 `job="prometheus-k8s"`、`namespace="monitoring"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `prometheus_rule_evaluation_failures_total`（Prometheus 自身指标）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [PrometheusMissingRuleEvaluations](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheusmissingruleevaluations)：Prometheus …/… has missed … rule group evaluations in the last 5m.
+* [PrometheusBadConfig](https://n9e.github.io/zh/alert-rules/prometheus/prometheusbadconfig.md)：Prometheus …/… has failed to reload its configuration.
+* [PrometheusOperatorRejectedResources](https://n9e.github.io/zh/alert-rules/prometheus/prometheusoperatorrejectedresources.md)：Prometheus operator in … namespace rejected … …/… resources.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.github.io/zh/alert-rules/prometheus.yml)。
+
+```
+- alert: PrometheusRuleFailures
+
+  expr: |-
+
+    increase(prometheus_rule_evaluation_failures_total{job="prometheus-k8s",namespace="monitoring"}[5m]) > 0
+
+  for: 15m
+
+  labels:
+
+    severity: critical
+
+  annotations:
+
+    summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to evaluate {{ printf \"%.0f\" $value }} rules in the last 5m."
+
+    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusrulefailures"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
+
+
+---
+
+# PrometheusTargetLimitHit 告警：含义、常见原因与处置
+
+Prometheus 告警 PrometheusTargetLimitHit 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
+
+最后校对于 2026-10-31
+
+某个采集任务发现的目标数超过了它的 `target_limit`。这时 Prometheus 不会只抓前 N 个，而是把这个采集池里的所有目标都标成失败，一个都不抓。整个任务一下子全部断掉，对应的 `up` 序列全部变成 0。
+
+* **级别**：警告（`warning`）
+* **持续**：15 分钟
+* 属于 [Prometheus 告警规则](https://n9e.github.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
+
+## 规则[​](#规则 "规则的直接链接")
+
+```
+increase(prometheus_target_scrape_pool_exceeded_target_limit_total{job="prometheus-k8s",namespace="monitoring"}[5m]) > 0
+```
+
+告警信息：`Prometheus {{$labels.namespace}}/{{$labels.pod}} has dropped {{ printf "%.0f" $value }} targets because the number of targets exceeded the configured target_limit.`
+
+## 常见原因[​](#常见原因 "常见原因的直接链接")
+
+* ServiceMonitor 或 PodMonitor 的选择器太宽，匹配到了本不该采集的 Service 或 Pod。
+* 被监控的负载扩容超过了上限，比如大规模的 DaemonSet，或者 HPA 扩容。
+* 原本用来过滤多余目标的 relabel 规则被改掉或删掉了。
+* 上限是按更小的集群设的，后来没有调整。
+
+## 处置步骤[​](#处置步骤 "处置步骤的直接链接")
+
+1. 在 /targets 页确认当前目标数与限制；
+2. 检查 ServiceMonitor 的 selector 是否过于宽泛，抓取了不需要的目标；
+3. 收敛 selector 或按业务拆分到多个 Prometheus 实例；
+4. 确需更多目标的调大 target\_limit 并评估资源。
+
+## 补充说明[​](#补充说明 "补充说明的直接链接")
+
+* `/targets` 页面上，受影响的任务会显示一条提到 target limit 的错误。用 Operator 时，上限可能来自 ServiceMonitor 或 PodMonitor 的 `targetLimit`，也可能来自 Prometheus 资源的 `enforcedTargetLimit`。
+* 表达式里限定了 `job="prometheus-k8s"`、`namespace="monitoring"`。如果你的采集任务或命名空间叫别的名字，要改掉这些匹配条件，否则规则永远匹配不到数据。
+
+## 用到的指标[​](#用到的指标 "用到的指标的直接链接")
+
+* `prometheus_target_scrape_pool_exceeded_target_limit_total`（Prometheus 自身指标）
+
+## 相关告警[​](#相关告警 "相关告警的直接链接")
+
+* [PrometheusScrapeSampleLimitHit](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheusscrapesamplelimithit)：Prometheus …/… has failed … scrapes in the last 5m because some targets exceeded the configured sample\_limit.
+* [PrometheusLabelLimitHit](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheuslabellimithit)：Prometheus …/… has dropped … targets because some samples exceeded the configured label\_limit, label\_name\_length\_limit or label\_value\_length\_limit.
+* [PrometheusTargetSyncFailure](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheustargetsyncfailure)：… targets in Prometheus …/… have failed to sync because invalid configuration was supplied.
+
+## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
+
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.github.io/zh/alert-rules/prometheus.yml)。
+
+```
+- alert: PrometheusTargetLimitHit
+
+  expr: |-
+
+    increase(prometheus_target_scrape_pool_exceeded_target_limit_total{job="prometheus-k8s",namespace="monitoring"}[5m]) > 0
+
+  for: 15m
+
+  labels:
+
+    severity: warning
+
+  annotations:
+
+    summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} has dropped {{ printf \"%.0f\" $value }} targets because the number of targets exceeded the configured target_limit."
+
+    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheustargetlimithit"
+```
+
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+
+## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
+
+规则表达式改编自 [kube-prometheus](https://github.com/prometheus-operator/kube-prometheus)（Apache-2.0）。处置步骤来自[夜莺的集成模板](https://github.com/ccfos/nightingale/tree/main/integrations)（Apache-2.0），含义和常见原因为本页撰写。
 
 
 ---
@@ -6869,16 +8982,16 @@ rate(redis_keyspace_hits[5m])
 3. 应急执行 CONFIG SET maxclients <更大值>，同时确认系统 ulimit -n 足够；
 4. 根因侧收敛应用连接池大小、开启连接复用。
 
-## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直�接链接")
+## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直接链接")
 
-* **用 Prometheus 或 vmalert**：下载 [`redis.yml`](https://n9e.github.io/zh/alert-rules/redis.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页。
+* **用 Prometheus 或 vmalert**：下载 [`redis.yml`](https://n9e.github.io/zh/alert-rules/redis.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
 * **用夜莺**：同样的规则内置在 [Redis](https://n9e.github.io/zh/integrations/redis.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 
 处置步骤和其余规则来自夜莺的集成模板（[Redis](https://github.com/ccfos/nightingale/tree/main/integrations/Redis)，Apache-2.0），欢迎在那里提 PR 修正。
 
-## 相关链接[​](#相关链接 "相关链接的直接链接")
+## 相关链接[​](#�相关链接 "相关链接的直接链接")
 
 * [用夜莺监控 Redis](https://n9e.github.io/zh/integrations/redis.md)：采集配置、仪表盘与指标说明
 * [在夜莺里写指标告警规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)
@@ -7147,7 +9260,7 @@ disk_used_percent{platform=~"windows"} > 99 and disk_total{platform=~"windows"}/
 
 ## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直接链接")
 
-* **用 Prometheus 或 vmalert**：下载 [`windows.yml`](https://n9e.github.io/zh/alert-rules/windows.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页。
+* **用 Prometheus 或 vmalert**：下载 [`windows.yml`](https://n9e.github.io/zh/alert-rules/windows.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
 * **用夜莺**：同样的规则内置在 [Windows](https://n9e.github.io/zh/integrations/windows.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")

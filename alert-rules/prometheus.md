@@ -15,38 +15,38 @@ Rules that watch Prometheus itself: a bad configuration reload, failing or misse
 
 ## Rule list[​](#rule-list "Direct link to Rule list")
 
-| Rule                                            | Severity | For  |
-| ----------------------------------------------- | -------- | ---- |
-| ConfigReloaderSidecarErrors                     | Warning  | 10m  |
-| PrometheusOperatorListErrors                    | Warning  | 15m  |
-| PrometheusOperatorNodeLookupErrors              | Warning  | 10m  |
-| PrometheusOperatorNotReady                      | Warning  | 5m   |
-| PrometheusOperatorReconcileErrors               | Warning  | 10m  |
-| PrometheusOperatorRejectedResources             | Warning  | 5m   |
-| PrometheusOperatorSyncFailed                    | Warning  | 10m  |
-| PrometheusOperatorWatchErrors                   | Warning  | 15m  |
-| PrometheusBadConfig                             | Critical | 10m  |
-| PrometheusDuplicateTimestamps                   | Warning  | 10m  |
-| PrometheusErrorSendingAlertsToAnyAlertmanager   | Critical | 15m  |
-| PrometheusErrorSendingAlertsToSomeAlertmanagers | Warning  | 15m  |
-| PrometheusHighQueryLoad                         | Warning  | 15m  |
-| PrometheusLabelLimitHit                         | Warning  | 15m  |
-| PrometheusMissingRuleEvaluations                | Warning  | 15m  |
-| PrometheusNotConnectedToAlertmanagers           | Warning  | 10m  |
-| PrometheusNotificationQueueRunningFull          | Warning  | 15m  |
-| PrometheusNotIngestingSamples                   | Warning  | 10m  |
-| PrometheusOutOfOrderTimestamps                  | Warning  | 10m  |
-| PrometheusRemoteStorageFailures                 | Critical | 15m  |
-| PrometheusRemoteWriteBehind                     | Critical | 15m  |
-| PrometheusRemoteWriteDesiredShards              | Warning  | 15m  |
-| PrometheusRuleFailures                          | Critical | 15m  |
-| PrometheusScrapeBodySizeLimitHit                | Warning  | 15m  |
-| PrometheusScrapeSampleLimitHit                  | Warning  | 15m  |
-| PrometheusSDRefreshFailure                      | Warning  | 20m  |
-| PrometheusTargetLimitHit                        | Warning  | 15m  |
-| PrometheusTargetSyncFailure                     | Critical | 5m   |
-| PrometheusTSDBCompactionsFailing                | Warning  | 240m |
-| PrometheusTSDBReloadsFailing                    | Warning  | 240m |
+| Rule                                                                                                                           | Severity | For  |
+| ------------------------------------------------------------------------------------------------------------------------------ | -------- | ---- |
+| ConfigReloaderSidecarErrors                                                                                                    | Warning  | 10m  |
+| PrometheusOperatorListErrors                                                                                                   | Warning  | 15m  |
+| PrometheusOperatorNodeLookupErrors                                                                                             | Warning  | 10m  |
+| PrometheusOperatorNotReady                                                                                                     | Warning  | 5m   |
+| PrometheusOperatorReconcileErrors                                                                                              | Warning  | 10m  |
+| [PrometheusOperatorRejectedResources](https://n9e.github.io/alert-rules/prometheus/prometheusoperatorrejectedresources.md)     | Warning  | 5m   |
+| PrometheusOperatorSyncFailed                                                                                                   | Warning  | 10m  |
+| PrometheusOperatorWatchErrors                                                                                                  | Warning  | 15m  |
+| [PrometheusBadConfig](https://n9e.github.io/alert-rules/prometheus/prometheusbadconfig.md)                                     | Critical | 10m  |
+| PrometheusDuplicateTimestamps                                                                                                  | Warning  | 10m  |
+| PrometheusErrorSendingAlertsToAnyAlertmanager                                                                                  | Critical | 15m  |
+| PrometheusErrorSendingAlertsToSomeAlertmanagers                                                                                | Warning  | 15m  |
+| PrometheusHighQueryLoad                                                                                                        | Warning  | 15m  |
+| PrometheusLabelLimitHit                                                                                                        | Warning  | 15m  |
+| PrometheusMissingRuleEvaluations                                                                                               | Warning  | 15m  |
+| [PrometheusNotConnectedToAlertmanagers](https://n9e.github.io/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers.md) | Warning  | 10m  |
+| PrometheusNotificationQueueRunningFull                                                                                         | Warning  | 15m  |
+| PrometheusNotIngestingSamples                                                                                                  | Warning  | 10m  |
+| PrometheusOutOfOrderTimestamps                                                                                                 | Warning  | 10m  |
+| PrometheusRemoteStorageFailures                                                                                                | Critical | 15m  |
+| [PrometheusRemoteWriteBehind](https://n9e.github.io/alert-rules/prometheus/prometheusremotewritebehind.md)                     | Critical | 15m  |
+| [PrometheusRemoteWriteDesiredShards](https://n9e.github.io/alert-rules/prometheus/prometheusremotewritedesiredshards.md)       | Warning  | 15m  |
+| [PrometheusRuleFailures](https://n9e.github.io/alert-rules/prometheus/prometheusrulefailures.md)                               | Critical | 15m  |
+| PrometheusScrapeBodySizeLimitHit                                                                                               | Warning  | 15m  |
+| PrometheusScrapeSampleLimitHit                                                                                                 | Warning  | 15m  |
+| PrometheusSDRefreshFailure                                                                                                     | Warning  | 20m  |
+| [PrometheusTargetLimitHit](https://n9e.github.io/alert-rules/prometheus/prometheustargetlimithit.md)                           | Warning  | 15m  |
+| PrometheusTargetSyncFailure                                                                                                    | Critical | 5m   |
+| PrometheusTSDBCompactionsFailing                                                                                               | Warning  | 240m |
+| PrometheusTSDBReloadsFailing                                                                                                   | Warning  | 240m |
 
 ## Prometheus self-monitoring (30)[​](#prometheus-self-monitoring-30 "Direct link to Prometheus self-monitoring (30)")
 
@@ -139,18 +139,7 @@ Runbook:
 
 Prometheus operator in {{ $labels.namespace }} namespace rejected {{ printf "%0.0f" $value }} {{ $labels.controller }}/{{ $labels.resource }} resources.
 
-Warning · 5m · Trigger:
-
-```
-min_over_time(prometheus_operator_managed_resources{state="rejected",job="prometheus-operator",namespace="monitoring"}[5m]) > 0
-```
-
-Runbook:
-
-1. Run kubectl logs -n \<ns> deploy/prometheus-operator for the specific error;
-2. For permission errors, verify the Operator's ClusterRole covers the required resources;
-3. For Reconcile/Sync failures, check the corresponding CRD objects (kubectl describe servicemonitor/prometheusrule);
-4. For rejected resources, kubectl describe shows the rejection reason, usually failed field validation.
+Warning · 5m · PromQL, common causes and runbook: [PrometheusOperatorRejectedResources](https://n9e.github.io/alert-rules/prometheus/prometheusoperatorrejectedresources.md)
 
 ### PrometheusOperatorSyncFailed[​](#prometheusoperatorsyncfailed "Direct link to PrometheusOperatorSyncFailed")
 
@@ -190,22 +179,7 @@ Runbook:
 
 Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to reload its configuration.
 
-Critical · 10m · Trigger:
-
-```
-# Without max_over_time, failed scrapes could create false negatives, see
-
-# https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
-
-max_over_time(prometheus_config_last_reload_successful{job="prometheus-k8s",namespace="monitoring"}[5m]) == 0
-```
-
-Runbook:
-
-1. Find the config parse error line in kubectl logs or the instance log;
-2. Validate locally with promtool check config prometheus.yml;
-3. On Kubernetes the config is usually generated by the Operator — check ServiceMonitor/PrometheusRule for invalid fields;
-4. After fixing, confirm /-/reload succeeded and the /config page shows the new configuration.
+Critical · 10m · PromQL, common causes and runbook: [PrometheusBadConfig](https://n9e.github.io/alert-rules/prometheus/prometheusbadconfig.md)
 
 ### PrometheusDuplicateTimestamps[​](#prometheusduplicatetimestamps "Direct link to PrometheusDuplicateTimestamps")
 
@@ -337,22 +311,7 @@ Runbook:
 
 Prometheus {{$labels.namespace}}/{{$labels.pod}} is not connected to any Alertmanagers.
 
-Warning · 10m · Trigger:
-
-```
-# Without max_over_time, failed scrapes could create false negatives, see
-
-# https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
-
-max_over_time(prometheus_notifications_alertmanagers_discovered{job="prometheus-k8s",namespace="monitoring"}[5m]) < 1
-```
-
-Runbook:
-
-1. Check whether the Alertmanager instances are healthy and reachable;
-2. Confirm Alertmanager discovery on the Prometheus /status page;
-3. If the queue is full, check whether Alertmanager processing is stuck or the alert volume spiked abnormally;
-4. After recovery, confirm Alertmanager actually received the alerts so nothing fails silently.
+Warning · 10m · PromQL, common causes and runbook: [PrometheusNotConnectedToAlertmanagers](https://n9e.github.io/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers.md)
 
 ### PrometheusNotificationQueueRunningFull[​](#prometheusnotificationqueuerunningfull "Direct link to PrometheusNotificationQueueRunningFull")
 
@@ -474,78 +433,19 @@ Runbook:
 
 Prometheus {{$labels.namespace}}/{{$labels.pod}} remote write is {{ printf "%.1f" $value }}s behind for {{ $labels.remote\_name}}:{{ $labels.url }}.
 
-Critical · 15m · Trigger:
-
-```
-# Without max_over_time, failed scrapes could create false negatives, see
-
-# https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
-
-(
-
-  max_over_time(prometheus_remote_storage_highest_timestamp_in_seconds{job="prometheus-k8s",namespace="monitoring"}[5m])
-
-- ignoring(remote_name, url) group_right
-
-  max_over_time(prometheus_remote_storage_queue_highest_sent_timestamp_seconds{job="prometheus-k8s",namespace="monitoring"}[5m])
-
-)
-
-> 120
-```
-
-Runbook:
-
-1. Check the Prometheus log for remote\_write or tsdb errors;
-2. For remote write failures, confirm remote storage availability and credentials, and check for throttling;
-3. For local storage failures, check disk space and permissions — a corrupted TSDB may require clearing the WAL;
-4. Confirm the queue backlog is draining; if not, raise queue\_config or reduce the write volume.
+Critical · 15m · PromQL, common causes and runbook: [PrometheusRemoteWriteBehind](https://n9e.github.io/alert-rules/prometheus/prometheusremotewritebehind.md)
 
 ### PrometheusRemoteWriteDesiredShards[​](#prometheusremotewritedesiredshards "Direct link to PrometheusRemoteWriteDesiredShards")
 
 Prometheus {{$labels.namespace}}/{{$labels.pod}} remote write desired shards calculation wants to run {{ $value }} shards for queue {{ $labels.remote\_name}}:{{ $labels.url }}, which is more than the max of {{ printf `prometheus_remote_storage_shards_max\{instance="%s",job="prometheus-k8s",namespace="monitoring"\}` $labels.instance | query | first | value }}.
 
-Warning · 15m · Trigger:
-
-```
-# Without max_over_time, failed scrapes could create false negatives, see
-
-# https://www.robustperception.io/alerting-on-gauges-in-prometheus-2-0 for details.
-
-(
-
-  max_over_time(prometheus_remote_storage_shards_desired{job="prometheus-k8s",namespace="monitoring"}[5m])
-
->
-
-  max_over_time(prometheus_remote_storage_shards_max{job="prometheus-k8s",namespace="monitoring"}[5m])
-
-)
-```
-
-Runbook:
-
-1. Check the Prometheus log for remote\_write or tsdb errors;
-2. For remote write failures, confirm remote storage availability and credentials, and check for throttling;
-3. For local storage failures, check disk space and permissions — a corrupted TSDB may require clearing the WAL;
-4. Confirm the queue backlog is draining; if not, raise queue\_config or reduce the write volume.
+Warning · 15m · PromQL, common causes and runbook: [PrometheusRemoteWriteDesiredShards](https://n9e.github.io/alert-rules/prometheus/prometheusremotewritedesiredshards.md)
 
 ### PrometheusRuleFailures[​](#prometheusrulefailures "Direct link to PrometheusRuleFailures")
 
 Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to evaluate {{ printf "%.0f" $value }} rules in the last 5m.
 
-Critical · 15m · Trigger:
-
-```
-increase(prometheus_rule_evaluation_failures_total{job="prometheus-k8s",namespace="monitoring"}[5m]) > 0
-```
-
-Runbook:
-
-1. Check the log for the failing rule name and error;
-2. Common causes are a query syntax error in the rule, a reference to a non-existent metric, or an oversized result;
-3. Validate the rule files with promtool check rules;
-4. After fixing, confirm the rule shows ok on the /rules page.
+Critical · 15m · PromQL, common causes and runbook: [PrometheusRuleFailures](https://n9e.github.io/alert-rules/prometheus/prometheusrulefailures.md)
 
 ### PrometheusScrapeBodySizeLimitHit[​](#prometheusscrapebodysizelimithit "Direct link to PrometheusScrapeBodySizeLimitHit")
 
@@ -602,18 +502,7 @@ Runbook:
 
 Prometheus {{$labels.namespace}}/{{$labels.pod}} has dropped {{ printf "%.0f" $value }} targets because the number of targets exceeded the configured target\_limit.
 
-Warning · 15m · Trigger:
-
-```
-increase(prometheus_target_scrape_pool_exceeded_target_limit_total{job="prometheus-k8s",namespace="monitoring"}[5m]) > 0
-```
-
-Runbook:
-
-1. Confirm the current target count against the limit on the /targets page;
-2. Check whether the ServiceMonitor selector is too broad and picking up unwanted targets;
-3. Tighten the selector or split across multiple Prometheus instances by business domain;
-4. If more targets are genuinely needed, raise target\_limit and size the resources accordingly.
+Warning · 15m · PromQL, common causes and runbook: [PrometheusTargetLimitHit](https://n9e.github.io/alert-rules/prometheus/prometheustargetlimithit.md)
 
 ### PrometheusTargetSyncFailure[​](#prometheustargetsyncfailure "Direct link to PrometheusTargetSyncFailure")
 
@@ -668,7 +557,7 @@ Runbook:
 
 ## How to use these rules[​](#how-to-use-these-rules "Direct link to How to use these rules")
 
-* **With Prometheus or vmalert**: download [`prometheus.yml`](https://n9e.github.io/alert-rules/prometheus.yml), add it to `rule_files` (or `-rule` for vmalert), check the metric names against your exporter version, and tune thresholds. Severity is set as a `severity` label (critical / warning / info), and `runbook_url` points back to this page.
+* **With Prometheus or vmalert**: download [`prometheus.yml`](https://n9e.github.io/alert-rules/prometheus.yml), add it to `rule_files` (or `-rule` for vmalert), check the metric names against your exporter version, and tune thresholds. Severity is set as a `severity` label (critical / warning / info), and `runbook_url` points back to this page, or to the rule's own page where it has one.
 * **With Nightingale**: the same rules ship in the [Kubernetes](https://n9e.github.io/integrations/kubernetes.md) integration template. Open the integration center, [import the rules into a business group](https://n9e.github.io/docs/data/integrations/import.md), and enable them one by one. Nightingale keeps the runbook with each alert and can evaluate the rules against Prometheus, VictoriaMetrics and other data sources.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
