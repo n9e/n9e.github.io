@@ -251,9 +251,9 @@ S1 Critical · for 1 min · Trigger:
 ```promql
 ClickHouseErrorMetric_ALL_REPLICAS_ARE_STALE == 1 or ClickHouseErrorMetric_ALL_REPLICAS_LOST == 1
 
- ClickHouseErrorMetric_NO_AVAILABLE_REPLICA == 1
+ClickHouseErrorMetric_NO_AVAILABLE_REPLICA == 1
 
- ClickHouseErrorMetric_TOO_FEW_LIVE_REPLICAS == 1
+ClickHouseErrorMetric_TOO_FEW_LIVE_REPLICAS == 1
 ```
 
 Runbook:

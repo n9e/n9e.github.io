@@ -673,11 +673,11 @@ export const en: SiteCopy = {
       {
         slug: 'grafana-alerting',
         verdictId: 'grafana',
-        metaTitle: 'Nightingale (n9e) vs Grafana Alerting: alerting capabilities compared',
+        metaTitle: 'Nightingale vs Grafana Alerting: the differences, and when to use both',
         metaDescription:
           'Nightingale (n9e, 夜莺) versus Grafana Alerting: rule model, expression chains versus PromQL, notification policies and contact points, silences, no-data states, phone and SMS, AI, and how to keep dashboards in Grafana while Nightingale owns alerting.',
         heading: 'Nightingale vs Grafana Alerting',
-        lead: 'Grafana is the visualization standard and Nightingale does not try to replace it. The comparison is about the alerting layer: Grafana ships alerting as a module inside a visualization platform; Nightingale makes alerting the whole product. For many teams the answer is both: chart in Grafana, alert in Nightingale.',
+        lead: 'The short answer: Grafana is a visualization platform that ships alerting as one module; Nightingale (n9e) is an open-source alerting engine that makes alerting the whole product. Nightingale does not try to replace Grafana dashboards, so the comparison is about the alerting layer, and for many teams the answer is both: chart in Grafana, alert in Nightingale.',
         tldr: [
           {
             label: 'Stay on Grafana Alerting if',

@@ -213,6 +213,18 @@ const config: Config = {
         breadcrumbs: true,
       },
     ],
+    // 告警规则库：/alert-rules/<slug>，第三个 docs 实例。正文由 scripts/alert-rules/generate.mjs
+    // 从集成模板里的内置规则生成（中英各一份），不手改。规则文件在 static/alert-rules/*.yml。
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'alert-rules',
+        path: 'alert-rules',
+        routeBasePath: 'alert-rules',
+        sidebarPath: './sidebars-alert-rules.ts',
+        breadcrumbs: true,
+      },
+    ],
     // 给 AI 爬虫/助手的纯文本入口：每种语言各一份 llms.txt（目录 + 一句话摘要）、llms-full.txt（全文），
     // 以及每个页面同路径的 .md 原文（/docs/x → /docs/x.md）。从构建好的 HTML 转出来，中英文各跑一次。
     [
@@ -246,9 +258,9 @@ const config: Config = {
         hashed: true,
         indexBlog: false,
         indexPages: true,
-        // 两个 docs 实例都进索引：主文档和集成独立页
-        docsRouteBasePath: ['docs', 'integrations'],
-        docsDir: ['docs', 'integrations'],
+        // 三个 docs 实例都进索引：主文档、集成独立页、告警规则库
+        docsRouteBasePath: ['docs', 'integrations', 'alert-rules'],
+        docsDir: ['docs', 'integrations', 'alert-rules'],
         // 关掉输入框右侧那两个 ⌘/K 小方块。快捷键本身仍然可用，
         // 只是不再占视觉位置——提示改写进 placeholder（见 i18n/*/code.json）。
         searchBarShortcutHint: false,
@@ -332,6 +344,7 @@ const config: Config = {
           title: '资源',
           items: [
             { label: '集成生态', to: '/integrations' },
+            { label: '告警规则库', to: '/alert-rules' },
             { label: '产品对比', to: '/comparisons' },
             // 两个选型落地页（设计稿 §6.2：从页脚链入，长期接搜索流量）
             { label: 'Zabbix 替代方案', to: '/comparisons/zabbix-alternatives' },

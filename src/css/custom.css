@@ -944,6 +944,13 @@ article > a.card.planned h2 {
   overflow-wrap: anywhere;
 }
 
+/* 规则库和集成页的表格里有不带空格的长告警名（PrometheusErrorSendingAlertsToSomeAlertmanagers），
+   手机上同样会撑宽整页 */
+.plugin-id-alert-rules .markdown table td,
+.plugin-id-integrations .markdown table td {
+  overflow-wrap: anywhere;
+}
+
 .markdown table th,
 .markdown table td {
   border: 0;

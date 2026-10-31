@@ -8,6 +8,20 @@ last_reviewed: 2026-10-11
 这页办完，你会把已有 Telegraf 的指标写进夜莺使用的时序库，不需要更换采集器。
 示例使用 **Telegraf 1.36.3、夜莺 v9**；Telegraf 负责采集，夜莺接收后写入内置时序库或配置的外置存储。
 
+## 用 Telegraf 还是 Categraf？ {#telegraf-vs-categraf}
+
+两者都是 Go 写的 MIT 协议采集器，夜莺都能接收。实际使用中要看的差别：
+
+| | Telegraf | Categraf |
+|---|---|---|
+| 插件 | 300+ 输入插件，另有处理器和大量输出插件 | 90+ 输入插件，覆盖操作系统、数据库、中间件、网络设备和 Kubernetes |
+| 怎么写入夜莺 | `outputs.http` 加 `data_format = "prometheusremotewrite"`（配置见下文） | 默认就是 Prometheus Remote Write |
+| 夜莺的主机列表 | 不发送夜莺的心跳 | 每 10 秒发送一次带主机元数据的[心跳](../data/categraf/targets.md)，填充「基础设施 → 主机」 |
+| 内置仪表盘和规则 | 少数模板带 Telegraf 规则组（例如 Linux） | 很多[集成模板](/integrations)带有 Categraf 规则组和 Categraf 仪表盘 |
+| 指标名 | Telegraf 插件的命名，例如 `cpu_usage_active` | 部分主机插件与 Telegraf 同名，有些规则两边通用 |
+
+**继续用 Telegraf**：已经部署好，或依赖 Categraf 没有的插件。夜莺的告警功能不要求换采集器。**选 Categraf**：新主机想直接用上主机列表，以及内置的仪表盘和[告警规则](/alert-rules)，不必改写指标名。迁移期间两者可以并存。
+
 ## 开始之前 {#before-you-start}
 
 - 夜莺已启动，Telegraf 所在机器能访问 `http://<夜莺地址>:17000`。

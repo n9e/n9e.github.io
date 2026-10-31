@@ -1,0 +1,753 @@
+# Linux alert rules — https://n9e.github.io/alert-rules/linux
+# Generated from the Nightingale integration templates: https://github.com/ccfos/nightingale/tree/main/integrations
+# Many expressions are adapted from awesome-prometheus-alerts (https://github.com/samber/awesome-prometheus-alerts, CC BY 4.0).
+# Thresholds are starting points: review them before enabling.
+groups:
+  - name: "linux-exporter"
+    rules:
+      - alert: "Host out of memory"
+        expr: |-
+          node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 < 10
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Node out of memory (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Host under memory pressure"
+        expr: |-
+          rate(node_vmstat_pgmajfault[1m]) > 1000
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Node under memory pressure (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Host inbound network throughput abnormal"
+        expr: |-
+          sum by (instance) (rate(node_network_receive_bytes_total[2m])) / 1024 / 1024 > 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host unusual network throughput in (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Host outbound network throughput abnormal"
+        expr: |-
+          sum by (instance) (rate(node_network_transmit_bytes_total[2m])) / 1024 / 1024 > 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host unusual network throughput out (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Host disk read rate abnormal"
+        expr: |-
+          sum by (instance) (rate(node_disk_read_bytes_total[2m])) / 1024 / 1024 > 50
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host unusual disk read rate (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Host disk write rate abnormal"
+        expr: |-
+          sum by (instance) (rate(node_disk_written_bytes_total[2m])) / 1024 / 1024 > 50
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host unusual disk write rate (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Host out of disk space"
+        expr: |-
+          (node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes < 10 and ON (instance, device, mountpoint) node_filesystem_readonly == 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host out of disk space (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Host disk will fill up within 24 hours"
+        expr: |-
+          (node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes < 10 and ON (instance, device, mountpoint) predict_linear(node_filesystem_avail_bytes{fstype!~"tmpfs"}[1h], 24 * 3600) < 0 and ON (instance, device, mountpoint) node_filesystem_readonly == 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host disk will fill up within 24 hours (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Filesystem inode usage high"
+        expr: |-
+          node_filesystem_files_free{mountpoint ="/rootfs"} / node_filesystem_files{mountpoint="/rootfs"} * 100 < 10 and ON (instance, device, mountpoint) node_filesystem_readonly{mountpoint="/rootfs"} == 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host out of inodes (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Filesystem inodes will fill up within 24 hours"
+        expr: |-
+          node_filesystem_files_free{mountpoint ="/rootfs"} / node_filesystem_files{mountpoint="/rootfs"} * 100 < 10 and predict_linear(node_filesystem_files_free{mountpoint="/rootfs"}[1h], 24 * 3600) < 0 and ON (instance, device, mountpoint) node_filesystem_readonly{mountpoint="/rootfs"} == 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host inodes will fill up within 24 hours (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Host disk read latency abnormal"
+        expr: |-
+          rate(node_disk_read_time_seconds_total[1m]) / rate(node_disk_reads_completed_total[1m]) > 0.1 and rate(node_disk_reads_completed_total[1m]) > 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host unusual disk read latency (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Host disk write latency abnormal"
+        expr: |-
+          rate(node_disk_write_time_seconds_total[1m]) / rate(node_disk_writes_completed_total[1m]) > 0.1 and rate(node_disk_writes_completed_total[1m]) > 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host unusual disk write latency (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Node CPU load high"
+        expr: |-
+          100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 80
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host high CPU load (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "CPU stolen by other cloud guests"
+        expr: |-
+          avg by(instance) (rate(node_cpu_seconds_total{mode="steal"}[5m])) * 100 > 10
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host CPU steal noisy neighbor (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Host context switching abnormal"
+        expr: |-
+          (rate(node_context_switches_total[5m])) / (count without(cpu, mode) (node_cpu_seconds_total{mode="idle"})) > 1000
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host context switching (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Host swap almost full"
+        expr: |-
+          (1 - (node_memory_SwapFree_bytes / node_memory_SwapTotal_bytes)) * 100 > 80
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host swap is full (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Host system service crashed"
+        expr: |-
+          node_systemd_unit_state{state="failed"} == 1
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host systemd service crashed (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Host kernel version deviation"
+        expr: |-
+          count(sum(label_replace(node_uname_info, "kernel", "$1", "release", "([0-9]+.[0-9]+.[0-9]+).*")) by (kernel)) > 1
+        for: 360m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host kernel version deviation (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "HostOomKill detected"
+        expr: |-
+          increase(node_vmstat_oom_kill[1m]) > 0
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host OOM kill detected (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Host network receive errors"
+        expr: |-
+          rate(node_network_receive_errs_total[2m]) / rate(node_network_receive_packets_total[2m]) > 0.01
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host network receive errors (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Host network transmit errors"
+        expr: |-
+          rate(node_network_transmit_errs_total[2m]) / rate(node_network_transmit_packets_total[2m]) > 0.01
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host network transmit errors (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Host network interface saturated"
+        expr: |-
+          (rate(node_network_receive_bytes_total{device!~"^tap.*"}[1m]) + rate(node_network_transmit_bytes_total{device!~"^tap.*"}[1m])) / node_network_speed_bytes{device!~"^tap.*"} > 0.8 < 10000
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host network interface saturated (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Conntrack entries approaching the limit"
+        expr: |-
+          node_nf_conntrack_entries / node_nf_conntrack_entries_limit > 0.8
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host conntrack limit (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Host clock skew"
+        expr: |-
+          (node_timex_offset_seconds > 0.05 and deriv(node_timex_offset_seconds[5m]) >= 0) or (node_timex_offset_seconds < -0.05 and deriv(node_timex_offset_seconds[5m]) <= 0)
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host clock skew (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Host clock not synchronising"
+        expr: |-
+          min_over_time(node_timex_sync_status[1m]) == 0 and node_timex_maxerror_seconds >= 16
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Host clock not synchronising (instance {{ $labels.instance }})"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Node filesystem filling up - S2"
+        expr: |-
+          (
+            node_filesystem_avail_bytes{job="node-exporter",fstype!=""} / node_filesystem_size_bytes{job="node-exporter",fstype!=""} * 100 < 40
+          and
+            predict_linear(node_filesystem_avail_bytes{job="node-exporter",fstype!=""}[6h], 24*60*60) < 0
+          and
+            node_filesystem_readonly{job="node-exporter",fstype!=""} == 0
+          )
+        for: 60m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf \"%.2f\" $value }}% available space left and is filling up."
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Node filesystem filling up - S1"
+        expr: |-
+          (
+            node_filesystem_avail_bytes{job="node-exporter",fstype!=""} / node_filesystem_size_bytes{job="node-exporter",fstype!=""} * 100 < 15
+          and
+            predict_linear(node_filesystem_avail_bytes{job="node-exporter",fstype!=""}[6h], 4*60*60) < 0
+          and
+            node_filesystem_readonly{job="node-exporter",fstype!=""} == 0
+          )
+        for: 60m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf \"%.2f\" $value }}% available space left and is filling up fast."
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Node disk almost full - S2 - space - 5"
+        expr: |-
+          (
+            node_filesystem_avail_bytes{job="node-exporter",fstype!=""} / node_filesystem_size_bytes{job="node-exporter",fstype!=""} * 100 < 5
+          and
+            node_filesystem_readonly{job="node-exporter",fstype!=""} == 0
+          )
+        for: 60m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf \"%.2f\" $value }}% available space left."
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Node disk almost full - S1 - space - 3"
+        expr: |-
+          (
+            node_filesystem_avail_bytes{job="node-exporter",fstype!=""} / node_filesystem_size_bytes{job="node-exporter",fstype!=""} * 100 < 3
+          and
+            node_filesystem_readonly{job="node-exporter",fstype!=""} == 0
+          )
+        for: 60m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf \"%.2f\" $value }}% available space left."
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Node disk almost full - S2 - inodes - 40"
+        expr: |-
+          (
+            node_filesystem_files_free{job="node-exporter",fstype!=""} / node_filesystem_files{job="node-exporter",fstype!=""} * 100 < 40
+          and
+            predict_linear(node_filesystem_files_free{job="node-exporter",fstype!=""}[6h], 24*60*60) < 0
+          and
+            node_filesystem_readonly{job="node-exporter",fstype!=""} == 0
+          )
+        for: 60m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf \"%.2f\" $value }}% available inodes left and is filling up."
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Node disk almost full - S1 - inodes - 20"
+        expr: |-
+          (
+            node_filesystem_files_free{job="node-exporter",fstype!=""} / node_filesystem_files{job="node-exporter",fstype!=""} * 100 < 20
+          and
+            predict_linear(node_filesystem_files_free{job="node-exporter",fstype!=""}[6h], 4*60*60) < 0
+          and
+            node_filesystem_readonly{job="node-exporter",fstype!=""} == 0
+          )
+        for: 60m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf \"%.2f\" $value }}% available inodes left and is filling up fast."
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Node disk almost full - S2 - inodes - 5"
+        expr: |-
+          (
+            node_filesystem_files_free{job="node-exporter",fstype!=""} / node_filesystem_files{job="node-exporter",fstype!=""} * 100 < 5
+          and
+            node_filesystem_readonly{job="node-exporter",fstype!=""} == 0
+          )
+        for: 60m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf \"%.2f\" $value }}% available inodes left."
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Node disk almost full - S1 - inodes - 3"
+        expr: |-
+          (
+            node_filesystem_files_free{job="node-exporter",fstype!=""} / node_filesystem_files{job="node-exporter",fstype!=""} * 100 < 3
+          and
+            node_filesystem_readonly{job="node-exporter",fstype!=""} == 0
+          )
+        for: 60m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf \"%.2f\" $value }}% available inodes left."
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Node conntrack entries usage high"
+        expr: |-
+          (node_nf_conntrack_entries / node_nf_conntrack_entries_limit) > 0.75
+        labels:
+          severity: warning
+        annotations:
+          summary: "{{ $value | humanizePercentage }} of conntrack entries are used."
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Node textfile collector scrape errors"
+        expr: |-
+          node_textfile_scrape_error{job="node-exporter"} == 1
+        labels:
+          severity: warning
+        annotations:
+          summary: "Node Exporter text file collector failed to scrape."
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Node network interface flapping"
+        expr: |-
+          changes(node_network_up{job="node-exporter",device!~"veth.+"}[2m]) > 2
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Network interface \"{{ $labels.device }}\" changing it's up status often on node-exporter {{ $labels.namespace }}/{{ $labels.pod }}\""
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "A certain disk is unable to read/write normally"
+        expr: |-
+          (node_filesystem_device_error{mountpoint!~"/var/lib/.*",mountpoint!~"/run.*"}) > 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Disk needs to be cleaned - utilization has reached 92% - node exporter"
+        expr: |-
+          (100 - ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes) ) > 92
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Insufficient computational resources - average load per core of the machine is greater than 10 - node exporter"
+        expr: |-
+          avg (node_load1) by (instance)/count(count(node_cpu_seconds_total) by (cpu,instance)) by (instance) >10
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Insufficient file handles - usage exceeds 90% - node exporter"
+        expr: |-
+          (node_filefd_allocated/node_filefd_maximum*100) > 90
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "You can increase the file handle limit or expand the capacity"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Insufficient inode resources - usage exceeds 90% - node exporter"
+        expr: |-
+          (100 - ((node_filesystem_files_free * 100) / node_filesystem_files))>90
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Insufficient memory resources - utilization is greater than 75% - node exporter"
+        expr: |-
+          (node_memory_MemTotal_bytes - node_memory_MemFree_bytes - (node_memory_Cached_bytes + node_memory_Buffers_bytes))/node_memory_MemTotal_bytes*100 > 75
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Expansion or upgrading of configuration is required"
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Insufficient memory resources - utilization is greater than 95% - node exporter"
+        expr: |-
+          (node_memory_MemTotal_bytes - node_memory_MemFree_bytes - (node_memory_Cached_bytes + node_memory_Buffers_bytes))/node_memory_MemTotal_bytes*100 > 95
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Packet loss in the inbound direction of the network card - node exporter"
+        expr: |-
+          rate(node_network_receive_drop_total{device=~"e.*"}[1m]) > 3
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Packet loss in the outbound direction of the network card - node exporter"
+        expr: |-
+          rate(node_network_transmit_drop_total{device=~"e.*"}[1m]) > 3
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "System conntrack needs to be adjusted - usage exceeds 80% - node exporter"
+        expr: |-
+          node_nf_conntrack_entries / node_nf_conntrack_entries_limit*100 > 80
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "System experiences OOM - node exporter"
+        expr: |-
+          increase(node_vmstat_oom_kill[1m]) > 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Too many running processes - exceeding 3000 - node exporter"
+        expr: |-
+          node_procs_running > 3000
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+  - name: "linux-categraf"
+    rules:
+      - alert: "Conntrack table usage exceeds 80%"
+        expr: |-
+          conntrack_ip_conntrack_count / conntrack_ip_conntrack_max > 0.8
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "CPU usage high"
+        expr: |-
+          cpu_usage_active>75
+        for: 1m
+        labels:
+          severity: info
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "CPU usage high"
+        expr: |-
+          cpu_usage_active>85
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "CPU usage high"
+        expr: |-
+          cpu_usage_active>95
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "HTTP probe failed"
+        expr: |-
+          http_response_result_code != 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "IO busy"
+        expr: |-
+          rate(diskio_io_time[1m])/10 > 99
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "NTP time offset too large"
+        expr: |-
+          ntp_offset_ms > 1000 or ntp_offset_ms < -1000
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "PING probe failed"
+        expr: |-
+          ping_result_code != 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "TIME_WAIT connections exceed 20000, worth attention"
+        expr: |-
+          netstat_tcp_time_wait > 20000
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Memory usage high"
+        expr: |-
+          mem_available_percent < 25
+        for: 1m
+        labels:
+          severity: info
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Memory usage high"
+        expr: |-
+          mem_available_percent < 15
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Memory usage high"
+        expr: |-
+          mem_available_percent < 5
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "File handle usage exceeds 90%"
+        expr: |-
+          linux_sysctl_fs_file_nr/linux_sysctl_fs_file_max>0.9
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Average load per CPU core exceeds 3"
+        expr: |-
+          system_load_norm_1>3
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Disk monitoring - inode usage exceeds 90%"
+        expr: |-
+          disk_inodes_used/disk_inodes_total >0.9
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Disk monitoring - disk larger than 200G is running out of space"
+        expr: |-
+          disk_free/1024/1024/1024 < 20 and disk_total/1024/1024/1024 >= 200
+        for: 1m
+        labels:
+          severity: info
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Disk monitoring - disk larger than 200G is running out of space"
+        expr: |-
+          disk_free/1024/1024/1024 < 10 and disk_total/1024/1024/1024 >= 200
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Disk monitoring - disk larger than 200G is running out of space"
+        expr: |-
+          disk_free/1024/1024/1024 < 2 and disk_total/1024/1024/1024 >= 200
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Disk monitoring - disk smaller than 200G is running out of space"
+        expr: |-
+          disk_used_percent > 90 and disk_total/1024/1024/1024 < 200
+        for: 1m
+        labels:
+          severity: info
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Disk monitoring - disk smaller than 200G is running out of space"
+        expr: |-
+          disk_used_percent > 95 and disk_total/1024/1024/1024 < 200
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Disk monitoring - disk smaller than 200G is running out of space"
+        expr: |-
+          disk_used_percent > 99 and disk_total/1024/1024/1024 < 200
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Disk monitoring - device errors reported"
+        expr: |-
+          disk_device_error>0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Disk monitoring - disk predicted to be full within 4 hours"
+        expr: |-
+          predict_linear(disk_free[1h], 4*3600) < 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "OOM occurred on the system"
+        expr: |-
+          increase(kernel_vmstat_oom_kill[2m]) > 0
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "NIC monitoring - inbound packet loss"
+        expr: |-
+          increase(net_drop_in[1m]) > 0
+        for: 1m
+        labels:
+          severity: info
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "NIC monitoring - inbound packet errors"
+        expr: |-
+          increase(net_err_in[1m]) > 0
+        for: 1m
+        labels:
+          severity: info
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "NIC monitoring - outbound packet loss"
+        expr: |-
+          increase(net_drop_out[1m]) > 0
+        for: 1m
+        labels:
+          severity: info
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "NIC monitoring - outbound packet errors"
+        expr: |-
+          increase(net_err_out[1m]) > 0
+        for: 1m
+        labels:
+          severity: info
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Network probe failed"
+        expr: |-
+          net_response_result_code != 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Process monitoring - a process count is 0, the process may be down"
+        expr: |-
+          procstat_lookup_count == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Process monitoring - process file handle limit too small"
+        expr: |-
+          procstat_rlimit_num_fds_soft < 2048
+        for: 1m
+        labels:
+          severity: info
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Process monitoring - total processes exceed 600"
+        expr: |-
+          processes_total > 600
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+  - name: "linux-telegraf"
+    rules:
+      - alert: "Machine load - high CPU, please pay attention - telegraf"
+        expr: |-
+          cpu_usage_idle{cpu="cpu-total"} < 25
+        for: 1m
+        labels:
+          severity: info
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Machine load - high memory, please pay attention - telegraf"
+        expr: |-
+          mem_available_percent < 25
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "Process monitoring - lookup failure - telegraf"
+        expr: |-
+          procstat_lookup_result_code != 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"
+      - alert: "there are processes with 0 count, a certain process may have crashed - telegraf"
+        expr: |-
+          procstat_lookup_running == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/linux"

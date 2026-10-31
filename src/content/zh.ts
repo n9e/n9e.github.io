@@ -633,7 +633,7 @@ export const zh: SiteCopy = {
         metaDescription:
           '夜莺监控（Nightingale，n9e）与 Grafana Alerting 的对比：规则模型、表达式链与 PromQL、通知策略与联系点、静默、无数据状态、电话短信、AI，以及仪表盘留在 Grafana、告警交给夜莺的搭配方式。',
         heading: '夜莺 vs Grafana Alerting',
-        lead: 'Grafana 是可视化的事实标准，夜莺不打算取代它。要比的是告警这一层：Grafana 把告警做成可视化平台里的一个模块，夜莺把告警做成整个产品。很多团队的最终答案是两个都用：图在 Grafana 看，告警在夜莺发。',
+        lead: '一句话的区别：Grafana 是可视化平台，告警是它里面的一个模块；夜莺（Nightingale，n9e）是开源告警引擎，告警就是整个产品。夜莺不打算取代 Grafana 的仪表盘，所以要比的是告警这一层，很多团队的最终答案是两个都用：图在 Grafana 看，告警在夜莺发。',
         tldr: [
           {
             label: '继续用 Grafana Alerting，如果',

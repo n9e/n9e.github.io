@@ -70,5 +70,9 @@
   "link.item.label.开源告警平台选型": {
     "message": "Choosing an alerting platform",
     "description": "The label of footer link with label=开源告警平台选型 linking to /comparisons/open-source-alerting-platforms"
+  },
+  "link.item.label.告警规则库": {
+    "message": "Alert rules",
+    "description": "The label of footer link with label=告警规则库 linking to /alert-rules"
   }
 }

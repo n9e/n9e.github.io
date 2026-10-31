@@ -10,6 +10,7 @@ import { figures } from '@site/src/data/figures';
 export const faq = [
   { q: '告警平台和监控系统是一回事吗？', a: '不是。监控系统通常包含采集、存储、可视化和告警四层；这页说的告警平台只是最后一层：判定、降噪、分发。Prometheus 是存储加判定，Grafana 是可视化加告警模块，夜莺是专做告警这一层的引擎。' },
   { q: '夜莺能接收 Alertmanager 或 Zabbix 发来的告警吗？', a: '不能。夜莺是告警引擎，自己跑查询判定，没有入站告警接口。要汇聚多个系统已经产生的告警，看 Keep 或 Alerta 这类聚合层。' },
+  { q: 'Alertmanager 有图形界面吗？', a: 'Alertmanager 自带一个 Web 界面，可以查看告警、创建静默；karma 或 Grafana 能在它之上提供更丰富的告警看板。但它们都不能编辑告警规则和路由，这些仍然写在 YAML 文件里。想在页面上管理规则、路由和屏蔽并带权限控制，就得换掉告警这一层本身，比如换成 Grafana Alerting 或夜莺。' },
   { q: '开源版有电话和短信通知吗？', a: '夜莺有，电话和短信是开源版内置媒介。Alertmanager 和 Grafana 开源版都没有电话短信，要接 PagerDuty 这类第三方；Grafana OnCall 开源版已于 2026 年 3 月归档。' },
 ];
 
@@ -41,6 +42,13 @@ export const faq = [
 ## 告警规则写在文件里还是页面上？
 
 Alertmanager 的世界里规则是 Prometheus 的 YAML，靠 reload 和 GitOps 管理，没有页面编辑，也没有权限模型。Grafana Alerting 和夜莺都在页面上配，也都能导出导入。区别在于归属：Grafana 按文件夹和组织角色，细粒度 RBAC 在企业版；夜莺按业务组，业务组同时是权限边界，谁能看、谁能改、屏蔽作用在哪，都由它决定。如果只有 SRE 维护规则，文件加 GitOps 最省；如果业务团队要自己配，页面和权限边界是硬需求。
+
+## 想给 Alertmanager 找个图形界面？
+
+搜「Alertmanager UI」的人通常想要两种东西之一，答案不一样。
+
+- **更好地查看正在触发的告警。** Alertmanager 自带 Web 界面（9093 端口），能列出告警、创建静默。[karma](https://github.com/prymitive/karma) 提供分组展示和跨多个 Alertmanager 的看板；Grafana 可以把 Alertmanager 加为数据源来浏览告警、管理静默。这些工具都叠在 Alertmanager 之上，不改变它本身。
+- **不碰 YAML 就能改规则和路由。** 上面这些工具都做不到：Prometheus 规则和 `alertmanager.yml` 仍然是文件。想在页面上管理规则、路由和屏蔽，并按团队划分权限，就得换掉告警这一层。Grafana Alerting 在 Grafana 内部做到这一点；夜莺是独立的告警引擎，直接查询 Prometheus，[从 Prometheus + Alertmanager 迁移](/docs/migration/from-alertmanager)说明了 `alertmanager.yml` 如何对应到夜莺。夜莺不接收 Alertmanager 发来的告警，所以它是替换这一层，而不是叠在上面。
 
 ## 数据在一个地方还是好几个地方？
 

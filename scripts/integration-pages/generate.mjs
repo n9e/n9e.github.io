@@ -19,6 +19,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { INTROS } from './intros.mjs';
 import { PAGES } from './catalog.mjs';
+import { coverage, ruleId } from '../alert-rules/generate.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const DATA = join(ROOT, 'src', 'data', 'integration-pages');
@@ -48,6 +49,13 @@ const T = {
     dashCols: ['仪表盘', '面板数'],
     alertHead: '内置告警规则',
     alertLead: (n) => `共 ${n} 条。每条给出触发条件（PromQL）和告警后的处置步骤，导入后可以直接改阈值。`,
+    // 规则正文已收进告警规则库的集成：这里只列规则名，PromQL 和处置步骤放在规则库，避免两页重复
+    alertLibLead: (n, k, pages) =>
+      `共 ${n} 条，导入后默认停用，按自己环境的阈值逐条启用。${k === n ? '每条规则' : `下表 ${k} 条规则`}的触发条件（PromQL）和处置步骤收录在告警规则库：${pages}。`,
+    alertRest: (n) => `其余规则（${n}）`,
+    alertRestLead: '这些规则没有收进告警规则库，完整内容列在这里。',
+    alertLibCols: ['规则', '级别', '持续'],
+    forShort: (s) => (!s ? '—' : s >= 60 && s % 60 === 0 ? `${s / 60} 分钟` : `${s} 秒`),
     bySource: '规则按采集方式分组，用哪种采集器就导哪一组。',
     source: { categraf: 'Categraf 采集', exporter: 'Exporter 采集', telegraf: 'Telegraf 采集', native: '原生指标', default: '通用规则' },
     severity: { 1: 'S1 紧急', 2: 'S2 警告', 3: 'S3 提醒' },
@@ -84,6 +92,12 @@ const T = {
     dashCols: ['Dashboard', 'Panels'],
     alertHead: 'Bundled alert rules',
     alertLead: (n) => `${n} rule${n === 1 ? '' : 's'}. Each lists its trigger condition (PromQL) and the steps to take when it fires. Thresholds are meant to be adjusted after import.`,
+    alertLibLead: (n, k, pages) =>
+      `${n} rule${n === 1 ? '' : 's'}, disabled on import so you can enable them one by one with your own thresholds. The PromQL condition and runbook steps for ${k === n ? 'every rule' : `the ${k} rules in the table below`} are in the alert rule library: ${pages}.`,
+    alertRest: (n) => `Other rules (${n})`,
+    alertRestLead: 'These rules are not in the alert rule library, so they are listed here in full.',
+    alertLibCols: ['Rule', 'Severity', 'For'],
+    forShort: (s) => (!s ? '—' : s >= 60 && s % 60 === 0 ? `${s / 60}m` : `${s}s`),
     bySource: 'Rules are grouped by collector; import the group that matches how you collect.',
     source: { categraf: 'Collected by Categraf', exporter: 'Collected by an exporter', telegraf: 'Collected by Telegraf', native: 'Native metrics', default: 'General rules' },
     severity: { 1: 'S1 Critical', 2: 'S2 Warning', 3: 'S3 Info' },
@@ -138,7 +152,7 @@ function pick(lang, zh, en) {
   return zh || en;
 }
 
-function render(lang, item, data, intro, fetchedAt) {
+function render(lang, item, data, intro, fetchedAt, lib) {
   const t = T[lang];
   const copy = intro[lang];
   const name = item.name;
@@ -198,7 +212,41 @@ function render(lang, item, data, intro, fetchedAt) {
   }
 
   // ---------- 告警规则 ----------
-  if (data.alerts.length) {
+  /** 一条规则的完整内容：说明、级别与持续时间、PromQL、处置步骤 */
+  const fullRule = (a, heading) => {
+    out.push(`${heading} ${esc(pick(lang, a.name, a.name_en)).trim()}`, '');
+    const note = esc(pick(lang, a.note, a.note_en)).trim();
+    if (note) out.push(note, '');
+    const meta = [t.severity[a.severity], a.for ? t.forDuration(a.for) : ''].filter(Boolean).join(' · ');
+    const queries = a.queries.map((q) => (q.promql ?? '').trim()).filter(Boolean);
+    if (queries.length) {
+      out.push(`${meta ? `${meta} · ` : ''}${t.trigger}:`, '');
+      out.push(fence(queries.join('\n\n'), 'promql'), '');
+    } else if (meta) {
+      out.push(meta, '');
+    }
+    const act = pick(lang, a.action, a.action_en);
+    if (act) out.push(`${t.action}:`, '', steps(act), '');
+  };
+
+  if (data.alerts.length && lib) {
+    // 已收进规则库的只列名字，正文在规则库；没收进去的（例如不是 PromQL 的主机失联规则）照旧完整列出
+    const inLib = data.alerts.filter((a) => lib.covered.has(ruleId(item.ident, a)));
+    const rest = data.alerts.filter((a) => !lib.covered.has(ruleId(item.ident, a)));
+    const pages = lib.pages
+      .map((p) => `[${lang === 'en' ? `${p.name} alert rules` : `${p.name} 告警规则`}](/alert-rules/${p.slug})`)
+      .join(lang === 'en' ? ', ' : '、');
+    out.push(`## ${t.alertHead}`, '', t.alertLibLead(data.alerts.length, inLib.length, pages), '');
+    out.push(`| ${t.alertLibCols.join(' | ')} |`, '| --- | --- | --- |');
+    for (const a of inLib) {
+      out.push(`| ${cell(pick(lang, a.name, a.name_en))} | ${t.severity[a.severity] ?? ''} | ${t.forShort(a.for)} |`);
+    }
+    out.push('');
+    if (rest.length) {
+      out.push(`### ${t.alertRest(rest.length)}`, '', t.alertRestLead, '');
+      for (const a of rest) fullRule(a, '####');
+    }
+  } else if (data.alerts.length) {
     out.push(`## ${t.alertHead}`, '', t.alertLead(data.alerts.length), '');
     const order = ['categraf', 'exporter', 'telegraf', 'native', 'default'];
     const groups = new Map();
@@ -212,16 +260,7 @@ function render(lang, item, data, intro, fetchedAt) {
     for (const src of [...groups.keys()].sort((a, b) => order.indexOf(a) - order.indexOf(b))) {
       const rules = groups.get(src);
       if (multi) out.push(`### ${t.source[src] ?? src}（${rules.length}）`.replace('（', lang === 'en' ? ' (' : '（').replace('）', lang === 'en' ? ')' : '）'), '');
-      for (const a of rules) {
-        out.push(`${ruleHeading} ${esc(pick(lang, a.name, a.name_en)).trim()}`, '');
-        const note = esc(pick(lang, a.note, a.note_en)).trim();
-        if (note) out.push(note, '');
-        const meta = [t.severity[a.severity], a.for ? t.forDuration(a.for) : ''].filter(Boolean).join(' · ');
-        out.push(`${meta ? `${meta} · ` : ''}${t.trigger}:`, '');
-        out.push(fence(a.queries.map((q) => q.promql).join('\n\n'), 'promql'), '');
-        const act = pick(lang, a.action, a.action_en);
-        if (act) out.push(`${t.action}:`, '', steps(act), '');
-      }
+      for (const a of rules) fullRule(a, ruleHeading);
     }
   }
 
@@ -268,12 +307,13 @@ if (missingIntro.length) {
 }
 for (const lang of ['en', 'zh']) await mkdir(OUT[lang], { recursive: true });
 
+const lib = await coverage();
 const written = new Set();
 for (const item of index.pages) {
   const data = JSON.parse(await readFile(join(DATA, `${item.ident}.json`), 'utf8'));
   for (const lang of ['en', 'zh']) {
     const file = join(OUT[lang], `${item.slug}.md`);
-    await writeFile(file, render(lang, item, data, INTROS[item.ident], index.fetchedAt));
+    await writeFile(file, render(lang, item, data, INTROS[item.ident], index.fetchedAt, lib[item.ident]));
   }
   written.add(`${item.slug}.md`);
 }
