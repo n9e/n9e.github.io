@@ -2,7 +2,7 @@
 
 Collects connections, transactions, cache hit ratio, locks and replication state with a read-only pg\_monitor account; custom queries against business tables are supported.
 
-Last reviewed 2026-10-28
+Last reviewed 2026-10-31
 
 The PostgreSQL input connects as a client and reads the `pg_stat_*` monitoring views: connections per database, commits and rollbacks, cache hit ratio, deadlocks, temp files and replication lag. Custom queries can turn numbers from your own tables into metrics as well.
 

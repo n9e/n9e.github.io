@@ -2,7 +2,7 @@
 
 CPU、内存、磁盘、网络、进程到内核参数，Categraf 装上就有数据，模板覆盖 Categraf、node\_exporter 和 Telegraf 三种采集口径。
 
-最后校对于 2026-10-28
+最后校对于 2026-10-31
 
 Linux 主机是绝大多数监控的起点。Categraf 自带的 cpu、mem、disk、diskio、net、netstat、kernel、processes 等插件默认开启，装好就上报，不用额外配置；下面列出的是那些有可调项的插件。
 
@@ -685,169 +685,72 @@ Linux 主机是绝大多数监控的起点。Categraf 自带的 cpu、mem、disk
 
 ## 内置告警规则[​](#内置告警规则 "内置告警规则的直接链接")
 
-共 60 条。每条给出触发条件（PromQL）和告警后的处置步骤，导入后可以直接改阈值。
+共 60 条，导入后默认停用，按自己环境的阈值逐条启用。下表 56 条规则的触发条件（PromQL）和处置步骤收录在告警规则库：[Linux 告警规则](https://n9e.github.io/zh/alert-rules/linux.md)。
 
-规则按采集方式分组，用哪种采集器就导哪一组。
+| 规则                                                                                                           | 级别    | 持续   |
+| -------------------------------------------------------------------------------------------------------------- | ------- | ------ |
+| Conntrack表的使用率超过80%                                                                                     | S2 警告 | 1 分钟 |
+| CPU利用率较高                                                                                                  | S3 提醒 | 1 分钟 |
+| HTTP地址探测失败                                                                                               | S2 警告 | 1 分钟 |
+| IO比较繁忙                                                                                                     | S2 警告 | 1 分钟 |
+| NTP时间偏移太大                                                                                                | S2 警告 | 1 分钟 |
+| PING地址探测失败                                                                                               | S2 警告 | 1 分钟 |
+| TME\_WAIT状态的连接超过2万，可能需要关注                                                                       | S2 警告 | 1 分钟 |
+| 内存利用率比较高                                                                                               | S3 提醒 | 1 分钟 |
+| 文件句柄使用率超过90%                                                                                          | S2 警告 | 1 分钟 |
+| 每个CPU Core的平均负载任务超过3                                                                                | S2 警告 | 1 分钟 |
+| 硬盘监控 - inode使用率超过90%                                                                                  | S2 警告 | 1 分钟 |
+| 硬盘监控 - 大于200G的盘，空间不足了                                                                            | S3 提醒 | 1 分钟 |
+| 硬盘监控 - 小于200G的盘，空间不足了                                                                            | S3 提醒 | 1 分钟 |
+| 硬盘监控 - 设备有报错                                                                                          | S2 警告 | 1 分钟 |
+| 硬盘监控 - 预测硬盘会在未来4小时内写满                                                                         | S1 紧急 | 1 分钟 |
+| 系统有OOM产生                                                                                                  | S2 警告 | —      |
+| 网卡监控 - 入方向有丢包                                                                                        | S3 提醒 | 1 分钟 |
+| 网卡监控 - 入方向有错包                                                                                        | S3 提醒 | 1 分钟 |
+| 网卡监控 - 出方向有丢包                                                                                        | S3 提醒 | 1 分钟 |
+| 网卡监控 - 出方向有错包                                                                                        | S3 提醒 | 1 分钟 |
+| 网络地址探活失败                                                                                               | S2 警告 | 1 分钟 |
+| 进程监控-有进程数为0，某进程可能挂了                                                                           | S1 紧急 | 1 分钟 |
+| 进程监控-进程句柄限制过小                                                                                      | S3 提醒 | 1 分钟 |
+| 进程监控-进程总量超过600                                                                                       | S2 警告 | 1 分钟 |
+| Hard disk - expected to be written full in 4 hours - categraf                                                  | S1 紧急 | 1 分钟 |
+| Hard disk - IO is a bit busy - categraf                                                                        | S2 警告 | 1 分钟 |
+| Machine load - high memory, please pay attention - categraf                                                    | S3 提醒 | 1 分钟 |
+| number of TME\_WAIT exceeds 20,000 - categraf                                                                  | S2 警告 | 1 分钟 |
+| packet loss in the inbound direction - categraf                                                                | S3 提醒 | 1 分钟 |
+| packet loss in the outbound direction - categraf                                                               | S3 提醒 | 1 分钟 |
+| 大于200G的盘，空间不足了                                                                                       | S3 提醒 | 1 分钟 |
+| 小于200G的盘，空间不足了                                                                                       | S3 提醒 | 1 分钟 |
+| A certain disk is unable to read/write normally                                                                | S1 紧急 | 1 分钟 |
+| Disk needs to be cleaned - utilization has reached 92% - node exporter                                         | S1 紧急 | 1 分钟 |
+| Insufficient computational resources - average load per core of the machine is greater than 10 - node exporter | S2 警告 | 1 分钟 |
+| Insufficient file handles - usage exceeds 90% - node exporter                                                  | S2 警告 | 1 分钟 |
+| Insufficient inode resources - usage exceeds 90% - node exporter                                               | S2 警告 | 1 分钟 |
+| Insufficient memory resources - utilization is greater than 75% - node exporter                                | S2 警告 | 1 分钟 |
+| Insufficient memory resources - utilization is greater than 95% - node exporter                                | S1 紧急 | 1 分钟 |
+| Packet loss in the inbound direction of the network card - node exporter                                       | S2 警告 | 1 分钟 |
+| Packet loss in the outbound direction of the network card - node exporter                                      | S2 警告 | 1 分钟 |
+| System conntrack needs to be adjusted - usage exceeds 80% - node exporter                                      | S2 警告 | 1 分钟 |
+| System experiences OOM - node exporter                                                                         | S2 警告 | 1 分钟 |
+| Too many running processes - exceeding 3000 - node exporter                                                    | S2 警告 | 1 分钟 |
+| Address is unreachable by PING, please pay attention - telegraf                                                | S1 紧急 | 1 分钟 |
+| Hard disk - expected to be written full in 4 hours - telegraf                                                  | S1 紧急 | 1 分钟 |
+| Hard disk - IO is very busy - telegraf                                                                         | S2 警告 | 1 分钟 |
+| Machine load - high CPU, please pay attention - telegraf                                                       | S3 提醒 | 1 分钟 |
+| Machine load - high memory, please pay attention - telegraf                                                    | S2 警告 | 1 分钟 |
+| Network connection - number of TME\_WAIT exceeds 20,000 - telegraf                                             | S2 警告 | 1 分钟 |
+| packet loss in the inbound direction - telegraf                                                                | S3 提醒 | 1 分钟 |
+| packet loss in the outbound direction - telegraf                                                               | S3 提醒 | 1 分钟 |
+| Port detection failed, please pay attention - telegraf                                                         | S1 紧急 | 1 分钟 |
+| process handle limit is too small - telegraf                                                                   | S3 提醒 | 1 分钟 |
+| Process monitoring - lookup failure - telegraf                                                                 | S1 紧急 | 1 分钟 |
+| there are processes with 0 count, a certain process may have crashed - telegraf                                | S1 紧急 | 1 分钟 |
 
-### Categraf 采集（35）[​](#categraf-采集35 "Categraf 采集（35）的直接链接")
+### 其余规则（4）[​](#其余规则4 "其余规则（4）的直接链接")
 
-#### Conntrack表的使用率超过80%[​](#conntrack表的使用率超过80 "Conntrack表的使用率超过80%的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-conntrack_ip_conntrack_count / conntrack_ip_conntrack_max > 0.8
-```
-
-处置步骤:
-
-1. 用 sysctl net.netfilter.nf\_conntrack\_count 与 nf\_conntrack\_max 确认当前水位；
-2. 用 conntrack -L | awk '{print $4}' | sort | uniq -c | sort -rn 看连接集中在哪类协议或来源；
-3. 应急调大：sysctl -w net.netfilter.nf\_conntrack\_max=<更大值>，并同步调大 nf\_conntrack\_buckets；
-4. 同时缩短 nf\_conntrack\_tcp\_timeout\_time\_wait 等超时，或对不需要跟踪的流量用 iptables raw 表 NOTRACK。
-
-#### CPU利用率较高[​](#cpu利用率较高 "CPU利用率较高的直接链接")
-
-S3 提醒 · 持续 1 分钟 · 触发条件:
-
-```
-cpu_usage_active>75
-
-
-
-cpu_usage_active>85
-
-
-
-cpu_usage_active>95
-```
-
-处置步骤:
-
-1. 用 top -H 或 pidstat 1 找出占用最高的进程与线程；
-2. 用 perf top 或对应语言的 profiler（Java 用 arthas/async-profiler，Go 用 pprof）定位热点函数；
-3. 区分是业务量自然增长还是代码异常（死循环、正则回溯、频繁 GC）；
-4. 业务量增长则扩容或限流，代码问题则修复后发布。
-
-#### HTTP地址探测失败[​](#http地址探测失败 "HTTP地址探测失败的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-http_response_result_code != 0
-```
-
-处置步骤:
-
-1. 在采集机上手工 curl -sv <目标URL> 复现，看是连接失败、超时还是状态码不符；
-2. 连接失败则先确认目标端口通、进程活；
-3. 状态码不符则看目标服务日志定位；
-4. 确认探测配置里的超时、期望状态码、证书校验设置是否与实际相符，避免配置导致的误报。
-
-#### IO比较繁忙[​](#io比较繁忙 "IO比较繁忙的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-rate(diskio_io_time[1m])/10 > 99
-```
-
-处置步骤:
-
-1. 用 iostat -x 1 确认是哪块盘、await 与 %util 的具体数值；
-2. 用 iotop -oP 或 pidstat -d 1 找出占用 IO 最高的进程；
-3. 常见元凶是数据库大查询、备份任务、日志刷盘——把可延后的任务错峰执行；
-4. 若是持续高负载而非突发，考虑换 SSD 或把热数据分散到多块盘。
-
-#### NTP时间偏移太大[​](#ntp时间偏移太大 "NTP时间偏移太大的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-ntp_offset_ms > 1000 or ntp_offset_ms < -1000
-```
-
-处置步骤:
-
-1. 用 chronyc tracking（或 ntpq -p）确认当前偏移量与上游源状态；
-2. 上游不可达则检查网络与防火墙是否放行 123/UDP；
-3. 用 chronyc sources -v 确认是否所有源都被标记为不可用，必要时更换 NTP 服务器；
-4. 偏移过大时 chrony 会拒绝平滑校正，需用 chronyc makestep 强制对时（注意对时间敏感的业务先做好准备）。
-
-#### PING地址探测失败[​](#ping地址探测失败 "PING地址探测失败的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-ping_result_code != 0
-```
-
-处置步骤:
-
-1. 在采集机上手工 ping -c 5 <目标> 复现，再用 mtr -n <目标> 定位丢包出现在哪一跳；
-2. 目标机若存活，确认它是否禁 ICMP（很多安全策略会禁），是则该探测本身不适用，应改用端口探测；
-3. 中间跳丢包的联系网络侧排查；
-4. 确认目标机自身是否宕机或网卡故障。
-
-#### TME\_WAIT状态的连接超过2万，可能需要关注[​](#tme_wait状态的连接超过2万可能需要关注 "TME_WAIT状态的连接超过2万，可能需要关注的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-netstat_tcp_time_wait > 20000
-```
-
-处置步骤:
-
-1. 用 ss -s 确认各状态连接数分布；
-2. 用 ss -tan state time-wait | awk '{print $4}' | cut -d: -f1 | sort | uniq -c | sort -rn 看集中在哪个目标；
-3. 根因通常是短连接过多——在应用侧改用长连接或连接池，这是最有效的手段；
-4. 应急可开启 net.ipv4.tcp\_tw\_reuse=1 并调大 net.ipv4.ip\_local\_port\_range（不要开 tcp\_tw\_recycle，NAT 环境下会丢包）。
-
-#### 内存利用率比较高[​](#内存利用率比较高 "内存利用率比较高的直接链接")
-
-S3 提醒 · 持续 1 分钟 · 触发条件:
-
-```
-mem_available_percent < 25
-
-
-
-mem_available_percent < 15
-
-
-
-mem_available_percent < 5
-```
-
-处置步骤:
-
-1. 用 free -h 确认 available 与 swap 使用情况；
-2. 用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；
-3. 内核回收不及时可用 sync; echo 1 > /proc/sys/vm/drop\_caches 释放 page cache（生产慎用）；
-4. 确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。
-
-#### 文件句柄使用率超过90%[​](#文件句柄使用率超过90 "文件句柄使用率超过90%的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-linux_sysctl_fs_file_nr/linux_sysctl_fs_file_max>0.9
-```
-
-处置步骤:
-
-1. 用 cat /proc/sys/fs/file-nr 确认已分配与上限；
-2. 用 lsof | awk '{print $2}' | sort | uniq -c | sort -rn | head 找出占用句柄最多的进程；
-3. 应急调大：sysctl -w fs.file-max=<更大值>，并检查该进程的 ulimit -n 与 systemd LimitNOFILE；
-4. 根因通常是连接或文件未关闭，需在应用侧修复泄漏。
+这些规则没有收进告警规则库，完整内容列在这里。
 
 #### 机器监控 - agent失联超过60秒[​](#机器监控---agent失联超过60秒 "机器监控 - agent失联超过60秒的直接链接")
-
-触发条件:
-
-```
-```
 
 处置步骤:
 
@@ -856,12 +759,9 @@ linux_sysctl_fs_file_nr/linux_sysctl_fs_file_max>0.9
 3. 常见原因是 agent 崩溃、配置错误、或到服务端的网络/认证不通——用 curl 手工打一次服务端的写入接口验证；
 4. 恢复后确认数据已连续，注意盲区期间的故障不会有历史告警。
 
-#### 机器监控 - 时间偏移超过3秒，请注意[​](#机器监控---时间偏移超过3秒请注意 "机器监控 - 时间偏移超过3秒，请注意的直接链接")
+#### 机器监控 - 时间偏移超过3秒，请注意[​](#机器监控---时间偏移超��过3秒请注意 "机器监控 - 时间偏移超过3秒，请注意的直接链接")
 
-持续 1 分钟 · 触发条件:
-
-```
-```
+持续 1 分钟
 
 处置步骤:
 
@@ -870,283 +770,7 @@ linux_sysctl_fs_file_nr/linux_sysctl_fs_file_max>0.9
 3. 检查到 NTP 服务器的网络是否放行 123/UDP，必要时换用内网 NTP 源；
 4. 偏移过大时用 chronyc makestep 强制对时，对时间敏感的业务先做好准备。
 
-#### 每个CPU Core的平均负载任务超过3[​](#每个cpu-core的平均负载任务超过3 "每个CPU Core的平均负载任务超过3的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-system_load_norm_1>3
-```
-
-处置步骤:
-
-1. 用 uptime 看 1/5/15 分钟负载趋势，判断是突发还是持续；
-2. 用 top 看 %wa（IO 等待）——高说明瓶颈在磁盘而非 CPU，按磁盘 IO 处理；
-3. 用 vmstat 1 看 r（运行队列）与 b（阻塞）列区分 CPU 密集与 IO 阻塞；
-4. 定位到具体进程后按 CPU 或 IO 的路径继续排查，必要时扩容。
-
-#### 硬盘监控 - inode使用率超过90%[​](#硬盘监控---inode使用率超过90 "硬盘监控 - inode使用率超过90%的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-disk_inodes_used/disk_inodes_total >0.9
-```
-
-处置步骤:
-
-1. 用 df -i 确认是哪个挂载点的 inode 吃紧；
-2. 用 for d in /path/\*; do echo "$(find $d | wc -l) $d"; done | sort -rn | head 逐层找出小文件最多的目录；
-3. 常见来源是 session 文件、邮件队列、缓存碎片、未清理的容器层——按业务确认后批量删除；
-4. 长期可在格式化时调大 inode 密度，或把小文件业务迁到独立分区。
-
-#### 硬盘监控 - 大于200G的盘，空间不足了[​](#硬盘监控---大于200g的盘空间不足了 "硬盘监控 - 大于200G的盘，空间不足了的直接链接")
-
-S3 提醒 · 持续 1 分钟 · 触发条件:
-
-```
-disk_free/1024/1024/1024 < 20 and disk_total/1024/1024/1024 >= 200
-
-
-
-disk_free/1024/1024/1024 < 10 and disk_total/1024/1024/1024 >= 200
-
-
-
-disk_free/1024/1024/1024 < 2 and disk_total/1024/1024/1024 >= 200
-```
-
-处置步骤:
-
-1. 用 df -h 定位挂载点，用 du -x --max-depth=1 <挂载点> | sort -h 找出占用最大的目录；
-2. 清理日志与过期数据，注意用 lsof +L1 检查已删除但未释放的文件；
-3. 评估是否该把数据目录迁到独立磁盘或加盘扩容；
-4. 若是数据库或对象存储的数据盘，按业务侧的归档策略下沉冷数据。
-
-#### 硬盘监控 - 小于200G的盘，空间不足了[​](#硬盘监控---小于200g的盘空间不足了 "硬盘监控 - 小于200G的盘，空间不足了的直接链接")
-
-S3 提醒 · 持续 1 分钟 · 触发条件:
-
-```
-disk_used_percent > 90 and disk_total/1024/1024/1024 < 200
-
-
-
-disk_used_percent > 95 and disk_total/1024/1024/1024 < 200
-
-
-
-disk_used_percent > 99 and disk_total/1024/1024/1024 < 200
-```
-
-处置步骤:
-
-1. 用 df -h 定位挂载点，用 du -x --max-depth=1 <挂载点> | sort -h 找出占用最大的目录；
-2. 系统盘常见是 /var/log 与容器镜像层（docker system df 看占用，docker system prune 清理）；
-3. 用 lsof +L1 检查已删除但句柄未释放的文件；
-4. 长期需扩容或把大数据目录迁到独立磁盘。
-
-#### 硬盘监控 - 设备有报错[​](#硬盘监控---设备有报错 "硬盘监控 - 设备有报错的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-disk_device_error>0
-```
-
-处置步骤:
-
-1. 用 dmesg -T | grep -iE 'i/o error|ata|scsi' 看内核报的具体错误与设备名；
-2. 用 smartctl -a /dev/sdX 看 SMART 属性，重点关注 Reallocated\_Sector\_Ct 与 Current\_Pending\_Sector；
-3. 确认该盘上的数据是否有副本或备份，优先保证数据安全再处理硬件；
-4. 确认为硬件故障的，安排停机换盘，RAID 环境下先确认阵列降级状态再操作。
-
-#### 硬盘监控 - 预测硬盘会在未来4小时内写满[​](#硬盘监控---预测硬盘会在未来4小时内写满 "硬盘监控 - 预测硬盘会在未来4小时内写满的直接链接")
-
-S1 紧急 · 持续 1 分钟 · 触发条件:
-
-```
-predict_linear(disk_free[1h], 4*3600) < 0
-```
-
-处置步骤:
-
-1. 用 df -h 确认是哪个挂载点，再用 du -x --max-depth=1 <挂载点> | sort -h 逐层找出增长最快的目录；
-2. 优先清理日志（journalctl --vacuum-size=500M、清 \*.log.N）与临时文件，这是最快见效的；
-3. 用 lsof +L1 找出已删除但句柄未释放的文件，重启对应进程才能真正释放空间；
-4. 确认是否有异常写入（应用死循环打日志、备份任务堆积），不解决根因清理只是拖延。
-
-#### 系统有OOM产生[​](#系统有oom产生 "系统有OOM产生的直接链接")
-
-S2 警告 · 触发条件:
-
-```
-increase(kernel_vmstat_oom_kill[2m]) > 0
-```
-
-处置步骤:
-
-1. 用 dmesg -T | grep -i 'killed process' 确认被杀的是哪个进程、当时占用多少内存；
-2. 用 free -h 与该进程的内存曲线判断是内存泄漏还是配置的上限过高；
-3. 给关键进程调整 oom\_score\_adj 降低被杀优先级，同时给次要进程设 cgroup 内存上限；
-4. 根因是泄漏的要在应用侧抓堆定位，只扩内存会反复复发。
-
-#### 网卡监控 - 入方向有丢包[​](#网卡监控---入方向有丢包 "网卡监控 - 入方向有丢包的直接链接")
-
-S3 提醒 · 持续 1 分钟 · 触发条件:
-
-```
-increase(net_drop_in[1m]) > 0
-```
-
-处置步骤:
-
-1. 用 ip -s link show <网卡> 确认 RX dropped/errors 的增长；
-2. 用 ethtool -S <网卡> 看具体丢包原因（rx\_no\_buffer、rx\_missed\_errors 等）；
-3. 环形缓冲区不足可用 ethtool -G <网卡> rx <更大值> 调大，并检查 net.core.netdev\_max\_backlog；
-4. 若伴随 CPU 软中断偏高（top 里 %si），开启 RPS/RSS 把中断分散到多核。
-
-#### 网卡监控 - 入方向有错包[​](#网卡监控---入方向有错包 "网卡监控 - 入方向有错包的直接链接")
-
-S3 提醒 · 持续 1 分钟 · 触发条件:
-
-```
-increase(net_err_in[1m]) > 0
-```
-
-处置步骤:
-
-1. 用 ethtool -S <网卡> 看 rx\_crc\_errors、rx\_frame\_errors 等具体计数；
-2. 用 ethtool <网卡> 确认协商的速率与双工模式是否与对端一致（半双工是经典错包源）；
-3. 检查网线/光模块，必要时换线或换口做交叉验证；
-4. 联系网络侧确认交换机对应端口的错包计数。
-
-#### 网卡监控 - 出方向有丢包[​](#网卡监控---出方向有丢包 "网卡监控 - 出方向有丢包的直接链接")
-
-S3 提醒 · 持续 1 分钟 · 触发条件:
-
-```
-increase(net_drop_out[1m]) > 0
-```
-
-处置步骤:
-
-1. 用 ip -s link show <网卡> 确认 TX dropped/errors 的增长；
-2. 用 ethtool -S <网卡> 看具体计数，并用 tc -s qdisc show dev <网卡> 看队列是否溢出；
-3. 发送队列不足可调大 txqueuelen 与 ethtool -G <网卡> tx；
-4. 确认是否已跑满带宽——是则限流或扩带宽，不是则排查网卡驱动与对端设备。
-
-#### 网卡监控 - 出方向有错包[​](#网卡监控---出方向有错包 "网卡监控 - 出方向有错包的直接链接")
-
-S3 提醒 · 持续 1 分钟 · 触发条件:
-
-```
-increase(net_err_out[1m]) > 0
-```
-
-处置步骤:
-
-1. 用 ethtool -S <网卡> 看 tx\_errors、tx\_carrier\_errors 等具体计数；
-2. 用 ethtool <网卡> 确认速率与双工模式与对端一致；
-3. 检查网线/光模块并做交叉验证；
-4. 确认网卡驱动与固件版本，必要时升级。
-
-#### 网络地址探活失败[​](#网络地址探活失败 "网络地址探活失败的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-net_response_result_code != 0
-```
-
-处置步骤:
-
-1. 在采集机上手工 telnet <目标> <端口> 或 nc -vz <目标> <端口> 复现；
-2. 到目标机用 ss -lntp | grep <端口> 确认进程是否在监听；
-3. 进程在监听则排查防火墙、安全组、以及是否只绑定了 127.0.0.1；
-4. 进程不在则按该服务自身的恢复流程拉起。
-
-#### 进程监控-有进程数为0，某进程可能挂了[​](#进程监控-有进程数为0某进程可能挂了 "进程监控-有进程数为0，某进程可能挂了的直接链接")
-
-S1 紧急 · 持续 1 分钟 · 触发条件:
-
-```
-procstat_lookup_count == 0
-```
-
-处置步骤:
-
-1. 用 ps -ef | grep <进程关键字> 确认确实不在，排除采集侧的匹配规则写错；
-2. 查该进程的日志与 dmesg -T | grep -i 'killed process'，区分自身崩溃、被 OOM 杀死还是人工停止；
-3. 按服务自身流程拉起，并确认 systemd 的 Restart 策略是否生效；
-4. 若反复退出，先定位根因再拉起，避免陷入重启循环。
-
-#### 进程监控-进程句柄限制过小[​](#进程监控-进程句柄限制过小 "进程监控-进程句柄限制过小的直接链接")
-
-S3 提醒 · 持续 1 分钟 · 触发条件:
-
-```
-procstat_rlimit_num_fds_soft < 2048
-```
-
-处置步骤:
-
-1. 用 cat /proc/\<pid>/limits 确认 Max open files 的软硬上限；
-2. systemd 管理的服务在 unit 文件里加 LimitNOFILE=65535 后 systemctl daemon-reload 并重启；
-3. 非 systemd 的在启动脚本里加 ulimit -n 65535，或改 /etc/security/limits.conf；
-4. 注意软上限修改后必须重启进程才生效。
-
-#### 进程监控-进程总量超过600[​](#进程监控-进程总量超过600 "进程监控-进程总量超过600的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-processes_total > 600
-```
-
-处置步骤:
-
-1. 用 ps -eo ppid | sort | uniq -c | sort -rn | head 找出 fork 子进程最多的父进程；
-2. 确认是正常的多进程模型（如 php-fpm、nginx worker）还是失控 fork；
-3. 失控的先停掉该父进程止血，再修复代码里的 fork 逻辑；
-4. 正常业务增长则调整 worker 数配置并评估是否需要扩容。
-
-#### Hard disk - expected to be written full in 4 hours - categraf[​](#hard-disk---expected-to-be-written-full-in-4-hours---categraf "Hard disk - expected to be written full in 4 hours - categraf的直接链接")
-
-S1 紧急 · 持续 1 分钟 · 触发条件:
-
-```
-predict_linear(disk_free[1h], 4*3600) < 0
-```
-
-处置步骤:
-
-1. 用 df -h 确认是哪个挂载点，再用 du -x --max-depth=1 <挂载点> | sort -h 逐层找出增长最快的目录；
-2. 优先清理日志（journalctl --vacuum-size=500M、清 \*.log.N）与临时文件，这是最快见效的；
-3. 用 lsof +L1 找出已删除但句柄未释放的文件，重启对应进程才能真正释放空间；
-4. 确认是否有异常写入（应用死循环打日志、备份任务堆积），不解决根因清理只是拖延。
-
-#### Hard disk - IO is a bit busy - categraf[​](#hard-disk---io-is-a-bit-busy---categraf "Hard disk - IO is a bit busy - categraf的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-rate(diskio_io_time[1m])/10 > 99
-```
-
-处置步骤:
-
-1. 用 iostat -x 1 确认是哪块盘、await 与 %util 的具体数值；
-2. 用 iotop -oP 或 pidstat -d 1 找出占用 IO 最高的进程；
-3. 常见元凶是数据库大查询、备份任务、日志刷盘——把可延后的任务错峰执行；
-4. 若是持续高负载而非突发，考虑换 SSD 或把热数据分散到多块盘。
-
 #### Lost connection with monitoring target - categraf[​](#lost-connection-with-monitoring-target---categraf "Lost connection with monitoring target - categraf的直接链接")
-
-触发条件:
-
-```
-```
 
 处置步骤:
 
@@ -1154,502 +778,15 @@ rate(diskio_io_time[1m])/10 > 99
 2. 机器存活则用 systemctl status categraf 确认 agent 进程，看日志 journalctl -u categraf -n 100 定位；
 3. 常见原因是 agent 崩溃、配置错误、或到服务端的网络/认证不通——用 curl 手工打一次服务端的写入接口验证；
 4. 恢复后确认数据已连续，注意盲区期间的故障不会有历史告警。
-
-#### Machine load - high memory, please pay attention - categraf[​](#machine-load---high-memory-please-pay-attention---categraf "Machine load - high memory, please pay attention - categraf的直接链接")
-
-S3 提醒 · 持续 1 分钟 · 触发条件:
-
-```
-mem_available_percent < 25
-
-
-
-mem_available_percent < 15
-
-
-
-mem_available_percent < 5
-```
-
-处置步骤:
-
-1. 用 free -h 确认 available 与 swap 使用情况；
-2. 用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；
-3. 内核回收不及时可用 sync; echo 1 > /proc/sys/vm/drop\_caches 释放 page cache（生产慎用）；
-4. 确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。
-
-#### number of TME\_WAIT exceeds 20,000 - categraf[​](#number-of-tme_wait-exceeds-20000---categraf "number of TME_WAIT exceeds 20,000 - categraf的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-netstat_tcp_time_wait > 20000
-```
-
-处置步骤:
-
-1. 用 ss -s 确认各状态连接数分布；
-2. 用 ss -tan state time-wait | awk '{print $4}' | cut -d: -f1 | sort | uniq -c | sort -rn 看集中在哪个目标；
-3. 根因通常是短连接过多——在应用侧改用长连接或连接池，这是最有效的手段；
-4. 应急可开启 net.ipv4.tcp\_tw\_reuse=1 并调大 net.ipv4.ip\_local\_port\_range（不要开 tcp\_tw\_recycle，NAT 环境下会丢包）。
-
-#### packet loss in the inbound direction - categraf[​](#packet-loss-in-the-inbound-direction---categraf "packet loss in the inbound direction - categraf的直接链接")
-
-S3 提醒 · 持续 1 分钟 · 触发条件:
-
-```
-increase(net_drop_in[1m]) > 0
-```
-
-处置步骤:
-
-1. 用 ip -s link show <网卡> 确认 RX dropped/errors 的增长；
-2. 用 ethtool -S <网卡> 看具体丢包原因（rx\_no\_buffer、rx\_missed\_errors 等）；
-3. 环形缓冲区不足可用 ethtool -G <网卡> rx <更大值> 调大，并检查 net.core.netdev\_max\_backlog；
-4. 若伴随 CPU 软中断偏高（top 里 %si），开启 RPS/RSS 把中断分散到多核。
-
-#### packet loss in the outbound direction - categraf[​](#packet-loss-in-the-outbound-direction---categraf "packet loss in the outbound direction - categraf的直接链接")
-
-S3 提醒 · 持续 1 分钟 · 触发条件:
-
-```
-increase(net_drop_out[1m]) > 0
-```
-
-处置步骤:
-
-1. 用 ip -s link show <网卡> 确认 TX dropped/errors 的增长；
-2. 用 ethtool -S <网卡> 看具体计数，并用 tc -s qdisc show dev <网卡> 看队列是否溢出；
-3. 发送队列不足可调大 txqueuelen 与 ethtool -G <网卡> tx；
-4. 确认是否已跑满带宽——是则限流或扩带宽，不是则排查网卡驱动与对端设备。
-
-#### 大于200G的盘，空间不足了[​](#大于200g的盘空间不足了 "大于200G的盘，空间不足了的直接链接")
-
-S3 提醒 · 持续 1 分钟 · 触发条件:
-
-```
-disk_free/1024/1024/1024 < 20 and disk_total/1024/1024/1024 >= 200
-
-
-
-disk_free/1024/1024/1024 < 10 and disk_total/1024/1024/1024 >= 200
-
-
-
-disk_free/1024/1024/1024 < 2 and disk_total/1024/1024/1024 >= 200
-```
-
-处置步骤:
-
-1. 用 df -h 定位挂载点，用 du -x --max-depth=1 <挂载点> | sort -h 找出占用最大的目录；
-2. 清理日志与过期数据，注意用 lsof +L1 检查已删除但未释放的文件；
-3. 评估是否该把数据目录迁到独立磁盘或加盘扩容；
-4. 若是数据库或对象存储的数据盘，按业务侧的归档策略下沉冷数据。
-
-#### 小于200G的盘，空间不足了[​](#小于200g的盘空间不足了 "小于200G的盘，空间不足了的直接链接")
-
-S3 提醒 · 持续 1 分钟 · 触发条件:
-
-```
-disk_used_percent > 90 and disk_total/1024/1024/1024 < 200
-
-
-
-disk_used_percent > 95 and disk_total/1024/1024/1024 < 200
-
-
-
-disk_used_percent > 99 and disk_total/1024/1024/1024 < 200
-```
-
-处置步骤:
-
-1. 用 df -h 定位挂载点，用 du -x --max-depth=1 <挂载点> | sort -h 找出占用最大的目录；
-2. 系统盘常见是 /var/log 与容器镜像层（docker system df 看占用，docker system prune 清理）；
-3. 用 lsof +L1 检查已删除但句柄未释放的文件；
-4. 长期需扩容或把大数据目录迁到独立磁盘。
-
-### Exporter 采集（12）[​](#exporter-采集12 "Exporter 采集（12）的直接链接")
-
-#### A certain disk is unable to read/write normally[​](#a-certain-disk-is-unable-to-readwrite-normally "A certain disk is unable to read/write normally的直接链接")
-
-S1 紧急 · 持续 1 分钟 · 触发条件:
-
-```
-(node_filesystem_device_error{mountpoint!~"/var/lib/.*",mountpoint!~"/run.*"}) > 0
-```
-
-处置步骤:
-
-1. 用 dmesg -T | grep -iE 'i/o error|ata|scsi' 看内核报的具体错误与设备名；
-2. 用 smartctl -a /dev/sdX 看 SMART 属性，重点关注 Reallocated\_Sector\_Ct 与 Current\_Pending\_Sector；
-3. 确认该盘上的数据是否有副本或备份，优先保证数据安全再处理硬件；
-4. 确认为硬件故障的，安排停机换盘，RAID 环境下先确认阵列降级状态再操作。
-
-#### Disk needs to be cleaned - utilization has reached 92% - node exporter[​](#disk-needs-to-be-cleaned---utilization-has-reached-92---node-exporter "Disk needs to be cleaned - utilization has reached 92% - node exporter的直接链接")
-
-S1 紧急 · 持续 1 分钟 · 触发条件:
-
-```
-(100 - ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes) ) > 92
-```
-
-处置步骤:
-
-1. 用 df -h 定位挂载点，用 du -x --max-depth=1 <挂载点> | sort -h 找出占用最大的目录；
-2. 系统盘常见是 /var/log 与容器镜像层（docker system df 看占用，docker system prune 清理）；
-3. 用 lsof +L1 检查已删除但句柄未释放的文件；
-4. 长期需扩容或把大数据目录迁到独立磁盘。
-
-#### Insufficient computational resources - average load per core of the machine is greater than 10 - node exporter[​](#insufficient-computational-resources---average-load-per-core-of-the-machine-is-greater-than-10---node-exporter "Insufficient computational resources - average load per core of the machine is greater than 10 - node exporter的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-avg (node_load1) by (instance)/count(count(node_cpu_seconds_total) by (cpu,instance)) by (instance) >10
-```
-
-处置步骤:
-
-1. 用 uptime 看 1/5/15 分钟负载趋势，判断是突发还是持续；
-2. 用 top 看 %wa（IO 等待）——高说明瓶颈在磁盘而非 CPU，按磁盘 IO 处理；
-3. 用 vmstat 1 看 r（运行队列）与 b（阻塞）列区分 CPU 密集与 IO 阻塞；
-4. 定位到具体进程后按 CPU 或 IO 的路径继续排查，必要时扩容。
-
-#### Insufficient file handles - usage exceeds 90% - node exporter[​](#insufficient-file-handles---usage-exceeds-90---node-exporter "Insufficient file handles - usage exceeds 90% - node exporter的直接链接")
-
-You can increase the file handle limit or expand the capacity
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-(node_filefd_allocated/node_filefd_maximum*100) > 90
-```
-
-处置步骤:
-
-1. 用 cat /proc/sys/fs/file-nr 确认已分配与上限；
-2. 用 lsof | awk '{print $2}' | sort | uniq -c | sort -rn | head 找出占用句柄最多的进程；
-3. 应急调大：sysctl -w fs.file-max=<更大值>，并检查该进程的 ulimit -n 与 systemd LimitNOFILE；
-4. 根因通常是连接或文件未关闭，需在应用侧修复泄漏。
-
-#### Insufficient inode resources - usage exceeds 90% - node exporter[​](#insufficient-inode-resources---usage-exceeds-90---node-exporter "Insufficient inode resources - usage exceeds 90% - node exporter的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-(100 - ((node_filesystem_files_free * 100) / node_filesystem_files))>90
-```
-
-处置步骤:
-
-1. 用 df -i 确认是哪个挂载点的 inode 吃紧；
-2. 用 for d in /path/\*; do echo "$(find $d | wc -l) $d"; done | sort -rn | head 逐层找出小文件最多的目录；
-3. 常见来源是 session 文件、邮件队列、缓存碎片、未清理的容器层——按业务确认后批量删除；
-4. 长期可在格式化时调大 inode 密度，或把小文件业务迁到独立分区。
-
-#### Insufficient memory resources - utilization is greater than 75% - node exporter[​](#insufficient-memory-resources---utilization-is-greater-than-75---node-exporter "Insufficient memory resources - utilization is greater than 75% - node exporter的直接链接")
-
-Expansion or upgrading of configuration is required
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-(node_memory_MemTotal_bytes - node_memory_MemFree_bytes - (node_memory_Cached_bytes + node_memory_Buffers_bytes))/node_memory_MemTotal_bytes*100 > 75
-```
-
-处置步骤:
-
-1. 用 free -h 确认 available 与 swap 使用情况；
-2. 用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；
-3. 内核回收不及时可用 sync; echo 1 > /proc/sys/vm/drop\_caches 释放 page cache（生产慎用）；
-4. 确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。
-
-#### Insufficient memory resources - utilization is greater than 95% - node exporter[​](#insufficient-memory-resources---utilization-is-greater-than-95---node-exporter "Insufficient memory resources - utilization is greater than 95% - node exporter的直接链接")
-
-S1 紧急 · 持续 1 分钟 · 触发条件:
-
-```
-(node_memory_MemTotal_bytes - node_memory_MemFree_bytes - (node_memory_Cached_bytes + node_memory_Buffers_bytes))/node_memory_MemTotal_bytes*100 > 95
-```
-
-处置步骤:
-
-1. 用 free -h 确认 available 与 swap 使用情况；
-2. 用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；
-3. 内核回收不及时可用 sync; echo 1 > /proc/sys/vm/drop\_caches 释放 page cache（生产慎用）；
-4. 确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。
-
-#### Packet loss in the inbound direction of the network card - node exporter[​](#packet-loss-in-the-inbound-direction-of-the-network-card---node-exporter "Packet loss in the inbound direction of the network card - node exporter的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-rate(node_network_receive_drop_total{device=~"e.*"}[1m]) > 3
-```
-
-处置步骤:
-
-1. 用 ip -s link show <网卡> 确认 RX dropped/errors 的增长；
-2. 用 ethtool -S <网卡> 看具体丢包原因（rx\_no\_buffer、rx\_missed\_errors 等）；
-3. 环形缓冲区不足可用 ethtool -G <网卡> rx <更大值> 调大，并检查 net.core.netdev\_max\_backlog；
-4. 若伴随 CPU 软中断偏高（top 里 %si），开启 RPS/RSS 把中断分散到多核。
-
-#### Packet loss in the outbound direction of the network card - node exporter[​](#packet-loss-in-the-outbound-direction-of-the-network-card---node-exporter "Packet loss in the outbound direction of the network card - node exporter的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-rate(node_network_transmit_drop_total{device=~"e.*"}[1m]) > 3
-```
-
-处置步骤:
-
-1. 用 ip -s link show <网卡> 确认 TX dropped/errors 的增长；
-2. 用 ethtool -S <网卡> 看具体计数，并用 tc -s qdisc show dev <网卡> 看队列是否溢出；
-3. 发送队列不足可调大 txqueuelen 与 ethtool -G <网卡> tx；
-4. 确认是否已跑满带宽——是则限流或扩带宽，不是则排查网卡驱动与对端设备。
-
-#### System conntrack needs to be adjusted - usage exceeds 80% - node exporter[​](#system-conntrack-needs-to-be-adjusted---usage-exceeds-80---node-exporter "System conntrack needs to be adjusted - usage exceeds 80% - node exporter的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-node_nf_conntrack_entries / node_nf_conntrack_entries_limit*100 > 80
-```
-
-处置步骤:
-
-1. 用 sysctl net.netfilter.nf\_conntrack\_count 与 nf\_conntrack\_max 确认当前水位；
-2. 用 conntrack -L | awk '{print $4}' | sort | uniq -c | sort -rn 看连接集中在哪类协议或来源；
-3. 应急调大：sysctl -w net.netfilter.nf\_conntrack\_max=<更大值>，并同步调大 nf\_conntrack\_buckets；
-4. 同时缩短 nf\_conntrack\_tcp\_timeout\_time\_wait 等超时，或对不需要跟踪的流量用 iptables raw 表 NOTRACK。
-
-#### System experiences OOM - node exporter[​](#system-experiences-oom---node-exporter "System experiences OOM - node exporter的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-increase(node_vmstat_oom_kill[1m]) > 0
-```
-
-处置步骤:
-
-1. 用 dmesg -T | grep -i 'killed process' 确认被杀的是哪个进程、当时占用多少内存；
-2. 用 free -h 与该进程的内存曲线判断是内存泄漏还是配置的上限过高；
-3. 给关键进程调整 oom\_score\_adj 降低被杀优先级，同时给次要进程设 cgroup 内存上限；
-4. 根因是泄漏的要在应用侧抓堆定位，只扩内存会反复复发。
-
-#### Too many running processes - exceeding 3000 - node exporter[​](#too-many-running-processes---exceeding-3000---node-exporter "Too many running processes - exceeding 3000 - node exporter的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-node_procs_running > 3000
-```
-
-处置步骤:
-
-1. 用 ps -eo ppid | sort | uniq -c | sort -rn | head 找出 fork 子进程最多的父进程；
-2. 确认是正常的多进程模型（如 php-fpm、nginx worker）还是失控 fork；
-3. 失控的先停掉该父进程止血，再修复代码里的 fork 逻辑；
-4. 正常业务增长则调整 worker 数配置并评估是否需要扩容。
-
-### Telegraf 采集（13）[​](#telegraf-采集13 "Telegraf 采集（13）的直接链接")
-
-#### Address is unreachable by PING, please pay attention - telegraf[​](#address-is-unreachable-by-ping-please-pay-attention---telegraf "Address is unreachable by PING, please pay attention - telegraf的直接链接")
-
-S1 紧急 · 持续 1 分钟 · 触发条件:
-
-```
-ping_result_code != 0
-```
-
-处置步骤:
-
-1. 在采集机上手工 ping -c 5 <目标> 复现，再用 mtr -n <目标> 定位丢包出现在哪一跳；
-2. 目标机若存活，确认它是否禁 ICMP（很多安全策略会禁），是则该探测本身不适用，应改用端口探测；
-3. 中间跳丢包的联系网络侧排查；
-4. 确认目标机自身是否宕机或网卡故障。
-
-#### Hard disk - expected to be written full in 4 hours - telegraf[​](#hard-disk---expected-to-be-written-full-in-4-hours---telegraf "Hard disk - expected to be written full in 4 hours - telegraf的直接链接")
-
-S1 紧急 · 持续 1 分钟 · 触发条件:
-
-```
-predict_linear(disk_free[1h], 4*3600) < 0
-```
-
-处置步骤:
-
-1. 用 df -h 确认是哪个挂载点，再用 du -x --max-depth=1 <挂载点> | sort -h 逐层找出增长最快的目录；
-2. 优先清理日志（journalctl --vacuum-size=500M、清 \*.log.N）与临时文件，这是最快见效的；
-3. 用 lsof +L1 找出已删除但句柄未释放的文件，重启对应进程才能真正释放空间；
-4. 确认是否有异常写入（应用死循环打日志、备份任务堆积），不解决根因清理只是拖延。
-
-#### Hard disk - IO is very busy - telegraf[​](#hard-disk---io-is-very-busy---telegraf "Hard disk - IO is very busy - telegraf的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-rate(diskio_io_time[1m])/10 > 99
-```
-
-处置步骤:
-
-1. 用 iostat -x 1 确认是哪块盘、await 与 %util 的具体数值；
-2. 用 iotop -oP 或 pidstat -d 1 找出占用 IO 最高的进程；
-3. 常见元凶是数据库大查询、备份任务、日志刷盘——把可延后的任务错峰执行；
-4. 若是持续高负载而非突发，考虑换 SSD 或把热数据分散到多块盘。
 
 #### Lost connection with monitoring target - telegraf[​](#lost-connection-with-monitoring-target---telegraf "Lost connection with monitoring target - telegraf的直接链接")
 
-触发条件:
-
-```
-```
-
 处置步骤:
 
 1. 先用 ping 与 ssh 确认机器本身是否存活，机器宕机要按宕机处理；
 2. 机器存活则用 systemctl status categraf 确认 agent 进程，看日志 journalctl -u categraf -n 100 定位；
 3. 常见原因是 agent 崩溃、配置错误、或到服务端的网络/认证不通——用 curl 手工打一次服务端的写入接口验证；
 4. 恢复后确认数据已连续，注意盲区期间的故障不会有历史告警。
-
-#### Machine load - high CPU, please pay attention - telegraf[​](#machine-load---high-cpu-please-pay-attention---telegraf "Machine load - high CPU, please pay attention - telegraf的直接链接")
-
-S3 提醒 · 持续 1 分钟 · 触发条件:
-
-```
-cpu_usage_idle{cpu="cpu-total"} < 25
-```
-
-处置步骤:
-
-1. 用 top -H 或 pidstat 1 找出占用最高的进程与线程；
-2. 用 perf top 或对应语言的 profiler（Java 用 arthas/async-profiler，Go 用 pprof）定位热点函数；
-3. 区分是业务量自然增长还是代码异常（死循环、正则回溯、频繁 GC）；
-4. 业务量增长则扩容或限流，代码问题则修复后发布。
-
-#### Machine load - high memory, please pay attention - telegraf[​](#machine-load---high-memory-please-pay-attention---telegraf "Machine load - high memory, please pay attention - telegraf的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-mem_available_percent < 25
-```
-
-处置步骤:
-
-1. 用 free -h 确认 available 与 swap 使用情况；
-2. 用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；
-3. 内核回收不及时可用 sync; echo 1 > /proc/sys/vm/drop\_caches 释放 page cache（生产慎用）；
-4. 确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。
-
-#### Network connection - number of TME\_WAIT exceeds 20,000 - telegraf[​](#network-connection---number-of-tme_wait-exceeds-20000---telegraf "Network connection - number of TME_WAIT exceeds 20,000 - telegraf的直接链接")
-
-S2 警告 · 持续 1 分钟 · 触发条件:
-
-```
-netstat_tcp_time_wait > 20000
-```
-
-处置步骤:
-
-1. 用 ss -s 确认各状态连接数分布；
-2. 用 ss -tan state time-wait | awk '{print $4}' | cut -d: -f1 | sort | uniq -c | sort -rn 看集中在哪个目标；
-3. 根因通常是短连接过多——在应用侧改用长连接或连接池，这是最有效的手段；
-4. 应急可开启 net.ipv4.tcp\_tw\_reuse=1 并调大 net.ipv4.ip\_local\_port\_range（不要开 tcp\_tw\_recycle，NAT 环境下会丢包）。
-
-#### packet loss in the inbound direction - telegraf[​](#packet-loss-in-the-inbound-direction---telegraf "packet loss in the inbound direction - telegraf的直接链接")
-
-S3 提醒 · 持续 1 分钟 · 触发条件:
-
-```
-increase(net_drop_in[1m]) > 0
-```
-
-处置步骤:
-
-1. 用 ip -s link show <网卡> 确认 RX dropped/errors 的增长；
-2. 用 ethtool -S <网卡> 看具体丢包原因（rx\_no\_buffer、rx\_missed\_errors 等）；
-3. 环形缓冲区不足可用 ethtool -G <网卡> rx <更大值> 调大，并检查 net.core.netdev\_max\_backlog；
-4. 若伴随 CPU 软中断偏高（top 里 %si），开启 RPS/RSS 把中断分散到多核。
-
-#### packet loss in the outbound direction - telegraf[​](#packet-loss-in-the-outbound-direction---telegraf "packet loss in the outbound direction - telegraf的直接链接")
-
-S3 提醒 · 持续 1 分钟 · 触发条件:
-
-```
-increase(net_drop_out[1m]) > 0
-```
-
-处置步骤:
-
-1. 用 ip -s link show <网卡> 确认 TX dropped/errors 的增长；
-2. 用 ethtool -S <网卡> 看具体计数，并用 tc -s qdisc show dev <网卡> 看队列是否溢出；
-3. 发送队列不足可调大 txqueuelen 与 ethtool -G <网卡> tx；
-4. 确认是否已跑满带宽——是则限流或扩带宽，不是则排查网卡驱动与对端设备。
-
-#### Port detection failed, please pay attention - telegraf[​](#port-detection-failed-please-pay-attention---telegraf "Port detection failed, please pay attention - telegraf的直接链接")
-
-S1 紧急 · 持续 1 分钟 · 触发条件:
-
-```
-net_response_result_code != 0
-```
-
-处置步骤:
-
-1. 在采集机上手工 telnet <目标> <端口> 或 nc -vz <目标> <端口> 复现；
-2. 到目标机用 ss -lntp | grep <端口> 确认进程是否在监听；
-3. 进程在监听则排查防火墙、安全组、以及是否只绑定了 127.0.0.1；
-4. 进程不在则按该服务自身的恢复流程拉起。
-
-#### process handle limit is too small - telegraf[​](#process-handle-limit-is-too-small---telegraf "process handle limit is too small - telegraf的直接链接")
-
-S3 提醒 · 持续 1 分钟 · 触发条件:
-
-```
-procstat_rlimit_num_fds_soft < 2048
-```
-
-处置步骤:
-
-1. 用 cat /proc/\<pid>/limits 确认 Max open files 的软硬上限；
-2. systemd 管理的服务在 unit 文件里加 LimitNOFILE=65535 后 systemctl daemon-reload 并重启；
-3. 非 systemd 的在启动脚本里加 ulimit -n 65535，或改 /etc/security/limits.conf；
-4. 注意软上限修改后必须重启进程才生效。
-
-#### Process monitoring - lookup failure - telegraf[​](#process-monitoring---lookup-failure---telegraf "Process monitoring - lookup failure - telegraf的直接链接")
-
-S1 紧急 · 持续 1 分钟 · 触发条件:
-
-```
-procstat_lookup_result_code != 0
-```
-
-处置步骤:
-
-1. 在采集机上按配置的匹配方式手工执行 ps/pgrep 复现；
-2. 进程确实不在则按服务恢复流程处理；
-3. 进程在但探测失败，检查 procstat 配置的 pid\_file、exe、pattern 是否写错，以及采集账号是否有权限读取 /proc；
-4. 容器环境下确认 categraf 是否挂载了宿主机的 /proc。
-
-#### there are processes with 0 count, a certain process may have crashed - telegraf[​](#there-are-processes-with-0-count-a-certain-process-may-have-crashed---telegraf "there are processes with 0 count, a certain process may have crashed - telegraf的直接链接")
-
-S1 紧急 · 持续 1 分钟 · 触发条件:
-
-```
-procstat_lookup_running == 0
-```
-
-处置步骤:
-
-1. 用 ps -ef | grep <进程关键字> 确认确实不在，排除采集侧的匹配规则写错；
-2. 查该进程的日志与 dmesg -T | grep -i 'killed process'，区分自身崩溃、被 OOM 杀死还是人工停止；
-3. 按服务自身流程拉起，并确认 systemd 的 Restart 策略是否生效；
-4. 若反复退出，先定位根因再拉起，避免陷入重启循环。
 
 ## 指标说明[​](#指标说明 "指标说明的直接链接")
 

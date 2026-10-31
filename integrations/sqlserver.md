@@ -2,7 +2,7 @@
 
 Collects connections, waits, buffer pool, log usage and database state from DMVs and performance counters; VIEW SERVER STATE is all the permission it needs.
 
-Last reviewed 2026-10-28
+Last reviewed 2026-10-31
 
 The SQL Server input is based on the Telegraf plugin of the same name and reads dynamic management views (DMVs) and performance counters: connections and requests, wait statistics, buffer cache hit ratio, page life expectancy, transaction log usage, database state and size, and Always On availability group health. It has been verified against SQL Server 2022.
 

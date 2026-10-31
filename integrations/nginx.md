@@ -2,7 +2,7 @@
 
 stub\_status covers connections and request totals, the VTS module adds per-server and per-upstream status codes and latency; an upstream\_check input reads health-check results.
 
-Last reviewed 2026-10-28
+Last reviewed 2026-10-31
 
 Nginx can be monitored at three levels. The built-in `stub_status` module reports active connections, accepts, handled, requests and reading/writing/waiting counts, enough for liveness and traffic trends. The VTS module (`nginx-module-vts`) breaks requests, status codes, response time and traffic down by server zone and upstream, which is the recommended path; scrape its `/status/format/prometheus` with the Categraf `prometheus` input. The third is the `nginx_upstream_check` input, which reads the results of the upstream\_check module.
 

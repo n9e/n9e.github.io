@@ -3,10 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.10.2">
-<title data-rh="true">用夜莺监控 Linux | 夜莺 Nightingale</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://n9e.github.io/zh/img/og.png"><meta data-rh="true" name="twitter:image" content="https://n9e.github.io/zh/img/og.png"><meta data-rh="true" property="og:url" content="https://n9e.github.io/zh/integrations/linux"><meta data-rh="true" property="og:locale" content="zh_CN"><meta data-rh="true" property="og:locale:alternate" content="en"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" property="og:image:width" content="1200"><meta data-rh="true" property="og:image:height" content="630"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-integrations-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-integrations-current"><meta data-rh="true" property="og:title" content="用夜莺监控 Linux | 夜莺 Nightingale"><meta data-rh="true" name="description" content="CPU、内存、磁盘、网络、进程到内核参数，Categraf 装上就有数据，模板覆盖 Categraf、node_exporter 和 Telegraf 三种采集口径。"><meta data-rh="true" property="og:description" content="CPU、内存、磁盘、网络、进程到内核参数，Categraf 装上就有数据，模板覆盖 Categraf、node_exporter 和 Telegraf 三种采集口径。"><meta data-rh="true" property="og:type" content="article"><meta data-rh="true" property="article:modified_time" content="2026-10-28"><link data-rh="true" rel="icon" href="/zh/img/favicon.png"><link data-rh="true" rel="canonical" href="https://n9e.github.io/zh/integrations/linux"><link data-rh="true" rel="alternate" href="https://n9e.github.io/integrations/linux" hreflang="en"><link data-rh="true" rel="alternate" href="https://n9e.github.io/zh/integrations/linux" hreflang="zh-CN"><link data-rh="true" rel="alternate" href="https://n9e.github.io/integrations/linux" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Linux","item":"https://n9e.github.io/zh/integrations/linux"}]}</script><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"用夜莺监控 Linux","description":"CPU、内存、磁盘、网络、进程到内核参数，Categraf 装上就有数据，模板覆盖 Categraf、node_exporter 和 Telegraf 三种采集口径。","inLanguage":"zh-CN","dateModified":"2026-10-28","url":"https://n9e.github.io/zh/integrations/linux"}</script><link rel="preconnect" href="https://www.google-analytics.com">
+<title data-rh="true">用夜莺监控 Linux | 夜莺 Nightingale</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://n9e.github.io/zh/img/og.png"><meta data-rh="true" name="twitter:image" content="https://n9e.github.io/zh/img/og.png"><meta data-rh="true" property="og:url" content="https://n9e.github.io/zh/integrations/linux"><meta data-rh="true" property="og:locale" content="zh_CN"><meta data-rh="true" property="og:locale:alternate" content="en"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" property="og:image:width" content="1200"><meta data-rh="true" property="og:image:height" content="630"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-integrations-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-integrations-current"><meta data-rh="true" property="og:title" content="用夜莺监控 Linux | 夜莺 Nightingale"><meta data-rh="true" name="description" content="CPU、内存、磁盘、网络、进程到内核参数，Categraf 装上就有数据，模板覆盖 Categraf、node_exporter 和 Telegraf 三种采集口径。"><meta data-rh="true" property="og:description" content="CPU、内存、磁盘、网络、进程到内核参数，Categraf 装上就有数据，模板覆盖 Categraf、node_exporter 和 Telegraf 三种采集口径。"><meta data-rh="true" property="og:type" content="article"><meta data-rh="true" property="article:modified_time" content="2026-10-31"><link data-rh="true" rel="icon" href="/zh/img/favicon.png"><link data-rh="true" rel="canonical" href="https://n9e.github.io/zh/integrations/linux"><link data-rh="true" rel="alternate" href="https://n9e.github.io/integrations/linux" hreflang="en"><link data-rh="true" rel="alternate" href="https://n9e.github.io/zh/integrations/linux" hreflang="zh-CN"><link data-rh="true" rel="alternate" href="https://n9e.github.io/integrations/linux" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Linux","item":"https://n9e.github.io/zh/integrations/linux"}]}</script><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"用夜莺监控 Linux","description":"CPU、内存、磁盘、网络、进程到内核参数，Categraf 装上就有数据，模板覆盖 Categraf、node_exporter 和 Telegraf 三种采集口径。","inLanguage":"zh-CN","dateModified":"2026-10-31","url":"https://n9e.github.io/zh/integrations/linux"}</script><link rel="preconnect" href="https://www.google-analytics.com">
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-W860H4Z5JM"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-W860H4Z5JM",{anonymize_ip:!0})</script>
+
 
 
 
@@ -43,15 +44,15 @@
 @font-face { font-family: 'JetBrains Mono Fallback'; src: local('Menlo'), local('Consolas'), local('DejaVu Sans Mono'); size-adjust: 99.66%; ascent-override: 102.35%; descent-override: 30.10%; line-gap-override: 0%; }
 </style>
 <script>!function(){try{var e=window.location,t=e.pathname;if(t.length>1&&"/"===t.charAt(t.length-1)&&"/zh/"!==t)return void e.replace(t.replace(/\/+$/,"")+e.search+e.hash);var n,a=new URLSearchParams(e.search),r=window.self!==window.top;try{n=window.sessionStorage}catch(i){}function o(e){try{return n&&n.getItem(e)}catch(e){return null}}function h(e,t){try{n&&n.setItem(e,t)}catch(e){}}if(!(a.has("onlyContent")||r&&"1"===o("n9e-embed")))return;var c=a.get("theme");if("dark"!==c&&"light"!==c&&(c=r?o("n9e-embed-theme"):null),r&&(h("n9e-embed","1"),c&&h("n9e-embed-theme",c)),document.documentElement.setAttribute("data-n9e-embed",""),e.hash){var s=decodeURIComponent(e.hash.slice(1));window.addEventListener("load",function(){setTimeout(function(){var e=document.getElementById(s);e&&e.scrollIntoView({behavior:"instant",block:"start"})},0)})}c&&!a.has("docusaurus-theme")&&(a.set("docusaurus-theme",c),history.replaceState(history.state,"",t+"?"+a.toString()+e.hash))}catch(d){}}()</script>
-<script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?9d7cc507a7aae60b28b5e04bb995492a",e.async=!0;var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><link rel="stylesheet" href="/zh/assets/css/styles.d1385ada.css">
-<script src="/zh/assets/js/runtime~main.634b24ca.js" defer="defer"></script>
-<script src="/zh/assets/js/main.99c4d0bd.js" defer="defer"></script>
+<script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?9d7cc507a7aae60b28b5e04bb995492a",e.async=!0;var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><link rel="stylesheet" href="/zh/assets/css/styles.53352800.css">
+<script src="/zh/assets/js/runtime~main.ccab66db.js" defer="defer"></script>
+<script src="/zh/assets/js/main.b97003c0.js" defer="defer"></script>
 <link rel="alternate" type="text/markdown" href="https://n9e.github.io/zh/integrations/linux.md"><link rel="describedby" href="https://n9e.github.io/zh/llms.txt"></head>
 <body>
 <svg style="display: none;"><defs>
 <symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
 </defs></svg>
-<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"dark"),document.documentElement.setAttribute("data-theme-choice",t||"dark")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/zh/"><div class="navbar__logo"><img src="/zh/img/logo-mark.webp" alt="Nightingale" class="themedComponent_mlkZ themedComponent--light_NVdE" height="26" width="25"><img src="/zh/img/logo-mark.webp" alt="Nightingale" class="themedComponent_mlkZ themedComponent--dark_xIcU" height="26" width="25"></div><b class="navbar__title text--truncate">夜莺</b></a><a class="navbar__item navbar__link" href="/zh/docs">文档</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/zh/integrations">集成</a><a class="navbar__item navbar__link" href="/zh/comparisons">对比</a><a class="navbar__item navbar__link" href="/zh/download">下载</a><div class="navbar__item dropdown dropdown--hoverable"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">社区</a><ul class="dropdown__menu"><li><a href="https://github.com/ccfos/nightingale/issues" target="_blank" rel="noopener noreferrer" class="dropdown__link">提交 Issue<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li><a href="https://join.slack.com/t/n9e/shared_invite/zt-4ejx42fd0-S9aVULH4FTdH~jEAz80U7g" target="_blank" rel="noopener noreferrer" class="dropdown__link">Slack<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://play.n9e.io/api/n9e/auth/demo-login" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">在线体验<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://github.com/ccfos/nightingale" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link navbar-github" aria-label="GitHub, 13400 stars">13.4k<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="mobileOnly_k8CN"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB n9e-docs-root n9e-docs-root--single"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><div class="searchWrap_zhtN"></div><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/integrations"><span class="linkLabel_WmDU">全部集成</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/zh/integrations/linux"><span class="categoryLinkLabel_W154">主机与硬件</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/zh/integrations/linux"><span class="linkLabel_WmDU">Linux</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/windows"><span class="linkLabel_WmDU">Windows</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/systemd"><span class="linkLabel_WmDU">Systemd</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/smart"><span class="linkLabel_WmDU">SMART</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/ipmi"><span class="linkLabel_WmDU">IPMI</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/nvidia"><span class="linkLabel_WmDU">NVIDIA</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/amd-rocm-smi"><span class="linkLabel_WmDU">AMD ROCm SMI</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/exec"><span class="linkLabel_WmDU">Exec</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/mysql"><span class="categoryLinkLabel_W154">数据库与存储</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/mysql"><span class="linkLabel_WmDU">MySQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/postgresql"><span class="linkLabel_WmDU">PostgreSQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/redis"><span class="linkLabel_WmDU">Redis</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/mongodb"><span class="linkLabel_WmDU">MongoDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/oracle"><span class="linkLabel_WmDU">Oracle</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/sqlserver"><span class="linkLabel_WmDU">SQLServer</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/elasticsearch"><span class="linkLabel_WmDU">Elasticsearch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/clickhouse"><span class="linkLabel_WmDU">ClickHouse</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/doris"><span class="linkLabel_WmDU">Doris</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/tidb"><span class="linkLabel_WmDU">TiDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/victoriametrics"><span class="linkLabel_WmDU">VictoriaMetrics</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/kafka"><span class="categoryLinkLabel_W154">消息队列</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/kafka"><span class="linkLabel_WmDU">Kafka</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/rabbitmq"><span class="linkLabel_WmDU">RabbitMQ</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/nsq"><span class="linkLabel_WmDU">NSQ</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/emqx"><span class="linkLabel_WmDU">EMQX</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/automq"><span class="linkLabel_WmDU">AutoMQ</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/nginx"><span class="categoryLinkLabel_W154">Web 与中间件</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/nginx"><span class="linkLabel_WmDU">Nginx</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/apache"><span class="linkLabel_WmDU">Apache</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/haproxy"><span class="linkLabel_WmDU">HAProxy</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/tomcat"><span class="linkLabel_WmDU">Tomcat</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/java"><span class="linkLabel_WmDU">Java</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/springboot"><span class="linkLabel_WmDU">SpringBoot</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/php"><span class="linkLabel_WmDU">PHP</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/consul"><span class="linkLabel_WmDU">Consul</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/ldap"><span class="linkLabel_WmDU">Ldap</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/bind"><span class="linkLabel_WmDU">Bind</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/logstash"><span class="linkLabel_WmDU">Logstash</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/mtail"><span class="linkLabel_WmDU">Mtail</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/kubernetes"><span class="categoryLinkLabel_W154">容器与云原生</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/kubernetes"><span class="linkLabel_WmDU">Kubernetes</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/docker"><span class="linkLabel_WmDU">Docker</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/cadvisor"><span class="linkLabel_WmDU">cAdvisor</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/ceph"><span class="linkLabel_WmDU">Ceph</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/minio"><span class="linkLabel_WmDU">MinIO</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/openstack"><span class="linkLabel_WmDU">OpenStack</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/vsphere"><span class="linkLabel_WmDU">vSphere</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/aliyun"><span class="categoryLinkLabel_W154">云厂商与 CDN</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/aliyun"><span class="linkLabel_WmDU">Alibaba Cloud</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/huawei"><span class="linkLabel_WmDU">Huawei Cloud</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/tencent"><span class="linkLabel_WmDU">Tencent Cloud</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/cloudwatch"><span class="linkLabel_WmDU">CloudWatch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/azure"><span class="linkLabel_WmDU">Azure</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/snmp"><span class="categoryLinkLabel_W154">网络与探测</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/snmp"><span class="linkLabel_WmDU">SNMP</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/switch-legacy"><span class="linkLabel_WmDU">Switch (legacy)</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/ping"><span class="linkLabel_WmDU">Ping</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/net-response"><span class="linkLabel_WmDU">Net Response</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/dns-query"><span class="linkLabel_WmDU">DNS Query</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/gitlab"><span class="categoryLinkLabel_W154">DevOps 与其他</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/gitlab"><span class="linkLabel_WmDU">Gitlab</span></a></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/zh/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">主机与硬件</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Linux</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header class="n9e-doc-header"><h1>用夜莺监控 Linux</h1><p class="n9e-doc-lead">CPU、内存、磁盘、网络、进程到内核参数，Categraf 装上就有数据，模板覆盖 Categraf、node_exporter 和 Telegraf 三种采集口径。</p><p class="n9e-doc-reviewed">最后校对于 <time datetime="2026-10-28">2026-10-28</time></p></header><p>Linux 主机是绝大多数监控的起点。Categraf 自带的 cpu、mem、disk、diskio、net、netstat、kernel、processes 等插件默认开启，装好就上报，不用额外配置；下面列出的是那些有可调项的插件。</p>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"dark"),document.documentElement.setAttribute("data-theme-choice",t||"dark")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/zh/"><div class="navbar__logo"><img src="/zh/img/logo-mark.webp" alt="Nightingale" class="themedComponent_mlkZ themedComponent--light_NVdE" height="26" width="25"><img src="/zh/img/logo-mark.webp" alt="Nightingale" class="themedComponent_mlkZ themedComponent--dark_xIcU" height="26" width="25"></div><b class="navbar__title text--truncate">夜莺</b></a><a class="navbar__item navbar__link" href="/zh/docs">文档</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/zh/integrations">集成</a><a class="navbar__item navbar__link" href="/zh/comparisons">对比</a><a class="navbar__item navbar__link" href="/zh/download">下载</a><div class="navbar__item dropdown dropdown--hoverable"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">社区</a><ul class="dropdown__menu"><li><a href="https://github.com/ccfos/nightingale/issues" target="_blank" rel="noopener noreferrer" class="dropdown__link">提交 Issue<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li><a href="https://join.slack.com/t/n9e/shared_invite/zt-4ejx42fd0-S9aVULH4FTdH~jEAz80U7g" target="_blank" rel="noopener noreferrer" class="dropdown__link">Slack<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://play.n9e.io/api/n9e/auth/demo-login" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">在线体验<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://github.com/ccfos/nightingale" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link navbar-github" aria-label="GitHub, 13419 stars">13.4k<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="mobileOnly_k8CN"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB n9e-docs-root n9e-docs-root--single"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><div class="searchWrap_zhtN"></div><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/integrations"><span class="linkLabel_WmDU">全部集成</span></a></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret menu__link--active" role="button" aria-expanded="true" href="/zh/integrations/linux"><span class="categoryLinkLabel_W154">主机与硬件</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" tabindex="0" href="/zh/integrations/linux"><span class="linkLabel_WmDU">Linux</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/windows"><span class="linkLabel_WmDU">Windows</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/systemd"><span class="linkLabel_WmDU">Systemd</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/smart"><span class="linkLabel_WmDU">SMART</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/ipmi"><span class="linkLabel_WmDU">IPMI</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/nvidia"><span class="linkLabel_WmDU">NVIDIA</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/amd-rocm-smi"><span class="linkLabel_WmDU">AMD ROCm SMI</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/exec"><span class="linkLabel_WmDU">Exec</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/mysql"><span class="categoryLinkLabel_W154">数据库与存储</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/mysql"><span class="linkLabel_WmDU">MySQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/postgresql"><span class="linkLabel_WmDU">PostgreSQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/redis"><span class="linkLabel_WmDU">Redis</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/mongodb"><span class="linkLabel_WmDU">MongoDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/oracle"><span class="linkLabel_WmDU">Oracle</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/sqlserver"><span class="linkLabel_WmDU">SQLServer</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/elasticsearch"><span class="linkLabel_WmDU">Elasticsearch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/clickhouse"><span class="linkLabel_WmDU">ClickHouse</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/doris"><span class="linkLabel_WmDU">Doris</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/tidb"><span class="linkLabel_WmDU">TiDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/victoriametrics"><span class="linkLabel_WmDU">VictoriaMetrics</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/kafka"><span class="categoryLinkLabel_W154">消息队列</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/kafka"><span class="linkLabel_WmDU">Kafka</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/rabbitmq"><span class="linkLabel_WmDU">RabbitMQ</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/nsq"><span class="linkLabel_WmDU">NSQ</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/emqx"><span class="linkLabel_WmDU">EMQX</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/automq"><span class="linkLabel_WmDU">AutoMQ</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/nginx"><span class="categoryLinkLabel_W154">Web 与中间件</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/nginx"><span class="linkLabel_WmDU">Nginx</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/apache"><span class="linkLabel_WmDU">Apache</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/haproxy"><span class="linkLabel_WmDU">HAProxy</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/tomcat"><span class="linkLabel_WmDU">Tomcat</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/java"><span class="linkLabel_WmDU">Java</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/springboot"><span class="linkLabel_WmDU">SpringBoot</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/php"><span class="linkLabel_WmDU">PHP</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/consul"><span class="linkLabel_WmDU">Consul</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/ldap"><span class="linkLabel_WmDU">Ldap</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/bind"><span class="linkLabel_WmDU">Bind</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/logstash"><span class="linkLabel_WmDU">Logstash</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/mtail"><span class="linkLabel_WmDU">Mtail</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/kubernetes"><span class="categoryLinkLabel_W154">容器与云原生</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/kubernetes"><span class="linkLabel_WmDU">Kubernetes</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/docker"><span class="linkLabel_WmDU">Docker</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/cadvisor"><span class="linkLabel_WmDU">cAdvisor</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/ceph"><span class="linkLabel_WmDU">Ceph</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/minio"><span class="linkLabel_WmDU">MinIO</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/openstack"><span class="linkLabel_WmDU">OpenStack</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/vsphere"><span class="linkLabel_WmDU">vSphere</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/aliyun"><span class="categoryLinkLabel_W154">云厂商与 CDN</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/aliyun"><span class="linkLabel_WmDU">Alibaba Cloud</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/huawei"><span class="linkLabel_WmDU">Huawei Cloud</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/tencent"><span class="linkLabel_WmDU">Tencent Cloud</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/cloudwatch"><span class="linkLabel_WmDU">CloudWatch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/azure"><span class="linkLabel_WmDU">Azure</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/snmp"><span class="categoryLinkLabel_W154">网络与探测</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/snmp"><span class="linkLabel_WmDU">SNMP</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/switch-legacy"><span class="linkLabel_WmDU">Switch (legacy)</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/ping"><span class="linkLabel_WmDU">Ping</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/net-response"><span class="linkLabel_WmDU">Net Response</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/dns-query"><span class="linkLabel_WmDU">DNS Query</span></a></li></ul></li><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class="menu__list-item-collapsible"><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--sublist-caret" role="button" aria-expanded="true" href="/zh/integrations/gitlab"><span class="categoryLinkLabel_W154">DevOps 与其他</span></a></div><ul class="menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-2 menu__list-item"><a class="menu__link" tabindex="0" href="/zh/integrations/gitlab"><span class="linkLabel_WmDU">Gitlab</span></a></li></ul></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/zh/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item"><span class="breadcrumbs__link">主机与硬件</span></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Linux</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header class="n9e-doc-header"><h1>用夜莺监控 Linux</h1><p class="n9e-doc-lead">CPU、内存、磁盘、网络、进程到内核参数，Categraf 装上就有数据，模板覆盖 Categraf、node_exporter 和 Telegraf 三种采集口径。</p><p class="n9e-doc-reviewed">最后校对于 <time datetime="2026-10-31">2026-10-31</time></p></header><p>Linux 主机是绝大多数监控的起点。Categraf 自带的 cpu、mem、disk、diskio、net、netstat、kernel、processes 等插件默认开启，装好就上报，不用额外配置；下面列出的是那些有可调项的插件。</p>
 <p>模板里的仪表盘和规则分三套：按 Categraf 指标名写的、按 node_exporter 指标名写的、按 Telegraf 指标名写的。用哪种采集器就导哪一套，混用会看到空面板。规则覆盖了磁盘写满预测、IO 繁忙、conntrack 表、时间漂移、失联等运维上真正会半夜被叫醒的场景。</p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="模板里有什么">模板里有什么<a href="#模板里有什么" class="hash-link" aria-label="模板里有什么的直接链接" title="模板里有什么的直接链接" translate="no">​</a></h2>
 <ul>
@@ -122,102 +123,301 @@
 
 <table><thead><tr><th>仪表盘</th><th style="text-align:right">面板数</th></tr></thead><tbody><tr><td>机器常用指标（如果只想看当前业务组内的机器修改大盘变量 ident 的变量类型为机器标识即可）</td><td style="text-align:right">22</td></tr><tr><td>机器台账表格视图（使用 Categraf 作为采集器）</td><td style="text-align:right">3</td></tr><tr><td>机器进程数量统计（使用 Categraf 作为采集器）</td><td style="text-align:right">4</td></tr><tr><td>Host Table NG</td><td style="text-align:right">1</td></tr><tr><td>机器常用指标（使用 NodeExporter 作为采集器）</td><td style="text-align:right">41</td></tr></tbody></table>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="内置告警规则">内置告警规则<a href="#内置告警规则" class="hash-link" aria-label="内置告警规则的直接链接" title="内置告警规则的直接链接" translate="no">​</a></h2>
-<p>共 60 条。每条给出触发条件（PromQL）和告警后的处置步骤，导入后可以直接改阈值。</p>
-<p>规则按采集方式分组，用哪种采集器就导哪一组。</p>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="categraf-采集35">Categraf 采集（35）<a href="#categraf-采集35" class="hash-link" aria-label="Categraf 采集（35）的直接链接" title="Categraf 采集（35）的直接链接" translate="no">​</a></h3>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="conntrack表的使用率超过80">Conntrack表的使用率超过80%<a href="#conntrack表的使用率超过80" class="hash-link" aria-label="Conntrack表的使用率超过80%的直接链接" title="Conntrack表的使用率超过80%的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">conntrack_ip_conntrack_count / conntrack_ip_conntrack_max &gt; 0.8</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 sysctl net.netfilter.nf_conntrack_count 与 nf_conntrack_max 确认当前水位；</li>
-<li class="">用 conntrack -L | awk &#x27;{print $4}&#x27; | sort | uniq -c | sort -rn 看连接集中在哪类协议或来源；</li>
-<li class="">应急调大：sysctl -w net.netfilter.nf_conntrack_max=&lt;更大值&gt;，并同步调大 nf_conntrack_buckets；</li>
-<li class="">同时缩短 nf_conntrack_tcp_timeout_time_wait 等超时，或对不需要跟踪的流量用 iptables raw 表 NOTRACK。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="cpu利用率较高">CPU利用率较高<a href="#cpu利用率较高" class="hash-link" aria-label="CPU利用率较高的直接链接" title="CPU利用率较高的直接链接" translate="no">​</a></h4>
-<p>S3 提醒 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">cpu_usage_active&gt;75</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">cpu_usage_active&gt;85</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">cpu_usage_active&gt;95</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 top -H 或 pidstat 1 找出占用最高的进程与线程；</li>
-<li class="">用 perf top 或对应语言的 profiler（Java 用 arthas/async-profiler，Go 用 pprof）定位热点函数；</li>
-<li class="">区分是业务量自然增长还是代码异常（死循环、正则回溯、频繁 GC）；</li>
-<li class="">业务量增长则扩容或限流，代码问题则修复后发布。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="http地址探测失败">HTTP地址探测失败<a href="#http地址探测失败" class="hash-link" aria-label="HTTP地址探测失败的直接链接" title="HTTP地址探测失败的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">http_response_result_code != 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">在采集机上手工 curl -sv &lt;目标URL&gt; 复现，看是连接失败、超时还是状态码不符；</li>
-<li class="">连接失败则先确认目标端口通、进程活；</li>
-<li class="">状态码不符则看目标服务日志定位；</li>
-<li class="">确认探测配置里的超时、期望状态码、证书校验设置是否与实际相符，避免配置导致的误报。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="io比较繁忙">IO比较繁忙<a href="#io比较繁忙" class="hash-link" aria-label="IO比较繁忙的直接链接" title="IO比较繁忙的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">rate(diskio_io_time[1m])/10 &gt; 99</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 iostat -x 1 确认是哪块盘、await 与 %util 的具体数值；</li>
-<li class="">用 iotop -oP 或 pidstat -d 1 找出占用 IO 最高的进程；</li>
-<li class="">常见元凶是数据库大查询、备份任务、日志刷盘——把可延后的任务错峰执行；</li>
-<li class="">若是持续高负载而非突发，考虑换 SSD 或把热数据分散到多块盘。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="ntp时间偏移太大">NTP时间偏移太大<a href="#ntp时间偏移太大" class="hash-link" aria-label="NTP时间偏移太大的直接链接" title="NTP时间偏移太大的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">ntp_offset_ms &gt; 1000 or ntp_offset_ms &lt; -1000</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 chronyc tracking（或 ntpq -p）确认当前偏移量与上游源状态；</li>
-<li class="">上游不可达则检查网络与防火墙是否放行 123/UDP；</li>
-<li class="">用 chronyc sources -v 确认是否所有源都被标记为不可用，必要时更换 NTP 服务器；</li>
-<li class="">偏移过大时 chrony 会拒绝平滑校正，需用 chronyc makestep 强制对时（注意对时间敏感的业务先做好准备）。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="ping地址探测失败">PING地址探测失败<a href="#ping地址探测失败" class="hash-link" aria-label="PING地址探测失败的直接链接" title="PING地址探测失败的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">ping_result_code != 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">在采集机上手工 ping -c 5 &lt;目标&gt; 复现，再用 mtr -n &lt;目标&gt; 定位丢包出现在哪一跳；</li>
-<li class="">目标机若存活，确认它是否禁 ICMP（很多安全策略会禁），是则该探测本身不适用，应改用端口探测；</li>
-<li class="">中间跳丢包的联系网络侧排查；</li>
-<li class="">确认目标机自身是否宕机或网卡故障。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="tme_wait状态的连接超过2万可能需要关注">TME_WAIT状态的连接超过2万，可能需要关注<a href="#tme_wait状态的连接超过2万可能需要关注" class="hash-link" aria-label="TME_WAIT状态的连接超过2万，可能需要关注的直接链接" title="TME_WAIT状态的连接超过2万，可能需要关注的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">netstat_tcp_time_wait &gt; 20000</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 ss -s 确认各状态连接数分布；</li>
-<li class="">用 ss -tan state time-wait | awk &#x27;{print $4}&#x27; | cut -d: -f1 | sort | uniq -c | sort -rn 看集中在哪个目标；</li>
-<li class="">根因通常是短连接过多——在应用侧改用长连接或连接池，这是最有效的手段；</li>
-<li class="">应急可开启 net.ipv4.tcp_tw_reuse=1 并调大 net.ipv4.ip_local_port_range（不要开 tcp_tw_recycle，NAT 环境下会丢包）。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="内存利用率比较高">内存利用率比较高<a href="#内存利用率比较高" class="hash-link" aria-label="内存利用率比较高的直接链接" title="内存利用率比较高的直接链接" translate="no">​</a></h4>
-<p>S3 提醒 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">mem_available_percent &lt; 25</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">mem_available_percent &lt; 15</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">mem_available_percent &lt; 5</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 free -h 确认 available 与 swap 使用情况；</li>
-<li class="">用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；</li>
-<li class="">内核回收不及时可用 sync; echo 1 &gt; /proc/sys/vm/drop_caches 释放 page cache（生产慎用）；</li>
-<li class="">确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="文件句柄使用率超过90">文件句柄使用率超过90%<a href="#文件句柄使用率超过90" class="hash-link" aria-label="文件句柄使用率超过90%的直接链接" title="文件句柄使用率超过90%的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">linux_sysctl_fs_file_nr/linux_sysctl_fs_file_max&gt;0.9</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 cat /proc/sys/fs/file-nr 确认已分配与上限；</li>
-<li class="">用 lsof | awk &#x27;{print $2}&#x27; | sort | uniq -c | sort -rn | head 找出占用句柄最多的进程；</li>
-<li class="">应急调大：sysctl -w fs.file-max=&lt;更大值&gt;，并检查该进程的 ulimit -n 与 systemd LimitNOFILE；</li>
-<li class="">根因通常是连接或文件未关闭，需在应用侧修复泄漏。</li>
-</ol>
+<p>共 60 条，导入后默认停用，按自己环境的阈值逐条启用。下表 56 条规则的触发条件（PromQL）和处置步骤收录在告警规则库：<a class="" href="/zh/alert-rules/linux">Linux 告警规则</a>。</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>规则</th><th>级别</th><th>持续</th></tr></thead><tbody><tr><td>Conntrack表的使用率超过80%</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>CPU利用率较高</td><td>S3 提醒</td><td>1 分钟</td></tr><tr><td>HTTP地址探测失败</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>IO比较繁忙</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>NTP时间偏移太大</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>PING地址探测失败</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>TME_WAIT状态的连接超过2万，可能需要关注</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>内存利用率比较高</td><td>S3 提醒</td><td>1 分钟</td></tr><tr><td>文件句柄使用率超过90%</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>每个CPU Core的平均负载任务超过3</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>硬盘监控 - inode使用率超过90%</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>硬盘监控 - 大于200G的盘，空间不足了</td><td>S3 提醒</td><td>1 分钟</td></tr><tr><td>硬盘监控 - 小于200G的盘，空间不足了</td><td>S3 提醒</td><td>1 分钟</td></tr><tr><td>硬盘监控 - 设备有报错</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>硬盘监控 - 预测硬盘会在未来4小时内写满</td><td>S1 紧急</td><td>1 分钟</td></tr><tr><td>系统有OOM产生</td><td>S2 警告</td><td>—</td></tr><tr><td>网卡监控 - 入方向有丢包</td><td>S3 提醒</td><td>1 分钟</td></tr><tr><td>网卡监控 - 入方向有错包</td><td>S3 提醒</td><td>1 分钟</td></tr><tr><td>网卡监控 - 出方向有丢包</td><td>S3 提醒</td><td>1 分钟</td></tr><tr><td>网卡监控 - 出方向有错包</td><td>S3 提醒</td><td>1 分钟</td></tr><tr><td>网络地址探活失败</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>进程监控-有进程数为0，某进程可能挂了</td><td>S1 紧急</td><td>1 分钟</td></tr><tr><td>进程监控-进程句柄限制过小</td><td>S3 提醒</td><td>1 分钟</td></tr><tr><td>进程监控-进程总量超过600</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>Hard disk - expected to be written full in 4 hours - categraf</td><td>S1 紧急</td><td>1 分钟</td></tr><tr><td>Hard disk - IO is a bit busy - categraf</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>Machine load - high memory, please pay attention - categraf</td><td>S3 提醒</td><td>1 分钟</td></tr><tr><td>number of TME_WAIT exceeds 20,000 - categraf</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>packet loss in the inbound direction - categraf</td><td>S3 提醒</td><td>1 分钟</td></tr><tr><td>packet loss in the outbound direction - categraf</td><td>S3 提醒</td><td>1 分钟</td></tr><tr><td>大于200G的盘，空间不足了</td><td>S3 提醒</td><td>1 分钟</td></tr><tr><td>小于200G的盘，空间不足了</td><td>S3 提醒</td><td>1 分钟</td></tr><tr><td>A certain disk is unable to read/write normally</td><td>S1 紧急</td><td>1 分钟</td></tr><tr><td>Disk needs to be cleaned - utilization has reached 92% - node exporter</td><td>S1 紧急</td><td>1 分钟</td></tr><tr><td>Insufficient computational resources - average load per core of the machine is greater than 10 - node exporter</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>Insufficient file handles - usage exceeds 90% - node exporter</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>Insufficient inode resources - usage exceeds 90% - node exporter</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>Insufficient memory resources - utilization is greater than 75% - node exporter</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>Insufficient memory resources - utilization is greater than 95% - node exporter</td><td>S1 紧急</td><td>1 分钟</td></tr><tr><td>Packet loss in the inbound direction of the network card - node exporter</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>Packet loss in the outbound direction of the network card - node exporter</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>System conntrack needs to be adjusted - usage exceeds 80% - node exporter</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>System experiences OOM - node exporter</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>Too many running processes - exceeding 3000 - node exporter</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>Address is unreachable by PING, please pay attention - telegraf</td><td>S1 紧急</td><td>1 分钟</td></tr><tr><td>Hard disk - expected to be written full in 4 hours - telegraf</td><td>S1 紧急</td><td>1 分钟</td></tr><tr><td>Hard disk - IO is very busy - telegraf</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>Machine load - high CPU, please pay attention - telegraf</td><td>S3 提醒</td><td>1 分钟</td></tr><tr><td>Machine load - high memory, please pay attention - telegraf</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>Network connection - number of TME_WAIT exceeds 20,000 - telegraf</td><td>S2 警告</td><td>1 分钟</td></tr><tr><td>packet loss in the inbound direction - telegraf</td><td>S3 提醒</td><td>1 分钟</td></tr><tr><td>packet loss in the outbound direction - telegraf</td><td>S3 提醒</td><td>1 分钟</td></tr><tr><td>Port detection failed, please pay attention - telegraf</td><td>S1 紧急</td><td>1 分钟</td></tr><tr><td>process handle limit is too small - telegraf</td><td>S3 提醒</td><td>1 分钟</td></tr><tr><td>Process monitoring - lookup failure - telegraf</td><td>S1 紧急</td><td>1 分钟</td></tr><tr><td>there are processes with 0 count, a certain process may have crashed - telegraf</td><td>S1 紧急</td><td>1 分钟</td></tr></tbody></table>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="其余规则4">其余规则（4）<a href="#其余规则4" class="hash-link" aria-label="其余规则（4）的直接链接" title="其余规则（4）的直接链接" translate="no">​</a></h3>
+<p>这些规则没有收进告警规则库，完整内容列在这里。</p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="机器监控---agent失联超过60秒">机器监控 - agent失联超过60秒<a href="#机器监控---agent失联超过60秒" class="hash-link" aria-label="机器监控 - agent失联超过60秒的直接链接" title="机器监控 - agent失联超过60秒的直接链接" translate="no">​</a></h4>
-<p>触发条件:</p>
-<pre tabindex="0" class="codeBlockStandalone_MEMb thin-scrollbar language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><code class="codeBlockLines_e6Vv"></code></pre>
 <p>处置步骤:</p>
 <ol>
 <li class="">先用 ping 与 ssh 确认机器本身是否存活，机器宕机要按宕机处理；</li>
@@ -226,8 +426,7 @@
 <li class="">恢复后确认数据已连续，注意盲区期间的故障不会有历史告警。</li>
 </ol>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="机器监控---时间偏移超过3秒请注意">机器监控 - 时间偏移超过3秒，请注意<a href="#机器监控---时间偏移超过3秒请注意" class="hash-link" aria-label="机器监控 - 时间偏移超过3秒，请注意的直接链接" title="机器监控 - 时间偏移超过3秒，请注意的直接链接" translate="no">​</a></h4>
-<p>持续 1 分钟 · 触发条件:</p>
-<pre tabindex="0" class="codeBlockStandalone_MEMb thin-scrollbar language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><code class="codeBlockLines_e6Vv"></code></pre>
+<p>持续 1 分钟</p>
 <p>处置步骤:</p>
 <ol>
 <li class="">用 date 与 chronyc tracking 确认本机时间与偏移量；</li>
@@ -235,499 +434,21 @@
 <li class="">检查到 NTP 服务器的网络是否放行 123/UDP，必要时换用内网 NTP 源；</li>
 <li class="">偏移过大时用 chronyc makestep 强制对时，对时间敏感的业务先做好准备。</li>
 </ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="每个cpu-core的平均负载任务超过3">每个CPU Core的平均负载任务超过3<a href="#每个cpu-core的平均负载任务超过3" class="hash-link" aria-label="每个CPU Core的平均负载任务超过3的直接链接" title="每个CPU Core的平均负载任务超过3的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">system_load_norm_1&gt;3</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 uptime 看 1/5/15 分钟负载趋势，判断是突发还是持续；</li>
-<li class="">用 top 看 %wa（IO 等待）——高说明瓶颈在磁盘而非 CPU，按磁盘 IO 处理；</li>
-<li class="">用 vmstat 1 看 r（运行队列）与 b（阻塞）列区分 CPU 密集与 IO 阻塞；</li>
-<li class="">定位到具体进程后按 CPU 或 IO 的路径继续排查，必要时扩容。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="硬盘监控---inode使用率超过90">硬盘监控 - inode使用率超过90%<a href="#硬盘监控---inode使用率超过90" class="hash-link" aria-label="硬盘监控 - inode使用率超过90%的直接链接" title="硬盘监控 - inode使用率超过90%的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_inodes_used/disk_inodes_total &gt;0.9</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 df -i 确认是哪个挂载点的 inode 吃紧；</li>
-<li class="">用 for d in /path/*; do echo &quot;$(find $d | wc -l) $d&quot;; done | sort -rn | head 逐层找出小文件最多的目录；</li>
-<li class="">常见来源是 session 文件、邮件队列、缓存碎片、未清理的容器层——按业务确认后批量删除；</li>
-<li class="">长期可在格式化时调大 inode 密度，或把小文件业务迁到独立分区。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="硬盘监控---大于200g的盘空间不足了">硬盘监控 - 大于200G的盘，空间不足了<a href="#硬盘监控---大于200g的盘空间不足了" class="hash-link" aria-label="硬盘监控 - 大于200G的盘，空间不足了的直接链接" title="硬盘监控 - 大于200G的盘，空间不足了的直接链接" translate="no">​</a></h4>
-<p>S3 提醒 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_free/1024/1024/1024 &lt; 20 and disk_total/1024/1024/1024 &gt;= 200</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_free/1024/1024/1024 &lt; 10 and disk_total/1024/1024/1024 &gt;= 200</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_free/1024/1024/1024 &lt; 2 and disk_total/1024/1024/1024 &gt;= 200</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 df -h 定位挂载点，用 du -x --max-depth=1 &lt;挂载点&gt; | sort -h 找出占用最大的目录；</li>
-<li class="">清理日志与过期数据，注意用 lsof +L1 检查已删除但未释放的文件；</li>
-<li class="">评估是否该把数据目录迁到独立磁盘或加盘扩容；</li>
-<li class="">若是数据库或对象存储的数据盘，按业务侧的归档策略下沉冷数据。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="硬盘监控---小于200g的盘空间不足了">硬盘监控 - 小于200G的盘，空间不足了<a href="#硬盘监控---小于200g的盘空间不足了" class="hash-link" aria-label="硬盘监控 - 小于200G的盘，空间不足了的直接链接" title="硬盘监控 - 小于200G的盘，空间不足了的直接链接" translate="no">​</a></h4>
-<p>S3 提醒 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_used_percent &gt; 90 and disk_total/1024/1024/1024 &lt; 200</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_used_percent &gt; 95 and disk_total/1024/1024/1024 &lt; 200</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_used_percent &gt; 99 and disk_total/1024/1024/1024 &lt; 200</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 df -h 定位挂载点，用 du -x --max-depth=1 &lt;挂载点&gt; | sort -h 找出占用最大的目录；</li>
-<li class="">系统盘常见是 /var/log 与容器镜像层（docker system df 看占用，docker system prune 清理）；</li>
-<li class="">用 lsof +L1 检查已删除但句柄未释放的文件；</li>
-<li class="">长期需扩容或把大数据目录迁到独立磁盘。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="硬盘监控---设备有报错">硬盘监控 - 设备有报错<a href="#硬盘监控---设备有报错" class="hash-link" aria-label="硬盘监控 - 设备有报错的直接链接" title="硬盘监控 - 设备有报错的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_device_error&gt;0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 dmesg -T | grep -iE &#x27;i/o error|ata|scsi&#x27; 看内核报的具体错误与设备名；</li>
-<li class="">用 smartctl -a /dev/sdX 看 SMART 属性，重点关注 Reallocated_Sector_Ct 与 Current_Pending_Sector；</li>
-<li class="">确认该盘上的数据是否有副本或备份，优先保证数据安全再处理硬件；</li>
-<li class="">确认为硬件故障的，安排停机换盘，RAID 环境下先确认阵列降级状态再操作。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="硬盘监控---预测硬盘会在未来4小时内写满">硬盘监控 - 预测硬盘会在未来4小时内写满<a href="#硬盘监控---预测硬盘会在未来4小时内写满" class="hash-link" aria-label="硬盘监控 - 预测硬盘会在未来4小时内写满的直接链接" title="硬盘监控 - 预测硬盘会在未来4小时内写满的直接链接" translate="no">​</a></h4>
-<p>S1 紧急 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">predict_linear(disk_free[1h], 4*3600) &lt; 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 df -h 确认是哪个挂载点，再用 du -x --max-depth=1 &lt;挂载点&gt; | sort -h 逐层找出增长最快的目录；</li>
-<li class="">优先清理日志（journalctl --vacuum-size=500M、清 *.log.N）与临时文件，这是最快见效的；</li>
-<li class="">用 lsof +L1 找出已删除但句柄未释放的文件，重启对应进程才能真正释放空间；</li>
-<li class="">确认是否有异常写入（应用死循环打日志、备份任务堆积），不解决根因清理只是拖延。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="系统有oom产生">系统有OOM产生<a href="#系统有oom产生" class="hash-link" aria-label="系统有OOM产生的直接链接" title="系统有OOM产生的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(kernel_vmstat_oom_kill[2m]) &gt; 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 dmesg -T | grep -i &#x27;killed process&#x27; 确认被杀的是哪个进程、当时占用多少内存；</li>
-<li class="">用 free -h 与该进程的内存曲线判断是内存泄漏还是配置的上限过高；</li>
-<li class="">给关键进程调整 oom_score_adj 降低被杀优先级，同时给次要进程设 cgroup 内存上限；</li>
-<li class="">根因是泄漏的要在应用侧抓堆定位，只扩内存会反复复发。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="网卡监控---入方向有丢包">网卡监控 - 入方向有丢包<a href="#网卡监控---入方向有丢包" class="hash-link" aria-label="网卡监控 - 入方向有丢包的直接链接" title="网卡监控 - 入方向有丢包的直接链接" translate="no">​</a></h4>
-<p>S3 提醒 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(net_drop_in[1m]) &gt; 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 ip -s link show &lt;网卡&gt; 确认 RX dropped/errors 的增长；</li>
-<li class="">用 ethtool -S &lt;网卡&gt; 看具体丢包原因（rx_no_buffer、rx_missed_errors 等）；</li>
-<li class="">环形缓冲区不足可用 ethtool -G &lt;网卡&gt; rx &lt;更大值&gt; 调大，并检查 net.core.netdev_max_backlog；</li>
-<li class="">若伴随 CPU 软中断偏高（top 里 %si），开启 RPS/RSS 把中断分散到多核。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="网卡监控---入方向有错包">网卡监控 - 入方向有错包<a href="#网卡监控---入方向有错包" class="hash-link" aria-label="网卡监控 - 入方向有错包的直接链接" title="网卡监控 - 入方向有错包的直接链接" translate="no">​</a></h4>
-<p>S3 提醒 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(net_err_in[1m]) &gt; 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 ethtool -S &lt;网卡&gt; 看 rx_crc_errors、rx_frame_errors 等具体计数；</li>
-<li class="">用 ethtool &lt;网卡&gt; 确认协商的速率与双工模式是否与对端一致（半双工是经典错包源）；</li>
-<li class="">检查网线/光模块，必要时换线或换口做交叉验证；</li>
-<li class="">联系网络侧确认交换机对应端口的错包计数。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="网卡监控---出方向有丢包">网卡监控 - 出方向有丢包<a href="#网卡监控---出方向有丢包" class="hash-link" aria-label="网卡监控 - 出方向有丢包的直接链接" title="网卡监控 - 出方向有丢包的直接链接" translate="no">​</a></h4>
-<p>S3 提醒 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(net_drop_out[1m]) &gt; 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 ip -s link show &lt;网卡&gt; 确认 TX dropped/errors 的增长；</li>
-<li class="">用 ethtool -S &lt;网卡&gt; 看具体计数，并用 tc -s qdisc show dev &lt;网卡&gt; 看队列是否溢出；</li>
-<li class="">发送队列不足可调大 txqueuelen 与 ethtool -G &lt;网卡&gt; tx；</li>
-<li class="">确认是否已跑满带宽——是则限流或扩带宽，不是则排查网卡驱动与对端设备。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="网卡监控---出方向有错包">网卡监控 - 出方向有错包<a href="#网卡监控---出方向有错包" class="hash-link" aria-label="网卡监控 - 出方向有错包的直接链接" title="网卡监控 - 出方向有错包的直接链接" translate="no">​</a></h4>
-<p>S3 提醒 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(net_err_out[1m]) &gt; 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 ethtool -S &lt;网卡&gt; 看 tx_errors、tx_carrier_errors 等具体计数；</li>
-<li class="">用 ethtool &lt;网卡&gt; 确认速率与双工模式与对端一致；</li>
-<li class="">检查网线/光模块并做交叉验证；</li>
-<li class="">确认网卡驱动与固件版本，必要时升级。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="网络地址探活失败">网络地址探活失败<a href="#网络地址探活失败" class="hash-link" aria-label="网络地址探活失败的直接链接" title="网络地址探活失败的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">net_response_result_code != 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">在采集机上手工 telnet &lt;目标&gt; &lt;端口&gt; 或 nc -vz &lt;目标&gt; &lt;端口&gt; 复现；</li>
-<li class="">到目标机用 ss -lntp | grep &lt;端口&gt; 确认进程是否在监听；</li>
-<li class="">进程在监听则排查防火墙、安全组、以及是否只绑定了 127.0.0.1；</li>
-<li class="">进程不在则按该服务自身的恢复流程拉起。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="进程监控-有进程数为0某进程可能挂了">进程监控-有进程数为0，某进程可能挂了<a href="#进程监控-有进程数为0某进程可能挂了" class="hash-link" aria-label="进程监控-有进程数为0，某进程可能挂了的直接链接" title="进程监控-有进程数为0，某进程可能挂了的直接链接" translate="no">​</a></h4>
-<p>S1 紧急 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">procstat_lookup_count == 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 ps -ef | grep &lt;进程关键字&gt; 确认确实不在，排除采集侧的匹配规则写错；</li>
-<li class="">查该进程的日志与 dmesg -T | grep -i &#x27;killed process&#x27;，区分自身崩溃、被 OOM 杀死还是人工停止；</li>
-<li class="">按服务自身流程拉起，并确认 systemd 的 Restart 策略是否生效；</li>
-<li class="">若反复退出，先定位根因再拉起，避免陷入重启循环。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="进程监控-进程句柄限制过小">进程监控-进程句柄限制过小<a href="#进程监控-进程句柄限制过小" class="hash-link" aria-label="进程监控-进程句柄限制过小的直接链接" title="进程监控-进程句柄限制过小的直接链接" translate="no">​</a></h4>
-<p>S3 提醒 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">procstat_rlimit_num_fds_soft &lt; 2048</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 cat /proc/&lt;pid&gt;/limits 确认 Max open files 的软硬上限；</li>
-<li class="">systemd 管理的服务在 unit 文件里加 LimitNOFILE=65535 后 systemctl daemon-reload 并重启；</li>
-<li class="">非 systemd 的在启动脚本里加 ulimit -n 65535，或改 /etc/security/limits.conf；</li>
-<li class="">注意软上限修改后必须重启进程才生效。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="进程监控-进程总量超过600">进程监控-进程总量超过600<a href="#进程监控-进程总量超过600" class="hash-link" aria-label="进程监控-进程总量超过600的直接链接" title="进程监控-进程总量超过600的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">processes_total &gt; 600</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 ps -eo ppid | sort | uniq -c | sort -rn | head 找出 fork 子进程最多的父进程；</li>
-<li class="">确认是正常的多进程模型（如 php-fpm、nginx worker）还是失控 fork；</li>
-<li class="">失控的先停掉该父进程止血，再修复代码里的 fork 逻辑；</li>
-<li class="">正常业务增长则调整 worker 数配置并评估是否需要扩容。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="hard-disk---expected-to-be-written-full-in-4-hours---categraf">Hard disk - expected to be written full in 4 hours - categraf<a href="#hard-disk---expected-to-be-written-full-in-4-hours---categraf" class="hash-link" aria-label="Hard disk - expected to be written full in 4 hours - categraf的直接链接" title="Hard disk - expected to be written full in 4 hours - categraf的直接链接" translate="no">​</a></h4>
-<p>S1 紧急 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">predict_linear(disk_free[1h], 4*3600) &lt; 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 df -h 确认是哪个挂载点，再用 du -x --max-depth=1 &lt;挂载点&gt; | sort -h 逐层找出增长最快的目录；</li>
-<li class="">优先清理日志（journalctl --vacuum-size=500M、清 *.log.N）与临时文件，这是最快见效的；</li>
-<li class="">用 lsof +L1 找出已删除但句柄未释放的文件，重启对应进程才能真正释放空间；</li>
-<li class="">确认是否有异常写入（应用死循环打日志、备份任务堆积），不解决根因清理只是拖延。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="hard-disk---io-is-a-bit-busy---categraf">Hard disk - IO is a bit busy - categraf<a href="#hard-disk---io-is-a-bit-busy---categraf" class="hash-link" aria-label="Hard disk - IO is a bit busy - categraf的直接链接" title="Hard disk - IO is a bit busy - categraf的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">rate(diskio_io_time[1m])/10 &gt; 99</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 iostat -x 1 确认是哪块盘、await 与 %util 的具体数值；</li>
-<li class="">用 iotop -oP 或 pidstat -d 1 找出占用 IO 最高的进程；</li>
-<li class="">常见元凶是数据库大查询、备份任务、日志刷盘——把可延后的任务错峰执行；</li>
-<li class="">若是持续高负载而非突发，考虑换 SSD 或把热数据分散到多块盘。</li>
-</ol>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="lost-connection-with-monitoring-target---categraf">Lost connection with monitoring target - categraf<a href="#lost-connection-with-monitoring-target---categraf" class="hash-link" aria-label="Lost connection with monitoring target - categraf的直接链接" title="Lost connection with monitoring target - categraf的直接链接" translate="no">​</a></h4>
-<p>触发条件:</p>
-<pre tabindex="0" class="codeBlockStandalone_MEMb thin-scrollbar language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><code class="codeBlockLines_e6Vv"></code></pre>
 <p>处置步骤:</p>
 <ol>
 <li class="">先用 ping 与 ssh 确认机器本身是否存活，机器宕机要按宕机处理；</li>
 <li class="">机器存活则用 systemctl status categraf 确认 agent 进程，看日志 journalctl -u categraf -n 100 定位；</li>
 <li class="">常见原因是 agent 崩溃、配置错误、或到服务端的网络/认证不通——用 curl 手工打一次服务端的写入接口验证；</li>
 <li class="">恢复后确认数据已连续，注意盲区期间的故障不会有历史告警。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="machine-load---high-memory-please-pay-attention---categraf">Machine load - high memory, please pay attention - categraf<a href="#machine-load---high-memory-please-pay-attention---categraf" class="hash-link" aria-label="Machine load - high memory, please pay attention - categraf的直接链接" title="Machine load - high memory, please pay attention - categraf的直接链接" translate="no">​</a></h4>
-<p>S3 提醒 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">mem_available_percent &lt; 25</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">mem_available_percent &lt; 15</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">mem_available_percent &lt; 5</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 free -h 确认 available 与 swap 使用情况；</li>
-<li class="">用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；</li>
-<li class="">内核回收不及时可用 sync; echo 1 &gt; /proc/sys/vm/drop_caches 释放 page cache（生产慎用）；</li>
-<li class="">确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="number-of-tme_wait-exceeds-20000---categraf">number of TME_WAIT exceeds 20,000 - categraf<a href="#number-of-tme_wait-exceeds-20000---categraf" class="hash-link" aria-label="number of TME_WAIT exceeds 20,000 - categraf的直接链接" title="number of TME_WAIT exceeds 20,000 - categraf的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">netstat_tcp_time_wait &gt; 20000</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 ss -s 确认各状态连接数分布；</li>
-<li class="">用 ss -tan state time-wait | awk &#x27;{print $4}&#x27; | cut -d: -f1 | sort | uniq -c | sort -rn 看集中在哪个目标；</li>
-<li class="">根因通常是短连接过多——在应用侧改用长连接或连接池，这是最有效的手段；</li>
-<li class="">应急可开启 net.ipv4.tcp_tw_reuse=1 并调大 net.ipv4.ip_local_port_range（不要开 tcp_tw_recycle，NAT 环境下会丢包）。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="packet-loss-in-the-inbound-direction---categraf">packet loss in the inbound direction - categraf<a href="#packet-loss-in-the-inbound-direction---categraf" class="hash-link" aria-label="packet loss in the inbound direction - categraf的直接链接" title="packet loss in the inbound direction - categraf的直接链接" translate="no">​</a></h4>
-<p>S3 提醒 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(net_drop_in[1m]) &gt; 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 ip -s link show &lt;网卡&gt; 确认 RX dropped/errors 的增长；</li>
-<li class="">用 ethtool -S &lt;网卡&gt; 看具体丢包原因（rx_no_buffer、rx_missed_errors 等）；</li>
-<li class="">环形缓冲区不足可用 ethtool -G &lt;网卡&gt; rx &lt;更大值&gt; 调大，并检查 net.core.netdev_max_backlog；</li>
-<li class="">若伴随 CPU 软中断偏高（top 里 %si），开启 RPS/RSS 把中断分散到多核。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="packet-loss-in-the-outbound-direction---categraf">packet loss in the outbound direction - categraf<a href="#packet-loss-in-the-outbound-direction---categraf" class="hash-link" aria-label="packet loss in the outbound direction - categraf的直接链接" title="packet loss in the outbound direction - categraf的直接链接" translate="no">​</a></h4>
-<p>S3 提醒 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(net_drop_out[1m]) &gt; 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 ip -s link show &lt;网卡&gt; 确认 TX dropped/errors 的增长；</li>
-<li class="">用 ethtool -S &lt;网卡&gt; 看具体计数，并用 tc -s qdisc show dev &lt;网卡&gt; 看队列是否溢出；</li>
-<li class="">发送队列不足可调大 txqueuelen 与 ethtool -G &lt;网卡&gt; tx；</li>
-<li class="">确认是否已跑满带宽——是则限流或扩带宽，不是则排查网卡驱动与对端设备。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="大于200g的盘空间不足了">大于200G的盘，空间不足了<a href="#大于200g的盘空间不足了" class="hash-link" aria-label="大于200G的盘，空间不足了的直接链接" title="大于200G的盘，空间不足了的直接链接" translate="no">​</a></h4>
-<p>S3 提醒 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_free/1024/1024/1024 &lt; 20 and disk_total/1024/1024/1024 &gt;= 200</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_free/1024/1024/1024 &lt; 10 and disk_total/1024/1024/1024 &gt;= 200</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_free/1024/1024/1024 &lt; 2 and disk_total/1024/1024/1024 &gt;= 200</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 df -h 定位挂载点，用 du -x --max-depth=1 &lt;挂载点&gt; | sort -h 找出占用最大的目录；</li>
-<li class="">清理日志与过期数据，注意用 lsof +L1 检查已删除但未释放的文件；</li>
-<li class="">评估是否该把数据目录迁到独立磁盘或加盘扩容；</li>
-<li class="">若是数据库或对象存储的数据盘，按业务侧的归档策略下沉冷数据。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="小于200g的盘空间不足了">小于200G的盘，空间不足了<a href="#小于200g的盘空间不足了" class="hash-link" aria-label="小于200G的盘，空间不足了的直接链接" title="小于200G的盘，空间不足了的直接链接" translate="no">​</a></h4>
-<p>S3 提醒 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_used_percent &gt; 90 and disk_total/1024/1024/1024 &lt; 200</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_used_percent &gt; 95 and disk_total/1024/1024/1024 &lt; 200</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_used_percent &gt; 99 and disk_total/1024/1024/1024 &lt; 200</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 df -h 定位挂载点，用 du -x --max-depth=1 &lt;挂载点&gt; | sort -h 找出占用最大的目录；</li>
-<li class="">系统盘常见是 /var/log 与容器镜像层（docker system df 看占用，docker system prune 清理）；</li>
-<li class="">用 lsof +L1 检查已删除但句柄未释放的文件；</li>
-<li class="">长期需扩容或把大数据目录迁到独立磁盘。</li>
-</ol>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="exporter-采集12">Exporter 采集（12）<a href="#exporter-采集12" class="hash-link" aria-label="Exporter 采集（12）的直接链接" title="Exporter 采集（12）的直接链接" translate="no">​</a></h3>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-certain-disk-is-unable-to-readwrite-normally">A certain disk is unable to read/write normally<a href="#a-certain-disk-is-unable-to-readwrite-normally" class="hash-link" aria-label="A certain disk is unable to read/write normally的直接链接" title="A certain disk is unable to read/write normally的直接链接" translate="no">​</a></h4>
-<p>S1 紧急 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(node_filesystem_device_error{mountpoint!~&quot;/var/lib/.*&quot;,mountpoint!~&quot;/run.*&quot;}) &gt; 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 dmesg -T | grep -iE &#x27;i/o error|ata|scsi&#x27; 看内核报的具体错误与设备名；</li>
-<li class="">用 smartctl -a /dev/sdX 看 SMART 属性，重点关注 Reallocated_Sector_Ct 与 Current_Pending_Sector；</li>
-<li class="">确认该盘上的数据是否有副本或备份，优先保证数据安全再处理硬件；</li>
-<li class="">确认为硬件故障的，安排停机换盘，RAID 环境下先确认阵列降级状态再操作。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="disk-needs-to-be-cleaned---utilization-has-reached-92---node-exporter">Disk needs to be cleaned - utilization has reached 92% - node exporter<a href="#disk-needs-to-be-cleaned---utilization-has-reached-92---node-exporter" class="hash-link" aria-label="Disk needs to be cleaned - utilization has reached 92% - node exporter的直接链接" title="Disk needs to be cleaned - utilization has reached 92% - node exporter的直接链接" translate="no">​</a></h4>
-<p>S1 紧急 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(100 - ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes) ) &gt; 92</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 df -h 定位挂载点，用 du -x --max-depth=1 &lt;挂载点&gt; | sort -h 找出占用最大的目录；</li>
-<li class="">系统盘常见是 /var/log 与容器镜像层（docker system df 看占用，docker system prune 清理）；</li>
-<li class="">用 lsof +L1 检查已删除但句柄未释放的文件；</li>
-<li class="">长期需扩容或把大数据目录迁到独立磁盘。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="insufficient-computational-resources---average-load-per-core-of-the-machine-is-greater-than-10---node-exporter">Insufficient computational resources - average load per core of the machine is greater than 10 - node exporter<a href="#insufficient-computational-resources---average-load-per-core-of-the-machine-is-greater-than-10---node-exporter" class="hash-link" aria-label="Insufficient computational resources - average load per core of the machine is greater than 10 - node exporter的直接链接" title="Insufficient computational resources - average load per core of the machine is greater than 10 - node exporter的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">avg (node_load1) by (instance)/count(count(node_cpu_seconds_total) by (cpu,instance)) by (instance) &gt;10</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 uptime 看 1/5/15 分钟负载趋势，判断是突发还是持续；</li>
-<li class="">用 top 看 %wa（IO 等待）——高说明瓶颈在磁盘而非 CPU，按磁盘 IO 处理；</li>
-<li class="">用 vmstat 1 看 r（运行队列）与 b（阻塞）列区分 CPU 密集与 IO 阻塞；</li>
-<li class="">定位到具体进程后按 CPU 或 IO 的路径继续排查，必要时扩容。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="insufficient-file-handles---usage-exceeds-90---node-exporter">Insufficient file handles - usage exceeds 90% - node exporter<a href="#insufficient-file-handles---usage-exceeds-90---node-exporter" class="hash-link" aria-label="Insufficient file handles - usage exceeds 90% - node exporter的直接链接" title="Insufficient file handles - usage exceeds 90% - node exporter的直接链接" translate="no">​</a></h4>
-<p>You can increase the file handle limit or expand the capacity</p>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(node_filefd_allocated/node_filefd_maximum*100) &gt; 90</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 cat /proc/sys/fs/file-nr 确认已分配与上限；</li>
-<li class="">用 lsof | awk &#x27;{print $2}&#x27; | sort | uniq -c | sort -rn | head 找出占用句柄最多的进程；</li>
-<li class="">应急调大：sysctl -w fs.file-max=&lt;更大值&gt;，并检查该进程的 ulimit -n 与 systemd LimitNOFILE；</li>
-<li class="">根因通常是连接或文件未关闭，需在应用侧修复泄漏。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="insufficient-inode-resources---usage-exceeds-90---node-exporter">Insufficient inode resources - usage exceeds 90% - node exporter<a href="#insufficient-inode-resources---usage-exceeds-90---node-exporter" class="hash-link" aria-label="Insufficient inode resources - usage exceeds 90% - node exporter的直接链接" title="Insufficient inode resources - usage exceeds 90% - node exporter的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(100 - ((node_filesystem_files_free * 100) / node_filesystem_files))&gt;90</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 df -i 确认是哪个挂载点的 inode 吃紧；</li>
-<li class="">用 for d in /path/*; do echo &quot;$(find $d | wc -l) $d&quot;; done | sort -rn | head 逐层找出小文件最多的目录；</li>
-<li class="">常见来源是 session 文件、邮件队列、缓存碎片、未清理的容器层——按业务确认后批量删除；</li>
-<li class="">长期可在格式化时调大 inode 密度，或把小文件业务迁到独立分区。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="insufficient-memory-resources---utilization-is-greater-than-75---node-exporter">Insufficient memory resources - utilization is greater than 75% - node exporter<a href="#insufficient-memory-resources---utilization-is-greater-than-75---node-exporter" class="hash-link" aria-label="Insufficient memory resources - utilization is greater than 75% - node exporter的直接链接" title="Insufficient memory resources - utilization is greater than 75% - node exporter的直接链接" translate="no">​</a></h4>
-<p>Expansion or upgrading of configuration is required</p>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(node_memory_MemTotal_bytes - node_memory_MemFree_bytes - (node_memory_Cached_bytes + node_memory_Buffers_bytes))/node_memory_MemTotal_bytes*100 &gt; 75</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 free -h 确认 available 与 swap 使用情况；</li>
-<li class="">用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；</li>
-<li class="">内核回收不及时可用 sync; echo 1 &gt; /proc/sys/vm/drop_caches 释放 page cache（生产慎用）；</li>
-<li class="">确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="insufficient-memory-resources---utilization-is-greater-than-95---node-exporter">Insufficient memory resources - utilization is greater than 95% - node exporter<a href="#insufficient-memory-resources---utilization-is-greater-than-95---node-exporter" class="hash-link" aria-label="Insufficient memory resources - utilization is greater than 95% - node exporter的直接链接" title="Insufficient memory resources - utilization is greater than 95% - node exporter的直接链接" translate="no">​</a></h4>
-<p>S1 紧急 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(node_memory_MemTotal_bytes - node_memory_MemFree_bytes - (node_memory_Cached_bytes + node_memory_Buffers_bytes))/node_memory_MemTotal_bytes*100 &gt; 95</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 free -h 确认 available 与 swap 使用情况；</li>
-<li class="">用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；</li>
-<li class="">内核回收不及时可用 sync; echo 1 &gt; /proc/sys/vm/drop_caches 释放 page cache（生产慎用）；</li>
-<li class="">确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="packet-loss-in-the-inbound-direction-of-the-network-card---node-exporter">Packet loss in the inbound direction of the network card - node exporter<a href="#packet-loss-in-the-inbound-direction-of-the-network-card---node-exporter" class="hash-link" aria-label="Packet loss in the inbound direction of the network card - node exporter的直接链接" title="Packet loss in the inbound direction of the network card - node exporter的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">rate(node_network_receive_drop_total{device=~&quot;e.*&quot;}[1m]) &gt; 3</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 ip -s link show &lt;网卡&gt; 确认 RX dropped/errors 的增长；</li>
-<li class="">用 ethtool -S &lt;网卡&gt; 看具体丢包原因（rx_no_buffer、rx_missed_errors 等）；</li>
-<li class="">环形缓冲区不足可用 ethtool -G &lt;网卡&gt; rx &lt;更大值&gt; 调大，并检查 net.core.netdev_max_backlog；</li>
-<li class="">若伴随 CPU 软中断偏高（top 里 %si），开启 RPS/RSS 把中断分散到多核。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="packet-loss-in-the-outbound-direction-of-the-network-card---node-exporter">Packet loss in the outbound direction of the network card - node exporter<a href="#packet-loss-in-the-outbound-direction-of-the-network-card---node-exporter" class="hash-link" aria-label="Packet loss in the outbound direction of the network card - node exporter的直接链接" title="Packet loss in the outbound direction of the network card - node exporter的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">rate(node_network_transmit_drop_total{device=~&quot;e.*&quot;}[1m]) &gt; 3</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 ip -s link show &lt;网卡&gt; 确认 TX dropped/errors 的增长；</li>
-<li class="">用 ethtool -S &lt;网卡&gt; 看具体计数，并用 tc -s qdisc show dev &lt;网卡&gt; 看队列是否溢出；</li>
-<li class="">发送队列不足可调大 txqueuelen 与 ethtool -G &lt;网卡&gt; tx；</li>
-<li class="">确认是否已跑满带宽——是则限流或扩带宽，不是则排查网卡驱动与对端设备。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="system-conntrack-needs-to-be-adjusted---usage-exceeds-80---node-exporter">System conntrack needs to be adjusted - usage exceeds 80% - node exporter<a href="#system-conntrack-needs-to-be-adjusted---usage-exceeds-80---node-exporter" class="hash-link" aria-label="System conntrack needs to be adjusted - usage exceeds 80% - node exporter的直接链接" title="System conntrack needs to be adjusted - usage exceeds 80% - node exporter的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">node_nf_conntrack_entries / node_nf_conntrack_entries_limit*100 &gt; 80</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 sysctl net.netfilter.nf_conntrack_count 与 nf_conntrack_max 确认当前水位；</li>
-<li class="">用 conntrack -L | awk &#x27;{print $4}&#x27; | sort | uniq -c | sort -rn 看连接集中在哪类协议或来源；</li>
-<li class="">应急调大：sysctl -w net.netfilter.nf_conntrack_max=&lt;更大值&gt;，并同步调大 nf_conntrack_buckets；</li>
-<li class="">同时缩短 nf_conntrack_tcp_timeout_time_wait 等超时，或对不需要跟踪的流量用 iptables raw 表 NOTRACK。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="system-experiences-oom---node-exporter">System experiences OOM - node exporter<a href="#system-experiences-oom---node-exporter" class="hash-link" aria-label="System experiences OOM - node exporter的直接链接" title="System experiences OOM - node exporter的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(node_vmstat_oom_kill[1m]) &gt; 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 dmesg -T | grep -i &#x27;killed process&#x27; 确认被杀的是哪个进程、当时占用多少内存；</li>
-<li class="">用 free -h 与该进程的内存曲线判断是内存泄漏还是配置的上限过高；</li>
-<li class="">给关键进程调整 oom_score_adj 降低被杀优先级，同时给次要进程设 cgroup 内存上限；</li>
-<li class="">根因是泄漏的要在应用侧抓堆定位，只扩内存会反复复发。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="too-many-running-processes---exceeding-3000---node-exporter">Too many running processes - exceeding 3000 - node exporter<a href="#too-many-running-processes---exceeding-3000---node-exporter" class="hash-link" aria-label="Too many running processes - exceeding 3000 - node exporter的直接链接" title="Too many running processes - exceeding 3000 - node exporter的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">node_procs_running &gt; 3000</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 ps -eo ppid | sort | uniq -c | sort -rn | head 找出 fork 子进程最多的父进程；</li>
-<li class="">确认是正常的多进程模型（如 php-fpm、nginx worker）还是失控 fork；</li>
-<li class="">失控的先停掉该父进程止血，再修复代码里的 fork 逻辑；</li>
-<li class="">正常业务增长则调整 worker 数配置并评估是否需要扩容。</li>
-</ol>
-<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="telegraf-采集13">Telegraf 采集（13）<a href="#telegraf-采集13" class="hash-link" aria-label="Telegraf 采集（13）的直接链接" title="Telegraf 采集（13）的直接链接" translate="no">​</a></h3>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="address-is-unreachable-by-ping-please-pay-attention---telegraf">Address is unreachable by PING, please pay attention - telegraf<a href="#address-is-unreachable-by-ping-please-pay-attention---telegraf" class="hash-link" aria-label="Address is unreachable by PING, please pay attention - telegraf的直接链接" title="Address is unreachable by PING, please pay attention - telegraf的直接链接" translate="no">​</a></h4>
-<p>S1 紧急 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">ping_result_code != 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">在采集机上手工 ping -c 5 &lt;目标&gt; 复现，再用 mtr -n &lt;目标&gt; 定位丢包出现在哪一跳；</li>
-<li class="">目标机若存活，确认它是否禁 ICMP（很多安全策略会禁），是则该探测本身不适用，应改用端口探测；</li>
-<li class="">中间跳丢包的联系网络侧排查；</li>
-<li class="">确认目标机自身是否宕机或网卡故障。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="hard-disk---expected-to-be-written-full-in-4-hours---telegraf">Hard disk - expected to be written full in 4 hours - telegraf<a href="#hard-disk---expected-to-be-written-full-in-4-hours---telegraf" class="hash-link" aria-label="Hard disk - expected to be written full in 4 hours - telegraf的直接链接" title="Hard disk - expected to be written full in 4 hours - telegraf的直接链接" translate="no">​</a></h4>
-<p>S1 紧急 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">predict_linear(disk_free[1h], 4*3600) &lt; 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 df -h 确认是哪个挂载点，再用 du -x --max-depth=1 &lt;挂载点&gt; | sort -h 逐层找出增长最快的目录；</li>
-<li class="">优先清理日志（journalctl --vacuum-size=500M、清 *.log.N）与临时文件，这是最快见效的；</li>
-<li class="">用 lsof +L1 找出已删除但句柄未释放的文件，重启对应进程才能真正释放空间；</li>
-<li class="">确认是否有异常写入（应用死循环打日志、备份任务堆积），不解决根因清理只是拖延。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="hard-disk---io-is-very-busy---telegraf">Hard disk - IO is very busy - telegraf<a href="#hard-disk---io-is-very-busy---telegraf" class="hash-link" aria-label="Hard disk - IO is very busy - telegraf的直接链接" title="Hard disk - IO is very busy - telegraf的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">rate(diskio_io_time[1m])/10 &gt; 99</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 iostat -x 1 确认是哪块盘、await 与 %util 的具体数值；</li>
-<li class="">用 iotop -oP 或 pidstat -d 1 找出占用 IO 最高的进程；</li>
-<li class="">常见元凶是数据库大查询、备份任务、日志刷盘——把可延后的任务错峰执行；</li>
-<li class="">若是持续高负载而非突发，考虑换 SSD 或把热数据分散到多块盘。</li>
 </ol>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="lost-connection-with-monitoring-target---telegraf">Lost connection with monitoring target - telegraf<a href="#lost-connection-with-monitoring-target---telegraf" class="hash-link" aria-label="Lost connection with monitoring target - telegraf的直接链接" title="Lost connection with monitoring target - telegraf的直接链接" translate="no">​</a></h4>
-<p>触发条件:</p>
-<pre tabindex="0" class="codeBlockStandalone_MEMb thin-scrollbar language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><code class="codeBlockLines_e6Vv"></code></pre>
 <p>处置步骤:</p>
 <ol>
 <li class="">先用 ping 与 ssh 确认机器本身是否存活，机器宕机要按宕机处理；</li>
 <li class="">机器存活则用 systemctl status categraf 确认 agent 进程，看日志 journalctl -u categraf -n 100 定位；</li>
 <li class="">常见原因是 agent 崩溃、配置错误、或到服务端的网络/认证不通——用 curl 手工打一次服务端的写入接口验证；</li>
 <li class="">恢复后确认数据已连续，注意盲区期间的故障不会有历史告警。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="machine-load---high-cpu-please-pay-attention---telegraf">Machine load - high CPU, please pay attention - telegraf<a href="#machine-load---high-cpu-please-pay-attention---telegraf" class="hash-link" aria-label="Machine load - high CPU, please pay attention - telegraf的直接链接" title="Machine load - high CPU, please pay attention - telegraf的直接链接" translate="no">​</a></h4>
-<p>S3 提醒 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">cpu_usage_idle{cpu=&quot;cpu-total&quot;} &lt; 25</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 top -H 或 pidstat 1 找出占用最高的进程与线程；</li>
-<li class="">用 perf top 或对应语言的 profiler（Java 用 arthas/async-profiler，Go 用 pprof）定位热点函数；</li>
-<li class="">区分是业务量自然增长还是代码异常（死循环、正则回溯、频繁 GC）；</li>
-<li class="">业务量增长则扩容或限流，代码问题则修复后发布。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="machine-load---high-memory-please-pay-attention---telegraf">Machine load - high memory, please pay attention - telegraf<a href="#machine-load---high-memory-please-pay-attention---telegraf" class="hash-link" aria-label="Machine load - high memory, please pay attention - telegraf的直接链接" title="Machine load - high memory, please pay attention - telegraf的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">mem_available_percent &lt; 25</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 free -h 确认 available 与 swap 使用情况；</li>
-<li class="">用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；</li>
-<li class="">内核回收不及时可用 sync; echo 1 &gt; /proc/sys/vm/drop_caches 释放 page cache（生产慎用）；</li>
-<li class="">确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="network-connection---number-of-tme_wait-exceeds-20000---telegraf">Network connection - number of TME_WAIT exceeds 20,000 - telegraf<a href="#network-connection---number-of-tme_wait-exceeds-20000---telegraf" class="hash-link" aria-label="Network connection - number of TME_WAIT exceeds 20,000 - telegraf的直接链接" title="Network connection - number of TME_WAIT exceeds 20,000 - telegraf的直接链接" translate="no">​</a></h4>
-<p>S2 警告 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">netstat_tcp_time_wait &gt; 20000</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 ss -s 确认各状态连接数分布；</li>
-<li class="">用 ss -tan state time-wait | awk &#x27;{print $4}&#x27; | cut -d: -f1 | sort | uniq -c | sort -rn 看集中在哪个目标；</li>
-<li class="">根因通常是短连接过多——在应用侧改用长连接或连接池，这是最有效的手段；</li>
-<li class="">应急可开启 net.ipv4.tcp_tw_reuse=1 并调大 net.ipv4.ip_local_port_range（不要开 tcp_tw_recycle，NAT 环境下会丢包）。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="packet-loss-in-the-inbound-direction---telegraf">packet loss in the inbound direction - telegraf<a href="#packet-loss-in-the-inbound-direction---telegraf" class="hash-link" aria-label="packet loss in the inbound direction - telegraf的直接链接" title="packet loss in the inbound direction - telegraf的直接链接" translate="no">​</a></h4>
-<p>S3 提醒 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(net_drop_in[1m]) &gt; 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 ip -s link show &lt;网卡&gt; 确认 RX dropped/errors 的增长；</li>
-<li class="">用 ethtool -S &lt;网卡&gt; 看具体丢包原因（rx_no_buffer、rx_missed_errors 等）；</li>
-<li class="">环形缓冲区不足可用 ethtool -G &lt;网卡&gt; rx &lt;更大值&gt; 调大，并检查 net.core.netdev_max_backlog；</li>
-<li class="">若伴随 CPU 软中断偏高（top 里 %si），开启 RPS/RSS 把中断分散到多核。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="packet-loss-in-the-outbound-direction---telegraf">packet loss in the outbound direction - telegraf<a href="#packet-loss-in-the-outbound-direction---telegraf" class="hash-link" aria-label="packet loss in the outbound direction - telegraf的直接链接" title="packet loss in the outbound direction - telegraf的直接链接" translate="no">​</a></h4>
-<p>S3 提醒 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(net_drop_out[1m]) &gt; 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 ip -s link show &lt;网卡&gt; 确认 TX dropped/errors 的增长；</li>
-<li class="">用 ethtool -S &lt;网卡&gt; 看具体计数，并用 tc -s qdisc show dev &lt;网卡&gt; 看队列是否溢出；</li>
-<li class="">发送队列不足可调大 txqueuelen 与 ethtool -G &lt;网卡&gt; tx；</li>
-<li class="">确认是否已跑满带宽——是则限流或扩带宽，不是则排查网卡驱动与对端设备。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="port-detection-failed-please-pay-attention---telegraf">Port detection failed, please pay attention - telegraf<a href="#port-detection-failed-please-pay-attention---telegraf" class="hash-link" aria-label="Port detection failed, please pay attention - telegraf的直接链接" title="Port detection failed, please pay attention - telegraf的直接链接" translate="no">​</a></h4>
-<p>S1 紧急 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">net_response_result_code != 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">在采集机上手工 telnet &lt;目标&gt; &lt;端口&gt; 或 nc -vz &lt;目标&gt; &lt;端口&gt; 复现；</li>
-<li class="">到目标机用 ss -lntp | grep &lt;端口&gt; 确认进程是否在监听；</li>
-<li class="">进程在监听则排查防火墙、安全组、以及是否只绑定了 127.0.0.1；</li>
-<li class="">进程不在则按该服务自身的恢复流程拉起。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="process-handle-limit-is-too-small---telegraf">process handle limit is too small - telegraf<a href="#process-handle-limit-is-too-small---telegraf" class="hash-link" aria-label="process handle limit is too small - telegraf的直接链接" title="process handle limit is too small - telegraf的直接链接" translate="no">​</a></h4>
-<p>S3 提醒 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">procstat_rlimit_num_fds_soft &lt; 2048</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 cat /proc/&lt;pid&gt;/limits 确认 Max open files 的软硬上限；</li>
-<li class="">systemd 管理的服务在 unit 文件里加 LimitNOFILE=65535 后 systemctl daemon-reload 并重启；</li>
-<li class="">非 systemd 的在启动脚本里加 ulimit -n 65535，或改 /etc/security/limits.conf；</li>
-<li class="">注意软上限修改后必须重启进程才生效。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="process-monitoring---lookup-failure---telegraf">Process monitoring - lookup failure - telegraf<a href="#process-monitoring---lookup-failure---telegraf" class="hash-link" aria-label="Process monitoring - lookup failure - telegraf的直接链接" title="Process monitoring - lookup failure - telegraf的直接链接" translate="no">​</a></h4>
-<p>S1 紧急 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">procstat_lookup_result_code != 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">在采集机上按配置的匹配方式手工执行 ps/pgrep 复现；</li>
-<li class="">进程确实不在则按服务恢复流程处理；</li>
-<li class="">进程在但探测失败，检查 procstat 配置的 pid_file、exe、pattern 是否写错，以及采集账号是否有权限读取 /proc；</li>
-<li class="">容器环境下确认 categraf 是否挂载了宿主机的 /proc。</li>
-</ol>
-<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="there-are-processes-with-0-count-a-certain-process-may-have-crashed---telegraf">there are processes with 0 count, a certain process may have crashed - telegraf<a href="#there-are-processes-with-0-count-a-certain-process-may-have-crashed---telegraf" class="hash-link" aria-label="there are processes with 0 count, a certain process may have crashed - telegraf的直接链接" title="there are processes with 0 count, a certain process may have crashed - telegraf的直接链接" translate="no">​</a></h4>
-<p>S1 紧急 · 持续 1 分钟 · 触发条件:</p>
-<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">procstat_lookup_running == 0</span><br></div></code></pre></div></div>
-<p>处置步骤:</p>
-<ol>
-<li class="">用 ps -ef | grep &lt;进程关键字&gt; 确认确实不在，排除采集侧的匹配规则写错；</li>
-<li class="">查该进程的日志与 dmesg -T | grep -i &#x27;killed process&#x27;，区分自身崩溃、被 OOM 杀死还是人工停止；</li>
-<li class="">按服务自身流程拉起，并确认 systemd 的 Restart 策略是否生效；</li>
-<li class="">若反复退出，先定位根因再拉起，避免陷入重启循环。</li>
 </ol>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="指标说明">指标说明<a href="#指标说明" class="hash-link" aria-label="指标说明的直接链接" title="指标说明的直接链接" translate="no">​</a></h2>
 <p>共 132 条，和仪表盘、告警规则里用到的指标一一对应。</p>
@@ -1416,6 +1137,6 @@
 <li class=""><a class="" href="/zh/docs/data/integrations/import">导入仪表盘和告警规则</a></li>
 <li class=""><a class="" href="/zh/docs/data/integrations/verify">核对指标是否入库</a></li>
 <li class=""><a class="" href="/zh/integrations">全部集成目录</a></li>
-</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><span class="n9e-doc-actions"><a href="https://github.com/ccfos/nightingale/tree/main/integrations/Linux" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a><a href="https://github.com/n9e/n9e.github.io/issues/new?title=%E6%96%87%E6%A1%A3%E5%8F%8D%E9%A6%88%EF%BC%9A%2Fzh%2Fintegrations%2Flinux&amp;body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fzh%2Fintegrations%2Flinux%0A%0A" target="_blank" rel="noopener noreferrer" class="n9e-doc-issue">报告问题</a></span></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--next" href="/zh/integrations/windows"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">Windows</div></a></nav></div></div><div class="col col--3"><div class="n9e-toc"><p class="n9e-toc-title">本页目录</p><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#模板里有什么" class="table-of-contents__link toc-highlight">模板里有什么</a></li><li><a href="#怎么接入" class="table-of-contents__link toc-highlight">怎么接入</a></li><li><a href="#内置仪表盘" class="table-of-contents__link toc-highlight">内置仪表盘</a></li><li><a href="#内置告警规则" class="table-of-contents__link toc-highlight">内置告警规则</a></li><li><a href="#指标说明" class="table-of-contents__link toc-highlight">指标说明</a></li><li><a href="#相关链接" class="table-of-contents__link toc-highlight">相关链接</a></li></ul></div></div></div></div><footer class="footer_aQsI"><p class="copyright_HrmU">© 2026 Nightingale Contributors · Apache-2.0</p><div class="controls_xEY2"><nav class="locales_D62L" aria-label="Language"><a href="/integrations/linux" target="_blank" rel="noopener noreferrer" class="locale_WPDf">English</a><a href="/zh/integrations/linux" target="_blank" rel="noopener noreferrer" class="locale_WPDf localeActive_aVX1" aria-current="page">简体中文</a></nav><div class="toggle_vylO"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></footer></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">产品</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/zh/docs">文档</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/download">下载</a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale/releases" target="_blank" rel="noopener noreferrer" class="footer__link-item">发布说明<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a class="footer__link-item" href="/zh/categraf">Categraf 采集器</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">资源</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/zh/integrations">集成生态</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/comparisons">产品对比</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/comparisons/zabbix-alternatives">Zabbix 替代方案</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/comparisons/open-source-alerting-platforms">开源告警平台选型</a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale#-mcp-server" target="_blank" rel="noopener noreferrer" class="footer__link-item">MCP Server<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ccfos/nightingale" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale/issues" target="_blank" rel="noopener noreferrer" class="footer__link-item">Issues<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://join.slack.com/t/n9e/shared_invite/zt-4ejx42fd0-S9aVULH4FTdH~jEAz80U7g" target="_blank" rel="noopener noreferrer" class="footer__link-item">Slack<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">关于</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ccfos/nightingale/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="footer__link-item">Apache-2.0 License<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="themeRow_uGN8"><div class="toggle_vylO"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div><div class="localeRow_zDj8"><nav class="locales_D62L" aria-label="Language"><a href="/integrations/linux" target="_blank" rel="noopener noreferrer" class="locale_WPDf">English</a><a href="/zh/integrations/linux" target="_blank" rel="noopener noreferrer" class="locale_WPDf localeActive_aVX1" aria-current="page">简体中文</a></nav></div><div class="footer__copyright">© 2026 Nightingale Contributors · Apache-2.0</div></div></div></footer></div>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><span class="n9e-doc-actions"><a href="https://github.com/ccfos/nightingale/tree/main/integrations/Linux" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a><a href="https://github.com/n9e/n9e.github.io/issues/new?title=%E6%96%87%E6%A1%A3%E5%8F%8D%E9%A6%88%EF%BC%9A%2Fzh%2Fintegrations%2Flinux&amp;body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fzh%2Fintegrations%2Flinux%0A%0A" target="_blank" rel="noopener noreferrer" class="n9e-doc-issue">报告问题</a></span></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--next" href="/zh/integrations/windows"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">Windows</div></a></nav></div></div><div class="col col--3"><div class="n9e-toc"><p class="n9e-toc-title">本页目录</p><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#模板里有什么" class="table-of-contents__link toc-highlight">模板里有什么</a></li><li><a href="#怎么接入" class="table-of-contents__link toc-highlight">怎么接入</a></li><li><a href="#内置仪表盘" class="table-of-contents__link toc-highlight">内置仪表盘</a></li><li><a href="#内置告警规则" class="table-of-contents__link toc-highlight">内置告警规则</a></li><li><a href="#指标说明" class="table-of-contents__link toc-highlight">指标说明</a></li><li><a href="#相关链接" class="table-of-contents__link toc-highlight">相关链接</a></li></ul></div></div></div></div><footer class="footer_aQsI"><p class="copyright_HrmU">© 2026 Nightingale Contributors · Apache-2.0</p><div class="controls_xEY2"><nav class="locales_D62L" aria-label="Language"><a href="/integrations/linux" target="_blank" rel="noopener noreferrer" class="locale_WPDf">English</a><a href="/zh/integrations/linux" target="_blank" rel="noopener noreferrer" class="locale_WPDf localeActive_aVX1" aria-current="page">简体中文</a></nav><div class="toggle_vylO"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></footer></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">产品</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/zh/docs">文档</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/download">下载</a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale/releases" target="_blank" rel="noopener noreferrer" class="footer__link-item">发布说明<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a class="footer__link-item" href="/zh/categraf">Categraf 采集器</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">资源</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/zh/integrations">集成生态</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/alert-rules">告警规则库</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/comparisons">产品对比</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/comparisons/zabbix-alternatives">Zabbix 替代方案</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/comparisons/open-source-alerting-platforms">开源告警平台选型</a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale#-mcp-server" target="_blank" rel="noopener noreferrer" class="footer__link-item">MCP Server<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ccfos/nightingale" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale/issues" target="_blank" rel="noopener noreferrer" class="footer__link-item">Issues<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://join.slack.com/t/n9e/shared_invite/zt-4ejx42fd0-S9aVULH4FTdH~jEAz80U7g" target="_blank" rel="noopener noreferrer" class="footer__link-item">Slack<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">关于</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ccfos/nightingale/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="footer__link-item">Apache-2.0 License<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="themeRow_uGN8"><div class="toggle_vylO"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div><div class="localeRow_zDj8"><nav class="locales_D62L" aria-label="Language"><a href="/integrations/linux" target="_blank" rel="noopener noreferrer" class="locale_WPDf">English</a><a href="/zh/integrations/linux" target="_blank" rel="noopener noreferrer" class="locale_WPDf localeActive_aVX1" aria-current="page">简体中文</a></nav></div><div class="footer__copyright">© 2026 Nightingale Contributors · Apache-2.0</div></div></div></footer></div>
 </body>
 </html>

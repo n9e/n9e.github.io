@@ -2,7 +2,7 @@
 
 Collects node state, connections, subscriptions, message throughput and drops through the EMQX Dashboard API; supports v3, v4 and v5.
 
-Last reviewed 2026-10-28
+Last reviewed 2026-10-31
 
 The EMQX input calls the Dashboard API (port 18083 by default). It first reads `/nodes` for each node's version, running state, connection count, processes and memory, then the cluster-level subscription count, routes, message sent, received and dropped counters, sessions and retained messages. Listing several node addresses for one cluster makes it pick a reachable one at random; use separate `[[instances]]` blocks for separate clusters.
 

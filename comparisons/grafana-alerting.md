@@ -3,7 +3,7 @@
 
 # Nightingale vs Grafana Alerting
 
-Grafana is the visualization standard and Nightingale does not try to replace it. The comparison is about the alerting layer: Grafana ships alerting as a module inside a visualization platform; Nightingale makes alerting the whole product. For many teams the answer is both: chart in Grafana, alert in Nightingale.
+The short answer: Grafana is a visualization platform that ships alerting as one module; Nightingale (n9e) is an open-source alerting engine that makes alerting the whole product. Nightingale does not try to replace Grafana dashboards, so the comparison is about the alerting layer, and for many teams the answer is both: chart in Grafana, alert in Nightingale.
 
 [Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)
 

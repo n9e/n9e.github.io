@@ -3,7 +3,7 @@
 
 # 夜莺 vs Grafana Alerting
 
-Grafana 是可视化的事实标准，夜莺不打算取代它。要比的是告警这一层：Grafana 把告警做成可视化平台里的一个模块，夜莺把告警做成整个产品。很多团队的最终答案是两个都用：图在 Grafana 看，告警在夜莺发。
+一句话的区别：Grafana 是可视化平台，告警是它里面的一个模块；夜莺（Nightingale，n9e）是开源告警引擎，告警就是整个产品。夜莺不打算取代 Grafana 的仪表盘，所以要比的是告警这一层，很多团队的最终答案是两个都用：图在 Grafana 看，告警在夜莺发。
 
 [在线体验](https://play.n9e.io/api/n9e/auth/demo-login)[5 分钟安装](https://n9e.github.io/zh/docs/get-started/quick-start.md)
 

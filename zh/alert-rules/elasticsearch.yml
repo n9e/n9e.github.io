@@ -1,0 +1,91 @@
+# Elasticsearch alert rules — https://n9e.github.io/alert-rules/elasticsearch
+# Generated from the Nightingale integration templates: https://github.com/ccfos/nightingale/tree/main/integrations
+# Thresholds are starting points: review them before enabling.
+groups:
+  - name: "elasticsearch-exporter"
+    rules:
+      - alert: "Elastic Cluster Red status"
+        expr: |-
+          elasticsearch_cluster_health_status{color="red"} == 1
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/elasticsearch"
+      - alert: "Elastic Cluster Yellow status"
+        expr: |-
+          elasticsearch_cluster_health_status{color="yellow"} == 1
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/elasticsearch"
+      - alert: "Elasticsearch disk out of space of the instance"
+        expr: |-
+          elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes * 100 < 10
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/elasticsearch"
+      - alert: "Elasticsearch disk space low of the instance"
+        expr: |-
+          elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes * 100 < 20
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/elasticsearch"
+      - alert: "Elasticsearch Heap Usage Too High of the instance"
+        expr: |-
+          (elasticsearch_jvm_memory_used_bytes{area="heap"} / elasticsearch_jvm_memory_max_bytes{area="heap"}) * 100 > 90
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/elasticsearch"
+      - alert: "Elasticsearch Heap Usage warning of the instance"
+        expr: |-
+          (elasticsearch_jvm_memory_used_bytes{area="heap"} / elasticsearch_jvm_memory_max_bytes{area="heap"}) * 100 > 80
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/elasticsearch"
+      - alert: "Elasticsearch initializing shards of the instance"
+        expr: |-
+          elasticsearch_cluster_health_initializing_shards > 0
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/elasticsearch"
+      - alert: "Elasticsearch no new documents of the instance"
+        expr: |-
+          rate(elasticsearch_indices_docs{es_data_node="true"}[5m]) == 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/elasticsearch"
+      - alert: "Elasticsearch pending tasks of the instance"
+        expr: |-
+          elasticsearch_cluster_health_number_of_pending_tasks > 10
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/elasticsearch"
+      - alert: "Elasticsearch relocation shards of the instance"
+        expr: |-
+          elasticsearch_cluster_health_relocating_shards > 0
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/elasticsearch"
+      - alert: "Elasticsearch unassigned shards of the instance"
+        expr: |-
+          elasticsearch_cluster_health_unassigned_shards > 0
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/elasticsearch"

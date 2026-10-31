@@ -2,7 +2,7 @@
 
 通过 Docker API 采集每个容器的 CPU、内存、块设备和网络 IO 以及守护进程状态，仪表盘按 docker\_\* 指标编写并经过真实验证。
 
-最后校对于 2026-10-28
+最后校对于 2026-10-31
 
 Docker 插件基于 Telegraf 的 docker 插件，连接 Docker 守护进程的 socket（`unix:///var/run/docker.sock`）或 TCP 端点，采集引擎层面的容器数量与状态、镜像数、存储驱动信息，以及每个容器的 CPU、内存、blkio 和网络 IO。可选采集 Swarm service 和扩展内存统计。
 

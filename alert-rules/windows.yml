@@ -1,0 +1,160 @@
+# Windows alert rules — https://n9e.github.io/alert-rules/windows
+# Generated from the Nightingale integration templates: https://github.com/ccfos/nightingale/tree/main/integrations
+# Thresholds are starting points: review them before enabling.
+groups:
+  - name: "windows-exporter"
+    rules:
+      - alert: "High CPU utilization - exporter"
+        expr: |-
+          100 * sum by (instance) (rate(windows_cpu_time_total{mode != 'idle'}[5m])) / count by (instance) (windows_cpu_core_frequency_mhz) > 80
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"
+      - alert: "High memory usage rate - exporter"
+        expr: |-
+          100 * (windows_cs_physical_memory_bytes - windows_os_physical_memory_free_bytes) / windows_cs_physical_memory_bytes  > 80
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"
+      - alert: "machine reboot in the last 15 minutes - exporter"
+        expr: |-
+          time() - windows_system_system_up_time  < 900
+        for: 1m
+        labels:
+          severity: info
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"
+      - alert: "packet loss issue in the inbound direction - exporter"
+        expr: |-
+          100 * rate(windows_net_packets_received_errors[5m]) / (rate(windows_net_packets_received_errors[5m]) + rate(windows_net_packets_received_total[5m])>0)  > 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"
+      - alert: "packet loss issue in the outbound direction - exporter"
+        expr: |-
+          100 * rate(windows_net_packets_outbound_errors[5m]) / (rate(windows_net_packets_outbound_errors[5m]) + rate(windows_net_packets_sent_total[5m])>0)  > 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"
+      - alert: "The hard disk is almost full - exporter"
+        expr: |-
+          100 * (windows_logical_disk_size_bytes - windows_logical_disk_free_bytes) / windows_logical_disk_size_bytes  > 90
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"
+  - name: "windows-categraf"
+    rules:
+      - alert: "Hard disk - expected to be written full in 4 hours - categraf [Windows]"
+        expr: |-
+          predict_linear(disk_free{platform=~"windows"}[1h], 4*3600) < 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"
+      - alert: "Hard disk - IO is a bit busy - categraf [Windows]"
+        expr: |-
+          rate(diskio_io_time{platform=~"windows"}[1m])/10 > 99
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"
+      - alert: "Machine load - high memory, please pay attention - categraf[Windows]"
+        expr: |-
+          mem_available_percent{platform=~"windows"} < 25
+        for: 1m
+        labels:
+          severity: info
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"
+      - alert: "Machine load - high memory, please pay attention - categraf[Windows]"
+        expr: |-
+          mem_available_percent{platform=~"windows"} < 15
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"
+      - alert: "Machine load - high memory, please pay attention - categraf[Windows]"
+        expr: |-
+          mem_available_percent{platform=~"windows"} < 5
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"
+      - alert: "packet loss in the inbound direction - categraf[Windows]"
+        expr: |-
+          increase(net_drop_in{platform=~"windows"}[1m]) > 0
+        for: 1m
+        labels:
+          severity: info
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"
+      - alert: "packet loss in the outbound direction - categraf [Windows]"
+        expr: |-
+          increase(net_drop_out{platform=~"windows"}[1m]) > 0
+        for: 1m
+        labels:
+          severity: info
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"
+      - alert: "Disk larger than 200G is running out of space [Windows]"
+        expr: |-
+          disk_free{platform=~"windows"}/1024/1024/1024 < 20 and disk_total{platform=~"windows"}/1024/1024/1024 >= 200
+        for: 1m
+        labels:
+          severity: info
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"
+      - alert: "Disk larger than 200G is running out of space [Windows]"
+        expr: |-
+          disk_free{platform=~"windows"}/1024/1024/1024 < 10 and disk_total{platform=~"windows"}/1024/1024/1024 >= 200
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"
+      - alert: "Disk larger than 200G is running out of space [Windows]"
+        expr: |-
+          disk_free{platform=~"windows"}/1024/1024/1024 < 2 and disk_total{platform=~"windows"}/1024/1024/1024 >= 200
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"
+      - alert: "Disk smaller than 200G is running out of space [Windows]"
+        expr: |-
+          disk_used_percent{platform=~"windows"} > 90 and disk_total{platform=~"windows"}/1024/1024/1024 < 200
+        for: 1m
+        labels:
+          severity: info
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"
+      - alert: "Disk smaller than 200G is running out of space [Windows]"
+        expr: |-
+          disk_used_percent{platform=~"windows"} > 95 and disk_total{platform=~"windows"}/1024/1024/1024 < 200
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"
+      - alert: "Disk smaller than 200G is running out of space [Windows]"
+        expr: |-
+          disk_used_percent{platform=~"windows"} > 99 and disk_total{platform=~"windows"}/1024/1024/1024 < 200
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/windows"

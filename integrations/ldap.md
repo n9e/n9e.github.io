@@ -2,7 +2,7 @@
 
 Reads the LDAP server's cn=Monitor backend for connections, operation counters, waiters and thread state; supports OpenLDAP and 389 Directory Server.
 
-Last reviewed 2026-10-28
+Last reviewed 2026-10-31
 
 The LDAP input queries the server's monitoring backend (`cn=Monitor`) for current and total connections, counters for bind, search, modify, add, delete and other operations, pending reads and writes, thread pool state and uptime. OpenLDAP and 389ds dialects are both supported, with slightly different metric names.
 

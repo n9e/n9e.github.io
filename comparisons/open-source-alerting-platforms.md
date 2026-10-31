@@ -16,6 +16,13 @@ Step one is deciding which layer you lack. Data with no alerts yet: an engine. T
 
 In the Alertmanager world, rules are Prometheus YAML managed by reload and GitOps, with no UI editing and no permission model. Grafana Alerting and Nightingale both configure in the UI and both export and import. Ownership differs: Grafana uses folders and org roles, with fine-grained RBAC in Enterprise; Nightingale uses business groups, which are also the permission boundary and decide who can see, who can edit and where mutes apply. If only SREs maintain rules, files plus GitOps are the leanest option; if product teams configure their own, a UI and a permission boundary are hard requirements.
 
+## Looking for an Alertmanager UI?[​](#looking-for-an-alertmanager-ui "Direct link to Looking for an Alertmanager UI?")
+
+Most people who search for an Alertmanager UI want one of two things, and they have different answers.
+
+* **A better view of firing alerts.** Alertmanager's built-in web UI (port 9093) lists alerts and lets you create silences. [karma](https://github.com/prymitive/karma) adds grouping and a dashboard across several Alertmanagers, and Grafana can add Alertmanager as a data source to browse alerts and manage silences. All of these sit on top of Alertmanager and leave it unchanged.
+* **Editing rules and routing without touching YAML.** None of the tools above do this: Prometheus rules and `alertmanager.yml` stay files. To manage rules, routing and mutes in a UI with per-team permissions, the alerting layer itself has to move. Grafana Alerting does that inside Grafana; Nightingale does it as a standalone engine that queries Prometheus directly, and [Migrating from Prometheus + Alertmanager](https://n9e.github.io/docs/migration/from-alertmanager.md) shows how `alertmanager.yml` maps onto it. Nightingale does not receive alerts from Alertmanager, so it replaces that layer rather than sitting on top of it.
+
 ## Is the data in one place or several?[​](#is-the-data-in-one-place-or-several "Direct link to Is the data in one place or several?")
 
 Alertmanager only handles alerts evaluated by Prometheus (Loki alerts go through its own ruler). Grafana Alerting spans any data source it supports alerting on. Nightingale registers Prometheus, VictoriaMetrics, Elasticsearch, Loki, ClickHouse, MySQL and others, <!-- -->10+<!-- --> types, so metric, log and SQL rules all live in one place. Keep and Alerta do not query data; they only receive alerts.
@@ -75,6 +82,10 @@ No. A monitoring system usually has four layers: collection, storage, visualizat
 
 No. Nightingale is an alerting engine that runs its own queries; it has no inbound alert endpoint. To consolidate alerts other systems already produce, look at aggregation layers such as Keep or Alerta.
 
+**Is there a UI for Alertmanager?**
+
+Alertmanager ships a web UI for viewing alerts and creating silences, and karma or Grafana add richer alert dashboards on top. None of them edit alert rules or routing; those stay in YAML files. If you want rules, routing and mutes managed in a UI with permissions, the alerting layer itself has to change, for example to Grafana Alerting or Nightingale.
+
 **Do the open-source editions have phone and SMS?**
 
 Nightingale does; phone and SMS are built-in media types in its open-source edition. Alertmanager and Grafana OSS have neither and rely on third parties such as PagerDuty; Grafana OnCall OSS was archived in March 2026.
@@ -87,6 +98,7 @@ On this page
 
 * [Three kinds of tool](#three-kinds-of-tool)
 * [Do rules live in files or in a UI?](#do-rules-live-in-files-or-in-a-ui)
+* [Looking for an Alertmanager UI?](#looking-for-an-alertmanager-ui)
 * [Is the data in one place or several?](#is-the-data-in-one-place-or-several)
 * [What cuts the noise: grouping, inhibition, mutes, subscriptions](#what-cuts-the-noise-grouping-inhibition-mutes-subscriptions)
 * [How does the on-call person get woken up?](#how-does-the-on-call-person-get-woken-up)

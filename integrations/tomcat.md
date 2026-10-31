@@ -2,7 +2,7 @@
 
 Reads the /manager/status/all endpoint of the Manager app for JVM memory, per-connector threads and requests, traffic and errors; needs the manager-gui role.
 
-Last reviewed 2026-10-28
+Last reviewed 2026-10-31
 
 The Tomcat input calls the Manager app's `/manager/status/all` endpoint and parses JVM heap and memory pool usage, thread pool size and busy count per connector (HTTP, AJP), request counts, processing time, errors and bytes sent and received.
 

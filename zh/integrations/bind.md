@@ -2,7 +2,7 @@
 
 通过 BIND 的 statistics channel（XML v3）采集查询计数、响应码、缓存和内存上下文，规则盯 SERVFAIL 升高和服务不可达。
 
-最后校对于 2026-10-28
+最后校对于 2026-10-31
 
 BIND 插件从 Telegraf 移植，读取 named 的 statistics channel（默认 `http://localhost:8053/xml/v3`）：收到的各类查询、按 rcode 分类的响应、递归客户端数、socket 与网络计数、各 view 的缓存状态，以及内存上下文的使用。
 

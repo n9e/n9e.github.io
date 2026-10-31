@@ -2,7 +2,7 @@
 
 Reads system.metrics, system.events and system.asynchronous\_metrics over HTTP; queries, merges, replication queues and memory all come with metric descriptions.
 
-Last reviewed 2026-10-28
+Last reviewed 2026-10-31
 
 The ClickHouse input queries the system tables over HTTP (port 8123 by default): `system.metrics`, `system.events`, `system.asynchronous_metrics`, `system.parts` and others. That yields concurrent queries, merges and mutations, replication queue and lag, memory and caches, part counts and ZooKeeper sessions. Verified against a real ClickHouse 24.8 workload.
 
@@ -334,11 +334,11 @@ ClickHouseErrorMetric_ALL_REPLICAS_ARE_STALE == 1 or ClickHouseErrorMetric_ALL_R
 
 
 
- ClickHouseErrorMetric_NO_AVAILABLE_REPLICA == 1
+ClickHouseErrorMetric_NO_AVAILABLE_REPLICA == 1
 
 
 
- ClickHouseErrorMetric_TOO_FEW_LIVE_REPLICAS == 1
+ClickHouseErrorMetric_TOO_FEW_LIVE_REPLICAS == 1
 ```
 
 Runbook:

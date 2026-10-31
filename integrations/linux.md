@@ -2,7 +2,7 @@
 
 CPU, memory, disk, network, processes and kernel parameters out of the box; templates cover Categraf, node\_exporter and Telegraf metric names.
 
-Last reviewed 2026-10-28
+Last reviewed 2026-10-31
 
 Linux hosts are where most monitoring starts. Categraf's cpu, mem, disk, diskio, net, netstat, kernel and processes inputs are enabled by default and report as soon as the agent starts. The configs listed below are the plugins that have options worth tuning.
 
@@ -685,169 +685,72 @@ The templates come in three sets, written against Categraf, node\_exporter and T
 
 ## Bundled alert rules[​](#bundled-alert-rules "Direct link to Bundled alert rules")
 
-60 rules. Each lists its trigger condition (PromQL) and the steps to take when it fires. Thresholds are meant to be adjusted after import.
+60 rules, disabled on import so you can enable them one by one with your own thresholds. The PromQL condition and runbook steps for the 56 rules in the table below are in the alert rule library: [Linux alert rules](https://n9e.github.io/alert-rules/linux.md).
 
-Rules are grouped by collector; import the group that matches how you collect.
+| Rule                                                                                                           | Severity    | For |
+| -------------------------------------------------------------------------------------------------------------- | ----------- | --- |
+| Conntrack table usage exceeds 80%                                                                              | S2 Warning  | 1m  |
+| CPU usage high                                                                                                 | S3 Info     | 1m  |
+| HTTP probe failed                                                                                              | S2 Warning  | 1m  |
+| IO busy                                                                                                        | S2 Warning  | 1m  |
+| NTP time offset too large                                                                                      | S2 Warning  | 1m  |
+| PING probe failed                                                                                              | S2 Warning  | 1m  |
+| TIME\_WAIT connections exceed 20000, worth attention                                                           | S2 Warning  | 1m  |
+| Memory usage high                                                                                              | S3 Info     | 1m  |
+| File handle usage exceeds 90%                                                                                  | S2 Warning  | 1m  |
+| Average load per CPU core exceeds 3                                                                            | S2 Warning  | 1m  |
+| Disk monitoring - inode usage exceeds 90%                                                                      | S2 Warning  | 1m  |
+| Disk monitoring - disk larger than 200G is running out of space                                                | S3 Info     | 1m  |
+| Disk monitoring - disk smaller than 200G is running out of space                                               | S3 Info     | 1m  |
+| Disk monitoring - device errors reported                                                                       | S2 Warning  | 1m  |
+| Disk monitoring - disk predicted to be full within 4 hours                                                     | S1 Critical | 1m  |
+| OOM occurred on the system                                                                                     | S2 Warning  | —   |
+| NIC monitoring - inbound packet loss                                                                           | S3 Info     | 1m  |
+| NIC monitoring - inbound packet errors                                                                         | S3 Info     | 1m  |
+| NIC monitoring - outbound packet loss                                                                          | S3 Info     | 1m  |
+| NIC monitoring - outbound packet errors                                                                        | S3 Info     | 1m  |
+| Network probe failed                                                                                           | S2 Warning  | 1m  |
+| Process monitoring - a process count is 0, the process may be down                                             | S1 Critical | 1m  |
+| Process monitoring - process file handle limit too small                                                       | S3 Info     | 1m  |
+| Process monitoring - total processes exceed 600                                                                | S2 Warning  | 1m  |
+| Hard disk - expected to be written full in 4 hours - categraf                                                  | S1 Critical | 1m  |
+| Hard disk - IO is a bit busy - categraf                                                                        | S2 Warning  | 1m  |
+| Machine load - high memory, please pay attention - categraf                                                    | S3 Info     | 1m  |
+| number of TME\_WAIT exceeds 20,000 - categraf                                                                  | S2 Warning  | 1m  |
+| packet loss in the inbound direction - categraf                                                                | S3 Info     | 1m  |
+| packet loss in the outbound direction - categraf                                                               | S3 Info     | 1m  |
+| Disk larger than 200G is running out of space                                                                  | S3 Info     | 1m  |
+| Disk smaller than 200G is running out of space                                                                 | S3 Info     | 1m  |
+| A certain disk is unable to read/write normally                                                                | S1 Critical | 1m  |
+| Disk needs to be cleaned - utilization has reached 92% - node exporter                                         | S1 Critical | 1m  |
+| Insufficient computational resources - average load per core of the machine is greater than 10 - node exporter | S2 Warning  | 1m  |
+| Insufficient file handles - usage exceeds 90% - node exporter                                                  | S2 Warning  | 1m  |
+| Insufficient inode resources - usage exceeds 90% - node exporter                                               | S2 Warning  | 1m  |
+| Insufficient memory resources - utilization is greater than 75% - node exporter                                | S2 Warning  | 1m  |
+| Insufficient memory resources - utilization is greater than 95% - node exporter                                | S1 Critical | 1m  |
+| Packet loss in the inbound direction of the network card - node exporter                                       | S2 Warning  | 1m  |
+| Packet loss in the outbound direction of the network card - node exporter                                      | S2 Warning  | 1m  |
+| System conntrack needs to be adjusted - usage exceeds 80% - node exporter                                      | S2 Warning  | 1m  |
+| System experiences OOM - node exporter                                                                         | S2 Warning  | 1m  |
+| Too many running processes - exceeding 3000 - node exporter                                                    | S2 Warning  | 1m  |
+| Address is unreachable by PING, please pay attention - telegraf                                                | S1 Critical | 1m  |
+| Hard disk - expected to be written full in 4 hours - telegraf                                                  | S1 Critical | 1m  |
+| Hard disk - IO is very busy - telegraf                                                                         | S2 Warning  | 1m  |
+| Machine load - high CPU, please pay attention - telegraf                                                       | S3 Info     | 1m  |
+| Machine load - high memory, please pay attention - telegraf                                                    | S2 Warning  | 1m  |
+| Network connection - number of TME\_WAIT exceeds 20,000 - telegraf                                             | S2 Warning  | 1m  |
+| packet loss in the inbound direction - telegraf                                                                | S3 Info     | 1m  |
+| packet loss in the outbound direction - telegraf                                                               | S3 Info     | 1m  |
+| Port detection failed, please pay attention - telegraf                                                         | S1 Critical | 1m  |
+| process handle limit is too small - telegraf                                                                   | S3 Info     | 1m  |
+| Process monitoring - lookup failure - telegraf                                                                 | S1 Critical | 1m  |
+| there are processes with 0 count, a certain process may have crashed - telegraf                                | S1 Critical | 1m  |
 
-### Collected by Categraf (35)[​](#collected-by-categraf-35 "Direct link to Collected by Categraf (35)")
+### Other rules (4)[​](#other-rules-4 "Direct link to Other rules (4)")
 
-#### Conntrack table usage exceeds 80%[​](#conntrack-table-usage-exceeds-80 "Direct link to Conntrack table usage exceeds 80%")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-conntrack_ip_conntrack_count / conntrack_ip_conntrack_max > 0.8
-```
-
-Runbook:
-
-1. Run sysctl net.netfilter.nf\_conntrack\_count and nf\_conntrack\_max to see the current level;
-2. Run conntrack -L | awk '{print $4}' | sort | uniq -c | sort -rn to see which protocol or source the entries concentrate on;
-3. As an emergency measure raise it: sysctl -w net.netfilter.nf\_conntrack\_max=\<larger value>, raising nf\_conntrack\_buckets to match;
-4. Also shorten timeouts such as nf\_conntrack\_tcp\_timeout\_time\_wait, or mark traffic that needs no tracking NOTRACK in the iptables raw table.
-
-#### CPU usage high[​](#cpu-usage-high "Direct link to CPU usage high")
-
-S3 Info · for 1 min · Trigger:
-
-```
-cpu_usage_active>75
-
-
-
-cpu_usage_active>85
-
-
-
-cpu_usage_active>95
-```
-
-Runbook:
-
-1. Run top -H or pidstat 1 to find the busiest processes and threads;
-2. Use perf top or a language profiler (arthas/async-profiler for Java, pprof for Go) to locate the hot functions;
-3. Tell natural traffic growth apart from a code problem (infinite loop, regex backtracking, frequent GC);
-4. For growth, scale out or rate limit; for a code problem, fix and release.
-
-#### HTTP probe failed[​](#http-probe-failed "Direct link to HTTP probe failed")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-http_response_result_code != 0
-```
-
-Runbook:
-
-1. Reproduce it by hand on the collector host with curl -sv \<target URL> and see whether it is a connection failure, a timeout or an unexpected status code;
-2. For a connection failure, first confirm the target port is reachable and the process is alive;
-3. For an unexpected status code, check the target service logs;
-4. Confirm the probe's timeout, expected status code and certificate verification settings match reality, so the config itself is not causing the alert.
-
-#### IO busy[​](#io-busy "Direct link to IO busy")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-rate(diskio_io_time[1m])/10 > 99
-```
-
-Runbook:
-
-1. Run iostat -x 1 to see which disk it is and the actual await and %util values;
-2. Run iotop -oP or pidstat -d 1 to find the process doing the most IO;
-3. The usual culprits are large database queries, backup jobs and log flushing — move deferrable work off peak;
-4. If it is sustained rather than a spike, consider SSDs or spreading hot data across disks.
-
-#### NTP time offset too large[​](#ntp-time-offset-too-large "Direct link to NTP time offset too large")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-ntp_offset_ms > 1000 or ntp_offset_ms < -1000
-```
-
-Runbook:
-
-1. Run chronyc tracking (or ntpq -p) to see the current offset and upstream source state;
-2. If upstream is unreachable, check the network and whether the firewall allows 123/UDP;
-3. Run chronyc sources -v to see whether every source is marked unusable, and switch NTP servers if needed;
-4. When the offset is large chrony refuses to slew, so use chronyc makestep to step the clock (prepare time-sensitive workloads first).
-
-#### PING probe failed[​](#ping-probe-failed "Direct link to PING probe failed")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-ping_result_code != 0
-```
-
-Runbook:
-
-1. Reproduce it on the collector host with ping -c 5 \<target>, then use mtr -n \<target> to find which hop is dropping packets;
-2. If the target host is alive, check whether it blocks ICMP (many security policies do) — if so this probe does not apply and you should switch to a port probe;
-3. For loss at an intermediate hop, involve the network team;
-4. Confirm the target host itself is not down or suffering a NIC failure.
-
-#### TIME\_WAIT connections exceed 20000, worth attention[​](#time_wait-connections-exceed-20000-worth-attention "Direct link to TIME_WAIT connections exceed 20000, worth attention")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-netstat_tcp_time_wait > 20000
-```
-
-Runbook:
-
-1. Run ss -s to see the connection state distribution;
-2. Run ss -tan state time-wait | awk '{print $4}' | cut -d: -f1 | sort | uniq -c | sort -rn to see which peer they concentrate on;
-3. The root cause is usually too many short-lived connections — switching the application to long-lived connections or a pool is by far the most effective fix;
-4. As an emergency measure enable net.ipv4.tcp\_tw\_reuse=1 and widen net.ipv4.ip\_local\_port\_range (do not enable tcp\_tw\_recycle — it drops packets behind NAT).
-
-#### Memory usage high[​](#memory-usage-high "Direct link to Memory usage high")
-
-S3 Info · for 1 min · Trigger:
-
-```
-mem_available_percent < 25
-
-
-
-mem_available_percent < 15
-
-
-
-mem_available_percent < 5
-```
-
-Runbook:
-
-1. Run free -h to check available memory and swap usage;
-2. Run ps aux --sort=-%mem | head to find the largest consumers and compare against their memory history to judge whether it is a leak;
-3. If the kernel is slow to reclaim, sync; echo 1 > /proc/sys/vm/drop\_caches frees page cache (use with care in production);
-4. Determine whether it is growth or a process leak — a leak must be located with a heap profile, not just a restart.
-
-#### File handle usage exceeds 90%[​](#file-handle-usage-exceeds-90 "Direct link to File handle usage exceeds 90%")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-linux_sysctl_fs_file_nr/linux_sysctl_fs_file_max>0.9
-```
-
-Runbook:
-
-1. Run cat /proc/sys/fs/file-nr to see allocated versus the limit;
-2. Run lsof | awk '{print $2}' | sort | uniq -c | sort -rn | head to find the processes holding the most handles;
-3. As an emergency measure raise it with sysctl -w fs.file-max=\<larger value>, and check the process's ulimit -n and systemd LimitNOFILE;
-4. The root cause is usually connections or files never closed — fix the leak in the application.
+These rules are not in the alert rule library, so they are listed here in full.
 
 #### Machine monitoring - agent lost for more than 60 seconds[​](#machine-monitoring---agent-lost-for-more-than-60-seconds "Direct link to Machine monitoring - agent lost for more than 60 seconds")
-
-Trigger:
-
-```
-```
 
 Runbook:
 
@@ -858,10 +761,7 @@ Runbook:
 
 #### Machine monitoring - time offset exceeds 3 seconds, attention[​](#machine-monitoring---time-offset-exceeds-3-seconds-attention "Direct link to Machine monitoring - time offset exceeds 3 seconds, attention")
 
-for 1 min · Trigger:
-
-```
-```
+for 1 min
 
 Runbook:
 
@@ -870,283 +770,7 @@ Runbook:
 3. Check that 123/UDP to the NTP server is allowed, switching to an internal NTP source if needed;
 4. When the offset is large, use chronyc makestep to step the clock, preparing time-sensitive workloads first.
 
-#### Average load per CPU core exceeds 3[​](#average-load-per-cpu-core-exceeds-3 "Direct link to Average load per CPU core exceeds 3")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-system_load_norm_1>3
-```
-
-Runbook:
-
-1. Run uptime to see the 1/5/15 minute load trend and judge spike versus sustained;
-2. Run top and look at %wa (IO wait) — high means the bottleneck is disk rather than CPU, so follow the disk IO path;
-3. Run vmstat 1 and use the r (run queue) and b (blocked) columns to separate CPU-bound from IO-blocked;
-4. Once you have the specific process, continue down the CPU or IO path and scale out if needed.
-
-#### Disk monitoring - inode usage exceeds 90%[​](#disk-monitoring---inode-usage-exceeds-90 "Direct link to Disk monitoring - inode usage exceeds 90%")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-disk_inodes_used/disk_inodes_total >0.9
-```
-
-Runbook:
-
-1. Run df -i to see which mount point is short on inodes;
-2. Drill down with for d in /path/\*; do echo "$(find $d | wc -l) $d"; done | sort -rn | head to find the directories with the most small files;
-3. Common sources are session files, mail queues, cache fragments and uncleaned container layers — confirm with the owner and bulk delete;
-4. Longer term, raise inode density at format time or move small-file workloads to a dedicated partition.
-
-#### Disk monitoring - disk larger than 200G is running out of space[​](#disk-monitoring---disk-larger-than-200g-is-running-out-of-space "Direct link to Disk monitoring - disk larger than 200G is running out of space")
-
-S3 Info · for 1 min · Trigger:
-
-```
-disk_free/1024/1024/1024 < 20 and disk_total/1024/1024/1024 >= 200
-
-
-
-disk_free/1024/1024/1024 < 10 and disk_total/1024/1024/1024 >= 200
-
-
-
-disk_free/1024/1024/1024 < 2 and disk_total/1024/1024/1024 >= 200
-```
-
-Runbook:
-
-1. Run df -h to find the mount point, then du -x --max-depth=1 \<mount> | sort -h to find the largest directories;
-2. Clean up logs and expired data, and use lsof +L1 to check for deleted-but-unreleased files;
-3. Evaluate whether the data directory should move to its own disk or the disk should be expanded;
-4. For a database or object-store data disk, tier cold data off according to the business archiving policy.
-
-#### Disk monitoring - disk smaller than 200G is running out of space[​](#disk-monitoring---disk-smaller-than-200g-is-running-out-of-space "Direct link to Disk monitoring - disk smaller than 200G is running out of space")
-
-S3 Info · for 1 min · Trigger:
-
-```
-disk_used_percent > 90 and disk_total/1024/1024/1024 < 200
-
-
-
-disk_used_percent > 95 and disk_total/1024/1024/1024 < 200
-
-
-
-disk_used_percent > 99 and disk_total/1024/1024/1024 < 200
-```
-
-Runbook:
-
-1. Run df -h to find the mount point, then du -x --max-depth=1 \<mount> | sort -h to find the largest directories;
-2. On a system disk the usual suspects are /var/log and container image layers (docker system df to inspect, docker system prune to clean);
-3. Use lsof +L1 to check for deleted-but-unreleased file handles;
-4. Longer term, expand the disk or move large data directories to a dedicated disk.
-
-#### Disk monitoring - device errors reported[​](#disk-monitoring---device-errors-reported "Direct link to Disk monitoring - device errors reported")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-disk_device_error>0
-```
-
-Runbook:
-
-1. Run dmesg -T | grep -iE 'i/o error|ata|scsi' to see the exact kernel error and device name;
-2. Run smartctl -a /dev/sdX and focus on Reallocated\_Sector\_Ct and Current\_Pending\_Sector;
-3. Confirm the data on that disk has a replica or backup — data safety comes before hardware work;
-4. Once confirmed a hardware fault, schedule downtime to swap the disk; in a RAID array, check the degraded state first.
-
-#### Disk monitoring - disk predicted to be full within 4 hours[​](#disk-monitoring---disk-predicted-to-be-full-within-4-hours "Direct link to Disk monitoring - disk predicted to be full within 4 hours")
-
-S1 Critical · for 1 min · Trigger:
-
-```
-predict_linear(disk_free[1h], 4*3600) < 0
-```
-
-Runbook:
-
-1. Run df -h to identify the mount point, then drill down with du -x --max-depth=1 \<mount> | sort -h to find the fastest-growing directory;
-2. Start with logs (journalctl --vacuum-size=500M, rotate out \*.log.N) and temporary files — that is the quickest win;
-3. Use lsof +L1 to find deleted files whose handles are still open; the owning process must be restarted to actually free the space;
-4. Confirm whether something abnormal is writing (an application looping on logs, backups piling up) — without fixing the root cause, cleanup only buys time.
-
-#### OOM occurred on the system[​](#oom-occurred-on-the-system "Direct link to OOM occurred on the system")
-
-S2 Warning · Trigger:
-
-```
-increase(kernel_vmstat_oom_kill[2m]) > 0
-```
-
-Runbook:
-
-1. Run dmesg -T | grep -i 'killed process' to see which process was killed and how much memory it held;
-2. Use free -h and that process's memory history to tell a leak apart from a limit set too high;
-3. Lower oom\_score\_adj for critical processes and set cgroup memory limits on secondary ones;
-4. If it is a leak, capture a heap profile in the application — adding memory alone will just postpone the recurrence.
-
-#### NIC monitoring - inbound packet loss[​](#nic-monitoring---inbound-packet-loss "Direct link to NIC monitoring - inbound packet loss")
-
-S3 Info · for 1 min · Trigger:
-
-```
-increase(net_drop_in[1m]) > 0
-```
-
-Runbook:
-
-1. Run ip -s link show \<nic> to confirm RX dropped/errors are growing;
-2. Run ethtool -S \<nic> to see the specific drop reason (rx\_no\_buffer, rx\_missed\_errors, etc.);
-3. If ring buffers are too small, raise them with ethtool -G \<nic> rx \<larger value> and check net.core.netdev\_max\_backlog;
-4. If softirq CPU is also high (%si in top), enable RPS/RSS to spread interrupts across cores.
-
-#### NIC monitoring - inbound packet errors[​](#nic-monitoring---inbound-packet-errors "Direct link to NIC monitoring - inbound packet errors")
-
-S3 Info · for 1 min · Trigger:
-
-```
-increase(net_err_in[1m]) > 0
-```
-
-Runbook:
-
-1. Run ethtool -S \<nic> and look at rx\_crc\_errors, rx\_frame\_errors and similar counters;
-2. Run ethtool \<nic> to confirm the negotiated speed and duplex match the peer (half duplex is the classic source of errors);
-3. Check the cable/optical module, swapping the cable or port to cross-check;
-4. Ask the network team for the error counters on the corresponding switch port.
-
-#### NIC monitoring - outbound packet loss[​](#nic-monitoring---outbound-packet-loss "Direct link to NIC monitoring - outbound packet loss")
-
-S3 Info · for 1 min · Trigger:
-
-```
-increase(net_drop_out[1m]) > 0
-```
-
-Runbook:
-
-1. Run ip -s link show \<nic> to confirm TX dropped/errors are growing;
-2. Run ethtool -S \<nic> for the specific counters and tc -s qdisc show dev \<nic> to see whether the queue is overflowing;
-3. If the transmit queue is too small, raise txqueuelen and ethtool -G \<nic> tx;
-4. Check whether the link is saturated — if so throttle or add bandwidth, otherwise investigate the NIC driver and peer device.
-
-#### NIC monitoring - outbound packet errors[​](#nic-monitoring---outbound-packet-errors "Direct link to NIC monitoring - outbound packet errors")
-
-S3 Info · for 1 min · Trigger:
-
-```
-increase(net_err_out[1m]) > 0
-```
-
-Runbook:
-
-1. Run ethtool -S \<nic> and look at tx\_errors, tx\_carrier\_errors and similar counters;
-2. Run ethtool \<nic> to confirm speed and duplex match the peer;
-3. Check the cable/optical module and cross-check by swapping;
-4. Verify the NIC driver and firmware versions and upgrade if needed.
-
-#### Network probe failed[​](#network-probe-failed "Direct link to Network probe failed")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-net_response_result_code != 0
-```
-
-Runbook:
-
-1. Reproduce it on the collector host with telnet \<target> \<port> or nc -vz \<target> \<port>;
-2. On the target host, run ss -lntp | grep \<port> to confirm a process is listening;
-3. If it is listening, check the firewall, security groups, and whether it is bound only to 127.0.0.1;
-4. If nothing is listening, start the service through its own recovery procedure.
-
-#### Process monitoring - a process count is 0, the process may be down[​](#process-monitoring---a-process-count-is-0-the-process-may-be-down "Direct link to Process monitoring - a process count is 0, the process may be down")
-
-S1 Critical · for 1 min · Trigger:
-
-```
-procstat_lookup_count == 0
-```
-
-Runbook:
-
-1. Run ps -ef | grep \<process keyword> to confirm it is really gone and rule out a wrong match rule on the collector side;
-2. Check that process's log and dmesg -T | grep -i 'killed process' to tell a crash, an OOM kill and a manual stop apart;
-3. Start it through the service's own procedure and confirm the systemd Restart policy is effective;
-4. If it keeps exiting, find the root cause before starting it again to avoid a restart loop.
-
-#### Process monitoring - process file handle limit too small[​](#process-monitoring---process-file-handle-limit-too-small "Direct link to Process monitoring - process file handle limit too small")
-
-S3 Info · for 1 min · Trigger:
-
-```
-procstat_rlimit_num_fds_soft < 2048
-```
-
-Runbook:
-
-1. Run cat /proc/\<pid>/limits to see the soft and hard Max open files;
-2. For systemd services, add LimitNOFILE=65535 to the unit file, then systemctl daemon-reload and restart;
-3. For non-systemd, add ulimit -n 65535 to the startup script or edit /etc/security/limits.conf;
-4. Note the process must be restarted for a changed soft limit to take effect.
-
-#### Process monitoring - total processes exceed 600[​](#process-monitoring---total-processes-exceed-600 "Direct link to Process monitoring - total processes exceed 600")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-processes_total > 600
-```
-
-Runbook:
-
-1. Run ps -eo ppid | sort | uniq -c | sort -rn | head to find the parent forking the most children;
-2. Determine whether this is a normal multi-process model (php-fpm, nginx workers) or a runaway fork;
-3. For a runaway, stop that parent to stop the bleeding, then fix the fork logic in the code;
-4. For genuine growth, tune the worker count and evaluate whether to scale out.
-
-#### Hard disk - expected to be written full in 4 hours - categraf[​](#hard-disk---expected-to-be-written-full-in-4-hours---categraf "Direct link to Hard disk - expected to be written full in 4 hours - categraf")
-
-S1 Critical · for 1 min · Trigger:
-
-```
-predict_linear(disk_free[1h], 4*3600) < 0
-```
-
-Runbook:
-
-1. Run df -h to identify the mount point, then drill down with du -x --max-depth=1 \<mount> | sort -h to find the fastest-growing directory;
-2. Start with logs (journalctl --vacuum-size=500M, rotate out \*.log.N) and temporary files — that is the quickest win;
-3. Use lsof +L1 to find deleted files whose handles are still open; the owning process must be restarted to actually free the space;
-4. Confirm whether something abnormal is writing (an application looping on logs, backups piling up) — without fixing the root cause, cleanup only buys time.
-
-#### Hard disk - IO is a bit busy - categraf[​](#hard-disk---io-is-a-bit-busy---categraf "Direct link to Hard disk - IO is a bit busy - categraf")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-rate(diskio_io_time[1m])/10 > 99
-```
-
-Runbook:
-
-1. Run iostat -x 1 to see which disk it is and the actual await and %util values;
-2. Run iotop -oP or pidstat -d 1 to find the process doing the most IO;
-3. The usual culprits are large database queries, backup jobs and log flushing — move deferrable work off peak;
-4. If it is sustained rather than a spike, consider SSDs or spreading hot data across disks.
-
 #### Lost connection with monitoring target - categraf[​](#lost-connection-with-monitoring-target---categraf "Direct link to Lost connection with monitoring target - categraf")
-
-Trigger:
-
-```
-```
 
 Runbook:
 
@@ -1154,502 +778,15 @@ Runbook:
 2. If it is alive, run systemctl status categraf to check the agent process and journalctl -u categraf -n 100 to locate the cause;
 3. Common causes are an agent crash, a config error, or network/auth failure to the server — verify by curling the server's write endpoint by hand;
 4. After recovery, confirm the data is continuous, and note that failures during the blind window produced no alerts at all.
-
-#### Machine load - high memory, please pay attention - categraf[​](#machine-load---high-memory-please-pay-attention---categraf "Direct link to Machine load - high memory, please pay attention - categraf")
-
-S3 Info · for 1 min · Trigger:
-
-```
-mem_available_percent < 25
-
-
-
-mem_available_percent < 15
-
-
-
-mem_available_percent < 5
-```
-
-Runbook:
-
-1. Run free -h to check available memory and swap usage;
-2. Run ps aux --sort=-%mem | head to find the largest consumers and compare against their memory history to judge whether it is a leak;
-3. If the kernel is slow to reclaim, sync; echo 1 > /proc/sys/vm/drop\_caches frees page cache (use with care in production);
-4. Determine whether it is growth or a process leak — a leak must be located with a heap profile, not just a restart.
-
-#### number of TME\_WAIT exceeds 20,000 - categraf[​](#number-of-tme_wait-exceeds-20000---categraf "Direct link to number of TME_WAIT exceeds 20,000 - categraf")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-netstat_tcp_time_wait > 20000
-```
-
-Runbook:
-
-1. Run ss -s to see the connection state distribution;
-2. Run ss -tan state time-wait | awk '{print $4}' | cut -d: -f1 | sort | uniq -c | sort -rn to see which peer they concentrate on;
-3. The root cause is usually too many short-lived connections — switching the application to long-lived connections or a pool is by far the most effective fix;
-4. As an emergency measure enable net.ipv4.tcp\_tw\_reuse=1 and widen net.ipv4.ip\_local\_port\_range (do not enable tcp\_tw\_recycle — it drops packets behind NAT).
-
-#### packet loss in the inbound direction - categraf[​](#packet-loss-in-the-inbound-direction---categraf "Direct link to packet loss in the inbound direction - categraf")
-
-S3 Info · for 1 min · Trigger:
-
-```
-increase(net_drop_in[1m]) > 0
-```
-
-Runbook:
-
-1. Run ip -s link show \<nic> to confirm RX dropped/errors are growing;
-2. Run ethtool -S \<nic> to see the specific drop reason (rx\_no\_buffer, rx\_missed\_errors, etc.);
-3. If ring buffers are too small, raise them with ethtool -G \<nic> rx \<larger value> and check net.core.netdev\_max\_backlog;
-4. If softirq CPU is also high (%si in top), enable RPS/RSS to spread interrupts across cores.
-
-#### packet loss in the outbound direction - categraf[​](#packet-loss-in-the-outbound-direction---categraf "Direct link to packet loss in the outbound direction - categraf")
-
-S3 Info · for 1 min · Trigger:
-
-```
-increase(net_drop_out[1m]) > 0
-```
-
-Runbook:
-
-1. Run ip -s link show \<nic> to confirm TX dropped/errors are growing;
-2. Run ethtool -S \<nic> for the specific counters and tc -s qdisc show dev \<nic> to see whether the queue is overflowing;
-3. If the transmit queue is too small, raise txqueuelen and ethtool -G \<nic> tx;
-4. Check whether the link is saturated — if so throttle or add bandwidth, otherwise investigate the NIC driver and peer device.
-
-#### Disk larger than 200G is running out of space[​](#disk-larger-than-200g-is-running-out-of-space "Direct link to Disk larger than 200G is running out of space")
-
-S3 Info · for 1 min · Trigger:
-
-```
-disk_free/1024/1024/1024 < 20 and disk_total/1024/1024/1024 >= 200
-
-
-
-disk_free/1024/1024/1024 < 10 and disk_total/1024/1024/1024 >= 200
-
-
-
-disk_free/1024/1024/1024 < 2 and disk_total/1024/1024/1024 >= 200
-```
-
-Runbook:
-
-1. Run df -h to find the mount point, then du -x --max-depth=1 \<mount> | sort -h to find the largest directories;
-2. Clean up logs and expired data, and use lsof +L1 to check for deleted-but-unreleased files;
-3. Evaluate whether the data directory should move to its own disk or the disk should be expanded;
-4. For a database or object-store data disk, tier cold data off according to the business archiving policy.
-
-#### Disk smaller than 200G is running out of space[​](#disk-smaller-than-200g-is-running-out-of-space "Direct link to Disk smaller than 200G is running out of space")
-
-S3 Info · for 1 min · Trigger:
-
-```
-disk_used_percent > 90 and disk_total/1024/1024/1024 < 200
-
-
-
-disk_used_percent > 95 and disk_total/1024/1024/1024 < 200
-
-
-
-disk_used_percent > 99 and disk_total/1024/1024/1024 < 200
-```
-
-Runbook:
-
-1. Run df -h to find the mount point, then du -x --max-depth=1 \<mount> | sort -h to find the largest directories;
-2. On a system disk the usual suspects are /var/log and container image layers (docker system df to inspect, docker system prune to clean);
-3. Use lsof +L1 to check for deleted-but-unreleased file handles;
-4. Longer term, expand the disk or move large data directories to a dedicated disk.
-
-### Collected by an exporter (12)[​](#collected-by-an-exporter-12 "Direct link to Collected by an exporter (12)")
-
-#### A certain disk is unable to read/write normally[​](#a-certain-disk-is-unable-to-readwrite-normally "Direct link to A certain disk is unable to read/write normally")
-
-S1 Critical · for 1 min · Trigger:
-
-```
-(node_filesystem_device_error{mountpoint!~"/var/lib/.*",mountpoint!~"/run.*"}) > 0
-```
-
-Runbook:
-
-1. Run dmesg -T | grep -iE 'i/o error|ata|scsi' to see the exact kernel error and device name;
-2. Run smartctl -a /dev/sdX and focus on Reallocated\_Sector\_Ct and Current\_Pending\_Sector;
-3. Confirm the data on that disk has a replica or backup — data safety comes before hardware work;
-4. Once confirmed a hardware fault, schedule downtime to swap the disk; in a RAID array, check the degraded state first.
-
-#### Disk needs to be cleaned - utilization has reached 92% - node exporter[​](#disk-needs-to-be-cleaned---utilization-has-reached-92---node-exporter "Direct link to Disk needs to be cleaned - utilization has reached 92% - node exporter")
-
-S1 Critical · for 1 min · Trigger:
-
-```
-(100 - ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes) ) > 92
-```
-
-Runbook:
-
-1. Run df -h to find the mount point, then du -x --max-depth=1 \<mount> | sort -h to find the largest directories;
-2. On a system disk the usual suspects are /var/log and container image layers (docker system df to inspect, docker system prune to clean);
-3. Use lsof +L1 to check for deleted-but-unreleased file handles;
-4. Longer term, expand the disk or move large data directories to a dedicated disk.
-
-#### Insufficient computational resources - average load per core of the machine is greater than 10 - node exporter[​](#insufficient-computational-resources---average-load-per-core-of-the-machine-is-greater-than-10---node-exporter "Direct link to Insufficient computational resources - average load per core of the machine is greater than 10 - node exporter")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-avg (node_load1) by (instance)/count(count(node_cpu_seconds_total) by (cpu,instance)) by (instance) >10
-```
-
-Runbook:
-
-1. Run uptime to see the 1/5/15 minute load trend and judge spike versus sustained;
-2. Run top and look at %wa (IO wait) — high means the bottleneck is disk rather than CPU, so follow the disk IO path;
-3. Run vmstat 1 and use the r (run queue) and b (blocked) columns to separate CPU-bound from IO-blocked;
-4. Once you have the specific process, continue down the CPU or IO path and scale out if needed.
-
-#### Insufficient file handles - usage exceeds 90% - node exporter[​](#insufficient-file-handles---usage-exceeds-90---node-exporter "Direct link to Insufficient file handles - usage exceeds 90% - node exporter")
-
-You can increase the file handle limit or expand the capacity
-
-S2 Warning · for 1 min · Trigger:
-
-```
-(node_filefd_allocated/node_filefd_maximum*100) > 90
-```
-
-Runbook:
-
-1. Run cat /proc/sys/fs/file-nr to see allocated versus the limit;
-2. Run lsof | awk '{print $2}' | sort | uniq -c | sort -rn | head to find the processes holding the most handles;
-3. As an emergency measure raise it with sysctl -w fs.file-max=\<larger value>, and check the process's ulimit -n and systemd LimitNOFILE;
-4. The root cause is usually connections or files never closed — fix the leak in the application.
-
-#### Insufficient inode resources - usage exceeds 90% - node exporter[​](#insufficient-inode-resources---usage-exceeds-90---node-exporter "Direct link to Insufficient inode resources - usage exceeds 90% - node exporter")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-(100 - ((node_filesystem_files_free * 100) / node_filesystem_files))>90
-```
-
-Runbook:
-
-1. Run df -i to see which mount point is short on inodes;
-2. Drill down with for d in /path/\*; do echo "$(find $d | wc -l) $d"; done | sort -rn | head to find the directories with the most small files;
-3. Common sources are session files, mail queues, cache fragments and uncleaned container layers — confirm with the owner and bulk delete;
-4. Longer term, raise inode density at format time or move small-file workloads to a dedicated partition.
-
-#### Insufficient memory resources - utilization is greater than 75% - node exporter[​](#insufficient-memory-resources---utilization-is-greater-than-75---node-exporter "Direct link to Insufficient memory resources - utilization is greater than 75% - node exporter")
-
-Expansion or upgrading of configuration is required
-
-S2 Warning · for 1 min · Trigger:
-
-```
-(node_memory_MemTotal_bytes - node_memory_MemFree_bytes - (node_memory_Cached_bytes + node_memory_Buffers_bytes))/node_memory_MemTotal_bytes*100 > 75
-```
-
-Runbook:
-
-1. Run free -h to check available memory and swap usage;
-2. Run ps aux --sort=-%mem | head to find the largest consumers and compare against their memory history to judge whether it is a leak;
-3. If the kernel is slow to reclaim, sync; echo 1 > /proc/sys/vm/drop\_caches frees page cache (use with care in production);
-4. Determine whether it is growth or a process leak — a leak must be located with a heap profile, not just a restart.
-
-#### Insufficient memory resources - utilization is greater than 95% - node exporter[​](#insufficient-memory-resources---utilization-is-greater-than-95---node-exporter "Direct link to Insufficient memory resources - utilization is greater than 95% - node exporter")
-
-S1 Critical · for 1 min · Trigger:
-
-```
-(node_memory_MemTotal_bytes - node_memory_MemFree_bytes - (node_memory_Cached_bytes + node_memory_Buffers_bytes))/node_memory_MemTotal_bytes*100 > 95
-```
-
-Runbook:
-
-1. Run free -h to check available memory and swap usage;
-2. Run ps aux --sort=-%mem | head to find the largest consumers and compare against their memory history to judge whether it is a leak;
-3. If the kernel is slow to reclaim, sync; echo 1 > /proc/sys/vm/drop\_caches frees page cache (use with care in production);
-4. Determine whether it is growth or a process leak — a leak must be located with a heap profile, not just a restart.
-
-#### Packet loss in the inbound direction of the network card - node exporter[​](#packet-loss-in-the-inbound-direction-of-the-network-card---node-exporter "Direct link to Packet loss in the inbound direction of the network card - node exporter")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-rate(node_network_receive_drop_total{device=~"e.*"}[1m]) > 3
-```
-
-Runbook:
-
-1. Run ip -s link show \<nic> to confirm RX dropped/errors are growing;
-2. Run ethtool -S \<nic> to see the specific drop reason (rx\_no\_buffer, rx\_missed\_errors, etc.);
-3. If ring buffers are too small, raise them with ethtool -G \<nic> rx \<larger value> and check net.core.netdev\_max\_backlog;
-4. If softirq CPU is also high (%si in top), enable RPS/RSS to spread interrupts across cores.
-
-#### Packet loss in the outbound direction of the network card - node exporter[​](#packet-loss-in-the-outbound-direction-of-the-network-card---node-exporter "Direct link to Packet loss in the outbound direction of the network card - node exporter")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-rate(node_network_transmit_drop_total{device=~"e.*"}[1m]) > 3
-```
-
-Runbook:
-
-1. Run ip -s link show \<nic> to confirm TX dropped/errors are growing;
-2. Run ethtool -S \<nic> for the specific counters and tc -s qdisc show dev \<nic> to see whether the queue is overflowing;
-3. If the transmit queue is too small, raise txqueuelen and ethtool -G \<nic> tx;
-4. Check whether the link is saturated — if so throttle or add bandwidth, otherwise investigate the NIC driver and peer device.
-
-#### System conntrack needs to be adjusted - usage exceeds 80% - node exporter[​](#system-conntrack-needs-to-be-adjusted---usage-exceeds-80---node-exporter "Direct link to System conntrack needs to be adjusted - usage exceeds 80% - node exporter")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-node_nf_conntrack_entries / node_nf_conntrack_entries_limit*100 > 80
-```
-
-Runbook:
-
-1. Run sysctl net.netfilter.nf\_conntrack\_count and nf\_conntrack\_max to see the current level;
-2. Run conntrack -L | awk '{print $4}' | sort | uniq -c | sort -rn to see which protocol or source the entries concentrate on;
-3. As an emergency measure raise it: sysctl -w net.netfilter.nf\_conntrack\_max=\<larger value>, raising nf\_conntrack\_buckets to match;
-4. Also shorten timeouts such as nf\_conntrack\_tcp\_timeout\_time\_wait, or mark traffic that needs no tracking NOTRACK in the iptables raw table.
-
-#### System experiences OOM - node exporter[​](#system-experiences-oom---node-exporter "Direct link to System experiences OOM - node exporter")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-increase(node_vmstat_oom_kill[1m]) > 0
-```
-
-Runbook:
-
-1. Run dmesg -T | grep -i 'killed process' to see which process was killed and how much memory it held;
-2. Use free -h and that process's memory history to tell a leak apart from a limit set too high;
-3. Lower oom\_score\_adj for critical processes and set cgroup memory limits on secondary ones;
-4. If it is a leak, capture a heap profile in the application — adding memory alone will just postpone the recurrence.
-
-#### Too many running processes - exceeding 3000 - node exporter[​](#too-many-running-processes---exceeding-3000---node-exporter "Direct link to Too many running processes - exceeding 3000 - node exporter")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-node_procs_running > 3000
-```
-
-Runbook:
-
-1. Run ps -eo ppid | sort | uniq -c | sort -rn | head to find the parent forking the most children;
-2. Determine whether this is a normal multi-process model (php-fpm, nginx workers) or a runaway fork;
-3. For a runaway, stop that parent to stop the bleeding, then fix the fork logic in the code;
-4. For genuine growth, tune the worker count and evaluate whether to scale out.
-
-### Collected by Telegraf (13)[​](#collected-by-telegraf-13 "Direct link to Collected by Telegraf (13)")
-
-#### Address is unreachable by PING, please pay attention - telegraf[​](#address-is-unreachable-by-ping-please-pay-attention---telegraf "Direct link to Address is unreachable by PING, please pay attention - telegraf")
-
-S1 Critical · for 1 min · Trigger:
-
-```
-ping_result_code != 0
-```
-
-Runbook:
-
-1. Reproduce it on the collector host with ping -c 5 \<target>, then use mtr -n \<target> to find which hop is dropping packets;
-2. If the target host is alive, check whether it blocks ICMP (many security policies do) — if so this probe does not apply and you should switch to a port probe;
-3. For loss at an intermediate hop, involve the network team;
-4. Confirm the target host itself is not down or suffering a NIC failure.
-
-#### Hard disk - expected to be written full in 4 hours - telegraf[​](#hard-disk---expected-to-be-written-full-in-4-hours---telegraf "Direct link to Hard disk - expected to be written full in 4 hours - telegraf")
-
-S1 Critical · for 1 min · Trigger:
-
-```
-predict_linear(disk_free[1h], 4*3600) < 0
-```
-
-Runbook:
-
-1. Run df -h to identify the mount point, then drill down with du -x --max-depth=1 \<mount> | sort -h to find the fastest-growing directory;
-2. Start with logs (journalctl --vacuum-size=500M, rotate out \*.log.N) and temporary files — that is the quickest win;
-3. Use lsof +L1 to find deleted files whose handles are still open; the owning process must be restarted to actually free the space;
-4. Confirm whether something abnormal is writing (an application looping on logs, backups piling up) — without fixing the root cause, cleanup only buys time.
-
-#### Hard disk - IO is very busy - telegraf[​](#hard-disk---io-is-very-busy---telegraf "Direct link to Hard disk - IO is very busy - telegraf")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-rate(diskio_io_time[1m])/10 > 99
-```
-
-Runbook:
-
-1. Run iostat -x 1 to see which disk it is and the actual await and %util values;
-2. Run iotop -oP or pidstat -d 1 to find the process doing the most IO;
-3. The usual culprits are large database queries, backup jobs and log flushing — move deferrable work off peak;
-4. If it is sustained rather than a spike, consider SSDs or spreading hot data across disks.
 
 #### Lost connection with monitoring target - telegraf[​](#lost-connection-with-monitoring-target---telegraf "Direct link to Lost connection with monitoring target - telegraf")
 
-Trigger:
-
-```
-```
-
 Runbook:
 
 1. First confirm the machine itself is alive with ping and ssh — if it is down, handle it as a host outage;
 2. If it is alive, run systemctl status categraf to check the agent process and journalctl -u categraf -n 100 to locate the cause;
 3. Common causes are an agent crash, a config error, or network/auth failure to the server — verify by curling the server's write endpoint by hand;
 4. After recovery, confirm the data is continuous, and note that failures during the blind window produced no alerts at all.
-
-#### Machine load - high CPU, please pay attention - telegraf[​](#machine-load---high-cpu-please-pay-attention---telegraf "Direct link to Machine load - high CPU, please pay attention - telegraf")
-
-S3 Info · for 1 min · Trigger:
-
-```
-cpu_usage_idle{cpu="cpu-total"} < 25
-```
-
-Runbook:
-
-1. Run top -H or pidstat 1 to find the busiest processes and threads;
-2. Use perf top or a language profiler (arthas/async-profiler for Java, pprof for Go) to locate the hot functions;
-3. Tell natural traffic growth apart from a code problem (infinite loop, regex backtracking, frequent GC);
-4. For growth, scale out or rate limit; for a code problem, fix and release.
-
-#### Machine load - high memory, please pay attention - telegraf[​](#machine-load---high-memory-please-pay-attention---telegraf "Direct link to Machine load - high memory, please pay attention - telegraf")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-mem_available_percent < 25
-```
-
-Runbook:
-
-1. Run free -h to check available memory and swap usage;
-2. Run ps aux --sort=-%mem | head to find the largest consumers and compare against their memory history to judge whether it is a leak;
-3. If the kernel is slow to reclaim, sync; echo 1 > /proc/sys/vm/drop\_caches frees page cache (use with care in production);
-4. Determine whether it is growth or a process leak — a leak must be located with a heap profile, not just a restart.
-
-#### Network connection - number of TME\_WAIT exceeds 20,000 - telegraf[​](#network-connection---number-of-tme_wait-exceeds-20000---telegraf "Direct link to Network connection - number of TME_WAIT exceeds 20,000 - telegraf")
-
-S2 Warning · for 1 min · Trigger:
-
-```
-netstat_tcp_time_wait > 20000
-```
-
-Runbook:
-
-1. Run ss -s to see the connection state distribution;
-2. Run ss -tan state time-wait | awk '{print $4}' | cut -d: -f1 | sort | uniq -c | sort -rn to see which peer they concentrate on;
-3. The root cause is usually too many short-lived connections — switching the application to long-lived connections or a pool is by far the most effective fix;
-4. As an emergency measure enable net.ipv4.tcp\_tw\_reuse=1 and widen net.ipv4.ip\_local\_port\_range (do not enable tcp\_tw\_recycle — it drops packets behind NAT).
-
-#### packet loss in the inbound direction - telegraf[​](#packet-loss-in-the-inbound-direction---telegraf "Direct link to packet loss in the inbound direction - telegraf")
-
-S3 Info · for 1 min · Trigger:
-
-```
-increase(net_drop_in[1m]) > 0
-```
-
-Runbook:
-
-1. Run ip -s link show \<nic> to confirm RX dropped/errors are growing;
-2. Run ethtool -S \<nic> to see the specific drop reason (rx\_no\_buffer, rx\_missed\_errors, etc.);
-3. If ring buffers are too small, raise them with ethtool -G \<nic> rx \<larger value> and check net.core.netdev\_max\_backlog;
-4. If softirq CPU is also high (%si in top), enable RPS/RSS to spread interrupts across cores.
-
-#### packet loss in the outbound direction - telegraf[​](#packet-loss-in-the-outbound-direction---telegraf "Direct link to packet loss in the outbound direction - telegraf")
-
-S3 Info · for 1 min · Trigger:
-
-```
-increase(net_drop_out[1m]) > 0
-```
-
-Runbook:
-
-1. Run ip -s link show \<nic> to confirm TX dropped/errors are growing;
-2. Run ethtool -S \<nic> for the specific counters and tc -s qdisc show dev \<nic> to see whether the queue is overflowing;
-3. If the transmit queue is too small, raise txqueuelen and ethtool -G \<nic> tx;
-4. Check whether the link is saturated — if so throttle or add bandwidth, otherwise investigate the NIC driver and peer device.
-
-#### Port detection failed, please pay attention - telegraf[​](#port-detection-failed-please-pay-attention---telegraf "Direct link to Port detection failed, please pay attention - telegraf")
-
-S1 Critical · for 1 min · Trigger:
-
-```
-net_response_result_code != 0
-```
-
-Runbook:
-
-1. Reproduce it on the collector host with telnet \<target> \<port> or nc -vz \<target> \<port>;
-2. On the target host, run ss -lntp | grep \<port> to confirm a process is listening;
-3. If it is listening, check the firewall, security groups, and whether it is bound only to 127.0.0.1;
-4. If nothing is listening, start the service through its own recovery procedure.
-
-#### process handle limit is too small - telegraf[​](#process-handle-limit-is-too-small---telegraf "Direct link to process handle limit is too small - telegraf")
-
-S3 Info · for 1 min · Trigger:
-
-```
-procstat_rlimit_num_fds_soft < 2048
-```
-
-Runbook:
-
-1. Run cat /proc/\<pid>/limits to see the soft and hard Max open files;
-2. For systemd services, add LimitNOFILE=65535 to the unit file, then systemctl daemon-reload and restart;
-3. For non-systemd, add ulimit -n 65535 to the startup script or edit /etc/security/limits.conf;
-4. Note the process must be restarted for a changed soft limit to take effect.
-
-#### Process monitoring - lookup failure - telegraf[​](#process-monitoring---lookup-failure---telegraf "Direct link to Process monitoring - lookup failure - telegraf")
-
-S1 Critical · for 1 min · Trigger:
-
-```
-procstat_lookup_result_code != 0
-```
-
-Runbook:
-
-1. Reproduce the configured match by hand on the collector host with ps/pgrep;
-2. If the process is genuinely gone, follow the service's recovery procedure;
-3. If the process exists but the probe fails, check the procstat pid\_file / exe / pattern settings and whether the collector account can read /proc;
-4. In containers, confirm categraf mounts the host's /proc.
-
-#### there are processes with 0 count, a certain process may have crashed - telegraf[​](#there-are-processes-with-0-count-a-certain-process-may-have-crashed---telegraf "Direct link to there are processes with 0 count, a certain process may have crashed - telegraf")
-
-S1 Critical · for 1 min · Trigger:
-
-```
-procstat_lookup_running == 0
-```
-
-Runbook:
-
-1. Run ps -ef | grep \<process keyword> to confirm it is really gone and rule out a wrong match rule on the collector side;
-2. Check that process's log and dmesg -T | grep -i 'killed process' to tell a crash, an OOM kill and a manual stop apart;
-3. Start it through the service's own procedure and confirm the systemd Restart policy is effective;
-4. If it keeps exiting, find the root cause before starting it again to avoid a restart loop.
 
 ## Metric reference[​](#metric-reference "Direct link to Metric reference")
 

@@ -2,7 +2,7 @@
 
 Two ways to collect NVIDIA GPUs: nvidia-smi is light and usually enough, DCGM gives more; dashboards cover a fleet overview, single cards and training jobs.
 
-Last reviewed 2026-10-28
+Last reviewed 2026-10-31
 
 There are two collection paths for NVIDIA GPUs. The `nvidia_smi` input runs the local `nvidia-smi` command and parses its output, so nothing else needs installing; utilization, memory, temperature, power and clocks are all there, and remote hosts can be reached over SSH. The `dcgm` input talks to NVIDIA DCGM for finer metrics such as SM activity, NVLink traffic and XID errors, but needs the with-cgo-plugin build of Categraf and DCGM on the host.
 

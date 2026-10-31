@@ -2,7 +2,7 @@
 
 MinIO ships a Prometheus endpoint; scrape the cluster, bucket and node paths together or the object, bucket, process and disk panels stay empty.
 
-Last reviewed 2026-10-28
+Last reviewed 2026-10-31
 
 MinIO exposes Prometheus metrics under `/minio/v2/metrics/` on three paths: `cluster`, `bucket` and `node`. The two bundled dashboards use all three families, so scraping `/cluster` alone leaves the object count, bucket usage, process and disk panels without data.
 

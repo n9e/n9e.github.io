@@ -2,7 +2,7 @@
 
 用华为云 cloudeye-exporter 把云监控（CES）指标转成 Prometheus 格式后抓取，模板覆盖 ECS、RDS、DCS、ELB、Kafka、RocketMQ、CSS 和 WAF。
 
-最后校对于 2026-10-28
+最后校对于 2026-10-31
 
 华为云的指标来自云监控服务（Cloud Eye）。华为云官方维护的 `cloudeye-exporter` 会按产品 namespace 把 CES 指标转成 `huaweicloud_sys_<service>_<metric>` 形式的 Prometheus 指标，用 Categraf 的 `prometheus` 插件抓取即可。
 

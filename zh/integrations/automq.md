@@ -2,7 +2,7 @@
 
 AutoMQ 通过 OTel Collector 或自身的 Prometheus 端点暴露指标，模板覆盖集群总览、Broker、Topic、消费组和明细。
 
-最后校对于 2026-10-28
+最后校对于 2026-10-31
 
 AutoMQ 是存算分离的 Kafka 兼容消息系统。它把指标发给 OTel Collector 的 Prometheus exporter，或直接在自己的端点（实测用的是 8890）暴露 Prometheus 格式数据，用 Categraf 的 `prometheus` 插件抓取即可，端口按部署配置为准。
 

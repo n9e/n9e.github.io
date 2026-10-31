@@ -2,7 +2,7 @@
 
 The GitLab package bundles several exporters for the host, Rails/Sidekiq, Gitaly, Workhorse, PostgreSQL, Redis and NGINX; the template ships five dashboards.
 
-Last reviewed 2026-10-28
+Last reviewed 2026-10-31
 
 The GitLab Linux Package comes with a full set of exporters: node\_exporter (host), gitlab\_exporter (Rails and Sidekiq), Gitaly, Workhorse, postgres\_exporter, redis\_exporter and NGINX VTS. The five dashboards (overview, machine performance, NGINX, PostgreSQL, Redis) each use part of that set, so scrape all of these endpoints rather than a single `/metrics`.
 

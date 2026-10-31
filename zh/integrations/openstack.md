@@ -2,7 +2,7 @@
 
 通过 OpenStack API 采集 Nova、Neutron、Cinder、Glance、Keystone 和 Heat 的资源与配额，以及每台实例的状态。
 
-最后校对于 2026-10-28
+最后校对于 2026-10-31
 
 OpenStack 插件以一个有读取权限的账号调用各服务的 API：Nova 的实例、hypervisor 与配额，Neutron 的网络、子网、端口、浮动 IP 与安全组，Cinder 的卷与快照，Glance 的镜像，Keystone 的项目与用户，Heat 的栈。每台实例的状态、所属项目和 flavor 也会作为指标上报。
 

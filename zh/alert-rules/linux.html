@@ -1,0 +1,1274 @@
+<!doctype html>
+<html lang="zh-CN" dir="ltr" class="docs-wrapper plugin-docs plugin-id-alert-rules docs-version-current docs-doc-page docs-doc-id-linux" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">Linux 告警规则：76 条 PromQL 规则与处置步骤 | 夜莺 Nightingale</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://n9e.github.io/zh/img/og.png"><meta data-rh="true" name="twitter:image" content="https://n9e.github.io/zh/img/og.png"><meta data-rh="true" property="og:url" content="https://n9e.github.io/zh/alert-rules/linux"><meta data-rh="true" property="og:locale" content="zh_CN"><meta data-rh="true" property="og:locale:alternate" content="en"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" property="og:image:width" content="1200"><meta data-rh="true" property="og:image:height" content="630"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-alert-rules-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-alert-rules-current"><meta data-rh="true" property="og:title" content="Linux 告警规则：76 条 PromQL 规则与处置步骤 | 夜莺 Nightingale"><meta data-rh="true" name="description" content="76 条开箱可用的 Linux 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 node_exporter, Categraf, Telegraf。可下载为 Prometheus 规则文件，或导入夜莺。"><meta data-rh="true" property="og:description" content="76 条开箱可用的 Linux 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 node_exporter, Categraf, Telegraf。可下载为 Prometheus 规则文件，或导入夜莺。"><meta data-rh="true" property="og:type" content="article"><meta data-rh="true" property="article:modified_time" content="2026-10-31"><link data-rh="true" rel="icon" href="/zh/img/favicon.png"><link data-rh="true" rel="canonical" href="https://n9e.github.io/zh/alert-rules/linux"><link data-rh="true" rel="alternate" href="https://n9e.github.io/alert-rules/linux" hreflang="en"><link data-rh="true" rel="alternate" href="https://n9e.github.io/zh/alert-rules/linux" hreflang="zh-CN"><link data-rh="true" rel="alternate" href="https://n9e.github.io/alert-rules/linux" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Linux","item":"https://n9e.github.io/zh/alert-rules/linux"}]}</script><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Linux 告警规则：76 条 PromQL 规则与处置步骤","description":"76 条开箱可用的 Linux 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 node_exporter, Categraf, Telegraf。可下载为 Prometheus 规则文件，或导入夜莺。","inLanguage":"zh-CN","dateModified":"2026-10-31","url":"https://n9e.github.io/zh/alert-rules/linux"}</script><link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W860H4Z5JM"></script>
+<script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-W860H4Z5JM",{anonymize_ip:!0})</script>
+
+
+
+
+
+
+
+
+
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-400-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-700-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-800-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/jetbrains-mono-latin-400-normal.woff2" crossorigin="anonymous">
+<style>@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/archivo-latin-ext-400-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/archivo-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/archivo-latin-ext-500-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/archivo-latin-500-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 600; src: url(/fonts/archivo-latin-ext-600-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 600; src: url(/fonts/archivo-latin-600-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/archivo-latin-ext-700-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/archivo-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 800; src: url(/fonts/archivo-latin-ext-800-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 800; src: url(/fonts/archivo-latin-800-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/jetbrains-mono-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/jetbrains-mono-latin-500-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/jetbrains-mono-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+
+/* 度量匹配的回退字体：Archivo 没到时用 Arial 占位，字宽和行高按 Archivo 的度量调过，切换时几乎不重排 */
+@font-face { font-family: 'Archivo Fallback'; font-weight: 400; src: local('Arial'), local('Liberation Sans'); size-adjust: 115.77%; ascent-override: 75.84%; descent-override: 18.14%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 500; src: local('Arial'), local('Liberation Sans'); size-adjust: 117.58%; ascent-override: 74.67%; descent-override: 17.86%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 600; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 110.34%; ascent-override: 79.57%; descent-override: 19.03%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 700; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 113.27%; ascent-override: 77.51%; descent-override: 18.54%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 800; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 117.65%; ascent-override: 74.63%; descent-override: 17.85%; line-gap-override: 0%; }
+/* JetBrains Mono 对 Menlo（macOS）；Consolas / DejaVu 只是兜底，度量按 Menlo 算 */
+@font-face { font-family: 'JetBrains Mono Fallback'; src: local('Menlo'), local('Consolas'), local('DejaVu Sans Mono'); size-adjust: 99.66%; ascent-override: 102.35%; descent-override: 30.10%; line-gap-override: 0%; }
+</style>
+<script>!function(){try{var e=window.location,t=e.pathname;if(t.length>1&&"/"===t.charAt(t.length-1)&&"/zh/"!==t)return void e.replace(t.replace(/\/+$/,"")+e.search+e.hash);var n,a=new URLSearchParams(e.search),r=window.self!==window.top;try{n=window.sessionStorage}catch(i){}function o(e){try{return n&&n.getItem(e)}catch(e){return null}}function h(e,t){try{n&&n.setItem(e,t)}catch(e){}}if(!(a.has("onlyContent")||r&&"1"===o("n9e-embed")))return;var c=a.get("theme");if("dark"!==c&&"light"!==c&&(c=r?o("n9e-embed-theme"):null),r&&(h("n9e-embed","1"),c&&h("n9e-embed-theme",c)),document.documentElement.setAttribute("data-n9e-embed",""),e.hash){var s=decodeURIComponent(e.hash.slice(1));window.addEventListener("load",function(){setTimeout(function(){var e=document.getElementById(s);e&&e.scrollIntoView({behavior:"instant",block:"start"})},0)})}c&&!a.has("docusaurus-theme")&&(a.set("docusaurus-theme",c),history.replaceState(history.state,"",t+"?"+a.toString()+e.hash))}catch(d){}}()</script>
+<script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?9d7cc507a7aae60b28b5e04bb995492a",e.async=!0;var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><link rel="stylesheet" href="/zh/assets/css/styles.53352800.css">
+<script src="/zh/assets/js/runtime~main.ccab66db.js" defer="defer"></script>
+<script src="/zh/assets/js/main.b97003c0.js" defer="defer"></script>
+<link rel="alternate" type="text/markdown" href="https://n9e.github.io/zh/alert-rules/linux.md"><link rel="describedby" href="https://n9e.github.io/zh/llms.txt"></head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"dark"),document.documentElement.setAttribute("data-theme-choice",t||"dark")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/zh/"><div class="navbar__logo"><img src="/zh/img/logo-mark.webp" alt="Nightingale" class="themedComponent_mlkZ themedComponent--light_NVdE" height="26" width="25"><img src="/zh/img/logo-mark.webp" alt="Nightingale" class="themedComponent_mlkZ themedComponent--dark_xIcU" height="26" width="25"></div><b class="navbar__title text--truncate">夜莺</b></a><a class="navbar__item navbar__link" href="/zh/docs">文档</a><a class="navbar__item navbar__link" href="/zh/integrations">集成</a><a class="navbar__item navbar__link" href="/zh/comparisons">对比</a><a class="navbar__item navbar__link" href="/zh/download">下载</a><div class="navbar__item dropdown dropdown--hoverable"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">社区</a><ul class="dropdown__menu"><li><a href="https://github.com/ccfos/nightingale/issues" target="_blank" rel="noopener noreferrer" class="dropdown__link">提交 Issue<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li><a href="https://join.slack.com/t/n9e/shared_invite/zt-4ejx42fd0-S9aVULH4FTdH~jEAz80U7g" target="_blank" rel="noopener noreferrer" class="dropdown__link">Slack<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://play.n9e.io/api/n9e/auth/demo-login" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">在线体验<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://github.com/ccfos/nightingale" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link navbar-github" aria-label="GitHub, 13419 stars">13.4k<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="mobileOnly_k8CN"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB n9e-docs-root n9e-docs-root--single"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><div class="searchWrap_zhtN"></div><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/alert-rules"><span class="linkLabel_WmDU">概览</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/alert-rules/kubernetes"><span class="linkLabel_WmDU">Kubernetes</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/alert-rules/prometheus"><span class="linkLabel_WmDU">Prometheus</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/zh/alert-rules/linux"><span class="linkLabel_WmDU">Linux</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/alert-rules/mysql"><span class="linkLabel_WmDU">MySQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/alert-rules/redis"><span class="linkLabel_WmDU">Redis</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/alert-rules/elasticsearch"><span class="linkLabel_WmDU">Elasticsearch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/alert-rules/mongodb"><span class="linkLabel_WmDU">MongoDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/alert-rules/windows"><span class="linkLabel_WmDU">Windows</span></a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/zh/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Linux</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header class="n9e-doc-header"><h1>Linux 告警规则：76 条 PromQL 规则与处置步骤</h1><p class="n9e-doc-lead">76 条开箱可用的 Linux 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 node_exporter, Categraf, Telegraf。可下载为 Prometheus 规则文件，或导入夜莺。</p><p class="n9e-doc-reviewed">最后校对于 <time datetime="2026-10-31">2026-10-31</time></p></header><p>Linux 服务器与 Kubernetes 节点的主机级告警规则：内存耗尽与内存压力、磁盘和 inode 将满（含「24 小时内将写满」的预测）、磁盘延迟、网络错误、丢包与带宽打满、CPU 负载与被宿主机抢占、OOM Kill、conntrack 表与文件句柄耗尽、时钟偏移、系统服务崩溃、进程消失，以及 PING、端口、HTTP 探测失败。node_exporter 一组用的是标准 <code>node_*</code> 指标名；Categraf 和 Telegraf 两组针对用这两种 agent 采集的主机，覆盖同样的问题。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="概览">概览<a href="#概览" class="hash-link" aria-label="概览的直接链接" title="概览的直接链接" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>76 条规则</strong>，每条都有 PromQL 触发条件、级别、持续时间（<code>for</code>）和处置步骤</li>
+<li class=""><strong>指标来源</strong>：node_exporter, Categraf, Telegraf</li>
+<li class=""><strong>下载</strong>：<a href="/zh/alert-rules/linux.yml" target="_blank" rel="noopener noreferrer" class=""><code>linux.yml</code></a>，标准 Prometheus 规则文件（<code>groups:</code> 格式），已用 <code>promtool check rules</code> 校验</li>
+<li class="">阈值只是起点，启用前请按自己的环境调整。</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="规则一览">规则一览<a href="#规则一览" class="hash-link" aria-label="规则一览的直接链接" title="规则一览的直接链接" translate="no">​</a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>规则</th><th>级别</th><th>持续</th></tr></thead><tbody><tr><td>主机内存不足</td><td>警告</td><td>2 分钟</td></tr><tr><td>主机内存有压力</td><td>警告</td><td>2 分钟</td></tr><tr><td>主机入口网络吞吐量异常</td><td>警告</td><td>5 分钟</td></tr><tr><td>主机出口网络吞吐量异常</td><td>警告</td><td>5 分钟</td></tr><tr><td>主机磁盘读取速率异常</td><td>警告</td><td>5 分钟</td></tr><tr><td>主机磁盘写入速率异常</td><td>警告</td><td>2 分钟</td></tr><tr><td>主机磁盘空间不足</td><td>警告</td><td>2 分钟</td></tr><tr><td>主机磁盘将在 24 小时内填满</td><td>警告</td><td>2 分钟</td></tr><tr><td>文件系统inode使用率高</td><td>警告</td><td>2 分钟</td></tr><tr><td>文件系统inode将在24小时内填满</td><td>警告</td><td>2 分钟</td></tr><tr><td>主机磁盘读取延迟异常</td><td>警告</td><td>2 分钟</td></tr><tr><td>主机磁盘写入延迟异常</td><td>警告</td><td>2 分钟</td></tr><tr><td>节点cpu负载高</td><td>警告</td><td>—</td></tr><tr><td>有其他云主机窃取cpu</td><td>警告</td><td>—</td></tr><tr><td>主机上下文切换异常</td><td>警告</td><td>—</td></tr><tr><td>主机交换内存快满了</td><td>警告</td><td>2 分钟</td></tr><tr><td>主机系统服务崩溃</td><td>警告</td><td>—</td></tr><tr><td>主机内核版本偏差</td><td>警告</td><td>360 分钟</td></tr><tr><td>检测到 HostOomKill</td><td>警告</td><td>—</td></tr><tr><td>主机网络接收错误</td><td>警告</td><td>2 分钟</td></tr><tr><td>主机网络出口错误</td><td>警告</td><td>2 分钟</td></tr><tr><td>主机网络接口饱和</td><td>警告</td><td>1 分钟</td></tr><tr><td>conntrack数量接近极限</td><td>警告</td><td>5 分钟</td></tr><tr><td>主机时钟偏差</td><td>警告</td><td>2 分钟</td></tr><tr><td>主机时钟不同步</td><td>警告</td><td>2 分钟</td></tr><tr><td>节点文件系统空间填满-S2</td><td>警告</td><td>60 分钟</td></tr><tr><td>节点文件系统空间填满-S1</td><td>紧急</td><td>60 分钟</td></tr><tr><td>节点磁盘快满了-S2-space-5</td><td>警告</td><td>60 分钟</td></tr><tr><td>节点磁盘快满了-S1-space-3</td><td>紧急</td><td>60 分钟</td></tr><tr><td>节点磁盘快满了-S2-inodes-40</td><td>警告</td><td>60 分钟</td></tr><tr><td>节点磁盘快满了-S1-inodes-20</td><td>紧急</td><td>60 分钟</td></tr><tr><td>节点磁盘快满了-S2-inodes-5</td><td>警告</td><td>60 分钟</td></tr><tr><td>节点磁盘快满了-S1-inodes-3</td><td>紧急</td><td>60 分钟</td></tr><tr><td>使用的节点Conntrack条目数量高</td><td>警告</td><td>—</td></tr><tr><td>节点文本文件收集器抓取错误</td><td>警告</td><td>—</td></tr><tr><td>节点网络接口抖动</td><td>警告</td><td>2 分钟</td></tr><tr><td>A certain disk is unable to read/write normally</td><td>紧急</td><td>1 分钟</td></tr><tr><td>Disk needs to be cleaned - utilization has reached 92% - node exporter</td><td>紧急</td><td>1 分钟</td></tr><tr><td>Insufficient computational resources - average load per core of the machine is greater than 10 - node exporter</td><td>警告</td><td>1 分钟</td></tr><tr><td>Insufficient file handles - usage exceeds 90% - node exporter</td><td>警告</td><td>1 分钟</td></tr><tr><td>Insufficient inode resources - usage exceeds 90% - node exporter</td><td>警告</td><td>1 分钟</td></tr><tr><td>Insufficient memory resources - utilization is greater than 75% - node exporter</td><td>警告</td><td>1 分钟</td></tr><tr><td>Insufficient memory resources - utilization is greater than 95% - node exporter</td><td>紧急</td><td>1 分钟</td></tr><tr><td>Packet loss in the inbound direction of the network card - node exporter</td><td>警告</td><td>1 分钟</td></tr><tr><td>Packet loss in the outbound direction of the network card - node exporter</td><td>警告</td><td>1 分钟</td></tr><tr><td>System conntrack needs to be adjusted - usage exceeds 80% - node exporter</td><td>警告</td><td>1 分钟</td></tr><tr><td>System experiences OOM - node exporter</td><td>警告</td><td>1 分钟</td></tr><tr><td>Too many running processes - exceeding 3000 - node exporter</td><td>警告</td><td>1 分钟</td></tr><tr><td>Conntrack表的使用率超过80%</td><td>警告</td><td>1 分钟</td></tr><tr><td>CPU利用率较高</td><td>提醒</td><td>1 分钟</td></tr><tr><td>HTTP地址探测失败</td><td>警告</td><td>1 分钟</td></tr><tr><td>IO比较繁忙</td><td>警告</td><td>1 分钟</td></tr><tr><td>NTP时间偏移太大</td><td>警告</td><td>1 分钟</td></tr><tr><td>PING地址探测失败</td><td>警告</td><td>1 分钟</td></tr><tr><td>TME_WAIT状态的连接超过2万，可能需要关注</td><td>警告</td><td>1 分钟</td></tr><tr><td>内存利用率比较高</td><td>提醒</td><td>1 分钟</td></tr><tr><td>文件句柄使用率超过90%</td><td>警告</td><td>1 分钟</td></tr><tr><td>每个CPU Core的平均负载任务超过3</td><td>警告</td><td>1 分钟</td></tr><tr><td>硬盘监控 - inode使用率超过90%</td><td>警告</td><td>1 分钟</td></tr><tr><td>硬盘监控 - 大于200G的盘，空间不足了</td><td>提醒</td><td>1 分钟</td></tr><tr><td>硬盘监控 - 小于200G的盘，空间不足了</td><td>提醒</td><td>1 分钟</td></tr><tr><td>硬盘监控 - 设备有报错</td><td>警告</td><td>1 分钟</td></tr><tr><td>硬盘监控 - 预测硬盘会在未来4小时内写满</td><td>紧急</td><td>1 分钟</td></tr><tr><td>系统有OOM产生</td><td>警告</td><td>—</td></tr><tr><td>网卡监控 - 入方向有丢包</td><td>提醒</td><td>1 分钟</td></tr><tr><td>网卡监控 - 入方向有错包</td><td>提醒</td><td>1 分钟</td></tr><tr><td>网卡监控 - 出方向有丢包</td><td>提醒</td><td>1 分钟</td></tr><tr><td>网卡监控 - 出方向有错包</td><td>提醒</td><td>1 分钟</td></tr><tr><td>网络地址探活失败</td><td>警告</td><td>1 分钟</td></tr><tr><td>进程监控-有进程数为0，某进程可能挂了</td><td>紧急</td><td>1 分钟</td></tr><tr><td>进程监控-进程句柄限制过小</td><td>提醒</td><td>1 分钟</td></tr><tr><td>进程监控-进程总量超过600</td><td>警告</td><td>1 分钟</td></tr><tr><td>Machine load - high CPU, please pay attention - telegraf</td><td>提醒</td><td>1 分钟</td></tr><tr><td>Machine load - high memory, please pay attention - telegraf</td><td>警告</td><td>1 分钟</td></tr><tr><td>Process monitoring - lookup failure - telegraf</td><td>紧急</td><td>1 分钟</td></tr><tr><td>there are processes with 0 count, a certain process may have crashed - telegraf</td><td>紧急</td><td>1 分钟</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="node_exporter48">node_exporter（48）<a href="#node_exporter48" class="hash-link" aria-label="node_exporter（48）的直接链接" title="node_exporter（48）的直接链接" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机内存不足">主机内存不足<a href="#主机内存不足" class="hash-link" aria-label="主机内存不足的直接链接" title="主机内存不足的直接链接" translate="no">​</a></h3>
+<p>节点内存不足 (instance {{ $labels.instance }})</p>
+<p>警告 · 2 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100 &lt; 10</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">登录节点用 free -h 确认 available 与 swap；</li>
+<li class="">ps aux --sort=-%mem | head 找出占用最高的进程；</li>
+<li class="">K8s 节点上优先用 kubectl top pod -A --sort-by=memory 定位是哪个 Pod；</li>
+<li class="">泄漏的在应用侧定位，容量不足的迁走部分 Pod 或扩容节点。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机内存有压力">主机内存有压力<a href="#主机内存有压力" class="hash-link" aria-label="主机内存有压力的直接链接" title="主机内存有压力的直接链接" translate="no">​</a></h3>
+<p>节点内存压力大 (instance {{ $labels.instance }})</p>
+<p>警告 · 2 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">rate(node_vmstat_pgmajfault[1m]) &gt; 1000</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 vmstat 1 看 si/so 列确认是否已在 swap；</li>
+<li class="">用 sar -B 或 /proc/vmstat 看 pgmajfault 的增长；</li>
+<li class="">定位占用最高的进程或 Pod 并评估是否可迁走；</li>
+<li class="">确认 swap 配置——K8s 节点通常应关闭 swap，开启会掩盖内存问题。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机入口网络吞吐量异常">主机入口网络吞吐量异常<a href="#主机入口网络吞吐量异常" class="hash-link" aria-label="主机入口网络吞吐量异常的直接链接" title="主机入口网络吞吐量异常的直接链接" translate="no">​</a></h3>
+<p>主机异常网络吞吐量 入 (instance {{ $labels.instance }})</p>
+<p>警告 · 5 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum by (instance) (rate(node_network_receive_bytes_total[2m])) / 1024 / 1024 &gt; 100</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 iftop 或 nethogs 定位占用带宽最高的进程/连接；</li>
+<li class="">K8s 节点上确认是否有 Pod 在做大量数据传输（备份、数据同步、镜像拉取）；</li>
+<li class="">确认是否已跑满网卡带宽，是则限流或错峰；</li>
+<li class="">异常流量的排查是否有配置错误导致的流量环路。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机出口网络吞吐量异常">主机出口网络吞吐量异常<a href="#主机出口网络吞吐量异常" class="hash-link" aria-label="主机出口网络吞吐量异常的直接链接" title="主机出口网络吞吐量异常的直接链接" translate="no">​</a></h3>
+<p>主机异常网络吞吐量 出 (instance {{ $labels.instance }})</p>
+<p>警告 · 5 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum by (instance) (rate(node_network_transmit_bytes_total[2m])) / 1024 / 1024 &gt; 100</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 iftop 或 nethogs 定位占用带宽最高的进程/连接；</li>
+<li class="">K8s 节点上确认是否有 Pod 在做大量数据传输（备份、数据同步、镜像拉取）；</li>
+<li class="">确认是否已跑满网卡带宽，是则限流或错峰；</li>
+<li class="">异常流量的排查是否有配置错误导致的流量环路。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机磁盘读取速率异常">主机磁盘读取速率异常<a href="#主机磁盘读取速率异常" class="hash-link" aria-label="主机磁盘读取速率异常的直接链接" title="主机磁盘读取速率异常的直接链接" translate="no">​</a></h3>
+<p>主机异常磁盘读取率 (instance {{ $labels.instance }})</p>
+<p>警告 · 5 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum by (instance) (rate(node_disk_read_bytes_total[2m])) / 1024 / 1024 &gt; 50</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 iostat -x 1 确认是哪块盘、await 与 %util；</li>
+<li class="">用 iotop -oP 找出 IO 最高的进程；</li>
+<li class="">K8s 节点常见是容器日志写入、镜像拉取解压、或某个 Pod 的数据写入；</li>
+<li class="">可延后的任务错峰执行，持续高负载的换 SSD 或分散数据。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机磁盘写入速率异常">主机磁盘写入速率异常<a href="#主机磁盘写入速率异常" class="hash-link" aria-label="主机磁盘写入速率异常的直接链接" title="主机磁盘写入速率异常的直接链接" translate="no">​</a></h3>
+<p>主机异常磁盘写入率 (instance {{ $labels.instance }})</p>
+<p>警告 · 2 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum by (instance) (rate(node_disk_written_bytes_total[2m])) / 1024 / 1024 &gt; 50</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 iostat -x 1 确认是哪块盘、await 与 %util；</li>
+<li class="">用 iotop -oP 找出 IO 最高的进程；</li>
+<li class="">K8s 节点常见是容器日志写入、镜像拉取解压、或某个 Pod 的数据写入；</li>
+<li class="">可延后的任务错峰执行，持续高负载的换 SSD 或分散数据。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机磁盘空间不足">主机磁盘空间不足<a href="#主机磁盘空间不足" class="hash-link" aria-label="主机磁盘空间不足的直接链接" title="主机磁盘空间不足的直接链接" translate="no">​</a></h3>
+<p>主机磁盘空间不足 (instance {{ $labels.instance }})</p>
+<p>警告 · 2 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes &lt; 10 and ON (instance, device, mountpoint) node_filesystem_readonly == 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 df -h 定位挂载点，用 du -x --max-depth=1 逐层找占用大的目录；</li>
+<li class="">容器运行时目录（/var/lib/containerd 或 /var/lib/docker）用 crictl rmi --prune 清理无用镜像；</li>
+<li class="">清理容器日志（/var/log/pods），并确认日志轮转配置生效；</li>
+<li class="">用 lsof +L1 检查已删除但句柄未释放的文件。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机磁盘将在-24-小时内填满">主机磁盘将在 24 小时内填满<a href="#主机磁盘将在-24-小时内填满" class="hash-link" aria-label="主机磁盘将在 24 小时内填满的直接链接" title="主机磁盘将在 24 小时内填满的直接链接" translate="no">​</a></h3>
+<p>主机磁盘将在 24 小时内填满 (instance {{ $labels.instance }})</p>
+<p>警告 · 2 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes &lt; 10 and ON (instance, device, mountpoint) predict_linear(node_filesystem_avail_bytes{fstype!~&quot;tmpfs&quot;}[1h], 24 * 3600) &lt; 0 and ON (instance, device, mountpoint) node_filesystem_readonly == 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 du -x --max-depth=1 找出增长最快的目录；</li>
+<li class="">确认增长来源是正常业务还是异常（应用死循环打日志、备份堆积）；</li>
+<li class="">清理无用镜像与容器日志；</li>
+<li class="">增长确实来自业务的，安排扩容磁盘或迁移数据，不要等到写满。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="文件系统inode使用率高">文件系统inode使用率高<a href="#文件系统inode使用率高" class="hash-link" aria-label="文件系统inode使用率高的直接链接" title="文件系统inode使用率高的直接链接" translate="no">​</a></h3>
+<p>主机不足 inode (instance {{ $labels.instance }})</p>
+<p>警告 · 2 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">node_filesystem_files_free{mountpoint =&quot;/rootfs&quot;} / node_filesystem_files{mountpoint=&quot;/rootfs&quot;} * 100 &lt; 10 and ON (instance, device, mountpoint) node_filesystem_readonly{mountpoint=&quot;/rootfs&quot;} == 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 df -i 确认挂载点；</li>
+<li class="">逐层统计文件数找出小文件最多的目录；</li>
+<li class="">K8s 节点常见是容器层与日志碎片，清理无用镜像通常能释放大量 inode；</li>
+<li class="">长期可提高 inode 密度或把小文件业务隔离到独立分区。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="文件系统inode将在24小时内填满">文件系统inode将在24小时内填满<a href="#文件系统inode将在24小时内填满" class="hash-link" aria-label="文件系统inode将在24小时内填满的直接链接" title="文件系统inode将在24小时内填满的直接链接" translate="no">​</a></h3>
+<p>主机 inode 将在 24 小时内填满 (instance {{ $labels.instance }})</p>
+<p>警告 · 2 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">node_filesystem_files_free{mountpoint =&quot;/rootfs&quot;} / node_filesystem_files{mountpoint=&quot;/rootfs&quot;} * 100 &lt; 10 and predict_linear(node_filesystem_files_free{mountpoint=&quot;/rootfs&quot;}[1h], 24 * 3600) &lt; 0 and ON (instance, device, mountpoint) node_filesystem_readonly{mountpoint=&quot;/rootfs&quot;} == 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 df -i 确认挂载点；</li>
+<li class="">逐层统计文件数找出小文件最多的目录；</li>
+<li class="">K8s 节点常见是容器层与日志碎片，清理无用镜像通常能释放大量 inode；</li>
+<li class="">长期可提高 inode 密度或把小文件业务隔离到独立分区。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机磁盘读取延迟异常">主机磁盘读取延迟异常<a href="#主机磁盘读取延迟异常" class="hash-link" aria-label="主机磁盘读取延迟异常的直接链接" title="主机磁盘读取延迟异常的直接链接" translate="no">​</a></h3>
+<p>主机异常磁盘读取延迟 (instance {{ $labels.instance }})</p>
+<p>警告 · 2 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">rate(node_disk_read_time_seconds_total[1m]) / rate(node_disk_reads_completed_total[1m]) &gt; 0.1 and rate(node_disk_reads_completed_total[1m]) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 iostat -x 1 看 r_await/w_await 与队列深度；</li>
+<li class="">延迟高但 IOPS 不高的怀疑磁盘硬件问题，用 smartctl -a 检查；</li>
+<li class="">IOPS 也高的按磁盘饱和处理，定位高 IO 进程；</li>
+<li class="">云盘的确认是否触及规格的 IOPS/吞吐上限被限流。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机磁盘写入延迟异常">主机磁盘写入延迟异常<a href="#主机磁盘写入延迟异常" class="hash-link" aria-label="主机磁盘写入延迟异常的直接链接" title="主机磁盘写入延迟异常的直接链接" translate="no">​</a></h3>
+<p>主机异常磁盘写入延迟 (instance {{ $labels.instance }})</p>
+<p>警告 · 2 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">rate(node_disk_write_time_seconds_total[1m]) / rate(node_disk_writes_completed_total[1m]) &gt; 0.1 and rate(node_disk_writes_completed_total[1m]) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 iostat -x 1 看 r_await/w_await 与队列深度；</li>
+<li class="">延迟高但 IOPS 不高的怀疑磁盘硬件问题，用 smartctl -a 检查；</li>
+<li class="">IOPS 也高的按磁盘饱和处理，定位高 IO 进程；</li>
+<li class="">云盘的确认是否触及规格的 IOPS/吞吐上限被限流。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="节点cpu负载高">节点cpu负载高<a href="#节点cpu负载高" class="hash-link" aria-label="节点cpu负载高的直接链接" title="节点cpu负载高的直接链接" translate="no">​</a></h3>
+<p>主机 CPU 负载高 (instance {{ $labels.instance }})</p>
+<p>警告 · — · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">100 - (avg by(instance) (rate(node_cpu_seconds_total{mode=&quot;idle&quot;}[2m])) * 100) &gt; 80</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 uptime 看 1/5/15 分钟趋势判断是突发还是持续；</li>
+<li class="">top 里看 %wa，高说明瓶颈在磁盘而非 CPU；</li>
+<li class="">vmstat 1 用 r/b 列区分 CPU 密集与 IO 阻塞；</li>
+<li class="">K8s 节点上用 kubectl top pod 定位高负载 Pod 并考虑迁走。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="有其他云主机窃取cpu">有其他云主机窃取cpu<a href="#有其他云主机窃取cpu" class="hash-link" aria-label="有其他云主机窃取cpu的直接链接" title="有其他云主机窃取cpu的直接链接" translate="no">​</a></h3>
+<p>Host CPU steal noisy neighbor (instance {{ $labels.instance }})</p>
+<p>警告 · — · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">avg by(instance) (rate(node_cpu_seconds_total{mode=&quot;steal&quot;}[5m])) * 100 &gt; 10</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 top 或 vmstat 确认 st 列的持续水位；</li>
+<li class="">这是宿主机层面的资源争抢，虚拟机内部无法根治；</li>
+<li class="">云环境下联系云厂商或更换实例规格（独享型规格无 steal）；</li>
+<li class="">自建虚拟化的检查宿主机超卖比例并迁移虚机。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机上下文切换异常">主机上下文切换异常<a href="#主机上下文切换异常" class="hash-link" aria-label="主机上下文切换异常的直接链接" title="主机上下文切换异常的直接链接" translate="no">​</a></h3>
+<p>主机上下文切换 (instance {{ $labels.instance }})</p>
+<p>警告 · — · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(rate(node_context_switches_total[5m])) / (count without(cpu, mode) (node_cpu_seconds_total{mode=&quot;idle&quot;})) &gt; 1000</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 vmstat 1 确认 cs 列的水位；</li>
+<li class="">用 pidstat -w 1 找出切换最频繁的进程；</li>
+<li class="">常见根因是线程数过多、锁竞争激烈、或大量短生命周期进程；</li>
+<li class="">应用侧收敛线程池大小、优化锁粒度是根本解法。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机交换内存快满了">主机交换内存快满了<a href="#主机交换内存快满了" class="hash-link" aria-label="主机交换内存快满了的直接链接" title="主机交换内存快满了的直接链接" translate="no">​</a></h3>
+<p>主机交换内存已满 (instance {{ $labels.instance }})</p>
+<p>警告 · 2 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(1 - (node_memory_SwapFree_bytes / node_memory_SwapTotal_bytes)) * 100 &gt; 80</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 free -h 与 swapon -s 确认 swap 使用情况；</li>
+<li class="">用 smem 或 /proc/&lt;pid&gt;/status 的 VmSwap 找出换出最多的进程；</li>
+<li class="">K8s 节点原则上应关闭 swap，开启会掩盖真实的内存压力并让 QoS 失效；</li>
+<li class="">根因是内存不足，按内存告警路径处理。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机系统服务崩溃">主机系统服务崩溃<a href="#主机系统服务崩溃" class="hash-link" aria-label="主机系统服务崩溃的直接链接" title="主机系统服务崩溃的直接链接" translate="no">​</a></h3>
+<p>主机 systemd 服务崩溃 (instance {{ $labels.instance }})</p>
+<p>警告 · — · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">node_systemd_unit_state{state=&quot;failed&quot;} == 1</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">systemctl --failed 列出失败单元；</li>
+<li class="">journalctl -u &lt;unit&gt; -n 100 --no-pager 定位原因；</li>
+<li class="">K8s 节点上重点关注 kubelet、containerd、kube-proxy 这几个关键单元；</li>
+<li class="">修复后 systemctl reset-failed 清理状态并确认恢复。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机内核版本偏差">主机内核版本偏差<a href="#主机内核版本偏差" class="hash-link" aria-label="主机内核版本偏差的直接链接" title="主机内核版本偏差的直接链接" translate="no">​</a></h3>
+<p>主机内核版本偏差 (instance {{ $labels.instance }})</p>
+<p>警告 · 360 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">count(sum(label_replace(node_uname_info, &quot;kernel&quot;, &quot;$1&quot;, &quot;release&quot;, &quot;([0-9]+.[0-9]+.[0-9]+).*&quot;)) by (kernel)) &gt; 1</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 kubectl get node -o wide 对比各节点内核版本；</li>
+<li class="">确认差异是升级过程中的临时状态还是长期存在；</li>
+<li class="">逐步把落后节点的内核升级对齐；</li>
+<li class="">升级前确认容器运行时与 CNI 插件对目标内核版本的兼容性。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="检测到-hostoomkill">检测到 HostOomKill<a href="#检测到-hostoomkill" class="hash-link" aria-label="检测到 HostOomKill的直接链接" title="检测到 HostOomKill的直接链接" translate="no">​</a></h3>
+<p>检测到主机 OOM 终止 (instance {{ $labels.instance }})</p>
+<p>警告 · — · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(node_vmstat_oom_kill[1m]) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 dmesg -T | grep -i &#x27;killed process&#x27; 确认被杀进程与当时内存；</li>
+<li class="">对照 kubectl get pod -A 找出对应的 Pod，看是否是 limit 设置过低；</li>
+<li class="">节点整体内存紧张的迁走部分 Pod 或扩容；</li>
+<li class="">反复被杀的必须在应用侧定位内存泄漏，只调 limit 会反复复发。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机网络接收错误">主机网络接收错误<a href="#主机网络接收错误" class="hash-link" aria-label="主机网络接收错误的直接链接" title="主机网络接收错误的直接链接" translate="no">​</a></h3>
+<p>主机网络接收错误 (instance {{ $labels.instance }})</p>
+<p>警告 · 2 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">rate(node_network_receive_errs_total[2m]) / rate(node_network_receive_packets_total[2m]) &gt; 0.01</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 ip -s link show &lt;网卡&gt; 与 ethtool -S &lt;网卡&gt; 确认错包计数与类型；</li>
+<li class="">确认协商速率与双工模式和对端一致；</li>
+<li class="">检查网线/光模块，云环境下提工单给云厂商；</li>
+<li class="">有冗余的先把流量切走。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机网络出口错误">主机网络出口错误<a href="#主机网络出口错误" class="hash-link" aria-label="主机网络出口错误的直接链接" title="主机网络出口错误的直接链接" translate="no">​</a></h3>
+<p>主机网络传输错误 (instance {{ $labels.instance }})</p>
+<p>警告 · 2 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">rate(node_network_transmit_errs_total[2m]) / rate(node_network_transmit_packets_total[2m]) &gt; 0.01</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 ip -s link show &lt;网卡&gt; 与 ethtool -S &lt;网卡&gt; 确认错包计数与类型；</li>
+<li class="">确认协商速率与双工模式和对端一致；</li>
+<li class="">检查网线/光模块，云环境下提工单给云厂商；</li>
+<li class="">有冗余的先把流量切走。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机网络接口饱和">主机网络接口饱和<a href="#主机网络接口饱和" class="hash-link" aria-label="主机网络接口饱和的直接链接" title="主机网络接口饱和的直接链接" translate="no">​</a></h3>
+<p>主机网络接口饱和 (instance {{ $labels.instance }})</p>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(rate(node_network_receive_bytes_total{device!~&quot;^tap.*&quot;}[1m]) + rate(node_network_transmit_bytes_total{device!~&quot;^tap.*&quot;}[1m])) / node_network_speed_bytes{device!~&quot;^tap.*&quot;} &gt; 0.8 &lt; 10000</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 iftop/nethogs 定位占用带宽最高的连接；</li>
+<li class="">K8s 节点上确认是否有大流量 Pod 或正在拉取大镜像；</li>
+<li class="">可错峰的任务调整执行时间；</li>
+<li class="">确需更高带宽的升级网卡或迁移部分工作负载。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="conntrack数量接近极限">conntrack数量接近极限<a href="#conntrack数量接近极限" class="hash-link" aria-label="conntrack数量接近极限的直接链接" title="conntrack数量接近极限的直接链接" translate="no">​</a></h3>
+<p>主机连接限制 (instance {{ $labels.instance }})</p>
+<p>警告 · 5 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">node_nf_conntrack_entries / node_nf_conntrack_entries_limit &gt; 0.8</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 sysctl net.netfilter.nf_conntrack_count 与 nf_conntrack_max 确认水位；</li>
+<li class="">K8s 节点上 kube-proxy 的 iptables 模式会产生大量 conntrack 条目，Pod 密度高时尤其明显；</li>
+<li class="">调大 nf_conntrack_max 并同步调大 buckets；</li>
+<li class="">长期可评估切换到 IPVS 模式减少 conntrack 压力。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机时钟偏差">主机时钟偏差<a href="#主机时钟偏差" class="hash-link" aria-label="主机时钟偏差的直接链接" title="主机时钟偏差的直接链接" translate="no">​</a></h3>
+<p>主机时钟偏差 (instance {{ $labels.instance }})</p>
+<p>警告 · 2 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(node_timex_offset_seconds &gt; 0.05 and deriv(node_timex_offset_seconds[5m]) &gt;= 0) or (node_timex_offset_seconds &lt; -0.05 and deriv(node_timex_offset_seconds[5m]) &lt;= 0)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 chronyc tracking 确认偏移量与上游源状态；</li>
+<li class="">确认 chronyd/ntpd 服务在运行且开机自启；</li>
+<li class="">检查到 NTP 服务器的网络是否放行 123/UDP；</li>
+<li class="">偏移过大用 chronyc makestep 强制对时，之后确认所有节点时间一致。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="主机时钟不同步">主机时钟不同步<a href="#主机时钟不同步" class="hash-link" aria-label="主机时钟不同步的直接链接" title="主机时钟不同步的直接链接" translate="no">​</a></h3>
+<p>主机时钟不同步 (instance {{ $labels.instance }})</p>
+<p>警告 · 2 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">min_over_time(node_timex_sync_status[1m]) == 0 and node_timex_maxerror_seconds &gt;= 16</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 chronyc tracking 确认偏移量与上游源状态；</li>
+<li class="">确认 chronyd/ntpd 服务在运行且开机自启；</li>
+<li class="">检查到 NTP 服务器的网络是否放行 123/UDP；</li>
+<li class="">偏移过大用 chronyc makestep 强制对时，之后确认所有节点时间一致。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="节点文件系统空间填满-s2">节点文件系统空间填满-S2<a href="#节点文件系统空间填满-s2" class="hash-link" aria-label="节点文件系统空间填满-S2的直接链接" title="节点文件系统空间填满-S2的直接链接" translate="no">​</a></h3>
+<p>Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf &quot;%.2f&quot; $value }}% available space left and is filling up.</p>
+<p>警告 · 60 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  node_filesystem_avail_bytes{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} / node_filesystem_size_bytes{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} * 100 &lt; 40</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  predict_linear(node_filesystem_avail_bytes{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;}[6h], 24*60*60) &lt; 0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  node_filesystem_readonly{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} == 0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 du -x --max-depth=1 找出增长最快的目录；</li>
+<li class="">确认增长来源是正常业务还是异常（应用死循环打日志、备份堆积）；</li>
+<li class="">清理无用镜像与容器日志；</li>
+<li class="">增长确实来自业务的，安排扩容磁盘或迁移数据，不要等到写满。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="节点文件系统空间填满-s1">节点文件系统空间填满-S1<a href="#节点文件系统空间填满-s1" class="hash-link" aria-label="节点文件系统空间填满-S1的直接链接" title="节点文件系统空间填满-S1的直接链接" translate="no">​</a></h3>
+<p>Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf &quot;%.2f&quot; $value }}% available space left and is filling up fast.</p>
+<p>紧急 · 60 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  node_filesystem_avail_bytes{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} / node_filesystem_size_bytes{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} * 100 &lt; 15</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  predict_linear(node_filesystem_avail_bytes{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;}[6h], 4*60*60) &lt; 0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  node_filesystem_readonly{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} == 0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 du -x --max-depth=1 找出增长最快的目录；</li>
+<li class="">确认增长来源是正常业务还是异常（应用死循环打日志、备份堆积）；</li>
+<li class="">清理无用镜像与容器日志；</li>
+<li class="">增长确实来自业务的，安排扩容磁盘或迁移数据，不要等到写满。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="节点磁盘快满了-s2-space-5">节点磁盘快满了-S2-space-5<a href="#节点磁盘快满了-s2-space-5" class="hash-link" aria-label="节点磁盘快满了-S2-space-5的直接链接" title="节点磁盘快满了-S2-space-5的直接链接" translate="no">​</a></h3>
+<p>Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf &quot;%.2f&quot; $value }}% available space left.</p>
+<p>警告 · 60 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  node_filesystem_avail_bytes{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} / node_filesystem_size_bytes{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} * 100 &lt; 5</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  node_filesystem_readonly{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} == 0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 df -h 定位挂载点，用 du -x --max-depth=1 逐层找占用大的目录；</li>
+<li class="">容器运行时目录（/var/lib/containerd 或 /var/lib/docker）用 crictl rmi --prune 清理无用镜像；</li>
+<li class="">清理容器日志（/var/log/pods），并确认日志轮转配置生效；</li>
+<li class="">用 lsof +L1 检查已删除但句柄未释放的文件。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="节点磁盘快满了-s1-space-3">节点磁盘快满了-S1-space-3<a href="#节点磁盘快满了-s1-space-3" class="hash-link" aria-label="节点磁盘快满了-S1-space-3的直接链接" title="节点磁盘快满了-S1-space-3的直接链接" translate="no">​</a></h3>
+<p>Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf &quot;%.2f&quot; $value }}% available space left.</p>
+<p>紧急 · 60 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  node_filesystem_avail_bytes{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} / node_filesystem_size_bytes{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} * 100 &lt; 3</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  node_filesystem_readonly{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} == 0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 df -h 定位挂载点，用 du -x --max-depth=1 逐层找占用大的目录；</li>
+<li class="">容器运行时目录（/var/lib/containerd 或 /var/lib/docker）用 crictl rmi --prune 清理无用镜像；</li>
+<li class="">清理容器日志（/var/log/pods），并确认日志轮转配置生效；</li>
+<li class="">用 lsof +L1 检查已删除但句柄未释放的文件。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="节点磁盘快满了-s2-inodes-40">节点磁盘快满了-S2-inodes-40<a href="#节点磁盘快满了-s2-inodes-40" class="hash-link" aria-label="节点磁盘快满了-S2-inodes-40的直接链接" title="节点磁盘快满了-S2-inodes-40的直接链接" translate="no">​</a></h3>
+<p>Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf &quot;%.2f&quot; $value }}% available inodes left and is filling up.</p>
+<p>警告 · 60 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  node_filesystem_files_free{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} / node_filesystem_files{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} * 100 &lt; 40</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  predict_linear(node_filesystem_files_free{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;}[6h], 24*60*60) &lt; 0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  node_filesystem_readonly{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} == 0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 df -i 确认挂载点；</li>
+<li class="">逐层统计文件数找出小文件最多的目录；</li>
+<li class="">K8s 节点常见是容器层与日志碎片，清理无用镜像通常能释放大量 inode；</li>
+<li class="">长期可提高 inode 密度或把小文件业务隔离到独立分区。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="节点磁盘快满了-s1-inodes-20">节点磁盘快满了-S1-inodes-20<a href="#节点磁盘快满了-s1-inodes-20" class="hash-link" aria-label="节点磁盘快满了-S1-inodes-20的直接链接" title="节点磁盘快满了-S1-inodes-20的直接链接" translate="no">​</a></h3>
+<p>Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf &quot;%.2f&quot; $value }}% available inodes left and is filling up fast.</p>
+<p>紧急 · 60 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  node_filesystem_files_free{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} / node_filesystem_files{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} * 100 &lt; 20</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  predict_linear(node_filesystem_files_free{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;}[6h], 4*60*60) &lt; 0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  node_filesystem_readonly{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} == 0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 df -i 确认挂载点；</li>
+<li class="">逐层统计文件数找出小文件最多的目录；</li>
+<li class="">K8s 节点常见是容器层与日志碎片，清理无用镜像通常能释放大量 inode；</li>
+<li class="">长期可提高 inode 密度或把小文件业务隔离到独立分区。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="节点磁盘快满了-s2-inodes-5">节点磁盘快满了-S2-inodes-5<a href="#节点磁盘快满了-s2-inodes-5" class="hash-link" aria-label="节点磁盘快满了-S2-inodes-5的直接链接" title="节点磁盘快满了-S2-inodes-5的直接链接" translate="no">​</a></h3>
+<p>Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf &quot;%.2f&quot; $value }}% available inodes left.</p>
+<p>警告 · 60 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  node_filesystem_files_free{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} / node_filesystem_files{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} * 100 &lt; 5</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  node_filesystem_readonly{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} == 0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 df -i 确认挂载点；</li>
+<li class="">逐层统计文件数找出小文件最多的目录；</li>
+<li class="">K8s 节点常见是容器层与日志碎片，清理无用镜像通常能释放大量 inode；</li>
+<li class="">长期可提高 inode 密度或把小文件业务隔离到独立分区。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="节点磁盘快满了-s1-inodes-3">节点磁盘快满了-S1-inodes-3<a href="#节点磁盘快满了-s1-inodes-3" class="hash-link" aria-label="节点磁盘快满了-S1-inodes-3的直接链接" title="节点磁盘快满了-S1-inodes-3的直接链接" translate="no">​</a></h3>
+<p>Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf &quot;%.2f&quot; $value }}% available inodes left.</p>
+<p>紧急 · 60 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  node_filesystem_files_free{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} / node_filesystem_files{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} * 100 &lt; 3</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  node_filesystem_readonly{job=&quot;node-exporter&quot;,fstype!=&quot;&quot;} == 0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 df -i 确认挂载点；</li>
+<li class="">逐层统计文件数找出小文件最多的目录；</li>
+<li class="">K8s 节点常见是容器层与日志碎片，清理无用镜像通常能释放大量 inode；</li>
+<li class="">长期可提高 inode 密度或把小文件业务隔离到独立分区。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="使用的节点conntrack条目数量高">使用的节点Conntrack条目数量高<a href="#使用的节点conntrack条目数量高" class="hash-link" aria-label="使用的节点Conntrack条目数量高的直接链接" title="使用的节点Conntrack条目数量高的直接链接" translate="no">​</a></h3>
+<p>{{ $value | humanizePercentage }} of conntrack entries are used.</p>
+<p>警告 · — · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(node_nf_conntrack_entries / node_nf_conntrack_entries_limit) &gt; 0.75</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 sysctl net.netfilter.nf_conntrack_count 与 nf_conntrack_max 确认水位；</li>
+<li class="">K8s 节点上 kube-proxy 的 iptables 模式会产生大量 conntrack 条目，Pod 密度高时尤其明显；</li>
+<li class="">调大 nf_conntrack_max 并同步调大 buckets；</li>
+<li class="">长期可评估切换到 IPVS 模式减少 conntrack 压力。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="节点文本文件收集器抓取错误">节点文本文件收集器抓取错误<a href="#节点文本文件收集器抓取错误" class="hash-link" aria-label="节点文本文件收集器抓取错误的直接链接" title="节点文本文件收集器抓取错误的直接链接" translate="no">​</a></h3>
+<p>Node Exporter text file collector failed to scrape.</p>
+<p>警告 · — · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">node_textfile_scrape_error{job=&quot;node-exporter&quot;} == 1</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">检查 textfile 目录下的 .prom 文件权限与格式；</li>
+<li class="">写入方通常是 cron 脚本，确认脚本执行成功且用原子写（先写 .tmp 再 mv）；</li>
+<li class="">格式错误的用 promtool check metrics 校验；</li>
+<li class="">清理残留的临时文件，它们会导致解析失败。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="节点网络接口抖动">节点网络接口抖动<a href="#节点网络接口抖动" class="hash-link" aria-label="节点网络接口抖动的直接链接" title="节点网络接口抖动的直接链接" translate="no">​</a></h3>
+<p>Network interface &quot;{{ $labels.device }}&quot; changing it&#x27;s up status often on node-exporter {{ $labels.namespace }}/{{ $labels.pod }}&quot;</p>
+<p>警告 · 2 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">changes(node_network_up{job=&quot;node-exporter&quot;,device!~&quot;veth.+&quot;}[2m]) &gt; 2</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 dmesg -T | grep -i &#x27;link is&#x27; 看抖动时间线；</li>
+<li class="">检查网线/光模块，抖动多为物理层接触不良；</li>
+<li class="">确认协商速率与双工模式和对端一致；</li>
+<li class="">联系网络侧确认交换机端口状态，云环境下提工单。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="a-certain-disk-is-unable-to-readwrite-normally">A certain disk is unable to read/write normally<a href="#a-certain-disk-is-unable-to-readwrite-normally" class="hash-link" aria-label="A certain disk is unable to read/write normally的直接链接" title="A certain disk is unable to read/write normally的直接链接" translate="no">​</a></h3>
+<p>紧急 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(node_filesystem_device_error{mountpoint!~&quot;/var/lib/.*&quot;,mountpoint!~&quot;/run.*&quot;}) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 dmesg -T | grep -iE &#x27;i/o error|ata|scsi&#x27; 看内核报的具体错误与设备名；</li>
+<li class="">用 smartctl -a /dev/sdX 看 SMART 属性，重点关注 Reallocated_Sector_Ct 与 Current_Pending_Sector；</li>
+<li class="">确认该盘上的数据是否有副本或备份，优先保证数据安全再处理硬件；</li>
+<li class="">确认为硬件故障的，安排停机换盘，RAID 环境下先确认阵列降级状态再操作。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="disk-needs-to-be-cleaned---utilization-has-reached-92---node-exporter">Disk needs to be cleaned - utilization has reached 92% - node exporter<a href="#disk-needs-to-be-cleaned---utilization-has-reached-92---node-exporter" class="hash-link" aria-label="Disk needs to be cleaned - utilization has reached 92% - node exporter的直接链接" title="Disk needs to be cleaned - utilization has reached 92% - node exporter的直接链接" translate="no">​</a></h3>
+<p>紧急 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(100 - ((node_filesystem_avail_bytes * 100) / node_filesystem_size_bytes) ) &gt; 92</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 df -h 定位挂载点，用 du -x --max-depth=1 &lt;挂载点&gt; | sort -h 找出占用最大的目录；</li>
+<li class="">系统盘常见是 /var/log 与容器镜像层（docker system df 看占用，docker system prune 清理）；</li>
+<li class="">用 lsof +L1 检查已删除但句柄未释放的文件；</li>
+<li class="">长期需扩容或把大数据目录迁到独立磁盘。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="insufficient-computational-resources---average-load-per-core-of-the-machine-is-greater-than-10---node-exporter">Insufficient computational resources - average load per core of the machine is greater than 10 - node exporter<a href="#insufficient-computational-resources---average-load-per-core-of-the-machine-is-greater-than-10---node-exporter" class="hash-link" aria-label="Insufficient computational resources - average load per core of the machine is greater than 10 - node exporter的直接链接" title="Insufficient computational resources - average load per core of the machine is greater than 10 - node exporter的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">avg (node_load1) by (instance)/count(count(node_cpu_seconds_total) by (cpu,instance)) by (instance) &gt;10</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 uptime 看 1/5/15 分钟负载趋势，判断是突发还是持续；</li>
+<li class="">用 top 看 %wa（IO 等待）——高说明瓶颈在磁盘而非 CPU，按磁盘 IO 处理；</li>
+<li class="">用 vmstat 1 看 r（运行队列）与 b（阻塞）列区分 CPU 密集与 IO 阻塞；</li>
+<li class="">定位到具体进程后按 CPU 或 IO 的路径继续排查，必要时扩容。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="insufficient-file-handles---usage-exceeds-90---node-exporter">Insufficient file handles - usage exceeds 90% - node exporter<a href="#insufficient-file-handles---usage-exceeds-90---node-exporter" class="hash-link" aria-label="Insufficient file handles - usage exceeds 90% - node exporter的直接链接" title="Insufficient file handles - usage exceeds 90% - node exporter的直接链接" translate="no">​</a></h3>
+<p>You can increase the file handle limit or expand the capacity</p>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(node_filefd_allocated/node_filefd_maximum*100) &gt; 90</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 cat /proc/sys/fs/file-nr 确认已分配与上限；</li>
+<li class="">用 lsof | awk &#x27;{print $2}&#x27; | sort | uniq -c | sort -rn | head 找出占用句柄最多的进程；</li>
+<li class="">应急调大：sysctl -w fs.file-max=&lt;更大值&gt;，并检查该进程的 ulimit -n 与 systemd LimitNOFILE；</li>
+<li class="">根因通常是连接或文件未关闭，需在应用侧修复泄漏。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="insufficient-inode-resources---usage-exceeds-90---node-exporter">Insufficient inode resources - usage exceeds 90% - node exporter<a href="#insufficient-inode-resources---usage-exceeds-90---node-exporter" class="hash-link" aria-label="Insufficient inode resources - usage exceeds 90% - node exporter的直接链接" title="Insufficient inode resources - usage exceeds 90% - node exporter的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(100 - ((node_filesystem_files_free * 100) / node_filesystem_files))&gt;90</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 df -i 确认是哪个挂载点的 inode 吃紧；</li>
+<li class="">用 for d in /path/*; do echo &quot;$(find $d | wc -l) $d&quot;; done | sort -rn | head 逐层找出小文件最多的目录；</li>
+<li class="">常见来源是 session 文件、邮件队列、缓存碎片、未清理的容器层——按业务确认后批量删除；</li>
+<li class="">长期可在格式化时调大 inode 密度，或把小文件业务迁到独立分区。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="insufficient-memory-resources---utilization-is-greater-than-75---node-exporter">Insufficient memory resources - utilization is greater than 75% - node exporter<a href="#insufficient-memory-resources---utilization-is-greater-than-75---node-exporter" class="hash-link" aria-label="Insufficient memory resources - utilization is greater than 75% - node exporter的直接链接" title="Insufficient memory resources - utilization is greater than 75% - node exporter的直接链接" translate="no">​</a></h3>
+<p>Expansion or upgrading of configuration is required</p>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(node_memory_MemTotal_bytes - node_memory_MemFree_bytes - (node_memory_Cached_bytes + node_memory_Buffers_bytes))/node_memory_MemTotal_bytes*100 &gt; 75</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 free -h 确认 available 与 swap 使用情况；</li>
+<li class="">用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；</li>
+<li class="">内核回收不及时可用 sync; echo 1 &gt; /proc/sys/vm/drop_caches 释放 page cache（生产慎用）；</li>
+<li class="">确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="insufficient-memory-resources---utilization-is-greater-than-95---node-exporter">Insufficient memory resources - utilization is greater than 95% - node exporter<a href="#insufficient-memory-resources---utilization-is-greater-than-95---node-exporter" class="hash-link" aria-label="Insufficient memory resources - utilization is greater than 95% - node exporter的直接链接" title="Insufficient memory resources - utilization is greater than 95% - node exporter的直接链接" translate="no">​</a></h3>
+<p>紧急 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(node_memory_MemTotal_bytes - node_memory_MemFree_bytes - (node_memory_Cached_bytes + node_memory_Buffers_bytes))/node_memory_MemTotal_bytes*100 &gt; 95</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 free -h 确认 available 与 swap 使用情况；</li>
+<li class="">用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；</li>
+<li class="">内核回收不及时可用 sync; echo 1 &gt; /proc/sys/vm/drop_caches 释放 page cache（生产慎用）；</li>
+<li class="">确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="packet-loss-in-the-inbound-direction-of-the-network-card---node-exporter">Packet loss in the inbound direction of the network card - node exporter<a href="#packet-loss-in-the-inbound-direction-of-the-network-card---node-exporter" class="hash-link" aria-label="Packet loss in the inbound direction of the network card - node exporter的直接链接" title="Packet loss in the inbound direction of the network card - node exporter的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">rate(node_network_receive_drop_total{device=~&quot;e.*&quot;}[1m]) &gt; 3</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 ip -s link show &lt;网卡&gt; 确认 RX dropped/errors 的增长；</li>
+<li class="">用 ethtool -S &lt;网卡&gt; 看具体丢包原因（rx_no_buffer、rx_missed_errors 等）；</li>
+<li class="">环形缓冲区不足可用 ethtool -G &lt;网卡&gt; rx &lt;更大值&gt; 调大，并检查 net.core.netdev_max_backlog；</li>
+<li class="">若伴随 CPU 软中断偏高（top 里 %si），开启 RPS/RSS 把中断分散到多核。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="packet-loss-in-the-outbound-direction-of-the-network-card---node-exporter">Packet loss in the outbound direction of the network card - node exporter<a href="#packet-loss-in-the-outbound-direction-of-the-network-card---node-exporter" class="hash-link" aria-label="Packet loss in the outbound direction of the network card - node exporter的直接链接" title="Packet loss in the outbound direction of the network card - node exporter的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">rate(node_network_transmit_drop_total{device=~&quot;e.*&quot;}[1m]) &gt; 3</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 ip -s link show &lt;网卡&gt; 确认 TX dropped/errors 的增长；</li>
+<li class="">用 ethtool -S &lt;网卡&gt; 看具体计数，并用 tc -s qdisc show dev &lt;网卡&gt; 看队列是否溢出；</li>
+<li class="">发送队列不足可调大 txqueuelen 与 ethtool -G &lt;网卡&gt; tx；</li>
+<li class="">确认是否已跑满带宽——是则限流或扩带宽，不是则排查网卡驱动与对端设备。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="system-conntrack-needs-to-be-adjusted---usage-exceeds-80---node-exporter">System conntrack needs to be adjusted - usage exceeds 80% - node exporter<a href="#system-conntrack-needs-to-be-adjusted---usage-exceeds-80---node-exporter" class="hash-link" aria-label="System conntrack needs to be adjusted - usage exceeds 80% - node exporter的直接链接" title="System conntrack needs to be adjusted - usage exceeds 80% - node exporter的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">node_nf_conntrack_entries / node_nf_conntrack_entries_limit*100 &gt; 80</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 sysctl net.netfilter.nf_conntrack_count 与 nf_conntrack_max 确认当前水位；</li>
+<li class="">用 conntrack -L | awk &#x27;{print $4}&#x27; | sort | uniq -c | sort -rn 看连接集中在哪类协议或来源；</li>
+<li class="">应急调大：sysctl -w net.netfilter.nf_conntrack_max=&lt;更大值&gt;，并同步调大 nf_conntrack_buckets；</li>
+<li class="">同时缩短 nf_conntrack_tcp_timeout_time_wait 等超时，或对不需要跟踪的流量用 iptables raw 表 NOTRACK。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="system-experiences-oom---node-exporter">System experiences OOM - node exporter<a href="#system-experiences-oom---node-exporter" class="hash-link" aria-label="System experiences OOM - node exporter的直接链接" title="System experiences OOM - node exporter的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(node_vmstat_oom_kill[1m]) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 dmesg -T | grep -i &#x27;killed process&#x27; 确认被杀的是哪个进程、当时占用多少内存；</li>
+<li class="">用 free -h 与该进程的内存曲线判断是内存泄漏还是配置的上限过高；</li>
+<li class="">给关键进程调整 oom_score_adj 降低被杀优先级，同时给次要进程设 cgroup 内存上限；</li>
+<li class="">根因是泄漏的要在应用侧抓堆定位，只扩内存会反复复发。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="too-many-running-processes---exceeding-3000---node-exporter">Too many running processes - exceeding 3000 - node exporter<a href="#too-many-running-processes---exceeding-3000---node-exporter" class="hash-link" aria-label="Too many running processes - exceeding 3000 - node exporter的直接链接" title="Too many running processes - exceeding 3000 - node exporter的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">node_procs_running &gt; 3000</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 ps -eo ppid | sort | uniq -c | sort -rn | head 找出 fork 子进程最多的父进程；</li>
+<li class="">确认是正常的多进程模型（如 php-fpm、nginx worker）还是失控 fork；</li>
+<li class="">失控的先停掉该父进程止血，再修复代码里的 fork 逻辑；</li>
+<li class="">正常业务增长则调整 worker 数配置并评估是否需要扩容。</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="categraf24">Categraf（24）<a href="#categraf24" class="hash-link" aria-label="Categraf（24）的直接链接" title="Categraf（24）的直接链接" translate="no">​</a></h2>
+<p>适用于用 Categraf 采集的主机和实例，指标名遵循 Categraf 插件。</p>
+<p>本组 24 条中有 8 条规则对用 Telegraf 采集的实例同样适用，指标名完全一致。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="conntrack表的使用率超过80">Conntrack表的使用率超过80%<a href="#conntrack表的使用率超过80" class="hash-link" aria-label="Conntrack表的使用率超过80%的直接链接" title="Conntrack表的使用率超过80%的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">conntrack_ip_conntrack_count / conntrack_ip_conntrack_max &gt; 0.8</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 sysctl net.netfilter.nf_conntrack_count 与 nf_conntrack_max 确认当前水位；</li>
+<li class="">用 conntrack -L | awk &#x27;{print $4}&#x27; | sort | uniq -c | sort -rn 看连接集中在哪类协议或来源；</li>
+<li class="">应急调大：sysctl -w net.netfilter.nf_conntrack_max=&lt;更大值&gt;，并同步调大 nf_conntrack_buckets；</li>
+<li class="">同时缩短 nf_conntrack_tcp_timeout_time_wait 等超时，或对不需要跟踪的流量用 iptables raw 表 NOTRACK。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="cpu利用率较高">CPU利用率较高<a href="#cpu利用率较高" class="hash-link" aria-label="CPU利用率较高的直接链接" title="CPU利用率较高的直接链接" translate="no">​</a></h3>
+<p>提醒 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">cpu_usage_active&gt;75</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">cpu_usage_active&gt;85</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">cpu_usage_active&gt;95</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 top -H 或 pidstat 1 找出占用最高的进程与线程；</li>
+<li class="">用 perf top 或对应语言的 profiler（Java 用 arthas/async-profiler，Go 用 pprof）定位热点函数；</li>
+<li class="">区分是业务量自然增长还是代码异常（死循环、正则回溯、频繁 GC）；</li>
+<li class="">业务量增长则扩容或限流，代码问题则修复后发布。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="http地址探测失败">HTTP地址探测失败<a href="#http地址探测失败" class="hash-link" aria-label="HTTP地址探测失败的直接链接" title="HTTP地址探测失败的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">http_response_result_code != 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">在采集机上手工 curl -sv &lt;目标URL&gt; 复现，看是连接失败、超时还是状态码不符；</li>
+<li class="">连接失败则先确认目标端口通、进程活；</li>
+<li class="">状态码不符则看目标服务日志定位；</li>
+<li class="">确认探测配置里的超时、期望状态码、证书校验设置是否与实际相符，避免配置导致的误报。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="io比较繁忙">IO比较繁忙<a href="#io比较繁忙" class="hash-link" aria-label="IO比较繁忙的直接链接" title="IO比较繁忙的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">rate(diskio_io_time[1m])/10 &gt; 99</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 iostat -x 1 确认是哪块盘、await 与 %util 的具体数值；</li>
+<li class="">用 iotop -oP 或 pidstat -d 1 找出占用 IO 最高的进程；</li>
+<li class="">常见元凶是数据库大查询、备份任务、日志刷盘——把可延后的任务错峰执行；</li>
+<li class="">若是持续高负载而非突发，考虑换 SSD 或把热数据分散到多块盘。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ntp时间偏移太大">NTP时间偏移太大<a href="#ntp时间偏移太大" class="hash-link" aria-label="NTP时间偏移太大的直接链接" title="NTP时间偏移太大的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">ntp_offset_ms &gt; 1000 or ntp_offset_ms &lt; -1000</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 chronyc tracking（或 ntpq -p）确认当前偏移量与上游源状态；</li>
+<li class="">上游不可达则检查网络与防火墙是否放行 123/UDP；</li>
+<li class="">用 chronyc sources -v 确认是否所有源都被标记为不可用，必要时更换 NTP 服务器；</li>
+<li class="">偏移过大时 chrony 会拒绝平滑校正，需用 chronyc makestep 强制对时（注意对时间敏感的业务先做好准备）。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ping地址探测失败">PING地址探测失败<a href="#ping地址探测失败" class="hash-link" aria-label="PING地址探测失败的直接链接" title="PING地址探测失败的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">ping_result_code != 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">在采集机上手工 ping -c 5 &lt;目标&gt; 复现，再用 mtr -n &lt;目标&gt; 定位丢包出现在哪一跳；</li>
+<li class="">目标机若存活，确认它是否禁 ICMP（很多安全策略会禁），是则该探测本身不适用，应改用端口探测；</li>
+<li class="">中间跳丢包的联系网络侧排查；</li>
+<li class="">确认目标机自身是否宕机或网卡故障。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="tme_wait状态的连接超过2万可能需要关注">TME_WAIT状态的连接超过2万，可能需要关注<a href="#tme_wait状态的连接超过2万可能需要关注" class="hash-link" aria-label="TME_WAIT状态的连接超过2万，可能需要关注的直接链接" title="TME_WAIT状态的连接超过2万，可能需要关注的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">netstat_tcp_time_wait &gt; 20000</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 ss -s 确认各状态连接数分布；</li>
+<li class="">用 ss -tan state time-wait | awk &#x27;{print $4}&#x27; | cut -d: -f1 | sort | uniq -c | sort -rn 看集中在哪个目标；</li>
+<li class="">根因通常是短连接过多——在应用侧改用长连接或连接池，这是最有效的手段；</li>
+<li class="">应急可开启 net.ipv4.tcp_tw_reuse=1 并调大 net.ipv4.ip_local_port_range（不要开 tcp_tw_recycle，NAT 环境下会丢包）。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="内存利用率比较高">内存利用率比较高<a href="#内存利用率比较高" class="hash-link" aria-label="内存利用率比较高的直接链接" title="内存利用率比较高的直接链接" translate="no">​</a></h3>
+<p>提醒 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">mem_available_percent &lt; 25</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">mem_available_percent &lt; 15</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">mem_available_percent &lt; 5</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 free -h 确认 available 与 swap 使用情况；</li>
+<li class="">用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；</li>
+<li class="">内核回收不及时可用 sync; echo 1 &gt; /proc/sys/vm/drop_caches 释放 page cache（生产慎用）；</li>
+<li class="">确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="文件句柄使用率超过90">文件句柄使用率超过90%<a href="#文件句柄使用率超过90" class="hash-link" aria-label="文件句柄使用率超过90%的直接链接" title="文件句柄使用率超过90%的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">linux_sysctl_fs_file_nr/linux_sysctl_fs_file_max&gt;0.9</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 cat /proc/sys/fs/file-nr 确认已分配与上限；</li>
+<li class="">用 lsof | awk &#x27;{print $2}&#x27; | sort | uniq -c | sort -rn | head 找出占用句柄最多的进程；</li>
+<li class="">应急调大：sysctl -w fs.file-max=&lt;更大值&gt;，并检查该进程的 ulimit -n 与 systemd LimitNOFILE；</li>
+<li class="">根因通常是连接或文件未关闭，需在应用侧修复泄漏。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="每个cpu-core的平均负载任务超过3">每个CPU Core的平均负载任务超过3<a href="#每个cpu-core的平均负载任务超过3" class="hash-link" aria-label="每个CPU Core的平均负载任务超过3的直接链接" title="每个CPU Core的平均负载任务超过3的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">system_load_norm_1&gt;3</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 uptime 看 1/5/15 分钟负载趋势，判断是突发还是持续；</li>
+<li class="">用 top 看 %wa（IO 等待）——高说明瓶颈在磁盘而非 CPU，按磁盘 IO 处理；</li>
+<li class="">用 vmstat 1 看 r（运行队列）与 b（阻塞）列区分 CPU 密集与 IO 阻塞；</li>
+<li class="">定位到具体进程后按 CPU 或 IO 的路径继续排查，必要时扩容。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="硬盘监控---inode使用率超过90">硬盘监控 - inode使用率超过90%<a href="#硬盘监控---inode使用率超过90" class="hash-link" aria-label="硬盘监控 - inode使用率超过90%的直接链接" title="硬盘监控 - inode使用率超过90%的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_inodes_used/disk_inodes_total &gt;0.9</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 df -i 确认是哪个挂载点的 inode 吃紧；</li>
+<li class="">用 for d in /path/*; do echo &quot;$(find $d | wc -l) $d&quot;; done | sort -rn | head 逐层找出小文件最多的目录；</li>
+<li class="">常见来源是 session 文件、邮件队列、缓存碎片、未清理的容器层——按业务确认后批量删除；</li>
+<li class="">长期可在格式化时调大 inode 密度，或把小文件业务迁到独立分区。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="硬盘监控---大于200g的盘空间不足了">硬盘监控 - 大于200G的盘，空间不足了<a href="#硬盘监控---大于200g的盘空间不足了" class="hash-link" aria-label="硬盘监控 - 大于200G的盘，空间不足了的直接链接" title="硬盘监控 - 大于200G的盘，空间不足了的直接链接" translate="no">​</a></h3>
+<p>提醒 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_free/1024/1024/1024 &lt; 20 and disk_total/1024/1024/1024 &gt;= 200</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_free/1024/1024/1024 &lt; 10 and disk_total/1024/1024/1024 &gt;= 200</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_free/1024/1024/1024 &lt; 2 and disk_total/1024/1024/1024 &gt;= 200</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 df -h 定位挂载点，用 du -x --max-depth=1 &lt;挂载点&gt; | sort -h 找出占用最大的目录；</li>
+<li class="">清理日志与过期数据，注意用 lsof +L1 检查已删除但未释放的文件；</li>
+<li class="">评估是否该把数据目录迁到独立磁盘或加盘扩容；</li>
+<li class="">若是数据库或对象存储的数据盘，按业务侧的归档策略下沉冷数据。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="硬盘监控---小于200g的盘空间不足了">硬盘监控 - 小于200G的盘，空间不足了<a href="#硬盘监控---小于200g的盘空间不足了" class="hash-link" aria-label="硬盘监控 - 小于200G的盘，空间不足了的直接链接" title="硬盘监控 - 小于200G的盘，空间不足了的直接链接" translate="no">​</a></h3>
+<p>提醒 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_used_percent &gt; 90 and disk_total/1024/1024/1024 &lt; 200</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_used_percent &gt; 95 and disk_total/1024/1024/1024 &lt; 200</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_used_percent &gt; 99 and disk_total/1024/1024/1024 &lt; 200</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 df -h 定位挂载点，用 du -x --max-depth=1 &lt;挂载点&gt; | sort -h 找出占用最大的目录；</li>
+<li class="">系统盘常见是 /var/log 与容器镜像层（docker system df 看占用，docker system prune 清理）；</li>
+<li class="">用 lsof +L1 检查已删除但句柄未释放的文件；</li>
+<li class="">长期需扩容或把大数据目录迁到独立磁盘。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="硬盘监控---设备有报错">硬盘监控 - 设备有报错<a href="#硬盘监控---设备有报错" class="hash-link" aria-label="硬盘监控 - 设备有报错的直接链接" title="硬盘监控 - 设备有报错的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_device_error&gt;0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 dmesg -T | grep -iE &#x27;i/o error|ata|scsi&#x27; 看内核报的具体错误与设备名；</li>
+<li class="">用 smartctl -a /dev/sdX 看 SMART 属性，重点关注 Reallocated_Sector_Ct 与 Current_Pending_Sector；</li>
+<li class="">确认该盘上的数据是否有副本或备份，优先保证数据安全再处理硬件；</li>
+<li class="">确认为硬件故障的，安排停机换盘，RAID 环境下先确认阵列降级状态再操作。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="硬盘监控---预测硬盘会在未来4小时内写满">硬盘监控 - 预测硬盘会在未来4小时内写满<a href="#硬盘监控---预测硬盘会在未来4小时内写满" class="hash-link" aria-label="硬盘监控 - 预测硬盘会在未来4小时内写满的直接链接" title="硬盘监控 - 预测硬盘会在未来4小时内写满的直接链接" translate="no">​</a></h3>
+<p>紧急 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">predict_linear(disk_free[1h], 4*3600) &lt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 df -h 确认是哪个挂载点，再用 du -x --max-depth=1 &lt;挂载点&gt; | sort -h 逐层找出增长最快的目录；</li>
+<li class="">优先清理日志（journalctl --vacuum-size=500M、清 *.log.N）与临时文件，这是最快见效的；</li>
+<li class="">用 lsof +L1 找出已删除但句柄未释放的文件，重启对应进程才能真正释放空间；</li>
+<li class="">确认是否有异常写入（应用死循环打日志、备份任务堆积），不解决根因清理只是拖延。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="系统有oom产生">系统有OOM产生<a href="#系统有oom产生" class="hash-link" aria-label="系统有OOM产生的直接链接" title="系统有OOM产生的直接链接" translate="no">​</a></h3>
+<p>警告 · — · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(kernel_vmstat_oom_kill[2m]) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 dmesg -T | grep -i &#x27;killed process&#x27; 确认被杀的是哪个进程、当时占用多少内存；</li>
+<li class="">用 free -h 与该进程的内存曲线判断是内存泄漏还是配置的上限过高；</li>
+<li class="">给关键进程调整 oom_score_adj 降低被杀优先级，同时给次要进程设 cgroup 内存上限；</li>
+<li class="">根因是泄漏的要在应用侧抓堆定位，只扩内存会反复复发。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="网卡监控---入方向有丢包">网卡监控 - 入方向有丢包<a href="#网卡监控---入方向有丢包" class="hash-link" aria-label="网卡监控 - 入方向有丢包的直接链接" title="网卡监控 - 入方向有丢包的直接链接" translate="no">​</a></h3>
+<p>提醒 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(net_drop_in[1m]) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 ip -s link show &lt;网卡&gt; 确认 RX dropped/errors 的增长；</li>
+<li class="">用 ethtool -S &lt;网卡&gt; 看具体丢包原因（rx_no_buffer、rx_missed_errors 等）；</li>
+<li class="">环形缓冲区不足可用 ethtool -G &lt;网卡&gt; rx &lt;更大值&gt; 调大，并检查 net.core.netdev_max_backlog；</li>
+<li class="">若伴随 CPU 软中断偏高（top 里 %si），开启 RPS/RSS 把中断分散到多核。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="网卡监控---入方向有错包">网卡监控 - 入方向有错包<a href="#网卡监控---入方向有错包" class="hash-link" aria-label="网卡监控 - 入方向有错包的直接链接" title="网卡监控 - 入方向有错包的直接链接" translate="no">​</a></h3>
+<p>提醒 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(net_err_in[1m]) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 ethtool -S &lt;网卡&gt; 看 rx_crc_errors、rx_frame_errors 等具体计数；</li>
+<li class="">用 ethtool &lt;网卡&gt; 确认协商的速率与双工模式是否与对端一致（半双工是经典错包源）；</li>
+<li class="">检查网线/光模块，必要时换线或换口做交叉验证；</li>
+<li class="">联系网络侧确认交换机对应端口的错包计数。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="网卡监控---出方向有丢包">网卡监控 - 出方向有丢包<a href="#网卡监控---出方向有丢包" class="hash-link" aria-label="网卡监控 - 出方向有丢包的直接链接" title="网卡监控 - 出方向有丢包的直接链接" translate="no">​</a></h3>
+<p>提醒 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(net_drop_out[1m]) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 ip -s link show &lt;网卡&gt; 确认 TX dropped/errors 的增长；</li>
+<li class="">用 ethtool -S &lt;网卡&gt; 看具体计数，并用 tc -s qdisc show dev &lt;网卡&gt; 看队列是否溢出；</li>
+<li class="">发送队列不足可调大 txqueuelen 与 ethtool -G &lt;网卡&gt; tx；</li>
+<li class="">确认是否已跑满带宽——是则限流或扩带宽，不是则排查网卡驱动与对端设备。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="网卡监控---出方向有错包">网卡监控 - 出方向有错包<a href="#网卡监控---出方向有错包" class="hash-link" aria-label="网卡监控 - 出方向有错包的直接链接" title="网卡监控 - 出方向有错包的直接链接" translate="no">​</a></h3>
+<p>提醒 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(net_err_out[1m]) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 ethtool -S &lt;网卡&gt; 看 tx_errors、tx_carrier_errors 等具体计数；</li>
+<li class="">用 ethtool &lt;网卡&gt; 确认速率与双工模式与对端一致；</li>
+<li class="">检查网线/光模块并做交叉验证；</li>
+<li class="">确认网卡驱动与固件版本，必要时升级。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="网络地址探活失败">网络地址探活失败<a href="#网络地址探活失败" class="hash-link" aria-label="网络地址探活失败的直接链接" title="网络地址探活失败的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">net_response_result_code != 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">在采集机上手工 telnet &lt;目标&gt; &lt;端口&gt; 或 nc -vz &lt;目标&gt; &lt;端口&gt; 复现；</li>
+<li class="">到目标机用 ss -lntp | grep &lt;端口&gt; 确认进程是否在监听；</li>
+<li class="">进程在监听则排查防火墙、安全组、以及是否只绑定了 127.0.0.1；</li>
+<li class="">进程不在则按该服务自身的恢复流程拉起。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="进程监控-有进程数为0某进程可能挂了">进程监控-有进程数为0，某进程可能挂了<a href="#进程监控-有进程数为0某进程可能挂了" class="hash-link" aria-label="进程监控-有进程数为0，某进程可能挂了的直接链接" title="进程监控-有进程数为0，某进程可能挂了的直接链接" translate="no">​</a></h3>
+<p>紧急 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">procstat_lookup_count == 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 ps -ef | grep &lt;进程关键字&gt; 确认确实不在，排除采集侧的匹配规则写错；</li>
+<li class="">查该进程的日志与 dmesg -T | grep -i &#x27;killed process&#x27;，区分自身崩溃、被 OOM 杀死还是人工停止；</li>
+<li class="">按服务自身流程拉起，并确认 systemd 的 Restart 策略是否生效；</li>
+<li class="">若反复退出，先定位根因再拉起，避免陷入重启循环。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="进程监控-进程句柄限制过小">进程监控-进程句柄限制过小<a href="#进程监控-进程句柄限制过小" class="hash-link" aria-label="进程监控-进程句柄限制过小的直接链接" title="进程监控-进程句柄限制过小的直接链接" translate="no">​</a></h3>
+<p>提醒 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">procstat_rlimit_num_fds_soft &lt; 2048</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 cat /proc/&lt;pid&gt;/limits 确认 Max open files 的软硬上限；</li>
+<li class="">systemd 管理的服务在 unit 文件里加 LimitNOFILE=65535 后 systemctl daemon-reload 并重启；</li>
+<li class="">非 systemd 的在启动脚本里加 ulimit -n 65535，或改 /etc/security/limits.conf；</li>
+<li class="">注意软上限修改后必须重启进程才生效。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="进程监控-进程总量超过600">进程监控-进程总量超过600<a href="#进程监控-进程总量超过600" class="hash-link" aria-label="进程监控-进程总量超过600的直接链接" title="进程监控-进程总量超过600的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">processes_total &gt; 600</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 ps -eo ppid | sort | uniq -c | sort -rn | head 找出 fork 子进程最多的父进程；</li>
+<li class="">确认是正常的多进程模型（如 php-fpm、nginx worker）还是失控 fork；</li>
+<li class="">失控的先停掉该父进程止血，再修复代码里的 fork 逻辑；</li>
+<li class="">正常业务增长则调整 worker 数配置并评估是否需要扩容。</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="telegraf4">Telegraf（4）<a href="#telegraf4" class="hash-link" aria-label="Telegraf（4）的直接链接" title="Telegraf（4）的直接链接" translate="no">​</a></h2>
+<p>适用于用 Telegraf 采集、以 Prometheus 格式输出的主机。</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="machine-load---high-cpu-please-pay-attention---telegraf">Machine load - high CPU, please pay attention - telegraf<a href="#machine-load---high-cpu-please-pay-attention---telegraf" class="hash-link" aria-label="Machine load - high CPU, please pay attention - telegraf的直接链接" title="Machine load - high CPU, please pay attention - telegraf的直接链接" translate="no">​</a></h3>
+<p>提醒 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">cpu_usage_idle{cpu=&quot;cpu-total&quot;} &lt; 25</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 top -H 或 pidstat 1 找出占用最高的进程与线程；</li>
+<li class="">用 perf top 或对应语言的 profiler（Java 用 arthas/async-profiler，Go 用 pprof）定位热点函数；</li>
+<li class="">区分是业务量自然增长还是代码异常（死循环、正则回溯、频繁 GC）；</li>
+<li class="">业务量增长则扩容或限流，代码问题则修复后发布。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="machine-load---high-memory-please-pay-attention---telegraf">Machine load - high memory, please pay attention - telegraf<a href="#machine-load---high-memory-please-pay-attention---telegraf" class="hash-link" aria-label="Machine load - high memory, please pay attention - telegraf的直接链接" title="Machine load - high memory, please pay attention - telegraf的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">mem_available_percent &lt; 25</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 free -h 确认 available 与 swap 使用情况；</li>
+<li class="">用 ps aux --sort=-%mem | head 找出占用最高的进程，对比它们的历史内存曲线判断是否泄漏；</li>
+<li class="">内核回收不及时可用 sync; echo 1 &gt; /proc/sys/vm/drop_caches 释放 page cache（生产慎用）；</li>
+<li class="">确认是业务增长还是进程泄漏——泄漏要在应用侧抓堆定位，不能只靠重启。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="process-monitoring---lookup-failure---telegraf">Process monitoring - lookup failure - telegraf<a href="#process-monitoring---lookup-failure---telegraf" class="hash-link" aria-label="Process monitoring - lookup failure - telegraf的直接链接" title="Process monitoring - lookup failure - telegraf的直接链接" translate="no">​</a></h3>
+<p>紧急 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">procstat_lookup_result_code != 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">在采集机上按配置的匹配方式手工执行 ps/pgrep 复现；</li>
+<li class="">进程确实不在则按服务恢复流程处理；</li>
+<li class="">进程在但探测失败，检查 procstat 配置的 pid_file、exe、pattern 是否写错，以及采集账号是否有权限读取 /proc；</li>
+<li class="">容器环境下确认 categraf 是否挂载了宿主机的 /proc。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="there-are-processes-with-0-count-a-certain-process-may-have-crashed---telegraf">there are processes with 0 count, a certain process may have crashed - telegraf<a href="#there-are-processes-with-0-count-a-certain-process-may-have-crashed---telegraf" class="hash-link" aria-label="there are processes with 0 count, a certain process may have crashed - telegraf的直接链接" title="there are processes with 0 count, a certain process may have crashed - telegraf的直接链接" translate="no">​</a></h3>
+<p>紧急 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">procstat_lookup_running == 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 ps -ef | grep &lt;进程关键字&gt; 确认确实不在，排除采集侧的匹配规则写错；</li>
+<li class="">查该进程的日志与 dmesg -T | grep -i &#x27;killed process&#x27;，区分自身崩溃、被 OOM 杀死还是人工停止；</li>
+<li class="">按服务自身流程拉起，并确认 systemd 的 Restart 策略是否生效；</li>
+<li class="">若反复退出，先定位根因再拉起，避免陷入重启循环。</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="怎么使用这些规则">怎么使用这些规则<a href="#怎么使用这些规则" class="hash-link" aria-label="怎么使用这些规则的直接链接" title="怎么使用这些规则的直接链接" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>用 Prometheus 或 vmalert</strong>：下载 <a href="/zh/alert-rules/linux.yml" target="_blank" rel="noopener noreferrer" class=""><code>linux.yml</code></a>，加到 <code>rule_files</code>（vmalert 用 <code>-rule</code> 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 <code>severity</code> 标签里（critical / warning / info），<code>runbook_url</code> 指回本页。</li>
+<li class=""><strong>用夜莺</strong>：同样的规则内置在 <a class="" href="/zh/integrations/kubernetes">Kubernetes</a>、<a class="" href="/zh/integrations/linux">Linux</a> 集成模板里。在集成中心把规则<a class="" href="/zh/docs/data/integrations/import">导入到业务组</a>，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="来源与许可">来源与许可<a href="#来源与许可" class="hash-link" aria-label="来源与许可的直接链接" title="来源与许可的直接链接" translate="no">​</a></h2>
+<p>不少规则表达式改编自 <a href="https://github.com/samber/awesome-prometheus-alerts" target="_blank" rel="noopener noreferrer" class="">awesome-prometheus-alerts</a>（CC BY 4.0）。 处置步骤和其余规则来自夜莺的集成模板（<a href="https://github.com/ccfos/nightingale/tree/main/integrations/Kubernetes" target="_blank" rel="noopener noreferrer" class="">Kubernetes</a>、<a href="https://github.com/ccfos/nightingale/tree/main/integrations/Linux" target="_blank" rel="noopener noreferrer" class="">Linux</a>，Apache-2.0），欢迎在那里提 PR 修正。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="相关链接">相关链接<a href="#相关链接" class="hash-link" aria-label="相关链接的直接链接" title="相关链接的直接链接" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/zh/integrations/kubernetes">用夜莺监控 Kubernetes</a>：采集配置、仪表盘与指标说明</li>
+<li class=""><a class="" href="/zh/integrations/linux">用夜莺监控 Linux</a>：采集配置、仪表盘与指标说明</li>
+<li class=""><a class="" href="/zh/docs/alerting/metric-rules">在夜莺里写指标告警规则</a></li>
+<li class=""><a class="" href="/zh/alert-rules">全部告警规则</a></li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><span class="n9e-doc-actions"><a href="https://github.com/ccfos/nightingale/tree/main/integrations/Kubernetes" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a><a href="https://github.com/n9e/n9e.github.io/issues/new?title=%E6%96%87%E6%A1%A3%E5%8F%8D%E9%A6%88%EF%BC%9A%2Fzh%2Falert-rules%2Flinux&amp;body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fzh%2Falert-rules%2Flinux%0A%0A" target="_blank" rel="noopener noreferrer" class="n9e-doc-issue">报告问题</a></span></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/zh/alert-rules/prometheus"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">Prometheus</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/zh/alert-rules/mysql"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">MySQL</div></a></nav></div></div><div class="col col--3"><div class="n9e-toc"><p class="n9e-toc-title">本页目录</p><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#概览" class="table-of-contents__link toc-highlight">概览</a></li><li><a href="#规则一览" class="table-of-contents__link toc-highlight">规则一览</a></li><li><a href="#node_exporter48" class="table-of-contents__link toc-highlight">node_exporter（48）</a></li><li><a href="#categraf24" class="table-of-contents__link toc-highlight">Categraf（24）</a></li><li><a href="#telegraf4" class="table-of-contents__link toc-highlight">Telegraf（4）</a></li><li><a href="#怎么使用这些规则" class="table-of-contents__link toc-highlight">怎么使用这些规则</a></li><li><a href="#来源与许可" class="table-of-contents__link toc-highlight">来源与许可</a></li><li><a href="#相关链接" class="table-of-contents__link toc-highlight">相关链接</a></li></ul></div></div></div></div><footer class="footer_aQsI"><p class="copyright_HrmU">© 2026 Nightingale Contributors · Apache-2.0</p><div class="controls_xEY2"><nav class="locales_D62L" aria-label="Language"><a href="/alert-rules/linux" target="_blank" rel="noopener noreferrer" class="locale_WPDf">English</a><a href="/zh/alert-rules/linux" target="_blank" rel="noopener noreferrer" class="locale_WPDf localeActive_aVX1" aria-current="page">简体中文</a></nav><div class="toggle_vylO"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></footer></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">产品</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/zh/docs">文档</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/download">下载</a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale/releases" target="_blank" rel="noopener noreferrer" class="footer__link-item">发布说明<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a class="footer__link-item" href="/zh/categraf">Categraf 采集器</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">资源</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/zh/integrations">集成生态</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/alert-rules">告警规则库</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/comparisons">产品对比</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/comparisons/zabbix-alternatives">Zabbix 替代方案</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/comparisons/open-source-alerting-platforms">开源告警平台选型</a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale#-mcp-server" target="_blank" rel="noopener noreferrer" class="footer__link-item">MCP Server<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ccfos/nightingale" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale/issues" target="_blank" rel="noopener noreferrer" class="footer__link-item">Issues<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://join.slack.com/t/n9e/shared_invite/zt-4ejx42fd0-S9aVULH4FTdH~jEAz80U7g" target="_blank" rel="noopener noreferrer" class="footer__link-item">Slack<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">关于</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ccfos/nightingale/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="footer__link-item">Apache-2.0 License<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="themeRow_uGN8"><div class="toggle_vylO"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div><div class="localeRow_zDj8"><nav class="locales_D62L" aria-label="Language"><a href="/alert-rules/linux" target="_blank" rel="noopener noreferrer" class="locale_WPDf">English</a><a href="/zh/alert-rules/linux" target="_blank" rel="noopener noreferrer" class="locale_WPDf localeActive_aVX1" aria-current="page">简体中文</a></nav></div><div class="footer__copyright">© 2026 Nightingale Contributors · Apache-2.0</div></div></div></footer></div>
+</body>
+</html>

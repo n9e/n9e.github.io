@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="docs-wrapper plugin-docs plugin-id-alert-rules docs-version-current docs-doc-page docs-doc-id-mysql" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">MySQL alert rules for Prometheus: 11 rules with runbooks | Nightingale</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://n9e.github.io/img/og-en.png"><meta data-rh="true" name="twitter:image" content="https://n9e.github.io/img/og-en.png"><meta data-rh="true" property="og:url" content="https://n9e.github.io/alert-rules/mysql"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" property="og:locale:alternate" content="zh_CN"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" property="og:image:width" content="1200"><meta data-rh="true" property="og:image:height" content="630"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-alert-rules-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-alert-rules-current"><meta data-rh="true" property="og:title" content="MySQL alert rules for Prometheus: 11 rules with runbooks | Nightingale"><meta data-rh="true" name="description" content="11 ready-to-use MySQL alert rules in PromQL, each with severity, duration and runbook steps. Metrics from mysqld_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale."><meta data-rh="true" property="og:description" content="11 ready-to-use MySQL alert rules in PromQL, each with severity, duration and runbook steps. Metrics from mysqld_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale."><meta data-rh="true" property="og:type" content="article"><meta data-rh="true" property="article:modified_time" content="2026-10-31"><link data-rh="true" rel="icon" href="/img/favicon.png"><link data-rh="true" rel="canonical" href="https://n9e.github.io/alert-rules/mysql"><link data-rh="true" rel="alternate" href="https://n9e.github.io/alert-rules/mysql" hreflang="en"><link data-rh="true" rel="alternate" href="https://n9e.github.io/zh/alert-rules/mysql" hreflang="zh-CN"><link data-rh="true" rel="alternate" href="https://n9e.github.io/alert-rules/mysql" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"MySQL","item":"https://n9e.github.io/alert-rules/mysql"}]}</script><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"MySQL alert rules for Prometheus: 11 rules with runbooks","description":"11 ready-to-use MySQL alert rules in PromQL, each with severity, duration and runbook steps. Metrics from mysqld_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.","inLanguage":"en","dateModified":"2026-10-31","url":"https://n9e.github.io/alert-rules/mysql"}</script><link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W860H4Z5JM"></script>
+<script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-W860H4Z5JM",{anonymize_ip:!0})</script>
+
+
+
+
+
+
+
+
+
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-400-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-700-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-800-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/jetbrains-mono-latin-400-normal.woff2" crossorigin="anonymous">
+<style>@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/archivo-latin-ext-400-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/archivo-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/archivo-latin-ext-500-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/archivo-latin-500-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 600; src: url(/fonts/archivo-latin-ext-600-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 600; src: url(/fonts/archivo-latin-600-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/archivo-latin-ext-700-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/archivo-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 800; src: url(/fonts/archivo-latin-ext-800-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 800; src: url(/fonts/archivo-latin-800-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/jetbrains-mono-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/jetbrains-mono-latin-500-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/jetbrains-mono-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+
+/* 度量匹配的回退字体：Archivo 没到时用 Arial 占位，字宽和行高按 Archivo 的度量调过，切换时几乎不重排 */
+@font-face { font-family: 'Archivo Fallback'; font-weight: 400; src: local('Arial'), local('Liberation Sans'); size-adjust: 115.77%; ascent-override: 75.84%; descent-override: 18.14%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 500; src: local('Arial'), local('Liberation Sans'); size-adjust: 117.58%; ascent-override: 74.67%; descent-override: 17.86%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 600; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 110.34%; ascent-override: 79.57%; descent-override: 19.03%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 700; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 113.27%; ascent-override: 77.51%; descent-override: 18.54%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 800; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 117.65%; ascent-override: 74.63%; descent-override: 17.85%; line-gap-override: 0%; }
+/* JetBrains Mono 对 Menlo（macOS）；Consolas / DejaVu 只是兜底，度量按 Menlo 算 */
+@font-face { font-family: 'JetBrains Mono Fallback'; src: local('Menlo'), local('Consolas'), local('DejaVu Sans Mono'); size-adjust: 99.66%; ascent-override: 102.35%; descent-override: 30.10%; line-gap-override: 0%; }
+</style>
+<script>!function(){try{var e=window.location,t=e.pathname;if(t.length>1&&"/"===t.charAt(t.length-1)&&"/zh/"!==t)return void e.replace(t.replace(/\/+$/,"")+e.search+e.hash);var n,a=new URLSearchParams(e.search),r=window.self!==window.top;try{n=window.sessionStorage}catch(i){}function o(e){try{return n&&n.getItem(e)}catch(e){return null}}function h(e,t){try{n&&n.setItem(e,t)}catch(e){}}if(!(a.has("onlyContent")||r&&"1"===o("n9e-embed")))return;var c=a.get("theme");if("dark"!==c&&"light"!==c&&(c=r?o("n9e-embed-theme"):null),r&&(h("n9e-embed","1"),c&&h("n9e-embed-theme",c)),document.documentElement.setAttribute("data-n9e-embed",""),e.hash){var s=decodeURIComponent(e.hash.slice(1));window.addEventListener("load",function(){setTimeout(function(){var e=document.getElementById(s);e&&e.scrollIntoView({behavior:"instant",block:"start"})},0)})}c&&!a.has("docusaurus-theme")&&(a.set("docusaurus-theme",c),history.replaceState(history.state,"",t+"?"+a.toString()+e.hash))}catch(d){}}()</script>
+<script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?9d7cc507a7aae60b28b5e04bb995492a",e.async=!0;var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><link rel="stylesheet" href="/assets/css/styles.51464384.css">
+<script src="/assets/js/runtime~main.b8f936b9.js" defer="defer"></script>
+<script src="/assets/js/main.f937f6cc.js" defer="defer"></script>
+<link rel="alternate" type="text/markdown" href="https://n9e.github.io/alert-rules/mysql.md"><link rel="describedby" href="https://n9e.github.io/llms.txt"></head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"dark"),document.documentElement.setAttribute("data-theme-choice",t||"dark")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/"><div class="navbar__logo"><img src="/img/logo-mark.webp" alt="Nightingale" class="themedComponent_mlkZ themedComponent--light_NVdE" height="26" width="25"><img src="/img/logo-mark.webp" alt="Nightingale" class="themedComponent_mlkZ themedComponent--dark_xIcU" height="26" width="25"></div><b class="navbar__title text--truncate">Nightingale</b></a><a class="navbar__item navbar__link" href="/docs">Docs</a><a class="navbar__item navbar__link" href="/integrations">Integrations</a><a class="navbar__item navbar__link" href="/comparisons">Comparisons</a><a class="navbar__item navbar__link" href="/download">Download</a><div class="navbar__item dropdown dropdown--hoverable"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">Community</a><ul class="dropdown__menu"><li><a href="https://github.com/ccfos/nightingale/issues" target="_blank" rel="noopener noreferrer" class="dropdown__link">Open an issue<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li><a href="https://join.slack.com/t/n9e/shared_invite/zt-4ejx42fd0-S9aVULH4FTdH~jEAz80U7g" target="_blank" rel="noopener noreferrer" class="dropdown__link">Slack<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://play.n9e.io/api/n9e/auth/demo-login" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">Live demo<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://github.com/ccfos/nightingale" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link navbar-github" aria-label="GitHub, 13419 stars">13.4k<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="mobileOnly_k8CN"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB n9e-docs-root n9e-docs-root--single"><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><div class="searchWrap_zhtN"></div><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/alert-rules"><span class="linkLabel_WmDU">Overview</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/alert-rules/kubernetes"><span class="linkLabel_WmDU">Kubernetes</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/alert-rules/prometheus"><span class="linkLabel_WmDU">Prometheus</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/alert-rules/linux"><span class="linkLabel_WmDU">Linux</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/alert-rules/mysql"><span class="linkLabel_WmDU">MySQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/alert-rules/redis"><span class="linkLabel_WmDU">Redis</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/alert-rules/elasticsearch"><span class="linkLabel_WmDU">Elasticsearch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/alert-rules/mongodb"><span class="linkLabel_WmDU">MongoDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/alert-rules/windows"><span class="linkLabel_WmDU">Windows</span></a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="Breadcrumbs"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="Home page" class="breadcrumbs__link" href="/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">MySQL</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><header class="n9e-doc-header"><h1>MySQL alert rules for Prometheus: 11 rules with runbooks</h1><p class="n9e-doc-lead">11 ready-to-use MySQL alert rules in PromQL, each with severity, duration and runbook steps. Metrics from mysqld_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.</p><p class="n9e-doc-reviewed">Last reviewed <time datetime="2026-10-31">2026-10-31</time></p></header><p>MySQL alert rules for the failures that page people in practice: an instance that is down or has just restarted, slow queries piling up, connections approaching max_connections, too many running threads, InnoDB log waits, open files nearing the limit, and replication problems (IO or SQL thread stopped, replica lag). The exporter group uses mysqld_exporter metric names (<code>mysql_global_status_*</code>, <code>mysql_slave_status_*</code>); each rule comes with the first commands to run, such as SHOW FULL PROCESSLIST and pt-query-digest, when it fires.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="at-a-glance">At a glance<a href="#at-a-glance" class="hash-link" aria-label="Direct link to At a glance" title="Direct link to At a glance" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>11 rules</strong>, each with a PromQL condition, a severity, a <code>for</code> duration and runbook steps</li>
+<li class=""><strong>Metrics from</strong>: mysqld_exporter, Categraf</li>
+<li class=""><strong>Download</strong>: <a href="/alert-rules/mysql.yml" target="_blank" rel="noopener noreferrer" class=""><code>mysql.yml</code></a>, a standard Prometheus rules file (<code>groups:</code> format), checked with <code>promtool check rules</code></li>
+<li class="">Thresholds are starting points. Adjust them to your environment before enabling the rules.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="rule-list">Rule list<a href="#rule-list" class="hash-link" aria-label="Direct link to Rule list" title="Direct link to Rule list" translate="no">​</a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Rule</th><th>Severity</th><th>For</th></tr></thead><tbody><tr><td>More than 60% of the connections in MySQL are in a running state</td><td>Warning</td><td>2m</td></tr><tr><td>More than 80% of MySQL files open</td><td>Warning</td><td>2m</td></tr><tr><td>MySQL connection count has exceeded 80%</td><td>Warning</td><td>2m</td></tr><tr><td>Mysql has just restarted. Please be advised - exporter</td><td>Info</td><td>—</td></tr><tr><td>MySQL slow queries are piling up</td><td>Warning</td><td>2m</td></tr><tr><td>MysqlInnodbLogWaits - exporter</td><td>Warning</td><td>—</td></tr><tr><td>MysqlSlaveIoThreadNotRunning - exporter</td><td>Critical</td><td>—</td></tr><tr><td>MysqlSlaveReplicationLag - exporter</td><td>Critical</td><td>1m</td></tr><tr><td>MysqlSlaveSqlThreadNotRunning - exporter</td><td>Critical</td><td>—</td></tr><tr><td>The MySQL instance is down</td><td>Critical</td><td>—</td></tr><tr><td>Mysql has opened a large number of file handles. Please be aware - categraf</td><td>Warning</td><td>2m</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="prometheus-exporter-10">Prometheus exporter (10)<a href="#prometheus-exporter-10" class="hash-link" aria-label="Direct link to Prometheus exporter (10)" title="Direct link to Prometheus exporter (10)" translate="no">​</a></h2>
+<p>9 of the 10 rules in this group also apply unchanged to instances collected by Categraf, which produces the same metric names.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="more-than-60-of-the-connections-in-mysql-are-in-a-running-state">More than 60% of the connections in MySQL are in a running state<a href="#more-than-60-of-the-connections-in-mysql-are-in-a-running-state" class="hash-link" aria-label="Direct link to More than 60% of the connections in MySQL are in a running state" title="Direct link to More than 60% of the connections in MySQL are in a running state" translate="no">​</a></h3>
+<p>Warning · 2m · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">avg by (instance) (mysql_global_status_threads_running) / avg by (instance) (mysql_global_variables_max_connections) * 100 &gt; 60</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run SHOW FULL PROCESSLIST to see which SQL statement and which table the piled-up threads are concentrated on;</li>
+<li class="">Run SHOW ENGINE INNODB STATUS to check for lock waits or deadlocks;</li>
+<li class="">KILL the offending SQL to stop the bleeding, then add indexes or apply rate limiting;</li>
+<li class="">Check whether an upstream traffic spike or a slow dependency is keeping connections from being released.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="more-than-80-of-mysql-files-open">More than 80% of MySQL files open<a href="#more-than-80-of-mysql-files-open" class="hash-link" aria-label="Direct link to More than 80% of MySQL files open" title="Direct link to More than 80% of MySQL files open" translate="no">​</a></h3>
+<p>More than 80% of MySQL files open</p>
+<p>Warning · 2m · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">avg by (instance) (mysql_global_status_innodb_num_open_files) / avg by (instance)(mysql_global_variables_open_files_limit) * 100 &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run SHOW GLOBAL STATUS LIKE &#x27;Open_files&#x27; and SHOW VARIABLES LIKE &#x27;open_files_limit&#x27; to confirm the current level;</li>
+<li class="">Raise open_files_limit in my.cnf and raise the system ulimit -n and the systemd LimitNOFILE to match;</li>
+<li class="">Check whether table_open_cache is set too large and inflating the handle count;</li>
+<li class="">Check whether a large number of partitioned or small tables are being accessed at once.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mysql-connection-count-has-exceeded-80">MySQL connection count has exceeded 80%<a href="#mysql-connection-count-has-exceeded-80" class="hash-link" aria-label="Direct link to MySQL connection count has exceeded 80%" title="Direct link to MySQL connection count has exceeded 80%" translate="no">​</a></h3>
+<p>More than 80% of MySQL connections are in use</p>
+<p>Warning · 2m · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">avg by (instance) (mysql_global_status_threads_connected) / avg by (instance) (mysql_global_variables_max_connections) * 100 &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run SHOW FULL PROCESSLIST and group connections by source host to find the application with an abnormal connection count;</li>
+<li class="">Tell a traffic spike apart from an application connection pool leak (many long-lived Sleep connections piling up);</li>
+<li class="">As an emergency measure raise max_connections, checking free memory at the same time to avoid an OOM;</li>
+<li class="">For the root cause, cap the application connection pool and shorten wait_timeout.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mysql-has-just-restarted-please-be-advised---exporter">Mysql has just restarted. Please be advised - exporter<a href="#mysql-has-just-restarted-please-be-advised---exporter" class="hash-link" aria-label="Direct link to Mysql has just restarted. Please be advised - exporter" title="Direct link to Mysql has just restarted. Please be advised - exporter" translate="no">​</a></h3>
+<p>MySQL has just been restarted, less than one minute ago</p>
+<p>Info · — · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">mysql_global_status_uptime &lt; 60</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Check the error log (the file pointed to by SHOW VARIABLES LIKE &#x27;log_error&#x27;) to tell a crash, an OOM kill and a manual restart apart;</li>
+<li class="">If it was an OOM, compare innodb_buffer_pool_size against the machine&#x27;s physical memory and lower it;</li>
+<li class="">If the restart was unplanned, check whether systemd or the container orchestrator is repeatedly restarting it;</li>
+<li class="">After the restart, confirm replication resumed automatically and application connection pools reconnected.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mysql-slow-queries-are-piling-up">MySQL slow queries are piling up<a href="#mysql-slow-queries-are-piling-up" class="hash-link" aria-label="Direct link to MySQL slow queries are piling up" title="Direct link to MySQL slow queries are piling up" translate="no">​</a></h3>
+<p>MySQL slow queries are piling up over the last 5 minutes</p>
+<p>Warning · 2m · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(mysql_global_status_slow_queries[5m]) &gt; 10</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run SHOW FULL PROCESSLIST to find long-running SQL and KILL &lt;id&gt; to stop the bleeding if needed;</li>
+<li class="">Use mysqldumpslow -s t -t 10 &lt;slow_log&gt; or pt-query-digest to find the top slow queries;</li>
+<li class="">Run EXPLAIN on the queries you found to inspect the plan, then add indexes or rewrite them;</li>
+<li class="">If the noise comes from long_query_time being set too low, tune that parameter instead of ignoring the alert.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mysqlinnodblogwaits---exporter">MysqlInnodbLogWaits - exporter<a href="#mysqlinnodblogwaits---exporter" class="hash-link" aria-label="Direct link to MysqlInnodbLogWaits - exporter" title="Direct link to MysqlInnodbLogWaits - exporter" translate="no">​</a></h3>
+<p>MySQL innodb log writes stalling</p>
+<p>Warning · — · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">rate(mysql_global_status_innodb_log_waits[15m]) &gt; 10</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Raise innodb_log_buffer_size (typically doubling the 16M default up to 64M~256M);</li>
+<li class="">Check whether innodb_log_file_size is too small and causing frequent checkpoints;</li>
+<li class="">Run iostat -x 1 to see whether the disk holding the redo log is already at full utilization;</li>
+<li class="">Check for large transactions writing too much data at once and split them into smaller batches.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mysqlslaveiothreadnotrunning---exporter">MysqlSlaveIoThreadNotRunning - exporter<a href="#mysqlslaveiothreadnotrunning---exporter" class="hash-link" aria-label="Direct link to MysqlSlaveIoThreadNotRunning - exporter" title="Direct link to MysqlSlaveIoThreadNotRunning - exporter" translate="no">​</a></h3>
+<p>MySQL Slave IO thread not running</p>
+<p>Critical · — · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">mysql_slave_status_master_server_id &gt; 0 and ON (instance) mysql_slave_status_slave_io_running == 0</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run SHOW SLAVE STATUS\G on the replica and read Last_IO_Error;</li>
+<li class="">The usual causes are the primary being unreachable, an invalid replication account, or the required binlog having been purged — fix the network, reset the account with CHANGE MASTER TO, or rebuild the replica from a backup respectively;</li>
+<li class="">Then run START SLAVE IO_THREAD and confirm Slave_IO_Running=Yes;</li>
+<li class="">Take read traffic off this replica before you start.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mysqlslavereplicationlag---exporter">MysqlSlaveReplicationLag - exporter<a href="#mysqlslavereplicationlag---exporter" class="hash-link" aria-label="Direct link to MysqlSlaveReplicationLag - exporter" title="Direct link to MysqlSlaveReplicationLag - exporter" translate="no">​</a></h3>
+<p>Critical · 1m · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">mysql_slave_status_master_server_id &gt; 0 and ON (instance) (mysql_slave_status_seconds_behind_master - mysql_slave_status_sql_delay) &gt; 30</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run SHOW SLAVE STATUS\G and read Seconds_Behind_Master together with the event the SQL thread is currently applying;</li>
+<li class="">On the primary, run SHOW PROCESSLIST to check for a large transaction or a bulk DML loading data;</li>
+<li class="">If the replica applies single-threaded, enable parallel replication (slave_parallel_workers / slave_parallel_type=LOGICAL_CLOCK);</li>
+<li class="">If the lag keeps growing, move read traffic back to the primary or to another replica.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mysqlslavesqlthreadnotrunning---exporter">MysqlSlaveSqlThreadNotRunning - exporter<a href="#mysqlslavesqlthreadnotrunning---exporter" class="hash-link" aria-label="Direct link to MysqlSlaveSqlThreadNotRunning - exporter" title="Direct link to MysqlSlaveSqlThreadNotRunning - exporter" translate="no">​</a></h3>
+<p>MySQL Slave SQL thread not running</p>
+<p>Critical · — · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">mysql_slave_status_master_server_id &gt; 0 and ON (instance) mysql_slave_status_slave_sql_running == 0</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run SHOW SLAVE STATUS\G on the replica and read Last_SQL_Error to identify the event it is stuck on;</li>
+<li class="">If it is a conflict that can be safely skipped (such as a duplicate primary key), verify the data is consistent, then run SET GLOBAL sql_slave_skip_counter=1 followed by START SLAVE SQL_THREAD;</li>
+<li class="">If the primary and replica data have already diverged, rebuild the replica from a backup instead of blindly skipping;</li>
+<li class="">Take read traffic off this replica before you start.</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="the-mysql-instance-is-down">The MySQL instance is down<a href="#the-mysql-instance-is-down" class="hash-link" aria-label="Direct link to The MySQL instance is down" title="Direct link to The MySQL instance is down" translate="no">​</a></h3>
+<p>Critical · — · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">mysql_up == 0</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Log in to the host and run systemctl status mysqld or docker ps to confirm the process is alive;</li>
+<li class="">If it is alive, connect by hand with mysql -h&lt;host&gt; -P&lt;port&gt; -u&lt;user&gt; -p to tell a hung instance apart from a network or account problem;</li>
+<li class="">If it is not running, read the tail of the error log to identify the cause (OOM, full disk, corrupted data files) before starting it — do not blindly restart;</li>
+<li class="">If replication is in use, immediately assess whether to fail over, and confirm the application has taken this node out of rotation.</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="categraf-1">Categraf (1)<a href="#categraf-1" class="hash-link" aria-label="Direct link to Categraf (1)" title="Direct link to Categraf (1)" translate="no">​</a></h2>
+<p>For hosts and instances collected by Categraf; metric names follow Categraf plugins.</p>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="mysql-has-opened-a-large-number-of-file-handles-please-be-aware---categraf">Mysql has opened a large number of file handles. Please be aware - categraf<a href="#mysql-has-opened-a-large-number-of-file-handles-please-be-aware---categraf" class="hash-link" aria-label="Direct link to Mysql has opened a large number of file handles. Please be aware - categraf" title="Direct link to Mysql has opened a large number of file handles. Please be aware - categraf" translate="no">​</a></h3>
+<p>More than 80% of MySQL files open</p>
+<p>Warning · 2m · Trigger:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">avg by (instance) (mysql_global_status_open_files) / avg by (instance)(mysql_global_variables_open_files_limit) * 100 &gt; 80</span><br></div></code></pre></div></div>
+<p>Runbook:</p>
+<ol>
+<li class="">Run SHOW GLOBAL STATUS LIKE &#x27;Open_files&#x27; and SHOW VARIABLES LIKE &#x27;open_files_limit&#x27; to confirm the current level;</li>
+<li class="">Raise open_files_limit in my.cnf and raise the system ulimit -n and the systemd LimitNOFILE to match;</li>
+<li class="">Check whether table_open_cache is set too large and inflating the handle count;</li>
+<li class="">Check whether a large number of partitioned or small tables are being accessed at once.</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-to-use-these-rules">How to use these rules<a href="#how-to-use-these-rules" class="hash-link" aria-label="Direct link to How to use these rules" title="Direct link to How to use these rules" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>With Prometheus or vmalert</strong>: download <a href="/alert-rules/mysql.yml" target="_blank" rel="noopener noreferrer" class=""><code>mysql.yml</code></a>, add it to <code>rule_files</code> (or <code>-rule</code> for vmalert), check the metric names against your exporter version, and tune thresholds. Severity is set as a <code>severity</code> label (critical / warning / info), and <code>runbook_url</code> points back to this page.</li>
+<li class=""><strong>With Nightingale</strong>: the same rules ship in the <a class="" href="/integrations/mysql">MySQL</a> integration template. Open the integration center, <a class="" href="/docs/data/integrations/import">import the rules into a business group</a>, and enable them one by one. Nightingale keeps the runbook with each alert and can evaluate the rules against Prometheus, VictoriaMetrics and other data sources.</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="sources-and-license">Sources and license<a href="#sources-and-license" class="hash-link" aria-label="Direct link to Sources and license" title="Direct link to Sources and license" translate="no">​</a></h2>
+<p>The runbook steps and the remaining rules come from Nightingale&#x27;s integration templates (<a href="https://github.com/ccfos/nightingale/tree/main/integrations/MySQL" target="_blank" rel="noopener noreferrer" class="">MySQL</a>, Apache-2.0). Corrections are welcome as pull requests there.</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="related">Related<a href="#related" class="hash-link" aria-label="Direct link to Related" title="Direct link to Related" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/integrations/mysql">Monitor MySQL with Nightingale</a>: collector config, dashboards and metric reference</li>
+<li class=""><a class="" href="/docs/alerting/metric-rules">Write a metric rule in Nightingale</a></li>
+<li class=""><a class="" href="/alert-rules">All alert rules</a></li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><span class="n9e-doc-actions"><a href="https://github.com/ccfos/nightingale/tree/main/integrations/MySQL" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a><a href="https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Falert-rules%2Fmysql&amp;body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Falert-rules%2Fmysql%0A%0A" target="_blank" rel="noopener noreferrer" class="n9e-doc-issue">Report a problem</a></span></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/alert-rules/linux"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Linux</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/alert-rules/redis"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Redis</div></a></nav></div></div><div class="col col--3"><div class="n9e-toc"><p class="n9e-toc-title">On this page</p><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#at-a-glance" class="table-of-contents__link toc-highlight">At a glance</a></li><li><a href="#rule-list" class="table-of-contents__link toc-highlight">Rule list</a></li><li><a href="#prometheus-exporter-10" class="table-of-contents__link toc-highlight">Prometheus exporter (10)</a></li><li><a href="#categraf-1" class="table-of-contents__link toc-highlight">Categraf (1)</a></li><li><a href="#how-to-use-these-rules" class="table-of-contents__link toc-highlight">How to use these rules</a></li><li><a href="#sources-and-license" class="table-of-contents__link toc-highlight">Sources and license</a></li><li><a href="#related" class="table-of-contents__link toc-highlight">Related</a></li></ul></div></div></div></div><footer class="footer_aQsI"><p class="copyright_HrmU">© 2026 Nightingale Contributors · Apache-2.0 License</p><div class="controls_xEY2"><nav class="locales_D62L" aria-label="Language"><a href="/alert-rules/mysql" target="_blank" rel="noopener noreferrer" class="locale_WPDf localeActive_aVX1" aria-current="page">English</a><a href="/zh/alert-rules/mysql" target="_blank" rel="noopener noreferrer" class="locale_WPDf">简体中文</a></nav><div class="toggle_vylO"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></footer></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Product</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs">Docs</a></li><li class="footer__item"><a class="footer__link-item" href="/download">Download</a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale/releases" target="_blank" rel="noopener noreferrer" class="footer__link-item">Release notes<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a class="footer__link-item" href="/categraf">Categraf collector</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Resources</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/integrations">Integrations</a></li><li class="footer__item"><a class="footer__link-item" href="/alert-rules">Alert rules</a></li><li class="footer__item"><a class="footer__link-item" href="/comparisons">Comparisons</a></li><li class="footer__item"><a class="footer__link-item" href="/comparisons/zabbix-alternatives">Zabbix alternatives</a></li><li class="footer__item"><a class="footer__link-item" href="/comparisons/open-source-alerting-platforms">Choosing an alerting platform</a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale#-mcp-server" target="_blank" rel="noopener noreferrer" class="footer__link-item">MCP Server<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ccfos/nightingale" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale/issues" target="_blank" rel="noopener noreferrer" class="footer__link-item">Issues<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://join.slack.com/t/n9e/shared_invite/zt-4ejx42fd0-S9aVULH4FTdH~jEAz80U7g" target="_blank" rel="noopener noreferrer" class="footer__link-item">Slack<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">About</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ccfos/nightingale/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="footer__link-item">Apache-2.0 License<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="themeRow_uGN8"><div class="toggle_vylO"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div><div class="localeRow_zDj8"><nav class="locales_D62L" aria-label="Language"><a href="/alert-rules/mysql" target="_blank" rel="noopener noreferrer" class="locale_WPDf localeActive_aVX1" aria-current="page">English</a><a href="/zh/alert-rules/mysql" target="_blank" rel="noopener noreferrer" class="locale_WPDf">简体中文</a></nav></div><div class="footer__copyright">© 2026 Nightingale Contributors · Apache-2.0 License</div></div></div></footer></div>
+</body>
+</html>

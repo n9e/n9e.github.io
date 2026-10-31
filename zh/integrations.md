@@ -165,7 +165,7 @@ BUILT-IN TEMPLATES
 
 ↓
 
-[在 GitHub 查看全部模板<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-10-28
+[在 GitHub 查看全部模板<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-10-31
 
 COLLECTORS
 

@@ -2,7 +2,7 @@
 
 内置 mongodb\_exporter 的采集逻辑，覆盖连接、操作计数、复制集与分片状态；仪表盘要求开启兼容模式的指标名。
 
-最后校对于 2026-10-28
+最后校对于 2026-10-31
 
 MongoDB 插件由 percona 的 mongodb\_exporter 封装而来，通过 `serverStatus`、`replSetGetStatus` 等命令采集连接数、操作计数、队列、WiredTiger 缓存、复制集成员状态和 oplog 窗口。分片集群用 `mongodb_cluster` 插件从 mongos 侧采集。
 
@@ -258,127 +258,18 @@ MongoDB 插件由 percona 的 mongodb\_exporter 封装而来，通过 `serverSta
 
 ## 内置告警规则[​](#内置告警规则 "内置告警规则的直接链接")
 
-共 8 条。每条给出触发条件（PromQL）和告警后的处置步骤，导入后可以直接改阈值。
+共 8 条，导入后默认停用，按自己环境的阈值逐条启用。每条规则的触发条件（PromQL）和处置步骤收录在告警规则库：[MongoDB 告警规则](https://n9e.github.io/zh/alert-rules/mongodb.md)。
 
-### MongoDB average operation latency exceeds 250ms - exporter[​](#mongodb-average-operation-latency-exceeds-250ms---exporter "MongoDB average operation latency exceeds 250ms - exporter的直接链接")
-
-S2 警告 · 持续 10 分钟 · 触发条件:
-
-```
-rate(mongodb_mongod_op_latencies_latency_total[5m]) / rate(mongodb_mongod_op_latencies_ops_total[5m]) > 250000
-```
-
-处置步骤:
-
-1. db.currentOp({"secs\_running":{$gt:5}}) 找当前长时间运行的操作，必要时 db.killOp(opid) 止血；
-2. 开 profiler 定位慢查询：db.setProfilingLevel(1,100) 后 db.system.profile.find().sort({millis:-1}).limit(10)；
-3. 对慢查询执行 explain("executionStats")，看是否走了 COLLSCAN 全表扫描并补索引；
-4. 排查是否有大批量写入或索引重建正在占住磁盘 IO。
-
-### Mongo connection number has exceeded 80% - exporter[​](#mongo-connection-number-has-exceeded-80---exporter "Mongo connection number has exceeded 80% - exporter的直接链接")
-
-S2 警告 · 持续 2 分钟 · 触发条件:
-
-```
-avg by (instance) (mongodb_connections{state="current"}) / (avg by (instance) (mongodb_connections{state="current"}) + avg by (instance) (mongodb_connections{state="available"})) * 100 > 80
-```
-
-处置步骤:
-
-1. db.serverStatus().connections 确认 current 与 available 的真实水位；
-2. db.currentOp(true) 按 client 分组，找出连接数异常的应用；
-3. 区分业务增长与驱动连接池泄漏（应用侧 maxPoolSize 配置过大或没有复用 MongoClient）；
-4. 应急可调大 mongod 的 net.maxIncomingConnections，同时核对系统 ulimit -n 是否足够。
-
-### Mongo has encountered an Assert error - exporter[​](#mongo-has-encountered-an-assert-error---exporter "Mongo has encountered an Assert error - exporter的直接链接")
-
-S3 提醒 · 持续 30 分钟 · 触发条件:
-
-```
-rate(mongodb_asserts_total{type=~"regular|message"}[5m]) > 0
-```
-
-处置步骤:
-
-1. 用 db.adminCommand({getLog:"global"}) 看日志中 assert 的上下文；
-2. db.serverStatus().asserts 确认是 regular 还是 message 类在涨；
-3. regular 多为存储层异常，检查磁盘健康与数据文件完整性；message 多为协议或驱动不匹配，核对驱动版本；
-4. 确认是否与近期升级、schema 变更的时间吻合。
-
-### Mongo has encountered cursor timeout - exporter[​](#mongo-has-encountered-cursor-timeout---exporter "Mongo has encountered cursor timeout - exporter的直接链接")
-
-S2 警告 · 持续 30 分钟 · 触发条件:
-
-```
-rate(mongodb_mongod_metrics_cursor_timed_out_total[5m]) > 0
-```
-
-处置步骤:
-
-1. db.serverStatus().metrics.cursor 看 timedOut 与 open.total 的变化；
-2. 应用侧确认游标用完是否 close()，批处理单批耗时是否过长；
-3. 长耗时遍历改用 noCursorTimeout 并自行管理生命周期，或调小 batchSize 加快消费；
-4. 检查是否有慢查询把游标撑过了 cursorTimeoutMillis（默认 10 分钟）。
-
-### Mongo has encountered page fault interrupt - exporter[​](#mongo-has-encountered-page-fault-interrupt---exporter "Mongo has encountered page fault interrupt - exporter的直接链接")
-
-S2 警告 · 持续 30 分钟 · 触发条件:
-
-```
-rate(mongodb_extra_info_page_faults_total[5m]) > 0
-```
-
-处置步骤:
-
-1. db.serverStatus().wiredTiger.cache 看 "bytes currently in the cache" 与配置上限的比值；
-2. 用 db.stats() 和索引大小对比物理内存，评估工作集是否已超内存；
-3. 优先删除无用索引、归档冷数据来缩小工作集；
-4. 确认宿主机没有 swap 抖动，必要时扩内存或做分片。
-
-### Mongo has just restarted, please pay attention - exporter[​](#mongo-has-just-restarted-please-pay-attention---exporter "Mongo has just restarted, please pay attention - exporter的直接链接")
-
-S3 提醒 · 触发条件:
-
-```
-mongodb_instance_uptime_seconds < 60
-```
-
-处置步骤:
-
-1. 看 mongod 日志尾部确认是崩溃、被 OOM kill 还是人工重启；
-2. 若是 OOM，核对 wiredTigerCacheSizeGB 与宿主机内存后调小；
-3. 副本集场景用 rs.status() 确认是否已自动选出新主、应用是否已重连；
-4. 非计划内重启要检查 systemd 或容器编排是否在反复拉起。
-
-### Mongo instance has crashed - exporter[​](#mongo-instance-has-crashed---exporter "Mongo instance has crashed - exporter的直接链接")
-
-S1 紧急 · 触发条件:
-
-```
-mongodb_up == 0
-```
-
-处置步骤:
-
-1. 登录主机用 systemctl status mongod 或 docker ps 确认进程是否存活；
-2. 进程存活则用 mongosh 手工连一次，区分实例夯住与网络/认证问题；
-3. 进程不在则先看日志尾部定位原因（OOM、磁盘满、数据文件损坏）再拉起，不要盲目重启；
-4. 副本集场景立即执行 rs.status() 确认是否已完成主从切换，并确认应用已摘除该节点。
-
-### Mongo replica set master-slave delay exceeds 30 seconds - exporter[​](#mongo-replica-set-master-slave-delay-exceeds-30-seconds---exporter "Mongo replica set master-slave delay exceeds 30 seconds - exporter的直接链接")
-
-S1 紧急 · 持续 1 分钟 · 触发条件:
-
-```
-(max by (rs_nm) (mongodb_rs_members_optimeDate) - min by (rs_nm) (mongodb_rs_members_optimeDate)) / 1000 > 30
-```
-
-处置步骤:
-
-1. 在主节点执行 rs.status()，对比各成员的 optimeDate 与 lastHeartbeat 定位落后的成员；
-2. 到落后节点看 mongod 日志是否有 oplog 拉取报错或磁盘 IO 瓶颈；
-3. 主节点用 db.currentOp() 确认是否有大批量写入把 oplog 灌满导致从节点追不上；
-4. 落后超过 oplog 窗口时从节点需要重新初始同步（initial sync），期间先把读流量切走。
+| 规则                                                               | 级别    | 持续    |
+| ------------------------------------------------------------------ | ------- | ------- |
+| MongoDB average operation latency exceeds 250ms - exporter         | S2 警告 | 10 分钟 |
+| Mongo connection number has exceeded 80% - exporter                | S2 警告 | 2 分钟  |
+| Mongo has encountered an Assert error - exporter                   | S3 提醒 | 30 分钟 |
+| Mongo has encountered cursor timeout - exporter                    | S2 警告 | 30 分钟 |
+| Mongo has encountered page fault interrupt - exporter              | S2 警告 | 30 分钟 |
+| Mongo has just restarted, please pay attention - exporter          | S3 提醒 | —       |
+| Mongo instance has crashed - exporter                              | S1 紧急 | —       |
+| Mongo replica set master-slave delay exceeds 30 seconds - exporter | S1 紧急 | 1 分钟  |
 
 ## 相关链接[​](#相关链接 "相关链接的直接链接")
 

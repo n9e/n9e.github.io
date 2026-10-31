@@ -22,7 +22,7 @@ Prometheus, Zabbix and Grafana each have their ground. Nightingale argues for on
 
 Based on the publicly documented capabilities of each project’s open-source edition as of August 2026. We try to state what the other tools are good at — advice you cannot trust is worth nothing to a community.
 
-* **13,400**GitHub stars
+* **13,419**GitHub stars
 * **10+**&#x44;ata source types
 * **20**Notification channels
 * **74**MCP tools

@@ -2,7 +2,7 @@
 
 通过 HTTP 接口读取 system.metrics、system.events 和 system.asynchronous\_metrics，查询、合并、复制队列和内存都有指标说明。
 
-最后校对于 2026-10-28
+最后校对于 2026-10-31
 
 ClickHouse 插件通过 HTTP 接口（默认 8123）查询 `system.metrics`、`system.events`、`system.asynchronous_metrics` 和 `system.parts` 等系统表：并发查询、合并与 mutation、复制队列与延迟、内存与缓存、parts 数量、ZooKeeper 会话。已在 ClickHouse 24.8 真实负载上验证。
 
@@ -334,11 +334,11 @@ ClickHouseErrorMetric_ALL_REPLICAS_ARE_STALE == 1 or ClickHouseErrorMetric_ALL_R
 
 
 
- ClickHouseErrorMetric_NO_AVAILABLE_REPLICA == 1
+ClickHouseErrorMetric_NO_AVAILABLE_REPLICA == 1
 
 
 
- ClickHouseErrorMetric_TOO_FEW_LIVE_REPLICAS == 1
+ClickHouseErrorMetric_TOO_FEW_LIVE_REPLICAS == 1
 ```
 
 处置步骤:

@@ -2,7 +2,7 @@
 
 MinIO 自带 Prometheus 端点，要同时抓 cluster、bucket 和 node 三个路径，模板才能把对象、Bucket、进程和磁盘面板填满。
 
-最后校对于 2026-10-28
+最后校对于 2026-10-31
 
 MinIO 在 `/minio/v2/metrics/` 下按 `cluster`、`bucket`、`node` 三个路径暴露 Prometheus 指标。模板里的两张仪表盘同时用到三类指标，只抓 `/cluster` 会导致对象数、Bucket 用量、进程和磁盘面板缺数据。
 

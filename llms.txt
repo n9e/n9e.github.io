@@ -382,6 +382,60 @@ Categraf reports the same metric names on Windows as on Linux, so host dashboard
 
 - [Monitor Windows with Nightingale](https://n9e.github.io/integrations/windows.md): Categraf reports the same metric names on Windows as on Linux, so host dashboards and rules carry over; extra dashboards cover AD, DNS and ADFS via windows_exporter.
 
+## alert-rules
+
+238 Prometheus alert rules for 8 services, including Kubernetes, Linux, MySQL and Redis. Every rule has a PromQL condition, a severity, a duration and runbook steps. Free to download as Prometheus rules files.
+
+- [Prometheus alert rules with runbooks](https://n9e.github.io/alert-rules.md): 238 Prometheus alert rules for 8 services, including Kubernetes, Linux, MySQL and Redis. Every rule has a PromQL condition, a severity, a duration and runbook steps. Free to download as Prometheus rules files.
+
+### elasticsearch
+
+11 ready-to-use Elasticsearch alert rules in PromQL, each with severity, duration and runbook steps. Metrics from elasticsearch_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.
+
+- [Elasticsearch alert rules for Prometheus: 11 rules with runbooks](https://n9e.github.io/alert-rules/elasticsearch.md): 11 ready-to-use Elasticsearch alert rules in PromQL, each with severity, duration and runbook steps. Metrics from elasticsearch_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.
+
+### kubernetes
+
+77 ready-to-use Kubernetes alert rules in PromQL, each with severity, duration and runbook steps. Metrics from kube-state-metrics, cAdvisor (kubelet), apiserver. Download as a Prometheus rules file or import into Nightingale.
+
+- [Kubernetes alert rules for Prometheus: 77 rules with runbooks](https://n9e.github.io/alert-rules/kubernetes.md): 77 ready-to-use Kubernetes alert rules in PromQL, each with severity, duration and runbook steps. Metrics from kube-state-metrics, cAdvisor (kubelet), apiserver. Download as a Prometheus rules file or import into Nightingale.
+
+### linux
+
+76 ready-to-use Linux alert rules in PromQL, each with severity, duration and runbook steps. Metrics from node_exporter, Categraf, Telegraf. Download as a Prometheus rules file or import into Nightingale.
+
+- [Linux alert rules for Prometheus: 76 rules with runbooks](https://n9e.github.io/alert-rules/linux.md): 76 ready-to-use Linux alert rules in PromQL, each with severity, duration and runbook steps. Metrics from node_exporter, Categraf, Telegraf. Download as a Prometheus rules file or import into Nightingale.
+
+### mongodb
+
+8 ready-to-use MongoDB alert rules in PromQL, each with severity, duration and runbook steps. Metrics from mongodb_exporter. Download as a Prometheus rules file or import into Nightingale.
+
+- [MongoDB alert rules for Prometheus: 8 rules with runbooks](https://n9e.github.io/alert-rules/mongodb.md): 8 ready-to-use MongoDB alert rules in PromQL, each with severity, duration and runbook steps. Metrics from mongodb_exporter. Download as a Prometheus rules file or import into Nightingale.
+
+### mysql
+
+11 ready-to-use MySQL alert rules in PromQL, each with severity, duration and runbook steps. Metrics from mysqld_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.
+
+- [MySQL alert rules for Prometheus: 11 rules with runbooks](https://n9e.github.io/alert-rules/mysql.md): 11 ready-to-use MySQL alert rules in PromQL, each with severity, duration and runbook steps. Metrics from mysqld_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.
+
+### prometheus
+
+30 ready-to-use Prometheus alert rules in PromQL, each with severity, duration and runbook steps. Metrics from Prometheus's own /metrics, Prometheus Operator. Download as a Prometheus rules file or import into Nightingale.
+
+- [Prometheus alert rules for Prometheus: 30 rules with runbooks](https://n9e.github.io/alert-rules/prometheus.md): 30 ready-to-use Prometheus alert rules in PromQL, each with severity, duration and runbook steps. Metrics from Prometheus's own /metrics, Prometheus Operator. Download as a Prometheus rules file or import into Nightingale.
+
+### redis
+
+12 ready-to-use Redis alert rules in PromQL, each with severity, duration and runbook steps. Metrics from redis_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.
+
+- [Redis alert rules for Prometheus: 12 rules with runbooks](https://n9e.github.io/alert-rules/redis.md): 12 ready-to-use Redis alert rules in PromQL, each with severity, duration and runbook steps. Metrics from redis_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.
+
+### windows
+
+13 ready-to-use Windows alert rules in PromQL, each with severity, duration and runbook steps. Metrics from windows_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.
+
+- [Windows alert rules for Prometheus: 13 rules with runbooks](https://n9e.github.io/alert-rules/windows.md): 13 ready-to-use Windows alert rules in PromQL, each with severity, duration and runbook steps. Metrics from windows_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.
+
 ## docs
 
 Start here. Find the task you are trying to finish — connecting a data source, writing a rule, cutting noise, delivering to on-call, deploying to production, or wiring up MCP.

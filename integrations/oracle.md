@@ -2,7 +2,7 @@
 
 Runs a customizable set of SQL queries with a read-only account to collect sessions, tablespaces, wait events and cache hit ratios; a Linux Categraf can monitor Oracle on Windows remotely.
 
-Last reviewed 2026-10-28
+Last reviewed 2026-10-31
 
 The Oracle input connects to the instance and runs the queries defined in `metric.toml`: session counts, active sessions, tablespace usage, wait events, SGA and PGA, cache hit ratios, archive logs and more. Every query can be edited or extended. Connection settings and query definitions live in separate files so they can be trimmed per version and environment.
 

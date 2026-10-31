@@ -2,7 +2,7 @@
 
 用 tencentcloud-exporter 把云监控指标转成 Prometheus 格式后抓取，模板覆盖 CVM、CKafka、PostgreSQL、Redis、TDSQL-C 和负载均衡。
 
-最后校对于 2026-10-28
+最后校对于 2026-10-31
 
 腾讯云的指标来自云监控（Cloud Monitor）。腾讯云官方维护的 `tencentcloud-exporter` 按产品把这些指标转成 `qce_<product>_<metric>` 形式的 Prometheus 指标，用 Categraf 的 `prometheus` 插件抓取即可。
 

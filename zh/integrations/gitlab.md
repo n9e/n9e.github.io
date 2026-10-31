@@ -2,7 +2,7 @@
 
 GitLab 软件包内置多个 exporter，分别抓主机、Rails/Sidekiq、Gitaly、Workhorse、PostgreSQL、Redis 和 NGINX 的指标，模板有五张仪表盘。
 
-最后校对于 2026-10-28
+最后校对于 2026-10-31
 
 GitLab Linux Package 自带一整套 exporter：node\_exporter（主机）、gitlab\_exporter（Rails 与 Sidekiq）、Gitaly、Workhorse、postgres\_exporter、redis\_exporter 和 NGINX VTS。模板里的五张仪表盘（总览、机器性能、NGINX、PostgreSQL、Redis）各用其中一部分，要完整使用需要把这些端点都抓下来，而不是只抓一个 `/metrics`。
 

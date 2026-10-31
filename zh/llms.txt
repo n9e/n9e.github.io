@@ -387,6 +387,60 @@ Categraf 在 Windows 上采集的指标和 Linux 同名，主机仪表盘与规�
 
 - [用夜莺监控 Windows](https://n9e.github.io/zh/integrations/windows.md): Categraf 在 Windows 上采集的指标和 Linux 同名，主机仪表盘与规则可以复用；另有按 windows_exporter 指标写的 AD、DNS、ADFS 仪表盘。
 
+### alert-rules
+
+8 个服务的 238 条 Prometheus 告警规则，涵盖 Kubernetes、Linux、MySQL、Redis 等。每条都有 PromQL 触发条件、级别、持续时间和处置步骤，可免费下载为 Prometheus 规则文件。
+
+- [Prometheus 告警规则库：附处置步骤](https://n9e.github.io/zh/alert-rules.md): 8 个服务的 238 条 Prometheus 告警规则，涵盖 Kubernetes、Linux、MySQL、Redis 等。每条都有 PromQL 触发条件、级别、持续时间和处置步骤，可免费下载为 Prometheus 规则文件。
+
+#### elasticsearch
+
+11 条开箱可用的 Elasticsearch 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 elasticsearch_exporter, Categraf。可下载为 Prometheus 规则文件，或导入夜莺。
+
+- [Elasticsearch 告警规则：11 条 PromQL 规则与处置步骤](https://n9e.github.io/zh/alert-rules/elasticsearch.md): 11 条开箱可用的 Elasticsearch 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 elasticsearch_exporter, Categraf。可下载为 Prometheus 规则文件，或导入夜莺。
+
+#### kubernetes
+
+77 条开箱可用的 Kubernetes 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 kube-state-metrics, cAdvisor (kubelet), apiserver。可下载为 Prometheus 规则文件，或导入夜莺。
+
+- [Kubernetes 告警规则：77 条 PromQL 规则与处置步骤](https://n9e.github.io/zh/alert-rules/kubernetes.md): 77 条开箱可用的 Kubernetes 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 kube-state-metrics, cAdvisor (kubelet), apiserver。可下载为 Prometheus 规则文件，或导入夜莺。
+
+#### linux
+
+76 条开箱可用的 Linux 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 node_exporter, Categraf, Telegraf。可下载为 Prometheus 规则文件，或导入夜莺。
+
+- [Linux 告警规则：76 条 PromQL 规则与处置步骤](https://n9e.github.io/zh/alert-rules/linux.md): 76 条开箱可用的 Linux 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 node_exporter, Categraf, Telegraf。可下载为 Prometheus 规则文件，或导入夜莺。
+
+#### mongodb
+
+8 条开箱可用的 MongoDB 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 mongodb_exporter。可下载为 Prometheus 规则文件，或导入夜莺。
+
+- [MongoDB 告警规则：8 条 PromQL 规则与处置步骤](https://n9e.github.io/zh/alert-rules/mongodb.md): 8 条开箱可用的 MongoDB 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 mongodb_exporter。可下载为 Prometheus 规则文件，或导入夜莺。
+
+#### mysql
+
+11 条开箱可用的 MySQL 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 mysqld_exporter, Categraf。可下载为 Prometheus 规则文件，或导入夜莺。
+
+- [MySQL 告警规则：11 条 PromQL 规则与处置步骤](https://n9e.github.io/zh/alert-rules/mysql.md): 11 条开箱可用的 MySQL 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 mysqld_exporter, Categraf。可下载为 Prometheus 规则文件，或导入夜莺。
+
+#### prometheus
+
+30 条开箱可用的 Prometheus 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 Prometheus's own /metrics, Prometheus Operator。可下载为 Prometheus 规则文件，或导入夜莺。
+
+- [Prometheus 告警规则：30 条 PromQL 规则与处置步骤](https://n9e.github.io/zh/alert-rules/prometheus.md): 30 条开箱可用的 Prometheus 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 Prometheus's own /metrics, Prometheus Operator。可下载为 Prometheus 规则文件，或导入夜莺。
+
+#### redis
+
+12 条开箱可用的 Redis 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 redis_exporter, Categraf。可下载为 Prometheus 规则文件，或导入夜莺。
+
+- [Redis 告警规则：12 条 PromQL 规则与处置步骤](https://n9e.github.io/zh/alert-rules/redis.md): 12 条开箱可用的 Redis 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 redis_exporter, Categraf。可下载为 Prometheus 规则文件，或导入夜莺。
+
+#### windows
+
+13 条开箱可用的 Windows 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 windows_exporter, Categraf。可下载为 Prometheus 规则文件，或导入夜莺。
+
+- [Windows 告警规则：13 条 PromQL 规则与处置步骤](https://n9e.github.io/zh/alert-rules/windows.md): 13 条开箱可用的 Windows 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 windows_exporter, Categraf。可下载为 Prometheus 规则文件，或导入夜莺。
+
 ### docs
 
 从这里开始。按你要办的事进去——接数据源、写告警规则、降噪、把告警送到值班人、部署到生产，或者接上 MCP。

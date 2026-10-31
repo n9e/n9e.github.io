@@ -6,6 +6,20 @@ Last reviewed 2026-10-11
 
 By the end of this page, your existing Telegraf will write metrics to the store used by Nightingale. The example targets **Telegraf 1.36.3 and Nightingale v9**. Nightingale writes received metrics to its embedded TSDB or a configured external store.
 
+## Telegraf or Categraf?[​](#telegraf-vs-categraf "Direct link to Telegraf or Categraf?")
+
+Both are MIT-licensed agents written in Go, and Nightingale accepts metrics from either. The differences that matter in practice:
+
+|                               | Telegraf                                                                       | Categraf                                                                                                                                     |
+| ----------------------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Plugins                       | 300+ inputs, plus processors and many outputs                                  | 90+ inputs covering operating systems, databases, middleware, network gear and Kubernetes                                                    |
+| How it sends to Nightingale   | `outputs.http` with `data_format = "prometheusremotewrite"` (configured below) | Prometheus Remote Write by default                                                                                                           |
+| Hosts list in Nightingale     | Does not send Nightingale's heartbeat                                          | Sends a [heartbeat](https://n9e.github.io/docs/data/categraf/targets.md) every 10 s with host metadata that fills **Infrastructure → Hosts** |
+| Built-in dashboards and rules | A few templates include Telegraf rule groups (Linux, for example)              | Many [integration templates](https://n9e.github.io/integrations.md) ship a Categraf rule group and Categraf dashboards                       |
+| Metric names                  | Telegraf plugin naming, for example `cpu_usage_active`                         | Several host plugins use the same names, so some rules work for both                                                                         |
+
+**Keep Telegraf** if it is already deployed or you rely on plugins Categraf does not have; nothing about alerting in Nightingale requires switching. **Choose Categraf** for new hosts when you want the host list and the bundled dashboards and [alert rules](https://n9e.github.io/alert-rules.md) to work without rewriting metric names. The two can run side by side during a migration.
+
 ## Before you start[​](#before-you-start "Direct link to Before you start")
 
 * Nightingale is running and reachable from the Telegraf host on port 17000.

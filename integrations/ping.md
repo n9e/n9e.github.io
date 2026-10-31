@@ -2,7 +2,7 @@
 
 Ping a list of targets from wherever Categraf runs and get packet loss, round-trip latency and jitter; the simplest liveness check there is.
 
-Last reviewed 2026-10-28
+Last reviewed 2026-10-31
 
 The ping input sends ICMP probes to the addresses in `targets` and reports packet loss, minimum, average, maximum and standard deviation RTT, and TTL. As long as the targets do not block ping, it is the cheapest liveness check; running one Categraf per site and pinging across sites also gives a picture of link quality.
 

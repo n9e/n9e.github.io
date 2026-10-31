@@ -32,16 +32,16 @@ Five containers: n9e, MySQL, Redis, VictoriaMetrics, and Categraf collecting the
 
 ## Categraf, the collector
 
-**v0.5.19**released<!-- --> <!-- -->2026-10-26[Release notes<!-- --> →](https://github.com/flashcatcloud/categraf/releases/tag/v0.5.19)
+**v0.5.21**released<!-- --> <!-- -->2026-10-30[Release notes<!-- --> →](https://github.com/flashcatcloud/categraf/releases/tag/v0.5.21)
 
 One agent per host for operating systems, middleware, databases and Kubernetes, writing over Prometheus Remote Write. Install it wherever Nightingale should see data.
 
 | Platform                      | Size  | SHA256              |                                                                                                                     |
 | ----------------------------- | ----- | ------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| Linux<!-- --> <!-- -->amd64   | 55 MB | `e2c77c76a1969300…` | [Download](https://github.com/flashcatcloud/categraf/releases/download/v0.5.19/categraf-v0.5.19-linux-amd64.tar.gz) |
-| Linux<!-- --> <!-- -->arm64   | 49 MB | `42a088253a396c46…` | [Download](https://github.com/flashcatcloud/categraf/releases/download/v0.5.19/categraf-v0.5.19-linux-arm64.tar.gz) |
-| Windows<!-- --> <!-- -->amd64 | 56 MB | `464ca080ae0ad464…` | [Download](https://github.com/flashcatcloud/categraf/releases/download/v0.5.19/categraf-v0.5.19-windows-amd64.zip)  |
-| Windows<!-- --> <!-- -->arm64 | 49 MB | `79e6b5b31d945e11…` | [Download](https://github.com/flashcatcloud/categraf/releases/download/v0.5.19/categraf-v0.5.19-windows-arm64.zip)  |
+| Linux<!-- --> <!-- -->amd64   | 56 MB | `5daf858b02e31bad…` | [Download](https://github.com/flashcatcloud/categraf/releases/download/v0.5.21/categraf-v0.5.21-linux-amd64.tar.gz) |
+| Linux<!-- --> <!-- -->arm64   | 50 MB | `762be1318e034cab…` | [Download](https://github.com/flashcatcloud/categraf/releases/download/v0.5.21/categraf-v0.5.21-linux-arm64.tar.gz) |
+| Windows<!-- --> <!-- -->amd64 | 56 MB | `e7792b59bfb2ad03…` | [Download](https://github.com/flashcatcloud/categraf/releases/download/v0.5.21/categraf-v0.5.21-windows-amd64.zip)  |
+| Windows<!-- --> <!-- -->arm64 | 50 MB | `77ebd9131fbb1c91…` | [Download](https://github.com/flashcatcloud/categraf/releases/download/v0.5.21/categraf-v0.5.21-windows-arm64.zip)  |
 
 A slim build with metrics collection only, and one with the NVIDIA DCGM plugin, are on the release page.<!-- --> [All Categraf builds<!-- --> →](https://github.com/flashcatcloud/categraf/releases/latest)
 

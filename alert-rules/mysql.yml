@@ -1,0 +1,99 @@
+# MySQL alert rules — https://n9e.github.io/alert-rules/mysql
+# Generated from the Nightingale integration templates: https://github.com/ccfos/nightingale/tree/main/integrations
+# Thresholds are starting points: review them before enabling.
+groups:
+  - name: "mysql-exporter"
+    rules:
+      - alert: "More than 60% of the connections in MySQL are in a running state"
+        expr: |-
+          avg by (instance) (mysql_global_status_threads_running) / avg by (instance) (mysql_global_variables_max_connections) * 100 > 60
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/mysql"
+      - alert: "More than 80% of MySQL files open"
+        expr: |-
+          avg by (instance) (mysql_global_status_innodb_num_open_files) / avg by (instance)(mysql_global_variables_open_files_limit) * 100 > 80
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "More than 80% of MySQL files open"
+          runbook_url: "https://n9e.github.io/alert-rules/mysql"
+      - alert: "MySQL connection count has exceeded 80%"
+        expr: |-
+          avg by (instance) (mysql_global_status_threads_connected) / avg by (instance) (mysql_global_variables_max_connections) * 100 > 80
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "More than 80% of MySQL connections are in use"
+          runbook_url: "https://n9e.github.io/alert-rules/mysql"
+      - alert: "Mysql has just restarted. Please be advised - exporter"
+        expr: |-
+          mysql_global_status_uptime < 60
+        labels:
+          severity: info
+        annotations:
+          summary: "MySQL has just been restarted, less than one minute ago"
+          runbook_url: "https://n9e.github.io/alert-rules/mysql"
+      - alert: "MySQL slow queries are piling up"
+        expr: |-
+          increase(mysql_global_status_slow_queries[5m]) > 10
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "MySQL slow queries are piling up over the last 5 minutes"
+          runbook_url: "https://n9e.github.io/alert-rules/mysql"
+      - alert: "MysqlInnodbLogWaits - exporter"
+        expr: |-
+          rate(mysql_global_status_innodb_log_waits[15m]) > 10
+        labels:
+          severity: warning
+        annotations:
+          summary: "MySQL innodb log writes stalling"
+          runbook_url: "https://n9e.github.io/alert-rules/mysql"
+      - alert: "MysqlSlaveIoThreadNotRunning - exporter"
+        expr: |-
+          mysql_slave_status_master_server_id > 0 and ON (instance) mysql_slave_status_slave_io_running == 0
+        labels:
+          severity: critical
+        annotations:
+          summary: "MySQL Slave IO thread not running"
+          runbook_url: "https://n9e.github.io/alert-rules/mysql"
+      - alert: "MysqlSlaveReplicationLag - exporter"
+        expr: |-
+          mysql_slave_status_master_server_id > 0 and ON (instance) (mysql_slave_status_seconds_behind_master - mysql_slave_status_sql_delay) > 30
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/mysql"
+      - alert: "MysqlSlaveSqlThreadNotRunning - exporter"
+        expr: |-
+          mysql_slave_status_master_server_id > 0 and ON (instance) mysql_slave_status_slave_sql_running == 0
+        labels:
+          severity: critical
+        annotations:
+          summary: "MySQL Slave SQL thread not running"
+          runbook_url: "https://n9e.github.io/alert-rules/mysql"
+      - alert: "The MySQL instance is down"
+        expr: |-
+          mysql_up == 0
+        labels:
+          severity: critical
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/mysql"
+  - name: "mysql-categraf"
+    rules:
+      - alert: "Mysql has opened a large number of file handles. Please be aware - categraf"
+        expr: |-
+          avg by (instance) (mysql_global_status_open_files) / avg by (instance)(mysql_global_variables_open_files_limit) * 100 > 80
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "More than 80% of MySQL files open"
+          runbook_url: "https://n9e.github.io/alert-rules/mysql"

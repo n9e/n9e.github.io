@@ -2,7 +2,7 @@
 
 读取 nsqd 的 /stats 接口，拿到每个 topic 和 channel 的积压、在途消息、超时和客户端数，规则盯积压增长和消费者掉线。
 
-最后校对于 2026-10-28
+最后校对于 2026-10-31
 
 NSQ 插件从 Telegraf 移植，访问 nsqd 的 `/stats` HTTP 接口，采集 topic 级别的消息总数与积压、channel 级别的 depth、in-flight、deferred、requeue 和 timeout 计数，以及每个客户端连接的 ready 与 in-flight 状态。
 

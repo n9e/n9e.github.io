@@ -2,7 +2,7 @@
 
 读取 Manager 应用的 /manager/status/all 接口，采集 JVM 内存、各连接器的线程与请求、流量和错误，需要 manager-gui 角色。
 
-最后校对于 2026-10-28
+最后校对于 2026-10-31
 
 Tomcat 插件访问 Manager 应用的 `/manager/status/all` 接口，解析出 JVM 堆与各内存池的使用、每个连接器（HTTP、AJP）的线程池大小与忙碌数、请求数、处理时间、错误数、收发字节。
 

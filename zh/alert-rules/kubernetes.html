@@ -1,0 +1,1311 @@
+<!doctype html>
+<html lang="zh-CN" dir="ltr" class="docs-wrapper plugin-docs plugin-id-alert-rules docs-version-current docs-doc-page docs-doc-id-kubernetes" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.2">
+<title data-rh="true">Kubernetes 告警规则：77 条 PromQL 规则与处置步骤 | 夜莺 Nightingale</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://n9e.github.io/zh/img/og.png"><meta data-rh="true" name="twitter:image" content="https://n9e.github.io/zh/img/og.png"><meta data-rh="true" property="og:url" content="https://n9e.github.io/zh/alert-rules/kubernetes"><meta data-rh="true" property="og:locale" content="zh_CN"><meta data-rh="true" property="og:locale:alternate" content="en"><meta data-rh="true" name="docusaurus_locale" content="zh-Hans"><meta data-rh="true" name="docsearch:language" content="zh-Hans"><meta data-rh="true" property="og:image:width" content="1200"><meta data-rh="true" property="og:image:height" content="630"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-alert-rules-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-alert-rules-current"><meta data-rh="true" property="og:title" content="Kubernetes 告警规则：77 条 PromQL 规则与处置步骤 | 夜莺 Nightingale"><meta data-rh="true" name="description" content="77 条开箱可用的 Kubernetes 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 kube-state-metrics, cAdvisor (kubelet), apiserver。可下载为 Prometheus 规则文件，或导入夜莺。"><meta data-rh="true" property="og:description" content="77 条开箱可用的 Kubernetes 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 kube-state-metrics, cAdvisor (kubelet), apiserver。可下载为 Prometheus 规则文件，或导入夜莺。"><meta data-rh="true" property="og:type" content="article"><meta data-rh="true" property="article:modified_time" content="2026-10-31"><link data-rh="true" rel="icon" href="/zh/img/favicon.png"><link data-rh="true" rel="canonical" href="https://n9e.github.io/zh/alert-rules/kubernetes"><link data-rh="true" rel="alternate" href="https://n9e.github.io/alert-rules/kubernetes" hreflang="en"><link data-rh="true" rel="alternate" href="https://n9e.github.io/zh/alert-rules/kubernetes" hreflang="zh-CN"><link data-rh="true" rel="alternate" href="https://n9e.github.io/alert-rules/kubernetes" hreflang="x-default"><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Kubernetes","item":"https://n9e.github.io/zh/alert-rules/kubernetes"}]}</script><script data-rh="true" type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Kubernetes 告警规则：77 条 PromQL 规则与处置步骤","description":"77 条开箱可用的 Kubernetes 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 kube-state-metrics, cAdvisor (kubelet), apiserver。可下载为 Prometheus 规则文件，或导入夜莺。","inLanguage":"zh-CN","dateModified":"2026-10-31","url":"https://n9e.github.io/zh/alert-rules/kubernetes"}</script><link rel="preconnect" href="https://www.google-analytics.com">
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W860H4Z5JM"></script>
+<script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-W860H4Z5JM",{anonymize_ip:!0})</script>
+
+
+
+
+
+
+
+
+
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-400-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-700-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-800-normal.woff2" crossorigin="anonymous">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/jetbrains-mono-latin-400-normal.woff2" crossorigin="anonymous">
+<style>@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/archivo-latin-ext-400-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/archivo-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/archivo-latin-ext-500-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/archivo-latin-500-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 600; src: url(/fonts/archivo-latin-ext-600-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 600; src: url(/fonts/archivo-latin-600-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/archivo-latin-ext-700-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/archivo-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 800; src: url(/fonts/archivo-latin-ext-800-normal.woff2) format('woff2'); unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF; }
+@font-face { font-family: 'Archivo'; font-style: normal; font-display: swap; font-weight: 800; src: url(/fonts/archivo-latin-800-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 400; src: url(/fonts/jetbrains-mono-latin-400-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 500; src: url(/fonts/jetbrains-mono-latin-500-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-display: swap; font-weight: 700; src: url(/fonts/jetbrains-mono-latin-700-normal.woff2) format('woff2'); unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD; }
+
+/* 度量匹配的回退字体：Archivo 没到时用 Arial 占位，字宽和行高按 Archivo 的度量调过，切换时几乎不重排 */
+@font-face { font-family: 'Archivo Fallback'; font-weight: 400; src: local('Arial'), local('Liberation Sans'); size-adjust: 115.77%; ascent-override: 75.84%; descent-override: 18.14%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 500; src: local('Arial'), local('Liberation Sans'); size-adjust: 117.58%; ascent-override: 74.67%; descent-override: 17.86%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 600; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 110.34%; ascent-override: 79.57%; descent-override: 19.03%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 700; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 113.27%; ascent-override: 77.51%; descent-override: 18.54%; line-gap-override: 0%; }
+@font-face { font-family: 'Archivo Fallback'; font-weight: 800; src: local('Arial Bold'), local('Arial-BoldMT'), local('Liberation Sans Bold'); size-adjust: 117.65%; ascent-override: 74.63%; descent-override: 17.85%; line-gap-override: 0%; }
+/* JetBrains Mono 对 Menlo（macOS）；Consolas / DejaVu 只是兜底，度量按 Menlo 算 */
+@font-face { font-family: 'JetBrains Mono Fallback'; src: local('Menlo'), local('Consolas'), local('DejaVu Sans Mono'); size-adjust: 99.66%; ascent-override: 102.35%; descent-override: 30.10%; line-gap-override: 0%; }
+</style>
+<script>!function(){try{var e=window.location,t=e.pathname;if(t.length>1&&"/"===t.charAt(t.length-1)&&"/zh/"!==t)return void e.replace(t.replace(/\/+$/,"")+e.search+e.hash);var n,a=new URLSearchParams(e.search),r=window.self!==window.top;try{n=window.sessionStorage}catch(i){}function o(e){try{return n&&n.getItem(e)}catch(e){return null}}function h(e,t){try{n&&n.setItem(e,t)}catch(e){}}if(!(a.has("onlyContent")||r&&"1"===o("n9e-embed")))return;var c=a.get("theme");if("dark"!==c&&"light"!==c&&(c=r?o("n9e-embed-theme"):null),r&&(h("n9e-embed","1"),c&&h("n9e-embed-theme",c)),document.documentElement.setAttribute("data-n9e-embed",""),e.hash){var s=decodeURIComponent(e.hash.slice(1));window.addEventListener("load",function(){setTimeout(function(){var e=document.getElementById(s);e&&e.scrollIntoView({behavior:"instant",block:"start"})},0)})}c&&!a.has("docusaurus-theme")&&(a.set("docusaurus-theme",c),history.replaceState(history.state,"",t+"?"+a.toString()+e.hash))}catch(d){}}()</script>
+<script>var _hmt=_hmt||[];!function(){var e=document.createElement("script");e.src="https://hm.baidu.com/hm.js?9d7cc507a7aae60b28b5e04bb995492a",e.async=!0;var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}()</script><link rel="stylesheet" href="/zh/assets/css/styles.53352800.css">
+<script src="/zh/assets/js/runtime~main.ccab66db.js" defer="defer"></script>
+<script src="/zh/assets/js/main.b97003c0.js" defer="defer"></script>
+<link rel="alternate" type="text/markdown" href="https://n9e.github.io/zh/alert-rules/kubernetes.md"><link rel="describedby" href="https://n9e.github.io/zh/llms.txt"></head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"dark"),document.documentElement.setAttribute("data-theme-choice",t||"dark")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="跳到主要内容"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">跳到主要内容</a></div><nav aria-label="主导航" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="切换导航栏" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/zh/"><div class="navbar__logo"><img src="/zh/img/logo-mark.webp" alt="Nightingale" class="themedComponent_mlkZ themedComponent--light_NVdE" height="26" width="25"><img src="/zh/img/logo-mark.webp" alt="Nightingale" class="themedComponent_mlkZ themedComponent--dark_xIcU" height="26" width="25"></div><b class="navbar__title text--truncate">夜莺</b></a><a class="navbar__item navbar__link" href="/zh/docs">文档</a><a class="navbar__item navbar__link" href="/zh/integrations">集成</a><a class="navbar__item navbar__link" href="/zh/comparisons">对比</a><a class="navbar__item navbar__link" href="/zh/download">下载</a><div class="navbar__item dropdown dropdown--hoverable"><a href="#" aria-haspopup="true" aria-expanded="false" role="button" class="navbar__link">社区</a><ul class="dropdown__menu"><li><a href="https://github.com/ccfos/nightingale/issues" target="_blank" rel="noopener noreferrer" class="dropdown__link">提交 Issue<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li><a href="https://join.slack.com/t/n9e/shared_invite/zt-4ejx42fd0-S9aVULH4FTdH~jEAz80U7g" target="_blank" rel="noopener noreferrer" class="dropdown__link">Slack<svg width="12" height="12" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://play.n9e.io/api/n9e/auth/demo-login" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">在线体验<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><a href="https://github.com/ccfos/nightingale" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link navbar-github" aria-label="GitHub, 13419 stars">13.4k<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="mobileOnly_k8CN"></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class="docsWrapper_hBAB n9e-docs-root n9e-docs-root--single"><button aria-label="回到顶部" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type="button"></button><div class="docRoot_UBD9"><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class="sidebarViewport_aRkj"><div class="sidebar_njMd"><div class="searchWrap_zhtN"></div><nav aria-label="文档侧边栏" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/alert-rules"><span class="linkLabel_WmDU">概览</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/zh/alert-rules/kubernetes"><span class="linkLabel_WmDU">Kubernetes</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/alert-rules/prometheus"><span class="linkLabel_WmDU">Prometheus</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/alert-rules/linux"><span class="linkLabel_WmDU">Linux</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/alert-rules/mysql"><span class="linkLabel_WmDU">MySQL</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/alert-rules/redis"><span class="linkLabel_WmDU">Redis</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/alert-rules/elasticsearch"><span class="linkLabel_WmDU">Elasticsearch</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/alert-rules/mongodb"><span class="linkLabel_WmDU">MongoDB</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/zh/alert-rules/windows"><span class="linkLabel_WmDU">Windows</span></a></li></ul></nav></div></div></aside><main class="docMainContainer_TBSr"><div class="container padding-top--md padding-bottom--lg"><div class="row"><div class="col docItemCol_VOVn"><div class="docItemContainer_Djhp"><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label="页面路径"><ul class="breadcrumbs"><li class="breadcrumbs__item"><a aria-label="主页面" class="breadcrumbs__link" href="/zh/"><svg viewBox="0 0 24 24" class="breadcrumbHomeIcon_YNFT"><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill="currentColor"></path></svg></a></li><li class="breadcrumbs__item breadcrumbs__item--active"><span class="breadcrumbs__link">Kubernetes</span></li></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">本页总览</button></div><div class="theme-doc-markdown markdown"><header class="n9e-doc-header"><h1>Kubernetes 告警规则：77 条 PromQL 规则与处置步骤</h1><p class="n9e-doc-lead">77 条开箱可用的 Kubernetes 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 kube-state-metrics, cAdvisor (kubelet), apiserver。可下载为 Prometheus 规则文件，或导入夜莺。</p><p class="n9e-doc-reviewed">最后校对于 <time datetime="2026-10-31">2026-10-31</time></p></header><p>基于每个集群都已经暴露的指标做的 Kubernetes 告警规则：kube-state-metrics 提供对象状态，kubelet 内置的 cAdvisor 提供容器资源用量，apiserver、kubelet、scheduler、controller-manager 的指标端点覆盖控制面。覆盖 Pod 反复重启与未就绪、发布卡住、副本数不一致、Job 失败、资源超卖、配额吃紧、证书过期和控制面宕机。大部分规则沿用 kubernetes-mixin / kube-prometheus 的告警名（KubePodCrashLooping、KubeNodeNotReady、KubeAPIErrorBudgetBurn 等），和你在 Alertmanager 里见到的名字一致。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="概览">概览<a href="#概览" class="hash-link" aria-label="概览的直接链接" title="概览的直接链接" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>77 条规则</strong>，每条都有 PromQL 触发条件、级别、持续时间（<code>for</code>）和处置步骤</li>
+<li class=""><strong>指标来源</strong>：kube-state-metrics, cAdvisor (kubelet), apiserver</li>
+<li class=""><strong>下载</strong>：<a href="/zh/alert-rules/kubernetes.yml" target="_blank" rel="noopener noreferrer" class=""><code>kubernetes.yml</code></a>，标准 Prometheus 规则文件（<code>groups:</code> 格式），已用 <code>promtool check rules</code> 校验</li>
+<li class="">阈值只是起点，启用前请按自己的环境调整。</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="规则一览">规则一览<a href="#规则一览" class="hash-link" aria-label="规则一览的直接链接" title="规则一览的直接链接" translate="no">​</a></h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>规则</th><th>级别</th><th>持续</th></tr></thead><tbody><tr><td>Deployment Pod 可用性不足70%（replica超过9个pod）</td><td>紧急</td><td>1 分钟</td></tr><tr><td>Job执行失败</td><td>提醒</td><td>1 分钟</td></tr><tr><td>Pod启动超时</td><td>警告</td><td>1 分钟</td></tr><tr><td>Pod状态异常</td><td>紧急</td><td>1 分钟</td></tr><tr><td>Pod频繁重启</td><td>警告</td><td>1 分钟</td></tr><tr><td>容器CPU使用率超过80%</td><td>提醒</td><td>1 分钟</td></tr><tr><td>容器内存超过80%</td><td>提醒</td><td>1 分钟</td></tr><tr><td>Node CPU使用率超过90%</td><td>提醒</td><td>1 分钟</td></tr><tr><td>Node内存使用率超过90%</td><td>警告</td><td>1 分钟</td></tr><tr><td>Node状态异常</td><td>紧急</td><td>1 分钟</td></tr><tr><td>Node磁盘使用率超过90%</td><td>提醒</td><td>1 分钟</td></tr><tr><td>KubeClientCertificateExpiration-S2</td><td>警告</td><td>—</td></tr><tr><td>KubeClientCertificateExpiration-S1</td><td>紧急</td><td>—</td></tr><tr><td>AggregatedAPIErrors</td><td>警告</td><td>—</td></tr><tr><td>AggregatedAPIDown</td><td>警告</td><td>5 分钟</td></tr><tr><td>KubeAPIDown</td><td>紧急</td><td>15 分钟</td></tr><tr><td>KubeAPIErrorBudgetBurn-S1-120秒</td><td>紧急</td><td>2 分钟</td></tr><tr><td>KubeAPIErrorBudgetBurn-S1-900秒</td><td>紧急</td><td>15 分钟</td></tr><tr><td>KubeAPIErrorBudgetBurn-S2-3600秒</td><td>警告</td><td>60 分钟</td></tr><tr><td>KubeAPIErrorBudgetBurn-S2-10800秒</td><td>警告</td><td>180 分钟</td></tr><tr><td>Deployment副本异常</td><td>警告</td><td>10 分钟</td></tr><tr><td>StatefulSet副本异常</td><td>警告</td><td>10 分钟</td></tr><tr><td>DaemonSet未就绪Pod</td><td>警告</td><td>10 分钟</td></tr><tr><td>HPA扩容失败</td><td>警告</td><td>5 分钟</td></tr><tr><td>Pod处于Failed状态</td><td>警告</td><td>5 分钟</td></tr><tr><td>Job执行失败</td><td>警告</td><td>5 分钟</td></tr><tr><td>CPUThrottlingHigh</td><td>提醒</td><td>15 分钟</td></tr><tr><td>KubeAggregatedAPIDown</td><td>警告</td><td>5 分钟</td></tr><tr><td>KubeAggregatedAPIErrors</td><td>警告</td><td>—</td></tr><tr><td>KubeAPITerminatedRequests</td><td>警告</td><td>5 分钟</td></tr><tr><td>KubeClientErrors</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeContainerWaiting</td><td>警告</td><td>60 分钟</td></tr><tr><td>KubeControllerManagerDown</td><td>紧急</td><td>15 分钟</td></tr><tr><td>KubeCPUOvercommit</td><td>警告</td><td>10 分钟</td></tr><tr><td>KubeCPUQuotaOvercommit</td><td>警告</td><td>5 分钟</td></tr><tr><td>KubeDaemonSetMisScheduled</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeDaemonSetNotScheduled</td><td>警告</td><td>10 分钟</td></tr><tr><td>KubeDaemonSetRolloutStuck</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeDeploymentGenerationMismatch</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeDeploymentReplicasMismatch</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeDeploymentRolloutStuck</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeHpaMaxedOut</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeHpaReplicasMismatch</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeJobFailed</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeJobNotCompleted</td><td>警告</td><td>—</td></tr><tr><td>KubeletClientCertificateExpiration</td><td>警告</td><td>—</td></tr><tr><td>KubeletClientCertificateRenewalErrors</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeletDown</td><td>紧急</td><td>15 分钟</td></tr><tr><td>KubeletPlegDurationHigh</td><td>警告</td><td>5 分钟</td></tr><tr><td>KubeletPodStartUpLatencyHigh</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeletServerCertificateExpiration</td><td>警告</td><td>—</td></tr><tr><td>KubeletServerCertificateRenewalErrors</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeletTooManyPods</td><td>提醒</td><td>15 分钟</td></tr><tr><td>KubeMemoryOvercommit</td><td>警告</td><td>10 分钟</td></tr><tr><td>KubeMemoryQuotaOvercommit</td><td>警告</td><td>5 分钟</td></tr><tr><td>KubeNodeNotReady</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeNodeReadinessFlapping</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeNodeUnreachable</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubePersistentVolumeErrors</td><td>紧急</td><td>5 分钟</td></tr><tr><td>KubePersistentVolumeFillingUp</td><td>紧急</td><td>1 分钟</td></tr><tr><td>KubePersistentVolumeInodesFillingUp</td><td>紧急</td><td>1 分钟</td></tr><tr><td>KubePodCrashLooping</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubePodNotReady</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeQuotaAlmostFull</td><td>提醒</td><td>15 分钟</td></tr><tr><td>KubeQuotaExceeded</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeQuotaFullyUsed</td><td>提醒</td><td>15 分钟</td></tr><tr><td>KubeSchedulerDown</td><td>紧急</td><td>15 分钟</td></tr><tr><td>KubeStatefulSetGenerationMismatch</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeStatefulSetReplicasMismatch</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeStatefulSetUpdateNotRolledOut</td><td>警告</td><td>15 分钟</td></tr><tr><td>KubeVersionMismatch</td><td>警告</td><td>15 分钟</td></tr><tr><td>Node运行太多Pod</td><td>警告</td><td>15 分钟</td></tr><tr><td>Node状态抖动</td><td>警告</td><td>15 分钟</td></tr><tr><td>Pod启动耗时高</td><td>警告</td><td>15 分钟</td></tr><tr><td>客户端证书过期-S1</td><td>紧急</td><td>—</td></tr><tr><td>服务端证书过期-S1</td><td>紧急</td><td>—</td></tr><tr><td>kubelet故障</td><td>紧急</td><td>15 分钟</td></tr></tbody></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="kube-state-metricscadvisor-与控制面77">kube-state-metrics、cAdvisor 与控制面（77）<a href="#kube-state-metricscadvisor-与控制面77" class="hash-link" aria-label="kube-state-metrics、cAdvisor 与控制面（77）的直接链接" title="kube-state-metrics、cAdvisor 与控制面（77）的直接链接" translate="no">​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="deployment-pod-可用性不足70replica超过9个pod">Deployment Pod 可用性不足70%（replica超过9个pod）<a href="#deployment-pod-可用性不足70replica超过9个pod" class="hash-link" aria-label="Deployment Pod 可用性不足70%（replica超过9个pod）的直接链接" title="Deployment Pod 可用性不足70%（replica超过9个pod）的直接链接" translate="no">​</a></h3>
+<p>紧急 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_deployment_status_replicas_unavailable and kube_deployment_status_replicas_available{} / kube_deployment_status_replicas{} * 100 &lt; 70 and kube_deployment_status_replicas{} &gt; 9</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe deploy &lt;name&gt; -n &lt;ns&gt; 看 Conditions 与 Events；</li>
+<li class="">kubectl get pod -n &lt;ns&gt; -l &lt;selector&gt; 看未就绪 Pod 的状态与原因；</li>
+<li class="">常见为资源不足无法调度、镜像拉取失败、就绪探针不通过；</li>
+<li class="">按 Pod 的具体状态排查，资源不足的扩容节点或调低 requests。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="job执行失败">Job执行失败<a href="#job执行失败" class="hash-link" aria-label="Job执行失败的直接链接" title="Job执行失败的直接链接" translate="no">​</a></h3>
+<p>提醒 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_job_status_failed{} &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl get job &lt;job&gt; -n &lt;ns&gt; 看失败次数，再 kubectl logs job/&lt;job&gt; 看失败原因；</li>
+<li class="">kubectl describe job 看 Events，确认是否因 backoffLimit 耗尽而放弃；</li>
+<li class="">修复根因后 kubectl delete job 再重新提交，或让 CronJob 下次调度重跑；</li>
+<li class="">确认该任务失败是否有下游影响（数据未产出、清理未执行），需要时手工补做。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="pod启动超时">Pod启动超时<a href="#pod启动超时" class="hash-link" aria-label="Pod启动超时的直接链接" title="Pod启动超时的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_pod_container_status_waiting_reason{} == 1</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe pod &lt;pod&gt; -n &lt;ns&gt; 看 Events 的时间戳，定位卡在拉镜像、挂载卷还是初始化容器；</li>
+<li class="">拉镜像慢的检查镜像大小与仓库带宽，考虑预热镜像或用本地仓库；</li>
+<li class="">挂载卷慢的排查 PV/CSI 驱动状态；</li>
+<li class="">应用自身启动慢的优化启动逻辑，并把就绪探针的 initialDelaySeconds 调到合理值。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="pod状态异常">Pod状态异常<a href="#pod状态异常" class="hash-link" aria-label="Pod状态异常的直接链接" title="Pod状态异常的直接链接" translate="no">​</a></h3>
+<p>紧急 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_pod_status_phase{phase=~&quot;Pending|Unknown|Failed&quot;} &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl get pod &lt;pod&gt; -n &lt;ns&gt; -o wide 看 STATUS 与 READY，再 kubectl describe pod 看 Events；</li>
+<li class="">Pending 多为资源不足或调度约束（节点亲和、污点、PVC 未绑定）；ImagePullBackOff 查镜像地址与拉取凭据；</li>
+<li class="">Running 但未 Ready 的看就绪探针配置与 kubectl logs &lt;pod&gt; 里的启动报错；</li>
+<li class="">确认副本数是否已不足以承载流量，不足的先扩容其他健康副本。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="pod频繁重启">Pod频繁重启<a href="#pod频繁重启" class="hash-link" aria-label="Pod频繁重启的直接链接" title="Pod频繁重启的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(kube_pod_container_status_restarts_total{}[5m]) &gt; 3</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl logs &lt;pod&gt; -n &lt;ns&gt; --previous 看上一次退出前的日志，这是最关键的一步；</li>
+<li class="">kubectl describe pod 看退出码与 Events：137 通常是 OOM 或被 kill，1/2 多为应用自身启动失败；</li>
+<li class="">配置或依赖问题（连不上数据库、ConfigMap/Secret 缺失）先修依赖再拉起；</li>
+<li class="">OOM 的对照 resources.limits.memory 与实际用量调整，或修复应用内存泄漏。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="容器cpu使用率超过80">容器CPU使用率超过80%<a href="#容器cpu使用率超过80" class="hash-link" aria-label="容器CPU使用率超过80%的直接链接" title="容器CPU使用率超过80%的直接链接" translate="no">​</a></h3>
+<p>提醒 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">100 * (sum(rate(container_cpu_usage_seconds_total{id!=&quot;/&quot;}[2m])) by (pod_name,namespace,container) / sum(label_replace(kube_pod_container_resource_limits_cpu_cores{},&quot;pod_name&quot;,&quot;$1&quot;,&quot;pod&quot;,&quot;(.*)&quot;)) by (pod_name,namespace,container)) &gt; 80 and sum(label_replace(kube_pod_container_resource_limits_cpu_cores{},&quot;pod_name&quot;,&quot;$1&quot;,&quot;pod&quot;,&quot;(.)&quot;)) by (pod_name,namespace,container) != 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl top pod &lt;pod&gt; -n &lt;ns&gt; --containers 确认实际用量与 limit 的比值；</li>
+<li class="">对照 CPUThrottlingHigh 指标确认是否已经在被限流；</li>
+<li class="">业务量增长的调大 resources.limits.cpu 或做水平扩容（HPA）；</li>
+<li class="">用量异常的在应用侧抓 CPU profile 定位热点，避免只靠加配额掩盖问题。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="容器内存超过80">容器内存超过80%<a href="#容器内存超过80" class="hash-link" aria-label="容器内存超过80%的直接链接" title="容器内存超过80%的直接链接" translate="no">​</a></h3>
+<p>提醒 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(sum(container_memory_working_set_bytes{id!=&quot;/&quot;}) BY (instance,name,container,pod_name,namespace) / sum(container_spec_memory_limit_bytes{id!=&quot;/&quot;} &gt; 0) BY (instance,name,container,pod_name,namespace) * 100) &gt; 80</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl top pod &lt;pod&gt; -n &lt;ns&gt; --containers 确认用量与 limit；</li>
+<li class="">对照历史曲线判断是持续爬升（疑似泄漏）还是业务高峰的正常波动；</li>
+<li class="">正常波动的调大 resources.limits.memory 并预留余量；</li>
+<li class="">持续爬升的在应用侧抓堆定位泄漏，扩配额只是拖延。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="node-cpu使用率超过90">Node CPU使用率超过90%<a href="#node-cpu使用率超过90" class="hash-link" aria-label="Node CPU使用率超过90%的直接链接" title="Node CPU使用率超过90%的直接链接" translate="no">​</a></h3>
+<p>提醒 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">100-cpu_usage_idle{cpu=&quot;cpu-total&quot;} &gt; 90</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl top node 确认整体分布，kubectl top pod -A --sort-by=cpu 找出占用最高的 Pod；</li>
+<li class="">确认该节点是否被调度了过多高负载 Pod，必要时用 kubectl drain 迁走部分；</li>
+<li class="">检查 Pod 的 requests 是否设置过低导致超卖；</li>
+<li class="">集群整体水位高的扩容节点。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="node内存使用率超过90">Node内存使用率超过90%<a href="#node内存使用率超过90" class="hash-link" aria-label="Node内存使用率超过90%的直接链接" title="Node内存使用率超过90%的直接链接" translate="no">​</a></h3>
+<p>警告 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">mem_used_percent &gt; 90</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl top node 与 kubectl top pod -A --sort-by=memory 定位占用最高的 Pod；</li>
+<li class="">检查是否有 Pod 未设 memory limit 在无限增长；</li>
+<li class="">用 kubectl drain 迁走部分 Pod 缓解，注意先确认目标节点有余量；</li>
+<li class="">检查 kubelet 的驱逐阈值配置是否合理，集群整体紧张的扩容节点。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="node状态异常">Node状态异常<a href="#node状态异常" class="hash-link" aria-label="Node状态异常的直接链接" title="Node状态异常的直接链接" translate="no">​</a></h3>
+<p>紧急 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_node_status_condition{condition=&quot;Ready&quot;,status=&quot;true&quot;} == 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe node &lt;node&gt; 看 Conditions 与 Events，确认是 MemoryPressure、DiskPressure 还是 kubelet 失联；</li>
+<li class="">登录节点确认 kubelet 与容器运行时进程状态（systemctl status kubelet containerd）；</li>
+<li class="">kubelet 日志用 journalctl -u kubelet -n 200 定位；</li>
+<li class="">节点短期无法恢复的执行 kubectl drain 让 Pod 尽快迁走，避免等待驱逐超时。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="node磁盘使用率超过90">Node磁盘使用率超过90%<a href="#node磁盘使用率超过90" class="hash-link" aria-label="Node磁盘使用率超过90%的直接链接" title="Node磁盘使用率超过90%的直接链接" translate="no">​</a></h3>
+<p>提醒 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">disk_used_percent &gt; 90</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">登录节点用 df -h 定位挂载点，通常是 /var/lib/docker 或 /var/lib/containerd；</li>
+<li class="">执行 crictl rmi --prune 或 docker system prune 清理无用镜像层，这是最快见效的；</li>
+<li class="">检查是否有 Pod 在往 emptyDir 或宿主机路径写大量数据；</li>
+<li class="">清理后确认 kubelet 的 DiskPressure 污点已自动移除。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeclientcertificateexpiration-s2">KubeClientCertificateExpiration-S2<a href="#kubeclientcertificateexpiration-s2" class="hash-link" aria-label="KubeClientCertificateExpiration-S2的直接链接" title="KubeClientCertificateExpiration-S2的直接链接" translate="no">​</a></h3>
+<p>A client certificate used to authenticate to the apiserver is expiring in less than 7.0 days.</p>
+<p>警告 · — · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">apiserver_client_certificate_expiration_seconds_count{job=&quot;apiserver&quot;} &gt; 0 and on(job) histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job=&quot;apiserver&quot;}[5m]))) &lt; 604800</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 kubeadm certs check-expiration（kubeadm 集群）或 openssl x509 -noout -dates 确认到期时间；</li>
+<li class="">kubeadm 集群用 kubeadm certs renew all 续期后重启控制面组件；</li>
+<li class="">kubelet 客户端证书通常自动轮换，未轮换的检查 rotateCertificates 配置与 CSR 审批是否正常；</li>
+<li class="">续期后务必验证组件已加载新证书（重启对应进程），并复查所有节点。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeclientcertificateexpiration-s1">KubeClientCertificateExpiration-S1<a href="#kubeclientcertificateexpiration-s1" class="hash-link" aria-label="KubeClientCertificateExpiration-S1的直接链接" title="KubeClientCertificateExpiration-S1的直接链接" translate="no">​</a></h3>
+<p>A client certificate used to authenticate to the apiserver is expiring in less than 24.0 hours.</p>
+<p>紧急 · — · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">apiserver_client_certificate_expiration_seconds_count{job=&quot;apiserver&quot;} &gt; 0 and on(job) histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job=&quot;apiserver&quot;}[5m]))) &lt; 86400</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 kubeadm certs check-expiration（kubeadm 集群）或 openssl x509 -noout -dates 确认到期时间；</li>
+<li class="">kubeadm 集群用 kubeadm certs renew all 续期后重启控制面组件；</li>
+<li class="">kubelet 客户端证书通常自动轮换，未轮换的检查 rotateCertificates 配置与 CSR 审批是否正常；</li>
+<li class="">续期后务必验证组件已加载新证书（重启对应进程），并复查所有节点。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aggregatedapierrors">AggregatedAPIErrors<a href="#aggregatedapierrors" class="hash-link" aria-label="AggregatedAPIErrors的直接链接" title="AggregatedAPIErrors的直接链接" translate="no">​</a></h3>
+<p>An aggregated API {{ $labels.name }}/{{ $labels.namespace }} has reported errors. The number of errors have increased for it in the past five minutes. High values indicate that the availability of the service changes too often.</p>
+<p>警告 · — · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum by(name, namespace)(increase(aggregator_unavailable_apiservice_count[5m])) &gt; 2</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl get apiservice 看哪个 APIService 处于 False 状态；</li>
+<li class="">kubectl describe apiservice &lt;name&gt; 看具体报错；</li>
+<li class="">后端服务不可用的检查对应 Deployment/Service 是否健康（常见是 metrics-server）；</li>
+<li class="">证书问题的核对 CA bundle 配置。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="aggregatedapidown">AggregatedAPIDown<a href="#aggregatedapidown" class="hash-link" aria-label="AggregatedAPIDown的直接链接" title="AggregatedAPIDown的直接链接" translate="no">​</a></h3>
+<p>An aggregated API {{ $labels.name }}/{{ $labels.namespace }} has been only {{ $value | humanize }}% available over the last 10m.</p>
+<p>警告 · 5 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(1 - max by(name, namespace)(avg_over_time(aggregator_unavailable_apiservice[10m]))) * 100 &lt; 85</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl get apiservice 确认是哪个 APIService；</li>
+<li class="">kubectl -n &lt;ns&gt; get pod 检查其后端 Pod 是否健康；</li>
+<li class="">查看该 Pod 日志定位启动或运行错误；</li>
+<li class="">恢复后用 kubectl top node 之类命令验证功能已回来。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeapidown">KubeAPIDown<a href="#kubeapidown" class="hash-link" aria-label="KubeAPIDown的直接链接" title="KubeAPIDown的直接链接" translate="no">​</a></h3>
+<p>KubeAPI has disappeared from Prometheus target discovery.</p>
+<p>紧急 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">absent(up{job=&quot;apiserver&quot;} == 1)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">在控制面节点确认 kube-apiserver 进程/静态 Pod 状态与日志；</li>
+<li class="">多副本部署确认是否只挂了部分实例，负载均衡是否已把故障实例摘除；</li>
+<li class="">常见根因是 etcd 不可用、证书过期、资源耗尽；</li>
+<li class="">优先恢复 etcd 与证书，apiserver 本身通常会自动恢复。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeapierrorbudgetburn-s1-120秒">KubeAPIErrorBudgetBurn-S1-120秒<a href="#kubeapierrorbudgetburn-s1-120秒" class="hash-link" aria-label="KubeAPIErrorBudgetBurn-S1-120秒的直接链接" title="KubeAPIErrorBudgetBurn-S1-120秒的直接链接" translate="no">​</a></h3>
+<p>The API server is burning too much error budget.</p>
+<p>紧急 · 2 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(apiserver_request:burnrate1h) &gt; (14.40 * 0.01000)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(apiserver_request:burnrate5m) &gt; (14.40 * 0.01000)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">看 apiserver 的错误码与延迟分布，确认是读还是写请求在劣化；</li>
+<li class="">写请求劣化优先排查 etcd 的磁盘延迟——这是最常见根因；</li>
+<li class="">读请求劣化排查是否有客户端在做大范围 LIST（无 resourceVersion 的全量列举）；</li>
+<li class="">定位到异常客户端的对其限流，并考虑开启 APF（API Priority and Fairness）。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeapierrorbudgetburn-s1-900秒">KubeAPIErrorBudgetBurn-S1-900秒<a href="#kubeapierrorbudgetburn-s1-900秒" class="hash-link" aria-label="KubeAPIErrorBudgetBurn-S1-900秒的直接链接" title="KubeAPIErrorBudgetBurn-S1-900秒的直接链接" translate="no">​</a></h3>
+<p>The API server is burning too much error budget.</p>
+<p>紧急 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(apiserver_request:burnrate6h) &gt; (6.00 * 0.01000)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(apiserver_request:burnrate30m) &gt; (6.00 * 0.01000)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">看 apiserver 的错误码与延迟分布，确认是读还是写请求在劣化；</li>
+<li class="">写请求劣化优先排查 etcd 的磁盘延迟——这是最常见根因；</li>
+<li class="">读请求劣化排查是否有客户端在做大范围 LIST（无 resourceVersion 的全量列举）；</li>
+<li class="">定位到异常客户端的对其限流，并考虑开启 APF（API Priority and Fairness）。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeapierrorbudgetburn-s2-3600秒">KubeAPIErrorBudgetBurn-S2-3600秒<a href="#kubeapierrorbudgetburn-s2-3600秒" class="hash-link" aria-label="KubeAPIErrorBudgetBurn-S2-3600秒的直接链接" title="KubeAPIErrorBudgetBurn-S2-3600秒的直接链接" translate="no">​</a></h3>
+<p>The API server is burning too much error budget.</p>
+<p>警告 · 60 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(apiserver_request:burnrate1d) &gt; (3.00 * 0.01000)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(apiserver_request:burnrate2h) &gt; (3.00 * 0.01000)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">看 apiserver 的错误码与延迟分布，确认是读还是写请求在劣化；</li>
+<li class="">写请求劣化优先排查 etcd 的磁盘延迟——这是最常见根因；</li>
+<li class="">读请求劣化排查是否有客户端在做大范围 LIST（无 resourceVersion 的全量列举）；</li>
+<li class="">定位到异常客户端的对其限流，并考虑开启 APF（API Priority and Fairness）。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeapierrorbudgetburn-s2-10800秒">KubeAPIErrorBudgetBurn-S2-10800秒<a href="#kubeapierrorbudgetburn-s2-10800秒" class="hash-link" aria-label="KubeAPIErrorBudgetBurn-S2-10800秒的直接链接" title="KubeAPIErrorBudgetBurn-S2-10800秒的直接链接" translate="no">​</a></h3>
+<p>The API server is burning too much error budget.</p>
+<p>警告 · 180 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(apiserver_request:burnrate3d) &gt; (1.00 * 0.01000)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(apiserver_request:burnrate6h) &gt; (1.00 * 0.01000)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">看 apiserver 的错误码与延迟分布，确认是读还是写请求在劣化；</li>
+<li class="">写请求劣化优先排查 etcd 的磁盘延迟——这是最常见根因；</li>
+<li class="">读请求劣化排查是否有客户端在做大范围 LIST（无 resourceVersion 的全量列举）；</li>
+<li class="">定位到异常客户端的对其限流，并考虑开启 APF（API Priority and Fairness）。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="deployment副本异常">Deployment副本异常<a href="#deployment副本异常" class="hash-link" aria-label="Deployment副本异常的直接链接" title="Deployment副本异常的直接链接" translate="no">​</a></h3>
+<p>Deployment {{ $labels.deployment }} in namespace {{ $labels.namespace }} has mismatched replicas.</p>
+<p>警告 · 10 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_deployment_spec_replicas{job=&quot;kube-state-metrics&quot;} != kube_deployment_status_replicas_available{job=&quot;kube-state-metrics&quot;}</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe deploy &lt;name&gt; -n &lt;ns&gt; 看 Conditions 与 Events；</li>
+<li class="">kubectl get pod -n &lt;ns&gt; -l &lt;selector&gt; 看未就绪 Pod 的状态与原因；</li>
+<li class="">常见为资源不足无法调度、镜像拉取失败、就绪探针不通过；</li>
+<li class="">按 Pod 的具体状态排查，资源不足的扩容节点或调低 requests。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="statefulset副本异常">StatefulSet副本异常<a href="#statefulset副本异常" class="hash-link" aria-label="StatefulSet副本异常的直接链接" title="StatefulSet副本异常的直接链接" translate="no">​</a></h3>
+<p>StatefulSet {{ $labels.statefulset }} in namespace {{ $labels.namespace }} has mismatched replicas.</p>
+<p>警告 · 10 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_statefulset_status_replicas_ready{job=&quot;kube-state-metrics&quot;} != kube_statefulset_spec_replicas{job=&quot;kube-state-metrics&quot;}</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl get pod -n &lt;ns&gt; -l &lt;selector&gt; 按序号看是哪个副本卡住；</li>
+<li class="">kubectl describe pod 排查该副本的 PVC 是否绑定成功——这是有状态服务最常见的卡点；</li>
+<li class="">存储问题排查 PV/StorageClass 与 CSI 驱动；</li>
+<li class="">应用自身问题看 kubectl logs，修复后 StatefulSet 会自动继续。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="daemonset未就绪pod">DaemonSet未就绪Pod<a href="#daemonset未就绪pod" class="hash-link" aria-label="DaemonSet未就绪Pod的直接链接" title="DaemonSet未就绪Pod的直接链接" translate="no">​</a></h3>
+<p>DaemonSet {{ $labels.daemonset }} in namespace {{ $labels.namespace }} has unready pods.</p>
+<p>警告 · 10 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_daemonset_status_number_ready{job=&quot;kube-state-metrics&quot;} &lt; kube_daemonset_status_desired_number_scheduled{job=&quot;kube-state-metrics&quot;}</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe ds &lt;name&gt; -n &lt;ns&gt; 看 Events 与期望/实际数量；</li>
+<li class="">对比节点的污点与 DaemonSet 的容忍配置——污点不匹配是最常见原因；</li>
+<li class="">检查 nodeSelector/affinity 是否把节点排除在外；</li>
+<li class="">资源不足导致的调低 DaemonSet 的 requests 或释放节点资源。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="hpa扩容失败">HPA扩容失败<a href="#hpa扩容失败" class="hash-link" aria-label="HPA扩容失败的直接链接" title="HPA扩容失败的直接链接" translate="no">​</a></h3>
+<p>HPA {{ $labels.hpa }} in namespace {{ $labels.namespace }} has scale up failures.</p>
+<p>警告 · 5 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_hpa_status_failed_scale_up_total{job=&quot;kube-state-metrics&quot;} &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe hpa &lt;name&gt; -n &lt;ns&gt; 看 Conditions 里的具体原因；</li>
+<li class="">ScalingLimited 说明触及了 min/max 边界；FailedGetScale 说明目标工作负载有问题；</li>
+<li class="">指标获取失败的检查 metrics-server 或自定义指标适配器是否健康；</li>
+<li class="">资源不足导致新副本 Pending 的，扩容节点。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="pod处于failed状态">Pod处于Failed状态<a href="#pod处于failed状态" class="hash-link" aria-label="Pod处于Failed状态的直接链接" title="Pod处于Failed状态的直接链接" translate="no">​</a></h3>
+<p>Pod {{ $labels.pod }} in namespace {{ $labels.namespace }} has failed.</p>
+<p>警告 · 5 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_pod_status_phase{job=&quot;kube-state-metrics&quot;,phase=&quot;Failed&quot;} == 1</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl get pod &lt;pod&gt; -n &lt;ns&gt; -o wide 看 STATUS 与 READY，再 kubectl describe pod 看 Events；</li>
+<li class="">Pending 多为资源不足或调度约束（节点亲和、污点、PVC 未绑定）；ImagePullBackOff 查镜像地址与拉取凭据；</li>
+<li class="">Running 但未 Ready 的看就绪探针配置与 kubectl logs &lt;pod&gt; 里的启动报错；</li>
+<li class="">确认副本数是否已不足以承载流量，不足的先扩容其他健康副本。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="job执行失败-1">Job执行失败<a href="#job执行失败-1" class="hash-link" aria-label="Job执行失败的直接链接" title="Job执行失败的直接链接" translate="no">​</a></h3>
+<p>Job {{ $labels.job_name }} in namespace {{ $labels.namespace }} has failed.</p>
+<p>警告 · 5 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_job_status_failed{job=&quot;kube-state-metrics&quot;} &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl get job &lt;job&gt; -n &lt;ns&gt; 看失败次数，再 kubectl logs job/&lt;job&gt; 看失败原因；</li>
+<li class="">kubectl describe job 看 Events，确认是否因 backoffLimit 耗尽而放弃；</li>
+<li class="">修复根因后 kubectl delete job 再重新提交，或让 CronJob 下次调度重跑；</li>
+<li class="">确认该任务失败是否有下游影响（数据未产出、清理未执行），需要时手工补做。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="cputhrottlinghigh">CPUThrottlingHigh<a href="#cputhrottlinghigh" class="hash-link" aria-label="CPUThrottlingHigh的直接链接" title="CPUThrottlingHigh的直接链接" translate="no">​</a></h3>
+<p>{{ $value | humanizePercentage }} throttling of CPU in namespace {{ $labels.namespace }} for container {{ $labels.container }} in pod {{ $labels.pod }}.</p>
+<p>提醒 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(increase(container_cpu_cfs_throttled_periods_total{container!=&quot;&quot;, }[5m])) by (container, pod, namespace)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  /</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(increase(container_cpu_cfs_periods_total{}[5m])) by (container, pod, namespace)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  &gt; ( 25 / 100 )</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl top pod &lt;pod&gt; -n &lt;ns&gt; --containers 对照 resources.limits.cpu；</li>
+<li class="">注意 Java 等运行时若未感知 cgroup limit 会开过多线程加剧限流，确认 JVM 版本与参数；</li>
+<li class="">调大 limits.cpu，或改用 HPA 水平扩容分摊；</li>
+<li class="">limit 设置远高于 request 时容易被超卖挤占，评估是否把两者设置得更接近。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeaggregatedapidown">KubeAggregatedAPIDown<a href="#kubeaggregatedapidown" class="hash-link" aria-label="KubeAggregatedAPIDown的直接链接" title="KubeAggregatedAPIDown的直接链接" translate="no">​</a></h3>
+<p>Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }} has been only {{ $value | humanize }}% available over the last 10m.</p>
+<p>警告 · 5 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(1 - max by(name, namespace, cluster)(avg_over_time(aggregator_unavailable_apiservice{job=&quot;apiserver&quot;}[10m]))) * 100 &lt; 85</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl get apiservice 确认是哪个 APIService；</li>
+<li class="">kubectl -n &lt;ns&gt; get pod 检查其后端 Pod 是否健康；</li>
+<li class="">查看该 Pod 日志定位启动或运行错误；</li>
+<li class="">恢复后用 kubectl top node 之类命令验证功能已回来。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeaggregatedapierrors">KubeAggregatedAPIErrors<a href="#kubeaggregatedapierrors" class="hash-link" aria-label="KubeAggregatedAPIErrors的直接链接" title="KubeAggregatedAPIErrors的直接链接" translate="no">​</a></h3>
+<p>Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }} has reported errors. It has appeared unavailable {{ $value | humanize }} times averaged over the past 10m.</p>
+<p>警告 · — · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum by(name, namespace, cluster)(increase(aggregator_unavailable_apiservice_total{job=&quot;apiserver&quot;}[10m])) &gt; 4</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl get apiservice 看哪个处于 False 状态；</li>
+<li class="">kubectl describe apiservice &lt;name&gt; 看具体报错；</li>
+<li class="">后端服务不可用的检查对应 Deployment/Service；</li>
+<li class="">证书问题的核对 CA bundle 配置。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeapiterminatedrequests">KubeAPITerminatedRequests<a href="#kubeapiterminatedrequests" class="hash-link" aria-label="KubeAPITerminatedRequests的直接链接" title="KubeAPITerminatedRequests的直接链接" translate="no">​</a></h3>
+<p>The kubernetes apiserver has terminated {{ $value | humanizePercentage }} of its incoming requests.</p>
+<p>警告 · 5 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(rate(apiserver_request_terminations_total{job=&quot;apiserver&quot;}[10m]))  / (  sum(rate(apiserver_request_total{job=&quot;apiserver&quot;}[10m])) + sum(rate(apiserver_request_terminations_total{job=&quot;apiserver&quot;}[10m])) ) &gt; 0.20</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">查看 apiserver 的 apiserver_flowcontrol 相关指标，确认是哪个 flow schema 在被限流；</li>
+<li class="">定位发起大量请求的客户端（通常是某个 Operator 或脚本在做全量 LIST）；</li>
+<li class="">对该客户端限流或优化其请求模式；</li>
+<li class="">确需更高配额的调整 FlowSchema 与 PriorityLevelConfiguration。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeclienterrors">KubeClientErrors<a href="#kubeclienterrors" class="hash-link" aria-label="KubeClientErrors的直接链接" title="KubeClientErrors的直接链接" translate="no">​</a></h3>
+<p>Kubernetes API server client &#x27;{{ $labels.job }}/{{ $labels.instance }}&#x27; is experiencing {{ $value | humanizePercentage }} errors.&#x27;</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(sum(rate(rest_client_requests_total{job=&quot;apiserver&quot;,code=~&quot;5..&quot;}[5m])) by (cluster, instance, job, namespace)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  /</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(rate(rest_client_requests_total{job=&quot;apiserver&quot;}[5m])) by (cluster, instance, job, namespace))</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">&gt; 0.01</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">从告警标签定位是哪个组件/实例在报错；</li>
+<li class="">看该组件日志中的具体错误码：401/403 是 RBAC 权限问题，429 是被限流，5xx 是 apiserver 侧问题；</li>
+<li class="">权限问题核对 ServiceAccount 的 Role/ClusterRoleBinding；</li>
+<li class="">限流问题确认该组件是否在做高频 LIST，优化为 Watch 或加 resourceVersion。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubecontainerwaiting">KubeContainerWaiting<a href="#kubecontainerwaiting" class="hash-link" aria-label="KubeContainerWaiting的直接链接" title="KubeContainerWaiting的直接链接" translate="no">​</a></h3>
+<p>pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on container {{ $labels.container}} has been in waiting state for longer than 1 hour.</p>
+<p>警告 · 60 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum by (namespace, pod, container, cluster) (kube_pod_container_status_waiting_reason{job=&quot;kube-state-metrics&quot;}) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe pod &lt;pod&gt; -n &lt;ns&gt; 看 Waiting 的 Reason；</li>
+<li class="">ImagePullBackOff 检查镜像名、tag 与拉取凭据（imagePullSecrets）；</li>
+<li class="">CreateContainerConfigError 检查引用的 ConfigMap/Secret 是否存在；</li>
+<li class="">CrashLoopBackOff 按崩溃循环路径处理，看 --previous 日志。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubecontrollermanagerdown">KubeControllerManagerDown<a href="#kubecontrollermanagerdown" class="hash-link" aria-label="KubeControllerManagerDown的直接链接" title="KubeControllerManagerDown的直接链接" translate="no">​</a></h3>
+<p>KubeControllerManager has disappeared from Prometheus target discovery.</p>
+<p>紧急 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">absent(up{job=&quot;kube-controller-manager&quot;} == 1)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">在控制面节点确认 kube-controller-manager 静态 Pod 或进程状态与日志；</li>
+<li class="">多副本部署确认 leader 选举是否正常切换；</li>
+<li class="">常见根因是 apiserver 不可用或证书过期；</li>
+<li class="">恢复后确认副本数异常的工作负载开始自动修复。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubecpuovercommit">KubeCPUOvercommit<a href="#kubecpuovercommit" class="hash-link" aria-label="KubeCPUOvercommit的直接链接" title="KubeCPUOvercommit的直接链接" translate="no">​</a></h3>
+<p>Cluster {{ $labels.cluster }} has overcommitted CPU resource requests for Pods by {{ $value }} CPU shares and cannot tolerate node failure.</p>
+<p>警告 · 10 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(namespace_cpu:kube_pod_container_resource_requests:sum{job=&quot;kube-state-metrics&quot;,}) by (cluster) - (sum(kube_node_status_allocatable{job=&quot;kube-state-metrics&quot;,resource=&quot;cpu&quot;}) by (cluster) - max(kube_node_status_allocatable{job=&quot;kube-state-metrics&quot;,resource=&quot;cpu&quot;}) by (cluster)) &gt; 0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">(sum(kube_node_status_allocatable{job=&quot;kube-state-metrics&quot;,resource=&quot;cpu&quot;}) by (cluster) - max(kube_node_status_allocatable{job=&quot;kube-state-metrics&quot;,resource=&quot;cpu&quot;}) by (cluster)) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe node | grep -A5 &#x27;Allocated resources&#x27; 汇总各节点的分配率；</li>
+<li class="">这是容量规划信号而非即时故障——评估节点故障时是否还有冗余承接；</li>
+<li class="">检查是否有 Pod 的 requests 设置得过高（远超实际用量），下调可释放大量可调度容量；</li>
+<li class="">冗余确实不足的扩容节点。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubecpuquotaovercommit">KubeCPUQuotaOvercommit<a href="#kubecpuquotaovercommit" class="hash-link" aria-label="KubeCPUQuotaOvercommit的直接链接" title="KubeCPUQuotaOvercommit的直接链接" translate="no">​</a></h3>
+<p>Cluster {{ $labels.cluster }}  has overcommitted CPU resource requests for Namespaces.</p>
+<p>警告 · 5 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(min without(resource) (kube_resourcequota{job=&quot;kube-state-metrics&quot;, type=&quot;hard&quot;, resource=~&quot;(cpu|requests.cpu)&quot;})) by (cluster)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  /</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(kube_node_status_allocatable{resource=&quot;cpu&quot;, job=&quot;kube-state-metrics&quot;}) by (cluster)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  &gt; 1.5</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe node | grep -A5 &#x27;Allocated resources&#x27; 汇总各节点的分配率；</li>
+<li class="">这是容量规划信号而非即时故障——评估节点故障时是否还有冗余承接；</li>
+<li class="">检查是否有 Pod 的 requests 设置得过高（远超实际用量），下调可释放大量可调度容量；</li>
+<li class="">冗余确实不足的扩容节点。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubedaemonsetmisscheduled">KubeDaemonSetMisScheduled<a href="#kubedaemonsetmisscheduled" class="hash-link" aria-label="KubeDaemonSetMisScheduled的直接链接" title="KubeDaemonSetMisScheduled的直接链接" translate="no">​</a></h3>
+<p>{{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} are running where they are not supposed to run.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_daemonset_status_number_misscheduled{job=&quot;kube-state-metrics&quot;} &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl get pod -n &lt;ns&gt; -l &lt;selector&gt; -o wide 看被误调度到哪些节点；</li>
+<li class="">检查 DaemonSet 的 nodeSelector/affinity 与节点标签是否匹配；</li>
+<li class="">通常是节点标签被改动或 DaemonSet 配置更新导致，修正后多余 Pod 会被自动清理；</li>
+<li class="">未自动清理的手工删除对应 Pod。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubedaemonsetnotscheduled">KubeDaemonSetNotScheduled<a href="#kubedaemonsetnotscheduled" class="hash-link" aria-label="KubeDaemonSetNotScheduled的直接链接" title="KubeDaemonSetNotScheduled的直接链接" translate="no">​</a></h3>
+<p>{{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} are not scheduled.</p>
+<p>警告 · 10 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_daemonset_status_desired_number_scheduled{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  -</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_daemonset_status_current_number_scheduled{job=&quot;kube-state-metrics&quot;} &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe ds &lt;name&gt; -n &lt;ns&gt; 看 Events 与期望/实际数量；</li>
+<li class="">对比节点的污点与 DaemonSet 的容忍配置——污点不匹配是最常见原因；</li>
+<li class="">检查 nodeSelector/affinity 是否把节点排除在外；</li>
+<li class="">资源不足导致的调低 DaemonSet 的 requests 或释放节点资源。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubedaemonsetrolloutstuck">KubeDaemonSetRolloutStuck<a href="#kubedaemonsetrolloutstuck" class="hash-link" aria-label="KubeDaemonSetRolloutStuck的直接链接" title="KubeDaemonSetRolloutStuck的直接链接" translate="no">​</a></h3>
+<p>DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} has not finished or progressed for at least 15 minutes.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  (</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    kube_daemonset_status_current_number_scheduled{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">      !=</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    kube_daemonset_status_desired_number_scheduled{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  ) or (</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    kube_daemonset_status_number_misscheduled{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">      !=</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  ) or (</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    kube_daemonset_status_updated_number_scheduled{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">      !=</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    kube_daemonset_status_desired_number_scheduled{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  ) or (</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    kube_daemonset_status_number_available{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">      !=</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    kube_daemonset_status_desired_number_scheduled{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  )</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">) and (</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  changes(kube_daemonset_status_updated_number_scheduled{job=&quot;kube-state-metrics&quot;}[5m])</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    ==</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl rollout status ds/&lt;name&gt; -n &lt;ns&gt; 看卡在哪些节点；</li>
+<li class="">kubectl describe pod 排查新版本 Pod 为何未就绪；</li>
+<li class="">短期无法修复的用 kubectl rollout undo ds/&lt;name&gt; 回滚；</li>
+<li class="">检查 updateStrategy 的 maxUnavailable 配置是否过于保守。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubedeploymentgenerationmismatch">KubeDeploymentGenerationMismatch<a href="#kubedeploymentgenerationmismatch" class="hash-link" aria-label="KubeDeploymentGenerationMismatch的直接链接" title="KubeDeploymentGenerationMismatch的直接链接" translate="no">​</a></h3>
+<p>Deployment generation for {{ $labels.namespace }}/{{ $labels.deployment }} does not match, this indicates that the Deployment has failed but has not been rolled back.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_deployment_status_observed_generation{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  !=</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_deployment_metadata_generation{job=&quot;kube-state-metrics&quot;}</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe &lt;kind&gt; &lt;name&gt; -n &lt;ns&gt; 对比 generation 与 observedGeneration；</li>
+<li class="">检查 kube-controller-manager 是否健康——控制器不工作是最常见原因；</li>
+<li class="">看 controller-manager 日志中与该对象相关的报错；</li>
+<li class="">确认 apiserver 与 etcd 正常，控制器恢复后 generation 会自动追平。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubedeploymentreplicasmismatch">KubeDeploymentReplicasMismatch<a href="#kubedeploymentreplicasmismatch" class="hash-link" aria-label="KubeDeploymentReplicasMismatch的直接链接" title="KubeDeploymentReplicasMismatch的直接链接" translate="no">​</a></h3>
+<p>Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not matched the expected number of replicas for longer than 15 minutes.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  kube_deployment_spec_replicas{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    &gt;</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  kube_deployment_status_replicas_available{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">) and (</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  changes(kube_deployment_status_replicas_updated{job=&quot;kube-state-metrics&quot;}[10m])</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    ==</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe deploy &lt;name&gt; -n &lt;ns&gt; 看 Conditions 与 Events；</li>
+<li class="">kubectl get pod -n &lt;ns&gt; -l &lt;selector&gt; 看未就绪 Pod 的状态与原因；</li>
+<li class="">常见为资源不足无法调度、镜像拉取失败、就绪探针不通过；</li>
+<li class="">按 Pod 的具体状态排查，资源不足的扩容节点或调低 requests。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubedeploymentrolloutstuck">KubeDeploymentRolloutStuck<a href="#kubedeploymentrolloutstuck" class="hash-link" aria-label="KubeDeploymentRolloutStuck的直接链接" title="KubeDeploymentRolloutStuck的直接链接" translate="no">​</a></h3>
+<p>Rollout of deployment {{ $labels.namespace }}/{{ $labels.deployment }} is not progressing for longer than 15 minutes.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_deployment_status_condition{condition=&quot;Progressing&quot;, status=&quot;false&quot;,job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">!= 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl rollout status deploy/&lt;name&gt; -n &lt;ns&gt; 确认卡在第几个副本；</li>
+<li class="">kubectl describe pod 看新版本 Pod 为何未就绪（镜像、探针、资源）；</li>
+<li class="">短期无法修复的用 kubectl rollout undo deploy/&lt;name&gt; 回滚到上一版本；</li>
+<li class="">修复后重新发布，并检查 maxSurge/maxUnavailable 配置是否合理。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubehpamaxedout">KubeHpaMaxedOut<a href="#kubehpamaxedout" class="hash-link" aria-label="KubeHpaMaxedOut的直接链接" title="KubeHpaMaxedOut的直接链接" translate="no">​</a></h3>
+<p>HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler  }} has been running at max replicas for longer than 15 minutes.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_horizontalpodautoscaler_status_current_replicas{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  ==</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_horizontalpodautoscaler_spec_max_replicas{job=&quot;kube-state-metrics&quot;}</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe hpa &lt;name&gt; -n &lt;ns&gt; 看当前指标值与目标值的差距；</li>
+<li class="">确认集群是否还有资源支撑更多副本（节点余量）；</li>
+<li class="">有余量的调大 maxReplicas；没余量的先扩容节点；</li>
+<li class="">同时评估单副本的处理能力是否偏低，优化应用比无限扩副本更有效。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubehpareplicasmismatch">KubeHpaReplicasMismatch<a href="#kubehpareplicasmismatch" class="hash-link" aria-label="KubeHpaReplicasMismatch的直接链接" title="KubeHpaReplicasMismatch的直接链接" translate="no">​</a></h3>
+<p>HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler  }} has not matched the desired number of replicas for longer than 15 minutes.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(kube_horizontalpodautoscaler_status_desired_replicas{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  !=</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_horizontalpodautoscaler_status_current_replicas{job=&quot;kube-state-metrics&quot;})</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">(kube_horizontalpodautoscaler_status_current_replicas{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  &gt;</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_horizontalpodautoscaler_spec_min_replicas{job=&quot;kube-state-metrics&quot;})</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">(kube_horizontalpodautoscaler_status_current_replicas{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  &lt;</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_horizontalpodautoscaler_spec_max_replicas{job=&quot;kube-state-metrics&quot;})</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">changes(kube_horizontalpodautoscaler_status_current_replicas{job=&quot;kube-state-metrics&quot;}[15m]) == 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe hpa &lt;name&gt; -n &lt;ns&gt; 看 Conditions 里的具体原因；</li>
+<li class="">ScalingLimited 说明触及了 min/max 边界；FailedGetScale 说明目标工作负载有问题；</li>
+<li class="">指标获取失败的检查 metrics-server 或自定义指标适配器是否健康；</li>
+<li class="">资源不足导致新副本 Pending 的，扩容节点。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubejobfailed">KubeJobFailed<a href="#kubejobfailed" class="hash-link" aria-label="KubeJobFailed的直接链接" title="KubeJobFailed的直接链接" translate="no">​</a></h3>
+<p>Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete. Removing failed job after investigation should clear this alert.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_job_failed{job=&quot;kube-state-metrics&quot;}  &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl get job &lt;job&gt; -n &lt;ns&gt; 看失败次数，再 kubectl logs job/&lt;job&gt; 看失败原因；</li>
+<li class="">kubectl describe job 看 Events，确认是否因 backoffLimit 耗尽而放弃；</li>
+<li class="">修复根因后 kubectl delete job 再重新提交，或让 CronJob 下次调度重跑；</li>
+<li class="">确认该任务失败是否有下游影响（数据未产出、清理未执行），需要时手工补做。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubejobnotcompleted">KubeJobNotCompleted<a href="#kubejobnotcompleted" class="hash-link" aria-label="KubeJobNotCompleted的直接链接" title="KubeJobNotCompleted的直接链接" translate="no">​</a></h3>
+<p>Job {{ $labels.namespace }}/{{ $labels.job_name }} is taking more than {{ &quot;43200&quot; | humanizeDuration }} to complete.</p>
+<p>警告 · — · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">time() - max by(namespace, job_name, cluster) (kube_job_status_start_time{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_job_status_active{job=&quot;kube-state-metrics&quot;} &gt; 0) &gt; 43200</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl get job &lt;job&gt; -n &lt;ns&gt; 看已运行时长与完成数；</li>
+<li class="">kubectl logs job/&lt;job&gt; 看是否卡在某一步；</li>
+<li class="">确认是任务本身耗时长还是卡死——卡死的 kubectl delete job 后修复再重跑；</li>
+<li class="">给 Job 设置合理的 activeDeadlineSeconds，避免无限期挂起。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeletclientcertificateexpiration">KubeletClientCertificateExpiration<a href="#kubeletclientcertificateexpiration" class="hash-link" aria-label="KubeletClientCertificateExpiration的直接链接" title="KubeletClientCertificateExpiration的直接链接" translate="no">​</a></h3>
+<p>Client certificate for Kubelet on node {{ $labels.node }} expires in {{ $value | humanizeDuration }}.</p>
+<p>警告 · — · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kubelet_certificate_manager_client_ttl_seconds &lt; 604800</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 kubeadm certs check-expiration（kubeadm 集群）或 openssl x509 -noout -dates 确认到期时间；</li>
+<li class="">kubeadm 集群用 kubeadm certs renew all 续期后重启控制面组件；</li>
+<li class="">kubelet 客户端证书通常自动轮换，未轮换的检查 rotateCertificates 配置与 CSR 审批是否正常；</li>
+<li class="">续期后务必验证组件已加载新证书（重启对应进程），并复查所有节点。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeletclientcertificaterenewalerrors">KubeletClientCertificateRenewalErrors<a href="#kubeletclientcertificaterenewalerrors" class="hash-link" aria-label="KubeletClientCertificateRenewalErrors的直接链接" title="KubeletClientCertificateRenewalErrors的直接链接" translate="no">​</a></h3>
+<p>Kubelet on node {{ $labels.node }} has failed to renew its client certificate ({{ $value | humanize }} errors in the last 5 minutes).</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(kubelet_certificate_manager_client_expiration_renew_errors[5m]) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">看 kubelet 日志中 certificate rotation 相关报错；</li>
+<li class="">检查 CSR 是否处于 Pending 未审批：kubectl get csr，必要时手工 kubectl certificate approve；</li>
+<li class="">确认集群是否开启了 CSR 自动审批控制器（kube-controller-manager 的 --cluster-signing-cert-file 配置）；</li>
+<li class="">修复后确认新 CSR 能被自动审批并签发。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeletdown">KubeletDown<a href="#kubeletdown" class="hash-link" aria-label="KubeletDown的直接链接" title="KubeletDown的直接链接" translate="no">​</a></h3>
+<p>Kubelet has disappeared from Prometheus target discovery.</p>
+<p>紧急 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">absent(up{job=&quot;kubelet&quot;, metrics_path=&quot;/metrics&quot;} == 1)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">登录节点执行 systemctl status kubelet 确认进程状态；</li>
+<li class="">journalctl -u kubelet -n 200 --no-pager 定位退出或报错原因；</li>
+<li class="">常见为证书过期、配置错误、容器运行时不可用；</li>
+<li class="">恢复后确认节点回到 Ready，并检查期间是否有 Pod 被误驱逐。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeletplegdurationhigh">KubeletPlegDurationHigh<a href="#kubeletplegdurationhigh" class="hash-link" aria-label="KubeletPlegDurationHigh的直接链接" title="KubeletPlegDurationHigh的直接链接" translate="no">​</a></h3>
+<p>The Kubelet Pod Lifecycle Event Generator has a 99th percentile duration of {{ $value }} seconds on node {{ $labels.node }}.</p>
+<p>警告 · 5 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">node_quantile:kubelet_pleg_relist_duration_seconds:histogram_quantile{quantile=&quot;0.99&quot;} &gt;= 10</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">登录节点用 crictl ps 与 crictl info 确认容器运行时响应速度；</li>
+<li class="">检查节点上容器数量是否过多、磁盘 IO 是否打满——这两者是 PLEG 变慢的主因；</li>
+<li class="">容器运行时卡顿的可尝试重启 containerd（会短暂影响该节点）；</li>
+<li class="">持续存在的考虑降低该节点的 Pod 密度。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeletpodstartuplatencyhigh">KubeletPodStartUpLatencyHigh<a href="#kubeletpodstartuplatencyhigh" class="hash-link" aria-label="KubeletPodStartUpLatencyHigh的直接链接" title="KubeletPodStartUpLatencyHigh的直接链接" translate="no">​</a></h3>
+<p>Kubelet Pod startup 99th percentile latency is {{ $value }} seconds on node {{ $labels.node }}.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">histogram_quantile(0.99, sum(rate(kubelet_pod_worker_duration_seconds_bucket{job=&quot;kubelet&quot;, metrics_path=&quot;/metrics&quot;}[5m])) by (cluster, instance, le)) * on(cluster, instance) group_left(node) kubelet_node_name{job=&quot;kubelet&quot;, metrics_path=&quot;/metrics&quot;} &gt; 60</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe pod &lt;pod&gt; -n &lt;ns&gt; 看 Events 的时间戳，定位卡在拉镜像、挂载卷还是初始化容器；</li>
+<li class="">拉镜像慢的检查镜像大小与仓库带宽，考虑预热镜像或用本地仓库；</li>
+<li class="">挂载卷慢的排查 PV/CSI 驱动状态；</li>
+<li class="">应用自身启动慢的优化启动逻辑，并把就绪探针的 initialDelaySeconds 调到合理值。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeletservercertificateexpiration">KubeletServerCertificateExpiration<a href="#kubeletservercertificateexpiration" class="hash-link" aria-label="KubeletServerCertificateExpiration的直接链接" title="KubeletServerCertificateExpiration的直接链接" translate="no">​</a></h3>
+<p>Server certificate for Kubelet on node {{ $labels.node }} expires in {{ $value | humanizeDuration }}.</p>
+<p>警告 · — · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kubelet_certificate_manager_server_ttl_seconds &lt; 604800</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 kubeadm certs check-expiration（kubeadm 集群）或 openssl x509 -noout -dates 确认到期时间；</li>
+<li class="">kubeadm 集群用 kubeadm certs renew all 续期后重启控制面组件；</li>
+<li class="">kubelet 客户端证书通常自动轮换，未轮换的检查 rotateCertificates 配置与 CSR 审批是否正常；</li>
+<li class="">续期后务必验证组件已加载新证书（重启对应进程），并复查所有节点。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeletservercertificaterenewalerrors">KubeletServerCertificateRenewalErrors<a href="#kubeletservercertificaterenewalerrors" class="hash-link" aria-label="KubeletServerCertificateRenewalErrors的直接链接" title="KubeletServerCertificateRenewalErrors的直接链接" translate="no">​</a></h3>
+<p>Kubelet on node {{ $labels.node }} has failed to renew its server certificate ({{ $value | humanize }} errors in the last 5 minutes).</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">increase(kubelet_server_expiration_renew_errors[5m]) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">看 kubelet 日志中 certificate rotation 相关报错；</li>
+<li class="">检查 CSR 是否处于 Pending 未审批：kubectl get csr，必要时手工 kubectl certificate approve；</li>
+<li class="">确认集群是否开启了 CSR 自动审批控制器（kube-controller-manager 的 --cluster-signing-cert-file 配置）；</li>
+<li class="">修复后确认新 CSR 能被自动审批并签发。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubelettoomanypods">KubeletTooManyPods<a href="#kubelettoomanypods" class="hash-link" aria-label="KubeletTooManyPods的直接链接" title="KubeletTooManyPods的直接链接" translate="no">​</a></h3>
+<p>Kubelet &#x27;{{ $labels.node }}&#x27; is running at {{ $value | humanizePercentage }} of its Pod capacity.</p>
+<p>提醒 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">count by(cluster, node) (</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  (kube_pod_status_phase{job=&quot;kube-state-metrics&quot;,phase=&quot;Running&quot;} == 1) * on(instance,pod,namespace,cluster) group_left(node) topk by(instance,pod,namespace,cluster) (1, kube_pod_info{job=&quot;kube-state-metrics&quot;})</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">/</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">max by(cluster, node) (</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  kube_node_status_capacity{job=&quot;kube-state-metrics&quot;,resource=&quot;pods&quot;} != 1</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">) &gt; 0.95</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl get pod -A -o wide --field-selector spec.nodeName=&lt;node&gt; | wc -l 确认实际数量；</li>
+<li class="">对照 kubelet 的 maxPods 配置（默认 110）；</li>
+<li class="">用 kubectl drain 或调整调度策略把部分 Pod 迁到其他节点；</li>
+<li class="">确需更高密度的调大 maxPods，但要同步评估节点的 CPU/内存/PLEG 压力。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubememoryovercommit">KubeMemoryOvercommit<a href="#kubememoryovercommit" class="hash-link" aria-label="KubeMemoryOvercommit的直接链接" title="KubeMemoryOvercommit的直接链接" translate="no">​</a></h3>
+<p>Cluster {{ $labels.cluster }} has overcommitted memory resource requests for Pods by {{ $value | humanize }} bytes and cannot tolerate node failure.</p>
+<p>警告 · 10 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(namespace_memory:kube_pod_container_resource_requests:sum{}) by (cluster) - (sum(kube_node_status_allocatable{resource=&quot;memory&quot;, job=&quot;kube-state-metrics&quot;}) by (cluster) - max(kube_node_status_allocatable{resource=&quot;memory&quot;, job=&quot;kube-state-metrics&quot;}) by (cluster)) &gt; 0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">(sum(kube_node_status_allocatable{resource=&quot;memory&quot;, job=&quot;kube-state-metrics&quot;}) by (cluster) - max(kube_node_status_allocatable{resource=&quot;memory&quot;, job=&quot;kube-state-metrics&quot;}) by (cluster)) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe node | grep -A5 &#x27;Allocated resources&#x27; 汇总各节点的分配率；</li>
+<li class="">这是容量规划信号而非即时故障——评估节点故障时是否还有冗余承接；</li>
+<li class="">检查是否有 Pod 的 requests 设置得过高（远超实际用量），下调可释放大量可调度容量；</li>
+<li class="">冗余确实不足的扩容节点。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubememoryquotaovercommit">KubeMemoryQuotaOvercommit<a href="#kubememoryquotaovercommit" class="hash-link" aria-label="KubeMemoryQuotaOvercommit的直接链接" title="KubeMemoryQuotaOvercommit的直接链接" translate="no">​</a></h3>
+<p>Cluster {{ $labels.cluster }}  has overcommitted memory resource requests for Namespaces.</p>
+<p>警告 · 5 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(min without(resource) (kube_resourcequota{job=&quot;kube-state-metrics&quot;, type=&quot;hard&quot;, resource=~&quot;(memory|requests.memory)&quot;})) by (cluster)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  /</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(kube_node_status_allocatable{resource=&quot;memory&quot;, job=&quot;kube-state-metrics&quot;}) by (cluster)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  &gt; 1.5</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe node | grep -A5 &#x27;Allocated resources&#x27; 汇总各节点的分配率；</li>
+<li class="">这是容量规划信号而非即时故障——评估节点故障时是否还有冗余承接；</li>
+<li class="">检查是否有 Pod 的 requests 设置得过高（远超实际用量），下调可释放大量可调度容量；</li>
+<li class="">冗余确实不足的扩容节点。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubenodenotready">KubeNodeNotReady<a href="#kubenodenotready" class="hash-link" aria-label="KubeNodeNotReady的直接链接" title="KubeNodeNotReady的直接链接" translate="no">​</a></h3>
+<p>{{ $labels.node }} has been unready for more than 15 minutes.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_node_status_condition{job=&quot;kube-state-metrics&quot;,condition=&quot;Ready&quot;,status=&quot;true&quot;} == 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe node &lt;node&gt; 看 Conditions 与 Events，确认是 MemoryPressure、DiskPressure 还是 kubelet 失联；</li>
+<li class="">登录节点确认 kubelet 与容器运行时进程状态（systemctl status kubelet containerd）；</li>
+<li class="">kubelet 日志用 journalctl -u kubelet -n 200 定位；</li>
+<li class="">节点短期无法恢复的执行 kubectl drain 让 Pod 尽快迁走，避免等待驱逐超时。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubenodereadinessflapping">KubeNodeReadinessFlapping<a href="#kubenodereadinessflapping" class="hash-link" aria-label="KubeNodeReadinessFlapping的直接链接" title="KubeNodeReadinessFlapping的直接链接" translate="no">​</a></h3>
+<p>The readiness status of node {{ $labels.node }} has changed {{ $value }} times in the last 15 minutes.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(changes(kube_node_status_condition{job=&quot;kube-state-metrics&quot;,status=&quot;true&quot;,condition=&quot;Ready&quot;}[15m])) by (cluster, node) &gt; 2</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe node &lt;node&gt; 看 Conditions 的变更时间线；</li>
+<li class="">登录节点看 kubelet 日志，常见根因是资源压力、容器运行时卡顿、或到 apiserver 的网络不稳；</li>
+<li class="">抖动期间建议先 kubectl cordon 该节点，阻止新 Pod 调度上去；</li>
+<li class="">根因定位并修复后再 uncordon，不要在抖动中反复重启 kubelet。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubenodeunreachable">KubeNodeUnreachable<a href="#kubenodeunreachable" class="hash-link" aria-label="KubeNodeUnreachable的直接链接" title="KubeNodeUnreachable的直接链接" translate="no">​</a></h3>
+<p>{{ $labels.node }} is unreachable and some workloads may be rescheduled.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(kube_node_spec_taint{job=&quot;kube-state-metrics&quot;,key=&quot;node.kubernetes.io/unreachable&quot;,effect=&quot;NoSchedule&quot;} unless ignoring(key,value) kube_node_spec_taint{job=&quot;kube-state-metrics&quot;,key=~&quot;ToBeDeletedByClusterAutoscaler|cloud.google.com/impending-node-termination|aws-node-termination-handler/spot-itn&quot;}) == 1</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">先 ping / ssh 确认机器本身是否存活，机器宕机按宕机处理；</li>
+<li class="">机器存活则排查节点到 apiserver 的网络与证书（kubelet 日志里会有明确报错）；</li>
+<li class="">确认该节点上是否有单副本的关键服务，有的话优先在其他节点拉起；</li>
+<li class="">恢复后确认节点重新 Ready 且 Pod 状态正常。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubepersistentvolumeerrors">KubePersistentVolumeErrors<a href="#kubepersistentvolumeerrors" class="hash-link" aria-label="KubePersistentVolumeErrors的直接链接" title="KubePersistentVolumeErrors的直接链接" translate="no">​</a></h3>
+<p>The persistent volume {{ $labels.persistentvolume }} has status {{ $labels.phase }}.</p>
+<p>紧急 · 5 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_persistentvolume_status_phase{phase=~&quot;Failed|Pending&quot;,job=&quot;kube-state-metrics&quot;} &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe pv &lt;pv&gt; 与 kubectl describe pvc &lt;pvc&gt; -n &lt;ns&gt; 看 Events 里的具体报错；</li>
+<li class="">常见为存储后端不可用、容量不足、或 StorageClass 参数错误；</li>
+<li class="">检查 CSI 驱动 Pod 是否健康（通常在 kube-system 下）；</li>
+<li class="">后端存储故障的按存储系统自身流程处理，期间 Pod 会一直 Pending。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubepersistentvolumefillingup">KubePersistentVolumeFillingUp<a href="#kubepersistentvolumefillingup" class="hash-link" aria-label="KubePersistentVolumeFillingUp的直接链接" title="KubePersistentVolumeFillingUp的直接链接" translate="no">​</a></h3>
+<p>The PersistentVolume claimed by {{ $labels.persistentvolumeclaim }} in Namespace {{ $labels.namespace }} is only {{ $value | humanizePercentage }} free.</p>
+<p>紧急 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  kubelet_volume_stats_available_bytes{job=&quot;kubelet&quot;, metrics_path=&quot;/metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    /</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  kubelet_volume_stats_capacity_bytes{job=&quot;kubelet&quot;, metrics_path=&quot;/metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">) &lt; 0.03</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">kubelet_volume_stats_used_bytes{job=&quot;kubelet&quot;, metrics_path=&quot;/metrics&quot;} &gt; 0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">unless on(namespace, persistentvolumeclaim)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_persistentvolumeclaim_access_mode{ access_mode=&quot;ReadOnlyMany&quot;} == 1</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">unless on(namespace, persistentvolumeclaim)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_persistentvolumeclaim_labels{label_excluded_from_alerts=&quot;true&quot;} == 1</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl get pvc -n &lt;ns&gt; 定位对应的 PVC 与 PV；</li>
+<li class="">进到使用该卷的 Pod 里用 du 找出占用最大的目录（kubectl exec）；</li>
+<li class="">清理日志与临时数据；</li>
+<li class="">StorageClass 支持在线扩容的直接 kubectl edit pvc 调大 spec.resources.requests.storage，不支持的需要迁移数据。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubepersistentvolumeinodesfillingup">KubePersistentVolumeInodesFillingUp<a href="#kubepersistentvolumeinodesfillingup" class="hash-link" aria-label="KubePersistentVolumeInodesFillingUp的直接链接" title="KubePersistentVolumeInodesFillingUp的直接链接" translate="no">​</a></h3>
+<p>The PersistentVolume claimed by {{ $labels.persistentvolumeclaim }} in Namespace {{ $labels.namespace }} only has {{ $value | humanizePercentage }} free inodes.</p>
+<p>紧急 · 1 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  kubelet_volume_stats_inodes_free{job=&quot;kubelet&quot;, metrics_path=&quot;/metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    /</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  kubelet_volume_stats_inodes{job=&quot;kubelet&quot;, metrics_path=&quot;/metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">) &lt; 0.03</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">and</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">kubelet_volume_stats_inodes_used{job=&quot;kubelet&quot;, metrics_path=&quot;/metrics&quot;} &gt; 0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">unless on(namespace, persistentvolumeclaim)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_persistentvolumeclaim_access_mode{ access_mode=&quot;ReadOnlyMany&quot;} == 1</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">unless on(namespace, persistentvolumeclaim)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_persistentvolumeclaim_labels{label_excluded_from_alerts=&quot;true&quot;} == 1</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl exec 进入使用该卷的 Pod，用 df -i 确认；</li>
+<li class="">逐层统计文件数找出小文件最多的目录；</li>
+<li class="">清理无用的小文件（缓存碎片、临时文件）；</li>
+<li class="">无法收敛的需要扩容或更换存储类型。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubepodcrashlooping">KubePodCrashLooping<a href="#kubepodcrashlooping" class="hash-link" aria-label="KubePodCrashLooping的直接链接" title="KubePodCrashLooping的直接链接" translate="no">​</a></h3>
+<p>Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is in waiting state (reason: &quot;CrashLoopBackOff&quot;).</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">max_over_time(kube_pod_container_status_waiting_reason{reason=&quot;CrashLoopBackOff&quot;, job=&quot;kube-state-metrics&quot;}[5m]) &gt;= 1</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl logs &lt;pod&gt; -n &lt;ns&gt; --previous 看上一次退出前的日志，这是最关键的一步；</li>
+<li class="">kubectl describe pod 看退出码与 Events：137 通常是 OOM 或被 kill，1/2 多为应用自身启动失败；</li>
+<li class="">配置或依赖问题（连不上数据库、ConfigMap/Secret 缺失）先修依赖再拉起；</li>
+<li class="">OOM 的对照 resources.limits.memory 与实际用量调整，或修复应用内存泄漏。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubepodnotready">KubePodNotReady<a href="#kubepodnotready" class="hash-link" aria-label="KubePodNotReady的直接链接" title="KubePodNotReady的直接链接" translate="no">​</a></h3>
+<p>Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 15 minutes.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum by (namespace, pod, cluster) (</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  max by(namespace, pod, cluster) (</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    kube_pod_status_phase{job=&quot;kube-state-metrics&quot;, phase=~&quot;Pending|Unknown|Failed&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  ) * on(namespace, pod, cluster) group_left(owner_kind) topk by(namespace, pod, cluster) (</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    1, max by(namespace, pod, owner_kind, cluster) (kube_pod_owner{owner_kind!=&quot;Job&quot;})</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  )</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">) &gt; 0</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl get pod &lt;pod&gt; -n &lt;ns&gt; -o wide 看 STATUS 与 READY，再 kubectl describe pod 看 Events；</li>
+<li class="">Pending 多为资源不足或调度约束（节点亲和、污点、PVC 未绑定）；ImagePullBackOff 查镜像地址与拉取凭据；</li>
+<li class="">Running 但未 Ready 的看就绪探针配置与 kubectl logs &lt;pod&gt; 里的启动报错；</li>
+<li class="">确认副本数是否已不足以承载流量，不足的先扩容其他健康副本。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubequotaalmostfull">KubeQuotaAlmostFull<a href="#kubequotaalmostfull" class="hash-link" aria-label="KubeQuotaAlmostFull的直接链接" title="KubeQuotaAlmostFull的直接链接" translate="no">​</a></h3>
+<p>Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota.</p>
+<p>提醒 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_resourcequota{job=&quot;kube-state-metrics&quot;, type=&quot;used&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  / ignoring(instance, job, type)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">(kube_resourcequota{job=&quot;kube-state-metrics&quot;, type=&quot;hard&quot;} &gt; 0)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  &gt; 0.9 &lt; 1</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe quota -n &lt;ns&gt; 看是哪一项（cpu/memory/pods/storage）触顶；</li>
+<li class="">kubectl get pod -n &lt;ns&gt; -o custom-columns 统计各工作负载的 requests 占用，找出大户；</li>
+<li class="">确认是否有已停止但未清理的资源仍占着配额；</li>
+<li class="">确需更多配额的联系集群管理员调整 ResourceQuota。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubequotaexceeded">KubeQuotaExceeded<a href="#kubequotaexceeded" class="hash-link" aria-label="KubeQuotaExceeded的直接链接" title="KubeQuotaExceeded的直接链接" translate="no">​</a></h3>
+<p>Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_resourcequota{job=&quot;kube-state-metrics&quot;, type=&quot;used&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  / ignoring(instance, job, type)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">(kube_resourcequota{job=&quot;kube-state-metrics&quot;, type=&quot;hard&quot;} &gt; 0)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  &gt; 1</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe quota -n &lt;ns&gt; 看是哪一项（cpu/memory/pods/storage）触顶；</li>
+<li class="">kubectl get pod -n &lt;ns&gt; -o custom-columns 统计各工作负载的 requests 占用，找出大户；</li>
+<li class="">确认是否有已停止但未清理的资源仍占着配额；</li>
+<li class="">确需更多配额的联系集群管理员调整 ResourceQuota。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubequotafullyused">KubeQuotaFullyUsed<a href="#kubequotafullyused" class="hash-link" aria-label="KubeQuotaFullyUsed的直接链接" title="KubeQuotaFullyUsed的直接链接" translate="no">​</a></h3>
+<p>Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota.</p>
+<p>提醒 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_resourcequota{job=&quot;kube-state-metrics&quot;, type=&quot;used&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  / ignoring(instance, job, type)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">(kube_resourcequota{job=&quot;kube-state-metrics&quot;, type=&quot;hard&quot;} &gt; 0)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  == 1</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe quota -n &lt;ns&gt; 看是哪一项（cpu/memory/pods/storage）触顶；</li>
+<li class="">kubectl get pod -n &lt;ns&gt; -o custom-columns 统计各工作负载的 requests 占用，找出大户；</li>
+<li class="">确认是否有已停止但未清理的资源仍占着配额；</li>
+<li class="">确需更多配额的联系集群管理员调整 ResourceQuota。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeschedulerdown">KubeSchedulerDown<a href="#kubeschedulerdown" class="hash-link" aria-label="KubeSchedulerDown的直接链接" title="KubeSchedulerDown的直接链接" translate="no">​</a></h3>
+<p>KubeScheduler has disappeared from Prometheus target discovery.</p>
+<p>紧急 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">absent(up{job=&quot;kube-scheduler&quot;} == 1)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">在控制面节点确认 kube-scheduler 静态 Pod 或进程状态与日志；</li>
+<li class="">多副本部署的确认是否只是失去 leader，其他副本能否接管；</li>
+<li class="">常见根因是 apiserver 不可用或证书问题；</li>
+<li class="">恢复后确认 Pending 的 Pod 开始被调度。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubestatefulsetgenerationmismatch">KubeStatefulSetGenerationMismatch<a href="#kubestatefulsetgenerationmismatch" class="hash-link" aria-label="KubeStatefulSetGenerationMismatch的直接链接" title="KubeStatefulSetGenerationMismatch的直接链接" translate="no">​</a></h3>
+<p>StatefulSet generation for {{ $labels.namespace }}/{{ $labels.statefulset }} does not match, this indicates that the StatefulSet has failed but has not been rolled back.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_statefulset_status_observed_generation{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  !=</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">kube_statefulset_metadata_generation{job=&quot;kube-state-metrics&quot;}</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe &lt;kind&gt; &lt;name&gt; -n &lt;ns&gt; 对比 generation 与 observedGeneration；</li>
+<li class="">检查 kube-controller-manager 是否健康——控制器不工作是最常见原因；</li>
+<li class="">看 controller-manager 日志中与该对象相关的报错；</li>
+<li class="">确认 apiserver 与 etcd 正常，控制器恢复后 generation 会自动追平。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubestatefulsetreplicasmismatch">KubeStatefulSetReplicasMismatch<a href="#kubestatefulsetreplicasmismatch" class="hash-link" aria-label="KubeStatefulSetReplicasMismatch的直接链接" title="KubeStatefulSetReplicasMismatch的直接链接" translate="no">​</a></h3>
+<p>StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} has not matched the expected number of replicas for longer than 15 minutes.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  kube_statefulset_status_replicas_ready{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    !=</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  kube_statefulset_status_replicas{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">) and (</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  changes(kube_statefulset_status_replicas_updated{job=&quot;kube-state-metrics&quot;}[10m])</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    ==</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl get pod -n &lt;ns&gt; -l &lt;selector&gt; 按序号看是哪个副本卡住；</li>
+<li class="">kubectl describe pod 排查该副本的 PVC 是否绑定成功——这是有状态服务最常见的卡点；</li>
+<li class="">存储问题排查 PV/StorageClass 与 CSI 驱动；</li>
+<li class="">应用自身问题看 kubectl logs，修复后 StatefulSet 会自动继续。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubestatefulsetupdatenotrolledout">KubeStatefulSetUpdateNotRolledOut<a href="#kubestatefulsetupdatenotrolledout" class="hash-link" aria-label="KubeStatefulSetUpdateNotRolledOut的直接链接" title="KubeStatefulSetUpdateNotRolledOut的直接链接" translate="no">​</a></h3>
+<p>StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} update has not been rolled out.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">(</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  max without (revision) (</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    kube_statefulset_status_current_revision{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">      unless</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    kube_statefulset_status_update_revision{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  )</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    *</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  (</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    kube_statefulset_replicas{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">      !=</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    kube_statefulset_status_replicas_updated{job=&quot;kube-state-metrics&quot;}</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  )</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">)  and (</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  changes(kube_statefulset_status_replicas_updated{job=&quot;kube-state-metrics&quot;}[5m])</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">    ==</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  0</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl rollout status sts/&lt;name&gt; -n &lt;ns&gt; 看卡在第几个副本；</li>
+<li class="">StatefulSet 按序更新，一个副本卡住会阻塞后续全部——重点看当前正在更新的那个；</li>
+<li class="">kubectl describe pod 排查其未就绪原因（PVC、探针、镜像）；</li>
+<li class="">无法快速修复的用 kubectl rollout undo 回滚。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubeversionmismatch">KubeVersionMismatch<a href="#kubeversionmismatch" class="hash-link" aria-label="KubeVersionMismatch的直接链接" title="KubeVersionMismatch的直接链接" translate="no">​</a></h3>
+<p>There are {{ $value }} different semantic versions of Kubernetes components running.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">count by (cluster) (count by (git_version, cluster) (label_replace(kubernetes_build_info{job!~&quot;kube-dns|coredns&quot;},&quot;git_version&quot;,&quot;$1&quot;,&quot;git_version&quot;,&quot;(v[0-9]*.[0-9]*).*&quot;))) &gt; 1</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl get node -o wide 看各节点 kubelet 版本，kubectl version 看控制面版本；</li>
+<li class="">确认偏差是否在官方支持的版本偏斜范围内（kubelet 不得高于 apiserver，且落后不超过两个小版本）；</li>
+<li class="">通常是升级过程未完成，把落后的节点升级到位；</li>
+<li class="">升级前先确认工作负载对新版本 API 的兼容性。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="node运行太多pod">Node运行太多Pod<a href="#node运行太多pod" class="hash-link" aria-label="Node运行太多Pod的直接链接" title="Node运行太多Pod的直接链接" translate="no">​</a></h3>
+<p>Kubelet &#x27;{{ $labels.node }}&#x27; is running at {{ $value | humanizePercentage }} of its Pod capacity.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">count by(node) (</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  (kube_pod_status_phase{job=&quot;kube-state-metrics&quot;,phase=&quot;Running&quot;} == 1) * on(instance,pod,namespace,cluster) group_left(node) topk by(instance,pod,namespace,cluster) (1, kube_pod_info{job=&quot;kube-state-metrics&quot;})</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">)</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">/</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">max by(node) (</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">  kube_node_status_capacity_pods{job=&quot;kube-state-metrics&quot;} != 1</span><br></div><div class="token-line" style="color:#F8F8F2"><span class="token plain">) &gt; 0.95</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl get pod -A -o wide --field-selector spec.nodeName=&lt;node&gt; | wc -l 确认实际数量；</li>
+<li class="">对照 kubelet 的 maxPods 配置（默认 110）；</li>
+<li class="">用 kubectl drain 或调整调度策略把部分 Pod 迁到其他节点；</li>
+<li class="">确需更高密度的调大 maxPods，但要同步评估节点的 CPU/内存/PLEG 压力。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="node状态抖动">Node状态抖动<a href="#node状态抖动" class="hash-link" aria-label="Node状态抖动的直接链接" title="Node状态抖动的直接链接" translate="no">​</a></h3>
+<p>The readiness status of node {{ $labels.node }} has changed {{ $value }} times in the last 15 minutes.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">sum(changes(kube_node_status_condition{status=&quot;true&quot;,condition=&quot;Ready&quot;}[15m])) by (node) &gt; 2</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe node &lt;node&gt; 看 Conditions 的变更时间线；</li>
+<li class="">登录节点看 kubelet 日志，常见根因是资源压力、容器运行时卡顿、或到 apiserver 的网络不稳；</li>
+<li class="">抖动期间建议先 kubectl cordon 该节点，阻止新 Pod 调度上去；</li>
+<li class="">根因定位并修复后再 uncordon，不要在抖动中反复重启 kubelet。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="pod启动耗时高">Pod启动耗时高<a href="#pod启动耗时高" class="hash-link" aria-label="Pod启动耗时高的直接链接" title="Pod启动耗时高的直接链接" translate="no">​</a></h3>
+<p>Kubelet Pod startup 99th percentile latency is {{ $value }} seconds on node {{ $labels.node }}.</p>
+<p>警告 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">histogram_quantile(0.99, sum(rate(kubelet_pod_worker_duration_seconds_bucket{job=&quot;kubelet&quot;, metrics_path=&quot;/metrics&quot;}[5m])) by (instance, le)) * on(instance) group_left(node) kubelet_node_name{job=&quot;kubelet&quot;, metrics_path=&quot;/metrics&quot;} &gt; 60</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">kubectl describe pod &lt;pod&gt; -n &lt;ns&gt; 看 Events 的时间戳，定位卡在拉镜像、挂载卷还是初始化容器；</li>
+<li class="">拉镜像慢的检查镜像大小与仓库带宽，考虑预热镜像或用本地仓库；</li>
+<li class="">挂载卷慢的排查 PV/CSI 驱动状态；</li>
+<li class="">应用自身启动慢的优化启动逻辑，并把就绪探针的 initialDelaySeconds 调到合理值。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="客户端证书过期-s1">客户端证书过期-S1<a href="#客户端证书过期-s1" class="hash-link" aria-label="客户端证书过期-S1的直接链接" title="客户端证书过期-S1的直接链接" translate="no">​</a></h3>
+<p>Client certificate for Kubelet on node {{ $labels.node }} expires in {{ $value | humanizeDuration }}.</p>
+<p>紧急 · — · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kubelet_certificate_manager_client_ttl_seconds &lt; 86400</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 kubeadm certs check-expiration（kubeadm 集群）或 openssl x509 -noout -dates 确认到期时间；</li>
+<li class="">kubeadm 集群用 kubeadm certs renew all 续期后重启控制面组件；</li>
+<li class="">kubelet 客户端证书通常自动轮换，未轮换的检查 rotateCertificates 配置与 CSR 审批是否正常；</li>
+<li class="">续期后务必验证组件已加载新证书（重启对应进程），并复查所有节点。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="服务端证书过期-s1">服务端证书过期-S1<a href="#服务端证书过期-s1" class="hash-link" aria-label="服务端证书过期-S1的直接链接" title="服务端证书过期-S1的直接链接" translate="no">​</a></h3>
+<p>Server certificate for Kubelet on node {{ $labels.node }} expires in {{ $value | humanizeDuration }}.</p>
+<p>紧急 · — · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">kubelet_certificate_manager_server_ttl_seconds &lt; 86400</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">用 kubeadm certs check-expiration（kubeadm 集群）或 openssl x509 -noout -dates 确认到期时间；</li>
+<li class="">kubeadm 集群用 kubeadm certs renew all 续期后重启控制面组件；</li>
+<li class="">kubelet 客户端证书通常自动轮换，未轮换的检查 rotateCertificates 配置与 CSR 审批是否正常；</li>
+<li class="">续期后务必验证组件已加载新证书（重启对应进程），并复查所有节点。</li>
+</ol>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="kubelet故障">kubelet故障<a href="#kubelet故障" class="hash-link" aria-label="kubelet故障的直接链接" title="kubelet故障的直接链接" translate="no">​</a></h3>
+<p>Kubelet has disappeared from Prometheus target discovery.</p>
+<p>紧急 · 15 分钟 · 触发条件:</p>
+<div class="language-promql codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-promql codeBlock_bY9V thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#F8F8F2"><span class="token plain">absent(up{job=&quot;kubelet&quot;} == 1)</span><br></div></code></pre></div></div>
+<p>处置步骤:</p>
+<ol>
+<li class="">登录节点执行 systemctl status kubelet 确认进程状态；</li>
+<li class="">journalctl -u kubelet -n 200 --no-pager 定位退出或报错原因；</li>
+<li class="">常见为证书过期、配置错误、容器运行时不可用；</li>
+<li class="">恢复后确认节点回到 Ready，并检查期间是否有 Pod 被误驱逐。</li>
+</ol>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="怎么使用这些规则">怎么使用这些规则<a href="#怎么使用这些规则" class="hash-link" aria-label="怎么使用这些规则的直接链接" title="怎么使用这些规则的直接链接" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>用 Prometheus 或 vmalert</strong>：下载 <a href="/zh/alert-rules/kubernetes.yml" target="_blank" rel="noopener noreferrer" class=""><code>kubernetes.yml</code></a>，加到 <code>rule_files</code>（vmalert 用 <code>-rule</code> 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 <code>severity</code> 标签里（critical / warning / info），<code>runbook_url</code> 指回本页。</li>
+<li class=""><strong>用夜莺</strong>：同样的规则内置在 <a class="" href="/zh/integrations/kubernetes">Kubernetes</a> 集成模板里。在集成中心把规则<a class="" href="/zh/docs/data/integrations/import">导入到业务组</a>，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="来源与许可">来源与许可<a href="#来源与许可" class="hash-link" aria-label="来源与许可的直接链接" title="来源与许可的直接链接" translate="no">​</a></h2>
+<p>不少规则表达式改编自 <a href="https://github.com/kubernetes-monitoring/kubernetes-mixin" target="_blank" rel="noopener noreferrer" class="">kubernetes-mixin</a>（Apache-2.0）。 处置步骤和其余规则来自夜莺的集成模板（<a href="https://github.com/ccfos/nightingale/tree/main/integrations/Kubernetes" target="_blank" rel="noopener noreferrer" class="">Kubernetes</a>，Apache-2.0），欢迎在那里提 PR 修正。</p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="相关链接">相关链接<a href="#相关链接" class="hash-link" aria-label="相关链接的直接链接" title="相关链接的直接链接" translate="no">​</a></h2>
+<ul>
+<li class=""><a class="" href="/zh/integrations/kubernetes">用夜莺监控 Kubernetes</a>：采集配置、仪表盘与指标说明</li>
+<li class=""><a class="" href="/zh/docs/alerting/metric-rules">在夜莺里写指标告警规则</a></li>
+<li class=""><a class="" href="/zh/alert-rules">全部告警规则</a></li>
+</ul></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><span class="n9e-doc-actions"><a href="https://github.com/ccfos/nightingale/tree/main/integrations/Kubernetes" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>编辑此页</a><a href="https://github.com/n9e/n9e.github.io/issues/new?title=%E6%96%87%E6%A1%A3%E5%8F%8D%E9%A6%88%EF%BC%9A%2Fzh%2Falert-rules%2Fkubernetes&amp;body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fzh%2Falert-rules%2Fkubernetes%0A%0A" target="_blank" rel="noopener noreferrer" class="n9e-doc-issue">报告问题</a></span></div><div class="col lastUpdated_JAkA"></div></div></footer></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="文件选项卡"><a class="pagination-nav__link pagination-nav__link--prev" href="/zh/alert-rules"><div class="pagination-nav__sublabel">上一页</div><div class="pagination-nav__label">概览</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/zh/alert-rules/prometheus"><div class="pagination-nav__sublabel">下一页</div><div class="pagination-nav__label">Prometheus</div></a></nav></div></div><div class="col col--3"><div class="n9e-toc"><p class="n9e-toc-title">本页目录</p><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#概览" class="table-of-contents__link toc-highlight">概览</a></li><li><a href="#规则一览" class="table-of-contents__link toc-highlight">规则一览</a></li><li><a href="#kube-state-metricscadvisor-与控制面77" class="table-of-contents__link toc-highlight">kube-state-metrics、cAdvisor 与控制面（77）</a></li><li><a href="#怎么使用这些规则" class="table-of-contents__link toc-highlight">怎么使用这些规则</a></li><li><a href="#来源与许可" class="table-of-contents__link toc-highlight">来源与许可</a></li><li><a href="#相关链接" class="table-of-contents__link toc-highlight">相关链接</a></li></ul></div></div></div></div><footer class="footer_aQsI"><p class="copyright_HrmU">© 2026 Nightingale Contributors · Apache-2.0</p><div class="controls_xEY2"><nav class="locales_D62L" aria-label="Language"><a href="/alert-rules/kubernetes" target="_blank" rel="noopener noreferrer" class="locale_WPDf">English</a><a href="/zh/alert-rules/kubernetes" target="_blank" rel="noopener noreferrer" class="locale_WPDf localeActive_aVX1" aria-current="page">简体中文</a></nav><div class="toggle_vylO"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div></footer></div></main></div></div></div><footer class="theme-layout-footer footer"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">产品</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/zh/docs">文档</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/download">下载</a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale/releases" target="_blank" rel="noopener noreferrer" class="footer__link-item">发布说明<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a class="footer__link-item" href="/zh/categraf">Categraf 采集器</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">资源</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/zh/integrations">集成生态</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/alert-rules">告警规则库</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/comparisons">产品对比</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/comparisons/zabbix-alternatives">Zabbix 替代方案</a></li><li class="footer__item"><a class="footer__link-item" href="/zh/comparisons/open-source-alerting-platforms">开源告警平台选型</a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale#-mcp-server" target="_blank" rel="noopener noreferrer" class="footer__link-item">MCP Server<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">社区</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ccfos/nightingale" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://github.com/ccfos/nightingale/issues" target="_blank" rel="noopener noreferrer" class="footer__link-item">Issues<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://join.slack.com/t/n9e/shared_invite/zt-4ejx42fd0-S9aVULH4FTdH~jEAz80U7g" target="_blank" rel="noopener noreferrer" class="footer__link-item">Slack<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">关于</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/ccfos/nightingale/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="footer__link-item">Apache-2.0 License<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="themeRow_uGN8"><div class="toggle_vylO"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="切换浅色/暗黑模式（当前为system mode）"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div></div><div class="localeRow_zDj8"><nav class="locales_D62L" aria-label="Language"><a href="/alert-rules/kubernetes" target="_blank" rel="noopener noreferrer" class="locale_WPDf">English</a><a href="/zh/alert-rules/kubernetes" target="_blank" rel="noopener noreferrer" class="locale_WPDf localeActive_aVX1" aria-current="page">简体中文</a></nav></div><div class="footer__copyright">© 2026 Nightingale Contributors · Apache-2.0</div></div></div></footer></div>
+</body>
+</html>

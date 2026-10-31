@@ -1,0 +1,107 @@
+# Redis alert rules — https://n9e.github.io/alert-rules/redis
+# Generated from the Nightingale integration templates: https://github.com/ccfos/nightingale/tree/main/integrations
+# Thresholds are starting points: review them before enabling.
+groups:
+  - name: "redis-exporter"
+    rules:
+      - alert: "High Redis client connection count - exporter"
+        expr: |-
+          (redis_connected_clients / redis_config_maxclients) > 0.85
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/redis"
+      - alert: "High Redis eviction rate - exporter"
+        expr: |-
+          rate(redis_evicted_keys_total[5m]) / sum without (db) (redis_db_keys) > 0.1
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/redis"
+      - alert: "High Redis latency - exporter"
+        expr: |-
+          sum without (cmd) (rate(redis_commands_duration_seconds_total[5m])) / rate(redis_commands_processed_total[5m]) > 0.25
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/redis"
+      - alert: "High Redis memory usage rate - exporter"
+        expr: |-
+          redis_memory_max_bytes > 0 and (redis_memory_used_bytes / redis_memory_max_bytes) > 0.85
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/redis"
+      - alert: "Low Redis hit rate - exporter"
+        expr: |-
+          rate(redis_keyspace_hits_total[5m])
+          /
+          (rate(redis_keyspace_misses_total[5m]) + rate(redis_keyspace_hits_total[5m]))
+          < 0.9
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/redis"
+      - alert: "Redis connection refused - exporter"
+        expr: |-
+          (rate(redis_rejected_connections_total[5m])) > 0
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/redis"
+      - alert: "Redis has just been restarted, please be aware - exporter"
+        expr: |-
+          redis_uptime_in_seconds < 600
+        labels:
+          severity: info
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/redis"
+  - name: "redis-categraf"
+    rules:
+      - alert: "High Redis eviction rate"
+        expr: |-
+          rate(redis_evicted_keys[5m]) / sum without (db) (redis_keyspace_keys) > 0.1
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/redis"
+      - alert: "High Redis memory usage rate"
+        expr: |-
+          redis_maxmemory > 0 and (redis_used_memory / redis_maxmemory) > 0.85
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/redis"
+      - alert: "High Redis Ping latency (above 100 milliseconds)"
+        expr: |-
+          redis_ping_use_seconds > 0.1
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/redis"
+      - alert: "Low Redis hit rate"
+        expr: |-
+          rate(redis_keyspace_hits[5m])
+          /
+          (rate(redis_keyspace_misses[5m]) + rate(redis_keyspace_hits[5m]))
+          < 0.9
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/redis"
+      - alert: "Redis connection refused"
+        expr: |-
+          (rate(redis_rejected_connections[5m])) > 0
+        labels:
+          severity: warning
+        annotations:
+          runbook_url: "https://n9e.github.io/alert-rules/redis"

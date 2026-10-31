@@ -2,7 +2,7 @@
 
 AutoMQ exposes metrics through an OTel Collector or its own Prometheus endpoint; templates cover cluster overview, brokers, topics, consumer groups and detail.
 
-Last reviewed 2026-10-28
+Last reviewed 2026-10-31
 
 AutoMQ is a Kafka-compatible messaging system with separated compute and storage. It sends metrics to an OTel Collector's Prometheus exporter or exposes Prometheus-format data on its own endpoint (8890 in the reference test). Scrape that with the Categraf `prometheus` input, using whatever port your deployment configures.
 

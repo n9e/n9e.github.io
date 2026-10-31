@@ -2,7 +2,7 @@
 
 Runs rocm-smi to collect AMD GPU utilization, memory, temperature, power and clocks; rules cover overheating and full memory.
 
-Last reviewed 2026-10-28
+Last reviewed 2026-10-31
 
 The AMD ROCm SMI input is ported from Telegraf. It runs the `rocm-smi` binary that ships with ROCm and parses the output into per-GPU utilization, memory usage, temperature, power draw, fan speed and clock frequencies.
 

@@ -2,7 +2,7 @@
 
 通过 ES 自己的 HTTP 接口采集集群健康、节点 JVM、线程池、索引和分片状态，小集群抓一个节点即可拿到全集群数据。
 
-最后校对于 2026-10-28
+最后校对于 2026-10-31
 
 Elasticsearch 通过 HTTP JSON 接口暴露自身状态，插件抓 `_cluster/health`、`_cluster/stats`、`_nodes/stats` 和索引统计：集群颜色、未分配分片、节点 JVM 堆与 GC、断路器、线程池拒绝、索引写入与查询延迟、磁盘水位。
 
@@ -163,343 +163,32 @@ Elasticsearch 通过 HTTP JSON 接口暴露自身状态，插件抓 `_cluster/he
 
 ## 内置告警规则[​](#内置告警规则 "内置告警规则的直接链接")
 
-共 22 条。每条给出触发条件（PromQL）和告警后的处置步骤，导入后可以直接改阈值。
-
-规则按采集方式分组，用哪种采集器就导哪一组。
-
-### Categraf 采集（11）[​](#categraf-采集11 "Categraf 采集（11）的直接链接")
-
-#### Elastic Cluster Red status[​](#elastic-cluster-red-status "Elastic Cluster Red status的直接链接")
-
-S1 紧急 · 触发条件:
-
-```
- elasticsearch_cluster_health_status{color="red"} == 1
-```
-
-处置步骤:
-
-1. 用 GET \_cluster/health?level=indices 定位处于 red 的索引；
-2. 用 GET \_cluster/allocation/explain 看主分片无法分配的具体原因；
-3. 常见原因是节点掉线，先把节点拉回集群让分片自动恢复；
-4. 节点数据确实损坏时，用 POST \_snapshot/\<repo>/\<snap>/\_restore 从快照恢复该索引。
-
-#### Elastic Cluster Yellow status[​](#elastic-cluster-yellow-status "Elastic Cluster Yellow status的直接链接")
-
-S2 警告 · 触发条件:
-
-```
-elasticsearch_cluster_health_status{color="yellow"} == 1
-```
-
-处置步骤:
-
-1. 用 GET \_cluster/allocation/explain 看副本分片无法分配的原因；
-2. 单节点集群把索引副本数设为 0：PUT \<index>/\_settings {"index.number\_of\_replicas":0}；
-3. 多节点集群检查是否有节点掉线、或磁盘触发了 watermark 导致不再分配；
-4. 处理完确认 health 回到 green。
-
-#### Elasticsearch disk out of space of the instance[​](#elasticsearch-disk-out-of-space-of-the-instance "Elasticsearch disk out of space of the instance的直接链接")
-
-S1 紧急 · 持续 2 分钟 · 触发条件:
-
-```
-elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes * 100 < 10
-```
-
-处置步骤:
-
-1. 用 GET \_cat/allocation?v 定位磁盘吃紧的节点；
-2. 删除或归档过期索引（DELETE \<index>），或用 ILM 把冷数据迁到冷节点；
-3. 磁盘释放后手工解除只读：PUT \_all/\_settings {"index.blocks.read\_only\_allow\_delete":null}；
-4. 长期需扩容磁盘或增加数据节点。
-
-#### Elasticsearch disk space low of the instance[​](#elasticsearch-disk-space-low-of-the-instance "Elasticsearch disk space low of the instance的直接链接")
-
-S2 警告 · 持续 2 分钟 · 触发条件:
-
-```
-elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes * 100 < 20
-```
-
-处置步骤:
-
-1. 用 GET \_cat/allocation?v 看各节点磁盘水位；
-2. 清理过期索引或调整 ILM 策略，提前把数据滚动到冷节点；
-3. 评估 cluster.routing.allocation.disk.watermark.\* 阈值是否与实际容量匹配；
-4. 提前安排扩容，避免跌到 flood-stage 后索引被置为只读。
-
-#### Elasticsearch Heap Usage Too High of the instance[​](#elasticsearch-heap-usage-too-high-of-the-instance "Elasticsearch Heap Usage Too High of the instance的直接链接")
-
-S1 紧急 · 持续 2 分钟 · 触发条件:
-
-```
-(elasticsearch_jvm_memory_used_bytes{area="heap"} / elasticsearch_jvm_memory_max_bytes{area="heap"}) * 100 > 90
-```
-
-处置步骤:
-
-1. 用 GET \_nodes/stats/jvm 确认是哪个节点堆压力大；
-2. 用 GET \_cat/indices?v\&s=store.size:desc 找占用大的索引，关闭或归档不用的；
-3. 用 GET \_tasks?actions=*search*\&detailed 定位大聚合或深分页查询并 cancel；
-4. 长期把堆调整为物理内存的一半（不超过 31G），或增加节点分摊。
-
-#### Elasticsearch Heap Usage warning of the instance[​](#elasticsearch-heap-usage-warning-of-the-instance "Elasticsearch Heap Usage warning of the instance的直接链接")
-
-S2 警告 · 持续 2 分钟 · 触发条件:
-
-```
-(elasticsearch_jvm_memory_used_bytes{area="heap"} / elasticsearch_jvm_memory_max_bytes{area="heap"}) * 100 > 80
-```
-
-处置步骤:
-
-1. 对照 elasticsearch\_jvm\_gc\_collection\_seconds\_count 看 old GC 是否变频繁；
-2. 用 GET \_cat/indices?v\&s=store.size:desc 排查近期是否有索引数据量暴涨；
-3. 用 GET \_nodes/stats/indices/fielddata 检查 fielddata 与查询缓存占用；
-4. 提前规划扩容或清理，避免涨到 90% 触发 Full GC。
-
-#### Elasticsearch initializing shards of the instance[​](#elasticsearch-initializing-shards-of-the-instance "Elasticsearch initializing shards of the instance的直接链接")
-
-S2 警告 · 持续 15 分钟 · 触发条件:
-
-```
-elasticsearch_cluster_health_initializing_shards > 0
-```
-
-处置步骤:
-
-1. 用 GET \_cat/recovery?v\&active\_only=true 看恢复进度是否还在推进；
-2. 卡住不动时用 GET \_cluster/allocation/explain 看原因（磁盘不足、节点带宽打满）；
-3. 恢复限速可临时调高 indices.recovery.max\_bytes\_per\_sec；
-4. 确认没有节点在反复掉线导致分片反复重建。
-
-#### Elasticsearch no new documents of the instance[​](#elasticsearch-no-new-documents-of-the-instance "Elasticsearch no new documents of the instance的直接链接")
-
-S2 警告 · 持续 5 分钟 · 触发条件:
-
-```
-rate(elasticsearch_indices_docs{es_data_node="true"}[5m]) == 0
-```
-
-处置步骤:
-
-1. 先确认该集群本来就应持续写入，否则关闭此规则；
-2. 检查上游写入端（Filebeat/Logstash/应用 bulk 客户端）是否存活、日志中是否有 bulk 被拒；
-3. 用 GET \_cat/thread\_pool/write?v 看 write 线程池的 rejected 是否在增长；
-4. 确认索引未被置为只读（磁盘 watermark 会触发 read\_only\_allow\_delete）。
-
-#### Elasticsearch pending tasks of the instance[​](#elasticsearch-pending-tasks-of-the-instance "Elasticsearch pending tasks of the instance的直接链接")
-
-S2 警告 · 持续 15 分钟 · 触发条件:
-
-```
-elasticsearch_cluster_health_number_of_pending_tasks > 10
-```
-
-处置步骤:
-
-1. 用 GET \_cluster/pending\_tasks 看积压的具体任务和优先级；
-2. 用 GET \_cat/master?v 确认 master 是否在频繁切换；
-3. 用 GET \_cat/shards 统计分片总数，排查是否因大量小索引导致集群状态过大；
-4. 收敛分片数量（合并小索引、调整 ILM），必要时给 master 节点单独扩容。
-
-#### Elasticsearch relocation shards of the instance[​](#elasticsearch-relocation-shards-of-the-instance "Elasticsearch relocation shards of the instance的直接链接")
-
-S2 警告 · 持续 15 分钟 · 触发条件:
-
-```
-elasticsearch_cluster_health_relocating_shards > 0
-```
-
-处置步骤:
-
-1. 用 GET \_cat/recovery?v\&active\_only=true 看迁移是否还在推进；
-2. 停滞则用 GET \_cluster/allocation/explain 看是否被磁盘 watermark 或 allocation filter 挡住；
-3. 确认是否有人手工触发了大规模 reroute，或有节点在上下线；
-4. 必要时临时调高 cluster.routing.allocation.node\_concurrent\_recoveries 与恢复限速。
-
-#### Elasticsearch unassigned shards of the instance[​](#elasticsearch-unassigned-shards-of-the-instance "Elasticsearch unassigned shards of the instance的直接链接")
-
-S1 紧急 · 触发条件:
-
-```
-elasticsearch_cluster_health_unassigned_shards > 0
-```
-
-处置步骤:
-
-1. 用 GET \_cluster/allocation/explain 直接拿到未分配的原因；
-2. 节点掉线则先把节点恢复回集群；
-3. 副本数超过可用节点数则调小 index.number\_of\_replicas；
-4. 磁盘触发 watermark 则先清理磁盘，再执行 POST \_cluster/reroute?retry\_failed=true。
-
-### Exporter 采集（11）[​](#exporter-采集11 "Exporter 采集（11）的直接链接")
-
-#### Elastic Cluster Red status[​](#elastic-cluster-red-status-1 "Elastic Cluster Red status的直接链接")
-
-S1 紧急 · 触发条件:
-
-```
- elasticsearch_cluster_health_status{color="red"} == 1
-```
-
-处置步骤:
-
-1. 用 GET \_cluster/health?level=indices 定位处于 red 的索引；
-2. 用 GET \_cluster/allocation/explain 看主分片无法分配的具体原因；
-3. 常见原因是节点掉线，先把节点拉回集群让分片自动恢复；
-4. 节点数据确实损坏时，用 POST \_snapshot/\<repo>/\<snap>/\_restore 从快照恢复该索引。
-
-#### Elastic Cluster Yellow status[​](#elastic-cluster-yellow-status-1 "Elastic Cluster Yellow status的直接链接")
-
-S2 警告 · 触发条件:
-
-```
-elasticsearch_cluster_health_status{color="yellow"} == 1
-```
-
-处置步骤:
-
-1. 用 GET \_cluster/allocation/explain 看副本分片无法分配的原因；
-2. 单节点集群把索引副本数设为 0：PUT \<index>/\_settings {"index.number\_of\_replicas":0}；
-3. 多节点集群检查是否有节点掉线、或磁盘触发了 watermark 导致不再分配；
-4. 处理完确认 health 回到 green。
-
-#### Elasticsearch disk out of space of the instance[​](#elasticsearch-disk-out-of-space-of-the-instance-1 "Elasticsearch disk out of space of the instance的直接链接")
-
-S1 紧急 · 持续 2 分钟 · 触发条件:
-
-```
-elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes * 100 < 10
-```
-
-处置步骤:
-
-1. 用 GET \_cat/allocation?v 定位磁盘吃紧的节点；
-2. 删除或归档过期索引（DELETE \<index>），或用 ILM 把冷数据迁到冷节点；
-3. 磁盘释放后手工解除只读：PUT \_all/\_settings {"index.blocks.read\_only\_allow\_delete":null}；
-4. 长期需扩容磁盘或增加数据节点。
-
-#### Elasticsearch disk space low of the instance[​](#elasticsearch-disk-space-low-of-the-instance-1 "Elasticsearch disk space low of the instance的直接链接")
-
-S2 警告 · 持续 2 分钟 · 触发条件:
-
-```
-elasticsearch_filesystem_data_available_bytes / elasticsearch_filesystem_data_size_bytes * 100 < 20
-```
-
-处置步骤:
-
-1. 用 GET \_cat/allocation?v 看各节点磁盘水位；
-2. 清理过期索引或调整 ILM 策略，提前把数据滚动到冷节点；
-3. 评估 cluster.routing.allocation.disk.watermark.\* 阈值是否与实际容量匹配；
-4. 提前安排扩容，避免跌到 flood-stage 后索引被置为只读。
-
-#### Elasticsearch Heap Usage Too High of the instance[​](#elasticsearch-heap-usage-too-high-of-the-instance-1 "Elasticsearch Heap Usage Too High of the instance的直接链接")
-
-S1 紧急 · 持续 2 分钟 · 触发条件:
-
-```
-(elasticsearch_jvm_memory_used_bytes{area="heap"} / elasticsearch_jvm_memory_max_bytes{area="heap"}) * 100 > 90
-```
-
-处置步骤:
-
-1. 用 GET \_nodes/stats/jvm 确认是哪个节点堆压力大；
-2. 用 GET \_cat/indices?v\&s=store.size:desc 找占用大的索引，关闭或归档不用的；
-3. 用 GET \_tasks?actions=*search*\&detailed 定位大聚合或深分页查询并 cancel；
-4. 长期把堆调整为物理内存的一半（不超过 31G），或增加节点分摊。
-
-#### Elasticsearch Heap Usage warning of the instance[​](#elasticsearch-heap-usage-warning-of-the-instance-1 "Elasticsearch Heap Usage warning of the instance的直接链接")
-
-S2 警告 · 持续 2 分钟 · 触发条件:
-
-```
-(elasticsearch_jvm_memory_used_bytes{area="heap"} / elasticsearch_jvm_memory_max_bytes{area="heap"}) * 100 > 80
-```
-
-处置步骤:
-
-1. 对照 elasticsearch\_jvm\_gc\_collection\_seconds\_count 看 old GC 是否变频繁；
-2. 用 GET \_cat/indices?v\&s=store.size:desc 排查近期是否有索引数据量暴涨；
-3. 用 GET \_nodes/stats/indices/fielddata 检查 fielddata 与查询缓存占用；
-4. 提前规划扩容或清理，避免涨到 90% 触发 Full GC。
-
-#### Elasticsearch initializing shards of the instance[​](#elasticsearch-initializing-shards-of-the-instance-1 "Elasticsearch initializing shards of the instance的直接链接")
-
-S2 警告 · 持续 15 分钟 · 触发条件:
-
-```
-elasticsearch_cluster_health_initializing_shards > 0
-```
-
-处置步骤:
-
-1. 用 GET \_cat/recovery?v\&active\_only=true 看恢复进度是否还在推进；
-2. 卡住不动时用 GET \_cluster/allocation/explain 看原因（磁盘不足、节点带宽打满）；
-3. 恢复限速可临时调高 indices.recovery.max\_bytes\_per\_sec；
-4. 确认没有节点在反复掉线导致分片反复重建。
-
-#### Elasticsearch no new documents of the instance[​](#elasticsearch-no-new-documents-of-the-instance-1 "Elasticsearch no new documents of the instance的直接链接")
-
-S2 警告 · 持续 5 分钟 · 触发条件:
-
-```
-rate(elasticsearch_indices_docs{es_data_node="true"}[5m]) == 0
-```
-
-处置步骤:
-
-1. 先确认该集群本来就应持续写入，否则关闭此规则；
-2. 检查上游写入端（Filebeat/Logstash/应用 bulk 客户端）是否存活、日志中是否有 bulk 被拒；
-3. 用 GET \_cat/thread\_pool/write?v 看 write 线程池的 rejected 是否在增长；
-4. 确认索引未被置为只读（磁盘 watermark 会触发 read\_only\_allow\_delete）。
-
-#### Elasticsearch pending tasks of the instance[​](#elasticsearch-pending-tasks-of-the-instance-1 "Elasticsearch pending tasks of the instance的直接链接")
-
-S2 警告 · 持续 15 分钟 · 触发条件:
-
-```
-elasticsearch_cluster_health_number_of_pending_tasks > 10
-```
-
-处置步骤:
-
-1. 用 GET \_cluster/pending\_tasks 看积压的具体任务和优先级；
-2. 用 GET \_cat/master?v 确认 master 是否在频繁切换；
-3. 用 GET \_cat/shards 统计分片总数，排查是否因大量小索引导致集群状态过大；
-4. 收敛分片数量（合并小索引、调整 ILM），必要时给 master 节点单独扩容。
-
-#### Elasticsearch relocation shards of the instance[​](#elasticsearch-relocation-shards-of-the-instance-1 "Elasticsearch relocation shards of the instance的直接链接")
-
-S2 警告 · 持续 15 分钟 · 触发条件:
-
-```
-elasticsearch_cluster_health_relocating_shards > 0
-```
-
-处置步骤:
-
-1. 用 GET \_cat/recovery?v\&active\_only=true 看迁移是否还在推进；
-2. 停滞则用 GET \_cluster/allocation/explain 看是否被磁盘 watermark 或 allocation filter 挡住；
-3. 确认是否有人手工触发了大规模 reroute，或有节点在上下线；
-4. 必要时临时调高 cluster.routing.allocation.node\_concurrent\_recoveries 与恢复限速。
-
-#### Elasticsearch unassigned shards of the instance[​](#elasticsearch-unassigned-shards-of-the-instance-1 "Elasticsearch unassigned shards of the instance的直接链接")
-
-S1 紧急 · 触发条件:
-
-```
-elasticsearch_cluster_health_unassigned_shards > 0
-```
-
-处置步骤:
-
-1. 用 GET \_cluster/allocation/explain 直接拿到未分配的原因；
-2. 节点掉线则先把节点恢复回集群；
-3. 副本数超过可用节点数则调小 index.number\_of\_replicas；
-4. 磁盘触发 watermark 则先清理磁盘，再执行 POST \_cluster/reroute?retry\_failed=true。
+共 22 条，导入后默认停用，按自己环境的阈值逐条启用。每条规则的触发条件（PromQL）和处置步骤收录在告警规则库：[Elasticsearch 告警规则](https://n9e.github.io/zh/alert-rules/elasticsearch.md)。
+
+| 规则                                              | 级别    | 持续    |
+| ------------------------------------------------- | ------- | ------- |
+| Elastic Cluster Red status                        | S1 紧急 | —       |
+| Elastic Cluster Yellow status                     | S2 警告 | —       |
+| Elasticsearch disk out of space of the instance   | S1 紧急 | 2 分钟  |
+| Elasticsearch disk space low of the instance      | S2 警告 | 2 分钟  |
+| Elasticsearch Heap Usage Too High of the instance | S1 紧急 | 2 分钟  |
+| Elasticsearch Heap Usage warning of the instance  | S2 警告 | 2 分钟  |
+| Elasticsearch initializing shards of the instance | S2 警告 | 15 分钟 |
+| Elasticsearch no new documents of the instance    | S2 警告 | 5 分钟  |
+| Elasticsearch pending tasks of the instance       | S2 警告 | 15 分钟 |
+| Elasticsearch relocation shards of the instance   | S2 警告 | 15 分钟 |
+| Elasticsearch unassigned shards of the instance   | S1 紧急 | —       |
+| Elastic Cluster Red status                        | S1 紧急 | —       |
+| Elastic Cluster Yellow status                     | S2 警告 | —       |
+| Elasticsearch disk out of space of the instance   | S1 紧急 | 2 分钟  |
+| Elasticsearch disk space low of the instance      | S2 警告 | 2 分钟  |
+| Elasticsearch Heap Usage Too High of the instance | S1 紧急 | 2 分钟  |
+| Elasticsearch Heap Usage warning of the instance  | S2 警告 | 2 分钟  |
+| Elasticsearch initializing shards of the instance | S2 警告 | 15 分钟 |
+| Elasticsearch no new documents of the instance    | S2 警告 | 5 分钟  |
+| Elasticsearch pending tasks of the instance       | S2 警告 | 15 分钟 |
+| Elasticsearch relocation shards of the instance   | S2 警告 | 15 分钟 |
+| Elasticsearch unassigned shards of the instance   | S1 紧急 | —       |
 
 ## 指标说明[​](#指标说明 "指标说明的直接链接")
 

@@ -2,7 +2,7 @@
 
 Scrapes the cAdvisor built into kubelet or a standalone one for per-container CPU, memory, filesystem and network metrics; in kubelet mode it can attach Pod labels and annotations.
 
-Last reviewed 2026-10-28
+Last reviewed 2026-10-31
 
 The cAdvisor input collects the `container_*` metrics that cAdvisor exposes: per-container CPU usage and throttling, memory working set and OOM events, filesystem reads and writes, network traffic and drops. Two ways to connect: `type = "kubelet"` scrapes the kubelet's `/metrics/cadvisor` (port 10250, authenticated) and can attach Pod labels and annotations to the metrics; `type = "cadvisor"` scrapes a standalone cAdvisor (port 8080 by default).
 

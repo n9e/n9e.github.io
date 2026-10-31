@@ -2,7 +2,7 @@
 
 Both the single-node and cluster editions expose /metrics; templates cover vmsingle as well as the vmstorage, vmselect and vminsert cluster components.
 
-Last reviewed 2026-10-28
+Last reviewed 2026-10-31
 
 VictoriaMetrics is often both Nightingale's time-series store and something that needs monitoring itself. The single-node edition exposes `/metrics` on port 8428; the cluster edition must be scraped per component, vmstorage (8482), vmselect (8481) and vminsert (8480), or you only see part of the picture.
 
