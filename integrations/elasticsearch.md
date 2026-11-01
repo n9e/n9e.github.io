@@ -110,7 +110,7 @@ On a small cluster set `local = false` and scrape any one node to get data for a
 | Rule | Severity | For |
 | --- | --- | --- |
 | Elastic Cluster Red status | S1 Critical | — |
-| Elastic Cluster Yellow status | S2 Warning | — |
+| Elastic Cluster Yellow status | S2 Warning | 10m |
 | Elasticsearch disk out of space of the instance | S1 Critical | 2m |
 | Elasticsearch disk space low of the instance | S2 Warning | 2m |
 | Elasticsearch Heap Usage Too High of the instance | S1 Critical | 2m |
@@ -121,7 +121,7 @@ On a small cluster set `local = false` and scrape any one node to get data for a
 | Elasticsearch relocation shards of the instance | S2 Warning | 15m |
 | Elasticsearch unassigned shards of the instance | S1 Critical | — |
 | Elastic Cluster Red status | S1 Critical | — |
-| Elastic Cluster Yellow status | S2 Warning | — |
+| Elastic Cluster Yellow status | S2 Warning | 10m |
 | Elasticsearch disk out of space of the instance | S1 Critical | 2m |
 | Elasticsearch disk space low of the instance | S2 Warning | 2m |
 | Elasticsearch Heap Usage Too High of the instance | S1 Critical | 2m |

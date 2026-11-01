@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="covers.css">
+<style>
+  .stage { top: 26px; }
+  .title { position: absolute; top: 36px; left: 0; right: 0; text-align: center; font-size: 48px; }
+  .sub { position: absolute; top: 96px; left: 0; right: 0; text-align: center; font-size: 27px; color: var(--muted); }
+  .card { top: 176px; width: 360px; }
+  .c1 { left: 150px; transform: rotate(-1.5deg); opacity: .78; }
+  .c2 { left: 690px; }
+  .alert { display: flex; align-items: center; gap: 12px; padding: 16px 18px; font-size: 17px; font-weight: 600; border-bottom: 1px solid #f0e7da; }
+  .alert small { display: block; font-weight: 400; font-size: 13px; color: var(--muted); margin-top: 3px; }
+  .kind { padding: 12px 18px 16px; font-family: 'Caveat', cursive; font-size: 26px; }
+  .tag { font-family: 'Caveat', cursive; position: absolute; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <filter id="wc" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="11"/>
+      <feDisplacementMap in="SourceGraphic" scale="14"/>
+      <feGaussianBlur stdDeviation="1"/>
+    </filter>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="2"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+  </defs>
+</svg>
+<div class="stage">
+<div class="title hand">Page on what users feel</div>
+<div class="sub hand">symptoms wake people up, causes help them fix it</div>
+
+<div class="card c1">
+  <div class="wash" style="margin-top:12px">
+    <svg viewBox="0 0 336 64" width="336" height="64"><g filter="url(#wc)">
+      <rect x="-10" y="-10" width="360" height="90" fill="#e6e1da"/>
+      <path d="M0 50 L40 46 L70 30 L100 36 L130 14 L160 22 L200 18 L240 30 L280 12 L336 20 L336 80 L0 80Z" fill="#b8ada0"/>
+    </g></svg>
+  </div>
+  <div class="alert"><span class="dot" style="background:#b8ada0"></span><div>CPU at 92% on db-3<small>cause · the database is busy</small></div></div>
+  <div class="kind" style="color:#8a7f73">checkout still fast</div>
+</div>
+
+<div class="card c2">
+  <div class="wash" style="margin-top:12px">
+    <svg viewBox="0 0 336 64" width="336" height="64"><g filter="url(#wc)">
+      <rect x="-10" y="-10" width="360" height="90" fill="#fbe0cf"/>
+      <path d="M0 58 L60 56 L120 54 L170 50 L200 30 L230 14 L270 10 L336 8 L336 80 L0 80Z" fill="#e8693a" opacity=".9"/>
+    </g></svg>
+  </div>
+  <div class="alert"><span class="dot" style="background:var(--orange)"></span><div>Checkout errors at 4%<small>symptom · users are failing to pay</small></div></div>
+  <div class="kind" style="color:#c4542c">page someone now</div>
+</div>
+
+<svg class="over" viewBox="0 0 1200 630">
+  <g filter="url(#rough)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- bell -->
+    <path d="M1102 196 C1102 170 1118 158 1130 158 C1142 158 1158 170 1158 196 L1158 222 L1168 234 L1092 234 L1102 222 Z" stroke="#e8693a" stroke-width="3" fill="#fff4ec"/>
+    <path d="M1122 240 C1124 248 1136 248 1138 240" stroke="#e8693a" stroke-width="3"/>
+    <path d="M1080 170 C1074 180 1074 192 1078 200 M1180 170 C1186 180 1186 192 1182 200" stroke="#e8693a" stroke-width="2.5"/>
+    <!-- zzz -->
+    <path d="M96 200 L114 200 L96 220 L114 220 M76 236 L88 236 L76 250 L88 250" stroke="#9c9187" stroke-width="2.5"/>
+    <!-- dashed link: cause explains symptom -->
+    <path d="M520 420 C580 470 640 470 700 420" stroke="#9c9187" stroke-width="2.2" stroke-dasharray="7 8"/>
+    <path d="M688 416 L702 418 L698 432" stroke="#9c9187" stroke-width="2.2"/>
+  </g>
+</svg>
+<div class="tag" style="left:500px;top:462px;font-size:27px;color:#6f655b">put the cause in the runbook</div>
+</div>
+</body>
+</html>

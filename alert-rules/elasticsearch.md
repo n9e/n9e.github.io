@@ -24,7 +24,7 @@ Elasticsearch alert rules for cluster health turning yellow or red, JVM heap usa
 | Rule | Severity | For |
 | --- | --- | --- |
 | Elastic Cluster Red status | Critical | — |
-| Elastic Cluster Yellow status | Warning | — |
+| Elastic Cluster Yellow status | Warning | 10m |
 | Elasticsearch disk out of space of the instance | Critical | 2m |
 | Elasticsearch disk space low of the instance | Warning | 2m |
 | Elasticsearch Heap Usage Too High of the instance | Critical | 2m |
@@ -56,7 +56,7 @@ Runbook:
 
 ### Elastic Cluster Yellow status
 
-Warning · — · Trigger:
+Warning · 10m · Trigger:
 
 ```promql
 elasticsearch_cluster_health_status{color="yellow"} == 1

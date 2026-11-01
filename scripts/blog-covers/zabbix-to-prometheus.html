@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="covers.css">
+<style>
+  .stage { top: 10px; }
+  .colt { position: absolute; top: 46px; width: 330px; text-align: center; font-size: 36px; line-height: 1.1; }
+  .card { top: 150px; width: 330px; }
+  .c1 { left: 160px; } .c2 { left: 710px; }
+  .card .wash { height: 84px; }
+  .row .k { color: var(--muted); font-size: 12.5px; margin-left: auto; font-family: 'JetBrains Mono', monospace; }
+  .tag { font-family: 'Caveat', cursive; position: absolute; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <filter id="wc" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="9"/>
+      <feDisplacementMap in="SourceGraphic" scale="14"/>
+      <feGaussianBlur stdDeviation="1"/>
+    </filter>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="2"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+  </defs>
+</svg>
+<div class="stage">
+<div class="colt hand" style="left:160px">From<br>host &amp; item</div>
+<div class="colt hand" style="left:710px">To<br>query &amp; labels</div>
+
+<div class="card c1">
+  <div class="head"><span class="dot" style="background:var(--red)"></span>Zabbix</div>
+  <div class="wash">
+    <svg viewBox="0 0 306 84" width="306" height="84"><g filter="url(#wc)">
+      <rect x="-10" y="-10" width="330" height="110" fill="#f6dcd3"/>
+      <rect x="22" y="22" width="46" height="46" rx="5" fill="#e59a85"/>
+      <rect x="84" y="22" width="46" height="46" rx="5" fill="#e59a85"/>
+      <rect x="146" y="22" width="46" height="46" rx="5" fill="#e59a85"/>
+      <rect x="208" y="22" width="46" height="46" rx="5" fill="#d9533b" opacity=".85"/>
+    </g></svg>
+  </div>
+  <div class="rows">
+    <div class="row">Host<span class="k">db-01 … db-40</span></div>
+    <div class="row">Item<span class="k">vfs.fs.size[/,pfree]</span></div>
+    <div class="row">Trigger ×40<span class="k">one per host</span></div>
+    <div class="row">Action<span class="k">escalation steps</span></div>
+  </div>
+</div>
+
+<div class="card c2">
+  <div class="head"><span class="dot" style="background:var(--orange)"></span>Prometheus</div>
+  <div class="wash">
+    <svg viewBox="0 0 306 84" width="306" height="84"><g filter="url(#wc)">
+      <rect x="-10" y="-10" width="330" height="110" fill="#fbe3d2"/>
+      <path d="M0 70 C60 60 90 30 150 36 S250 14 306 24 L306 100 L0 100Z" fill="#f2a77e"/>
+      <path d="M0 84 C70 74 140 64 200 66 S280 56 306 58 L306 100 L0 100Z" fill="#e8693a" opacity=".85"/>
+    </g></svg>
+  </div>
+  <div class="rows">
+    <div class="row">Target<span class="k">instance="db-01"</span></div>
+    <div class="row">Metric<span class="k">node_filesystem_avail_bytes</span></div>
+    <div class="row">Alert rule ×1<span class="k">covers all 40</span></div>
+    <div class="row">Route<span class="k">receiver</span></div>
+  </div>
+</div>
+
+<svg class="over" viewBox="0 0 1200 630">
+  <g filter="url(#rough)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- brush arrow -->
+    <path d="M524 330 C580 324 630 326 682 330" stroke="#e8693a" stroke-width="7"/>
+    <path d="M530 340 C585 336 630 337 676 340" stroke="#e8693a" stroke-width="3" opacity=".6"/>
+    <path d="M662 312 L686 331 L660 350" stroke="#e8693a" stroke-width="6"/>
+    <!-- paper plane -->
+    <path d="M572 410 L640 384 L616 448 L604 422 Z" stroke="#2f2a25" stroke-width="2.5" fill="#fffdf9"/>
+    <path d="M604 422 L640 384" stroke="#2f2a25" stroke-width="2"/>
+    <path d="M566 418 C540 446 500 486 470 500" stroke="#9c9187" stroke-width="2" stroke-dasharray="6 7"/>
+    <!-- check -->
+    <circle cx="1068" cy="540" r="24" stroke="#e8693a" stroke-width="3.2"/>
+    <path d="M1056 540 L1065 550 L1081 529" stroke="#e8693a" stroke-width="3.6"/>
+    <path d="M1060 512 C1066 492 1060 476 1046 468" stroke="#9c9187" stroke-width="2" stroke-dasharray="6 7"/>
+  </g>
+</svg>
+<div class="tag" style="left:556px;top:270px;font-size:30px">rebuild</div>
+<div class="tag" style="left:170px;top:506px;font-size:27px;color:#6f655b">keep Zabbix running the whole time</div>
+<div class="tag" style="left:840px;top:522px;font-size:29px">one rule, every host</div>
+</div>
+</body>
+</html>

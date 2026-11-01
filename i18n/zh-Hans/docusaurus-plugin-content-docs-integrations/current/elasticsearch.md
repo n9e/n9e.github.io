@@ -110,7 +110,7 @@ Elasticsearch 通过 HTTP JSON 接口暴露自身状态，插件抓 `_cluster/he
 | 规则 | 级别 | 持续 |
 | --- | --- | --- |
 | Elastic Cluster Red status | S1 紧急 | — |
-| Elastic Cluster Yellow status | S2 警告 | — |
+| Elastic Cluster Yellow status | S2 警告 | 10 分钟 |
 | Elasticsearch disk out of space of the instance | S1 紧急 | 2 分钟 |
 | Elasticsearch disk space low of the instance | S2 警告 | 2 分钟 |
 | Elasticsearch Heap Usage Too High of the instance | S1 紧急 | 2 分钟 |
@@ -121,7 +121,7 @@ Elasticsearch 通过 HTTP JSON 接口暴露自身状态，插件抓 `_cluster/he
 | Elasticsearch relocation shards of the instance | S2 警告 | 15 分钟 |
 | Elasticsearch unassigned shards of the instance | S1 紧急 | — |
 | Elastic Cluster Red status | S1 紧急 | — |
-| Elastic Cluster Yellow status | S2 警告 | — |
+| Elastic Cluster Yellow status | S2 警告 | 10 分钟 |
 | Elasticsearch disk out of space of the instance | S1 紧急 | 2 分钟 |
 | Elasticsearch disk space low of the instance | S2 警告 | 2 分钟 |
 | Elasticsearch Heap Usage Too High of the instance | S1 紧急 | 2 分钟 |

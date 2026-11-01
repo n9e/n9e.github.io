@@ -56,7 +56,7 @@ Host-level alert rules for Linux servers and Kubernetes nodes: memory exhaustion
 | Node disk almost full - S1 - inodes - 20 | Critical | 60m |
 | Node disk almost full - S2 - inodes - 5 | Warning | 60m |
 | Node disk almost full - S1 - inodes - 3 | Critical | 60m |
-| Node conntrack entries usage high | Warning | — |
+| Node conntrack entries usage high | Warning | 5m |
 | Node textfile collector scrape errors | Warning | — |
 | Node network interface flapping | Warning | 2m |
 | A certain disk is unable to read/write normally | Critical | 1m |
@@ -707,7 +707,7 @@ Runbook:
 
 \{\{ $value | humanizePercentage \}\} of conntrack entries are used.
 
-Warning · — · Trigger:
+Warning · 5m · Trigger:
 
 ```promql
 (node_nf_conntrack_entries / node_nf_conntrack_entries_limit) > 0.75

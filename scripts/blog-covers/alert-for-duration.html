@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="covers.css">
+<style>
+  .stage { top: 14px; }
+  .title { position: absolute; top: 40px; left: 0; right: 0; text-align: center; font-size: 46px; }
+  .sub { position: absolute; top: 98px; left: 0; right: 0; text-align: center; font-size: 27px; color: var(--muted); }
+  .chart { left: 300px; top: 168px; width: 640px; height: 360px; }
+  .lab { position: absolute; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #6f655b; width: 60px; text-align: center; }
+  .num { position: absolute; font-family: 'Caveat', cursive; font-size: 22px; color: #6f655b; width: 60px; text-align: center; }
+  .tag { font-family: 'Caveat', cursive; position: absolute; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <filter id="wc" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="3" seed="7"/>
+      <feDisplacementMap in="SourceGraphic" scale="9"/>
+      <feGaussianBlur stdDeviation="0.8"/>
+    </filter>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+  </defs>
+</svg>
+<div class="stage">
+<div class="title hand">How long should an alert wait before it fires?</div>
+<div class="sub hand">the <span class="mono" style="font-size:22px">for</span> duration across 692 alert rule templates</div>
+
+<div class="card chart"></div>
+
+<!-- bars: baseline y=490, scale 0.9px per rule; x start 340, step 72 -->
+<svg class="over" viewBox="0 0 1200 630">
+  <g filter="url(#wc)">
+    <rect x="344" y="442" width="48" height="48" rx="4" fill="#9dbbe0"/>
+    <rect x="416" y="216" width="48" height="274" rx="4" fill="#e8693a"/>
+    <rect x="488" y="437" width="48" height="53" rx="4" fill="#f0b08f"/>
+    <rect x="560" y="430" width="48" height="60" rx="4" fill="#f0b08f"/>
+    <rect x="632" y="414" width="48" height="76" rx="4" fill="#f0b08f"/>
+    <rect x="704" y="457" width="48" height="33" rx="4" fill="#c9d9b8"/>
+    <rect x="776" y="438" width="48" height="52" rx="4" fill="#8cbf86"/>
+    <rect x="848" y="467" width="48" height="23" rx="4" fill="#c9d9b8"/>
+  </g>
+  <g filter="url(#rough)" fill="none" stroke-linecap="round">
+    <path d="M330 491 L912 491" stroke="#b9ab9a" stroke-width="2"/>
+    <!-- annotation arrow to the 60s bar -->
+    <path d="M250 300 C300 250 360 236 404 250" stroke="#e8693a" stroke-width="3"/>
+    <path d="M392 240 L406 251 L390 260" stroke="#e8693a" stroke-width="3"/>
+    <!-- annotation to the 15m bar -->
+    <path d="M968 330 C960 380 900 420 834 452" stroke="#9c9187" stroke-width="2.2" stroke-dasharray="7 8"/>
+    <path d="M842 440 L832 454 L850 456" stroke="#9c9187" stroke-width="2.2"/>
+    <!-- stopwatch -->
+    <circle cx="150" cy="420" r="58" stroke="#2f2a25" stroke-width="3" fill="#fffdf9"/>
+    <path d="M150 362 L150 346 M136 342 L164 342 M196 378 L206 368" stroke="#2f2a25" stroke-width="3"/>
+    <path d="M150 420 L150 384" stroke="#e8693a" stroke-width="3.5"/>
+    <path d="M150 420 L176 432" stroke="#2f2a25" stroke-width="3"/>
+    <path d="M150 370 L150 376 M200 420 L194 420 M150 470 L150 464 M100 420 L106 420" stroke="#9c9187" stroke-width="2.5"/>
+  </g>
+</svg>
+<div class="num" style="left:338px;top:410px">51</div>
+<div class="num" style="left:410px;top:184px;color:#c4542c;font-weight:700">304</div>
+<div class="num" style="left:482px;top:405px">59</div>
+<div class="num" style="left:554px;top:398px">67</div>
+<div class="num" style="left:626px;top:382px">86</div>
+<div class="num" style="left:698px;top:425px">38</div>
+<div class="num" style="left:770px;top:406px">58</div>
+<div class="num" style="left:842px;top:435px">26</div>
+<div class="lab" style="left:338px;top:500px">0</div>
+<div class="lab" style="left:410px;top:500px">60s</div>
+<div class="lab" style="left:482px;top:500px">2m</div>
+<div class="lab" style="left:554px;top:500px">3m</div>
+<div class="lab" style="left:626px;top:500px">5m</div>
+<div class="lab" style="left:698px;top:500px">10m</div>
+<div class="lab" style="left:770px;top:500px">15m</div>
+<div class="lab" style="left:842px;top:500px">&gt;15m</div>
+<div class="tag" style="left:110px;top:226px;font-size:30px;line-height:1.05;color:var(--ink)">44% sit right<br>on the default</div>
+<div class="tag" style="left:900px;top:262px;font-size:27px;line-height:1.05;color:#6f655b">over half of the upstream<br>Kubernetes rules pick 15m</div>
+</div>
+</body>
+</html>

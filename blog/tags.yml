@@ -1,0 +1,29 @@
+# 博客标签。文章 front matter 里的 tags 只能用这里列出的 key（onInlineTags 默认会对未登记的标签告警）。
+kubernetes:
+  label: Kubernetes
+  permalink: /kubernetes
+  description: Monitoring and alerting on Kubernetes clusters.
+prometheus:
+  label: Prometheus
+  permalink: /prometheus
+  description: Prometheus metrics, rules and operations.
+alerting:
+  label: Alerting
+  permalink: /alerting
+  description: Designing alert rules that page for the right reasons.
+migration:
+  label: Migration
+  permalink: /migration
+  description: Moving between monitoring and alerting systems.
+high-availability:
+  label: High availability
+  permalink: /high-availability
+  description: Keeping monitoring and alerting up when parts of it fail.
+ai:
+  label: AI and MCP
+  permalink: /ai
+  description: AI assistants, MCP servers and how they touch production systems.
+data:
+  label: Data
+  permalink: /data
+  description: Posts built on numbers from Nightingale's own templates and rule library.

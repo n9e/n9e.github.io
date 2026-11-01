@@ -24,7 +24,7 @@ Elasticsearch 告警规则：集群健康变黄或变红、JVM 堆内存用量�
 | 规则 | 级别 | 持续 |
 | --- | --- | --- |
 | Elastic Cluster Red status | 紧急 | — |
-| Elastic Cluster Yellow status | 警告 | — |
+| Elastic Cluster Yellow status | 警告 | 10 分钟 |
 | Elasticsearch disk out of space of the instance | 紧急 | 2 分钟 |
 | Elasticsearch disk space low of the instance | 警告 | 2 分钟 |
 | Elasticsearch Heap Usage Too High of the instance | 紧急 | 2 分钟 |
@@ -56,7 +56,7 @@ elasticsearch_cluster_health_status{color="red"} == 1
 
 ### Elastic Cluster Yellow status
 
-警告 · — · 触发条件:
+警告 · 10 分钟 · 触发条件:
 
 ```promql
 elasticsearch_cluster_health_status{color="yellow"} == 1

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="covers.css">
+<style>
+  .stage { top: 46px; }
+  .title { position: absolute; top: 36px; left: 0; right: 0; text-align: center; font-size: 46px; }
+  .sub { position: absolute; top: 94px; left: 0; right: 0; text-align: center; font-size: 27px; color: var(--muted); }
+  .card { top: 176px; }
+  .c1 { left: 90px; width: 300px; }
+  .c2 { left: 700px; width: 400px; }
+  .bubble { margin: 12px 14px; padding: 10px 14px; border-radius: 12px; font-size: 14px; line-height: 1.4; }
+  .q { background: #f3ece2; margin-right: 48px; }
+  .a { background: #fbe7da; margin-left: 40px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; padding: 4px 16px 12px; }
+  .chip { font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 4px 9px; border-radius: 6px; background: #eef3e8; color: #46663f; border: 1px solid #d7e4cc; }
+  .locked { margin: 2px 16px 16px; padding: 10px 12px; border: 1.5px dashed #d8c9b5; border-radius: 10px; font-size: 13px; color: var(--muted); display: flex; gap: 10px; align-items: center; }
+  .tag { font-family: 'Caveat', cursive; position: absolute; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="2"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+  </defs>
+</svg>
+<div class="stage">
+<div class="title hand">An MCP server inside an alerting engine</div>
+<div class="sub hand">the AI gets your permissions, nothing more</div>
+
+<div class="card c1">
+  <div class="head"><span class="dot" style="background:var(--blue)"></span>AI client</div>
+  <div class="bubble q">Which alerts are firing right now? Group them by severity.</div>
+  <div class="bubble a">3 critical, 11 warning. Most of the warnings are from one rule…</div>
+  <div style="height:8px"></div>
+</div>
+
+<div class="card c2">
+  <div class="head"><span class="dot" style="background:var(--green)"></span>Nightingale <span class="mono" style="font-weight:500;color:var(--muted);font-size:14px">POST /mcp</span></div>
+  <div style="padding:2px 16px 8px;font-size:13px;color:var(--muted)">42 read tools, on by default</div>
+  <div class="chips">
+    <span class="chip">alerts</span><span class="chip">metrics</span><span class="chip">logs</span><span class="chip">targets</span>
+    <span class="chip">dashboards</span><span class="chip">mutes</span><span class="chip">busi_groups</span><span class="chip">…</span>
+  </div>
+  <div class="locked">
+    <svg width="22" height="24" viewBox="0 0 22 24"><g fill="none" stroke="#9c9187" stroke-width="2"><rect x="3" y="10" width="16" height="12" rx="2"/><path d="M7 10 V7 a4 4 0 0 1 8 0 V10"/></g></svg>
+    32 write tools: not even registered until you turn them on
+  </div>
+</div>
+
+<svg class="over" viewBox="0 0 1200 630">
+  <g filter="url(#rough)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M404 300 C470 290 560 290 682 300" stroke="#e8693a" stroke-width="5"/>
+    <path d="M664 286 L686 301 L662 314" stroke="#e8693a" stroke-width="5"/>
+    <!-- key -->
+    <circle cx="530" cy="356" r="16" stroke="#2f2a25" stroke-width="3" fill="#fff4ec"/>
+    <path d="M546 356 L600 356 M584 356 L584 370 M596 356 L596 366" stroke="#2f2a25" stroke-width="3"/>
+  </g>
+</svg>
+<div class="tag" style="left:474px;top:244px;font-size:28px">your token</div>
+<div class="tag" style="left:420px;top:392px;font-size:26px;color:#6f655b;line-height:1.05;text-align:center;width:260px">same RBAC as clicking<br>in the UI</div>
+</div>
+</body>
+</html>

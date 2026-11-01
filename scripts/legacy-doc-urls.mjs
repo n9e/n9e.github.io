@@ -81,8 +81,9 @@ const site = (path, action, reason, to, extra = {}) => ({
 });
 
 export const legacySiteUrls = [
-  site('/blog', 'redirect', 'The Hugo blog index listed one post and the blog is not rebuilt yet; the index goes to the locale home.', '/', {
-    source: 'blog/_index.md',
+  // The English blog was rebuilt at /blog on 2026-11-01, so only the Chinese index still redirects home.
+  site('/blog', 'redirect', 'The Hugo blog index listed one post. The blog is English-only now; the Chinese index goes to the locale home.', '/', {
+    locales: ['zh-Hans'], source: 'blog/_index.md',
   }),
   site(
     '/blog/five-steps-to-build-observability',

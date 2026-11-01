@@ -187,7 +187,7 @@ Kubernetes 的每个组件都自带 Prometheus 格式的 `/metrics`，推荐用 
 | 节点磁盘快满了-S1-inodes-20 | S1 紧急 | 60 分钟 |
 | 节点磁盘快满了-S2-inodes-5 | S2 警告 | 60 分钟 |
 | 节点磁盘快满了-S1-inodes-3 | S1 紧急 | 60 分钟 |
-| 使用的节点Conntrack条目数量高 | S2 警告 | — |
+| 使用的节点Conntrack条目数量高 | S2 警告 | 5 分钟 |
 | 节点文本文件收集器抓取错误 | S2 警告 | — |
 | 节点网络接口抖动 | S2 警告 | 2 分钟 |
 | ConfigReloaderSidecarErrors | S2 警告 | 10 分钟 |

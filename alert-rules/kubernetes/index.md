@@ -183,7 +183,7 @@ Runbook:
 Info · 1m · Trigger:
 
 ```promql
-100 * (sum(rate(container_cpu_usage_seconds_total{id!="/"}[2m])) by (pod_name,namespace,container) / sum(label_replace(kube_pod_container_resource_limits_cpu_cores{},"pod_name","$1","pod","(.*)")) by (pod_name,namespace,container)) > 80 and sum(label_replace(kube_pod_container_resource_limits_cpu_cores{},"pod_name","$1","pod","(.)")) by (pod_name,namespace,container) != 0
+100 * sum by (namespace, pod, container) (rate(container_cpu_usage_seconds_total{container!="", container!="POD"}[2m])) / sum by (namespace, pod, container) (kube_pod_container_resource_limits{resource="cpu"}) > 80
 ```
 
 Runbook:
@@ -198,7 +198,7 @@ Runbook:
 Info · 1m · Trigger:
 
 ```promql
-(sum(container_memory_working_set_bytes{id!="/"}) BY (instance,name,container,pod_name,namespace) / sum(container_spec_memory_limit_bytes{id!="/"} > 0) BY (instance,name,container,pod_name,namespace) * 100) > 80
+100 * sum by (namespace, pod, container) (container_memory_working_set_bytes{container!="", container!="POD"}) / sum by (namespace, pod, container) (container_spec_memory_limit_bytes{container!="", container!="POD"} > 0) > 80
 ```
 
 Runbook:

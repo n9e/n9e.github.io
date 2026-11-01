@@ -187,7 +187,7 @@ Control-plane endpoints need a ServiceAccount token or client certificate; when 
 | Node disk almost full - S1 - inodes - 20 | S1 Critical | 60m |
 | Node disk almost full - S2 - inodes - 5 | S2 Warning | 60m |
 | Node disk almost full - S1 - inodes - 3 | S1 Critical | 60m |
-| Node conntrack entries usage high | S2 Warning | — |
+| Node conntrack entries usage high | S2 Warning | 5m |
 | Node textfile collector scrape errors | S2 Warning | — |
 | Node network interface flapping | S2 Warning | 2m |
 | ConfigReloaderSidecarErrors | S2 Warning | 10m |

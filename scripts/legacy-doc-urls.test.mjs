@@ -44,7 +44,9 @@ test('the removed article gets a notice, never a redirect', () => {
 });
 
 test('old blog and contributor routes keep their language, off-site targets are not prefixed', () => {
-  assert.equal(legacyTarget('/blog/'), '/');
+  // The English blog lives at /blog again; only the Chinese index still redirects.
+  assert.equal(legacyTarget('/blog/'), null);
+  assert.equal(legacyTarget('/blog'), null);
   assert.equal(legacyTarget('/zh/blog'), '/zh/');
   assert.equal(legacyTarget('/blog/five-steps-to-build-observability/'), '/docs/get-started/where-it-fits');
   assert.equal(legacyTarget('/zh/blog/five-steps-to-build-observability'), null);
@@ -52,9 +54,10 @@ test('old blog and contributor routes keep their language, off-site targets are 
   assert.equal(legacyTarget('/zh/contributors'), 'https://github.com/ccfos/nightingale/graphs/contributors');
   assert.equal(legacyTarget('/contributors/ulric-qin'), 'https://github.com/ccfos/nightingale/graphs/contributors');
   assert.equal(legacyTarget('/zh/contributors/henk-verlinde'), 'https://github.com/ccfos/nightingale/graphs/contributors');
+  assert(redirectsForLocale('zh-Hans').some((item) => item.from === '/blog' && item.to === '/'));
+  assert(!redirectsForLocale('en').some((item) => item.from === '/blog'));
   for (const locale of ['en', 'zh-Hans']) {
     const rules = redirectsForLocale(locale);
-    assert(rules.some((item) => item.from === '/blog' && item.to === '/'));
     assert(!rules.some((item) => item.from.startsWith('/contributors')), 'off-site targets must not reach the official plugin');
   }
 });

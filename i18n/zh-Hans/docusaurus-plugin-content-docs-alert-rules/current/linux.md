@@ -56,7 +56,7 @@ Linux 服务器与 Kubernetes 节点的主机级告警规则：内存耗尽与�
 | 节点磁盘快满了-S1-inodes-20 | 紧急 | 60 分钟 |
 | 节点磁盘快满了-S2-inodes-5 | 警告 | 60 分钟 |
 | 节点磁盘快满了-S1-inodes-3 | 紧急 | 60 分钟 |
-| 使用的节点Conntrack条目数量高 | 警告 | — |
+| 使用的节点Conntrack条目数量高 | 警告 | 5 分钟 |
 | 节点文本文件收集器抓取错误 | 警告 | — |
 | 节点网络接口抖动 | 警告 | 2 分钟 |
 | A certain disk is unable to read/write normally | 紧急 | 1 分钟 |
@@ -707,7 +707,7 @@ and
 
 \{\{ $value | humanizePercentage \}\} of conntrack entries are used.
 
-警告 · — · 触发条件:
+警告 · 5 分钟 · 触发条件:
 
 ```promql
 (node_nf_conntrack_entries / node_nf_conntrack_entries_limit) > 0.75

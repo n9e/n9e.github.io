@@ -14,6 +14,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { PAGES, slugOf } from './catalog.mjs';
+import { applyAlertOverrides, reportUnused } from './overrides.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const CATALOG = join(ROOT, 'src', 'data', 'integrations.json');
@@ -22,6 +23,7 @@ const INDEX = join(OUT_DIR, 'index.json');
 const REPO = 'ccfos/nightingale';
 const RAW = `https://raw.githubusercontent.com/${REPO}/main/integrations`;
 const force = process.argv.includes('--force');
+const overridesUsed = new Set();
 
 const headers = {
   accept: 'application/vnd.github+json',
@@ -111,7 +113,8 @@ async function describe(ident, files, categraf) {
   const alerts = [];
   for (const f of under('alerts').filter((f) => f.path.endsWith('.json'))) {
     const file = f.path.split('/').pop();
-    for (const rule of asArray(await raw(f.path, 'json'))) alerts.push(pickAlert(rule, file, tr));
+    // 上游已知问题的临时修正见 overrides.mjs
+    for (const rule of asArray(await raw(f.path, 'json'))) alerts.push(applyAlertOverrides(ident, pickAlert(rule, file, tr), overridesUsed));
   }
 
   const metrics = [];
@@ -190,6 +193,7 @@ try {
     });
     console.log(`${ident}: ${data.alerts.length} 规则 / ${data.metrics.length} 指标 / ${data.dashboards.length} 仪表盘 / ${data.collect.length} 采集配置`);
   }
+  reportUnused(overridesUsed, PAGES);
   await writeFile(
     INDEX,
     `${JSON.stringify({ fetchedAt: catalog.fetchedAt, treeSha: catalog.treeSha, sourceUrl: catalog.sourceUrl, pages }, null, 2)}\n`,

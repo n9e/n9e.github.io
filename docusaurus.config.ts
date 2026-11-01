@@ -62,7 +62,8 @@ const EMBED_INLINE_SCRIPT = `(function () {
 })();`;
 
 // 不走 i18n JSON 的配置项（如 og 图）只能按构建时的 locale 分流
-const isEn = process.env.DOCUSAURUS_CURRENT_LOCALE === 'en';
+// docusaurus start 不带 --locale 时这个变量是字符串 "undefined"，按默认 locale（en）处理
+const isEn = process.env.DOCUSAURUS_CURRENT_LOCALE !== 'zh-Hans';
 const LOCALE_BASE_URL = isEn ? BASE_URL : '/zh/';
 // 历史文档地址的别名表；带斜杠的历史别名已在里面，createRedirects 不再重复生成。
 const legacyRedirects = redirectsForLocale(isEn ? 'en' : 'zh-Hans');
@@ -155,7 +156,35 @@ const config: Config = {
           // 全站显示"今天更新"（调研 §15.7 点名的"虚假新鲜感"）。要标就标"最后验证"，
           // 那得等有人真的验证过，是正文的事，不是配置的事。
         },
-        blog: false,
+        // 博客只有英文：中文站不建（2026-11-01 决定），所以按构建 locale 分流。
+        // 中文站的 /zh/blog 仍是旧站别名，跳回中文首页（scripts/legacy-doc-urls.mjs）。
+        // 英文页上 Docusaurus 默认会输出指向 /zh/blog/... 的 hreflang，那些页面不存在，
+        // 构建后由 scripts/strip-blog-hreflang.mjs 删掉。
+        blog: isEn
+          ? {
+              routeBasePath: 'blog',
+              blogTitle: 'Nightingale Blog',
+              blogDescription:
+                'Notes on alerting, Prometheus and Kubernetes monitoring from the Nightingale maintainers: data from our rule library, migration guides and design write-ups.',
+              blogSidebarTitle: 'All posts',
+              blogSidebarCount: 'ALL',
+              postsPerPage: 10,
+              showReadingTime: true,
+              authorsMapPath: 'authors.yml',
+              tags: 'tags.yml',
+              onInlineTags: 'throw',
+              onInlineAuthors: 'throw',
+              onUntruncatedBlogPosts: 'throw',
+              editUrl: 'https://github.com/n9e/n9e.github.io/edit/main/',
+              feedOptions: {
+                type: ['rss', 'atom'],
+                title: 'Nightingale Blog',
+                description: 'Alerting, Prometheus and Kubernetes monitoring notes from the Nightingale maintainers.',
+                copyright: `© ${new Date().getFullYear()} Nightingale Contributors · Apache-2.0`,
+                language: 'en',
+              },
+            }
+          : false,
         theme: {
           // 字体自托管（@fontsource，OFL 许可）：之前从 fonts.googleapis.com 加载，那个样式表挂在
           // <head> 里会阻塞渲染，大陆网络经常连不上，首屏就一直白着。每个字重一份 CSS，
@@ -240,6 +269,7 @@ const config: Config = {
         content: {
           includeDocs: true,
           includePages: true,
+          includeBlog: isEn,
           enableLlmsFullTxt: true,
           // 文档页只取正文；其它页面取整个 main。默认选择器里的 article 会先命中首页的告警卡片，
           // 转出来的首页只剩一张卡
@@ -306,6 +336,8 @@ const config: Config = {
         { to: '/integrations', label: '集成', position: 'left' },
         { to: '/comparisons', label: '对比', position: 'left' },
         { to: '/download', label: '下载', position: 'left' },
+        // 博客只有英文站有（见上面 blog 配置）
+        ...(isEn ? [{ to: '/blog', label: 'Blog', position: 'left' as const }] : []),
         {
           label: '社区',
           position: 'left',
@@ -347,6 +379,7 @@ const config: Config = {
             { label: '集成生态', to: '/integrations' },
             { label: '告警规则库', to: '/alert-rules' },
             { label: '产品对比', to: '/comparisons' },
+            ...(isEn ? [{ label: 'Blog', to: '/blog' }] : []),
             // 两个选型落地页（设计稿 §6.2：从页脚链入，长期接搜索流量）
             { label: 'Zabbix 替代方案', to: '/comparisons/zabbix-alternatives' },
             { label: '开源告警平台选型', to: '/comparisons/open-source-alerting-platforms' },

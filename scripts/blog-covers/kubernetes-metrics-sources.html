@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="covers.css">
+<style>
+  .stage { top: 24px; }
+  .title { position: absolute; top: 34px; left: 0; right: 0; text-align: center; font-size: 46px; }
+  .sub { position: absolute; top: 92px; left: 0; right: 0; text-align: center; font-size: 27px; color: var(--muted); }
+  .card { top: 168px; width: 252px; }
+  .c1 { left: 44px; } .c2 { left: 322px; } .c3 { left: 600px; } .c4 { left: 900px; top: 186px; transform: rotate(1.2deg); }
+  .row .mono { font-size: 10.6px; color: #5a5149; }
+  .tag { font-family: 'Caveat', cursive; font-size: 24px; position: absolute; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <filter id="wc" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="4"/>
+      <feDisplacementMap in="SourceGraphic" scale="16"/>
+      <feGaussianBlur stdDeviation="1.1"/>
+    </filter>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="2"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+  </defs>
+</svg>
+<div class="stage">
+<div class="title hand">Where does this Kubernetes metric come from?</div>
+<div class="sub hand">four components, four very different jobs</div>
+
+<!-- kube-state-metrics -->
+<div class="card c1">
+  <div class="head"><span class="dot" style="background:var(--blue)"></span>kube-state-metrics</div>
+  <div class="wash">
+    <svg viewBox="0 0 222 64" width="222" height="64"><g filter="url(#wc)">
+      <rect x="-10" y="-10" width="250" height="90" fill="#d9e6f4"/>
+      <rect x="20" y="20" width="44" height="30" rx="4" fill="#7fa7d6" opacity=".85"/>
+      <rect x="78" y="14" width="44" height="36" rx="4" fill="#5d8cc8" opacity=".85"/>
+      <rect x="136" y="24" width="44" height="26" rx="4" fill="#9dbbe0" opacity=".9"/>
+    </g></svg>
+  </div>
+  <div class="rows">
+    <div class="row">What objects say</div>
+    <div class="row"><span class="mono">kube_pod_status_phase</span></div>
+    <div class="row"><span class="mono">kube_deployment_spec_replicas</span></div>
+  </div>
+</div>
+
+<!-- cAdvisor -->
+<div class="card c2">
+  <div class="head"><span class="dot" style="background:var(--orange)"></span>cAdvisor <span style="font-weight:500;color:var(--muted);font-size:13px">in the kubelet</span></div>
+  <div class="wash">
+    <svg viewBox="0 0 222 64" width="222" height="64"><g filter="url(#wc)">
+      <rect x="-10" y="-10" width="250" height="90" fill="#fbe0cf"/>
+      <path d="M0 52 C40 40 60 20 95 30 S150 8 222 18 L222 70 L0 70Z" fill="#f0a179" opacity=".9"/>
+      <path d="M0 60 C50 50 90 44 130 48 S190 36 222 40 L222 70 L0 70Z" fill="#e8693a" opacity=".8"/>
+    </g></svg>
+  </div>
+  <div class="rows">
+    <div class="row">What containers use</div>
+    <div class="row"><span class="mono">container_cpu_usage_seconds_total</span></div>
+    <div class="row"><span class="mono">container_memory_working_set_bytes</span></div>
+  </div>
+</div>
+
+<!-- node_exporter -->
+<div class="card c3">
+  <div class="head"><span class="dot" style="background:var(--green)"></span>node_exporter</div>
+  <div class="wash">
+    <svg viewBox="0 0 222 64" width="222" height="64"><g filter="url(#wc)">
+      <rect x="-10" y="-10" width="250" height="90" fill="#e2efdc"/>
+      <path d="M-5 64 L40 26 L70 44 L112 10 L150 40 L180 24 L230 64Z" fill="#8cbf86" opacity=".9"/>
+      <path d="M-5 70 L60 44 L120 56 L170 38 L230 58 L230 70Z" fill="#5f9f62" opacity=".85"/>
+    </g></svg>
+  </div>
+  <div class="rows">
+    <div class="row">What the host does</div>
+    <div class="row"><span class="mono">node_cpu_seconds_total</span></div>
+    <div class="row"><span class="mono">node_filesystem_avail_bytes</span></div>
+  </div>
+</div>
+
+<!-- metrics-server -->
+<div class="card c4">
+  <div class="head"><span class="dot" style="background:var(--plum)"></span>metrics-server</div>
+  <div class="wash">
+    <svg viewBox="0 0 222 64" width="222" height="64"><g filter="url(#wc)">
+      <rect x="-10" y="-10" width="250" height="90" fill="#ebe3f3"/>
+      <circle cx="111" cy="34" r="22" fill="#b39bd0" opacity=".9"/>
+      <circle cx="111" cy="34" r="11" fill="#8a6bb0" opacity=".9"/>
+    </g></svg>
+  </div>
+  <div class="rows">
+    <div class="row">kubectl top · HPA</div>
+    <div class="row"><span class="mono">metrics.k8s.io</span></div>
+    <div class="row">latest value only</div>
+  </div>
+</div>
+
+<svg class="over" viewBox="0 0 1200 630">
+  <g filter="url(#rough)" fill="none" stroke-linecap="round">
+    <!-- dashed note path to metrics-server -->
+    <path d="M948 508 C1000 510 1030 488 1026 440" stroke="#9c9187" stroke-width="2.2" stroke-dasharray="7 8"/>
+    <path d="M1016 452 L1026 438 L1036 452" stroke="#9c9187" stroke-width="2.2"/>
+    <!-- brush underline under "alert on these three" -->
+    <path d="M150 514 C330 504 520 506 702 512" stroke="#e8693a" stroke-width="5" opacity=".85"/>
+    <path d="M160 522 C340 514 520 516 690 519" stroke="#e8693a" stroke-width="2.5" opacity=".55"/>
+    <!-- check circle -->
+    <circle cx="96" cy="486" r="24" stroke="#e8693a" stroke-width="3.2"/>
+    <path d="M84 486 L93 496 L109 475" stroke="#e8693a" stroke-width="3.6"/>
+  </g>
+</svg>
+<div class="tag" style="left:134px;top:466px;font-size:31px">scrape these three and alert on them</div>
+<div class="tag" style="left:772px;top:494px;color:#6f655b">for autoscaling, not alerting</div>
+</div>
+</body>
+</html>

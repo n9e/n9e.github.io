@@ -2,6 +2,7 @@
  * 旧 Hugo 站的 RSS 路径：/index.xml、/docs/index.xml、/docs/<section>/index.xml、/blog/index.xml、
  * /contributors/index.xml（中英各一套）。搜索引擎和订阅器还在抓，现在全是 404。
  * 这里在每个路径写一份合法的 RSS 2.0：最新的夜莺 / Categraf 发布，加一条「文档已搬到新站」。
+ * 英文 /blog/index.xml 例外：复制新博客的 rss.xml。
  * 内容来自 src/data/releases.json，不额外联网；「搬家」那条的日期固定为新站首次上线日，
  * 不随构建变化，订阅器不会把它当新文章反复推。
  */
@@ -71,6 +72,15 @@ for (const l of locales) {
   const dirs = ['', '/docs', ...SECTIONS.map((s) => `/docs/${s}`), '/blog', '/contributors'];
   for (const dir of dirs) {
     const file = path.join(build, `${l.prefix}${dir}`, 'index.xml');
+    // 英文博客重建后（2026-11-01），旧的 /blog/index.xml 直接给新博客的 RSS，订阅者能收到文章
+    if (`${l.prefix}${dir}` === '/blog') {
+      const rss = path.join(build, 'blog', 'rss.xml');
+      if (await fs.access(rss).then(() => true, () => false)) {
+        await fs.copyFile(rss, file, fs.constants.COPYFILE_EXCL);
+        count++;
+        continue;
+      }
+    }
     await fs.mkdir(path.dirname(file), { recursive: true });
     await fs.writeFile(file, xml, { flag: 'wx' }); // 绝不覆盖已有文件
     count++;

@@ -1,0 +1,142 @@
+/* 博客列表页卡片：圆角、描边、hover 抬升沿用站内卡片（DocCardList）的做法 */
+
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 996px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--n9e-line);
+  border-radius: var(--n9e-radius-lg);
+  background: var(--n9e-paper-raised);
+  transition: border-color 0.16s ease, transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.card:hover {
+  border-color: var(--n9e-violet);
+  box-shadow: var(--n9e-shadow-card);
+  transform: translateY(-2px);
+}
+
+.cover {
+  display: block;
+  aspect-ratio: 1200 / 630;
+  border-bottom: 1px solid var(--n9e-line);
+  background: #faf6ee;
+}
+
+.cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.1rem 1.25rem 1.25rem;
+}
+
+.title {
+  margin: 0 0 0.5rem;
+  font-size: 1.12rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.titleLink {
+  color: var(--n9e-ink);
+}
+
+/* 整张卡片可点：标题链接的伪元素铺满卡片，标签链接再垫高一层 */
+.titleLink::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.titleLink:hover {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--n9e-ink-soft);
+}
+
+.meta {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: auto;
+  font-size: 0.8rem;
+  color: var(--n9e-ink-faint);
+}
+
+.tags {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border: 1px solid var(--n9e-line);
+  border-radius: 999px;
+  font-size: 0.76rem;
+  line-height: 1.5;
+  color: var(--n9e-ink-soft);
+}
+
+.tag:hover {
+  border-color: var(--n9e-violet);
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+}
+
+.paginator {
+  margin-top: 2.5rem;
+}
+
+.paginator:empty,
+.paginator nav:empty {
+  display: none;
+}

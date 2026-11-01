@@ -25,7 +25,7 @@
       "note": "",
       "note_en": "",
       "severity": 2,
-      "for": 0,
+      "for": 600,
       "queries": [
         {
           "promql": "elasticsearch_cluster_health_status{color=\"yellow\"} == 1",
@@ -212,7 +212,7 @@
       "note": "",
       "note_en": "",
       "severity": 2,
-      "for": 0,
+      "for": 600,
       "queries": [
         {
           "promql": "elasticsearch_cluster_health_status{color=\"yellow\"} == 1",

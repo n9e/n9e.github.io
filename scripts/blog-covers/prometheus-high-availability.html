@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="covers.css">
+<style>
+  .stage { top: 14px; }
+  .title { position: absolute; top: 34px; left: 0; right: 0; text-align: center; font-size: 46px; }
+  .sub { position: absolute; top: 92px; left: 0; right: 0; text-align: center; font-size: 27px; color: var(--muted); }
+  .card { width: 230px; }
+  .p { left: 80px; }
+  .card .head { font-size: 16px; }
+  .mini { padding: 0 16px 14px; font-size: 13px; color: var(--muted); }
+  .dest { width: 330px; }
+  .tag { font-family: 'Caveat', cursive; position: absolute; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <filter id="wc" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="3" seed="13"/>
+      <feDisplacementMap in="SourceGraphic" scale="12"/>
+      <feGaussianBlur stdDeviation="1"/>
+    </filter>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="2"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+  </defs>
+</svg>
+<div class="stage">
+<div class="title hand">Two kinds of high availability</div>
+<div class="sub hand">keeping the data, and keeping the pager quiet but working</div>
+
+<div class="card p" style="top:190px"><div class="head"><span class="dot" style="background:var(--orange)"></span>Prometheus A</div><div class="mini">replica="a" · same config</div></div>
+<div class="card p" style="top:330px;transform:rotate(-1deg)"><div class="head"><span class="dot" style="background:var(--orange)"></span>Prometheus B</div><div class="mini">replica="b" · same config</div></div>
+
+<div class="card dest" style="left:790px;top:168px">
+  <div class="head"><span class="dot" style="background:var(--blue)"></span>Storage &amp; queries</div>
+  <div class="wash" style="height:48px">
+    <svg viewBox="0 0 306 48" width="306" height="48"><g filter="url(#wc)">
+      <rect x="-10" y="-10" width="330" height="70" fill="#d9e6f4"/>
+      <path d="M0 40 C40 30 70 34 100 22 S170 30 200 18 S270 14 306 10 L306 60 L0 60Z" fill="#7fa7d6"/>
+      <path d="M0 44 C40 34 70 38 100 26 S170 34 200 22 S270 18 306 14" stroke="#4f86c6" stroke-width="3" fill="none" opacity=".6"/>
+    </g></svg>
+  </div>
+  <div class="mini" style="padding-top:10px">two copies, deduplicated on read</div>
+</div>
+
+<div class="card dest" style="left:790px;top:350px">
+  <div class="head"><span class="dot" style="background:var(--green)"></span>Alertmanager cluster</div>
+  <svg viewBox="0 0 330 70" width="330" height="70"><g filter="url(#rough)" fill="none" stroke-linecap="round">
+    <circle cx="90" cy="36" r="15" stroke="#5f9f62" stroke-width="3" fill="#e2efdc"/>
+    <circle cx="165" cy="36" r="15" stroke="#5f9f62" stroke-width="3" fill="#e2efdc"/>
+    <circle cx="240" cy="36" r="15" stroke="#5f9f62" stroke-width="3" fill="#e2efdc"/>
+    <path d="M106 36 L149 36 M181 36 L224 36" stroke="#5f9f62" stroke-width="2" stroke-dasharray="4 5"/>
+  </g></svg>
+  <div class="mini">gossip, so one notification goes out</div>
+</div>
+
+<svg class="over" viewBox="0 0 1200 630">
+  <g filter="url(#rough)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M318 222 C500 200 620 210 778 230" stroke="#4f86c6" stroke-width="3"/>
+    <path d="M318 362 C500 330 620 250 778 240" stroke="#4f86c6" stroke-width="3"/>
+    <path d="M760 222 L780 232 L762 246" stroke="#4f86c6" stroke-width="3"/>
+    <path d="M318 236 C500 300 620 400 778 410" stroke="#5f9f62" stroke-width="3"/>
+    <path d="M318 376 C500 400 620 410 778 420" stroke="#5f9f62" stroke-width="3"/>
+    <path d="M760 404 L780 416 L760 428" stroke="#5f9f62" stroke-width="3"/>
+    <!-- bell with "1" -->
+    <path d="M1110 512 C1110 494 1120 486 1128 486 C1136 486 1146 494 1146 512 L1146 528 L1152 536 L1104 536 L1110 528 Z" stroke="#e8693a" stroke-width="3" fill="#fff4ec"/>
+    <path d="M1122 541 C1124 547 1132 547 1134 541" stroke="#e8693a" stroke-width="3"/>
+  </g>
+</svg>
+<div class="tag" style="left:470px;top:170px;font-size:27px;color:#4f86c6">both write</div>
+<div class="tag" style="left:470px;top:420px;font-size:27px;color:#5f9f62">both evaluate, both send</div>
+<div class="tag" style="left:620px;top:526px;font-size:29px;white-space:nowrap">list every Alertmanager, no load balancer</div>
+</div>
+</body>
+</html>

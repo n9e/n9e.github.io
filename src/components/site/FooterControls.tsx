@@ -1,6 +1,7 @@
 import React, { type ReactNode } from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
+import { useLocation } from '@docusaurus/router';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import { useColorMode, useThemeConfig } from '@docusaurus/theme-common';
 import { useAlternatePageUtils } from '@docusaurus/theme-common/internal';
@@ -17,12 +18,17 @@ import styles from './footerControls.module.css';
  * pathname:// 前缀是为了强制整页跳转——两种语言是两份独立构建产物，
  * 走客户端路由跳不过去。autoAddBaseUrl 必须关：createUrl 返回的已经是带目标
  * 语言前缀的完整路径，Link 默认还会再套一次当前语言的 baseUrl。
+ *
+ * 博客只有英文（docusaurus.config.ts 的 blog 配置），/blog 下的页面没有中文对应页，
+ * 切到别的语言时去那个语言的首页，不去不存在的 /zh/blog/...。
  */
 export function LocaleSwitcher(): ReactNode {
   const {
     i18n: { currentLocale, locales, localeConfigs },
   } = useDocusaurusContext();
   const alternate = useAlternatePageUtils();
+  const { pathname } = useLocation();
+  const englishOnly = /^\/blog(\/|$)/.test(pathname);
 
   if (locales.length < 2) return null;
 
@@ -34,7 +40,11 @@ export function LocaleSwitcher(): ReactNode {
           <Link
             key={locale}
             className={clsx(styles.locale, active && styles.localeActive)}
-            to={`pathname://${alternate.createUrl({ locale, fullyQualified: false })}`}
+            to={`pathname://${
+              englishOnly && !active
+                ? (localeConfigs[locale].baseUrl ?? '/')
+                : alternate.createUrl({ locale, fullyQualified: false })
+            }`}
             autoAddBaseUrl={false}
             aria-current={active ? 'page' : undefined}
           >
