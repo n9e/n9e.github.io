@@ -287,7 +287,10 @@ const config: Config = {
       {
         language: ['en', 'zh'],
         hashed: true,
-        indexBlog: false,
+        // 博客文章进站内搜索（列表页和 /blog/tags 插件自己会跳过）。中文站没有博客路由，不受影响。
+        // 作者页、归档页只有文章标题列表，进索引只会和文章本身重复。
+        indexBlog: true,
+        ignoreFiles: [/^blog\/(authors|archive)(\/|$)/],
         indexPages: true,
         // 三个 docs 实例都进索引：主文档、集成独立页、告警规则库
         docsRouteBasePath: ['docs', 'integrations', 'alert-rules'],
