@@ -2,7 +2,7 @@
 
 What the KubeNodeNotReady Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 A node's `Ready` condition has not been `True` for 15 minutes; it is either `False` (the kubelet reports a problem) or `Unknown` (the kubelet has stopped reporting). New Pods are not scheduled there, and Pods already on it are evicted once the not-ready or unreachable taint outlasts their toleration, which is 300 seconds by default.
 

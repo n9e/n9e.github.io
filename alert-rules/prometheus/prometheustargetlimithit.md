@@ -2,7 +2,7 @@
 
 What the PrometheusTargetLimitHit Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 A scrape job discovered more targets than its `target_limit` allows. Prometheus does not scrape just the first N in that case: it marks every target of that scrape pool as failed and scrapes none of them. A whole job goes dark at once, and its `up` series turn to 0.
 

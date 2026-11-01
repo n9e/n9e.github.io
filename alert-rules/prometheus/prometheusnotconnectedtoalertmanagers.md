@@ -2,7 +2,7 @@
 
 What the PrometheusNotConnectedToAlertmanagers Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Prometheus has discovered no Alertmanager to send alerts to. Rules are still evaluated and alerts still show as firing on the Prometheus `/alerts` page, but no notifications go out. Everything is silent and nothing looks wrong, which is why this alert should be routed through a channel that does not depend on the same Alertmanager.
 

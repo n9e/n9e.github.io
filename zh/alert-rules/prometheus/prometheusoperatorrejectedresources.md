@@ -2,7 +2,7 @@
 
 Prometheus 告警 PrometheusOperatorRejectedResources 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-10-31
+最后校对于 2026-11-01
 
 Prometheus Operator 拒绝了一个或多个监控资源（ServiceMonitor、PodMonitor、Probe、PrometheusRule、AlertmanagerConfig），没有把它们放进生成的配置。这些资源在集群里照样存在，`kubectl apply` 也成功了，但它们描述的目标没有被采集，里面的规则也没有加载。除了这条告警，没有别的地方会提醒你。
 

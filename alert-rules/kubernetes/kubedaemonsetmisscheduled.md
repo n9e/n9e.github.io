@@ -2,7 +2,7 @@
 
 What the KubeDaemonSetMisScheduled Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Some of a DaemonSet's Pods are running on nodes where, according to the DaemonSet's current node selector, affinity and the node's taints, they should not run. It rarely breaks anything by itself, but it means the DaemonSet's placement and the cluster's node layout disagree.
 

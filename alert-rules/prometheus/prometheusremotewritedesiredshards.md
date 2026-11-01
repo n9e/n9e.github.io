@@ -2,7 +2,7 @@
 
 What the PrometheusRemoteWriteDesiredShards Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Remote write calculates how many parallel shards it needs to keep up with the incoming samples. This alert fires when that number has been above the configured `max_shards` for 15 minutes. Remote write cannot add the shards it needs, so it will fall behind (PrometheusRemoteWriteBehind) unless something changes.
 

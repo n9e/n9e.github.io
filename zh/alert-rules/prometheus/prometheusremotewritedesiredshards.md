@@ -2,7 +2,7 @@
 
 Prometheus 告警 PrometheusRemoteWriteDesiredShards 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-10-31
+最后校对于 2026-11-01
 
 Remote Write 会根据进来的样本速度，计算需要多少个并行分片（shard）才能跟上。这条告警在这个计算值连续 15 分钟高于配置的 `max_shards` 时触发：Remote Write 加不了它需要的分片，如果情况不变，就会开始落后（PrometheusRemoteWriteBehind）。
 

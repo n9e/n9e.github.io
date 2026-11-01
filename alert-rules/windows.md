@@ -2,7 +2,7 @@
 
 13 ready-to-use Windows alert rules in PromQL, each with severity, duration and runbook steps. Metrics from windows\_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Windows Server alert rules for high CPU and memory usage, disks that are full or predicted to fill within 4 hours, busy disk IO, inbound and outbound packet loss, an unexpected reboot, and a host whose collector has gone silent. The exporter group uses prometheus-community/windows\_exporter metric names (`windows_*`); the Categraf group covers hosts collected by Categraf on Windows.
 

@@ -2,7 +2,7 @@
 
 通过 ES 自己的 HTTP 接口采集集群健康、节点 JVM、线程池、索引和分片状态，小集群抓一个节点即可拿到全集群数据。
 
-最后校对于 2026-10-31
+最后校对于 2026-11-01
 
 Elasticsearch 通过 HTTP JSON 接口暴露自身状态，插件抓 `_cluster/health`、`_cluster/stats`、`_nodes/stats` 和索引统计：集群颜色、未分配分片、节点 JVM 堆与 GC、断路器、线程池拒绝、索引写入与查询延迟、磁盘水位。
 
@@ -168,7 +168,7 @@ Elasticsearch 通过 HTTP JSON 接口暴露自身状态，插件抓 `_cluster/he
 | 规则                                              | 级别    | 持续    |
 | ------------------------------------------------- | ------- | ------- |
 | Elastic Cluster Red status                        | S1 紧急 | —       |
-| Elastic Cluster Yellow status                     | S2 警告 | —       |
+| Elastic Cluster Yellow status                     | S2 警告 | 10 分钟 |
 | Elasticsearch disk out of space of the instance   | S1 紧急 | 2 分钟  |
 | Elasticsearch disk space low of the instance      | S2 警告 | 2 分钟  |
 | Elasticsearch Heap Usage Too High of the instance | S1 紧急 | 2 分钟  |
@@ -179,7 +179,7 @@ Elasticsearch 通过 HTTP JSON 接口暴露自身状态，插件抓 `_cluster/he
 | Elasticsearch relocation shards of the instance   | S2 警告 | 15 分钟 |
 | Elasticsearch unassigned shards of the instance   | S1 紧急 | —       |
 | Elastic Cluster Red status                        | S1 紧急 | —       |
-| Elastic Cluster Yellow status                     | S2 警告 | —       |
+| Elastic Cluster Yellow status                     | S2 警告 | 10 分钟 |
 | Elasticsearch disk out of space of the instance   | S1 紧急 | 2 分钟  |
 | Elasticsearch disk space low of the instance      | S2 警告 | 2 分钟  |
 | Elasticsearch Heap Usage Too High of the instance | S1 紧急 | 2 分钟  |

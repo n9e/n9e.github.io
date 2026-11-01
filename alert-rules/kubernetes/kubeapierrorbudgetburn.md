@@ -2,7 +2,7 @@
 
 What the KubeAPIErrorBudgetBurn Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The Kubernetes API server is failing or slowing down requests fast enough to use up its error budget early. The rules use the multi-window burn-rate method from the Google SRE workbook against a 99% availability target. Each pairs a long and a short window, and both must exceed the threshold: 14.4 over 1h and 5m, and 6 over 6h and 30m, are critical; 3 over 1d and 2h, and 1 over 3d and 6h, are warnings. At a burn rate of 14.4 a 30-day error budget is gone in about two days. Controllers, kubectl and CI pipelines all go through the API server, so its errors spread everywhere.
 

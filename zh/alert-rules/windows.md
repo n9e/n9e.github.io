@@ -2,7 +2,7 @@
 
 13 条开箱可用的 Windows 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 windows\_exporter, Categraf。可下载为 Prometheus 规则文件，或导入夜莺。
 
-最后校对于 2026-10-31
+最后校对于 2026-11-01
 
 Windows Server 告警规则：CPU 与内存使用率过高、磁盘已满或预计 4 小时内写满、磁盘 IO 繁忙、出入方向丢包、近期发生重启，以及采集端失联。exporter 一组使用 prometheus-community/windows\_exporter 的指标名（`windows_*`）；Categraf 一组针对在 Windows 上用 Categraf 采集的主机。
 

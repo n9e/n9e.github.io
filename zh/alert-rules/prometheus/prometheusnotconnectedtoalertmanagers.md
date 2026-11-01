@@ -2,7 +2,7 @@
 
 Prometheus 告警 PrometheusNotConnectedToAlertmanagers 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-10-31
+最后校对于 2026-11-01
 
 Prometheus 没有发现任何可以发送告警的 Alertmanager。规则照常求值，告警在 Prometheus 的 `/alerts` 页面上照样显示为触发，但没有任何通知发出去。一切都静悄悄的、看不出异常，所以这条告警应该走一条不依赖同一个 Alertmanager 的通道发出。
 

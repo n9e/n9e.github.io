@@ -2,7 +2,7 @@
 
 What the KubeJobFailed Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 A Job has been marked `Failed` (`kube_job_failed > 0`): it used up its `backoffLimit` (6 retries by default) or ran past `activeDeadlineSeconds`, and the batch work it was meant to do (a backup, a report, a data sync) did not happen.
 

@@ -2,7 +2,7 @@
 
 11 ready-to-use Elasticsearch alert rules in PromQL, each with severity, duration and runbook steps. Metrics from elasticsearch\_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Elasticsearch alert rules for cluster health turning yellow or red, JVM heap usage climbing, disk space running low or out, unassigned, initializing and relocating shards, pending cluster tasks, and an index that has stopped receiving new documents. The exporter group uses prometheus-community/elasticsearch\_exporter metric names; the Categraf group runs the same checks on Categraf-collected metrics.
 
@@ -18,7 +18,7 @@ Elasticsearch alert rules for cluster health turning yellow or red, JVM heap usa
 | Rule                                              | Severity | For |
 | ------------------------------------------------- | -------- | --- |
 | Elastic Cluster Red status                        | Critical | —   |
-| Elastic Cluster Yellow status                     | Warning  | —   |
+| Elastic Cluster Yellow status                     | Warning  | 10m |
 | Elasticsearch disk out of space of the instance   | Critical | 2m  |
 | Elasticsearch disk space low of the instance      | Warning  | 2m  |
 | Elasticsearch Heap Usage Too High of the instance | Critical | 2m  |
@@ -50,7 +50,7 @@ Runbook:
 
 ### Elastic Cluster Yellow status[​](#elastic-cluster-yellow-status "Direct link to Elastic Cluster Yellow status")
 
-Warning · — · Trigger:
+Warning · 10m · Trigger:
 
 ```
 elasticsearch_cluster_health_status{color="yellow"} == 1

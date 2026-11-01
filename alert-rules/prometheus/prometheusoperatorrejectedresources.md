@@ -2,7 +2,7 @@
 
 What the PrometheusOperatorRejectedResources Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The Prometheus Operator rejected one or more monitoring resources (ServiceMonitor, PodMonitor, Probe, PrometheusRule, AlertmanagerConfig) and left them out of the generated configuration. The resources still exist in the cluster and `kubectl apply` succeeded, but the targets they describe are not scraped and the rules they contain are not loaded. Nothing else tells you this has happened.
 

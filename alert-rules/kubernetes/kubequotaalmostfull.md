@@ -2,7 +2,7 @@
 
 What the KubeQuotaAlmostFull Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 A namespace is using between 90% and 100% of one of its ResourceQuota limits (CPU, memory, Pod count, storage and so on). Nothing is broken yet. Once the quota is full, the API server rejects new Pods and objects in that namespace, which typically shows up as a failed rollout or a scale-out that never happens.
 

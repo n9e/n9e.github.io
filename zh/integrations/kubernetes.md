@@ -2,7 +2,7 @@
 
 抓 apiserver、kubelet、controller-manager、scheduler、kube-proxy、CoreDNS、kube-state-metrics 和 node-exporter 的原生 /metrics，模板覆盖控制面到 Pod 的每一层。
 
-最后校对于 2026-10-31
+最后校对于 2026-11-01
 
 Kubernetes 的每个组件都自带 Prometheus 格式的 `/metrics`，推荐用 Categraf 的 `prometheus` 插件直接抓取，再部署 kube-state-metrics（工作负载状态）和 node-exporter（节点资源）。旧的 Categraf kubernetes 插件已废弃，但模板里的仪表盘和规则照常可用。
 
@@ -182,7 +182,7 @@ Kubernetes 的每个组件都自带 Prometheus 格式的 `/metrics`，推荐用 
 | 节点磁盘快满了-S1-inodes-20                       | S1 紧急 | 60 分钟  |
 | 节点磁盘快满了-S2-inodes-5                        | S2 警告 | 60 分钟  |
 | 节点磁盘快满了-S1-inodes-3                        | S1 紧急 | 60 分钟  |
-| 使用的节点Conntrack条目数量高                     | S2 警告 | —        |
+| 使用的节点Conntrack条目数量高                     | S2 警告 | 5 分钟   |
 | 节点文本文件收集器抓取错误                        | S2 警告 | —        |
 | 节点网络接口抖动                                  | S2 警告 | 2 分钟   |
 | ConfigReloaderSidecarErrors                       | S2 警告 | 10 分钟  |

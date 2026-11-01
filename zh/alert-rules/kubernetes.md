@@ -2,7 +2,7 @@
 
 77 条开箱可用的 Kubernetes 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 kube-state-metrics, cAdvisor (kubelet), apiserver。可下载为 Prometheus 规则文件，或导入夜莺。
 
-最后校对于 2026-10-31
+最后校对于 2026-11-01
 
 基于每个集群都已经暴露的指标做的 Kubernetes 告警规则：kube-state-metrics 提供对象状态，kubelet 内置的 cAdvisor 提供容器资源用量，apiserver、kubelet、scheduler、controller-manager 的指标端点覆盖控制面。覆盖 Pod 反复重启与未就绪、发布卡住、副本数不一致、Job 失败、资源超卖、配额吃紧、证书过期和控制面宕机。大部分规则沿用 kubernetes-mixin / kube-prometheus 的告警名（KubePodCrashLooping、KubeNodeNotReady、KubeAPIErrorBudgetBurn 等），和你在 Alertmanager 里见到的名字一致。
 
@@ -177,7 +177,7 @@ increase(kube_pod_container_status_restarts_total{}[5m]) > 3
 提醒 · 1 分钟 · 触发条件:
 
 ```
-100 * (sum(rate(container_cpu_usage_seconds_total{id!="/"}[2m])) by (pod_name,namespace,container) / sum(label_replace(kube_pod_container_resource_limits_cpu_cores{},"pod_name","$1","pod","(.*)")) by (pod_name,namespace,container)) > 80 and sum(label_replace(kube_pod_container_resource_limits_cpu_cores{},"pod_name","$1","pod","(.)")) by (pod_name,namespace,container) != 0
+100 * sum by (namespace, pod, container) (rate(container_cpu_usage_seconds_total{container!="", container!="POD"}[2m])) / sum by (namespace, pod, container) (kube_pod_container_resource_limits{resource="cpu"}) > 80
 ```
 
 处置步骤:
@@ -192,7 +192,7 @@ increase(kube_pod_container_status_restarts_total{}[5m]) > 3
 提醒 · 1 分钟 · 触发条件:
 
 ```
-(sum(container_memory_working_set_bytes{id!="/"}) BY (instance,name,container,pod_name,namespace) / sum(container_spec_memory_limit_bytes{id!="/"} > 0) BY (instance,name,container,pod_name,namespace) * 100) > 80
+100 * sum by (namespace, pod, container) (container_memory_working_set_bytes{container!="", container!="POD"}) / sum by (namespace, pod, container) (container_spec_memory_limit_bytes{container!="", container!="POD"} > 0) > 80
 ```
 
 处置步骤:
@@ -383,7 +383,7 @@ kube_statefulset_status_replicas_ready{job="kube-state-metrics"} != kube_statefu
 3. 存储问题排查 PV/StorageClass 与 CSI 驱动；
 4. 应用自身问题看 kubectl logs，修复后 StatefulSet 会自动继续。
 
-### DaemonSet未就绪Pod[​](#daemonset未就绪pod "DaemonSet未就绪Pod的直接链接")
+### DaemonSet未就绪Pod[​](#daemonset未�就绪pod "DaemonSet未就绪Pod的直接链接")
 
 DaemonSet {{ $labels.daemonset }} in namespace {{ $labels.namespace }} has unready pods.
 

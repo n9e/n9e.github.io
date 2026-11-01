@@ -14,6 +14,7 @@ groups:
       - alert: "Elastic Cluster Yellow status"
         expr: |-
           elasticsearch_cluster_health_status{color="yellow"} == 1
+        for: 10m
         labels:
           severity: warning
         annotations:

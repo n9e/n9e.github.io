@@ -4,6 +4,69 @@
 
 - [Nightingale (n9e)](https://n9e.github.io/index.md)
 
+## blog
+
+Notes on alerting, Prometheus and Kubernetes monitoring from the Nightingale maintainers: data from our rule library, migration guides and design write-ups.
+
+- [Nightingale Blog](https://n9e.github.io/blog.md): Notes on alerting, Prometheus and Kubernetes monitoring from the Nightingale maintainers: data from our rule library, migration guides and design write-ups.
+
+### archive
+
+Archive
+
+- [Archive](https://n9e.github.io/blog/archive.md): Archive
+
+### authors
+
+- [Authors](https://n9e.github.io/blog/authors.md)
+
+### kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter
+
+What kube-state-metrics, metrics-server, cAdvisor and node_exporter each measure, which one to alert on, and the metric renames that silently break copied queries.
+
+- [kube-state-metrics vs metrics-server vs cAdvisor vs node_exporter](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md): What kube-state-metrics, metrics-server, cAdvisor and node_exporter each measure, which one to alert on, and the metric renames that silently break copied queries.
+
+### mcp-server-for-alerting
+
+How Nightingale's built-in MCP server handles permissions, write access and audit: RBAC inherited from the token, write tools unregistered by default, no delete tools, and one caveat.
+
+- [MCP server for alerting: six design decisions](https://n9e.github.io/blog/mcp-server-for-alerting.md): How Nightingale's built-in MCP server handles permissions, write access and audit: RBAC inherited from the token, write tools unregistered by default, no delete tools, and one caveat.
+
+### migrate-zabbix-to-prometheus
+
+A concept-by-concept map from Zabbix to Prometheus: hosts, items, triggers, LLD, dependencies, maintenance. Plus the gaps with no equivalent and a migration order that never turns Zabbix off.
+
+- [Migrating from Zabbix to Prometheus](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md): A concept-by-concept map from Zabbix to Prometheus: hosts, items, triggers, LLD, dependencies, maintenance. Plus the gaps with no equivalent and a migration order that never turns Zabbix off.
+
+### prometheus-alert-for-duration
+
+We counted the for duration and severity of 692 alert rule templates. 44% use the 60s default. Here is when for: 0, 60s, 15m and 1h are the right choice.
+
+- [How long should a Prometheus alert wait? Data from 692 rules](https://n9e.github.io/blog/prometheus-alert-for-duration.md): We counted the for duration and severity of 692 alert rule templates. 44% use the 60s default. Here is when for: 0, 60s, 15m and 1h are the right choice.
+
+### prometheus-high-availability
+
+Running two Prometheus replicas solves half of high availability. How Alertmanager clustering, replica labels and Thanos, Mimir or VictoriaMetrics deduplication fit together.
+
+- [Prometheus high availability: storage vs alerting](https://n9e.github.io/blog/prometheus-high-availability.md): Running two Prometheus replicas solves half of high availability. How Alertmanager clustering, replica labels and Thanos, Mimir or VictoriaMetrics deduplication fit together.
+
+### symptom-based-alerting
+
+Symptom-based vs cause-based alerting with real Prometheus rules: error ratio, latency and probe alerts that page, and where CPU, disk and certificate alerts still belong.
+
+- [Symptom-based alerting with Prometheus](https://n9e.github.io/blog/symptom-based-alerting.md): Symptom-based vs cause-based alerting with real Prometheus rules: error ratio, latency and probe alerts that page, and where CPU, disk and certificate alerts still belong.
+
+### tags
+
+- [Tags](https://n9e.github.io/blog/tags.md)
+- [One post tagged with "AI and MCP"](https://n9e.github.io/blog/tags/ai.md): AI assistants, MCP servers and how they touch production systems.
+- [6 posts tagged with "Alerting"](https://n9e.github.io/blog/tags/alerting.md): Designing alert rules that page for the right reasons.
+- [One post tagged with "Data"](https://n9e.github.io/blog/tags/data.md): Posts built on numbers from Nightingale's own templates and rule library.
+- [One post tagged with "High availability"](https://n9e.github.io/blog/tags/high-availability.md): Keeping monitoring and alerting up when parts of it fail.
+- [One post tagged with "Kubernetes"](https://n9e.github.io/blog/tags/kubernetes.md): Monitoring and alerting on Kubernetes clusters.
+- [One post tagged with "Migration"](https://n9e.github.io/blog/tags/migration.md): Moving between monitoring and alerting systems.
+- [5 posts tagged with "Prometheus"](https://n9e.github.io/blog/tags/prometheus.md): Prometheus metrics, rules and operations.
+
 ## categraf
 
 Categraf is an MIT-licensed metrics agent for hosts, middleware, databases, network devices and Kubernetes. It writes over Prometheus Remote Write. Install, configure, and compare it with Telegraf.
@@ -754,6 +817,1555 @@ Find current business-group, API, notification, mute, subscription and workflow 
 
 # Full Documentation Content
 
+BLOG
+
+# Nightingale Blog
+
+Notes on alerting, Prometheus and Kubernetes monitoring from the Nightingale maintainers: data from our rule library, migration guides and design write-ups.
+
+[Alerting](https://n9e.github.io/blog/tags/alerting.md)[Prometheus](https://n9e.github.io/blog/tags/prometheus.md)[Kubernetes](https://n9e.github.io/blog/tags/kubernetes.md)[Data](https://n9e.github.io/blog/tags/data.md)[AI and MCP](https://n9e.github.io/blog/tags/ai.md)[High availability](https://n9e.github.io/blog/tags/high-availability.md)[Migration](https://n9e.github.io/blog/tags/migration.md)
+
+[![](https://n9e.github.io/img/blog/kubernetes-metrics-sources.webp)](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+
+## [kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+
+What kube-state-metrics, metrics-server, cAdvisor and node\_exporter each measure, which one to alert on, and the metric renames that silently break copied queries.
+
+Nov 1, 2026·7
+
+<!-- -->
+
+min read
+
+* [Kubernetes](https://n9e.github.io/blog/tags/kubernetes.md)
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md)
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md)
+
+[![](https://n9e.github.io/img/blog/alert-for-duration.webp)](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+
+## [How long should a Prometheus alert wait? Data from 692 rules](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+
+We counted the for duration and severity of 692 alert rule templates. 44% use the 60s default. Here is when for: 0, 60s, 15m and 1h are the right choice.
+
+Nov 1, 2026·9
+
+<!-- -->
+
+min read
+
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md)
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md)
+* [Data](https://n9e.github.io/blog/tags/data.md)
+
+[![](https://n9e.github.io/img/blog/mcp-server-design.webp)](https://n9e.github.io/blog/mcp-server-for-alerting.md)
+
+## [MCP server for alerting: six design decisions](https://n9e.github.io/blog/mcp-server-for-alerting.md)
+
+How Nightingale's built-in MCP server handles permissions, write access and audit: RBAC inherited from the token, write tools unregistered by default, no delete tools, and one caveat.
+
+Nov 1, 2026·7
+
+<!-- -->
+
+min read
+
+* [AI and MCP](https://n9e.github.io/blog/tags/ai.md)
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md)
+
+[![](https://n9e.github.io/img/blog/prometheus-high-availability.webp)](https://n9e.github.io/blog/prometheus-high-availability.md)
+
+## [Prometheus high availability: storage vs alerting](https://n9e.github.io/blog/prometheus-high-availability.md)
+
+Running two Prometheus replicas solves half of high availability. How Alertmanager clustering, replica labels and Thanos, Mimir or VictoriaMetrics deduplication fit together.
+
+Nov 1, 2026·7
+
+<!-- -->
+
+min read
+
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md)
+* [High availability](https://n9e.github.io/blog/tags/high-availability.md)
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md)
+
+[![](https://n9e.github.io/img/blog/zabbix-to-prometheus.webp)](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+
+## [Migrating from Zabbix to Prometheus](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+
+A concept-by-concept map from Zabbix to Prometheus: hosts, items, triggers, LLD, dependencies, maintenance. Plus the gaps with no equivalent and a migration order that never turns Zabbix off.
+
+Nov 1, 2026·7
+
+<!-- -->
+
+min read
+
+* [Migration](https://n9e.github.io/blog/tags/migration.md)
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md)
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md)
+
+[![](https://n9e.github.io/img/blog/symptom-based-alerting.webp)](https://n9e.github.io/blog/symptom-based-alerting.md)
+
+## [Symptom-based alerting with Prometheus](https://n9e.github.io/blog/symptom-based-alerting.md)
+
+Symptom-based vs cause-based alerting with real Prometheus rules: error ratio, latency and probe alerts that page, and where CPU, disk and certificate alerts still belong.
+
+Nov 1, 2026·7
+
+<!-- -->
+
+min read
+
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md)
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md)
+
+
+---
+
+### 2026[​](#2026 "Direct link to 2026")
+
+* [November 1](https://n9e.github.io/blog/symptom-based-alerting.md)
+  <!-- -->
+  [ - ](https://n9e.github.io/blog/symptom-based-alerting.md)
+  <!-- -->
+  [Symptom-based alerting with Prometheus](https://n9e.github.io/blog/symptom-based-alerting.md)
+* [November 1](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+  <!-- -->
+  [ - ](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+  <!-- -->
+  [Migrating from Zabbix to Prometheus](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+* [November 1](https://n9e.github.io/blog/prometheus-high-availability.md)
+  <!-- -->
+  [ - ](https://n9e.github.io/blog/prometheus-high-availability.md)
+  <!-- -->
+  [Prometheus high availability: storage vs alerting](https://n9e.github.io/blog/prometheus-high-availability.md)
+* [November 1](https://n9e.github.io/blog/mcp-server-for-alerting.md)
+  <!-- -->
+  [ - ](https://n9e.github.io/blog/mcp-server-for-alerting.md)
+  <!-- -->
+  [MCP server for alerting: six design decisions](https://n9e.github.io/blog/mcp-server-for-alerting.md)
+* [November 1](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+  <!-- -->
+  [ - ](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+  <!-- -->
+  [How long should a Prometheus alert wait? Data from 692 rules](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+* [November 1](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+  <!-- -->
+  [ - ](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+  <!-- -->
+  [kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+
+
+---
+
+# Authors
+
+* ## Eric Qin
+
+  6
+
+
+---
+
+# kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter
+
+November 1, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![Four Kubernetes metric sources: kube-state-metrics, cAdvisor, node\_exporter and metrics-server](https://n9e.github.io/assets/images/kubernetes-metrics-sources-29962af59a23c3f84206f81323ffa542.webp)
+
+Kubernetes metrics come from four places, and their names look alike. `kube_pod_container_resource_limits`, `container_memory_working_set_bytes`, `node_memory_MemAvailable_bytes` and the numbers in `kubectl top` all sound like they describe the same thing. They are made by different components and they answer different questions. Only three of the four are meant for monitoring.
+
+This post explains what each component measures and how to tell which one a metric came from. It also covers the renames that make a query copied from a 2019 blog post return nothing.
+
+## The short answer[​](#the-short-answer "Direct link to The short answer")
+
+| Component              | Measures                                                                                                                 | Where it gets the data                                | Metric prefix                                      | Use it for                                                 |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------- | -------------------------------------------------- | ---------------------------------------------------------- |
+| **kube-state-metrics** | The state of Kubernetes objects: desired vs actual replicas, pod phase, container restarts, resource requests and limits | Watches the API server                                | `kube_`                                            | Alerting and dashboards                                    |
+| **cAdvisor**           | What each container actually uses: CPU, memory, throttling, filesystem, network                                          | Built into the kubelet, served at `/metrics/cadvisor` | `container_`                                       | Alerting and dashboards                                    |
+| **node\_exporter**     | The machine underneath: CPU modes, memory, disks, filesystems, network interfaces                                        | A DaemonSet reading `/proc` and `/sys` on each node   | `node_`                                            | Alerting and dashboards                                    |
+| **metrics-server**     | A CPU and memory snapshot for each pod and node                                                                          | Scrapes the kubelet's `/metrics/resource`             | none; it serves the Metrics API (`metrics.k8s.io`) | `kubectl top`, the Horizontal and Vertical Pod Autoscalers |
+
+You will also meet two more sources. The kubelet's own `/metrics` endpoint provides things like `kubelet_volume_stats_available_bytes`, which tells you how full a PersistentVolume is. The API server exposes `apiserver_*` metrics about itself. Neither belongs to the four above, and alert rules use both.
+
+## kube-state-metrics: what the API server believes[​](#kube-state-metrics-what-the-api-server-believes "Direct link to kube-state-metrics: what the API server believes")
+
+kube-state-metrics listens to the API server and turns objects into metrics. Its README calls this "the health of the various objects inside" the cluster, as opposed to the health of the cluster components themselves. It exposes the values as the API returns them. It does not apply the heuristics `kubectl` uses, which is why its numbers sometimes differ from what `kubectl get` prints.
+
+That makes it the right source for questions about intent:
+
+* Does the Deployment have the replicas it asked for? `kube_deployment_spec_replicas` vs `kube_deployment_status_replicas_available`.
+* Is a container stuck in `CrashLoopBackOff`? `kube_pod_container_status_waiting_reason`.
+* Why did the last run end? `kube_pod_container_status_last_terminated_reason`, where `reason="OOMKilled"` is the one you usually want.
+* Is a node `NotReady`? `kube_node_status_condition`.
+
+It tells you nothing about usage. A pod at 100% of its CPU limit and an idle pod look the same to kube-state-metrics. For usage you need cAdvisor.
+
+**The rename that breaks old queries.** kube-state-metrics 2.0 removed the per-resource metrics such as `kube_pod_container_resource_limits_cpu_cores` and `kube_pod_container_resource_requests_memory_bytes`. Their replacements are `kube_pod_container_resource_limits` and `kube_pod_container_resource_requests`, with `resource` and `unit` labels:
+
+```
+# kube-state-metrics 1.x (removed in 2.0)
+
+kube_pod_container_resource_limits_cpu_cores
+
+
+
+# kube-state-metrics 2.x
+
+kube_pod_container_resource_limits{resource="cpu", unit="core"}
+```
+
+A query that uses the old name does not fail. It returns an empty result, and an alert rule built on it never fires. We found exactly this in our own Kubernetes template while writing this post: the [container CPU rule](https://n9e.github.io/alert-rules/kubernetes.md#container-cpu-usage-exceeds-80) still used the 1.x metric name and the old `pod_name` label. It now uses the current names.
+
+## cAdvisor: what containers actually use[​](#cadvisor-what-containers-actually-use "Direct link to cAdvisor: what containers actually use")
+
+cAdvisor is compiled into the kubelet, so there is nothing extra to deploy. Prometheus scrapes it from each node at `/metrics/cadvisor`. These are the metrics you reach for when a pod is slow or keeps getting killed:
+
+* `container_cpu_usage_seconds_total`: CPU time consumed. Take a `rate()` to get cores in use.
+* `container_memory_working_set_bytes`: memory the kernel cannot easily reclaim. The kubelet uses the working set for eviction decisions, and `kubectl top` shows the same number.
+* `container_cpu_cfs_throttled_periods_total` and `container_cpu_cfs_periods_total`: how often the container hit its CPU limit and was paused. The [CPUThrottlingHigh](https://n9e.github.io/alert-rules/kubernetes.md#cputhrottlinghigh) rule is the ratio of the two.
+
+Two things trip people up:
+
+1. **Extra series.** cAdvisor also reports cgroups that are not your application container: a pod-level series with `container=""` and, on older Docker-based nodes, the pause container as `container="POD"`. Summing without a filter counts the same memory twice. Add `container!=""` (and `container!="POD"` on old nodes) when you aggregate.
+2. **Label names changed.** Before Kubernetes 1.16, cAdvisor labelled series `pod_name` and `container_name`. They are now `pod` and `container`. A rule that groups `by (pod_name)` returns nothing on a current cluster.
+
+Usage becomes useful when you compare it with a limit, and the limit lives in kube-state-metrics. Both sides share the `namespace`, `pod` and `container` labels, so the join is direct:
+
+```
+sum by (namespace, pod, container) (container_memory_working_set_bytes{container!=""})
+
+/
+
+sum by (namespace, pod, container) (kube_pod_container_resource_limits{resource="memory"})
+
+> 0.9
+```
+
+## node\_exporter: the machine underneath[​](#node_exporter-the-machine-underneath "Direct link to node_exporter: the machine underneath")
+
+node\_exporter runs as a DaemonSet with access to the host's `/proc` and `/sys`. It knows nothing about pods. It reports the operating system: `node_cpu_seconds_total` by mode, `node_memory_MemAvailable_bytes`, `node_filesystem_avail_bytes`, disk I/O and network errors.
+
+Use it for the questions Kubernetes does not answer. Is the node's root filesystem filling up? Is the clock drifting? Is a NIC dropping packets? Is the kernel OOM killer firing (`node_vmstat_oom_kill`)? Node-level memory includes page cache and every process on the host, so it will not add up to the sum of your containers. That is expected.
+
+The [Linux rule set](https://n9e.github.io/alert-rules/linux.md) covers the common host checks, including disk-fill prediction with `predict_linear`.
+
+## metrics-server: for autoscaling, not alerting[​](#metrics-server-for-autoscaling-not-alerting "Direct link to metrics-server: for autoscaling, not alerting")
+
+metrics-server collects CPU and memory every 15 seconds from each kubelet's `/metrics/resource` endpoint and serves them through the Metrics API. The Horizontal Pod Autoscaler reads it, the Vertical Pod Autoscaler reads it, and `kubectl top` reads it.
+
+It keeps only the latest value, in memory. There is no history to query and no Prometheus endpoint to scrape. The project's README says it plainly: metrics-server is meant for autoscaling, and you should not use it to forward metrics to monitoring solutions. If you want those numbers in your monitoring system, scrape the kubelet's `/metrics/resource` endpoint directly.
+
+So when `kubectl top` and your dashboard disagree by a few percent, neither is wrong. They read different endpoints at different moments.
+
+## Which component answers your question[​](#which-component-answers-your-question "Direct link to Which component answers your question")
+
+| Question                                        | Metric                                                                                         | Source                        |
+| ----------------------------------------------- | ---------------------------------------------------------------------------------------------- | ----------------------------- |
+| Is the pod restarting?                          | `kube_pod_container_status_restarts_total`                                                     | kube-state-metrics            |
+| Was it OOM-killed?                              | `kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}`                         | kube-state-metrics            |
+| Is a container close to its memory limit?       | `container_memory_working_set_bytes` ÷ `kube_pod_container_resource_limits{resource="memory"}` | cAdvisor + kube-state-metrics |
+| Is it being CPU-throttled?                      | `container_cpu_cfs_throttled_periods_total` ÷ `container_cpu_cfs_periods_total`                | cAdvisor                      |
+| Does the Deployment have the replicas it wants? | `kube_deployment_status_replicas_available` vs `kube_deployment_spec_replicas`                 | kube-state-metrics            |
+| Is a node `NotReady`?                           | `kube_node_status_condition{condition="Ready"}`                                                | kube-state-metrics            |
+| Is a node's disk filling up?                    | `node_filesystem_avail_bytes`                                                                  | node\_exporter                |
+| Is a PersistentVolume filling up?               | `kubelet_volume_stats_available_bytes`                                                         | kubelet                       |
+| How much CPU is the pod using right now?        | `kubectl top pod`                                                                              | metrics-server                |
+
+## Ready-made rules, sorted by source[​](#ready-made-rules-sorted-by-source "Direct link to Ready-made rules, sorted by source")
+
+Most of the standard Kubernetes alerts read kube-state-metrics. Each of these pages explains what the alert means, its common causes and the steps to fix it, and lists the metrics it uses:
+
+* kube-state-metrics: [KubePodCrashLooping](https://n9e.github.io/alert-rules/kubernetes/kubepodcrashlooping.md), [KubePodNotReady](https://n9e.github.io/alert-rules/kubernetes/kubepodnotready.md), [KubeDeploymentReplicasMismatch](https://n9e.github.io/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md), [KubeNodeNotReady](https://n9e.github.io/alert-rules/kubernetes/kubenodenotready.md), [KubeJobFailed](https://n9e.github.io/alert-rules/kubernetes/kubejobfailed.md), [KubeHpaMaxedOut](https://n9e.github.io/alert-rules/kubernetes/kubehpamaxedout.md)
+* kubelet: [KubePersistentVolumeFillingUp](https://n9e.github.io/alert-rules/kubernetes/kubepersistentvolumefillingup.md)
+* cAdvisor: [CPUThrottlingHigh](https://n9e.github.io/alert-rules/kubernetes.md#cputhrottlinghigh)
+* API server: [KubeAPIErrorBudgetBurn](https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md), [KubeClientCertificateExpiration](https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration.md)
+
+The full [Kubernetes rule set](https://n9e.github.io/alert-rules/kubernetes.md) is available as a Prometheus rules file you can download and load with `rule_files`.
+
+## With Nightingale[​](#with-nightingale "Direct link to With Nightingale")
+
+Nightingale does not replace any of these four components. It queries the store where their metrics already land, such as Prometheus or VictoriaMetrics, and runs alert rules against it. The [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) ships the rules above, each with its runbook attached, and you can [import them into a business group](https://n9e.github.io/docs/data/integrations/import.md) in one step.
+
+**Tags:**
+
+* [Kubernetes](https://n9e.github.io/blog/tags/kubernetes.md "Monitoring and alerting on Kubernetes clusters.")
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+
+[Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-kubernetes-metrics-sources/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fkube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter\&body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fblog%2Fkube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter%0A%0A)
+
+[Older post](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+
+[How long should a Prometheus alert wait? Data from 692 rules](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+
+
+---
+
+# MCP server for alerting: six design decisions
+
+November 1, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![An AI client asking which alerts are firing, connected with a user\&#39;s token to Nightingale\&#39;s MCP endpoint](https://n9e.github.io/assets/images/mcp-server-design-c8e30bb02b115a796a5092ccdd548d47.webp)
+
+Since v9, the Nightingale process is also an MCP server. Claude Code, Cursor or any other MCP client can connect to `/mcp` and ask which alerts are firing, which rules are noisiest, or what a metric did over the last hour.
+
+The tool list was the easy part. The hard questions were about trust. Whose permissions does the AI client have? What can it change? How do you find out afterwards what it did? This post walks through the six decisions we made, and one caveat we haven't solved.
+
+What this is not: an autonomous agent that resolves incidents on its own. It is a way for a model to read, and with explicit opt-in to change, an alerting system with the same permissions as the person who connected it.
+
+## 1. No separate server: the endpoint lives in the process[​](#1-no-separate-server-the-endpoint-lives-in-the-process "Direct link to 1. No separate server: the endpoint lives in the process")
+
+There is nothing extra to deploy. `POST /mcp` is served by the same `n9e` process that serves the UI and the API, and it is on by default.
+
+It uses MCP's Streamable HTTP transport in **stateless** mode. Every POST is self-contained. The server returns an `Mcp-Session-Id` on initialize but never validates it, and `GET /mcp` returns 405 because there is no standalone event stream. The practical benefit: several Nightingale instances behind a load balancer need no sticky sessions. Any instance can answer any request.
+
+## 2. A tool call is an internal API call[​](#2-a-tool-call-is-an-internal-api-call "Direct link to 2. A tool call is an internal API call")
+
+When a client calls `list_alert_rules`, the MCP server does not read the database. It dispatches the call, in-process, onto Nightingale's own HTTP route (`/api/n9e/busi-group/{gid}/alert-rules`), carrying the caller's token through the full middleware chain: authenticate, resolve the user, check the permission point, check the business group.
+
+So the answer to "can the AI get around RBAC?" is structural: no. It walks the same path as a click in the UI. There is no separate permission model for AI to configure, audit and keep in sync.
+
+The consequence is that **a client has exactly the permissions of its token's owner**. To limit what the AI can see, you give it a limited account: a dedicated user with the `Guest` or `Standard` role, in a team that can read only the business groups you choose. `list_busi_groups` returns only groups that user can reach, so the model can only ever pick from that set. Do not give the AI account the `Admin` role. Admin bypasses the business-group layer.
+
+OAuth tokens get one more restriction. A token issued through OAuth works on `/mcp` and `/a2a` only; the rest of the API rejects it.
+
+## 3. Write tools are not registered, not just refused[​](#3-write-tools-are-not-registered-not-just-refused "Direct link to 3. Write tools are not registered, not just refused")
+
+There are 74 tools. 42 read and 32 write. By default only the 42 read tools exist. The write tools sit in a separate registration list that is skipped unless you set:
+
+```
+[HTTP.A2A]
+
+MCPEnableWriteTools = true
+```
+
+We chose "not registered" over "registered and refused" on purpose. A model plans with the tools it can see. If write tools appear in `tools/list` and fail at call time, the model keeps trying them, or tries to work around the error. If they are absent, the model never considers them.
+
+This gate sits outside RBAC. Even if a client is handed root's token by mistake, under the default config it cannot change anything. Every tool also carries MCP's `readOnlyHint` annotation for clients that use it, and it always agrees with the registration list.
+
+## 4. No delete tools at all[​](#4-no-delete-tools-at-all "Direct link to 4. No delete tools at all")
+
+None of the 74 tools deletes anything. "Write" means create and update. Deleting a rule, a user or a business group is not reachable through MCP.
+
+This changes the worst case from "gone" to "changed wrongly", which is easier to notice and to fix. It does not make write tools harmless. Some of them are among the most powerful operations in the product:
+
+| Tool                                                         | Why it is dangerous                                                                  |
+| ------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `reset_user_password`                                        | Resets any user's password                                                           |
+| `create_user`, `update_user_profile`                         | Assign roles as a side effect, which is privilege escalation                         |
+| `bind_role_operations`                                       | Replaces a role's whole permission set; a short payload silently removes permissions |
+| `create_notify_channel`, `update_notify_channel`             | A webhook channel sends alert content to any address it is given                     |
+| `upsert_datasource`                                          | Stores data source credentials and probes the address it is given                    |
+| `set_dashboard_public`                                       | Makes a dashboard readable without login                                             |
+| `toggle_alert_rules`, `set_datasource_status`, `create_mute` | Create blind spots: rules disabled, a data source off, alerts silenced               |
+
+## 5. Toolsets are an allowlist, and typos don't fall back[​](#5-toolsets-are-an-allowlist-and-typos-dont-fall-back "Direct link to 5. Toolsets are an allowlist, and typos don't fall back")
+
+The 74 tools are grouped into 13 toolsets: `alerts`, `targets`, `datasource`, `mutes`, `busi_groups`, `notify_rules`, `alert_subscribes`, `event_pipelines`, `users`, `metrics`, `logs`, `dashboards` and `roles`. An empty list exposes all of them; a list exposes only those named:
+
+```
+[HTTP.A2A]
+
+MCPToolsets = ["alerts", "busi_groups", "targets", "metrics"]
+```
+
+A misspelled name is dropped with a warning in the log. It does **not** fall back to "everything". A list made entirely of typos exposes zero tools, not 74. Failing closed is less convenient and much safer.
+
+Work backwards from what you want the AI to do:
+
+| Use                                                     | Toolsets                                             |
+| ------------------------------------------------------- | ---------------------------------------------------- |
+| On-call triage: what is firing, which rule, who owns it | `alerts`, `busi_groups`, `targets`                   |
+| Plus "explain this spike"                               | add `metrics`                                        |
+| Noise review: noisiest rules, mutes, subscriptions      | add `mutes`, `alert_subscribes`                      |
+| Letting the AI change configuration                     | turn on writes, and remove `users` and `roles` first |
+
+## 6. Every call is attributable[​](#6-every-call-is-attributable "Direct link to 6. Every call is attributable")
+
+Two trails answer "who changed this, and was it the AI?":
+
+* **The object itself.** A rule, mute or dashboard changed over MCP records the token owner's username in `update_by`, exactly as if they had edited it in the UI.
+
+* **The request log.** Every `/mcp` request writes a start line with the full request body (tool name and arguments) and a done line with the user and status code, joined by a `trace_id`:
+
+  ```
+  grep '"method":"tools/call"' n9e.log | grep -oE '"name":"[a-z_]+"' | sort | uniq -c | sort -rn
+  ```
+
+  Oversized bodies are truncated, and the log line says so.
+
+A dedicated account per client makes both trails useful. If every client shares one token, `update_by` tells you nothing.
+
+## The caveat: `query_logs` and SQL data sources[​](#the-caveat-query_logs-and-sql-data-sources "Direct link to the-caveat-query_logs-and-sql-data-sources")
+
+One read-only tool deserves care. `query_logs` in the `logs` toolset passes the query body to Nightingale's log query endpoint, which dispatches on the data source type. If you have SQL data sources registered (MySQL, PostgreSQL, ClickHouse, Doris or TDengine), the SQL runs as written.
+
+There is a read-only check on that path. It is a keyword blocklist that rejects statements containing `INSERT`, `UPDATE`, `DELETE`, `DROP`, `ALTER`, `CREATE`, `TRUNCATE`, `REPLACE`, `GRANT` or `REVOKE`. That stops the obvious cases. It is not a SQL parser, so treat it as a second line of defence rather than a guarantee. If you have SQL data sources, leave `logs` out of `MCPToolsets`, or give the AI account a role that cannot reach those data sources. Registering them with read-only database credentials is a sensible extra layer.
+
+## MCP or the built-in assistant?[​](#mcp-or-the-built-in-assistant "Direct link to MCP or the built-in assistant?")
+
+Nightingale also has a built-in assistant in the UI. For configuration changes it is the safer of the two: its update operations are two-phase. The first call computes the change and shows a confirmation card, and nothing is written until a person confirms. MCP has no such step. A write tool writes on its first call.
+
+So a reasonable split is: use an MCP client for reading and triage, where its own model and tools shine, and use the built-in assistant when something needs to change.
+
+## Try it[​](#try-it "Direct link to Try it")
+
+Create a token for a dedicated, least-privileged user under **Profile → Token management**, then add Nightingale to your MCP client:
+
+\~/.claude.json
+
+```
+{
+
+  "mcpServers": {
+
+    "nightingale": {
+
+      "type": "http",
+
+      "url": "http://127.0.0.1:17000/mcp",
+
+      "headers": { "X-User-Token": "<token of the AI account>" }
+
+    }
+
+  }
+
+}
+```
+
+Then ask something you can check: *"Which alerts are firing right now? Group them by severity."* or *"List every business group I can see."* The second one is also a quick test that the account is scoped the way you intended.
+
+More detail is in the docs: [Enable the MCP endpoint](https://n9e.github.io/docs/ai/mcp-endpoint.md), [Permission inheritance and RBAC](https://n9e.github.io/docs/ai/permissions.md), [Read and write toolsets](https://n9e.github.io/docs/ai/toolsets.md) and [Enable write tools safely](https://n9e.github.io/docs/ai/write-tools.md).
+
+**Tags:**
+
+* [AI and MCP](https://n9e.github.io/blog/tags/ai.md "AI assistants, MCP servers and how they touch production systems.")
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+
+[Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-mcp-server-design/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fmcp-server-for-alerting\&body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fblog%2Fmcp-server-for-alerting%0A%0A)
+
+[Newer post](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+
+[How long should a Prometheus alert wait? Data from 692 rules](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+
+[Older post](https://n9e.github.io/blog/prometheus-high-availability.md)
+
+[Prometheus high availability: storage vs alerting](https://n9e.github.io/blog/prometheus-high-availability.md)
+
+
+---
+
+# Migrating from Zabbix to Prometheus
+
+November 1, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![From Zabbix hosts, items and triggers to Prometheus targets, metrics and one alert rule covering every host](https://n9e.github.io/assets/images/zabbix-to-prometheus-ab76e9ac8ebf08826765513529b49986.webp)
+
+Moving from Zabbix to Prometheus is not a data migration. There is no export file that turns into rule files, and no tool that converts triggers into PromQL. The two systems model monitoring differently. Most of the work is translating concepts, then rebuilding a smaller set of rules on top of them.
+
+This post maps each Zabbix concept to its Prometheus counterpart, lists the parts that have no equivalent, and suggests an order of work that keeps Zabbix running until the end.
+
+## The difference that explains everything else[​](#the-difference-that-explains-everything-else "Direct link to The difference that explains everything else")
+
+**Zabbix is host-centric.** You create a host, attach templates, and the templates define items (what to collect) and triggers (when to alert) for that host. 40 database servers with one template give you 40 copies of each trigger.
+
+**Prometheus is query-centric.** Exporters expose metrics, Prometheus scrapes them, and an alert rule is a query. A rule matches every series the query returns. One rule covers all 40 servers, and the 41st server is covered as soon as it is scraped.
+
+Most of the translation follows from this. You rarely port triggers one by one; you merge them.
+
+## Concept map[​](#concept-map "Direct link to Concept map")
+
+### Collection and storage[​](#collection-and-storage "Direct link to Collection and storage")
+
+| Zabbix                          | Prometheus                                                                                   | Notes                                                                                                     |
+| ------------------------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Zabbix server and database      | Prometheus server and its local TSDB                                                         | Local retention is short by default (15 days). Long-term storage is a separate component                  |
+| Zabbix agent                    | Exporters: node\_exporter for hosts, mysqld\_exporter for MySQL and so on                    | Prometheus *pulls* over HTTP; the agent's active checks *push*. Targets must be reachable from Prometheus |
+| Zabbix proxy                    | A Prometheus server per site, or Prometheus in agent mode with `remote_write`                | Agent mode scrapes and forwards without evaluating rules locally                                          |
+| Item                            | A metric name plus labels                                                                    | Which metrics exist is decided by the exporter, not by the monitoring server                              |
+| Item key `vfs.fs.size[/,pfree]` | `node_filesystem_avail_bytes{mountpoint="/"}` ÷ `node_filesystem_size_bytes{mountpoint="/"}` | Percentages are usually computed in the query                                                             |
+| Calculated item                 | Recording rule                                                                               |                                                                                                           |
+| History and trends              | Raw samples; downsampling only in long-term stores such as Thanos                            | There is no built-in hourly min/avg/max like Zabbix trends                                                |
+| Text and log items              | None                                                                                         | Prometheus stores numbers only. Logs go to Loki, Elasticsearch or similar                                 |
+
+### Hosts, templates and discovery[​](#hosts-templates-and-discovery "Direct link to Hosts, templates and discovery")
+
+| Zabbix                     | Prometheus                                                       | Notes                                                                                      |
+| -------------------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Host                       | A scrape target, identified by the `instance` label              |                                                                                            |
+| Host group                 | Labels such as `team` or `env`, added through relabeling         | Groups become labels you can filter on                                                     |
+| Template                   | An exporter, a rule file and a dashboard                         | The community equivalent of a template collection is a monitoring mixin                    |
+| Low-level discovery (LLD)  | Service discovery for targets; labels for things on a target     | New filesystems or interfaces appear as new series automatically. No discovery rule needed |
+| User macros `{$THRESHOLD}` | Hard-coded thresholds, or a threshold metric joined in the query | Per-host overrides need a pattern, see below                                               |
+
+### Triggers and alerting[​](#triggers-and-alerting "Direct link to Triggers and alerting")
+
+| Zabbix                          | Prometheus                                     | Notes                                                                        |
+| ------------------------------- | ---------------------------------------------- | ---------------------------------------------------------------------------- |
+| Trigger                         | Alerting rule: a PromQL `expr` plus `for`      | One rule, many series                                                        |
+| Trigger severity (six levels)   | A `severity` label                             | A convention, not a built-in. Most teams use three: critical, warning, info  |
+| Recovery expression, hysteresis | No direct equivalent                           | `keep_firing_for` delays recovery; true hysteresis needs a query trick       |
+| `nodata()`                      | `absent()`, `absent_over_time()`, or `up == 0` | `absent()` only works for series you name explicitly                         |
+| Trigger dependencies            | Alertmanager `inhibit_rules`                   | Inhibition mutes target alerts while a source alert fires, matched on labels |
+| Event correlation               | None in Prometheus or Alertmanager             |                                                                              |
+
+### Notification[​](#notification "Direct link to Notification")
+
+| Zabbix                | Prometheus                                                 | Notes                                                                                                             |
+| --------------------- | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Action and operations | Alertmanager routes and receivers                          | Routing matches on labels                                                                                         |
+| Media type            | Receiver integration: email, Slack, webhook and others     |                                                                                                                   |
+| Escalation steps      | Not built in                                               | Alertmanager repeats notifications (`repeat_interval`) but has no escalation chain. That is an on-call tool's job |
+| Maintenance period    | Silences, plus `mute_time_intervals` for recurring windows | Silences are ad hoc; time intervals cover the weekly window                                                       |
+| Acknowledgement       | None in Alertmanager                                       | Usually handled in the on-call or chat tool                                                                       |
+
+## The parts with no equivalent[​](#the-parts-with-no-equivalent "Direct link to The parts with no equivalent")
+
+Plan for these before you start. They are where migrations stall.
+
+1. **Escalations.** Zabbix can notify the on-call engineer, then the team lead after 30 minutes, then the manager. Alertmanager cannot. If you rely on escalation, you need an on-call tool behind Alertmanager.
+
+2. **Per-host thresholds.** In Zabbix you override `{$DISK_PFREE_MIN}` on one host. In Prometheus a threshold is part of the query. The common workaround is a small metric that carries thresholds, joined in the rule:
+
+   ```
+   (node_filesystem_avail_bytes / node_filesystem_size_bytes) * 100
+
+     < on(instance) group_left()
+
+   disk_free_threshold_percent
+   ```
+
+   Or keep a default rule and split the exceptions out by label: `disk_profile="large"` gets its own rule.
+
+3. **SNMP traps.** The SNMP exporter polls; it does not receive traps. Traps need a separate receiver that turns them into metrics or logs.
+
+4. **Text and log items.** If Zabbix watches log files or string values, those move to a log system, not Prometheus.
+
+5. **Trigger dependencies, partly.** `inhibit_rules` cover the common case of "switch down mutes everything behind it". They need a label that links the two alerts, such as a shared `site` or `rack`. Zabbix's dependency tree has no labels to rely on, so you add them first.
+
+## An order that keeps Zabbix running[​](#an-order-that-keeps-zabbix-running "Direct link to An order that keeps Zabbix running")
+
+Zabbix stays up and keeps paging people until the very last step. Each step can be checked on its own.
+
+1. **Deploy exporters next to the Zabbix agents.** Start with one group of hosts. Leave the agents installed. *Check*: the targets are `up` in Prometheus.
+2. **Pick the storage you will keep.** A single Prometheus for a start; a pair and a long-term store if you need HA or longer retention. Decide now, because changing stores later is a project of its own.
+3. **Import existing rule sets instead of porting templates.** The community rules for node\_exporter, MySQL, Redis, Kubernetes and others cover most of what stock Zabbix templates do. Our [alert rule library](https://n9e.github.io/alert-rules.md) has them as downloadable rule files, each with a runbook.
+4. **Port the custom triggers, merged.** List your custom triggers, group them by item and threshold, and write one rule per group. Use labels for the exceptions.
+5. **Send Prometheus alerts somewhere nobody is paged.** A dedicated channel or mailbox. Compare it with Zabbix every day: fired only in Zabbix (missed rule or metric), fired only in Prometheus (threshold typo, or a Zabbix dependency or maintenance window you forgot), fired in both at different severity.
+6. **Move notification one channel at a time.** Chat first, then email, then phone. Disable the matching Zabbix action as each channel moves, but keep Zabbix evaluating so the daily comparison continues.
+7. **Stop Zabbix last.** After a week with no differences, stop the agents. Keep the database read-only for as long as you need the history. History does not migrate.
+
+## Zabbix or Prometheus at all?[​](#zabbix-or-prometheus-at-all "Direct link to Zabbix or Prometheus at all?")
+
+Not every Zabbix setup should move. Zabbix suits fleets of long-lived hosts and network devices, teams that want everything configured in one UI, and environments that need agents to push through firewalls. Prometheus suits environments where targets come and go (containers, autoscaling), where configuration lives in Git, and where software already exposes `/metrics`. Many organisations run both for years: Zabbix for network gear and legacy hosts, Prometheus for Kubernetes and new services.
+
+## With Nightingale[​](#with-nightingale "Direct link to With Nightingale")
+
+[Nightingale](https://n9e.github.io/docs/migration/from-zabbix.md) sits on top of Prometheus or VictoriaMetrics as the alerting layer. It manages rules in a UI with business groups and permissions, and handles notification, muting and subscriptions, so step 6 does not require learning Alertmanager's routing tree. It does **not** import Zabbix templates or triggers; the rebuild described above still applies.
+
+Two Nightingale pages go deeper:
+
+* [From Zabbix](https://n9e.github.io/docs/migration/from-zabbix.md): every Zabbix object mapped to a Nightingale one, including the ones with no equivalent.
+* [Coexistence and rollback plan](https://n9e.github.io/docs/migration/coexistence.md): the daily comparison and channel-by-channel cutover in detail, with a rollback for each stage.
+
+If you are still choosing, see [Nightingale vs Zabbix](https://n9e.github.io/comparisons/zabbix.md).
+
+**Tags:**
+
+* [Migration](https://n9e.github.io/blog/tags/migration.md "Moving between monitoring and alerting systems.")
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+
+[Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-zabbix-to-prometheus/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fmigrate-zabbix-to-prometheus\&body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fblog%2Fmigrate-zabbix-to-prometheus%0A%0A)
+
+[Newer post](https://n9e.github.io/blog/prometheus-high-availability.md)
+
+[Prometheus high availability: storage vs alerting](https://n9e.github.io/blog/prometheus-high-availability.md)
+
+[Older post](https://n9e.github.io/blog/symptom-based-alerting.md)
+
+[Symptom-based alerting with Prometheus](https://n9e.github.io/blog/symptom-based-alerting.md)
+
+
+---
+
+# How long should a Prometheus alert wait? Data from 692 rules
+
+November 1, 2026 ·
+
+<!-- -->
+
+9 min read
+
+Eric Qin
+
+![A histogram of for durations across 692 alert rule templates, with 304 rules at 60 seconds](https://n9e.github.io/assets/images/alert-for-duration-8a11aeeb3b53ac4cd26ec55c82f56d39.webp)
+
+Every alert rule answers two questions: what counts as bad, and how long it has to stay bad. Most review effort goes into the first one, the expression and the threshold. The second is the `for` duration, and it often gets whatever value the tool filled in.
+
+We wanted to know how often that happens, so we counted. Nightingale ships alert rule templates for 49 integrations. **692 rules, and 304 of them (44%) have a `for` duration of exactly 60 seconds**, which is the default in Nightingale's rule editor. This post walks through what the numbers show and what `for` value suits which kind of alert.
+
+## What `for` does[​](#what-for-does "Direct link to what-for-does")
+
+An alert rule is evaluated on a schedule. When the expression first returns a series, the alert is *pending*. It becomes *firing* only once the same series has kept matching on every evaluation for at least the `for` duration. If the series disappears for even one evaluation, the clock starts over.
+
+Three consequences follow:
+
+* **Detection time is about `for` plus one evaluation interval.** A rule with `for: 5m` evaluated every minute fires five to six minutes after the problem starts.
+* **A series that flaps never fires.** If the condition comes and goes faster than `for`, no alert is created, and no recovery either. That is the point of `for`, and also a risk.
+* **The defaults differ by tool.** In Prometheus, leaving out `for` means 0, so the alert fires on the first evaluation that matches. In Nightingale's rule editor, a new rule starts at a 60-second `for` and a 60-second evaluation interval. The bundled templates set their own interval, almost always 15 or 30 seconds.
+
+## How we counted[​](#how-we-counted "Direct link to How we counted")
+
+The data is the alert rule templates bundled with Nightingale's integrations: Kubernetes, Linux, MySQL, Redis, Elasticsearch and 44 more. They are published in the [alert rule library](https://n9e.github.io/alert-rules.md) and on each integration page.
+
+* 705 rules in total, **692 after removing exact duplicates** (same integration, same name, same expression).
+* Some checks exist twice on purpose, once for Categraf metrics and once for a Prometheus exporter, because the metric names differ. We count those separately.
+* These are **templates**, not production configs. They show what template authors chose. They say nothing about what users changed after importing them.
+* Counted on 2026-11-01, after the two changes described in Finding 4.
+
+## The distribution[​](#the-distribution "Direct link to The distribution")
+
+| `for`    | Rules | Share |
+| -------- | ----- | ----- |
+| 0        | 51    | 7.4%  |
+| 60s      | 304   | 43.9% |
+| 2m       | 59    | 8.5%  |
+| 3m       | 67    | 9.7%  |
+| 5m       | 86    | 12.4% |
+| 10m      | 38    | 5.5%  |
+| 15m      | 58    | 8.4%  |
+| Over 15m | 26    | 3.8%  |
+
+Three rules use 15s or 90s and are left out of the table.
+
+## Finding 1: the default wins, unless someone chose deliberately[​](#finding-1-the-default-wins-unless-someone-chose-deliberately "Direct link to Finding 1: the default wins, unless someone chose deliberately")
+
+The 60-second spike is the obvious feature. We can't tell from the data whether 304 authors thought about it and picked 60s, or simply kept what the form offered. What we can see is a clear difference between where the rules came from:
+
+* **86 rules** in the Kubernetes template keep the standard alert names from [kubernetes-mixin](https://github.com/kubernetes-monitoring/kubernetes-mixin) and the Prometheus monitoring mixins, the community rule sets behind most Kubernetes monitoring stacks. **46 of them use 15 minutes**, and only 2 use 60 seconds. The mixin authors set `for` alert by alert.
+* Rules written for Categraf and for Prometheus exporters have a **median of 60 seconds**. Only 4 of the 352 use 15 minutes.
+
+Neither is wrong as a whole. The point is that a default is a choice someone else made for you, before they knew what the rule would watch. With the templates' 15- or 30-second evaluation intervals, a 60-second `for` means "matched on two to four evaluations in a row". That is reasonable for CPU, memory and latency. It is too short for things that recover on their own, and too long for events that are over in seconds.
+
+## Finding 2: `for: 0` is right for events, if the window is wide enough[​](#finding-2-for-0-is-right-for-events-if-the-window-is-wide-enough "Direct link to finding-2-for-0-is-right-for-events-if-the-window-is-wide-enough")
+
+51 rules fire on the first match (four of them are host heartbeat checks with no PromQL). Most of the rest watch something that has *already happened*, so waiting adds nothing:
+
+* A counter went up: `increase(node_vmstat_oom_kill[1m]) > 0`. The OOM kill happened; it will not un-happen in five minutes.
+* A deadline is close: `kubelet_certificate_manager_client_ttl_seconds < 604800`. Under seven days is under seven days.
+* A process restarted: `mysql_global_status_uptime < 60`.
+
+The restart check hides a trap. `uptime < 60` is only true for the first 60 seconds after a restart. Any `for` of 60 seconds or more means the alert can never fire, because uptime passes 60 before the duration is met. And the window has to fit several evaluations: copy `uptime < 60` into a rule evaluated every 60 seconds, and it gets one chance per restart, which scrape delay can easily push out of the window.
+
+The templates get this right in different ways. The MySQL and MongoDB rules use `uptime < 60` with `for: 0`, and they evaluate every 15 seconds, so each restart gets about four chances. The Redis rules widen the window to `uptime_in_seconds < 600`. The Apache, EMQX and OpenLDAP rules use `uptime < 300` with `for: 60s`. **Make the window several evaluation intervals wide, keep `for` well under it, and keep both in mind if you change the evaluation interval.**
+
+## Finding 3: some rules move the waiting into the expression[​](#finding-3-some-rules-move-the-waiting-into-the-expression "Direct link to Finding 3: some rules move the waiting into the expression")
+
+Of the 47 `for: 0` rules that have a PromQL expression, 22 wrap their metric in a range function, so the persistence check happens inside PromQL:
+
+```
+# GitLab's ServiceDown template, for: 0
+
+avg_over_time(up[5m]) * 100 < 50
+```
+
+This is not the same as `up == 0` with `for: 5m`:
+
+|                               | `up == 0` with `for: 5m`                                   | `avg_over_time(up[5m]) < 0.5` with `for: 0`                  |
+| ----------------------------- | ---------------------------------------------------------- | ------------------------------------------------------------ |
+| Fires when                    | Every evaluation in the last 5 minutes saw the target down | The target was down for more than half of the last 5 minutes |
+| One good scrape in the middle | Resets the clock                                           | Barely moves the average                                     |
+| Good for                      | "Continuously broken"                                      | "Mostly broken", for flapping targets                        |
+
+Pick the one that matches what you mean. A target that answers one scrape in four is broken, and only the second form will say so.
+
+## Finding 4: a few instant checks deserved a longer wait[​](#finding-4-a-few-instant-checks-deserved-a-longer-wait "Direct link to Finding 4: a few instant checks deserved a longer wait")
+
+Counting also turned up `for: 0` rules that compare a sampled value against a threshold with no window at all. Two of them we changed while writing this post:
+
+* `elasticsearch_cluster_health_status{color="yellow"} == 1`. A cluster goes yellow on every rolling restart while replicas are reallocated. It now waits 10 minutes.
+* `(node_nf_conntrack_entries / node_nf_conntrack_entries_limit) > 0.75`. A single busy scrape was enough to trigger it. It now waits 5 minutes, the same as the sibling rule at 80%.
+
+The tables in this post already include both changes. The general rule: give sampled gauges a few evaluation intervals, or a range function as in Finding 3. Keep `for: 0` for the checks that really are binary: `mysql_up == 0`, a failed systemd unit, a replication thread that stopped.
+
+## Finding 5: long waits are for slow problems[​](#finding-5-long-waits-are-for-slow-problems "Direct link to Finding 5: long waits are for slow problems")
+
+26 rules wait longer than 15 minutes. Most of them watch something that develops slowly:
+
+* The node filesystem predictions from kubernetes-mixin use one hour. A `predict_linear` forecast swings a lot on short windows; an hour of consistent prediction means the trend is real.
+* Prometheus TSDB compaction failures wait four hours. One failed compaction is noise; a run of them is a problem.
+* A kernel version mismatch across nodes waits six hours. It is a hygiene check, not an incident.
+* The slow windows of the Kubernetes API error budget burn alerts wait one and three hours. They are designed to catch slow, steady burns.
+
+Long `for` values pair naturally with a lower severity. Nobody should be paged at 3 a.m. for something that took six hours to become true.
+
+## The severity side[​](#the-severity-side "Direct link to The severity side")
+
+The same templates carry a severity. Nightingale has three levels: S1 (critical), S2 (warning) and S3 (info).
+
+| Severity      | Rules | Share |
+| ------------- | ----- | ----- |
+| S2 / warning  | 490   | 71%   |
+| S1 / critical | 137   | 20%   |
+| S3 / info     | 60    | 9%    |
+
+Five rules have no rule-level severity. When seven rules in ten share a level, the level stops helping anyone route or prioritize. A workable split:
+
+* **S1**: someone must act now. Users are affected or data is about to be lost.
+* **S2**: someone should look today. Capacity trends, single replicas down with redundancy left.
+* **S3**: record it, don't notify. Useful context during an incident.
+
+24 templates put several severities on one rule. The Linux CPU rule, for example, uses `cpu_usage_active > 75` as S3, `> 85` as S2 and `> 95` as S1. One rule with three tiers keeps the thresholds side by side, which is easier to review than three separate rules that drift apart.
+
+## Rules of thumb[​](#rules-of-thumb "Direct link to Rules of thumb")
+
+| What the rule watches                             | `for`                                | Example                                              |
+| ------------------------------------------------- | ------------------------------------ | ---------------------------------------------------- |
+| Something that already happened                   | 0                                    | OOM kill counter increased, certificate under 7 days |
+| A binary up/down state                            | 0 to 1 evaluation interval           | `mysql_up == 0`                                      |
+| A sampled gauge: CPU, memory, latency, error rate | 2–3 evaluation intervals             | CPU over 90%                                         |
+| Something that often recovers by itself           | Longer than its normal recovery time | A queue that usually drains in 5 minutes: 10m        |
+| A slow trend                                      | 30m to several hours, lower severity | Disk full within 24 hours                            |
+
+`for` only controls when an alert starts. If an alert fires and recovers over and over, `for` is not the fix. Use a recovery delay instead: `keep_firing_for` in Prometheus, or the recover duration in Nightingale. See [Evaluation interval and recovery](https://n9e.github.io/docs/alerting/evaluation.md).
+
+## Where to look next[​](#where-to-look-next "Direct link to Where to look next")
+
+Every rule in the [alert rule library](https://n9e.github.io/alert-rules.md) shows its severity and its `for` value ("Fires after"), and links to a runbook. You can download a whole rule set as a Prometheus rules file, or import it into Nightingale from the matching [integration](https://n9e.github.io/integrations.md).
+
+**Tags:**
+
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [Data](https://n9e.github.io/blog/tags/data.md "Posts built on numbers from Nightingale's own templates and rule library.")
+
+[Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-alert-for-duration/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fprometheus-alert-for-duration\&body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fblog%2Fprometheus-alert-for-duration%0A%0A)
+
+[Newer post](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+
+[kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+
+[Older post](https://n9e.github.io/blog/mcp-server-for-alerting.md)
+
+[MCP server for alerting: six design decisions](https://n9e.github.io/blog/mcp-server-for-alerting.md)
+
+
+---
+
+# Prometheus high availability: storage vs alerting
+
+November 1, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![Two Prometheus replicas writing to deduplicated storage and sending alerts to a clustered Alertmanager](https://n9e.github.io/assets/images/prometheus-high-availability-116818454807068016c0d755e596c981.webp)
+
+Ask how to make Prometheus highly available and the usual answer is "run two of them". That is correct, and it is only half the job. Two replicas give you two copies of every alert and two slightly different copies of every time series. Each needs its own fix, and the fixes don't share a configuration.
+
+This post separates the two problems: keeping alerts flowing exactly once, and keeping the data queryable without gaps. It ends with a checklist.
+
+## How Prometheus does HA[​](#how-prometheus-does-ha "Direct link to How Prometheus does HA")
+
+Prometheus has no clustering. High availability means running two (or more) identical servers. Each one scrapes the same targets, evaluates the same rules and keeps its own local copy of the data. They don't talk to each other.
+
+The copies are never identical. Each replica scrapes at its own moment, so the timestamps differ. When one replica restarts, it has a gap that the other doesn't. That is fine for alerting, and a problem for dashboards.
+
+The usual convention is to give each replica an external label that says which one it is:
+
+```
+# prometheus-a.yml (prometheus-b.yml says replica: b)
+
+global:
+
+  external_labels:
+
+    cluster: prod-eu
+
+    replica: a
+```
+
+## Problem 1: alerts should arrive once, even when a replica dies[​](#problem-1-alerts-should-arrive-once-even-when-a-replica-dies "Direct link to Problem 1: alerts should arrive once, even when a replica dies")
+
+Both replicas evaluate every rule, so both send every alert. Deduplication happens in Alertmanager.
+
+**Cluster the Alertmanagers.** Alertmanager instances gossip with each other. You start each one with `--cluster.peer` pointing at the others, and they share notification state and silences. When two replicas send the same alert, the cluster sends one notification.
+
+**Point every Prometheus at every Alertmanager.** The Alertmanager README is explicit: do not load-balance traffic between Prometheus and its Alertmanagers. Give each Prometheus the full list, because every alert has to reach every instance:
+
+```
+alerting:
+
+  alertmanagers:
+
+    - static_configs:
+
+        - targets: ['am-0:9093', 'am-1:9093', 'am-2:9093']
+```
+
+**Drop the replica label from alerts.** Alerts carry the external labels. If replica A sends `{alertname="X", replica="a"}` and replica B sends `{alertname="X", replica="b"}`, Alertmanager sees two different alerts and notifies twice. Strip the label on the way out:
+
+```
+alerting:
+
+  alert_relabel_configs:
+
+    - action: labeldrop
+
+      regex: replica
+```
+
+The Prometheus Operator does this for you with its own replica label. Hand-built setups often miss it, and the symptom is that every page arrives twice.
+
+With these three in place, alerting HA works well. If replica A dies, replica B was evaluating the same rules all along, so there is no gap in detection. If an Alertmanager dies, Prometheus is still sending to the others.
+
+## Problem 2: dashboards and queries should not show gaps[​](#problem-2-dashboards-and-queries-should-not-show-gaps "Direct link to Problem 2: dashboards and queries should not show gaps")
+
+This is the half that "run two" does not solve. Point Grafana at replica A, and you see replica A's gaps. Put a load balancer in front of both, and consecutive refreshes can hit different replicas and draw slightly different lines.
+
+The fix is a layer that knows the two replicas hold the same data and merges them. The three common options handle the replica label in different ways, and that difference matters:
+
+| Store               | How it deduplicates                                                                                                                                                     | What the replicas' labels must look like                                                      |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| **Thanos**          | Thanos Querier merges series that differ only in the label named by `--query.replica-label`                                                                             | Different: each replica has its own `replica` value                                           |
+| **Grafana Mimir**   | The HA tracker elects a leader replica per cluster, keeps its samples and drops the rest. It switches leader if the current one sends nothing for 30 seconds by default | Different: `cluster` plus a `__replica__` label by default                                    |
+| **VictoriaMetrics** | `-dedup.minScrapeInterval` keeps one sample per series per interval. Set it equal to your `scrape_interval`                                                             | **Identical**: the docs require the HA pair to write the same series, so no per-replica label |
+
+So a setup moved from Thanos to VictoriaMetrics needs its replica label removed, and a setup moved the other way needs one added. Mixing the conventions gives you either doubled series or a store that silently keeps one replica.
+
+Long-term retention is a separate decision from HA. Thanos, Mimir and VictoriaMetrics also keep data longer than a local Prometheus. But you can have deduplicated HA with short retention, or long retention with a single replica. Decide each one on its own.
+
+## Scaling is not HA[​](#scaling-is-not-ha "Direct link to Scaling is not HA")
+
+Federation, functional sharding (one Prometheus per team or per cluster) and `hashmod` sharding spread load. They don't add redundancy: each shard is still a single point of failure until you run it as a pair. If you shard, every shard needs the replica treatment above.
+
+## Where a separate alerting engine changes the picture[​](#where-a-separate-alerting-engine-changes-the-picture "Direct link to Where a separate alerting engine changes the picture")
+
+Everything above assumes Prometheus evaluates the rules. Some setups move evaluation out of Prometheus: Grafana Alerting, vmalert, Thanos Ruler, or [Nightingale](https://n9e.github.io/docs/install/high-availability.md). Then storage HA and alerting HA become two different systems.
+
+Nightingale takes a different approach from a Prometheus pair, with a different trade-off:
+
+* **It queries one deduplicated data source.** Prometheus behind Thanos Querier, VictoriaMetrics or Mimir. The storage-side HA from Problem 2 is still needed, and Nightingale doesn't replace it.
+* **Rules are shared out, not duplicated.** Several `n9e` instances share one MySQL and one Redis. Each live instance sends a heartbeat every second. The live instances form a consistent hash ring per data source, and each rule runs on exactly one instance. One evaluation means one event, so no Alertmanager-style deduplication is needed.
+* **The trade-off is a failover gap.** An instance counts as dead after 30 seconds without a heartbeat, and only then does its share of rules move to another instance. A freshly started instance also waits 30 seconds before evaluating. A Prometheus pair has no such gap, because the other replica was evaluating all along.
+* **Shared dependencies need their own HA.** If MySQL is down, everything is down. If Redis is unreachable at startup, the process exits. Running several `n9e` instances protects against losing an `n9e` process, and nothing else.
+
+Neither design is better in general. Duplicate evaluation with downstream deduplication gives zero-gap failover and costs you a deduplication layer that must be configured exactly right. Single evaluation with a hash ring avoids duplicates by construction and costs you up to 30 seconds of blindness for the rules on a failed instance. The details are in [High availability and failure domains](https://n9e.github.io/docs/operations/high-availability.md).
+
+## Checklist[​](#checklist "Direct link to Checklist")
+
+**Alerting**
+
+* <!-- -->
+  Two or more Prometheus replicas with identical rule files.
+* <!-- -->
+  Alertmanager clustered with `--cluster.peer`; the cluster port reachable between instances.
+* <!-- -->
+  Every Prometheus lists every Alertmanager. No load balancer in between.
+* <!-- -->
+  The replica label dropped in `alert_relabel_configs`.
+* <!-- -->
+  Tested: stop one replica and one Alertmanager, fire a test alert, and get exactly one notification.
+
+**Storage and queries**
+
+* <!-- -->
+  A deduplicating layer: Thanos Querier, Mimir's HA tracker or VictoriaMetrics deduplication.
+* <!-- -->
+  Replica labels set the way that layer expects. Thanos and Mimir need them to differ; VictoriaMetrics needs them identical.
+* <!-- -->
+  Dashboards and alert rules query the deduplicated endpoint, not a single replica.
+* <!-- -->
+  Tested: restart one replica and check that a dashboard over that window shows no gap.
+
+**Everything**
+
+* <!-- -->
+  The monitoring system is monitored from outside itself. A dead-man's-switch alert that always fires, and pages when it *stops* arriving, catches the case where the whole alerting path is down.
+
+The last item is the one most often skipped. Every check above runs inside the system it is checking.
+
+**Tags:**
+
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [High availability](https://n9e.github.io/blog/tags/high-availability.md "Keeping monitoring and alerting up when parts of it fail.")
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+
+[Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-prometheus-high-availability/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fprometheus-high-availability\&body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fblog%2Fprometheus-high-availability%0A%0A)
+
+[Newer post](https://n9e.github.io/blog/mcp-server-for-alerting.md)
+
+[MCP server for alerting: six design decisions](https://n9e.github.io/blog/mcp-server-for-alerting.md)
+
+[Older post](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+
+[Migrating from Zabbix to Prometheus](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+
+
+---
+
+# Symptom-based alerting with Prometheus
+
+November 1, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![A greyed-out CPU alert next to a highlighted checkout error-rate alert](https://n9e.github.io/assets/images/symptom-based-alerting-f69a35ab01ce77da6511c872a7877225.webp)
+
+At 3 a.m. an alert says CPU is at 92% on `db-3`. The on-call engineer opens the dashboards. Checkout is fast, errors are flat, and nobody is affected. The alert was true and useless.
+
+A week later, checkout fails for 20 minutes because a dependency returns errors. CPU is fine, memory is fine, every host looks healthy. No alert fires.
+
+Both failures have the same root cause: the rules watch *causes*, not *symptoms*. This post explains the difference, shows what symptom rules look like in PromQL, and explains where cause alerts still earn their place.
+
+## Symptoms and causes[​](#symptoms-and-causes "Direct link to Symptoms and causes")
+
+A **symptom** is what users experience: requests failing, pages loading slowly, a service unreachable, data arriving late. A **cause** is why: a saturated CPU, a full disk, a crashed pod, a slow query.
+
+The idea comes from Google's SRE book. Chapter 6, "Monitoring Distributed Systems", argues that paging should be driven by symptoms, and proposes four golden signals to watch on every user-facing system: **latency, traffic, errors and saturation**. Rob Ewaschuk's essay "My Philosophy on Alerting", written while he was an SRE at Google, makes the same case in more detail.
+
+Cause-based paging fails in two directions:
+
+* **Causes without symptoms create noise.** High CPU, a pod restart, one replica out of three down. Systems absorb these all the time. Each page that turns out to be harmless teaches people to ignore the next one.
+* **Symptoms without a known cause create silence.** You can only write cause rules for failures you have imagined. A new failure mode, a dependency outage or a bad deploy that leaves every resource metric normal goes unnoticed.
+
+A symptom rule catches both the failures you predicted and the ones you didn't, because it watches the outcome instead of the mechanism.
+
+## What symptom rules look like[​](#what-symptom-rules-look-like "Direct link to What symptom rules look like")
+
+The metric names below follow common conventions. Yours will depend on your instrumentation library, ingress controller or service mesh.
+
+**Errors: the share of requests that fail.**
+
+```
+sum(rate(http_requests_total{job="checkout", code=~"5.."}[5m]))
+
+  /
+
+sum(rate(http_requests_total{job="checkout"}[5m]))
+
+> 0.02
+```
+
+Use a ratio, not a count. 50 errors a minute is a disaster at 100 requests and noise at 100,000.
+
+**Latency: how slow the slow requests are.**
+
+```
+histogram_quantile(0.99,
+
+  sum by (le) (rate(http_request_duration_seconds_bucket{job="checkout"}[5m]))
+
+) > 1
+```
+
+Alert on a high percentile, not the average. An average of 200 ms can hide one request in fifty taking ten seconds.
+
+**Availability from outside.** A probe that calls the service the way a user would catches DNS, TLS, load balancer and network failures that internal metrics never see. With the Prometheus blackbox exporter that is `probe_success == 0`. Our [Linux rule set](https://n9e.github.io/alert-rules/linux.md) includes an "HTTP probe failed" rule for Categraf's HTTP checks.
+
+**Freshness and throughput** for things that are not request-driven. Did the nightly job run? Is the queue draining?
+
+```
+time() - batch_job_last_success_timestamp_seconds{job="nightly-export"} > 26 * 3600
+```
+
+### Three details that make symptom rules work[​](#three-details-that-make-symptom-rules-work "Direct link to Three details that make symptom rules work")
+
+1. **Measure where users are.** The ingress or load balancer sees every request, including the ones that never reached a healthy pod. Per-pod error rates miss requests that were dropped before reaching any pod.
+
+2. **Aggregate across instances.** `sum(...)` over the whole service, not one alert per pod. Users don't care which replica failed them.
+
+3. **Guard against low traffic.** At three requests a minute, one failure is a 33% error ratio. Add a minimum volume:
+
+   ```
+   (
+
+     sum(rate(http_requests_total{job="checkout", code=~"5.."}[5m]))
+
+       / sum(rate(http_requests_total{job="checkout"}[5m]))
+
+   ) > 0.02
+
+   and
+
+   sum(rate(http_requests_total{job="checkout"}[5m])) > 1
+   ```
+
+## Where cause alerts still belong[​](#where-cause-alerts-still-belong "Direct link to Where cause alerts still belong")
+
+"Alert on symptoms" doesn't mean "delete every cause alert". Some causes deserve a notification. They just shouldn't wake anyone up.
+
+**Deadlines.** A disk that will be full in 24 hours, or a certificate that expires in 7 days, is a symptom waiting to happen, with a known date. Alert on these during working hours, at warning severity. The Linux library has a `predict_linear` rule for disks; the Kubernetes library has [certificate expiry](https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration.md) rules.
+
+**Lost redundancy.** One replica of three is down. Users are fine, but the next failure will hurt them. That is worth a ticket today, not a page tonight.
+
+**The monitoring itself.** If a scrape target or collector stops reporting, every rule that depends on it looks healthy. `up == 0`, or a dead-man's-switch alert that always fires, is a cause alert you need from day one.
+
+**Explanation.** Everything else, such as CPU, memory, GC pauses and connection counts, belongs on a dashboard or as a low-severity alert that someone looks at while investigating a symptom. The Kubernetes rules in our library follow this: "Node CPU usage exceeds 90%" ships at **info** severity, while the symptom-shaped rules such as [KubeAPIErrorBudgetBurn](https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md) go up to critical.
+
+## Connecting symptoms to causes[​](#connecting-symptoms-to-causes "Direct link to Connecting symptoms to causes")
+
+A symptom alert tells you that something is wrong. The responder then needs to know where to look. Two ways to close that gap:
+
+* **Put the causes in the runbook.** Every symptom alert should link to a list of likely causes and the commands that confirm each one. Each page in our [alert rule library](https://n9e.github.io/alert-rules.md) follows that shape: what the alert means, common causes, then the steps to fix it. [KubePodCrashLooping](https://n9e.github.io/alert-rules/kubernetes/kubepodcrashlooping.md) is a typical example.
+* **Mute symptoms while a known cause is active.** If a whole site loses its uplink, every service there reports errors. Alertmanager's `inhibit_rules`, or an equivalent, can mute the dependent alerts while the upstream alert is firing. That needs a shared label such as `site` on both.
+
+## A worked example[​](#a-worked-example "Direct link to A worked example")
+
+Here is a rule set for a checkout service built on these ideas:
+
+| Rule                                            | Kind                  | Severity          | Who hears about it                 |
+| ----------------------------------------------- | --------------------- | ----------------- | ---------------------------------- |
+| Error ratio above 2% for 5 minutes              | Symptom               | Critical          | Page                               |
+| p99 latency above 1 s for 10 minutes            | Symptom               | Critical          | Page                               |
+| External probe failing from 2 or more locations | Symptom               | Critical          | Page                               |
+| Error ratio above 0.5% for 30 minutes           | Symptom, slow burn    | Warning           | Team channel                       |
+| Disk full within 24 hours                       | Cause with a deadline | Warning           | Team channel                       |
+| One of three replicas down for 15 minutes       | Lost redundancy       | Warning           | Team channel                       |
+| Scrape target down                              | Monitoring            | Warning           | Team channel                       |
+| CPU, memory, GC, DB connections                 | Cause                 | Info or dashboard | Nobody, until someone investigates |
+
+Three rules can page, and all three describe something a customer would notice.
+
+## Auditing a rule set you already have[​](#auditing-a-rule-set-you-already-have "Direct link to Auditing a rule set you already have")
+
+For each rule that can page, ask: *if this fires and users are fine, would anyone do anything?* If the answer is no, lower its severity or move it to a dashboard.
+
+Then look at the data. List the rules that fired most often in the last month and how many of those firings led to an action. Also list the rules that never fired in a year. They are usually broken rather than lucky: a renamed metric, a label that changed, a threshold that cannot be reached. Nightingale's built-in assistant can answer both questions directly ("which rules fired most often in the last 7 days, and which have never fired?"); see [Common investigation workflows](https://n9e.github.io/docs/ai/workflows.md#find-the-noise).
+
+For the rules that stay, the [rule design best practices](https://n9e.github.io/docs/alerting/best-practices.md) page covers naming, labels and how much one rule should cover.
+
+**Tags:**
+
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+
+[Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-symptom-based-alerting/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fsymptom-based-alerting\&body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fblog%2Fsymptom-based-alerting%0A%0A)
+
+[Newer post](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+
+[Migrating from Zabbix to Prometheus](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+
+
+---
+
+# Tags
+
+## A[​](#A "Direct link to A")
+
+* [AI and MCP1](https://n9e.github.io/blog/tags/ai.md "AI assistants, MCP servers and how they touch production systems.")
+* [Alerting6](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+
+***
+
+## D[​](#D "Direct link to D")
+
+* [Data1](https://n9e.github.io/blog/tags/data.md "Posts built on numbers from Nightingale's own templates and rule library.")
+
+***
+
+## H[​](#H "Direct link to H")
+
+* [High availability1](https://n9e.github.io/blog/tags/high-availability.md "Keeping monitoring and alerting up when parts of it fail.")
+
+***
+
+## K[​](#K "Direct link to K")
+
+* [Kubernetes1](https://n9e.github.io/blog/tags/kubernetes.md "Monitoring and alerting on Kubernetes clusters.")
+
+***
+
+## M[​](#M "Direct link to M")
+
+* [Migration1](https://n9e.github.io/blog/tags/migration.md "Moving between monitoring and alerting systems.")
+
+***
+
+## P[​](#P "Direct link to P")
+
+* [Prometheus5](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+
+***
+
+
+---
+
+# One post tagged with "AI and MCP"
+
+AI assistants, MCP servers and how they touch production systems.
+
+[View all tags](https://n9e.github.io/blog/tags.md)
+
+## [MCP server for alerting: six design decisions](https://n9e.github.io/blog/mcp-server-for-alerting.md)
+
+November 1, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![An AI client asking which alerts are firing, connected with a user\&#39;s token to Nightingale\&#39;s MCP endpoint](https://n9e.github.io/assets/images/mcp-server-design-c8e30bb02b115a796a5092ccdd548d47.webp)
+
+Since v9, the Nightingale process is also an MCP server. Claude Code, Cursor or any other MCP client can connect to `/mcp` and ask which alerts are firing, which rules are noisiest, or what a metric did over the last hour.
+
+The tool list was the easy part. The hard questions were about trust. Whose permissions does the AI client have? What can it change? How do you find out afterwards what it did? This post walks through the six decisions we made, and one caveat we haven't solved.
+
+**Tags:**
+
+* [AI and MCP](https://n9e.github.io/blog/tags/ai.md "AI assistants, MCP servers and how they touch production systems.")
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+
+[**Read more**](https://n9e.github.io/blog/mcp-server-for-alerting.md)
+
+
+---
+
+# 6 posts tagged with "Alerting"
+
+Designing alert rules that page for the right reasons.
+
+[View all tags](https://n9e.github.io/blog/tags.md)
+
+## [kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+
+November 1, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![Four Kubernetes metric sources: kube-state-metrics, cAdvisor, node\_exporter and metrics-server](https://n9e.github.io/assets/images/kubernetes-metrics-sources-29962af59a23c3f84206f81323ffa542.webp)
+
+Kubernetes metrics come from four places, and their names look alike. `kube_pod_container_resource_limits`, `container_memory_working_set_bytes`, `node_memory_MemAvailable_bytes` and the numbers in `kubectl top` all sound like they describe the same thing. They are made by different components and they answer different questions. Only three of the four are meant for monitoring.
+
+This post explains what each component measures and how to tell which one a metric came from. It also covers the renames that make a query copied from a 2019 blog post return nothing.
+
+**Tags:**
+
+* [Kubernetes](https://n9e.github.io/blog/tags/kubernetes.md "Monitoring and alerting on Kubernetes clusters.")
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+
+[**Read more**](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+
+## [How long should a Prometheus alert wait? Data from 692 rules](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+
+November 1, 2026 ·
+
+<!-- -->
+
+9 min read
+
+Eric Qin
+
+![A histogram of for durations across 692 alert rule templates, with 304 rules at 60 seconds](https://n9e.github.io/assets/images/alert-for-duration-8a11aeeb3b53ac4cd26ec55c82f56d39.webp)
+
+Every alert rule answers two questions: what counts as bad, and how long it has to stay bad. Most review effort goes into the first one, the expression and the threshold. The second is the `for` duration, and it often gets whatever value the tool filled in.
+
+We wanted to know how often that happens, so we counted. Nightingale ships alert rule templates for 49 integrations. **692 rules, and 304 of them (44%) have a `for` duration of exactly 60 seconds**, which is the default in Nightingale's rule editor. This post walks through what the numbers show and what `for` value suits which kind of alert.
+
+**Tags:**
+
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [Data](https://n9e.github.io/blog/tags/data.md "Posts built on numbers from Nightingale's own templates and rule library.")
+
+[**Read more**](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+
+## [MCP server for alerting: six design decisions](https://n9e.github.io/blog/mcp-server-for-alerting.md)
+
+November 1, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![An AI client asking which alerts are firing, connected with a user\&#39;s token to Nightingale\&#39;s MCP endpoint](https://n9e.github.io/assets/images/mcp-server-design-c8e30bb02b115a796a5092ccdd548d47.webp)
+
+Since v9, the Nightingale process is also an MCP server. Claude Code, Cursor or any other MCP client can connect to `/mcp` and ask which alerts are firing, which rules are noisiest, or what a metric did over the last hour.
+
+The tool list was the easy part. The hard questions were about trust. Whose permissions does the AI client have? What can it change? How do you find out afterwards what it did? This post walks through the six decisions we made, and one caveat we haven't solved.
+
+**Tags:**
+
+* [AI and MCP](https://n9e.github.io/blog/tags/ai.md "AI assistants, MCP servers and how they touch production systems.")
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+
+[**Read more**](https://n9e.github.io/blog/mcp-server-for-alerting.md)
+
+## [Prometheus high availability: storage vs alerting](https://n9e.github.io/blog/prometheus-high-availability.md)
+
+November 1, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![Two Prometheus replicas writing to deduplicated storage and sending alerts to a clustered Alertmanager](https://n9e.github.io/assets/images/prometheus-high-availability-116818454807068016c0d755e596c981.webp)
+
+Ask how to make Prometheus highly available and the usual answer is "run two of them". That is correct, and it is only half the job. Two replicas give you two copies of every alert and two slightly different copies of every time series. Each needs its own fix, and the fixes don't share a configuration.
+
+This post separates the two problems: keeping alerts flowing exactly once, and keeping the data queryable without gaps. It ends with a checklist.
+
+**Tags:**
+
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [High availability](https://n9e.github.io/blog/tags/high-availability.md "Keeping monitoring and alerting up when parts of it fail.")
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+
+[**Read more**](https://n9e.github.io/blog/prometheus-high-availability.md)
+
+## [Migrating from Zabbix to Prometheus](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+
+November 1, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![From Zabbix hosts, items and triggers to Prometheus targets, metrics and one alert rule covering every host](https://n9e.github.io/assets/images/zabbix-to-prometheus-ab76e9ac8ebf08826765513529b49986.webp)
+
+Moving from Zabbix to Prometheus is not a data migration. There is no export file that turns into rule files, and no tool that converts triggers into PromQL. The two systems model monitoring differently. Most of the work is translating concepts, then rebuilding a smaller set of rules on top of them.
+
+This post maps each Zabbix concept to its Prometheus counterpart, lists the parts that have no equivalent, and suggests an order of work that keeps Zabbix running until the end.
+
+**Tags:**
+
+* [Migration](https://n9e.github.io/blog/tags/migration.md "Moving between monitoring and alerting systems.")
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+
+[**Read more**](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+
+## [Symptom-based alerting with Prometheus](https://n9e.github.io/blog/symptom-based-alerting.md)
+
+November 1, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![A greyed-out CPU alert next to a highlighted checkout error-rate alert](https://n9e.github.io/assets/images/symptom-based-alerting-f69a35ab01ce77da6511c872a7877225.webp)
+
+At 3 a.m. an alert says CPU is at 92% on `db-3`. The on-call engineer opens the dashboards. Checkout is fast, errors are flat, and nobody is affected. The alert was true and useless.
+
+A week later, checkout fails for 20 minutes because a dependency returns errors. CPU is fine, memory is fine, every host looks healthy. No alert fires.
+
+Both failures have the same root cause: the rules watch *causes*, not *symptoms*. This post explains the difference, shows what symptom rules look like in PromQL, and explains where cause alerts still earn their place.
+
+**Tags:**
+
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+
+[**Read more**](https://n9e.github.io/blog/symptom-based-alerting.md)
+
+
+---
+
+# One post tagged with "Data"
+
+Posts built on numbers from Nightingale's own templates and rule library.
+
+[View all tags](https://n9e.github.io/blog/tags.md)
+
+## [How long should a Prometheus alert wait? Data from 692 rules](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+
+November 1, 2026 ·
+
+<!-- -->
+
+9 min read
+
+Eric Qin
+
+![A histogram of for durations across 692 alert rule templates, with 304 rules at 60 seconds](https://n9e.github.io/assets/images/alert-for-duration-8a11aeeb3b53ac4cd26ec55c82f56d39.webp)
+
+Every alert rule answers two questions: what counts as bad, and how long it has to stay bad. Most review effort goes into the first one, the expression and the threshold. The second is the `for` duration, and it often gets whatever value the tool filled in.
+
+We wanted to know how often that happens, so we counted. Nightingale ships alert rule templates for 49 integrations. **692 rules, and 304 of them (44%) have a `for` duration of exactly 60 seconds**, which is the default in Nightingale's rule editor. This post walks through what the numbers show and what `for` value suits which kind of alert.
+
+**Tags:**
+
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [Data](https://n9e.github.io/blog/tags/data.md "Posts built on numbers from Nightingale's own templates and rule library.")
+
+[**Read more**](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+
+
+---
+
+# One post tagged with "High availability"
+
+Keeping monitoring and alerting up when parts of it fail.
+
+[View all tags](https://n9e.github.io/blog/tags.md)
+
+## [Prometheus high availability: storage vs alerting](https://n9e.github.io/blog/prometheus-high-availability.md)
+
+November 1, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![Two Prometheus replicas writing to deduplicated storage and sending alerts to a clustered Alertmanager](https://n9e.github.io/assets/images/prometheus-high-availability-116818454807068016c0d755e596c981.webp)
+
+Ask how to make Prometheus highly available and the usual answer is "run two of them". That is correct, and it is only half the job. Two replicas give you two copies of every alert and two slightly different copies of every time series. Each needs its own fix, and the fixes don't share a configuration.
+
+This post separates the two problems: keeping alerts flowing exactly once, and keeping the data queryable without gaps. It ends with a checklist.
+
+**Tags:**
+
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [High availability](https://n9e.github.io/blog/tags/high-availability.md "Keeping monitoring and alerting up when parts of it fail.")
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+
+[**Read more**](https://n9e.github.io/blog/prometheus-high-availability.md)
+
+
+---
+
+# One post tagged with "Kubernetes"
+
+Monitoring and alerting on Kubernetes clusters.
+
+[View all tags](https://n9e.github.io/blog/tags.md)
+
+## [kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+
+November 1, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![Four Kubernetes metric sources: kube-state-metrics, cAdvisor, node\_exporter and metrics-server](https://n9e.github.io/assets/images/kubernetes-metrics-sources-29962af59a23c3f84206f81323ffa542.webp)
+
+Kubernetes metrics come from four places, and their names look alike. `kube_pod_container_resource_limits`, `container_memory_working_set_bytes`, `node_memory_MemAvailable_bytes` and the numbers in `kubectl top` all sound like they describe the same thing. They are made by different components and they answer different questions. Only three of the four are meant for monitoring.
+
+This post explains what each component measures and how to tell which one a metric came from. It also covers the renames that make a query copied from a 2019 blog post return nothing.
+
+**Tags:**
+
+* [Kubernetes](https://n9e.github.io/blog/tags/kubernetes.md "Monitoring and alerting on Kubernetes clusters.")
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+
+[**Read more**](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+
+
+---
+
+# One post tagged with "Migration"
+
+Moving between monitoring and alerting systems.
+
+[View all tags](https://n9e.github.io/blog/tags.md)
+
+## [Migrating from Zabbix to Prometheus](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+
+November 1, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![From Zabbix hosts, items and triggers to Prometheus targets, metrics and one alert rule covering every host](https://n9e.github.io/assets/images/zabbix-to-prometheus-ab76e9ac8ebf08826765513529b49986.webp)
+
+Moving from Zabbix to Prometheus is not a data migration. There is no export file that turns into rule files, and no tool that converts triggers into PromQL. The two systems model monitoring differently. Most of the work is translating concepts, then rebuilding a smaller set of rules on top of them.
+
+This post maps each Zabbix concept to its Prometheus counterpart, lists the parts that have no equivalent, and suggests an order of work that keeps Zabbix running until the end.
+
+**Tags:**
+
+* [Migration](https://n9e.github.io/blog/tags/migration.md "Moving between monitoring and alerting systems.")
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+
+[**Read more**](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+
+
+---
+
+# 5 posts tagged with "Prometheus"
+
+Prometheus metrics, rules and operations.
+
+[View all tags](https://n9e.github.io/blog/tags.md)
+
+## [kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+
+November 1, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![Four Kubernetes metric sources: kube-state-metrics, cAdvisor, node\_exporter and metrics-server](https://n9e.github.io/assets/images/kubernetes-metrics-sources-29962af59a23c3f84206f81323ffa542.webp)
+
+Kubernetes metrics come from four places, and their names look alike. `kube_pod_container_resource_limits`, `container_memory_working_set_bytes`, `node_memory_MemAvailable_bytes` and the numbers in `kubectl top` all sound like they describe the same thing. They are made by different components and they answer different questions. Only three of the four are meant for monitoring.
+
+This post explains what each component measures and how to tell which one a metric came from. It also covers the renames that make a query copied from a 2019 blog post return nothing.
+
+**Tags:**
+
+* [Kubernetes](https://n9e.github.io/blog/tags/kubernetes.md "Monitoring and alerting on Kubernetes clusters.")
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+
+[**Read more**](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+
+## [How long should a Prometheus alert wait? Data from 692 rules](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+
+November 1, 2026 ·
+
+<!-- -->
+
+9 min read
+
+Eric Qin
+
+![A histogram of for durations across 692 alert rule templates, with 304 rules at 60 seconds](https://n9e.github.io/assets/images/alert-for-duration-8a11aeeb3b53ac4cd26ec55c82f56d39.webp)
+
+Every alert rule answers two questions: what counts as bad, and how long it has to stay bad. Most review effort goes into the first one, the expression and the threshold. The second is the `for` duration, and it often gets whatever value the tool filled in.
+
+We wanted to know how often that happens, so we counted. Nightingale ships alert rule templates for 49 integrations. **692 rules, and 304 of them (44%) have a `for` duration of exactly 60 seconds**, which is the default in Nightingale's rule editor. This post walks through what the numbers show and what `for` value suits which kind of alert.
+
+**Tags:**
+
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [Data](https://n9e.github.io/blog/tags/data.md "Posts built on numbers from Nightingale's own templates and rule library.")
+
+[**Read more**](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+
+## [Prometheus high availability: storage vs alerting](https://n9e.github.io/blog/prometheus-high-availability.md)
+
+November 1, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![Two Prometheus replicas writing to deduplicated storage and sending alerts to a clustered Alertmanager](https://n9e.github.io/assets/images/prometheus-high-availability-116818454807068016c0d755e596c981.webp)
+
+Ask how to make Prometheus highly available and the usual answer is "run two of them". That is correct, and it is only half the job. Two replicas give you two copies of every alert and two slightly different copies of every time series. Each needs its own fix, and the fixes don't share a configuration.
+
+This post separates the two problems: keeping alerts flowing exactly once, and keeping the data queryable without gaps. It ends with a checklist.
+
+**Tags:**
+
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [High availability](https://n9e.github.io/blog/tags/high-availability.md "Keeping monitoring and alerting up when parts of it fail.")
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+
+[**Read more**](https://n9e.github.io/blog/prometheus-high-availability.md)
+
+## [Migrating from Zabbix to Prometheus](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+
+November 1, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![From Zabbix hosts, items and triggers to Prometheus targets, metrics and one alert rule covering every host](https://n9e.github.io/assets/images/zabbix-to-prometheus-ab76e9ac8ebf08826765513529b49986.webp)
+
+Moving from Zabbix to Prometheus is not a data migration. There is no export file that turns into rule files, and no tool that converts triggers into PromQL. The two systems model monitoring differently. Most of the work is translating concepts, then rebuilding a smaller set of rules on top of them.
+
+This post maps each Zabbix concept to its Prometheus counterpart, lists the parts that have no equivalent, and suggests an order of work that keeps Zabbix running until the end.
+
+**Tags:**
+
+* [Migration](https://n9e.github.io/blog/tags/migration.md "Moving between monitoring and alerting systems.")
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+
+[**Read more**](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+
+## [Symptom-based alerting with Prometheus](https://n9e.github.io/blog/symptom-based-alerting.md)
+
+November 1, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![A greyed-out CPU alert next to a highlighted checkout error-rate alert](https://n9e.github.io/assets/images/symptom-based-alerting-f69a35ab01ce77da6511c872a7877225.webp)
+
+At 3 a.m. an alert says CPU is at 92% on `db-3`. The on-call engineer opens the dashboards. Checkout is fast, errors are flat, and nobody is affected. The alert was true and useless.
+
+A week later, checkout fails for 20 minutes because a dependency returns errors. CPU is fine, memory is fine, every host looks healthy. No alert fires.
+
+Both failures have the same root cause: the rules watch *causes*, not *symptoms*. This post explains the difference, shows what symptom rules look like in PromQL, and explains where cause alerts still earn their place.
+
+**Tags:**
+
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+
+[**Read more**](https://n9e.github.io/blog/symptom-based-alerting.md)
+
+
+---
+
 COLLECTOR
 
 # Categraf
@@ -977,7 +2589,7 @@ Prometheus, Zabbix and Grafana each have their ground. Nightingale argues for on
 
 Based on the publicly documented capabilities of each project’s open-source edition as of August 2026. We try to state what the other tools are good at — advice you cannot trust is worth nothing to a community.
 
-* **13,419**GitHub stars
+* **13,421**GitHub stars
 * **10+**&#x44;ata source types
 * **20**Notification channels
 * **74**MCP tools
@@ -2094,7 +3706,7 @@ Show all 83 templates
 
 ↓
 
-[Browse every template on GitHub<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-10-31
+[Browse every template on GitHub<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-11-01
 
 COLLECTORS
 
@@ -2155,7 +3767,7 @@ The template list comes straight from the open-source repo, where a template is 
 
 238 Prometheus alert rules for 8 services, including Kubernetes, Linux, MySQL and Redis. Every rule has a PromQL condition, a severity, a duration and runbook steps. Free to download as Prometheus rules files.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 An alert rule is only half the job: when it fires at 3 a.m., someone needs to know what to check first. This library collects 238 PromQL alert rules from Nightingale's integration templates, and every one of them comes with runbook steps written for the person on call. The rules use standard exporter metric names (node\_exporter, kube-state-metrics, mysqld\_exporter and so on), so they work with plain Prometheus as well as with Nightingale.
 
@@ -2204,7 +3816,7 @@ Rule expressions are partly adapted from community collections: [kubernetes-mixi
 
 11 ready-to-use Elasticsearch alert rules in PromQL, each with severity, duration and runbook steps. Metrics from elasticsearch\_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Elasticsearch alert rules for cluster health turning yellow or red, JVM heap usage climbing, disk space running low or out, unassigned, initializing and relocating shards, pending cluster tasks, and an index that has stopped receiving new documents. The exporter group uses prometheus-community/elasticsearch\_exporter metric names; the Categraf group runs the same checks on Categraf-collected metrics.
 
@@ -2220,7 +3832,7 @@ Elasticsearch alert rules for cluster health turning yellow or red, JVM heap usa
 | Rule                                              | Severity | For |
 | ------------------------------------------------- | -------- | --- |
 | Elastic Cluster Red status                        | Critical | —   |
-| Elastic Cluster Yellow status                     | Warning  | —   |
+| Elastic Cluster Yellow status                     | Warning  | 10m |
 | Elasticsearch disk out of space of the instance   | Critical | 2m  |
 | Elasticsearch disk space low of the instance      | Warning  | 2m  |
 | Elasticsearch Heap Usage Too High of the instance | Critical | 2m  |
@@ -2252,7 +3864,7 @@ Runbook:
 
 ### Elastic Cluster Yellow status[​](#elastic-cluster-yellow-status "Direct link to Elastic Cluster Yellow status")
 
-Warning · — · Trigger:
+Warning · 10m · Trigger:
 
 ```
 elasticsearch_cluster_health_status{color="yellow"} == 1
@@ -2422,7 +4034,7 @@ The runbook steps and the remaining rules come from Nightingale's integration te
 
 77 ready-to-use Kubernetes alert rules in PromQL, each with severity, duration and runbook steps. Metrics from kube-state-metrics, cAdvisor (kubelet), apiserver. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Alert rules for Kubernetes clusters built on the metrics every cluster already exposes: kube-state-metrics for object state, cAdvisor through the kubelet for container resources, and the apiserver, kubelet, scheduler and controller-manager endpoints for the control plane. They cover crash-looping and unready pods, stuck rollouts, replica mismatches, failed jobs, resource overcommit, quota pressure, certificate expiry and control-plane outages. Most rules keep the alert names used by kubernetes-mixin and kube-prometheus (KubePodCrashLooping, KubeNodeNotReady, KubeAPIErrorBudgetBurn…), so they match the names you already see in Alertmanager.
 
@@ -2597,7 +4209,7 @@ Runbook:
 Info · 1m · Trigger:
 
 ```
-100 * (sum(rate(container_cpu_usage_seconds_total{id!="/"}[2m])) by (pod_name,namespace,container) / sum(label_replace(kube_pod_container_resource_limits_cpu_cores{},"pod_name","$1","pod","(.*)")) by (pod_name,namespace,container)) > 80 and sum(label_replace(kube_pod_container_resource_limits_cpu_cores{},"pod_name","$1","pod","(.)")) by (pod_name,namespace,container) != 0
+100 * sum by (namespace, pod, container) (rate(container_cpu_usage_seconds_total{container!="", container!="POD"}[2m])) / sum by (namespace, pod, container) (kube_pod_container_resource_limits{resource="cpu"}) > 80
 ```
 
 Runbook:
@@ -2612,7 +4224,7 @@ Runbook:
 Info · 1m · Trigger:
 
 ```
-(sum(container_memory_working_set_bytes{id!="/"}) BY (instance,name,container,pod_name,namespace) / sum(container_spec_memory_limit_bytes{id!="/"} > 0) BY (instance,name,container,pod_name,namespace) * 100) > 80
+100 * sum by (namespace, pod, container) (container_memory_working_set_bytes{container!="", container!="POD"}) / sum by (namespace, pod, container) (container_spec_memory_limit_bytes{container!="", container!="POD"} > 0) > 80
 ```
 
 Runbook:
@@ -3757,7 +5369,7 @@ Many rule expressions are adapted from [kubernetes-mixin](https://github.com/kub
 
 What the KubeAggregatedAPIDown Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 An aggregated API, an APIService that the Kubernetes API server proxies to another service, has been available less than 85% of the time over the last 10 minutes. The most common one is `v1beta1.metrics.k8s.io` from metrics-server; others come from prometheus-adapter, custom metrics adapters and various operators.
 
@@ -3839,7 +5451,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 What the KubeAPIErrorBudgetBurn Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The Kubernetes API server is failing or slowing down requests fast enough to use up its error budget early. The rules use the multi-window burn-rate method from the Google SRE workbook against a 99% availability target. Each pairs a long and a short window, and both must exceed the threshold: 14.4 over 1h and 5m, and 6 over 6h and 30m, are critical; 3 over 1d and 2h, and 1 over 3d and 6h, are warnings. At a burn rate of 14.4 a 30-day error budget is gone in about two days. Controllers, kubectl and CI pipelines all go through the API server, so its errors spread everywhere.
 
@@ -4041,7 +5653,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 What the KubeClientCertificateExpiration Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Of the client certificates presented to the API server over the last 5 minutes, at least 1% expire within 7 days (warning) or within 24 hours (critical). The rules take the 1st percentile of their remaining lifetime. When they expire, those clients get `401 Unauthorized`. If they belong to a kubelet, a controller or the scheduler, nodes go NotReady or the control plane stops reconciling.
 
@@ -4150,7 +5762,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 What the KubeContainerWaiting Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 A container has been in the `Waiting` state for more than an hour: it is neither running nor terminated. The waiting reason tells you which step it is stuck on, from pulling the image to mounting volumes to the back-off between crash restarts.
 
@@ -4232,7 +5844,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 What the KubeCPUOvercommit Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The CPU requested by all Pods in the cluster is more than the cluster could provide if its largest node went away. In other words, the cluster cannot survive losing one node: the Pods from that node would have nowhere to be rescheduled. It is a capacity warning, not an outage, and it is about requests, not actual CPU usage.
 
@@ -4323,7 +5935,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 What the KubeDaemonSetMisScheduled Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Some of a DaemonSet's Pods are running on nodes where, according to the DaemonSet's current node selector, affinity and the node's taints, they should not run. It rarely breaks anything by itself, but it means the DaemonSet's placement and the cluster's node layout disagree.
 
@@ -4403,7 +6015,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 What the KubeDeploymentReplicasMismatch Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 A Deployment has had fewer available replicas than it asks for, for 15 minutes, while no rollout is in progress: the number of updated replicas has not changed in the last 10 minutes. Some replicas are missing or unready, so the service runs below its planned capacity.
 
@@ -4521,7 +6133,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 What the KubeDeploymentRolloutStuck Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 A Deployment's `Progressing` condition is `False`. Kubernetes sets this, with reason `ProgressDeadlineExceeded`, when a rollout has not made progress within `progressDeadlineSeconds` (600 seconds by default). Kubernetes does not roll back on its own: old and new ReplicaSets stay as they are, so you may be running a mix of versions until someone acts.
 
@@ -4607,7 +6219,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 What the KubeHpaMaxedOut Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 A HorizontalPodAutoscaler has been running at `maxReplicas` for 15 minutes. It cannot add more replicas, so if load keeps rising, each replica takes more of it and latency or error rates follow.
 
@@ -4699,7 +6311,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 What the KubeJobFailed Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 A Job has been marked `Failed` (`kube_job_failed > 0`): it used up its `backoffLimit` (6 retries by default) or ran past `activeDeadlineSeconds`, and the batch work it was meant to do (a backup, a report, a data sync) did not happen.
 
@@ -4780,7 +6392,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 What the KubeletDown Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Prometheus has no kubelet target reporting `up == 1`. Because the rule wraps the whole selector in `absent()`, it only fires when every kubelet is missing or failing to scrape. One broken node does not trigger it. When it fires you lose kubelet and cAdvisor metrics (container CPU and memory, volume usage) for the whole cluster, and any rule built on them goes quiet.
 
@@ -4860,7 +6472,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 What the KubeletTooManyPods Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 A node is running more than 95% of the Pods it can hold, as set by the kubelet's `maxPods` (110 by default). When it reaches the limit, new Pods that would land there stay Pending, and a crowded node is more likely to show kubelet slowness.
 
@@ -4967,7 +6579,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 What the KubeMemoryOvercommit Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The memory requested by all Pods in the cluster is more than the cluster could provide if its largest node went away, so a single node failure would leave Pods unschedulable. Like its CPU twin it is about requests, not usage, but memory is less forgiving: Pods that do not fit stay Pending instead of running slower.
 
@@ -5058,7 +6670,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 What the KubeNodeNotReady Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 A node's `Ready` condition has not been `True` for 15 minutes; it is either `False` (the kubelet reports a problem) or `Unknown` (the kubelet has stopped reporting). New Pods are not scheduled there, and Pods already on it are evicted once the not-ready or unreachable taint outlasts their toleration, which is 300 seconds by default.
 
@@ -5141,7 +6753,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 What the KubePersistentVolumeFillingUp Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 A PersistentVolume has less than 3% of its space left, as reported by the kubelet on the node that mounts it. Databases, queues and other stateful services usually stop accepting writes or crash once the volume is full, so this one is critical.
 
@@ -5268,7 +6880,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 What the KubePodCrashLooping Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 A container keeps exiting and the kubelet is restarting it with a growing back-off delay (from 10 seconds up to 5 minutes), so its waiting reason reads `CrashLoopBackOff`. The rule fires when kube-state-metrics has reported that reason at any point in the last 5 minutes, for 15 minutes in a row. While the loop lasts the container serves nothing; if every replica is looping, the workload is down.
 
@@ -5351,7 +6963,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 What the KubePodNotReady Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 A Pod that is not owned by a Job has been in the `Pending`, `Unknown` or `Failed` phase for 15 minutes. A Pending Pod has not started all its containers (often it has not even been scheduled), an Unknown Pod usually sits on a node that has stopped reporting, and a Failed Pod has terminated for good. Either way the Pod is not serving, and the workload is running with fewer replicas than it asked for.
 
@@ -5461,7 +7073,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 What the KubeQuotaAlmostFull Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 A namespace is using between 90% and 100% of one of its ResourceQuota limits (CPU, memory, Pod count, storage and so on). Nothing is broken yet. Once the quota is full, the API server rejects new Pods and objects in that namespace, which typically shows up as a failed rollout or a scale-out that never happens.
 
@@ -5555,7 +7167,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 What the KubeStatefulSetReplicasMismatch Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 A StatefulSet has had a different number of ready replicas than it runs, for 15 minutes, with no update in progress. Stateful services are often quorum-based (etcd, ZooKeeper, Kafka, databases), so one missing replica can mean reduced redundancy, and two can mean an outage.
 
@@ -5672,7 +7284,7 @@ The rule expression is adapted from [kubernetes-mixin](https://github.com/kubern
 
 76 ready-to-use Linux alert rules in PromQL, each with severity, duration and runbook steps. Metrics from node\_exporter, Categraf, Telegraf. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Host-level alert rules for Linux servers and Kubernetes nodes: memory exhaustion and pressure, disks and inodes running out (including "will fill up within 24 hours" predictions), disk latency, network errors, packet loss and saturation, CPU load and steal, OOM kills, conntrack and file-handle exhaustion, clock skew, crashed system services, missing processes, and failed PING, port and HTTP probes. The node\_exporter group uses standard `node_*` metric names; the Categraf and Telegraf groups cover the same ground for hosts collected by those agents.
 
@@ -5720,7 +7332,7 @@ Host-level alert rules for Linux servers and Kubernetes nodes: memory exhaustion
 | Node disk almost full - S1 - inodes - 20                                                                       | Critical | 60m  |
 | Node disk almost full - S2 - inodes - 5                                                                        | Warning  | 60m  |
 | Node disk almost full - S1 - inodes - 3                                                                        | Critical | 60m  |
-| Node conntrack entries usage high                                                                              | Warning  | —    |
+| Node conntrack entries usage high                                                                              | Warning  | 5m   |
 | Node textfile collector scrape errors                                                                          | Warning  | —    |
 | Node network interface flapping                                                                                | Warning  | 2m   |
 | A certain disk is unable to read/write normally                                                                | Critical | 1m   |
@@ -6411,7 +8023,7 @@ Runbook:
 
 {{ $value | humanizePercentage }} of conntrack entries are used.
 
-Warning · — · Trigger:
+Warning · 5m · Trigger:
 
 ```
 (node_nf_conntrack_entries / node_nf_conntrack_entries_limit) > 0.75
@@ -7127,7 +8739,7 @@ Many rule expressions are adapted from [awesome-prometheus-alerts](https://githu
 
 8 ready-to-use MongoDB alert rules in PromQL, each with severity, duration and runbook steps. Metrics from mongodb\_exporter. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 MongoDB alert rules for an instance that has crashed or just restarted, connections approaching the limit, high average operation latency, assertion errors, cursor timeouts, page faults and replica-set lag. They use mongodb\_exporter metric names.
 
@@ -7295,7 +8907,7 @@ The runbook steps and the remaining rules come from Nightingale's integration te
 
 11 ready-to-use MySQL alert rules in PromQL, each with severity, duration and runbook steps. Metrics from mysqld\_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 MySQL alert rules for the failures that page people in practice: an instance that is down or has just restarted, slow queries piling up, connections approaching max\_connections, too many running threads, InnoDB log waits, open files nearing the limit, and replication problems (IO or SQL thread stopped, replica lag). The exporter group uses mysqld\_exporter metric names (`mysql_global_status_*`, `mysql_slave_status_*`); each rule comes with the first commands to run, such as SHOW FULL PROCESSLIST and pt-query-digest, when it fires.
 
@@ -7533,7 +9145,7 @@ The runbook steps and the remaining rules come from Nightingale's integration te
 
 30 ready-to-use Prometheus alert rules in PromQL, each with severity, duration and runbook steps. Metrics from Prometheus's own /metrics, Prometheus Operator. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Rules that watch Prometheus itself: a bad configuration reload, failing or missed rule evaluations, a notification queue backing up, no connection to Alertmanager, remote write falling behind, TSDB compactions or reloads failing, scrape and label limits being hit, and the Prometheus Operator failing to reconcile. When these fire, every other alert you rely on may be silently missing, so they are worth routing to the people who own the monitoring stack rather than to application teams.
 
@@ -8108,7 +9720,7 @@ Many rule expressions are adapted from [kube-prometheus](https://github.com/prom
 
 What the PrometheusBadConfig Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The last attempt to reload the Prometheus configuration failed. Prometheus keeps running with the previous configuration, so nothing breaks at once. But every change made since then (new scrape targets, new rule files, new Alertmanager settings) is not in effect, and the next restart may not come back up if the file stays broken.
 
@@ -8198,7 +9810,7 @@ The rule expression is adapted from [kube-prometheus](https://github.com/prometh
 
 What the PrometheusNotConnectedToAlertmanagers Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Prometheus has discovered no Alertmanager to send alerts to. Rules are still evaluated and alerts still show as firing on the Prometheus `/alerts` page, but no notifications go out. Everything is silent and nothing looks wrong, which is why this alert should be routed through a channel that does not depend on the same Alertmanager.
 
@@ -8288,7 +9900,7 @@ The rule expression is adapted from [kube-prometheus](https://github.com/prometh
 
 What the PrometheusOperatorRejectedResources Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The Prometheus Operator rejected one or more monitoring resources (ServiceMonitor, PodMonitor, Probe, PrometheusRule, AlertmanagerConfig) and left them out of the generated configuration. The resources still exist in the cluster and `kubectl apply` succeeded, but the targets they describe are not scraped and the rules they contain are not loaded. Nothing else tells you this has happened.
 
@@ -8370,7 +9982,7 @@ The rule expression is adapted from [kube-prometheus](https://github.com/prometh
 
 What the PrometheusRemoteWriteBehind Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Remote write is more than 2 minutes behind: the newest sample Prometheus has ingested is more than 120 seconds newer than the newest sample it has sent to a remote endpoint. Dashboards and alerts that read from the remote store (VictoriaMetrics, Thanos Receive, Mimir, a managed service) see stale data. If the lag keeps growing, samples can be dropped before they are sent.
 
@@ -8480,7 +10092,7 @@ The rule expression is adapted from [kube-prometheus](https://github.com/prometh
 
 What the PrometheusRemoteWriteDesiredShards Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Remote write calculates how many parallel shards it needs to keep up with the incoming samples. This alert fires when that number has been above the configured `max_shards` for 15 minutes. Remote write cannot add the shards it needs, so it will fall behind (PrometheusRemoteWriteBehind) unless something changes.
 
@@ -8585,7 +10197,7 @@ The rule expression is adapted from [kube-prometheus](https://github.com/prometh
 
 What the PrometheusRuleFailures Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Prometheus failed to evaluate one or more alerting or recording rules in the last 5 minutes. A rule that fails to evaluate produces no result, so an alert that should be firing stays silent, and recording rules leave gaps that other rules and dashboards then read.
 
@@ -8667,7 +10279,7 @@ The rule expression is adapted from [kube-prometheus](https://github.com/prometh
 
 What the PrometheusTargetLimitHit Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 A scrape job discovered more targets than its `target_limit` allows. Prometheus does not scrape just the first N in that case: it marks every target of that scrape pool as failed and scrapes none of them. A whole job goes dark at once, and its `up` series turn to 0.
 
@@ -8749,7 +10361,7 @@ The rule expression is adapted from [kube-prometheus](https://github.com/prometh
 
 12 ready-to-use Redis alert rules in PromQL, each with severity, duration and runbook steps. Metrics from redis\_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Redis alert rules for high memory usage, a rising eviction rate, rejected connections, too many client connections, a falling cache hit ratio, high command or ping latency, and an instance that has just restarted. The exporter group uses oliver006/redis\_exporter metric names; the Categraf group covers the same checks for instances collected by Categraf.
 
@@ -8999,7 +10611,7 @@ The runbook steps and the remaining rules come from Nightingale's integration te
 
 13 ready-to-use Windows alert rules in PromQL, each with severity, duration and runbook steps. Metrics from windows\_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Windows Server alert rules for high CPU and memory usage, disks that are full or predicted to fill within 4 hours, busy disk IO, inbound and outbound packet loss, an unexpected reboot, and a host whose collector has gone silent. The exporter group uses prometheus-community/windows\_exporter metric names (`windows_*`); the Categraf group covers hosts collected by Categraf on Windows.
 
@@ -29775,7 +31387,7 @@ Continue from this former catalogue to the current guides and the practical arti
 
 Pulls ECS, RDS, Redis, SLB, CDN, ARMS and other product metrics through the CloudMonitor OpenAPI; the template ships dozens of per-product dashboards and rules.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The `aliyun` input calls the CloudMonitor OpenAPI and pulls metrics per namespace: ECS, RDS, Redis, MongoDB, SLB/ALB, OSS, CDN, message queues, ARMS application monitoring and more. Metrics arrive named `aliyun_<namespace>_<metric>` with instance ID and region labels.
 
@@ -31008,7 +32620,7 @@ Runbook:
 
 Runs rocm-smi to collect AMD GPU utilization, memory, temperature, power and clocks; rules cover overheating and full memory.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The AMD ROCm SMI input is ported from Telegraf. It runs the `rocm-smi` binary that ships with ROCm and parses the output into per-GPU utilization, memory usage, temperature, power draw, fan speed and clock frequencies.
 
@@ -31118,7 +32730,7 @@ Runbook:
 
 Reads the server-status?auto output of mod\_status for request rate, busy and idle workers, CPU and traffic; rules watch worker exhaustion and unreachable servers.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 With `mod_status` enabled, Apache httpd serves a machine-readable status page at `/server-status?auto`. The input scrapes it for total accesses and traffic, requests per second, busy and idle workers, CPU load, uptime and the distribution of worker states.
 
@@ -31249,7 +32861,7 @@ Runbook:
 
 AutoMQ exposes metrics through an OTel Collector or its own Prometheus endpoint; templates cover cluster overview, brokers, topics, consumer groups and detail.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 AutoMQ is a Kafka-compatible messaging system with separated compute and storage. It sends metrics to an OTel Collector's Prometheus exporter or exposes Prometheus-format data on its own endpoint (8890 in the reference test). Scrape that with the Categraf `prometheus` input, using whatever port your deployment configures.
 
@@ -31583,7 +33195,7 @@ Runbook:
 
 Pulls metrics per resource type through the Azure Monitor API, authenticating with a service principal that only needs the Monitoring Reader role.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The Azure input calls the Azure Monitor metrics API and pulls metrics by subscription, resource group or resource type (virtual machines, storage accounts, SQL databases, App Service and so on). The config lets you name the metrics and aggregations to collect per resource type.
 
@@ -31743,7 +33355,7 @@ Register a service principal, grant it the `Monitoring Reader` role, and put the
 
 Collects query counts, response codes, cache and memory contexts from BIND's statistics channel (XML v3); rules watch rising SERVFAIL and unreachable servers.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The BIND input is ported from Telegraf and reads the statistics channel of named (`http://localhost:8053/xml/v3` by default): incoming queries by type, responses by rcode, recursive clients, socket and network counters, cache state per view and memory context usage.
 
@@ -31874,7 +33486,7 @@ Runbook:
 
 Scrapes the cAdvisor built into kubelet or a standalone one for per-container CPU, memory, filesystem and network metrics; in kubelet mode it can attach Pod labels and annotations.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The cAdvisor input collects the `container_*` metrics that cAdvisor exposes: per-container CPU usage and throttling, memory working set and OOM events, filesystem reads and writes, network traffic and drops. Two ways to connect: `type = "kubelet"` scrapes the kubelet's `/metrics/cadvisor` (port 10250, authenticated) and can attach Pod labels and annotations to the metrics; `type = "cadvisor"` scrapes a standalone cAdvisor (port 8080 by default).
 
@@ -32116,7 +33728,7 @@ Runbook:
 
 Enable Ceph's prometheus mgr module and scrape port 9283; templates cover cluster health, OSDs, PGs, pool capacity and IOPS.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Ceph's mgr ships a prometheus module: after `ceph mgr module enable prometheus`, `/metrics` is served on port 9283 and the Categraf `prometheus` input scrapes it without any dedicated plugin.
 
@@ -32423,7 +34035,7 @@ Runbook:
 
 Reads system.metrics, system.events and system.asynchronous\_metrics over HTTP; queries, merges, replication queues and memory all come with metric descriptions.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The ClickHouse input queries the system tables over HTTP (port 8123 by default): `system.metrics`, `system.events`, `system.asynchronous_metrics`, `system.parts` and others. That yields concurrent queries, merges and mutations, replication queue and lag, memory and caches, part counts and ZooKeeper sessions. Verified against a real ClickHouse 24.8 workload.
 
@@ -32921,7 +34533,7 @@ Runbook:
 
 Pulls metric statistics from any CloudWatch namespace through the API, so EC2, RDS, ELB and Lambda all fit; the template ships an RDS dashboard and common rules.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The CloudWatch input is ported from Telegraf. It calls the GetMetricData API to pull statistics per namespace (`AWS/EC2`, `AWS/RDS`, `AWS/ELB` and so on), with dimension filters to limit collection to the resources you care about. Authentication follows the standard credential chain: `role_arn`, explicit access keys, a named profile, environment variables, the shared credentials file and the EC2 instance profile, tried in that order.
 
@@ -33298,7 +34910,7 @@ Runbook:
 
 Collects the health-check state of every registered service through the Consul API, so you see at once which service is critical or warning on which node.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The Consul input calls the Consul health API and turns every registered health check into a metric with service name, node, check name and current state (passing, warning, critical). It does not collect Consul's own telemetry, which Consul can emit over StatsD or its built-in Prometheus endpoint; its single job is answering "is anything registered in Consul unhealthy".
 
@@ -33527,7 +35139,7 @@ Runbook:
 
 Resolves a list of domains against the local or a named DNS server and reports query time, return code and record count, so slow or failing resolution shows up immediately.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The dns\_query input resolves the names in `domains` against the configured DNS servers (the host's own resolver or external public ones), supporting A, AAAA, CNAME, MX, TXT and other record types. It reports query time, rcode, the number of records returned and the result values.
 
@@ -33704,7 +35316,7 @@ Runbook:
 
 Collects per-container CPU, memory, block and network IO plus daemon state through the Docker API; the dashboard is written against docker\_\* metrics and verified on real hosts.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The Docker input is based on Telegraf's docker plugin. It connects to the Docker daemon socket (`unix:///var/run/docker.sock`) or a TCP endpoint and collects engine-level container counts and states, image count and storage driver information, plus CPU, memory, blkio and network IO for every container. Swarm services and extended memory statistics are optional.
 
@@ -33969,7 +35581,7 @@ Runbook:
 
 FE and BE both expose Prometheus-format /metrics; scrape them with the Categraf prometheus input. Templates cover queries, loads, compaction and node state.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Doris FE (port 8030 by default) and BE (8040) processes both expose Prometheus metrics on `/metrics`, so no dedicated plugin is needed. Label each node type with `group` and `job`; the dashboards use those labels to separate FE from BE and one cluster from another.
 
@@ -34378,7 +35990,7 @@ Runbook:
 
 Collects cluster health, node JVM, thread pools, index and shard state through Elasticsearch's own HTTP API; one node is enough to see the whole cluster on small deployments.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Elasticsearch exposes its state over HTTP JSON. The input reads `_cluster/health`, `_cluster/stats`, `_nodes/stats` and index statistics: cluster colour, unassigned shards, node JVM heap and GC, circuit breakers, thread pool rejections, indexing and search latency, and disk watermarks.
 
@@ -34544,7 +36156,7 @@ On a small cluster set `local = false` and scrape any one node to get data for a
 | Rule                                              | Severity    | For |
 | ------------------------------------------------- | ----------- | --- |
 | Elastic Cluster Red status                        | S1 Critical | —   |
-| Elastic Cluster Yellow status                     | S2 Warning  | —   |
+| Elastic Cluster Yellow status                     | S2 Warning  | 10m |
 | Elasticsearch disk out of space of the instance   | S1 Critical | 2m  |
 | Elasticsearch disk space low of the instance      | S2 Warning  | 2m  |
 | Elasticsearch Heap Usage Too High of the instance | S1 Critical | 2m  |
@@ -34555,7 +36167,7 @@ On a small cluster set `local = false` and scrape any one node to get data for a
 | Elasticsearch relocation shards of the instance   | S2 Warning  | 15m |
 | Elasticsearch unassigned shards of the instance   | S1 Critical | —   |
 | Elastic Cluster Red status                        | S1 Critical | —   |
-| Elastic Cluster Yellow status                     | S2 Warning  | —   |
+| Elastic Cluster Yellow status                     | S2 Warning  | 10m |
 | Elasticsearch disk out of space of the instance   | S1 Critical | 2m  |
 | Elasticsearch disk space low of the instance      | S2 Warning  | 2m  |
 | Elasticsearch Heap Usage Too High of the instance | S1 Critical | 2m  |
@@ -34619,7 +36231,7 @@ On a small cluster set `local = false` and scrape any one node to get data for a
 
 Collects node state, connections, subscriptions, message throughput and drops through the EMQX Dashboard API; supports v3, v4 and v5.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The EMQX input calls the Dashboard API (port 18083 by default). It first reads `/nodes` for each node's version, running state, connection count, processes and memory, then the cluster-level subscription count, routes, message sent, received and dropped counters, sessions and retained messages. Listing several node addresses for one cluster makes it pick a reachable one at random; use separate `[[instances]]` blocks for separate clusters.
 
@@ -34811,7 +36423,7 @@ Runbook:
 
 For anything no plugin covers: write a script that prints Prometheus, InfluxDB line protocol or Open-Falcon format to stdout, and Categraf collects and ships it.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The exec input is Categraf's catch-all. You write a script, the script prints metrics to standard output, and Categraf runs it on a schedule and parses the result. Any language works; the output must be one of three formats, chosen with `data_format`: Prometheus text exposition, InfluxDB line protocol (`measurement,label=v field=1`) or Open-Falcon JSON.
 
@@ -34879,7 +36491,7 @@ Use it for business metrics, health checks of legacy systems and one-off inspect
 
 The GitLab package bundles several exporters for the host, Rails/Sidekiq, Gitaly, Workhorse, PostgreSQL, Redis and NGINX; the template ships five dashboards.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The GitLab Linux Package comes with a full set of exporters: node\_exporter (host), gitlab\_exporter (Rails and Sidekiq), Gitaly, Workhorse, postgres\_exporter, redis\_exporter and NGINX VTS. The five dashboards (overview, machine performance, NGINX, PostgreSQL, Redis) each use part of that set, so scrape all of these endpoints rather than a single `/metrics`.
 
@@ -35120,7 +36732,7 @@ Runbook:
 
 Reads HAProxy's CSV stats page or Runtime API for sessions, queues, errors and health state per frontend, backend and server.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The HAProxy input reads the CSV output of the stats page (`/stats;csv`) or the Runtime API Unix socket. It collects current and maximum sessions, queue length, request rate, status code classes, connection and response errors, retries and redispatches at frontend, backend and server level, plus the health-check result of every backend server. Verified against real backend traffic.
 
@@ -35331,7 +36943,7 @@ Runbook:
 
 Scrape Cloud Eye (CES) metrics converted to Prometheus format by the cloudeye-exporter; templates cover ECS, RDS, DCS, ELB, Kafka, RocketMQ, CSS and WAF.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Huawei Cloud metrics come from the Cloud Eye service (CES). The `cloudeye-exporter` maintained by Huawei Cloud converts CES metrics per product namespace into Prometheus metrics named `huaweicloud_sys_<service>_<metric>`, which the Categraf `prometheus` input scrapes.
 
@@ -36233,7 +37845,7 @@ Runbook:
 
 Reads out-of-band temperature, fan, voltage, power and sensor state over IPMI, from the local BMC or remote ones.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The IPMI input is ported from ipmi\_exporter. It runs a set of FreeIPMI commands and turns the output into metrics: temperatures, fan speeds, voltages, power draw, the health of every sensor and the chassis power state. The data comes from the BMC, so it is still available when the operating system is down.
 
@@ -36435,7 +38047,7 @@ Runbook:
 
 JVM memory, GC, threads and class loading exposed via the JMX Exporter or the OpenTelemetry Java Agent; one dashboard set for each metric naming.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Monitoring a Java application mostly means monitoring the JVM: heap and non-heap memory, GC count and pause time per generation, thread count and deadlocks, class loading, file descriptors. The two common ways of exposing these produce different metric names, so the templates are split:
 
@@ -36494,7 +38106,7 @@ Put the application name in the `job` label; the dashboards filter on it. If a P
 
 Broker metrics come from JMX, consumer lag from the embedded kafka\_exporter logic; templates come in Categraf and exporter editions, rules watch lag, offline partitions and shrinking ISR.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Kafka's core broker metrics are exposed over JMX; collect those with jolokia or jmx\_exporter. The Categraf `kafka` input fills the gap JMX cannot: consumer group lag, per-partition offsets and consumption rate. It is forked from the davidmparrott flavour of kafka\_exporter, whose metric names differ slightly from the danielqsj flavour; set `rename_uncommit_offset_to_lag = true` to switch to the more common `kafka_consumergroup_lag` naming.
 
@@ -36833,7 +38445,7 @@ Runbook:
 
 Scrapes the native /metrics of the apiserver, kubelet, controller-manager, scheduler, kube-proxy, CoreDNS, kube-state-metrics and node-exporter; templates cover every layer from control plane to Pod.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Every Kubernetes component exposes Prometheus-format `/metrics`. The recommended path is to scrape them directly with the Categraf `prometheus` input and deploy kube-state-metrics (workload state) and node-exporter (node resources). The old Categraf kubernetes input is deprecated, but the dashboards and rules in this template keep working.
 
@@ -37013,7 +38625,7 @@ Control-plane endpoints need a ServiceAccount token or client certificate; when 
 | Node disk almost full - S1 - inodes - 20                      | S1 Critical | 60m  |
 | Node disk almost full - S2 - inodes - 5                       | S2 Warning  | 60m  |
 | Node disk almost full - S1 - inodes - 3                       | S1 Critical | 60m  |
-| Node conntrack entries usage high                             | S2 Warning  | —    |
+| Node conntrack entries usage high                             | S2 Warning  | 5m   |
 | Node textfile collector scrape errors                         | S2 Warning  | —    |
 | Node network interface flapping                               | S2 Warning  | 2m   |
 | ConfigReloaderSidecarErrors                                   | S2 Warning  | 10m  |
@@ -37374,7 +38986,7 @@ Control-plane endpoints need a ServiceAccount token or client certificate; when 
 
 Reads the LDAP server's cn=Monitor backend for connections, operation counters, waiters and thread state; supports OpenLDAP and 389 Directory Server.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The LDAP input queries the server's monitoring backend (`cn=Monitor`) for current and total connections, counters for bind, search, modify, add, delete and other operations, pending reads and writes, thread pool state and uptime. OpenLDAP and 389ds dialects are both supported, with slightly different metric names.
 
@@ -37563,7 +39175,7 @@ Runbook:
 
 CPU, memory, disk, network, processes and kernel parameters out of the box; templates cover Categraf, node\_exporter and Telegraf metric names.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Linux hosts are where most monitoring starts. Categraf's cpu, mem, disk, diskio, net, netstat, kernel and processes inputs are enabled by default and report as soon as the agent starts. The configs listed below are the plugins that have options worth tuning.
 
@@ -38510,7 +40122,7 @@ Runbook:
 
 Collects pipeline event in/out and filter time, queue state and JVM health from Logstash's node API; rules watch event backlog and JVM pressure.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Logstash serves an HTTP API on port 9600 by default. The input reads `_node/stats`: input, filter and output event counts and durations per pipeline, persistent queue capacity and backlog, JVM heap, GC and threads, and process CPU and file descriptors.
 
@@ -38731,7 +40343,7 @@ Runbook:
 
 MinIO ships a Prometheus endpoint; scrape the cluster, bucket and node paths together or the object, bucket, process and disk panels stay empty.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 MinIO exposes Prometheus metrics under `/minio/v2/metrics/` on three paths: `cluster`, `bucket` and `node`. The two bundled dashboards use all three families, so scraping `/cluster` alone leaves the object count, bucket usage, process and disk panels without data.
 
@@ -38834,7 +40446,7 @@ Runbook:
 
 Embeds the mongodb\_exporter collector for connections, op counters, replica set and sharding state; the dashboards need the compatible metric names turned on.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The MongoDB input wraps Percona's mongodb\_exporter and collects connections, op counters, queues, WiredTiger cache, replica set member state and oplog window via `serverStatus`, `replSetGetStatus` and related commands. For sharded clusters, the `mongodb_cluster` input collects from the mongos side.
 
@@ -39118,7 +40730,7 @@ The bundled dashboards are written against the 0.1x-compatible metric names such
 
 Categraf embeds mtail: extract counters, gauges and histograms from log files with regular expressions and expressions, without shipping the logs to a log system first.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The mtail input turns logs into metrics. Input is a log file, output is a set of counters, gauges and histograms defined in mtail syntax; underneath it is Go regular expressions plus expression evaluation. It suits cases such as status-code distribution from Nginx access logs or error counts from application logs, with no need to ship the logs into Elasticsearch or Loki first.
 
@@ -39170,7 +40782,7 @@ Each `[[instances]]` block points at a set of `progs` (mtail program files or a 
 
 Connects to the instance and runs SHOW STATUS, SHOW VARIABLES and replica status; slow-query pileups, connection exhaustion and broken or lagging replication come with rules and runbooks.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The MySQL input is straightforward: it connects to the instance, runs `SHOW GLOBAL STATUS`, `SHOW GLOBAL VARIABLES`, `SHOW SLAVE STATUS` and friends, and turns the results into metrics. Basic status and replication are collected by default; extended InnoDB metrics, the processlist and schema and table sizes are opt-in. Custom SQL can also be turned into metrics.
 
@@ -39416,7 +41028,7 @@ Grant the monitoring account `PROCESS`, `REPLICATION CLIENT` and `SELECT`; do no
 
 Checks whether a local or remote port accepts connections and responds as expected; result codes 0 to 4 mean success, timeout, connection failure, read failure and content mismatch.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The net\_response input opens a TCP connection or exchanges a UDP packet with each `host:port` in `targets`, optionally sending a payload and matching the reply against `expect`. The outcome is reported as `net_response_result_code`: 0 success, 1 timeout, 2 connection failed, 3 read failed, 4 response mismatch, along with the connect time.
 
@@ -39566,7 +41178,7 @@ Runbook:
 
 stub\_status covers connections and request totals, the VTS module adds per-server and per-upstream status codes and latency; an upstream\_check input reads health-check results.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Nginx can be monitored at three levels. The built-in `stub_status` module reports active connections, accepts, handled, requests and reading/writing/waiting counts, enough for liveness and traffic trends. The VTS module (`nginx-module-vts`) breaks requests, status codes, response time and traffic down by server zone and upstream, which is the recommended path; scrape its `/status/format/prometheus` with the Categraf `prometheus` input. The third is the `nginx_upstream_check` input, which reads the results of the upstream\_check module.
 
@@ -39842,7 +41454,7 @@ Runbook:
 
 Reads nsqd's /stats endpoint for per-topic and per-channel depth, in-flight, timeouts and client counts; rules watch growing backlog and lost consumers.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The NSQ input is ported from Telegraf and reads the `/stats` HTTP endpoint of nsqd: message counts and depth per topic, depth, in-flight, deferred, requeue and timeout counters per channel, and ready and in-flight state per client connection.
 
@@ -39997,7 +41609,7 @@ Runbook:
 
 Two ways to collect NVIDIA GPUs: nvidia-smi is light and usually enough, DCGM gives more; dashboards cover a fleet overview, single cards and training jobs.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 There are two collection paths for NVIDIA GPUs. The `nvidia_smi` input runs the local `nvidia-smi` command and parses its output, so nothing else needs installing; utilization, memory, temperature, power and clocks are all there, and remote hosts can be reached over SSH. The `dcgm` input talks to NVIDIA DCGM for finer metrics such as SM activity, NVLink traffic and XID errors, but needs the with-cgo-plugin build of Categraf and DCGM on the host.
 
@@ -40249,7 +41861,7 @@ Runbook:
 
 Collects resources and quotas from Nova, Neutron, Cinder, Glance, Keystone and Heat through the OpenStack API, plus the state of every instance.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The OpenStack input calls each service's API with a read-capable account: Nova instances, hypervisors and quotas; Neutron networks, subnets, ports, floating IPs and security groups; Cinder volumes and snapshots; Glance images; Keystone projects and users; Heat stacks. Every instance's state, project and flavor is reported as a metric too.
 
@@ -40657,7 +42269,7 @@ Runbook:
 
 Runs a customizable set of SQL queries with a read-only account to collect sessions, tablespaces, wait events and cache hit ratios; a Linux Categraf can monitor Oracle on Windows remotely.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The Oracle input connects to the instance and runs the queries defined in `metric.toml`: session counts, active sessions, tablespace usage, wait events, SGA and PGA, cache hit ratios, archive logs and more. Every query can be edited or extended. Connection settings and query definitions live in separate files so they can be trimmed per version and environment.
 
@@ -41122,7 +42734,7 @@ Runbook:
 
 With pm.status\_path enabled, the input reads the PHP-FPM pool status over HTTP or a Unix socket: active and idle processes, request queue, slow requests and max-children hits.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The PHP-FPM input is adapted from Telegraf's phpfpm plugin and reads the pool status page: accepted connections, listen queue length and maximum, idle and active processes, total processes, how often `max_children` was reached and the slow request count. These are the direct indicators of a saturated PHP application.
 
@@ -41329,7 +42941,7 @@ Runbook:
 
 Ping a list of targets from wherever Categraf runs and get packet loss, round-trip latency and jitter; the simplest liveness check there is.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The ping input sends ICMP probes to the addresses in `targets` and reports packet loss, minimum, average, maximum and standard deviation RTT, and TTL. As long as the targets do not block ping, it is the cheapest liveness check; running one Categraf per site and pinging across sites also gives a picture of link quality.
 
@@ -41493,7 +43105,7 @@ Runbook:
 
 Collects connections, transactions, cache hit ratio, locks and replication state with a read-only pg\_monitor account; custom queries against business tables are supported.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The PostgreSQL input connects as a client and reads the `pg_stat_*` monitoring views: connections per database, commits and rollbacks, cache hit ratio, deadlocks, temp files and replication lag. Custom queries can turn numbers from your own tables into metrics as well.
 
@@ -41723,7 +43335,7 @@ Runbook:
 
 On 3.8+ scrape the built-in Prometheus plugin on port 15692; older versions go through the management API. Templates are split by version; rules watch queue backlog, unacked messages and node state.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 RabbitMQ 3.8 and later ship the `rabbitmq_prometheus` plugin: run `rabbitmq-plugins enable rabbitmq_prometheus` and `/metrics` appears on port 15692, which the Categraf `prometheus` input scrapes. Versions below 3.8 enable `rabbitmq_management` instead and use the Categraf `rabbitmq` input against the management API on 15672.
 
@@ -42147,7 +43759,7 @@ Runbook:
 
 Runs INFO against Redis to collect memory, hit ratio, connections, slowlog and replication state; includes a Sentinel input and templates for redis\_exporter.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The Redis input connects to the instance, runs `INFO` and parses the result into memory usage and fragmentation, keyspace hit ratio, connected and blocked clients, persistence state and replication status. Add one `[[instances]]` block per instance and give each an `instance` label; the dashboards filter on it.
 
@@ -42320,7 +43932,7 @@ For Sentinel deployments the `redis_sentinel` input collects the topology from t
 
 Runs smartctl to read S.M.A.R.T. health attributes from HDDs, SSDs and NVMe drives, so you see reallocated sectors, temperature and wear before a disk actually dies.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 S.M.A.R.T. is the self-monitoring built into hard drives and SSDs. The Categraf smart input runs `smartctl` (and the `nvme` tool for NVMe devices) and emits `smart_device` for overall health plus `smart_attribute` for individual attributes: reallocated sectors, pending sectors, temperature, power-on hours, SSD wear and more.
 
@@ -42591,7 +44203,7 @@ Runbook:
 
 Collect any network device by listing OIDs, with OID values usable as labels; the template ships Cisco, Juniper and generic switch dashboards and dozens of rules.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Categraf has included Telegraf's snmp input since v0.2.13. The idea is simple: list the OIDs for the metrics you want. `[[instances.field]]` reads single values, `[[instances.table]]` walks a table into multiple rows, and selected OIDs in a table (interface names, say) can become labels. Generic OIDs for interface traffic, errors and state work on almost every device; vendor-specific OIDs for CPU and memory are configured per vendor and model.
 
@@ -43689,7 +45301,7 @@ Runbook:
 
 Add Actuator and micrometer-registry-prometheus and the application exposes /actuator/prometheus itself; the template ships JVM dashboards split by application name.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Spring Boot applications need no external agent. Add the `spring-boot-starter-actuator` and `micrometer-registry-prometheus` dependencies, expose the prometheus endpoint, and the application serves JVM, HTTP request, datasource pool, executor and custom metrics on `/actuator/prometheus`. Actuator is built on Micrometer underneath.
 
@@ -43818,7 +45430,7 @@ Runbook:
 
 Collects connections, waits, buffer pool, log usage and database state from DMVs and performance counters; VIEW SERVER STATE is all the permission it needs.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The SQL Server input is based on the Telegraf plugin of the same name and reads dynamic management views (DMVs) and performance counters: connections and requests, wait statistics, buffer cache hit ratio, page life expectancy, transaction log usage, database state and size, and Always On availability group health. It has been verified against SQL Server 2022.
 
@@ -44218,7 +45830,7 @@ Runbook:
 
 Give it a list of IPs and it detects the device model and collects CPU, memory and per-port traffic, errors and state; SNMP v2c only.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The switch\_legacy input is forked from swcollector and targets the "just get the switches in quickly" case. List IPs in the config (single addresses, subnets or ranges), and the input detects the device model and uses generic OIDs to collect CPU and memory usage plus traffic, packets, errors, discards and up/down state for every port. No OIDs to write.
 
@@ -44529,7 +46141,7 @@ Runbook:
 
 Reads systemd unit state, restart counts and startup time over D-Bus, so failed or flapping services page you right away.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The systemd input talks to systemd over D-Bus and collects each unit's active state, enabled flag, restart count, task count and startup time. Unlike a plain process check, it tells "the service exists but is failed" apart from "the service keeps getting restarted".
 
@@ -44688,7 +46300,7 @@ Runbook:
 
 Scrape Cloud Monitor metrics converted to Prometheus format by the tencentcloud-exporter; templates cover CVM, CKafka, PostgreSQL, Redis, TDSQL-C and load balancers.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Tencent Cloud metrics come from its Cloud Monitor service. The `tencentcloud-exporter` maintained by Tencent Cloud converts them per product into Prometheus metrics named `qce_<product>_<metric>`, which the Categraf `prometheus` input scrapes.
 
@@ -44745,7 +46357,7 @@ labels = { job = "tencentcloud" }
 
 TiDB, PD and TiKV all expose Prometheus metrics on /metrics; the templates cover SQL latency, Region scheduling, storage and node health.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Every TiDB component ships a Prometheus endpoint: TiDB Server on 10080, PD on 2379, TiKV on 20180, with TiFlash and TiCDC on whatever ports they are configured with. Scrape them with the Categraf `prometheus` input, or add the Prometheus that TiUP deploys as a Nightingale data source.
 
@@ -45293,7 +46905,7 @@ Runbook:
 
 Reads the /manager/status/all endpoint of the Manager app for JVM memory, per-connector threads and requests, traffic and errors; needs the manager-gui role.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The Tomcat input calls the Manager app's `/manager/status/all` endpoint and parses JVM heap and memory pool usage, thread pool size and busy count per connector (HTTP, AJP), request counts, processing time, errors and bytes sent and received.
 
@@ -45491,7 +47103,7 @@ Runbook:
 
 Both the single-node and cluster editions expose /metrics; templates cover vmsingle as well as the vmstorage, vmselect and vminsert cluster components.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 VictoriaMetrics is often both Nightingale's time-series store and something that needs monitoring itself. The single-node edition exposes `/metrics` on port 8428; the cluster edition must be scraped per component, vmstorage (8482), vmselect (8481) and vminsert (8480), or you only see part of the picture.
 
@@ -45686,7 +47298,7 @@ Runbook:
 
 Pulls CPU, memory, disk and network performance counters for ESXi hosts, virtual machines, datastores and clusters through the vCenter API.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The vSphere input pulls performance data through the vCenter Server API across five levels: datacenter, cluster, ESXi host, virtual machine and datastore. That includes CPU ready time and usage, active memory and ballooning, disk latency and IOPS, network throughput and datastore capacity. A vCenter is required; connecting to a bare ESXi host does not work.
 
@@ -46213,7 +47825,7 @@ Runbook:
 
 Categraf reports the same metric names on Windows as on Linux, so host dashboards and rules carry over; extra dashboards cover AD, DNS and ADFS via windows\_exporter.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Categraf runs on Windows too, and the basic CPU, memory, disk and network metrics keep the same names as on Linux. Host-level alert rules and dashboards therefore do not need a separate Windows edition.
 

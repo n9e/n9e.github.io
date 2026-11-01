@@ -2,7 +2,7 @@
 
 11 条开箱可用的 Elasticsearch 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 elasticsearch\_exporter, Categraf。可下载为 Prometheus 规则文件，或导入夜莺。
 
-最后校对于 2026-10-31
+最后校对于 2026-11-01
 
 Elasticsearch 告警规则：集群健康变黄或变红、JVM 堆内存用量过高、磁盘空间不足或耗尽、未分配 / 初始化中 / 迁移中的分片、积压的集群任务，以及索引长时间没有新文档写入。exporter 一组使用 prometheus-community/elasticsearch\_exporter 的指标名；Categraf 一组对 Categraf 采集的指标做同样的检查。
 
@@ -18,7 +18,7 @@ Elasticsearch 告警规则：集群健康变黄或变红、JVM 堆内存用量�
 | 规则                                              | 级别 | 持续    |
 | ------------------------------------------------- | ---- | ------- |
 | Elastic Cluster Red status                        | 紧急 | —       |
-| Elastic Cluster Yellow status                     | 警告 | —       |
+| Elastic Cluster Yellow status                     | 警告 | 10 分钟 |
 | Elasticsearch disk out of space of the instance   | 紧急 | 2 分钟  |
 | Elasticsearch disk space low of the instance      | 警告 | 2 分钟  |
 | Elasticsearch Heap Usage Too High of the instance | 紧急 | 2 分钟  |
@@ -50,7 +50,7 @@ elasticsearch_cluster_health_status{color="red"} == 1
 
 ### Elastic Cluster Yellow status[​](#elastic-cluster-yellow-status "Elastic Cluster Yellow status的直接链接")
 
-警告 · — · 触发条件:
+警告 · 10 分钟 · 触发条件:
 
 ```
 elasticsearch_cluster_health_status{color="yellow"} == 1

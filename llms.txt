@@ -4,6 +4,69 @@
 
 - [Nightingale (n9e)](https://n9e.github.io/index.md)
 
+## blog
+
+Notes on alerting, Prometheus and Kubernetes monitoring from the Nightingale maintainers: data from our rule library, migration guides and design write-ups.
+
+- [Nightingale Blog](https://n9e.github.io/blog.md): Notes on alerting, Prometheus and Kubernetes monitoring from the Nightingale maintainers: data from our rule library, migration guides and design write-ups.
+
+### archive
+
+Archive
+
+- [Archive](https://n9e.github.io/blog/archive.md): Archive
+
+### authors
+
+- [Authors](https://n9e.github.io/blog/authors.md)
+
+### kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter
+
+What kube-state-metrics, metrics-server, cAdvisor and node_exporter each measure, which one to alert on, and the metric renames that silently break copied queries.
+
+- [kube-state-metrics vs metrics-server vs cAdvisor vs node_exporter](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md): What kube-state-metrics, metrics-server, cAdvisor and node_exporter each measure, which one to alert on, and the metric renames that silently break copied queries.
+
+### mcp-server-for-alerting
+
+How Nightingale's built-in MCP server handles permissions, write access and audit: RBAC inherited from the token, write tools unregistered by default, no delete tools, and one caveat.
+
+- [MCP server for alerting: six design decisions](https://n9e.github.io/blog/mcp-server-for-alerting.md): How Nightingale's built-in MCP server handles permissions, write access and audit: RBAC inherited from the token, write tools unregistered by default, no delete tools, and one caveat.
+
+### migrate-zabbix-to-prometheus
+
+A concept-by-concept map from Zabbix to Prometheus: hosts, items, triggers, LLD, dependencies, maintenance. Plus the gaps with no equivalent and a migration order that never turns Zabbix off.
+
+- [Migrating from Zabbix to Prometheus](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md): A concept-by-concept map from Zabbix to Prometheus: hosts, items, triggers, LLD, dependencies, maintenance. Plus the gaps with no equivalent and a migration order that never turns Zabbix off.
+
+### prometheus-alert-for-duration
+
+We counted the for duration and severity of 692 alert rule templates. 44% use the 60s default. Here is when for: 0, 60s, 15m and 1h are the right choice.
+
+- [How long should a Prometheus alert wait? Data from 692 rules](https://n9e.github.io/blog/prometheus-alert-for-duration.md): We counted the for duration and severity of 692 alert rule templates. 44% use the 60s default. Here is when for: 0, 60s, 15m and 1h are the right choice.
+
+### prometheus-high-availability
+
+Running two Prometheus replicas solves half of high availability. How Alertmanager clustering, replica labels and Thanos, Mimir or VictoriaMetrics deduplication fit together.
+
+- [Prometheus high availability: storage vs alerting](https://n9e.github.io/blog/prometheus-high-availability.md): Running two Prometheus replicas solves half of high availability. How Alertmanager clustering, replica labels and Thanos, Mimir or VictoriaMetrics deduplication fit together.
+
+### symptom-based-alerting
+
+Symptom-based vs cause-based alerting with real Prometheus rules: error ratio, latency and probe alerts that page, and where CPU, disk and certificate alerts still belong.
+
+- [Symptom-based alerting with Prometheus](https://n9e.github.io/blog/symptom-based-alerting.md): Symptom-based vs cause-based alerting with real Prometheus rules: error ratio, latency and probe alerts that page, and where CPU, disk and certificate alerts still belong.
+
+### tags
+
+- [Tags](https://n9e.github.io/blog/tags.md)
+- [One post tagged with "AI and MCP"](https://n9e.github.io/blog/tags/ai.md): AI assistants, MCP servers and how they touch production systems.
+- [6 posts tagged with "Alerting"](https://n9e.github.io/blog/tags/alerting.md): Designing alert rules that page for the right reasons.
+- [One post tagged with "Data"](https://n9e.github.io/blog/tags/data.md): Posts built on numbers from Nightingale's own templates and rule library.
+- [One post tagged with "High availability"](https://n9e.github.io/blog/tags/high-availability.md): Keeping monitoring and alerting up when parts of it fail.
+- [One post tagged with "Kubernetes"](https://n9e.github.io/blog/tags/kubernetes.md): Monitoring and alerting on Kubernetes clusters.
+- [One post tagged with "Migration"](https://n9e.github.io/blog/tags/migration.md): Moving between monitoring and alerting systems.
+- [5 posts tagged with "Prometheus"](https://n9e.github.io/blog/tags/prometheus.md): Prometheus metrics, rules and operations.
+
 ## categraf
 
 Categraf is an MIT-licensed metrics agent for hosts, middleware, databases, network devices and Kubernetes. It writes over Prometheus Remote Write. Install, configure, and compare it with Telegraf.

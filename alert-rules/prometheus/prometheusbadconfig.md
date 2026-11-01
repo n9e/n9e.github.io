@@ -2,7 +2,7 @@
 
 What the PrometheusBadConfig Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 The last attempt to reload the Prometheus configuration failed. Prometheus keeps running with the previous configuration, so nothing breaks at once. But every change made since then (new scrape targets, new rule files, new Alertmanager settings) is not in effect, and the next restart may not come back up if the file stays broken.
 

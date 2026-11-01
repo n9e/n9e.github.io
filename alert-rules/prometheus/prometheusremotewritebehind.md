@@ -2,7 +2,7 @@
 
 What the PrometheusRemoteWriteBehind Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Remote write is more than 2 minutes behind: the newest sample Prometheus has ingested is more than 120 seconds newer than the newest sample it has sent to a remote endpoint. Dashboards and alerts that read from the remote store (VictoriaMetrics, Thanos Receive, Mimir, a managed service) see stale data. If the lag keeps growing, samples can be dropped before they are sent.
 

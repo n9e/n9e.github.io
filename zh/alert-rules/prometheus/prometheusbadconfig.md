@@ -2,7 +2,7 @@
 
 Prometheus 告警 PrometheusBadConfig 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-10-31
+最后校对于 2026-11-01
 
 最近一次重载 Prometheus 配置失败。Prometheus 会继续用旧配置运行，所以不会立刻出问题；但此后的所有改动（新的采集目标、新的规则文件、新的 Alertmanager 配置）都没有生效。如果配置文件一直是坏的，下次重启时 Prometheus 可能起不来。
 

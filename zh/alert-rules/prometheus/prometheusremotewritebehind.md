@@ -2,7 +2,7 @@
 
 Prometheus 告警 PrometheusRemoteWriteBehind 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-10-31
+最后校对于 2026-11-01
 
 Remote Write 落后超过 2 分钟：Prometheus 已接收的最新样本，比已发往远端的最新样本新了 120 秒以上。读远端存储（VictoriaMetrics、Thanos Receive、Mimir、托管服务）的仪表盘和告警看到的都是旧数据。落后量如果持续扩大，可能有样本在发出去之前就被丢掉。
 

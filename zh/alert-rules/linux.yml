@@ -340,6 +340,7 @@ groups:
       - alert: "Node conntrack entries usage high"
         expr: |-
           (node_nf_conntrack_entries / node_nf_conntrack_entries_limit) > 0.75
+        for: 5m
         labels:
           severity: warning
         annotations:

@@ -356,13 +356,6 @@
     "expectedStatus": 200
   },
   {
-    "from": "/blog",
-    "action": "redirect",
-    "to": "/",
-    "canonical": "https://n9e.github.io/",
-    "expectedStatus": 200
-  },
-  {
     "from": "/blog/five-steps-to-build-observability",
     "action": "redirect",
     "to": "/docs/get-started/where-it-fits",

@@ -2,7 +2,7 @@
 
 12 ready-to-use Redis alert rules in PromQL, each with severity, duration and runbook steps. Metrics from redis\_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Redis alert rules for high memory usage, a rising eviction rate, rejected connections, too many client connections, a falling cache hit ratio, high command or ping latency, and an instance that has just restarted. The exporter group uses oliver006/redis\_exporter metric names; the Categraf group covers the same checks for instances collected by Categraf.
 

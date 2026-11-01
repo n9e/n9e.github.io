@@ -2,7 +2,7 @@
 
 Scrape Cloud Eye (CES) metrics converted to Prometheus format by the cloudeye-exporter; templates cover ECS, RDS, DCS, ELB, Kafka, RocketMQ, CSS and WAF.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Huawei Cloud metrics come from the Cloud Eye service (CES). The `cloudeye-exporter` maintained by Huawei Cloud converts CES metrics per product namespace into Prometheus metrics named `huaweicloud_sys_<service>_<metric>`, which the Categraf `prometheus` input scrapes.
 

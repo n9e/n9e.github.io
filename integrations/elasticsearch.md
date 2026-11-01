@@ -2,7 +2,7 @@
 
 Collects cluster health, node JVM, thread pools, index and shard state through Elasticsearch's own HTTP API; one node is enough to see the whole cluster on small deployments.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Elasticsearch exposes its state over HTTP JSON. The input reads `_cluster/health`, `_cluster/stats`, `_nodes/stats` and index statistics: cluster colour, unassigned shards, node JVM heap and GC, circuit breakers, thread pool rejections, indexing and search latency, and disk watermarks.
 
@@ -168,7 +168,7 @@ On a small cluster set `local = false` and scrape any one node to get data for a
 | Rule                                              | Severity    | For |
 | ------------------------------------------------- | ----------- | --- |
 | Elastic Cluster Red status                        | S1 Critical | —   |
-| Elastic Cluster Yellow status                     | S2 Warning  | —   |
+| Elastic Cluster Yellow status                     | S2 Warning  | 10m |
 | Elasticsearch disk out of space of the instance   | S1 Critical | 2m  |
 | Elasticsearch disk space low of the instance      | S2 Warning  | 2m  |
 | Elasticsearch Heap Usage Too High of the instance | S1 Critical | 2m  |
@@ -179,7 +179,7 @@ On a small cluster set `local = false` and scrape any one node to get data for a
 | Elasticsearch relocation shards of the instance   | S2 Warning  | 15m |
 | Elasticsearch unassigned shards of the instance   | S1 Critical | —   |
 | Elastic Cluster Red status                        | S1 Critical | —   |
-| Elastic Cluster Yellow status                     | S2 Warning  | —   |
+| Elastic Cluster Yellow status                     | S2 Warning  | 10m |
 | Elasticsearch disk out of space of the instance   | S1 Critical | 2m  |
 | Elasticsearch disk space low of the instance      | S2 Warning  | 2m  |
 | Elasticsearch Heap Usage Too High of the instance | S1 Critical | 2m  |

@@ -2,7 +2,7 @@
 
 Scrapes the native /metrics of the apiserver, kubelet, controller-manager, scheduler, kube-proxy, CoreDNS, kube-state-metrics and node-exporter; templates cover every layer from control plane to Pod.
 
-Last reviewed 2026-10-31
+Last reviewed 2026-11-01
 
 Every Kubernetes component exposes Prometheus-format `/metrics`. The recommended path is to scrape them directly with the Categraf `prometheus` input and deploy kube-state-metrics (workload state) and node-exporter (node resources). The old Categraf kubernetes input is deprecated, but the dashboards and rules in this template keep working.
 
@@ -182,7 +182,7 @@ Control-plane endpoints need a ServiceAccount token or client certificate; when 
 | Node disk almost full - S1 - inodes - 20                      | S1 Critical | 60m  |
 | Node disk almost full - S2 - inodes - 5                       | S2 Warning  | 60m  |
 | Node disk almost full - S1 - inodes - 3                       | S1 Critical | 60m  |
-| Node conntrack entries usage high                             | S2 Warning  | —    |
+| Node conntrack entries usage high                             | S2 Warning  | 5m   |
 | Node textfile collector scrape errors                         | S2 Warning  | —    |
 | Node network interface flapping                               | S2 Warning  | 2m   |
 | ConfigReloaderSidecarErrors                                   | S2 Warning  | 10m  |

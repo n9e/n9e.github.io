@@ -2,7 +2,7 @@
 
 76 条开箱可用的 Linux 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 node\_exporter, Categraf, Telegraf。可下载为 Prometheus 规则文件，或导入夜莺。
 
-最后校对于 2026-10-31
+最后校对于 2026-11-01
 
 Linux 服务器与 Kubernetes 节点的主机级告警规则：内存耗尽与内存压力、磁盘和 inode 将满（含「24 小时内将写满」的预测）、磁盘延迟、网络错误、丢包与带宽打满、CPU 负载与被宿主机抢占、OOM Kill、conntrack 表与文件句柄耗尽、时钟偏移、系统服务崩溃、进程消失，以及 PING、端口、HTTP 探测失败。node\_exporter 一组用的是标准 `node_*` 指标名；Categraf 和 Telegraf 两组针对用这两种 agent 采集的主机，覆盖同样的问题。
 
@@ -50,7 +50,7 @@ Linux 服务器与 Kubernetes 节点的主机级告警规则：内存耗尽与�
 | 节点磁盘快满了-S1-inodes-20                                                                                    | 紧急 | 60 分钟  |
 | 节点磁盘快满了-S2-inodes-5                                                                                     | 警告 | 60 分钟  |
 | 节点磁盘快满了-S1-inodes-3                                                                                     | 紧急 | 60 分钟  |
-| 使用的节点Conntrack条目数量高                                                                                  | 警告 | —        |
+| 使用的节点Conntrack条目数量高                                                                                  | 警告 | 5 分钟   |
 | 节点文本文件收集器抓取错误                                                                                     | 警告 | —        |
 | 节点网络接口抖动                                                                                               | 警告 | 2 分钟   |
 | A certain disk is unable to read/write normally                                                                | 紧急 | 1 分钟   |
@@ -687,7 +687,7 @@ and
 3. K8s 节点常见是容器层与日志碎片，清理无用镜像通常能释放大量 inode；
 4. 长期可提高 inode 密度或把小文件业务隔离到独立分区。
 
-### 节点磁盘快满了-S2-inodes-5[​](#节点磁盘快满了-s2-inodes-5 "节点磁盘快满了-S2-inodes-5的直接�链接")
+### 节点磁盘快满了-S2-inodes-5[​](#节点磁盘快满了-s2-inodes-5 "节点磁盘快满了-S2-inodes-5的直接链接")
 
 Filesystem on {{ $labels.device }} at {{ $labels.instance }} has only {{ printf "%.2f" $value }}% available inodes left.
 
@@ -741,7 +741,7 @@ and
 
 {{ $value | humanizePercentage }} of conntrack entries are used.
 
-警告 · — · 触发条件:
+警告 · 5 分钟 · 触发条件:
 
 ```
 (node_nf_conntrack_entries / node_nf_conntrack_entries_limit) > 0.75
@@ -993,7 +993,7 @@ conntrack_ip_conntrack_count / conntrack_ip_conntrack_max > 0.8
 3. 应急调大：sysctl -w net.netfilter.nf\_conntrack\_max=<更大值>，并同步调大 nf\_conntrack\_buckets；
 4. 同时缩短 nf\_conntrack\_tcp\_timeout\_time\_wait 等超时，或对不需要跟踪的流量用 iptables raw 表 NOTRACK。
 
-### CPU利用率较高[​](#cpu利用率较高 "CPU利��用率较高的直接链接")
+### CPU利用率较高[​](#cpu利用率较高 "CPU利用率较高的直接链接")
 
 提醒 · 1 分钟 · 触发条件:
 
@@ -1091,7 +1091,7 @@ netstat_tcp_time_wait > 20000
 3. 根因通常是短连接过多——在应用侧改用长连接或连接池，这是最有效的手段；
 4. 应急可开启 net.ipv4.tcp\_tw\_reuse=1 并调大 net.ipv4.ip\_local\_port\_range（不要开 tcp\_tw\_recycle，NAT 环境下会丢包）。
 
-### 内存利用率比较高[​](#内存利用率比较高 "内存利用率比较高的直接链接")
+### 内存利用率比较高[​](#内存利用率比较高 "内存利用率比较高的直�接链接")
 
 提醒 · 1 分钟 · 触发条件:
 
