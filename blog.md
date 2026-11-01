@@ -4,23 +4,7 @@ BLOG
 
 Notes on alerting, Prometheus and Kubernetes monitoring from the Nightingale maintainers: data from our rule library, migration guides and design write-ups.
 
-[Alerting](https://n9e.github.io/blog/tags/alerting.md)[Prometheus](https://n9e.github.io/blog/tags/prometheus.md)[Kubernetes](https://n9e.github.io/blog/tags/kubernetes.md)[Data](https://n9e.github.io/blog/tags/data.md)[AI and MCP](https://n9e.github.io/blog/tags/ai.md)[High availability](https://n9e.github.io/blog/tags/high-availability.md)[Migration](https://n9e.github.io/blog/tags/migration.md)
-
-[![](https://n9e.github.io/img/blog/kubernetes-metrics-sources.webp)](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
-
-## [kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
-
-What kube-state-metrics, metrics-server, cAdvisor and node\_exporter each measure, which one to alert on, and the metric renames that silently break copied queries.
-
-Nov 1, 2026·7
-
-<!-- -->
-
-min read
-
-* [Kubernetes](https://n9e.github.io/blog/tags/kubernetes.md)
-* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md)
-* [Alerting](https://n9e.github.io/blog/tags/alerting.md)
+[Alerting](https://n9e.github.io/blog/tags/alerting.md)[Prometheus](https://n9e.github.io/blog/tags/prometheus.md)[Data](https://n9e.github.io/blog/tags/data.md)[Kubernetes](https://n9e.github.io/blog/tags/kubernetes.md)[AI and MCP](https://n9e.github.io/blog/tags/ai.md)[High availability](https://n9e.github.io/blog/tags/high-availability.md)[Migration](https://n9e.github.io/blog/tags/migration.md)
 
 [![](https://n9e.github.io/img/blog/alert-for-duration.webp)](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
 
@@ -37,6 +21,22 @@ min read
 * [Alerting](https://n9e.github.io/blog/tags/alerting.md)
 * [Prometheus](https://n9e.github.io/blog/tags/prometheus.md)
 * [Data](https://n9e.github.io/blog/tags/data.md)
+
+[![](https://n9e.github.io/img/blog/kubernetes-metrics-sources.webp)](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+
+## [kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+
+What kube-state-metrics, metrics-server, cAdvisor and node\_exporter each measure, which one to alert on, and the metric renames that silently break copied queries.
+
+Nov 1, 2026·7
+
+<!-- -->
+
+min read
+
+* [Kubernetes](https://n9e.github.io/blog/tags/kubernetes.md)
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md)
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md)
 
 [![](https://n9e.github.io/img/blog/mcp-server-design.webp)](https://n9e.github.io/blog/mcp-server-for-alerting.md)
 
@@ -69,6 +69,21 @@ min read
 * [High availability](https://n9e.github.io/blog/tags/high-availability.md)
 * [Alerting](https://n9e.github.io/blog/tags/alerting.md)
 
+[![](https://n9e.github.io/img/blog/symptom-based-alerting.webp)](https://n9e.github.io/blog/symptom-based-alerting.md)
+
+## [Symptom-based alerting with Prometheus](https://n9e.github.io/blog/symptom-based-alerting.md)
+
+Symptom-based vs cause-based alerting with real Prometheus rules: error ratio, latency and probe alerts that page, and where CPU, disk and certificate alerts still belong.
+
+Nov 1, 2026·7
+
+<!-- -->
+
+min read
+
+* [Alerting](https://n9e.github.io/blog/tags/alerting.md)
+* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md)
+
 [![](https://n9e.github.io/img/blog/zabbix-to-prometheus.webp)](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
 
 ## [Migrating from Zabbix to Prometheus](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
@@ -84,18 +99,3 @@ min read
 * [Migration](https://n9e.github.io/blog/tags/migration.md)
 * [Prometheus](https://n9e.github.io/blog/tags/prometheus.md)
 * [Alerting](https://n9e.github.io/blog/tags/alerting.md)
-
-[![](https://n9e.github.io/img/blog/symptom-based-alerting.webp)](https://n9e.github.io/blog/symptom-based-alerting.md)
-
-## [Symptom-based alerting with Prometheus](https://n9e.github.io/blog/symptom-based-alerting.md)
-
-Symptom-based vs cause-based alerting with real Prometheus rules: error ratio, latency and probe alerts that page, and where CPU, disk and certificate alerts still belong.
-
-Nov 1, 2026·7
-
-<!-- -->
-
-min read
-
-* [Alerting](https://n9e.github.io/blog/tags/alerting.md)
-* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md)

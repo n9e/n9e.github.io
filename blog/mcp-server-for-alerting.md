@@ -148,9 +148,9 @@ More detail is in the docs: [Enable the MCP endpoint](https://n9e.github.io/docs
 
 [Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-mcp-server-design/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fmcp-server-for-alerting\&body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fblog%2Fmcp-server-for-alerting%0A%0A)
 
-[Newer post](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+[Newer post](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
 
-[How long should a Prometheus alert wait? Data from 692 rules](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+[kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
 
 [Older post](https://n9e.github.io/blog/prometheus-high-availability.md)
 

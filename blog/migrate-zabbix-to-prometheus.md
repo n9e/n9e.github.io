@@ -127,10 +127,6 @@ If you are still choosing, see [Nightingale vs Zabbix](https://n9e.github.io/com
 
 [Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-zabbix-to-prometheus/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fmigrate-zabbix-to-prometheus\&body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fblog%2Fmigrate-zabbix-to-prometheus%0A%0A)
 
-[Newer post](https://n9e.github.io/blog/prometheus-high-availability.md)
-
-[Prometheus high availability: storage vs alerting](https://n9e.github.io/blog/prometheus-high-availability.md)
-
-[Older post](https://n9e.github.io/blog/symptom-based-alerting.md)
+[Newer post](https://n9e.github.io/blog/symptom-based-alerting.md)
 
 [Symptom-based alerting with Prometheus](https://n9e.github.io/blog/symptom-based-alerting.md)

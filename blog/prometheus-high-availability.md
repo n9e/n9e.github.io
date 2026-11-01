@@ -146,6 +146,6 @@ The last item is the one most often skipped. Every check above runs inside the s
 
 [MCP server for alerting: six design decisions](https://n9e.github.io/blog/mcp-server-for-alerting.md)
 
-[Older post](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+[Older post](https://n9e.github.io/blog/symptom-based-alerting.md)
 
-[Migrating from Zabbix to Prometheus](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+[Symptom-based alerting with Prometheus](https://n9e.github.io/blog/symptom-based-alerting.md)

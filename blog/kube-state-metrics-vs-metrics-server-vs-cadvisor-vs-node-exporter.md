@@ -132,6 +132,10 @@ Nightingale does not replace any of these four components. It queries the store 
 
 [Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-kubernetes-metrics-sources/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fkube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter\&body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fblog%2Fkube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter%0A%0A)
 
-[Older post](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+[Newer post](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
 
 [How long should a Prometheus alert wait? Data from 692 rules](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+
+[Older post](https://n9e.github.io/blog/mcp-server-for-alerting.md)
+
+[MCP server for alerting: six design decisions](https://n9e.github.io/blog/mcp-server-for-alerting.md)

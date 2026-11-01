@@ -140,6 +140,10 @@ For the rules that stay, the [rule design best practices](https://n9e.github.io/
 
 [Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-symptom-based-alerting/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fsymptom-based-alerting\&body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fblog%2Fsymptom-based-alerting%0A%0A)
 
-[Newer post](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+[Newer post](https://n9e.github.io/blog/prometheus-high-availability.md)
+
+[Prometheus high availability: storage vs alerting](https://n9e.github.io/blog/prometheus-high-availability.md)
+
+[Older post](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
 
 [Migrating from Zabbix to Prometheus](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
