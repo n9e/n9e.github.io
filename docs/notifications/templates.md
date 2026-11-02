@@ -10,7 +10,7 @@ Where this page ends: your own message template, every variable in it verified i
 
 **Alerts & Notifications → Message templates**. The list is on the left, the editor in the middle, and a panel of referenceable event variables on the right (click any of them to copy).
 
-![Message templates](https://n9e.github.io/img/docs/notifications/message-templates.webp)![Message templates](https://n9e.github.io/img/docs/notifications/message-templates.dark.webp)
+![Message templates](https://n9e.io/img/docs/notifications/message-templates.webp)![Message templates](https://n9e.io/img/docs/notifications/message-templates.dark.webp)
 
 The header shows the template's **ident** and its **media type**. The ident is a server-side uuid you never need to touch; the media type decides which media type this template appears under in a notification rule.
 
@@ -53,7 +53,7 @@ The right-hand panel groups fields into Common / Basic / Trigger / Tags and anno
 
 Timestamps need formatting to be readable: `{{timeformat $event.TriggerTime}}`. **`timeformat` only accepts int64** — hand it a string and it renders `invalid value; expected int64` and sends that verbatim. For the current time use `{{timestamp}}`.
 
-Other helpers worth knowing: `humanizeDurationInterface` (seconds → "1h20m"), `formatDecimal` (round to N places), `sub` / `add` / `now.Unix` (durations), `jsonMarshal`, `toUpper` / `toLower`, `join`. The full field list lives in [Notification template variables](https://n9e.github.io/docs/reference/notification-variables.md).
+Other helpers worth knowing: `humanizeDurationInterface` (seconds → "1h20m"), `formatDecimal` (round to N places), `sub` / `add` / `now.Unix` (durations), `jsonMarshal`, `toUpper` / `toLower`, `join`. The full field list lives in [Notification template variables](https://n9e.io/docs/reference/notification-variables.md).
 
 The idiomatic way to show "how long has this been firing", copied from the built-in DingTalk template:
 
@@ -119,7 +119,7 @@ Every other media type goes through `html/template`, and the result is then JSON
 
 ## Next[​](#next "Direct link to Next")
 
-* The full field list: [Notification template variables](https://n9e.github.io/docs/reference/notification-variables.md)
-* How field names join to media types: [Notification architecture](https://n9e.github.io/docs/notifications/architecture.md)
-* Debugging a render error: [Template rendering errors](https://n9e.github.io/docs/troubleshooting/template-errors.md)
-* Run it through the real path afterwards: [Test a notification end to end](https://n9e.github.io/docs/notifications/test.md)
+* The full field list: [Notification template variables](https://n9e.io/docs/reference/notification-variables.md)
+* How field names join to media types: [Notification architecture](https://n9e.io/docs/notifications/architecture.md)
+* Debugging a render error: [Template rendering errors](https://n9e.io/docs/troubleshooting/template-errors.md)
+* Run it through the real path afterwards: [Test a notification end to end](https://n9e.io/docs/notifications/test.md)

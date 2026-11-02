@@ -8,16 +8,16 @@ Where this page ends: Grafana unified alerting taken apart onto Nightingale obje
 
 ## What stays, what gets replaced[​](#what-stays-what-gets-replaced "Direct link to What stays, what gets replaced")
 
-| What you run today                             | After the migration                                                                                                                                           |
-| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Grafana dashboards, panels, variables          | **Untouched.** Nightingale ships dashboards but does not ask you to migrate — see [Use Grafana with Nightingale](https://n9e.github.io/docs/query/grafana.md) |
-| Grafana's data sources (Prometheus, Loki, ES…) | **Untouched**; both sides talk to the same backends                                                                                                           |
-| Grafana recording rules                        | **Untouched**, or moved to [recording rules](https://n9e.github.io/docs/query/recording-rules.md) if you prefer                                               |
-| Grafana-managed alert rules                    | **Rewritten** as Nightingale alert rules                                                                                                                      |
-| Data source-managed alert rules                | These are Prometheus ruler rules; take [the Alertmanager route](https://n9e.github.io/docs/migration/from-alertmanager.md) instead                            |
-| Notification policies                          | Flattened into notification rules                                                                                                                             |
-| Contact points                                 | Media types plus notification rules                                                                                                                           |
-| Mute timings and silences                      | Mute rules                                                                                                                                                    |
+| What you run today                             | After the migration                                                                                                                                    |
+| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Grafana dashboards, panels, variables          | **Untouched.** Nightingale ships dashboards but does not ask you to migrate — see [Use Grafana with Nightingale](https://n9e.io/docs/query/grafana.md) |
+| Grafana's data sources (Prometheus, Loki, ES…) | **Untouched**; both sides talk to the same backends                                                                                                    |
+| Grafana recording rules                        | **Untouched**, or moved to [recording rules](https://n9e.io/docs/query/recording-rules.md) if you prefer                                               |
+| Grafana-managed alert rules                    | **Rewritten** as Nightingale alert rules                                                                                                               |
+| Data source-managed alert rules                | These are Prometheus ruler rules; take [the Alertmanager route](https://n9e.io/docs/migration/from-alertmanager.md) instead                            |
+| Notification policies                          | Flattened into notification rules                                                                                                                      |
+| Contact points                                 | Media types plus notification rules                                                                                                                    |
+| Mute timings and silences                      | Mute rules                                                                                                                                             |
 
 ## The one thing that automates: data sources[​](#the-one-thing-that-automates-data-sources "Direct link to The one thing that automates: data sources")
 
@@ -46,9 +46,9 @@ Two things to know:
 | Labels                                                     | Appended tags                                                                                                                                                             |
 | The `summary` / `description` annotations                  | Annotations                                                                                                                                                               |
 | The `runbook_url` annotation                               | The rule's **Runbook URL** field                                                                                                                                          |
-| The rule's folder                                          | A **business group** — but that is also a permission boundary, not just a folder. See [Business groups](https://n9e.github.io/docs/concepts/business-groups.md)           |
+| The rule's folder                                          | A **business group** — but that is also a permission boundary, not just a folder. See [Business groups](https://n9e.io/docs/concepts/business-groups.md)                  |
 | Alert instances (the many instances one rule expands into) | Events. However many series the query returns is how many events you get                                                                                                  |
-| State history                                              | [Alert events](https://n9e.github.io/docs/events/active-historical.md), plus [evaluation records](https://n9e.github.io/docs/alerting/execution-records.md)               |
+| State history                                              | [Alert events](https://n9e.io/docs/events/active-historical.md), plus [evaluation records](https://n9e.io/docs/alerting/execution-records.md)                             |
 
 The expression chain is the fiddly part of this migration: Grafana splits "what to query" from "what counts as too much", while a Nightingale Prometheus rule folds them into one PromQL. Replace the Reduce with a PromQL aggregation over time (`avg_over_time` / `max_over_time` / `last_over_time`) and the Threshold with a comparison operator.
 
@@ -56,21 +56,21 @@ The expression chain is the fiddly part of this migration: Grafana splits "what 
 
 Grafana unified alerting embeds an Alertmanager, so a notification policy *is* an Alertmanager route tree, `continue` semantics included. **Nightingale has no tree routing** — several flat notification rules each match and each send.
 
-The flattening method, and the two traps ("an empty filter means the opposite on each side" and "a missing label never matches"), are identical to the Alertmanager page and not repeated here: see [From Prometheus + Alertmanager](https://n9e.github.io/docs/migration/from-alertmanager.md).
+The flattening method, and the two traps ("an empty filter means the opposite on each side" and "a missing label never matches"), are identical to the Alertmanager page and not repeated here: see [From Prometheus + Alertmanager](https://n9e.io/docs/migration/from-alertmanager.md).
 
-| Grafana                                      | Nightingale                                                                                                                                                                                   |
-| -------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Contact point                                | [Media type](https://n9e.github.io/docs/notifications/dingtalk-feishu-wecom.md) (how to send) plus a [notification rule](https://n9e.github.io/docs/notifications/rules.md) (who receives it) |
-| Notification template                        | [Message template](https://n9e.github.io/docs/notifications/templates.md)                                                                                                                     |
-| A notification policy's matchers             | **Applicable tags** and **Applicable attributes** on a notification config                                                                                                                    |
-| `group_by` / `group_wait` / `group_interval` | **No equivalent**; one notification carries exactly one event                                                                                                                                 |
-| `repeat_interval`                            | The alert rule's **Repeat interval**, in minutes                                                                                                                                              |
+| Grafana                                      | Nightingale                                                                                                                                                                     |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Contact point                                | [Media type](https://n9e.io/docs/notifications/dingtalk-feishu-wecom.md) (how to send) plus a [notification rule](https://n9e.io/docs/notifications/rules.md) (who receives it) |
+| Notification template                        | [Message template](https://n9e.io/docs/notifications/templates.md)                                                                                                              |
+| A notification policy's matchers             | **Applicable tags** and **Applicable attributes** on a notification config                                                                                                      |
+| `group_by` / `group_wait` / `group_interval` | **No equivalent**; one notification carries exactly one event                                                                                                                   |
+| `repeat_interval`                            | The alert rule's **Repeat interval**, in minutes                                                                                                                                |
 
 ### Silences and mute timings[​](#silences-and-mute-timings "Direct link to Silences and mute timings")
 
 | Grafana              | Nightingale                                                                            |
 | -------------------- | -------------------------------------------------------------------------------------- |
-| Silence (one-off)    | A **Fixed time** [mute rule](https://n9e.github.io/docs/events/mute-rules.md)          |
+| Silence (one-off)    | A **Fixed time** [mute rule](https://n9e.io/docs/events/mute-rules.md)                 |
 | Mute timing          | A **Periodic time** mute rule, or **Applicable time periods** on a notification config |
 | A silence's matchers | The mute rule's event tag conditions, with six operators                               |
 | (no equivalent)      | The **Mute notifications only** method keeps the event on record                       |
@@ -81,10 +81,10 @@ Mute timings have two possible landings, and the scope decides which. To keep a 
 
 These are the trade-offs to settle before you start:
 
-* **The No data / Error state machine.** A Grafana rule can say what state applies when the query returns nothing and when execution fails (`NoData` / `Alerting` / `OK` / `KeepLast`). Nightingale **has no such state machine**: in a Prometheus rule, a series disappearing means recovery, so alerting on "the data is gone" needs its own rule (`up == 0`, say). Log and SQL rules do have a **No data** switch with its own severity and auto-recovery timeout, which is the closest thing to Grafana's `NoData`. See [Evaluation and recovery](https://n9e.github.io/docs/alerting/evaluation.md).
+* **The No data / Error state machine.** A Grafana rule can say what state applies when the query returns nothing and when execution fails (`NoData` / `Alerting` / `OK` / `KeepLast`). Nightingale **has no such state machine**: in a Prometheus rule, a series disappearing means recovery, so alerting on "the data is gone" needs its own rule (`up == 0`, say). Log and SQL rules do have a **No data** switch with its own severity and auto-recovery timeout, which is the closest thing to Grafana's `NoData`. See [Evaluation and recovery](https://n9e.io/docs/alerting/evaluation.md).
 * **Keep last state.** No equivalent.
-* **Rule version history and provisioning.** Nightingale has no built-in rule versioning; the equivalent is exporting rule JSON into version control — see [Import, export and reuse](https://n9e.github.io/docs/alerting/import-export.md).
-* **Multi-step escalation across several contact points per rule.** No equivalent; the closest is a [subscription rule](https://n9e.github.io/docs/events/subscriptions.md)'s **Duration** for one timeout-based copy-in.
+* **Rule version history and provisioning.** Nightingale has no built-in rule versioning; the equivalent is exporting rule JSON into version control — see [Import, export and reuse](https://n9e.io/docs/alerting/import-export.md).
+* **Multi-step escalation across several contact points per rule.** No equivalent; the closest is a [subscription rule](https://n9e.io/docs/events/subscriptions.md)'s **Duration** for one timeout-based copy-in.
 
 ## The order to migrate in[​](#the-order-to-migrate-in "Direct link to The order to migrate in")
 
@@ -92,10 +92,10 @@ Grafana stays up throughout, and you can back out at any point.
 
 1. **Import the data sources** with the button above, then fill in the missing secrets. *Verify*: the health check passes on each one.
 2. **Create media types and message templates.** Move each contact point's address and secret. *Verify*: hit **Test** before saving and actually receive a message.
-3. **Flatten the notification policies into notification rules.** Method on [the Alertmanager page](https://n9e.github.io/docs/migration/from-alertmanager.md). *Verify*: **Run test** on each notification config in both modes — mock event and history events. See [Test a notification end to end](https://n9e.github.io/docs/notifications/test.md).
-4. **Rewrite the alert rules, disabled.** Start with the most important batch, folding Reduce and Threshold into PromQL. *Verify*: [test fire](https://n9e.github.io/docs/alerting/test-fire.md) each rule and check every stage — query, threshold, event, notification.
+3. **Flatten the notification policies into notification rules.** Method on [the Alertmanager page](https://n9e.io/docs/migration/from-alertmanager.md). *Verify*: **Run test** on each notification config in both modes — mock event and history events. See [Test a notification end to end](https://n9e.io/docs/notifications/test.md).
+4. **Rewrite the alert rules, disabled.** Start with the most important batch, folding Reduce and Threshold into PromQL. *Verify*: [test fire](https://n9e.io/docs/alerting/test-fire.md) each rule and check every stage — query, threshold, event, notification.
 5. **Move silences and mute timings.** Rebuild unexpired silences as fixed-time mute rules and land the mute timings per the choice above. *Verify*: the mute form's **Test** button runs the match against existing events.
-6. **Run both for a while.** Leave the Grafana rules in place, let both sides notify, and compare what fires. Method in [Coexistence and rollback plan](https://n9e.github.io/docs/migration/coexistence.md).
+6. **Run both for a while.** Leave the Grafana rules in place, let both sides notify, and compare what fires. Method in [Coexistence and rollback plan](https://n9e.io/docs/migration/coexistence.md).
 7. **Cut over.** Once there is no divergence, **pause** the Grafana rules — do not delete them — watch for a week, then delete. The dashboards stay exactly as they are.
 
 ## Rolling back[​](#rolling-back "Direct link to Rolling back")
@@ -106,7 +106,7 @@ After step 7, rolling back means un-pausing the Grafana rules. That is exactly w
 
 ## Next[​](#next "Direct link to Next")
 
-* Deciding whether to switch at all: [Nightingale vs Grafana Alerting](https://n9e.github.io/comparisons/grafana-alerting.md)
-* Living alongside Grafana for charts: [Use Grafana with Nightingale](https://n9e.github.io/docs/query/grafana.md)
-* The full route-tree flattening method: [From Prometheus + Alertmanager](https://n9e.github.io/docs/migration/from-alertmanager.md)
-* Running both and cutting over: [Coexistence and rollback plan](https://n9e.github.io/docs/migration/coexistence.md)
+* Deciding whether to switch at all: [Nightingale vs Grafana Alerting](https://n9e.io/comparisons/grafana-alerting.md)
+* Living alongside Grafana for charts: [Use Grafana with Nightingale](https://n9e.io/docs/query/grafana.md)
+* The full route-tree flattening method: [From Prometheus + Alertmanager](https://n9e.io/docs/migration/from-alertmanager.md)
+* Running both and cutting over: [Coexistence and rollback plan](https://n9e.io/docs/migration/coexistence.md)

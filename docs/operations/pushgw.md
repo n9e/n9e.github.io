@@ -144,7 +144,7 @@ Note that this path returns a proper 429 for "try again later", whereas the queu
 
 ## Related[​](#related "Direct link to Related")
 
-* [External TSDB and dual-write migration](https://n9e.github.io/docs/install/external-tsdb.md)
-* [Embedded TSDB single-Center limits](https://n9e.github.io/docs/operations/embedded-tsdb-limits.md)
-* [Capacity planning](https://n9e.github.io/docs/operations/capacity.md)
-* [Built-in metrics and health checks](https://n9e.github.io/docs/operations/health.md)
+* [External TSDB and dual-write migration](https://n9e.io/docs/install/external-tsdb.md)
+* [Embedded TSDB single-Center limits](https://n9e.io/docs/operations/embedded-tsdb-limits.md)
+* [Capacity planning](https://n9e.io/docs/operations/capacity.md)
+* [Built-in metrics and health checks](https://n9e.io/docs/operations/health.md)

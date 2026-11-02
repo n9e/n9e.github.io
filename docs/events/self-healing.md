@@ -80,11 +80,11 @@ ident=$(echo "$tags" | jq -r .ident)
 * **Template**: the one you just created (the dropdown lists this business group's templates only);
 * **Host**: **normally leave it empty**. Empty means the host comes from the event's `ident` label — "run it on whichever host has the problem". Filling it pins execution to those hosts.
 
-One rule can carry several rows, executed in order when it fires. If you cannot see the Self-healing section at all, your role lacks the self-healing script permission — see [Roles](https://n9e.github.io/docs/security/roles.md).
+One rule can carry several rows, executed in order when it fires. If you cannot see the Self-healing section at all, your role lacks the self-healing script permission — see [Roles](https://n9e.io/docs/security/roles.md).
 
 ## 3. Fire it once and check Task history[​](#3-fire-it-once-and-check-task-history "Direct link to 3. Fire it once and check Task history")
 
-Make the rule actually fire (a rule that must be true is quickest — see [Test fire a rule](https://n9e.github.io/docs/alerting/test-fire.md)), then go to **Self-healing → Task history**.
+Make the rule actually fire (a rule that must be true is quickest — see [Test fire a rule](https://n9e.io/docs/alerting/test-fire.md)), then go to **Self-healing → Task history**.
 
 Expected result: a new task titled "template title FH: host". Opening it shows:
 
@@ -98,7 +98,7 @@ If nothing appears, work through the next section.
 ## When it does not run[​](#when-it-does-not-run "Direct link to When it does not run")
 
 * **Recovery events do not run it.** Only a firing alert triggers self-healing.
-* **A subscribed copy does not run it.** Self-healing hangs off the source rule and runs once; another team subscribing to the alert does not fire the script a second time. See [Alert subscriptions](https://n9e.github.io/docs/events/subscriptions.md).
+* **A subscribed copy does not run it.** Self-healing hangs off the source rule and runs once; another team subscribing to the alert does not fire the script a second time. See [Alert subscriptions](https://n9e.io/docs/events/subscriptions.md).
 * **No host, no run.** With Host empty and no `ident` label on the event, this run is skipped. The log says `event_callback_ibex: failed to get host`.
 * **Insufficient permission stops it.** The backend checks the triple "template's business group – target host – account" **as the person who last modified the template**. If that person has no rights on the host, the task is never dispatched. Whoever edits a template must have access to the target hosts.
 * **ibex not enabled in categraf on the target.** The task is created but nobody picks it up, so the status never advances.
@@ -107,10 +107,10 @@ If nothing appears, work through the next section.
 
 If you do not need to run a command on a host and only want to tell an external system to act, use the **Webhook callback** processor in a workflow: it POSTs the whole event to your URL and ignores the response. Good for opening tickets, triggering CI/CD, or calling an automation platform.
 
-For how to configure it, see [Event pipelines](https://n9e.github.io/docs/events/pipelines.md). If you also want to change the event with what the endpoint returns, the event update processor is the one you want — the difference is in [Rewrite labels and enrich context](https://n9e.github.io/docs/events/relabel-enrich.md).
+For how to configure it, see [Event pipelines](https://n9e.io/docs/events/pipelines.md). If you also want to change the event with what the endpoint returns, the event update processor is the one you want — the difference is in [Rewrite labels and enrich context](https://n9e.io/docs/events/relabel-enrich.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* What else happens between event and person: [Noise reduction and routing model](https://n9e.github.io/docs/concepts/noise-routing.md)
-* Run the script only for specific events: [Conditional routing](https://n9e.github.io/docs/events/routing.md)
-* Which ports to open: [Ports](https://n9e.github.io/docs/reference/ports.md)
+* What else happens between event and person: [Noise reduction and routing model](https://n9e.io/docs/concepts/noise-routing.md)
+* Run the script only for specific events: [Conditional routing](https://n9e.io/docs/events/routing.md)
+* Which ports to open: [Ports](https://n9e.io/docs/reference/ports.md)

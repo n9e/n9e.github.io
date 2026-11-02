@@ -6,7 +6,7 @@ Last reviewed 2026-10-10
 
 The `/mcp` endpoint is on by default and is built into the n9e process; there is no separate MCP server to deploy (the standalone `n9e-mcp-server` binary is deprecated, its toolset library now ships inside n9e). This page is the full list.
 
-How to connect and authenticate is in [Enable the MCP endpoint](https://n9e.github.io/docs/ai/mcp-endpoint.md); the permission boundary is in [Permission inheritance](https://n9e.github.io/docs/ai/permissions.md).
+How to connect and authenticate is in [Enable the MCP endpoint](https://n9e.io/docs/ai/mcp-endpoint.md); the permission boundary is in [Permission inheritance](https://n9e.io/docs/ai/permissions.md).
 
 ## Two switches[​](#two-switches "Direct link to Two switches")
 

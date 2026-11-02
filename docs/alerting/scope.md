@@ -51,7 +51,7 @@ Add more than one row and they are **intersected** — every row must accept an 
 
 ### What happens when a rule matches several sources[​](#what-happens-when-a-rule-matches-several-sources "Direct link to What happens when a rule matches several sources")
 
-The rule is **evaluated once per data source, independently**. Three matched sources means three separate evaluation loops, three sets of events, and three rows per cycle in the [evaluation records](https://n9e.github.io/docs/alerting/execution-records.md).
+The rule is **evaluated once per data source, independently**. Three matched sources means three separate evaluation loops, three sets of events, and three rows per cycle in the [evaluation records](https://n9e.io/docs/alerting/execution-records.md).
 
 Consequences worth knowing before you widen a filter:
 
@@ -75,7 +75,7 @@ The use case it exists for: several teams clone the same host-monitoring rule in
 
 The rest of step 5 decides *when* the rule is allowed to produce events.
 
-* **Enable now** is the master switch. Off means no new events — **including recovery events**. Turning off a rule that is currently firing means you never get the recovery notification. For a temporary silence, use a [mute rule](https://n9e.github.io/docs/events/mute-rules.md) instead.
+* **Enable now** is the master switch. Off means no new events — **including recovery events**. Turning off a rule that is currently firing means you never get the recovery notification. For a temporary silence, use a [mute rule](https://n9e.io/docs/events/mute-rules.md) instead.
 * **Time zone** decides which clock the windows are read in. It affects the windows only, never the timestamps shown on events. Default is `Local`, the server's own zone.
 * **Effective time** is one or more rows of *days of week + start + end*. Multiple rows are OR'd — matching any one of them is enough. No rows at all means always.
 
@@ -119,7 +119,7 @@ To pin a rule to one instance by id:
 
 ## Next[​](#next "Direct link to Next")
 
-* What a rule does inside its scope: [Metric rules](https://n9e.github.io/docs/alerting/metric-rules.md)
-* Move a rule between environments: [Import, export and reuse](https://n9e.github.io/docs/alerting/import-export.md)
-* Silence without changing scope: [Mute rules](https://n9e.github.io/docs/events/mute-rules.md)
-* How groups work in general: [Business groups](https://n9e.github.io/docs/concepts/business-groups.md)
+* What a rule does inside its scope: [Metric rules](https://n9e.io/docs/alerting/metric-rules.md)
+* Move a rule between environments: [Import, export and reuse](https://n9e.io/docs/alerting/import-export.md)
+* Silence without changing scope: [Mute rules](https://n9e.io/docs/events/mute-rules.md)
+* How groups work in general: [Business groups](https://n9e.io/docs/concepts/business-groups.md)

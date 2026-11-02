@@ -149,7 +149,7 @@ To have both Nightingale's label handling and your own TSDB, the right answer is
 Url = "http://victoriametrics:8428/api/v1/write"
 ```
 
-See [VictoriaMetrics](https://n9e.github.io/docs/data/victoriametrics.md) and [External TSDB and dual-write migration](https://n9e.github.io/docs/install/external-tsdb.md).
+See [VictoriaMetrics](https://n9e.io/docs/data/victoriametrics.md) and [External TSDB and dual-write migration](https://n9e.io/docs/install/external-tsdb.md).
 
 ## Watching the write path itself[​](#watching-the-write-path-itself "Direct link to Watching the write path itself")
 
@@ -166,6 +166,6 @@ Enable the `self_metrics` plugin (create a `conf/input.self_metrics/` directory)
 
 ## Next[​](#next "Direct link to Next")
 
-* Queue growing, data not arriving: [Troubleshooting](https://n9e.github.io/docs/data/categraf/troubleshooting.md)
-* Forwarding on the Nightingale side: [Pushgw](https://n9e.github.io/docs/operations/pushgw.md)
-* Which ingest protocols are accepted: [Write protocols](https://n9e.github.io/docs/reference/write-protocols.md)
+* Queue growing, data not arriving: [Troubleshooting](https://n9e.io/docs/data/categraf/troubleshooting.md)
+* Forwarding on the Nightingale side: [Pushgw](https://n9e.io/docs/operations/pushgw.md)
+* Which ingest protocols are accepted: [Write protocols](https://n9e.io/docs/reference/write-protocols.md)

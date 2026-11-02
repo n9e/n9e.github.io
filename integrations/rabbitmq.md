@@ -2,7 +2,7 @@
 
 On 3.8+ scrape the built-in Prometheus plugin on port 15692; older versions go through the management API. Templates are split by version; rules watch queue backlog, unacked messages and node state.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 RabbitMQ 3.8 and later ship the `rabbitmq_prometheus` plugin: run `rabbitmq-plugins enable rabbitmq_prometheus` and `/metrics` appears on port 15692, which the Categraf `prometheus` input scrapes. Versions below 3.8 enable `rabbitmq_management` instead and use the Categraf `rabbitmq` input against the management API on 15672.
 
@@ -16,7 +16,7 @@ The two paths produce different metric names, so the dashboards are split into 3
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md) and enable the plugins you need. Each config goes in its own `conf/input.<plugin>/` directory; fill in addresses and credentials, then restart Categraf.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md) and enable the plugins you need. Each config goes in its own `conf/input.<plugin>/` directory; fill in addresses and credentials, then restart Categraf.
 
    `conf/input.rabbitmq/rabbitmq.toml`
 
@@ -292,9 +292,9 @@ The two paths produce different metric names, so the dashboards are split into 3
      # labels = { instance = "rabbitmq-001" }
    ```
 
-2. Open the integration center in Nightingale, find RabbitMQ, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find RabbitMQ, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -415,6 +415,6 @@ Runbook:
 
 * [RabbitMQ template source](https://github.com/ccfos/nightingale/tree/main/integrations/RabbitMQ): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `rabbitmq` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/rabbitmq): every config option and the full metric list.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

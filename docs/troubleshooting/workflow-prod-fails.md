@@ -140,8 +140,8 @@ Dropping is configured behaviour, so the **overall status stays Success** and th
 
 ## Next[​](#next "Direct link to Next")
 
-* Using the try-run panel: [Try a workflow with a mock event](https://n9e.github.io/docs/events/try-workflow.md)
-* Reading the records column by column: [Inspect workflow execution records](https://n9e.github.io/docs/events/execution-records.md)
-* Configuring a workflow: [Event pipelines](https://n9e.github.io/docs/events/pipelines.md)
-* It runs but goes to the wrong place: [Why does the event pipeline route to the wrong destination?](https://n9e.github.io/docs/troubleshooting/wrong-routing.md)
-* The label mechanics: [Rewrite labels and enrich context](https://n9e.github.io/docs/events/relabel-enrich.md)
+* Using the try-run panel: [Try a workflow with a mock event](https://n9e.io/docs/events/try-workflow.md)
+* Reading the records column by column: [Inspect workflow execution records](https://n9e.io/docs/events/execution-records.md)
+* Configuring a workflow: [Event pipelines](https://n9e.io/docs/events/pipelines.md)
+* It runs but goes to the wrong place: [Why does the event pipeline route to the wrong destination?](https://n9e.io/docs/troubleshooting/wrong-routing.md)
+* The label mechanics: [Rewrite labels and enrich context](https://n9e.io/docs/events/relabel-enrich.md)

@@ -2,7 +2,7 @@
 
 Both the single-node and cluster editions expose /metrics; templates cover vmsingle as well as the vmstorage, vmselect and vminsert cluster components.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 VictoriaMetrics is often both Nightingale's time-series store and something that needs monitoring itself. The single-node edition exposes `/metrics` on port 8428; the cluster edition must be scraped per component, vmstorage (8482), vmselect (8481) and vminsert (8480), or you only see part of the picture.
 
@@ -15,7 +15,7 @@ There is one dashboard for single-node and one for cluster. The rules cover reje
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-These components expose Prometheus-format `/metrics` themselves, so the Categraf `prometheus` input scrapes them without a dedicated plugin. If a Prometheus or VictoriaMetrics instance is already scraping them, [add it as a Nightingale data source](https://n9e.github.io/docs/data/prometheus.md) and the templates work as they are.
+These components expose Prometheus-format `/metrics` themselves, so the Categraf `prometheus` input scrapes them without a dedicated plugin. If a Prometheus or VictoriaMetrics instance is already scraping them, [add it as a Nightingale data source](https://n9e.io/docs/data/prometheus.md) and the templates work as they are.
 
 ```
 # conf/input.prometheus/victoriametrics.toml
@@ -33,8 +33,8 @@ labels = { job = "victoriametrics", service = "vmsingle" }
 
 For the cluster edition, point `urls` at each component and set the `service` label to `vmstorage`, `vmselect` or `vminsert` accordingly.
 
-1. Open the integration center in Nightingale, find VictoriaMetrics, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
-2. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+1. Open the integration center in Nightingale, find VictoriaMetrics, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
+2. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -185,7 +185,7 @@ Runbook:
 ## Related[​](#related "Direct link to Related")
 
 * [VictoriaMetrics template source](https://github.com/ccfos/nightingale/tree/main/integrations/VictoriaMetrics): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
-* [Use VictoriaMetrics as a data source](https://n9e.github.io/docs/data/victoriametrics.md)
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Use VictoriaMetrics as a data source](https://n9e.io/docs/data/victoriametrics.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

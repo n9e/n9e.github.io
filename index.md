@@ -11,7 +11,7 @@ Nightingale (n9e) is an open-source alerting engine. Run alert rules across Prom
 
 [Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)No sign-up
 
-[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)Self-hosted
+[Install in 5 minutes](https://n9e.io/docs/get-started/quick-start.md)Self-hosted
 
 [GitHub★ ](https://github.com/ccfos/nightingale)
 
@@ -25,7 +25,7 @@ Run the whole stack locally
 
 n9e.example.com/dashboards
 
-![Nightingale monitoring dashboard](https://n9e.github.io/img/hero-dashboard-light.webp)![](https://n9e.github.io/img/hero-dashboard-dark.webp)
+![Nightingale monitoring dashboard](https://n9e.io/img/hero-dashboard-light.webp)![](https://n9e.io/img/hero-dashboard-dark.webp)
 
 S1CPU usage above 90%
 
@@ -41,9 +41,9 @@ Fired
 
 **14m**
 
-Delivered![Slack](https://n9e.github.io/img/logos/slack.png)![PagerDuty](https://n9e.github.io/img/logos/pagerduty.png)![Telegram](https://n9e.github.io/img/logos/telegram.png)
+Delivered![Slack](https://n9e.io/img/logos/slack.png)![PagerDuty](https://n9e.io/img/logos/pagerduty.png)![Telegram](https://n9e.io/img/logos/telegram.png)
 
-13,421GitHub stars
+13,426GitHub stars
 
 10+Data source types
 
@@ -72,7 +72,7 @@ No migration. Register Prometheus, VictoriaMetrics, ElasticSearch, ClickHouse or
 * 10+ data source types — metrics, logs and databases alike
 * 83 built-in integrations bundle collector config, dashboards and rules
 
-![Nightingale integration templates](https://n9e.github.io/img/step-connect.webp)
+![Nightingale integration templates](https://n9e.io/img/step-connect.webp)
 
 rule
 
@@ -83,7 +83,7 @@ Metrics, logs and SQL-queried stores share one rule model, so there is nothing n
 * One rule can span several data sources
 * Edit rules in the UI or through the API — no YAML reload cycle
 
-![Nightingale alert rule management](https://n9e.github.io/img/step-alert-en.webp)
+![Nightingale alert rule management](https://n9e.io/img/step-alert-en.webp)
 
 event
 
@@ -94,7 +94,7 @@ Storms collapse into an aggregated view by business group and severity. Mute rul
 * DingTalk, Feishu, WeCom, phone, SMS, Slack and 15 more
 * Event pipelines rewrite labels and route conditionally
 
-![Nightingale aggregated alert events](https://n9e.github.io/img/step-automate-en.webp)
+![Nightingale aggregated alert events](https://n9e.io/img/step-automate-en.webp)
 
 agent
 
@@ -173,35 +173,35 @@ Nightingale never asks you to replace what works. Data sources, collectors and n
 
 DATA SOURCES<!-- --> · <!-- -->Data sources
 
-* ![Prometheus logo](https://n9e.github.io/img/logos/prometheus.png)Prometheus
-* ![VictoriaMetrics logo](https://n9e.github.io/img/logos/victoriametrics.png)VictoriaMetrics
-* ![ElasticSearch logo](https://n9e.github.io/img/logos/elasticsearch.png)ElasticSearch
-* ![ClickHouse logo](https://n9e.github.io/img/logos/ck.png)ClickHouse
-* ![Loki logo](https://n9e.github.io/img/logos/loki.png)Loki
-* ![VictoriaLogs logo](https://n9e.github.io/img/logos/victorialogs.png)VictoriaLogs
-* ![MySQL logo](https://n9e.github.io/img/logos/mysql.png)MySQL
-* ![PostgreSQL logo](https://n9e.github.io/img/logos/pgsql.png)PostgreSQL
-* ![TDengine logo](https://n9e.github.io/img/logos/tdengine.png)TDengine
-* ![OpenSearch logo](https://n9e.github.io/img/logos/opensearch.png)OpenSearch
-* ![Doris logo](https://n9e.github.io/img/logos/doris.png)Doris
-* ![IoTDB logo](https://n9e.github.io/img/logos/iotdb.png)IoTDB
+* ![Prometheus logo](https://n9e.io/img/logos/prometheus.png)Prometheus
+* ![VictoriaMetrics logo](https://n9e.io/img/logos/victoriametrics.png)VictoriaMetrics
+* ![ElasticSearch logo](https://n9e.io/img/logos/elasticsearch.png)ElasticSearch
+* ![ClickHouse logo](https://n9e.io/img/logos/ck.png)ClickHouse
+* ![Loki logo](https://n9e.io/img/logos/loki.png)Loki
+* ![VictoriaLogs logo](https://n9e.io/img/logos/victorialogs.png)VictoriaLogs
+* ![MySQL logo](https://n9e.io/img/logos/mysql.png)MySQL
+* ![PostgreSQL logo](https://n9e.io/img/logos/pgsql.png)PostgreSQL
+* ![TDengine logo](https://n9e.io/img/logos/tdengine.png)TDengine
+* ![OpenSearch logo](https://n9e.io/img/logos/opensearch.png)OpenSearch
+* ![Doris logo](https://n9e.io/img/logos/doris.png)Doris
+* ![IoTDB logo](https://n9e.io/img/logos/iotdb.png)IoTDB
 
 NOTIFICATIONS<!-- --> · <!-- -->Notification channels
 
-* ![Slack logo](https://n9e.github.io/img/logos/slack.png)Slack
-* ![PagerDuty logo](https://n9e.github.io/img/logos/pagerduty.png)PagerDuty
+* ![Slack logo](https://n9e.io/img/logos/slack.png)Slack
+* ![PagerDuty logo](https://n9e.io/img/logos/pagerduty.png)PagerDuty
 * Email
-* ![Telegram logo](https://n9e.github.io/img/logos/telegram.png)Telegram
-* ![Discord logo](https://n9e.github.io/img/logos/discord.png)Discord
-* ![Jira logo](https://n9e.github.io/img/logos/jira.png)Jira
-* ![Mattermost logo](https://n9e.github.io/img/logos/mattermost.png)Mattermost
+* ![Telegram logo](https://n9e.io/img/logos/telegram.png)Telegram
+* ![Discord logo](https://n9e.io/img/logos/discord.png)Discord
+* ![Jira logo](https://n9e.io/img/logos/jira.png)Jira
+* ![Mattermost logo](https://n9e.io/img/logos/mattermost.png)Mattermost
 * Phone / SMS
-* ![FlashDuty logo](https://n9e.github.io/img/logos/flashduty.png)FlashDuty
-* ![DingTalk logo](https://n9e.github.io/img/logos/dingtalk.png)DingTalk
-* ![Feishu logo](https://n9e.github.io/img/logos/feishu.png)Feishu
-* ![WeCom logo](https://n9e.github.io/img/logos/wecom.png)WeCom
+* ![FlashDuty logo](https://n9e.io/img/logos/flashduty.png)FlashDuty
+* ![DingTalk logo](https://n9e.io/img/logos/dingtalk.png)DingTalk
+* ![Feishu logo](https://n9e.io/img/logos/feishu.png)Feishu
+* ![WeCom logo](https://n9e.io/img/logos/wecom.png)WeCom
 
-[See every integration<!-- --> →](https://n9e.github.io/integrations.md)
+[See every integration<!-- --> →](https://n9e.io/integrations.md)
 
 DEPLOY
 
@@ -211,21 +211,21 @@ DEPLOY
 
 Apache-2.0, fully featured. One compose command brings it up; binaries and Helm are there too.
 
-`docker compose up -d`[Download and install](https://n9e.github.io/download.md)
+`docker compose up -d`[Download and install](https://n9e.io/download.md)
 
 <!-- -->
 
-[ →](https://n9e.github.io/download.md)
+[ →](https://n9e.io/download.md)
 
 ### Edge data centers
 
 Deploy n9e-edge as a local alerting engine where the link to the center is unreliable. Alerts keep firing and keep being delivered through a network partition.
 
-`n9e-edge --configs etc/edge`[About the edge architecture](https://n9e.github.io/docs/operations/edge-partition.md)
+`n9e-edge --configs etc/edge`[About the edge architecture](https://n9e.io/docs/operations/edge-partition.md)
 
 <!-- -->
 
-[ →](https://n9e.github.io/docs/operations/edge-partition.md)
+[ →](https://n9e.io/docs/operations/edge-partition.md)
 
 COMPARISONS
 
@@ -233,23 +233,23 @@ COMPARISONS
 
 Each tool has its ground. Keep Prometheus or VictoriaMetrics for storage — Nightingale argues only for owning the alerting layer.
 
-### [vs Prometheus + Alertmanager](https://n9e.github.io/comparisons/prometheus-alertmanager.md)
+### [vs Prometheus + Alertmanager](https://n9e.io/comparisons/prometheus-alertmanager.md)
 
-[Same data, but rules get a UI, permissions get a model, and channels come built in.](https://n9e.github.io/comparisons/prometheus-alertmanager.md)
+[Same data, but rules get a UI, permissions get a model, and channels come built in.](https://n9e.io/comparisons/prometheus-alertmanager.md)
 
-### [vs Zabbix](https://n9e.github.io/comparisons/zabbix.md)
+### [vs Zabbix](https://n9e.io/comparisons/zabbix.md)
 
-[No second collection stack. It reads the time-series and log stores you already fill.](https://n9e.github.io/comparisons/zabbix.md)
+[No second collection stack. It reads the time-series and log stores you already fill.](https://n9e.io/comparisons/zabbix.md)
 
-### [vs Grafana Alerting](https://n9e.github.io/comparisons/grafana-alerting.md)
+### [vs Grafana Alerting](https://n9e.io/comparisons/grafana-alerting.md)
 
-[Grafana is the visualization standard. Nightingale spends everything on the alerting engine.](https://n9e.github.io/comparisons/grafana-alerting.md)
+[Grafana is the visualization standard. Nightingale spends everything on the alerting engine.](https://n9e.io/comparisons/grafana-alerting.md)
 
-[Read the full comparison](https://n9e.github.io/comparisons.md)
+[Read the full comparison](https://n9e.io/comparisons.md)
 
 <!-- -->
 
-[ →](https://n9e.github.io/comparisons.md)
+[ →](https://n9e.io/comparisons.md)
 
 WHO USES NIGHTINGALE
 
@@ -257,73 +257,73 @@ WHO USES NIGHTINGALE
 
 Automotive, electronics, gaming, cloud, logistics, retail.
 
-![Lenovo](https://n9e.github.io/img/logos-en/lenovo.svg)
+![Lenovo](https://n9e.io/img/logos-en/lenovo.svg)
 
-![DJI](https://n9e.github.io/img/logos-en/dji.svg)
+![DJI](https://n9e.io/img/logos-en/dji.svg)
 
-![SHEIN](https://n9e.github.io/img/logos-en/shein.svg)
+![SHEIN](https://n9e.io/img/logos-en/shein.svg)
 
-![HoYoverse](https://n9e.github.io/img/logos-en/hoyoverse.svg)
+![HoYoverse](https://n9e.io/img/logos-en/hoyoverse.svg)
 
-![Lotus](https://n9e.github.io/img/logos-en/lotus.svg)
+![Lotus](https://n9e.io/img/logos-en/lotus.svg)
 
-![Anker Innovations](https://n9e.github.io/img/logos-en/anker.svg)
+![Anker Innovations](https://n9e.io/img/logos-en/anker.svg)
 
-![Hisense](https://n9e.github.io/img/logos-en/hisense.svg)
+![Hisense](https://n9e.io/img/logos-en/hisense.svg)
 
-![TCL](https://n9e.github.io/img/logos-en/tcl.png)
+![TCL](https://n9e.io/img/logos-en/tcl.png)
 
-![Hikvision](https://n9e.github.io/img/logos-en/hikvision.svg)
+![Hikvision](https://n9e.io/img/logos-en/hikvision.svg)
 
-![Insta360](https://n9e.github.io/img/logos-en/insta360.svg)
+![Insta360](https://n9e.io/img/logos-en/insta360.svg)
 
-![smart](https://n9e.github.io/img/logos-en/smart.svg)
+![smart](https://n9e.io/img/logos-en/smart.svg)
 
-![Yoshinoya](https://n9e.github.io/img/logos-en/yoshinoya.svg)
+![Yoshinoya](https://n9e.io/img/logos-en/yoshinoya.svg)
 
-![NIO](https://n9e.github.io/img/logos-en/nio.svg)
+![NIO](https://n9e.io/img/logos-en/nio.svg)
 
-![Chery](https://n9e.github.io/img/logos-en/chery.svg)
+![Chery](https://n9e.io/img/logos-en/chery.svg)
 
-![Dahua](https://n9e.github.io/img/logos-en/dahua.svg)
+![Dahua](https://n9e.io/img/logos-en/dahua.svg)
 
-![Transsion](https://n9e.github.io/img/logos-en/transsion.svg)
+![Transsion](https://n9e.io/img/logos-en/transsion.svg)
 
-![Pony.ai](https://n9e.github.io/img/logos-en/ponyai.png)
+![Pony.ai](https://n9e.io/img/logos-en/ponyai.png)
 
-![Tuya](https://n9e.github.io/img/logos-en/tuya.png)
+![Tuya](https://n9e.io/img/logos-en/tuya.png)
 
-![DHgate](https://n9e.github.io/img/logos-en/dhgate.svg)
+![DHgate](https://n9e.io/img/logos-en/dhgate.svg)
 
-![Leapmotor](https://n9e.github.io/img/logos-en/leapmotor.svg)
+![Leapmotor](https://n9e.io/img/logos-en/leapmotor.svg)
 
-![Li Auto](https://n9e.github.io/img/logos-en/liauto.svg)
+![Li Auto](https://n9e.io/img/logos-en/liauto.svg)
 
-![HyperGryph](https://n9e.github.io/img/logos-en/hypergryph.svg)
+![HyperGryph](https://n9e.io/img/logos-en/hypergryph.svg)
 
-![Lilith Games](https://n9e.github.io/img/logos-en/lilith.png)
+![Lilith Games](https://n9e.io/img/logos-en/lilith.png)
 
-![Sunborn](https://n9e.github.io/img/logos-en/sunborn.png)
+![Sunborn](https://n9e.io/img/logos-en/sunborn.png)
 
-![Bespin Global](https://n9e.github.io/img/logos-en/bespin.svg)
+![Bespin Global](https://n9e.io/img/logos-en/bespin.svg)
 
-![ClassIn](https://n9e.github.io/img/logos-en/classin.svg)
+![ClassIn](https://n9e.io/img/logos-en/classin.svg)
 
-![Momenta](https://n9e.github.io/img/logos-en/momenta.png)
+![Momenta](https://n9e.io/img/logos-en/momenta.png)
 
-![Inspur](https://n9e.github.io/img/logos-en/inspur.svg)
+![Inspur](https://n9e.io/img/logos-en/inspur.svg)
 
-![VOYAH](https://n9e.github.io/img/logos-en/voyah.svg)
+![VOYAH](https://n9e.io/img/logos-en/voyah.svg)
 
-![ARCFOX](https://n9e.github.io/img/logos-en/arcfox.svg)
+![ARCFOX](https://n9e.io/img/logos-en/arcfox.svg)
 
-![Transfar](https://n9e.github.io/img/logos-en/transfar.png)
+![Transfar](https://n9e.io/img/logos-en/transfar.png)
 
 ## Give alerting to a specialist
 
 Bring up Nightingale in five minutes, point it at your data, and watch the first alert land.
 
-[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)[GitHub](https://github.com/ccfos/nightingale)
+[Install in 5 minutes](https://n9e.io/docs/get-started/quick-start.md)[GitHub](https://github.com/ccfos/nightingale)
 
 <!-- -->
 

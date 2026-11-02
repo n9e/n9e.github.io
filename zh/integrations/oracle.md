@@ -2,7 +2,7 @@
 
 用只读账号跑一组可自定义的 SQL 采集会话、表空间、等待事件和缓存命中率，Linux 上的 Categraf 也能远程监控 Windows 上的 Oracle。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Oracle 插件连接实例并执行 `metric.toml` 里定义的一组 SQL：会话数、活动会话、表空间使用率、等待事件、SGA/PGA、缓存命中率、归档日志等，每条 SQL 都能改、能加。连接配置和查询定义分在两个文件，方便按版本和环境裁剪。
 
@@ -16,7 +16,7 @@ Oracle 插件连接实例并执行 `metric.toml` 里定义的一组 SQL：会话
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，按需启用下面的插件。每个配置放到对应的 `conf/input.<插件名>/` 目录，改好地址和凭据后重启 Categraf。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，按需启用下面的插件。每个配置放到对应的 `conf/input.<插件名>/` 目录，改好地址和凭据后重启 Categraf。
 
    `conf/input.oracle/metric.toml`
 
@@ -350,9 +350,9 @@ Oracle 插件连接实例并执行 `metric.toml` 里定义的一组 SQL：会话
    # # labels = { region="local" }
    ```
 
-2. 在夜莺「集成中心」里找到 Oracle，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 Oracle，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -455,7 +455,7 @@ oracle_tablespace_bytes/oracle_tablespace_max_bytes*100>95
 
 * \[Oracle 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/Oracle）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/Oracle%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `oracle` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/oracle)：完整配置项和指标列表。
-* [实践：监控 Oracle](https://n9e.github.io/zh/docs/practice/oracle.md)
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [实践：监控 Oracle](https://n9e.io/zh/docs/practice/oracle.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

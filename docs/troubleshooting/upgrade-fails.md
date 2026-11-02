@@ -138,7 +138,7 @@ In order of increasing cost — try the cheap one first:
 3. **Roll the binary back.** The columns the new version added are merely surplus to the old one, which normally ignores them and boots. If the old version reports `Unknown column` or `Error 1364` (field has no default value), this route does not work;
 4. **Restore the database from backup.** The cost is blunt: **everything created since the backup is gone** — rules written since, alert events, notification records, dashboard edits. In a cluster, **stop every instance first**, or a surviving one keeps writing and fights the import.
 
-Option 4 is exactly what the pre-upgrade `mysqldump` is for. The steps are in [Rollback](https://n9e.github.io/docs/install/rollback.md).
+Option 4 is exactly what the pre-upgrade `mysqldump` is for. The steps are in [Rollback](https://n9e.io/docs/install/rollback.md).
 
 ## Confirming the upgrade succeeded[​](#confirming-the-upgrade-succeeded "Direct link to Confirming the upgrade succeeded")
 
@@ -175,8 +175,8 @@ Steps 4 and 5 pass perfectly well while indexes are still building in the backgr
 
 ## Next[​](#next "Direct link to Next")
 
-* The full upgrade procedure: [Upgrade](https://n9e.github.io/docs/install/upgrade.md)
-* Cross-major breaking points: [v8 to v9](https://n9e.github.io/docs/migration/v8-to-v9.md)
-* When you cannot go forward: [Rollback](https://n9e.github.io/docs/install/rollback.md)
-* A backup policy: [Backup and restore](https://n9e.github.io/docs/operations/backup-restore.md)
-* What to monitor afterwards: [Monitor Nightingale itself](https://n9e.github.io/docs/operations/self-monitoring.md)
+* The full upgrade procedure: [Upgrade](https://n9e.io/docs/install/upgrade.md)
+* Cross-major breaking points: [v8 to v9](https://n9e.io/docs/migration/v8-to-v9.md)
+* When you cannot go forward: [Rollback](https://n9e.io/docs/install/rollback.md)
+* A backup policy: [Backup and restore](https://n9e.io/docs/operations/backup-restore.md)
+* What to monitor afterwards: [Monitor Nightingale itself](https://n9e.io/docs/operations/self-monitoring.md)

@@ -2,7 +2,7 @@
 
 Scrape Cloud Eye (CES) metrics converted to Prometheus format by the cloudeye-exporter; templates cover ECS, RDS, DCS, ELB, Kafka, RocketMQ, CSS and WAF.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 Huawei Cloud metrics come from the Cloud Eye service (CES). The `cloudeye-exporter` maintained by Huawei Cloud converts CES metrics per product namespace into Prometheus metrics named `huaweicloud_sys_<service>_<metric>`, which the Categraf `prometheus` input scrapes.
 
@@ -34,8 +34,8 @@ labels = { job = "huaweicloud" }
 
 Cloud Eye metrics are at 60-second granularity or coarser, so do not collect more often than that.
 
-1. Open the integration center in Nightingale, find Huawei Cloud, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
-2. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+1. Open the integration center in Nightingale, find Huawei Cloud, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
+2. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -893,6 +893,6 @@ Runbook:
 ## Related[​](#related "Direct link to Related")
 
 * [Huawei Cloud template source](https://github.com/ccfos/nightingale/tree/main/integrations/Huawei): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

@@ -26,15 +26,15 @@ data source ──queried by──> alert rule ──trips and produces──> e
 
 ## Everything else hangs off those three[​](#everything-else-hangs-off-those-three "Direct link to Everything else hangs off those three")
 
-| Object            | Attaches to                                      | Purpose                                                                                                 |
-| ----------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------- |
-| Business group    | Rules, targets and dashboards each belong to one | The permission boundary — see [Business groups](https://n9e.github.io/docs/concepts/business-groups.md) |
-| Mute rule         | Acts on events                                   | Suppress the event, or just the notification                                                            |
-| Subscription      | Acts on events                                   | Let another team receive them                                                                           |
-| Event pipeline    | Attaches to a rule or a notification rule        | Rewrite labels, enrich, drop                                                                            |
-| Notification rule | Consumes events                                  | Decide recipients and media by severity and labels                                                      |
-| Message template  | Referenced by a notification rule                | Decide what the message looks like                                                                      |
-| Dashboard         | Queries data sources                             | Visualisation; not part of alerting                                                                     |
+| Object            | Attaches to                                      | Purpose                                                                                          |
+| ----------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| Business group    | Rules, targets and dashboards each belong to one | The permission boundary — see [Business groups](https://n9e.io/docs/concepts/business-groups.md) |
+| Mute rule         | Acts on events                                   | Suppress the event, or just the notification                                                     |
+| Subscription      | Acts on events                                   | Let another team receive them                                                                    |
+| Event pipeline    | Attaches to a rule or a notification rule        | Rewrite labels, enrich, drop                                                                     |
+| Notification rule | Consumes events                                  | Decide recipients and media by severity and labels                                               |
+| Message template  | Referenced by a notification rule                | Decide what the message looks like                                                               |
+| Dashboard         | Queries data sources                             | Visualisation; not part of alerting                                                              |
 
 ## One datapoint's full journey[​](#one-datapoints-full-journey "Direct link to One datapoint's full journey")
 
@@ -50,6 +50,6 @@ Every step is inspectable in the UI: evaluation records on the rule, the event o
 
 ## Related[​](#related "Direct link to Related")
 
-* [Alert lifecycle and severity](https://n9e.github.io/docs/concepts/alert-lifecycle.md)
-* [Labels, annotations and identity](https://n9e.github.io/docs/concepts/labels-annotations.md)
-* [Noise reduction and routing model](https://n9e.github.io/docs/concepts/noise-routing.md)
+* [Alert lifecycle and severity](https://n9e.io/docs/concepts/alert-lifecycle.md)
+* [Labels, annotations and identity](https://n9e.io/docs/concepts/labels-annotations.md)
+* [Noise reduction and routing model](https://n9e.io/docs/concepts/noise-routing.md)

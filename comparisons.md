@@ -1,10 +1,10 @@
-Nightingale vs[Prometheus + Alertmanager](https://n9e.github.io/comparisons/prometheus-alertmanager.md)[Zabbix](https://n9e.github.io/comparisons/zabbix.md)[Grafana Alerting](https://n9e.github.io/comparisons/grafana-alerting.md)
+Nightingale vs[Prometheus + Alertmanager](https://n9e.io/comparisons/prometheus-alertmanager.md)[Zabbix](https://n9e.io/comparisons/zabbix.md)[Grafana Alerting](https://n9e.io/comparisons/grafana-alerting.md)
 
 # Keep your storage.<br /><!-- -->Change who owns alerting.
 
 Prometheus, Zabbix and Grafana each have their ground. Nightingale argues for one thing only: the alerting layer should belong to a tool built for it.
 
-[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)
+[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.io/docs/get-started/quick-start.md)
 
 ## At a glance
 
@@ -22,7 +22,7 @@ Prometheus, Zabbix and Grafana each have their ground. Nightingale argues for on
 
 Based on the publicly documented capabilities of each project’s open-source edition as of August 2026. We try to state what the other tools are good at — advice you cannot trust is worth nothing to a community.
 
-* **13,421**GitHub stars
+* **13,426**GitHub stars
 * **10+**&#x44;ata source types
 * **20**Notification channels
 * **74**MCP tools
@@ -88,13 +88,13 @@ Rules live in the UI, scoped by business group.
 * Someone has to be phoned at 3am, not just webhooked
 * The data is no longer all in Prometheus
 
-[Read the full comparison](https://n9e.github.io/comparisons/prometheus-alertmanager.md)
+[Read the full comparison](https://n9e.io/comparisons/prometheus-alertmanager.md)
 
 <!-- -->
 
-[ →](https://n9e.github.io/comparisons/prometheus-alertmanager.md)
+[ →](https://n9e.io/comparisons/prometheus-alertmanager.md)
 
-Migration guide[From Prometheus + Alertmanager<!-- --> →](https://n9e.github.io/docs/migration/from-alertmanager.md)
+Migration guide[From Prometheus + Alertmanager<!-- --> →](https://n9e.io/docs/migration/from-alertmanager.md)
 
 02
 
@@ -114,13 +114,13 @@ Alert on the stores you already fill; collect only where nothing does.
 * Kubernetes and cloud services outnumber network gear
 * You maintain two collection stacks to get one alert
 
-[Read the full comparison](https://n9e.github.io/comparisons/zabbix.md)
+[Read the full comparison](https://n9e.io/comparisons/zabbix.md)
 
 <!-- -->
 
-[ →](https://n9e.github.io/comparisons/zabbix.md)
+[ →](https://n9e.io/comparisons/zabbix.md)
 
-Migration guide[From Zabbix<!-- --> →](https://n9e.github.io/docs/migration/from-zabbix.md)
+Migration guide[From Zabbix<!-- --> →](https://n9e.io/docs/migration/from-zabbix.md)
 
 03
 
@@ -140,13 +140,13 @@ Alerting as the whole product; chart wherever you like.
 * You need event pipelines, subscriptions or self-healing
 * On-call people need phone and SMS, not only contact points
 
-[Read the full comparison](https://n9e.github.io/comparisons/grafana-alerting.md)
+[Read the full comparison](https://n9e.io/comparisons/grafana-alerting.md)
 
 <!-- -->
 
-[ →](https://n9e.github.io/comparisons/grafana-alerting.md)
+[ →](https://n9e.io/comparisons/grafana-alerting.md)
 
-Migration guide[From Grafana Alerting<!-- --> →](https://n9e.github.io/docs/migration/from-grafana-alerting.md)
+Migration guide[From Grafana Alerting<!-- --> →](https://n9e.io/docs/migration/from-grafana-alerting.md)
 
 ## Nothing has to be switched off
 
@@ -170,7 +170,7 @@ Nightingale reads the storage you already run, so the switch is a parallel run, 
 
    Compare what fires each day, switch one notification channel at a time, and back out of any stage in about a minute.
 
-[Coexistence and rollback plan<!-- --> →](https://n9e.github.io/docs/migration/coexistence.md)
+[Coexistence and rollback plan<!-- --> →](https://n9e.io/docs/migration/coexistence.md)
 
 ## Questions people ask before switching
 
@@ -198,4 +198,4 @@ At moderate scale, with a GitOps-comfortable team and a rule count you can hold 
 
 Nightingale reads the storage you already have. Installing it changes nothing about the alerting you run today.
 
-[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)
+[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.io/docs/get-started/quick-start.md)

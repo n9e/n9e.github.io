@@ -4,7 +4,7 @@ Hard limits, soft limits and default sizes: queue lengths, timeouts, retention.
 
 Last reviewed 2026-10-10
 
-The numbers you can ignore until scale finds them. The full set is in [Configuration reference](https://n9e.github.io/docs/reference/configuration.md).
+The numbers you can ignore until scale finds them. The full set is in [Configuration reference](https://n9e.io/docs/reference/configuration.md).
 
 ## HTTP[​](#http "Direct link to HTTP")
 
@@ -38,7 +38,7 @@ Multiply by the number of instances and stay under the database's own `max_conne
 
 Past `MaxBytes`, **the oldest blocks are deleted first**.
 
-The real limit is not any of these numbers: it is that the data lives on **one Center process's local disk**, so several replicas each hold a fragment. Useful to roughly 100k active series; past that, use an external store. See [Embedded TSDB single-Center limits](https://n9e.github.io/docs/operations/embedded-tsdb-limits.md).
+The real limit is not any of these numbers: it is that the data lives on **one Center process's local disk**, so several replicas each hold a fragment. Useful to roughly 100k active series; past that, use an external store. See [Embedded TSDB single-Center limits](https://n9e.io/docs/operations/embedded-tsdb-limits.md).
 
 ## Ingest and forwarding[​](#ingest-and-forwarding "Direct link to Ingest and forwarding")
 
@@ -48,7 +48,7 @@ The real limit is not any of these numbers: it is that the data lives on **one C
 | Forward request timeout | 10000ms | `[[Pushgw.Writers]] Timeout`     |
 | Dial timeout            | 3000ms  | `[[Pushgw.Writers]] DialTimeout` |
 
-A full queue drops data. A queue length that keeps climbing toward the cap means the downstream TSDB cannot keep up; watching `n9e_alert_alert_queue_size` and friends catches it earlier — see [Built-in metrics](https://n9e.github.io/docs/reference/built-in-metrics.md).
+A full queue drops data. A queue length that keeps climbing toward the cap means the downstream TSDB cannot keep up; watching `n9e_alert_alert_queue_size` and friends catches it earlier — see [Built-in metrics](https://n9e.io/docs/reference/built-in-metrics.md).
 
 ## Rule evaluation[​](#rule-evaluation "Direct link to Rule evaluation")
 
@@ -73,6 +73,6 @@ A full queue drops data. A queue length that keeps climbing toward the cap means
 
 ## Related[​](#related "Direct link to Related")
 
-* [Configuration reference](https://n9e.github.io/docs/reference/configuration.md)
-* [Capacity planning](https://n9e.github.io/docs/operations/capacity.md)
-* [Why is Nightingale slow or backlogged?](https://n9e.github.io/docs/troubleshooting/performance.md)
+* [Configuration reference](https://n9e.io/docs/reference/configuration.md)
+* [Capacity planning](https://n9e.io/docs/operations/capacity.md)
+* [Why is Nightingale slow or backlogged?](https://n9e.io/docs/troubleshooting/performance.md)

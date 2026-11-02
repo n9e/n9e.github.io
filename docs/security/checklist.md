@@ -10,40 +10,40 @@ Nightingale's defaults are tuned for "works the moment it is installed", not for
 
 ## 1. Right after installation[​](#1-right-after-installation "Direct link to 1. Right after installation")
 
-| Check                                                                                                                                                                  | Detail                                                                          |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| **Change `root`'s default password.** `root.2020` is public knowledge, and the host is wide open between installation and that change                                  | [Users and teams](https://n9e.github.io/docs/security/users-teams.md)           |
-| **Replace the sample basic auth in the config file.** The credentials under `[HTTP.APIForService.BasicAuth]` ship with the source, so everyone has them                | [Network and TLS hardening](https://n9e.github.io/docs/security/network-tls.md) |
-| **Decide whether `[Center.AnonymousAccess]` stays on.** Both switches default to `true`, and while they are on the data source query and proxy endpoints need no login | [Network and TLS hardening](https://n9e.github.io/docs/security/network-tls.md) |
-| **Create a named administrator account for yourself** and stop working as `root` — otherwise an incident cannot be traced to a person                                  | [Users and teams](https://n9e.github.io/docs/security/users-teams.md)           |
+| Check                                                                                                                                                                  | Detail                                                                   |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| **Change `root`'s default password.** `root.2020` is public knowledge, and the host is wide open between installation and that change                                  | [Users and teams](https://n9e.io/docs/security/users-teams.md)           |
+| **Replace the sample basic auth in the config file.** The credentials under `[HTTP.APIForService.BasicAuth]` ship with the source, so everyone has them                | [Network and TLS hardening](https://n9e.io/docs/security/network-tls.md) |
+| **Decide whether `[Center.AnonymousAccess]` stays on.** Both switches default to `true`, and while they are on the data source query and proxy endpoints need no login | [Network and TLS hardening](https://n9e.io/docs/security/network-tls.md) |
+| **Create a named administrator account for yourself** and stop working as `root` — otherwise an incident cannot be traced to a person                                  | [Users and teams](https://n9e.io/docs/security/users-teams.md)           |
 
 ## 2. Before letting colleagues in[​](#2-before-letting-colleagues-in "Direct link to 2. Before letting colleagues in")
 
 This section is all permissions. Remember they come in two ANDed layers; configuring only one produces "can log in, sees nothing".
 
-| Check                                                                                                                       | Detail                                                                                 |
-| --------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| Teams exist and have members; business groups are authorized to teams with read-write / read-only set                       | [Business group authorization](https://n9e.github.io/docs/security/business-groups.md) |
-| `Standard` is confirmed to be both sufficient and not too broad — it carries the full `/busi-groups` create/edit/delete set | [Roles and permission matrix](https://n9e.github.io/docs/security/roles.md)            |
-| Automation and AI clients issue tokens from **dedicated accounts**, one per purpose, never `Admin`                          | [Tokens and credential rotation](https://n9e.github.io/docs/security/tokens.md)        |
-| Hosts have been moved out of **Ungrouped** into business groups, or colleagues will not see them in the host list           | [Business group authorization](https://n9e.github.io/docs/security/business-groups.md) |
-| Everyone has an email / phone / contact entry filled in — a notification with no resolvable address is **dropped silently** | [Users and teams](https://n9e.github.io/docs/security/users-teams.md)                  |
-| With SSO wired up, `DefaultTeams` (or the default team) is set, and that team holds a business group authorization          | [SSO / external identity integration](https://n9e.github.io/docs/security/sso.md)      |
+| Check                                                                                                                       | Detail                                                                          |
+| --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Teams exist and have members; business groups are authorized to teams with read-write / read-only set                       | [Business group authorization](https://n9e.io/docs/security/business-groups.md) |
+| `Standard` is confirmed to be both sufficient and not too broad — it carries the full `/busi-groups` create/edit/delete set | [Roles and permission matrix](https://n9e.io/docs/security/roles.md)            |
+| Automation and AI clients issue tokens from **dedicated accounts**, one per purpose, never `Admin`                          | [Tokens and credential rotation](https://n9e.io/docs/security/tokens.md)        |
+| Hosts have been moved out of **Ungrouped** into business groups, or colleagues will not see them in the host list           | [Business group authorization](https://n9e.io/docs/security/business-groups.md) |
+| Everyone has an email / phone / contact entry filled in — a notification with no resolvable address is **dropped silently** | [Users and teams](https://n9e.io/docs/security/users-teams.md)                  |
+| With SSO wired up, `DefaultTeams` (or the default team) is set, and that team holds a business group authorization          | [SSO / external identity integration](https://n9e.io/docs/security/sso.md)      |
 
 ## 3. Before it takes external traffic[​](#3-before-it-takes-external-traffic "Direct link to 3. Before it takes external traffic")
 
-| Check                                                                                                                | Detail                                                                              |
-| -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| TLS is terminated: either `[HTTP] CertFile` + `KeyFile`, or a gateway in front                                       | [Network and TLS hardening](https://n9e.github.io/docs/security/network-tls.md)     |
-| Traffic is **split by path** rather than exposing all of 17000 — write endpoints and admin endpoints share the port  | [Ports and network flows](https://n9e.github.io/docs/reference/ports.md)            |
-| Collector writes require basic auth (`[HTTP.APIForAgent.BasicAuth]` is commented out by default)                     | [Network and TLS hardening](https://n9e.github.io/docs/security/network-tls.md)     |
-| Embedded TSDB: `DatasourceUrl` is not set without basic auth — that opens both reads and writes to the whole network | [Network and TLS hardening](https://n9e.github.io/docs/security/network-tls.md)     |
-| `[HTTP] PProf` is off and `/metrics` is not internet-facing                                                          | [Network and TLS hardening](https://n9e.github.io/docs/security/network-tls.md)     |
-| `[HTTP.A2A] MCPEnableWriteTools` stays `false`, so `/mcp` exposes read-only tools only                               | [Network and TLS hardening](https://n9e.github.io/docs/security/network-tls.md)     |
-| JWT lifetimes are shortened to taste (25 h access, 7 days refresh by default)                                        | [Network and TLS hardening](https://n9e.github.io/docs/security/network-tls.md)     |
-| `[HTTP.ShowCaptcha]` is on if the login page is externally reachable                                                 | [Network and TLS hardening](https://n9e.github.io/docs/security/network-tls.md)     |
-| "Print request body paths" lists no path carrying credentials, and finished entries were removed                     | [Site and user variable settings](https://n9e.github.io/docs/security/variables.md) |
-| Config files are `chmod 600`, and the six encryptable fields that should be ciphertext are                           | [Secret management](https://n9e.github.io/docs/security/secrets.md)                 |
+| Check                                                                                                                | Detail                                                                       |
+| -------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| TLS is terminated: either `[HTTP] CertFile` + `KeyFile`, or a gateway in front                                       | [Network and TLS hardening](https://n9e.io/docs/security/network-tls.md)     |
+| Traffic is **split by path** rather than exposing all of 17000 — write endpoints and admin endpoints share the port  | [Ports and network flows](https://n9e.io/docs/reference/ports.md)            |
+| Collector writes require basic auth (`[HTTP.APIForAgent.BasicAuth]` is commented out by default)                     | [Network and TLS hardening](https://n9e.io/docs/security/network-tls.md)     |
+| Embedded TSDB: `DatasourceUrl` is not set without basic auth — that opens both reads and writes to the whole network | [Network and TLS hardening](https://n9e.io/docs/security/network-tls.md)     |
+| `[HTTP] PProf` is off and `/metrics` is not internet-facing                                                          | [Network and TLS hardening](https://n9e.io/docs/security/network-tls.md)     |
+| `[HTTP.A2A] MCPEnableWriteTools` stays `false`, so `/mcp` exposes read-only tools only                               | [Network and TLS hardening](https://n9e.io/docs/security/network-tls.md)     |
+| JWT lifetimes are shortened to taste (25 h access, 7 days refresh by default)                                        | [Network and TLS hardening](https://n9e.io/docs/security/network-tls.md)     |
+| `[HTTP.ShowCaptcha]` is on if the login page is externally reachable                                                 | [Network and TLS hardening](https://n9e.io/docs/security/network-tls.md)     |
+| "Print request body paths" lists no path carrying credentials, and finished entries were removed                     | [Site and user variable settings](https://n9e.io/docs/security/variables.md) |
+| Config files are `chmod 600`, and the six encryptable fields that should be ciphertext are                           | [Secret management](https://n9e.io/docs/security/secrets.md)                 |
 
 ## 4. Verify it[​](#4-verify-it "Direct link to 4. Verify it")
 
@@ -81,16 +81,16 @@ One caveat on check 3: a **404** means the agent API group is not mounted at thi
 
 ## 5. Review periodically[​](#5-review-periodically "Direct link to 5. Review periodically")
 
-| Check                                                                                                    | Detail                                                                          |
-| -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| Sort the user list by **Last active** and clear out departed people and abandoned service accounts       | [Users and teams](https://n9e.github.io/docs/security/users-teams.md)           |
-| Each service account should hold exactly one token; extras are leftovers from an unfinished rotation     | [Tokens and credential rotation](https://n9e.github.io/docs/security/tokens.md) |
-| Review dashboard public settings and unexpired share links — they are decoupled from passwords           | [Anonymous time-limited sharing](https://n9e.github.io/docs/query/sharing.md)   |
-| Run one rotation across the credential inventory: passwords, basic auth, data sources, SSO, media tokens | [Tokens and credential rotation](https://n9e.github.io/docs/security/tokens.md) |
-| After every upgrade, re-check the ports and the configuration defaults                                   | [Ports and network flows](https://n9e.github.io/docs/reference/ports.md)        |
+| Check                                                                                                    | Detail                                                                   |
+| -------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Sort the user list by **Last active** and clear out departed people and abandoned service accounts       | [Users and teams](https://n9e.io/docs/security/users-teams.md)           |
+| Each service account should hold exactly one token; extras are leftovers from an unfinished rotation     | [Tokens and credential rotation](https://n9e.io/docs/security/tokens.md) |
+| Review dashboard public settings and unexpired share links — they are decoupled from passwords           | [Anonymous time-limited sharing](https://n9e.io/docs/query/sharing.md)   |
+| Run one rotation across the credential inventory: passwords, basic auth, data sources, SSO, media tokens | [Tokens and credential rotation](https://n9e.io/docs/security/tokens.md) |
+| After every upgrade, re-check the ports and the configuration defaults                                   | [Ports and network flows](https://n9e.io/docs/reference/ports.md)        |
 
 ## Next[​](#next "Direct link to Next")
 
-* Going to production also means capacity, high availability and backups: [Production checklist](https://n9e.github.io/docs/get-started/production-checklist.md)
-* The permission model itself: [Authentication, tokens and RBAC model](https://n9e.github.io/docs/concepts/auth-rbac.md)
-* Point-by-point permissions: [Permission matrix](https://n9e.github.io/docs/reference/permissions.md)
+* Going to production also means capacity, high availability and backups: [Production checklist](https://n9e.io/docs/get-started/production-checklist.md)
+* The permission model itself: [Authentication, tokens and RBAC model](https://n9e.io/docs/concepts/auth-rbac.md)
+* Point-by-point permissions: [Permission matrix](https://n9e.io/docs/reference/permissions.md)

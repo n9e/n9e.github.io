@@ -12,7 +12,7 @@ Where this page ends: Categraf running on the target host, that host visible und
 
 * The target host **can reach the Nightingale address** (`http://<nightingale>:17000` by default);
 * Root access;
-* Nightingale is up — if not, start at [Quick start](https://n9e.github.io/docs/get-started/quick-start.md).
+* Nightingale is up — if not, start at [Quick start](https://n9e.io/docs/get-started/quick-start.md).
 
 ## Path 1: one-click install from the Hosts page[​](#path-1-one-click-install-from-the-hosts-page "Direct link to Path 1: one-click install from the Hosts page")
 
@@ -180,7 +180,7 @@ A line carrying an `agent_hostname` label means both paths work.
 
 ## Next[​](#next "Direct link to Next")
 
-* Start collecting middleware and databases: [Input plugins](https://n9e.github.io/docs/data/categraf/plugins.md)
-* Onboard a whole component at once: [Install collector configuration](https://n9e.github.io/docs/data/integrations/collector-config.md)
-* The write path in detail: [Remote write](https://n9e.github.io/docs/data/categraf/remote-write.md)
-* No host, or no data: [Troubleshooting](https://n9e.github.io/docs/data/categraf/troubleshooting.md)
+* Start collecting middleware and databases: [Input plugins](https://n9e.io/docs/data/categraf/plugins.md)
+* Onboard a whole component at once: [Install collector configuration](https://n9e.io/docs/data/integrations/collector-config.md)
+* The write path in detail: [Remote write](https://n9e.io/docs/data/categraf/remote-write.md)
+* No host, or no data: [Troubleshooting](https://n9e.io/docs/data/categraf/troubleshooting.md)

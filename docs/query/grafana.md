@@ -21,7 +21,7 @@ The split rests on one condition: **both sides look at the same data**. Sections
 
 If metrics are already in Prometheus / VictoriaMetrics / Thanos, this is the least work: register the same query endpoint your Grafana data source uses in Nightingale too.
 
-**Integrations → Data sources → Add → Prometheus**, same URL. Field by field, see [Prometheus](https://n9e.github.io/docs/data/prometheus.md).
+**Integrations → Data sources → Add → Prometheus**, same URL. Field by field, see [Prometheus](https://n9e.io/docs/data/prometheus.md).
 
 Two things to watch:
 
@@ -56,15 +56,15 @@ Auth       Basic auth, with the user and password above
 
 Save and test; a result for `up` means it works.
 
-This route suits small deployments only. The embedded store is a single-instance local-disk option, good to roughly 100k active series — see [Embedded TSDB and external storage](https://n9e.github.io/docs/concepts/storage.md) for the limits. Once you outgrow it and move to an external store, go back to section 1 and point both sides there.
+This route suits small deployments only. The embedded store is a single-instance local-disk option, good to roughly 100k active series — see [Embedded TSDB and external storage](https://n9e.io/docs/concepts/storage.md) for the limits. Once you outgrow it and move to an external store, go back to section 1 and point both sides there.
 
 ## 3. Move alerting to Nightingale[​](#3-move-alerting-to-nightingale "Direct link to 3. Move alerting to Nightingale")
 
 PromQL in a Nightingale rule is the same PromQL you write in a Grafana panel; the only difference is that the threshold goes into the expression itself (`... > 1`).
 
-* Start from scratch: [Create the first rule](https://n9e.github.io/docs/alerting/first-rule.md)
-* Bring existing Grafana alert rules across: [Migrate from Grafana alerting](https://n9e.github.io/docs/migration/from-grafana-alerting.md)
-* Run both in parallel before cutting over: [Coexisting with what you already run](https://n9e.github.io/docs/migration/coexistence.md)
+* Start from scratch: [Create the first rule](https://n9e.io/docs/alerting/first-rule.md)
+* Bring existing Grafana alert rules across: [Migrate from Grafana alerting](https://n9e.io/docs/migration/from-grafana-alerting.md)
+* Run both in parallel before cutting over: [Coexisting with what you already run](https://n9e.io/docs/migration/coexistence.md)
 
 ## Bring Grafana dashboards into Nightingale[​](#bring-grafana-dashboards-into-nightingale "Direct link to Bring Grafana dashboards into Nightingale")
 
@@ -77,7 +77,7 @@ The **Import** dialog on the dashboard list has four tabs; two of them concern G
 
 The limits of the second one are stated in the dialog itself: **only dashboards using Prometheus data sources, and only the chart types and features Nightingale supports**. JSON older than v7 is rejected outright; v7 to v8 warns first and lets you continue. Anything non-trivial needs manual cleanup afterwards — "not recommended" is not politeness.
 
-A third option is to hang all of Grafana off the side menu; see [Share, embed and integrate external systems](https://n9e.github.io/docs/query/embedding.md).
+A third option is to hang all of Grafana off the side menu; see [Share, embed and integrate external systems](https://n9e.io/docs/query/embedding.md).
 
 ## Let Grafana be embedded[​](#let-grafana-be-embedded "Direct link to Let Grafana be embedded")
 
@@ -119,6 +119,6 @@ Restart Grafana to apply.
 
 ## Next[​](#next "Direct link to Next")
 
-* Every field on the data source form: [Prometheus](https://n9e.github.io/docs/data/prometheus.md)
-* Build boards in Nightingale itself: [Build a dashboard](https://n9e.github.io/docs/query/dashboards.md)
-* Hang external systems off the side menu: [Share, embed and integrate external systems](https://n9e.github.io/docs/query/embedding.md)
+* Every field on the data source form: [Prometheus](https://n9e.io/docs/data/prometheus.md)
+* Build boards in Nightingale itself: [Build a dashboard](https://n9e.io/docs/query/dashboards.md)
+* Hang external systems off the side menu: [Share, embed and integrate external systems](https://n9e.io/docs/query/embedding.md)

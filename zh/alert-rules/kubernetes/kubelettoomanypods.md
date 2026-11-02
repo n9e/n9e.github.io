@@ -2,13 +2,13 @@
 
 Prometheus 告警 KubeletTooManyPods 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 一个节点上运行的 Pod 数超过了它能容纳数量的 95%，上限由 kubelet 的 `maxPods` 决定（默认 110）。到上限后，本该落到这台节点的新 Pod 会一直 Pending；Pod 太密的节点也更容易出现 kubelet 变慢的问题。
 
 * **级别**：提醒（`info`）
 * **持续**：15 分钟
-* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+* 属于 [Kubernetes 告警规则](https://n9e.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
 
 ## 规则[​](#规则 "规则的直接链接")
 
@@ -57,12 +57,12 @@ max by(cluster, node) (
 
 ## 相关告警[​](#相关告警 "相关告警的直接链接")
 
-* [KubeNodeNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubenodenotready.md)：… has been unready for more than 15 minutes.
-* [KubePodNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodnotready.md)：Pod …/… has been in a non-ready state for longer than 15 minutes.
+* [KubeNodeNotReady](https://n9e.io/zh/alert-rules/kubernetes/kubenodenotready.md)：… has been unready for more than 15 minutes.
+* [KubePodNotReady](https://n9e.io/zh/alert-rules/kubernetes/kubepodnotready.md)：Pod …/… has been in a non-ready state for longer than 15 minutes.
 
 ## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
 
-加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.io/zh/alert-rules/kubernetes.yml)。
 
 ```
 - alert: KubeletTooManyPods
@@ -93,10 +93,10 @@ max by(cluster, node) (
 
     summary: "Kubelet '{{ $labels.node }}' is running at {{ $value | humanizePercentage }} of its Pod capacity."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubelettoomanypods"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubelettoomanypods"
 ```
 
-**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 

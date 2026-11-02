@@ -20,7 +20,7 @@ Judge each by "is this still worth something on another system?":
 
 Dump the whole database onto another machine before touching anything. If you realise afterwards that you forgot to export something, that dump is how you get it back.
 
-**There is no export for the embedded TSDB.** To keep that metric history, configure dual write before uninstalling so the data also lands in an external store, then wait until it covers what you need — see [External TSDB and dual-write migration](https://n9e.github.io/docs/install/external-tsdb.md).
+**There is no export for the embedded TSDB.** To keep that metric history, configure dual write before uninstalling so the data also lands in an external store, then wait until it covers what you need — see [External TSDB and dual-write migration](https://n9e.io/docs/install/external-tsdb.md).
 
 ## Stop the processes[​](#stop-the-processes "Direct link to Stop the processes")
 
@@ -90,6 +90,6 @@ If you are only moving Nightingale, there is no need to uninstall anything — c
 
 ## Next[​](#next "Direct link to Next")
 
-* [External TSDB and dual-write migration](https://n9e.github.io/docs/install/external-tsdb.md) — start here to keep the metric history
-* [Backup and restore](https://n9e.github.io/docs/operations/backup-restore.md) — how to take that final dump
-* [Binary packages](https://n9e.github.io/docs/install/binary.md) — putting it back
+* [External TSDB and dual-write migration](https://n9e.io/docs/install/external-tsdb.md) — start here to keep the metric history
+* [Backup and restore](https://n9e.io/docs/operations/backup-restore.md) — how to take that final dump
+* [Binary packages](https://n9e.io/docs/install/binary.md) — putting it back

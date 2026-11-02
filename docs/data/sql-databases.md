@@ -63,7 +63,7 @@ MySQL and PostgreSQL share one form; only the default port differs:
 | Max idle / max open connections                                    | Default 10 / 100. Lower them if the database is tight on connections          |
 | Maximum connection lifetime (unit: seconds)                        | Defaults to 14400                                                             |
 
-![The MySQL data source form](https://n9e.github.io/img/docs/data/form-mysql.webp)![The MySQL data source form](https://n9e.github.io/img/docs/data/form-mysql.dark.webp)
+![The MySQL data source form](https://n9e.io/img/docs/data/form-mysql.webp)![The MySQL data source form](https://n9e.io/img/docs/data/form-mysql.dark.webp)
 
 TDengine talks over its REST interface and needs fewer fields: URL `http://localhost:6041`, timeout in milliseconds (10000 by default), user and password as needed. The connectivity test posts `show databases` to `<URL>/rest/sql`.
 
@@ -144,6 +144,6 @@ If the query really is expensive, the fix is not tuning these fields — it is b
 
 ## Next[​](#next "Direct link to Next")
 
-* Writing SQL rules properly: [SQL alert rules](https://n9e.github.io/docs/alerting/sql-rules.md)
-* Getting events to a person: [Notifications](https://n9e.github.io/docs/notifications/overview.md)
-* Bulk log and detail stores: [ClickHouse / Doris / IoTDB](https://n9e.github.io/docs/data/clickhouse-doris-iotdb.md)
+* Writing SQL rules properly: [SQL alert rules](https://n9e.io/docs/alerting/sql-rules.md)
+* Getting events to a person: [Notifications](https://n9e.io/docs/notifications/overview.md)
+* Bulk log and detail stores: [ClickHouse / Doris / IoTDB](https://n9e.io/docs/data/clickhouse-doris-iotdb.md)

@@ -10,7 +10,7 @@ Where this page ends: for any rule, you can pull up the last hour of evaluations
 
 **Alerts & Notifications → Alert rules**, hover the row of the rule, and click **Eval records** in the operations column.
 
-![The alert rule list](https://n9e.github.io/img/docs/alerting/rule-list.webp)![The alert rule list](https://n9e.github.io/img/docs/alerting/rule-list.dark.webp)
+![The alert rule list](https://n9e.io/img/docs/alerting/rule-list.webp)![The alert rule list](https://n9e.io/img/docs/alerting/rule-list.dark.webp)
 
 A drawer opens showing the last hour. Change the range with the time picker at the top, and use **Load earlier records** at the bottom to page backwards.
 
@@ -65,9 +65,9 @@ The order matters and it is not the order people assume: the **pipeline runs bef
 
 **"The query works in the explorer but the rule never fires."** Look at *Query results*. If the tag says `No data`, the rule's query is not what you pasted into the explorer — most often it is running against a different data source, or a variable expanded to something you did not expect. Expand the row to see the query as sent.
 
-**"It fired but nobody was notified."** Look at the *Event handling* column. `Muted` and `Dropped by pipeline` mean the event never reached notification. `Fired` means it did, and the problem is downstream in the notification rules — see [No notification arrives](https://n9e.github.io/docs/troubleshooting/no-notification.md).
+**"It fired but nobody was notified."** Look at the *Event handling* column. `Muted` and `Dropped by pipeline` mean the event never reached notification. `Fired` means it did, and the problem is downstream in the notification rules — see [No notification arrives](https://n9e.io/docs/troubleshooting/no-notification.md).
 
-**"It fires and recovers over and over."** Compare the *Anomalies* count across consecutive rows. A count that flips between `1` and `0` every cycle is a metric sitting on the threshold — see [Why does an alert fire repeatedly or never recover?](https://n9e.github.io/docs/troubleshooting/alert-flapping.md).
+**"It fires and recovers over and over."** Compare the *Anomalies* count across consecutive rows. A count that flips between `1` and `0` every cycle is a metric sitting on the threshold — see [Why does an alert fire repeatedly or never recover?](https://n9e.io/docs/troubleshooting/alert-flapping.md).
 
 ## Where records live, and how long[​](#where-records-live-and-how-long "Direct link to Where records live, and how long")
 
@@ -117,6 +117,6 @@ The credentials are the BasicAuth account configured under `HTTP.APIForService` 
 
 ## Next[​](#next "Direct link to Next")
 
-* Fire a rule on purpose instead of waiting: [Test fire a rule](https://n9e.github.io/docs/alerting/test-fire.md)
-* The timing parameters these records reflect: [Evaluation interval and recovery](https://n9e.github.io/docs/alerting/evaluation.md)
-* Follow the event past the engine: [Inspect workflow execution records](https://n9e.github.io/docs/events/execution-records.md)
+* Fire a rule on purpose instead of waiting: [Test fire a rule](https://n9e.io/docs/alerting/test-fire.md)
+* The timing parameters these records reflect: [Evaluation interval and recovery](https://n9e.io/docs/alerting/evaluation.md)
+* Follow the event past the engine: [Inspect workflow execution records](https://n9e.io/docs/events/execution-records.md)

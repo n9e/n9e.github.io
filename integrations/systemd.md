@@ -2,7 +2,7 @@
 
 Reads systemd unit state, restart counts and startup time over D-Bus, so failed or flapping services page you right away.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The systemd input talks to systemd over D-Bus and collects each unit's active state, enabled flag, restart count, task count and startup time. Unlike a plain process check, it tells "the service exists but is failed" apart from "the service keeps getting restarted".
 
@@ -17,7 +17,7 @@ All units are collected by default, minus the noisy automount, device, mount, sc
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.systemd/systemd.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.systemd started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.systemd/systemd.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.systemd started` once the plugin is loaded.
 
    ```
    # # collect interval
@@ -67,9 +67,9 @@ All units are collected by default, minus the noisy automount, device, mount, sc
    systemd_private = true
    ```
 
-2. Open the integration center in Nightingale, find Systemd, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find Systemd, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -149,7 +149,7 @@ Runbook:
 
 * [Systemd template source](https://github.com/ccfos/nightingale/tree/main/integrations/Systemd): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `systemd` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/systemd): every config option and the full metric list.
-* [Walkthrough: processes and ports](https://n9e.github.io/docs/practice/proc.md)
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Walkthrough: processes and ports](https://n9e.io/docs/practice/proc.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

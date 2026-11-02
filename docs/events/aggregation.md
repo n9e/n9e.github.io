@@ -14,7 +14,7 @@ An event's identity is its **rule together with its label set** — that is the 
 * The same rule across 5 hosts is 5 events (different `ident`), each firing and recovering on its own;
 * Only a fresh trigger after recovery counts as a new one.
 
-So "duplicate alerts" in Nightingale is usually not one event sent many times; it is **too fine a label dimension** — a rule that expands over `device` into a dozen series produces a dozen independent events. To get fewer, first see whether the rule can aggregate the dimension away (`sum by (...)` in PromQL) — see [Metric rules](https://n9e.github.io/docs/alerting/metric-rules.md).
+So "duplicate alerts" in Nightingale is usually not one event sent many times; it is **too fine a label dimension** — a rule that expands over `device` into a dozen series produces a dozen independent events. To get fewer, first see whether the rule can aggregate the dimension away (`sum by (...)` in PromQL) — see [Metric rules](https://n9e.io/docs/alerting/metric-rules.md).
 
 Repeat notifications for one event are governed by two fields on the alert rule: **notify repeat interval (minutes)**, how long to wait before reminding while it is still unrecovered, and **max send count**, where 0 means unlimited. Those two are the most direct "one incident should not send a hundred messages" controls.
 
@@ -47,13 +47,13 @@ An aggregate rule only changes **how this page displays**; it does not touch the
 Once the cards have shown you a class that does not need to be sent one by one:
 
 1. **Raise the repeat interval and max send count on the rule** — for "the same event keeps ringing";
-2. **A mute rule** — for "keep this class quiet for a while", see [Mute rules](https://n9e.github.io/docs/events/mute-rules.md);
-3. **The event drop processor in a workflow** — for "this class should never be sent", see [Event pipelines](https://n9e.github.io/docs/events/pipelines.md).
+2. **A mute rule** — for "keep this class quiet for a while", see [Mute rules](https://n9e.io/docs/events/mute-rules.md);
+3. **The event drop processor in a workflow** — for "this class should never be sent", see [Event pipelines](https://n9e.io/docs/events/pipelines.md).
 
-The order they act in is in [Noise reduction and routing model](https://n9e.github.io/docs/concepts/noise-routing.md); worked scenarios are in [Noise reduction patterns](https://n9e.github.io/docs/events/noise-patterns.md).
+The order they act in is in [Noise reduction and routing model](https://n9e.io/docs/concepts/noise-routing.md); worked scenarios are in [Noise reduction patterns](https://n9e.io/docs/events/noise-patterns.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Using the two event lists: [Active and historical events](https://n9e.github.io/docs/events/active-historical.md)
-* Splitting by condition instead of cutting everything: [Conditional routing](https://n9e.github.io/docs/events/routing.md)
-* Firing and recovering over and over: [Alerts fire and recover repeatedly](https://n9e.github.io/docs/troubleshooting/alert-flapping.md)
+* Using the two event lists: [Active and historical events](https://n9e.io/docs/events/active-historical.md)
+* Splitting by condition instead of cutting everything: [Conditional routing](https://n9e.io/docs/events/routing.md)
+* Firing and recovering over and over: [Alerts fire and recover repeatedly](https://n9e.io/docs/troubleshooting/alert-flapping.md)

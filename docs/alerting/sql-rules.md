@@ -104,7 +104,7 @@ Below the query, **Trigger conditions → Threshold conditions**, the same block
 $A.value > 10
 ```
 
-`$A.<column>` is the value of that column. `$A.<label>` is a label, and labels are **strings** — `$A.service == 'checkout'` works, `$A.service > 10` is a type error that the engine silently treats as "condition not met". Verify with [Test fire](https://n9e.github.io/docs/alerting/test-fire.md), which evaluates the expression against real rows and reports the error instead of swallowing it.
+`$A.<column>` is the value of that column. `$A.<label>` is a label, and labels are **strings** — `$A.service == 'checkout'` works, `$A.service > 10` is a type error that the engine silently treats as "condition not met". Verify with [Test fire](https://n9e.io/docs/alerting/test-fire.md), which evaluates the expression against real rows and reports the error instead of swallowing it.
 
 Multiple queries combine with `&&` and `||`, and **Join operations** control how their rows are matched up when they have different label sets.
 
@@ -112,7 +112,7 @@ Each condition carries its own severity, so tiered thresholds work here exactly 
 
 The **Recovery configuration** dropdown on each condition matters more here than anywhere else. *Recover only when data exists and the trigger condition is not met* keeps the alert firing while the database is unreachable, which is almost always what you want: a database you cannot query is not a database that is healthy.
 
-It is preselected for MySQL, PostgreSQL, TDengine and IoTDB — but **ClickHouse and Doris are classified as log stores**, so they start on *No data is considered recovered* instead. Set it explicitly on those two. See [Evaluation interval and recovery](https://n9e.github.io/docs/alerting/evaluation.md).
+It is preselected for MySQL, PostgreSQL, TDengine and IoTDB — but **ClickHouse and Doris are classified as log stores**, so they start on *No data is considered recovered* instead. Set it explicitly on those two. See [Evaluation interval and recovery](https://n9e.io/docs/alerting/evaluation.md).
 
 ## Per-source constraints[​](#per-source-constraints "Direct link to Per-source constraints")
 
@@ -127,10 +127,10 @@ It is preselected for MySQL, PostgreSQL, TDengine and IoTDB — but **ClickHouse
 
 The place to run the statement inside Nightingale is the **Preview** on the query card in the rule form. It executes the SQL against the selected data source and shows the resulting series — name, labels and value — which is exactly what the trigger expression will see. If the columns in the preview are not what you expected, fix the value and label fields before going further.
 
-Then [test fire](https://n9e.github.io/docs/alerting/test-fire.md) the rule to check the expression, and after saving use [the evaluation records](https://n9e.github.io/docs/alerting/execution-records.md) to see what each cycle returned in production.
+Then [test fire](https://n9e.io/docs/alerting/test-fire.md) the rule to check the expression, and after saving use [the evaluation records](https://n9e.io/docs/alerting/execution-records.md) to see what each cycle returned in production.
 
 ## Next[​](#next "Direct link to Next")
 
-* Timing and recovery: [Evaluation interval and recovery](https://n9e.github.io/docs/alerting/evaluation.md)
-* Alert on logs instead: [Log rules](https://n9e.github.io/docs/alerting/log-rules.md)
-* Register the database first: [SQL databases](https://n9e.github.io/docs/data/sql-databases.md), [ClickHouse, Doris and IoTDB](https://n9e.github.io/docs/data/clickhouse-doris-iotdb.md)
+* Timing and recovery: [Evaluation interval and recovery](https://n9e.io/docs/alerting/evaluation.md)
+* Alert on logs instead: [Log rules](https://n9e.io/docs/alerting/log-rules.md)
+* Register the database first: [SQL databases](https://n9e.io/docs/data/sql-databases.md), [ClickHouse, Doris and IoTDB](https://n9e.io/docs/data/clickhouse-doris-iotdb.md)

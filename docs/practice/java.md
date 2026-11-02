@@ -96,5 +96,5 @@ url_label_value = "{{.Host}}"
 
 ## Next[​](#next "Direct link to Next")
 
-* [Prometheus datasource](https://n9e.github.io/docs/data/prometheus.md)
-* [Process monitoring](https://n9e.github.io/docs/practice/proc.md)
+* [Prometheus datasource](https://n9e.io/docs/data/prometheus.md)
+* [Process monitoring](https://n9e.io/docs/practice/proc.md)

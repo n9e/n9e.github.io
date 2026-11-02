@@ -74,10 +74,10 @@ Combined with the inhibit switch: when one target matches several of them at onc
 
 The rule page keeps **evaluation records**: one per cycle, holding what the query returned, what the verdict was, whether a pipeline dropped it, and whether a mute rule caught it.
 
-"The query returns data in the explorer but the rule does not fire" is nearly always answered here. See [Evaluation execution records](https://n9e.github.io/docs/alerting/execution-records.md).
+"The query returns data in the explorer but the rule does not fire" is nearly always answered here. See [Evaluation execution records](https://n9e.io/docs/alerting/execution-records.md).
 
 ## Related[​](#related "Direct link to Related")
 
-* [Alert lifecycle and severity](https://n9e.github.io/docs/concepts/alert-lifecycle.md)
-* [Evaluation interval and recovery](https://n9e.github.io/docs/alerting/evaluation.md)
-* [Why does an alert fire repeatedly or never recover?](https://n9e.github.io/docs/troubleshooting/alert-flapping.md)
+* [Alert lifecycle and severity](https://n9e.io/docs/concepts/alert-lifecycle.md)
+* [Evaluation interval and recovery](https://n9e.io/docs/alerting/evaluation.md)
+* [Why does an alert fire repeatedly or never recover?](https://n9e.io/docs/troubleshooting/alert-flapping.md)

@@ -12,13 +12,13 @@ A skill is a folder with a `SKILL.md` in it: YAML frontmatter plus Markdown inst
 
 So a skill is where a senior engineer's method goes: "when a MySQL replication-lag alert fires, check `pt-heartbeat` first, then the replication threads, and only then the binlog size." Written down once, it guides everyone who asks afterwards.
 
-A skill is not a model and not a tool. The model comes from [Configure an LLM provider](https://n9e.github.io/docs/ai/llm-provider.md); the tools are built into the product.
+A skill is not a model and not a tool. The model comes from [Configure an LLM provider](https://n9e.io/docs/ai/llm-provider.md); the tools are built into the product.
 
 ## Where the page is[​](#where-the-page-is "Direct link to Where the page is")
 
 **Nightingale AI → Skill management**, at `/nightingale-ai/skills`. The older address `/ai-config/skills` redirects here. The page is guarded by the permission point `/ai-config/skills`, which **no built-in role except `Admin` holds** — grant it to a custom role under **Organization → Roles** if somebody else needs it.
 
-![Skill management](https://n9e.github.io/img/docs/ai/skills.webp)![Skill management](https://n9e.github.io/img/docs/ai/skills.dark.webp)
+![Skill management](https://n9e.io/img/docs/ai/skills.webp)![Skill management](https://n9e.io/img/docs/ai/skills.dark.webp)
 
 The left pane is a tree: one node per skill, expanding to its files. **22 skills ship built in** and are tagged `Builtin` — alert-rule troubleshooting, host health and onboarding diagnosis, dashboard analysis and creation, PromQL and SQL generation, notification-template writing, Prometheus rule import, self-healing script authoring, and more. You can open and read every file in them, but they cannot be downloaded or deleted. They are also the best worked examples available for writing your own.
 
@@ -109,7 +109,7 @@ Every skill has **Managing teams** and a **Visibility** of *Visible to everyone*
 
 A private skill is stripped from the catalogue for everyone outside those teams — the model is not told it exists, so it can neither name it nor load it.
 
-One more place your skills never appear: the A2A agent card advertises the built-in skills only, so a third-party agent discovering Nightingale sees those and not the ones you wrote. It can still benefit from them, because a question that matches loads the skill server-side — see [A2A endpoint](https://n9e.github.io/docs/ai/a2a.md).
+One more place your skills never appear: the A2A agent card advertises the built-in skills only, so a third-party agent discovering Nightingale sees those and not the ones you wrote. It can still benefit from them, because a question that matches loads the skill server-side — see [A2A endpoint](https://n9e.io/docs/ai/a2a.md).
 
 ## Skills that run scripts[​](#skills-that-run-scripts "Direct link to Skills that run scripts")
 
@@ -160,6 +160,6 @@ The single most common complaint — "I wrote a skill, enabled it, and the assis
 
 ## Next[​](#next "Direct link to Next")
 
-* Where the model comes from: [Configure an LLM provider](https://n9e.github.io/docs/ai/llm-provider.md)
-* What the assistant does with skills: [Nightingale AI overview](https://n9e.github.io/docs/ai/nightingale-ai.md)
-* Guardrails around anything that changes state: [Safe automation patterns](https://n9e.github.io/docs/ai/automation.md)
+* Where the model comes from: [Configure an LLM provider](https://n9e.io/docs/ai/llm-provider.md)
+* What the assistant does with skills: [Nightingale AI overview](https://n9e.io/docs/ai/nightingale-ai.md)
+* Guardrails around anything that changes state: [Safe automation patterns](https://n9e.io/docs/ai/automation.md)

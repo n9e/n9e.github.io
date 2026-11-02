@@ -1,11 +1,11 @@
-1. [Comparisons](https://n9e.github.io/comparisons.md)
+1. [Comparisons](https://n9e.io/comparisons.md)
 2. Prometheus + Alertmanager
 
 # Nightingale vs Prometheus + Alertmanager
 
 Prometheus stays. The exporters stay. The Grafana panels stay. Alertmanager is the only component this comparison actually replaces: rules move from YAML into the UI, the routing tree is flattened into notification rules, and silences become mute rules with a business-group boundary.
 
-[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)
+[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.io/docs/get-started/quick-start.md)
 
 ## The 30-second version
 
@@ -122,7 +122,7 @@ Take a rules.yml and an alertmanager.yml apart, and here is where each piece lan
 
 Two traps: a notification config with no severity ticked matches nothing, not everything; and an event that lacks a label never matches, even for != and !\~, whereas Alertmanager treats a missing label as an empty string.
 
-[From Prometheus + Alertmanager<!-- --> →](https://n9e.github.io/docs/migration/from-alertmanager.md)[Coexistence and rollback plan<!-- --> →](https://n9e.github.io/docs/migration/coexistence.md)
+[From Prometheus + Alertmanager<!-- --> →](https://n9e.io/docs/migration/from-alertmanager.md)[Coexistence and rollback plan<!-- --> →](https://n9e.io/docs/migration/coexistence.md)
 
 ## Questions about this comparison
 
@@ -148,18 +148,18 @@ Only as the final step. Everything before it runs with Prometheus and Alertmanag
 
 ## Other comparisons
 
-* [Nightingale vs Zabbix](https://n9e.github.io/comparisons/zabbix.md)
+* [Nightingale vs Zabbix](https://n9e.io/comparisons/zabbix.md)
   <!-- -->
-  [ →](https://n9e.github.io/comparisons/zabbix.md)
-* [Nightingale vs Grafana Alerting](https://n9e.github.io/comparisons/grafana-alerting.md)
+  [ →](https://n9e.io/comparisons/zabbix.md)
+* [Nightingale vs Grafana Alerting](https://n9e.io/comparisons/grafana-alerting.md)
   <!-- -->
-  [ →](https://n9e.github.io/comparisons/grafana-alerting.md)
-* [Comparisons](https://n9e.github.io/comparisons.md)
+  [ →](https://n9e.io/comparisons/grafana-alerting.md)
+* [Comparisons](https://n9e.io/comparisons.md)
   <!-- -->
-  [ →](https://n9e.github.io/comparisons.md)
+  [ →](https://n9e.io/comparisons.md)
 
 ## Not sure? Run both.
 
 Nightingale reads the storage you already have. Installing it changes nothing about the alerting you run today.
 
-[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)
+[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.io/docs/get-started/quick-start.md)

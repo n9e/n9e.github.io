@@ -2,11 +2,11 @@
 
 What the KubeAPIErrorBudgetBurn Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The Kubernetes API server is failing or slowing down requests fast enough to use up its error budget early. The rules use the multi-window burn-rate method from the Google SRE workbook against a 99% availability target. Each pairs a long and a short window, and both must exceed the threshold: 14.4 over 1h and 5m, and 6 over 6h and 30m, are critical; 3 over 1d and 2h, and 1 over 3d and 6h, are warnings. At a burn rate of 14.4 a 30-day error budget is gone in about two days. Controllers, kubectl and CI pipelines all go through the API server, so its errors spread everywhere.
 
-* Part of the [Kubernetes alert rules](https://n9e.github.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
+* Part of the [Kubernetes alert rules](https://n9e.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
 
 ## The rule[​](#the-rule "Direct link to The rule")
 
@@ -93,13 +93,13 @@ Alert message: `The API server is burning too much error budget.`
 
 ## Related alerts[​](#related-alerts "Direct link to Related alerts")
 
-* [KubeAPIDown](https://n9e.github.io/alert-rules/kubernetes.md#kubeapidown): KubeAPI has disappeared from Prometheus target discovery.
-* [KubeClientErrors](https://n9e.github.io/alert-rules/kubernetes.md#kubeclienterrors): Kubernetes API server client '…/…' is experiencing … errors.'
-* [KubeAggregatedAPIDown](https://n9e.github.io/alert-rules/kubernetes/kubeaggregatedapidown.md): Kubernetes aggregated API …/… has been only …% available over the last 10m.
+* [KubeAPIDown](https://n9e.io/alert-rules/kubernetes.md#kubeapidown): KubeAPI has disappeared from Prometheus target discovery.
+* [KubeClientErrors](https://n9e.io/alert-rules/kubernetes.md#kubeclienterrors): Kubernetes API server client '…/…' is experiencing … errors.'
+* [KubeAggregatedAPIDown](https://n9e.io/alert-rules/kubernetes/kubeaggregatedapidown.md): Kubernetes aggregated API …/… has been only …% available over the last 10m.
 
 ## Prometheus rule YAML[​](#prometheus-rule-yaml "Direct link to Prometheus rule YAML")
 
-Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.github.io/alert-rules/kubernetes.yml).
+Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.io/alert-rules/kubernetes.yml).
 
 ```
 - alert: KubeAPIErrorBudgetBurn-S1-120s
@@ -122,7 +122,7 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
 
     summary: "The API server is burning too much error budget."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
 
 - alert: KubeAPIErrorBudgetBurn-S1-900s
 
@@ -144,7 +144,7 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
 
     summary: "The API server is burning too much error budget."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
 
 - alert: KubeAPIErrorBudgetBurn-S2-3600s
 
@@ -166,7 +166,7 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
 
     summary: "The API server is burning too much error budget."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
 
 - alert: KubeAPIErrorBudgetBurn-S2-10800s
 
@@ -188,10 +188,10 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
 
     summary: "The API server is burning too much error budget."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
 ```
 
-**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.github.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
+**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 

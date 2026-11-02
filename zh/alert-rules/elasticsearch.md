@@ -2,7 +2,7 @@
 
 11 条开箱可用的 Elasticsearch 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 elasticsearch\_exporter, Categraf。可下载为 Prometheus 规则文件，或导入夜莺。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Elasticsearch 告警规则：集群健康变黄或变红、JVM 堆内存用量过高、磁盘空间不足或耗尽、未分配 / 初始化中 / 迁移中的分片、积压的集群任务，以及索引长时间没有新文档写入。exporter 一组使用 prometheus-community/elasticsearch\_exporter 的指标名；Categraf 一组对 Categraf 采集的指标做同样的检查。
 
@@ -10,7 +10,7 @@ Elasticsearch 告警规则：集群健康变黄或变红、JVM 堆内存用量�
 
 * **11 条规则**，每条都有 PromQL 触发条件、级别、持续时间（`for`）和处置步骤
 * **指标来源**：elasticsearch\_exporter, Categraf
-* **下载**：[`elasticsearch.yml`](https://n9e.github.io/zh/alert-rules/elasticsearch.yml)，标准 Prometheus 规则文件（`groups:` 格式），已用 `promtool check rules` 校验
+* **下载**：[`elasticsearch.yml`](https://n9e.io/zh/alert-rules/elasticsearch.yml)，标准 Prometheus 规则文件（`groups:` 格式），已用 `promtool check rules` 校验
 * 阈值只是起点，启用前请按自己的环境调整。
 
 ## 规则一览[​](#规则一览 "规则一览的直接链接")
@@ -200,8 +200,8 @@ elasticsearch_cluster_health_unassigned_shards > 0
 
 ## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直接链接")
 
-* **用 Prometheus 或 vmalert**：下载 [`elasticsearch.yml`](https://n9e.github.io/zh/alert-rules/elasticsearch.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
-* **用夜莺**：同样的规则内置在 [Elasticsearch](https://n9e.github.io/zh/integrations/elasticsearch.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
+* **用 Prometheus 或 vmalert**：下载 [`elasticsearch.yml`](https://n9e.io/zh/alert-rules/elasticsearch.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
+* **用夜莺**：同样的规则内置在 [Elasticsearch](https://n9e.io/zh/integrations/elasticsearch.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 
@@ -209,6 +209,6 @@ elasticsearch_cluster_health_unassigned_shards > 0
 
 ## 相关链接[​](#相关链接 "相关链接的直接链接")
 
-* [用夜莺监控 Elasticsearch](https://n9e.github.io/zh/integrations/elasticsearch.md)：采集配置、仪表盘与指标说明
-* [在夜莺里写指标告警规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)
-* [全部告警规则](https://n9e.github.io/zh/alert-rules.md)
+* [用夜莺监控 Elasticsearch](https://n9e.io/zh/integrations/elasticsearch.md)：采集配置、仪表盘与指标说明
+* [在夜莺里写指标告警规则](https://n9e.io/zh/docs/alerting/metric-rules.md)
+* [全部告警规则](https://n9e.io/zh/alert-rules.md)

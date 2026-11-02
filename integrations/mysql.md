@@ -2,7 +2,7 @@
 
 Connects to the instance and runs SHOW STATUS, SHOW VARIABLES and replica status; slow-query pileups, connection exhaustion and broken or lagging replication come with rules and runbooks.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The MySQL input is straightforward: it connects to the instance, runs `SHOW GLOBAL STATUS`, `SHOW GLOBAL VARIABLES`, `SHOW SLAVE STATUS` and friends, and turns the results into metrics. Basic status and replication are collected by default; extended InnoDB metrics, the processlist and schema and table sizes are opt-in. Custom SQL can also be turned into metrics.
 
@@ -19,7 +19,7 @@ Grant the monitoring account `PROCESS`, `REPLICATION CLIENT` and `SELECT`; do no
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.mysql/mysql.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.mysql started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.mysql/mysql.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.mysql started` once the plugin is loaded.
 
    ```
    # # collect interval
@@ -151,9 +151,9 @@ Grant the monitoring account `PROCESS`, `REPLICATION CLIENT` and `SELECT`; do no
    # '''
    ```
 
-2. Open the integration center in Nightingale, find MySQL, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find MySQL, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -169,7 +169,7 @@ Grant the monitoring account `PROCESS`, `REPLICATION CLIENT` and `SELECT`; do no
 
 ## Bundled alert rules[​](#bundled-alert-rules "Direct link to Bundled alert rules")
 
-20 rules, disabled on import so you can enable them one by one with your own thresholds. The PromQL condition and runbook steps for every rule are in the alert rule library: [MySQL alert rules](https://n9e.github.io/alert-rules/mysql.md).
+20 rules, disabled on import so you can enable them one by one with your own thresholds. The PromQL condition and runbook steps for every rule are in the alert rule library: [MySQL alert rules](https://n9e.io/alert-rules/mysql.md).
 
 | Rule                                                                        | Severity    | For |
 | --------------------------------------------------------------------------- | ----------- | --- |
@@ -236,7 +236,7 @@ Grant the monitoring account `PROCESS`, `REPLICATION CLIENT` and `SELECT`; do no
 
 * [MySQL template source](https://github.com/ccfos/nightingale/tree/main/integrations/MySQL): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `mysql` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/mysql): every config option and the full metric list.
-* [Walkthrough: monitor MySQL](https://n9e.github.io/docs/practice/mysql.md)
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Walkthrough: monitor MySQL](https://n9e.io/docs/practice/mysql.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

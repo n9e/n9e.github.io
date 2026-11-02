@@ -8,16 +8,16 @@ Last reviewed 2026-10-10
 
 ## Endpoints every process has[​](#endpoints-every-process-has "Direct link to Endpoints every process has")
 
-| Endpoint                 | Returns                        | Use it for                                                                                                    |
-| ------------------------ | ------------------------------ | ------------------------------------------------------------------------------------------------------------- |
-| `GET /ping`              | `pong`                         | Load balancer and Kubernetes probes; the cheapest check                                                       |
-| `GET /pid`               | The process PID                | Confirming which process you reached                                                                          |
-| `GET /ppid`              | The parent PID                 | Telling whether a supervisor started it                                                                       |
-| `GET /addr`              | The caller's address           | Answering "which IP am I actually coming from"                                                                |
-| `GET /api/n9e/version`   | The version, e.g. `v9.1.1`     | Checking instances one by one during a rolling upgrade                                                        |
-| `GET /metrics`           | Prometheus-format self metrics | See the next section                                                                                          |
-| `GET /api/debug/pprof/*` | Go pprof                       | CPU and memory work — see [Logs and diagnostic bundles](https://n9e.github.io/docs/operations/diagnostics.md) |
-| `GET /dumper/sync`       | Config sync status per cache   | **Local requests only**; answers "I changed config and nothing happened"                                      |
+| Endpoint                 | Returns                        | Use it for                                                                                             |
+| ------------------------ | ------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `GET /ping`              | `pong`                         | Load balancer and Kubernetes probes; the cheapest check                                                |
+| `GET /pid`               | The process PID                | Confirming which process you reached                                                                   |
+| `GET /ppid`              | The parent PID                 | Telling whether a supervisor started it                                                                |
+| `GET /addr`              | The caller's address           | Answering "which IP am I actually coming from"                                                         |
+| `GET /api/n9e/version`   | The version, e.g. `v9.1.1`     | Checking instances one by one during a rolling upgrade                                                 |
+| `GET /metrics`           | Prometheus-format self metrics | See the next section                                                                                   |
+| `GET /api/debug/pprof/*` | Go pprof                       | CPU and memory work — see [Logs and diagnostic bundles](https://n9e.io/docs/operations/diagnostics.md) |
+| `GET /dumper/sync`       | Config sync status per cache   | **Local requests only**; answers "I changed config and nothing happened"                               |
 
 Try it:
 
@@ -81,7 +81,7 @@ A **Last heartbeat** frozen at some point means that instance is in trouble; a r
 
 Version information lives under **System → About**: frontend version, backend version, and which features each data source type supports.
 
-![The about page](https://n9e.github.io/img/docs/operations/about.webp)![The about page](https://n9e.github.io/img/docs/operations/about.dark.webp)
+![The about page](https://n9e.io/img/docs/operations/about.webp)![The about page](https://n9e.io/img/docs/operations/about.dark.webp)
 
 ## Labelled counters do not exist until they fire[​](#labelled-counters-do-not-exist-until-they-fire "Direct link to Labelled counters do not exist until they fire")
 
@@ -92,7 +92,7 @@ Two ways that bites:
 * using `absent(n9e_alert_rule_eval_error_total)` to mean "are there errors" — it fires permanently while everything is fine;
 * thresholding an error counter without `rate()` — it steps from nothing to something the first time it appears.
 
-The reliable approach is to judge on a metric that is **always present**, such as the growth rate of `n9e_alert_rule_eval_total`. Concrete rules are in [Monitor Nightingale itself](https://n9e.github.io/docs/operations/self-monitoring.md).
+The reliable approach is to judge on a metric that is **always present**, such as the growth rate of `n9e_alert_rule_eval_total`. Concrete rules are in [Monitor Nightingale itself](https://n9e.io/docs/operations/self-monitoring.md).
 
 ## Closing these endpoints down[​](#closing-these-endpoints-down "Direct link to Closing these endpoints down")
 
@@ -104,7 +104,7 @@ Neither `/metrics` nor `/api/debug/pprof/*` requires authentication, and they sh
 
 ## Related[​](#related "Direct link to Related")
 
-* [Monitor Nightingale itself](https://n9e.github.io/docs/operations/self-monitoring.md)
-* [Logs and diagnostic bundles](https://n9e.github.io/docs/operations/diagnostics.md)
-* [High availability and failure domains](https://n9e.github.io/docs/operations/high-availability.md)
-* [Ports and network flows](https://n9e.github.io/docs/reference/ports.md)
+* [Monitor Nightingale itself](https://n9e.io/docs/operations/self-monitoring.md)
+* [Logs and diagnostic bundles](https://n9e.io/docs/operations/diagnostics.md)
+* [High availability and failure domains](https://n9e.io/docs/operations/high-availability.md)
+* [Ports and network flows](https://n9e.io/docs/reference/ports.md)

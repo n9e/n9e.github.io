@@ -69,10 +69,10 @@ Two things that catch people out:
 ## Two other kinds of sharing, with different properties[​](#two-other-kinds-of-sharing-with-different-properties "Direct link to Two other kinds of sharing, with different properties")
 
 * **Temporary chart link.** The chart in the Metrics explorer has a share icon; it stores the current query as a temporary chart and gives you a `/chart/<id>` link that opens without login (it relies on `PromQuerier` under `[Center.AnonymousAccess]`, on by default). **It has no expiry and no revoke.** Fine as a replacement for a screenshot; not a controlled way to expose data.
-* **Alert event detail sharing.** An event detail page can issue its own time-limited link (7 days by default) with the same mechanism, but it shares one event rather than a dashboard. See [Active and historical events](https://n9e.github.io/docs/events/active-historical.md).
+* **Alert event detail sharing.** An event detail page can issue its own time-limited link (7 days by default) with the same mechanism, but it shares one event rather than a dashboard. See [Active and historical events](https://n9e.io/docs/events/active-historical.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Embedding all of Nightingale into another system rather than sharing one board: [Share, embed and integrate external systems](https://n9e.github.io/docs/query/embedding.md)
-* Configuring the variables on the board: [Variables and filters](https://n9e.github.io/docs/query/variables.md)
-* Who is allowed to edit the board: [Business groups](https://n9e.github.io/docs/concepts/business-groups.md)
+* Embedding all of Nightingale into another system rather than sharing one board: [Share, embed and integrate external systems](https://n9e.io/docs/query/embedding.md)
+* Configuring the variables on the board: [Variables and filters](https://n9e.io/docs/query/variables.md)
+* Who is allowed to edit the board: [Business groups](https://n9e.io/docs/concepts/business-groups.md)

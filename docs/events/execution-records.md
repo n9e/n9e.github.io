@@ -8,7 +8,7 @@ Where this page ends: you can answer whether a given event entered a workflow, w
 
 Entry point: **Alerts & Notifications → Workflows**, then the **Execution history** tab (`/event-pipelines-executions`). Opening executions from a single workflow's row is the same table with that workflow pre-filtered.
 
-![Execution records](https://n9e.github.io/img/docs/events/pipeline-executions.webp)![Execution records](https://n9e.github.io/img/docs/events/pipeline-executions.dark.webp)
+![Execution records](https://n9e.io/img/docs/events/pipeline-executions.webp)![Execution records](https://n9e.io/img/docs/events/pipeline-executions.dark.webp)
 
 ## Widen the time range first[​](#widen-the-time-range-first "Direct link to Widen the time range first")
 
@@ -51,7 +51,7 @@ There are no node results after the node that dropped the event — later proces
 ## Three problems this diagnoses[​](#three-problems-this-diagnoses "Direct link to Three problems this diagnoses")
 
 * **"The workflow does nothing"**: check whether there are records at all. None means events are not entering it — usually the **Scope** labels or attributes do not match, or no rule references the workflow.
-* **"I rewrote a label but the notification is unchanged"**: find that event's record and read the label-rewrite diff. If the diff is right and the message is not, the problem is the template — see [Message templates](https://n9e.github.io/docs/notifications/templates.md).
+* **"I rewrote a label but the notification is unchanged"**: find that event's record and read the label-rewrite diff. If the diff is right and the message is not, the problem is the template — see [Message templates](https://n9e.io/docs/notifications/templates.md).
 * **"The event just vanished"**: search its event id and see whether an event-drop processor ate it. The status will be Success, with `terminated at node` in the message.
 
 ## Where records come from, and how long they stay[​](#where-records-come-from-and-how-long-they-stay "Direct link to Where records come from, and how long they stay")
@@ -60,10 +60,10 @@ There are no node results after the node that dropped the event — later proces
 * **A whole-workflow test run** also writes one, with trigger mode API and your username as the trigger;
 * **A single-processor test run writes nothing** — it does not go through the workflow engine.
 
-Records are cleaned up automatically: a daily 06:00 job deletes anything older than `[Center] CleanPipelineExecutionDay`, in batches of 100 to spare the database. **The key ships commented out and the fallback is 7 days**, so leaving it alone gives you a week of history, not forever. There is also an admin-only cleanup endpoint with no UI entry point. On an instance where workflows run often, include this table's growth in [Capacity planning](https://n9e.github.io/docs/operations/capacity.md).
+Records are cleaned up automatically: a daily 06:00 job deletes anything older than `[Center] CleanPipelineExecutionDay`, in batches of 100 to spare the database. **The key ships commented out and the fallback is 7 days**, so leaving it alone gives you a week of history, not forever. There is also an admin-only cleanup endpoint with no UI entry point. On an instance where workflows run often, include this table's growth in [Capacity planning](https://n9e.io/docs/operations/capacity.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Validate before going live: [Try a workflow with a mock event](https://n9e.github.io/docs/events/try-workflow.md)
-* How the workflow itself is configured: [Event pipelines](https://n9e.github.io/docs/events/pipelines.md)
-* Tests fine but does nothing live: [A workflow tests fine but does nothing in production](https://n9e.github.io/docs/troubleshooting/workflow-prod-fails.md)
+* Validate before going live: [Try a workflow with a mock event](https://n9e.io/docs/events/try-workflow.md)
+* How the workflow itself is configured: [Event pipelines](https://n9e.io/docs/events/pipelines.md)
+* Tests fine but does nothing live: [A workflow tests fine but does nothing in production](https://n9e.io/docs/troubleshooting/workflow-prod-fails.md)

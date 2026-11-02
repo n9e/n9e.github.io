@@ -9,12 +9,12 @@ By the end of this page, MySQL runtime metrics will be collected, and you will k
 ## Choose the intended use[​](#choose "Direct link to Choose the intended use")
 
 * **MySQL performance monitoring**: a collector reads server status and writes metrics to a TSDB.
-* **Business-SQL alerts**: Nightingale queries the business database directly, for example for failed-order counts. See [SQL datasources](https://n9e.github.io/docs/data/sql-databases.md).
-* **Nightingale metadata database**: stores users and rules. See [Database deployment](https://n9e.github.io/docs/install/databases.md). It does not automatically provide either monitoring path.
+* **Business-SQL alerts**: Nightingale queries the business database directly, for example for failed-order counts. See [SQL datasources](https://n9e.io/docs/data/sql-databases.md).
+* **Nightingale metadata database**: stores users and rules. See [Database deployment](https://n9e.io/docs/install/databases.md). It does not automatically provide either monitoring path.
 
 ## Configure collection[​](#configure "Direct link to Configure collection")
 
-First [install and register Categraf](https://n9e.github.io/docs/data/categraf/install.md). Create a monitoring account reachable from the collector, then edit `conf/input.mysql/mysql.toml`:
+First [install and register Categraf](https://n9e.io/docs/data/categraf/install.md). Create a monitoring account reachable from the collector, then edit `conf/input.mysql/mysql.toml`:
 
 ```
 [[instances]]
@@ -58,5 +58,5 @@ Order counts and failed jobs are not MySQL server-status metrics. Use custom SQL
 
 ## Next[​](#next "Direct link to Next")
 
-* [Input plugins](https://n9e.github.io/docs/data/categraf/plugins.md)
-* [SQL alert rules](https://n9e.github.io/docs/alerting/sql-rules.md)
+* [Input plugins](https://n9e.io/docs/data/categraf/plugins.md)
+* [SQL alert rules](https://n9e.io/docs/alerting/sql-rules.md)

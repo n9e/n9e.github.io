@@ -2,7 +2,7 @@
 
 Embeds the mongodb\_exporter collector for connections, op counters, replica set and sharding state; the dashboards need the compatible metric names turned on.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The MongoDB input wraps Percona's mongodb\_exporter and collects connections, op counters, queues, WiredTiger cache, replica set member state and oplog window via `serverStatus`, `replSetGetStatus` and related commands. For sharded clusters, the `mongodb_cluster` input collects from the mongos side.
 
@@ -16,7 +16,7 @@ The bundled dashboards are written against the 0.1x-compatible metric names such
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md) and enable the plugins you need. Each config goes in its own `conf/input.<plugin>/` directory; fill in addresses and credentials, then restart Categraf.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md) and enable the plugins you need. Each config goes in its own `conf/input.<plugin>/` directory; fill in addresses and credentials, then restart Categraf.
 
    `conf/input.mongodb/mongodb.toml`
 
@@ -246,9 +246,9 @@ The bundled dashboards are written against the 0.1x-compatible metric names such
    # compatible_mode = true
    ```
 
-2. Open the integration center in Nightingale, find MongoDB, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find MongoDB, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -258,7 +258,7 @@ The bundled dashboards are written against the 0.1x-compatible metric names such
 
 ## Bundled alert rules[​](#bundled-alert-rules "Direct link to Bundled alert rules")
 
-8 rules, disabled on import so you can enable them one by one with your own thresholds. The PromQL condition and runbook steps for every rule are in the alert rule library: [MongoDB alert rules](https://n9e.github.io/alert-rules/mongodb.md).
+8 rules, disabled on import so you can enable them one by one with your own thresholds. The PromQL condition and runbook steps for every rule are in the alert rule library: [MongoDB alert rules](https://n9e.io/alert-rules/mongodb.md).
 
 | Rule                                                               | Severity    | For |
 | ------------------------------------------------------------------ | ----------- | --- |
@@ -275,6 +275,6 @@ The bundled dashboards are written against the 0.1x-compatible metric names such
 
 * [MongoDB template source](https://github.com/ccfos/nightingale/tree/main/integrations/MongoDB): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `mongodb` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/mongodb): every config option and the full metric list.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

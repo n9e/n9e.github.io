@@ -12,7 +12,7 @@ curl http://n9e:17000/metrics
 
 Controlled by `[HTTP] ExposeMetrics`, which is on by default.
 
-**An alerting system that is down will not alert you about being down**, so these should be scraped by your monitoring and have rules on them — see [Monitor Nightingale itself](https://n9e.github.io/docs/operations/self-monitoring.md).
+**An alerting system that is down will not alert you about being down**, so these should be scraped by your monitoring and have rules on them — see [Monitor Nightingale itself](https://n9e.io/docs/operations/self-monitoring.md).
 
 ## The handful to watch first[​](#the-handful-to-watch-first "Direct link to The handful to watch first")
 

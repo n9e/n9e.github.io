@@ -2,7 +2,7 @@
 
 Collects connections, waits, buffer pool, log usage and database state from DMVs and performance counters; VIEW SERVER STATE is all the permission it needs.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The SQL Server input is based on the Telegraf plugin of the same name and reads dynamic management views (DMVs) and performance counters: connections and requests, wait statistics, buffer cache hit ratio, page life expectancy, transaction log usage, database state and size, and Always On availability group health. It has been verified against SQL Server 2022.
 
@@ -16,7 +16,7 @@ Create a login in master and grant `VIEW SERVER STATE` and `VIEW ANY DEFINITION`
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.sqlserver/sqlserver.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.sqlserver started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.sqlserver/sqlserver.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.sqlserver started` once the plugin is loaded.
 
    ```
    # # collect interval
@@ -208,9 +208,9 @@ Create a login in master and grant `VIEW SERVER STATE` and `VIEW ANY DEFINITION`
    ## - PerformanceMetrics
    ```
 
-2. Open the integration center in Nightingale, find SQLServer, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find SQLServer, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -391,6 +391,6 @@ Runbook:
 
 * [SQLServer template source](https://github.com/ccfos/nightingale/tree/main/integrations/SQLServer): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `sqlserver` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/sqlserver): every config option and the full metric list.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

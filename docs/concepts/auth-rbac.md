@@ -10,7 +10,7 @@ There are only two layers to the permission model, but many people only see one 
 
 **Layer one: roles decide which pages and endpoints you can reach.** Three are built in: `Admin`, `Standard`, `Guest`. Roles attach to a user, and a user can hold several. A role is a set of permission points such as `/alert-rules/add` or `/metric/explorer`.
 
-**Layer two: business-group membership decides which data you can act on.** Users belong to teams; teams are members of business groups with a read/write flag. See [Business groups](https://n9e.github.io/docs/concepts/business-groups.md).
+**Layer two: business-group membership decides which data you can act on.** Users belong to teams; teams are members of business groups with a read/write flag. See [Business groups](https://n9e.io/docs/concepts/business-groups.md).
 
 The two are combined with **AND**:
 
@@ -42,7 +42,7 @@ In practice that means a token for an AI client or an automation script should b
 
 OIDC, OAuth2, LDAP and CAS are supported, as are DingTalk and Feishu QR login. Configure them under **System → SSO**.
 
-With SSO in place, a user is created on first login, with a configurable default role. External group structures can be mapped onto Nightingale roles — see [SSO / external identity integration](https://n9e.github.io/docs/security/sso.md).
+With SSO in place, a user is created on first login, with a configurable default role. External group structures can be mapped onto Nightingale roles — see [SSO / external identity integration](https://n9e.io/docs/security/sso.md).
 
 Reverse-proxy authentication (`[HTTP.ProxyAuth]`) is also available: a gateway in front does the authenticating and passes the username in a header. **Turning it on disables JWT login** — so it is either all through the gateway or all through Nightingale's own login, not a mix.
 
@@ -54,11 +54,11 @@ Worth doing in production:
 
 * one token per purpose (this one for CI, that one for the AI client), so an incident is traceable;
 * revoke individually when someone leaves or a token leaks, instead of rotating everyone's;
-* rotate on a schedule — see [Tokens and credential rotation](https://n9e.github.io/docs/security/tokens.md).
+* rotate on a schedule — see [Tokens and credential rotation](https://n9e.io/docs/security/tokens.md).
 
 ## Related[​](#related "Direct link to Related")
 
-* [Roles and permission matrix](https://n9e.github.io/docs/security/roles.md)
-* [Users and teams](https://n9e.github.io/docs/security/users-teams.md)
-* [Permission matrix (full list)](https://n9e.github.io/docs/reference/permissions.md)
-* [Permission inheritance for MCP](https://n9e.github.io/docs/ai/permissions.md)
+* [Roles and permission matrix](https://n9e.io/docs/security/roles.md)
+* [Users and teams](https://n9e.io/docs/security/users-teams.md)
+* [Permission matrix (full list)](https://n9e.io/docs/reference/permissions.md)
+* [Permission inheritance for MCP](https://n9e.io/docs/ai/permissions.md)

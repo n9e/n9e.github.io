@@ -2,13 +2,13 @@
 
 Prometheus 告警 PrometheusBadConfig 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 最近一次重载 Prometheus 配置失败。Prometheus 会继续用旧配置运行，所以不会立刻出问题；但此后的所有改动（新的采集目标、新的规则文件、新的 Alertmanager 配置）都没有生效。如果配置文件一直是坏的，下次重启时 Prometheus 可能起不来。
 
 * **级别**：紧急（`critical`）
 * **持续**：10 分钟
-* 属于 [Prometheus 告警规则](https://n9e.github.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
+* 属于 [Prometheus 告警规则](https://n9e.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
 
 ## 规则[​](#规则 "规则的直接链接")
 
@@ -47,13 +47,13 @@ max_over_time(prometheus_config_last_reload_successful{job="prometheus-k8s",name
 
 ## 相关告警[​](#相关告警 "相关告警的直接链接")
 
-* [PrometheusRuleFailures](https://n9e.github.io/zh/alert-rules/prometheus/prometheusrulefailures.md)：Prometheus …/… has failed to evaluate … rules in the last 5m.
-* [PrometheusOperatorRejectedResources](https://n9e.github.io/zh/alert-rules/prometheus/prometheusoperatorrejectedresources.md)：Prometheus operator in … namespace rejected … …/… resources.
-* [PrometheusOperatorReconcileErrors](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheusoperatorreconcileerrors)：… of reconciling operations failed for … controller in … namespace.
+* [PrometheusRuleFailures](https://n9e.io/zh/alert-rules/prometheus/prometheusrulefailures.md)：Prometheus …/… has failed to evaluate … rules in the last 5m.
+* [PrometheusOperatorRejectedResources](https://n9e.io/zh/alert-rules/prometheus/prometheusoperatorrejectedresources.md)：Prometheus operator in … namespace rejected … …/… resources.
+* [PrometheusOperatorReconcileErrors](https://n9e.io/zh/alert-rules/prometheus.md#prometheusoperatorreconcileerrors)：… of reconciling operations failed for … controller in … namespace.
 
 ## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
 
-加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.github.io/zh/alert-rules/prometheus.yml)。
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.io/zh/alert-rules/prometheus.yml)。
 
 ```
 - alert: PrometheusBadConfig
@@ -76,10 +76,10 @@ max_over_time(prometheus_config_last_reload_successful{job="prometheus-k8s",name
 
     summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to reload its configuration."
 
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusbadconfig"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheusbadconfig"
 ```
 
-**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 

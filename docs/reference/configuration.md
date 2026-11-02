@@ -17,7 +17,7 @@ N9E_CONFIGS=/etc/n9e ./n9e
 ## Sections with conditions attached[​](#sections-with-conditions-attached "Direct link to Sections with conditions attached")
 
 * **`[EmbeddedTSDB]` is handled by Center only.** `n9e-edge`, `n9e-alert` and `n9e-pushgw` read the same `etc` directory and ignore this section.
-* **`[DB] DBType = "sqlite"` and `[Redis] RedisType = "miniredis"` are testing defaults.** miniredis is an in-process stand-in that several instances cannot share. Production needs the real thing — see [Choosing a metadata database](https://n9e.github.io/docs/install/databases.md).
+* **`[DB] DBType = "sqlite"` and `[Redis] RedisType = "miniredis"` are testing defaults.** miniredis is an in-process stand-in that several instances cannot share. Production needs the real thing — see [Choosing a metadata database](https://n9e.io/docs/install/databases.md).
 * **Turning on `[HTTP.ProxyAuth]` disables JWT login entirely**; it is a one-way switch.
 * Lines starting with `#` are often **commented-out examples of keys**, not prose. The table marks those as "commented out by default".
 

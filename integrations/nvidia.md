@@ -2,7 +2,7 @@
 
 Two ways to collect NVIDIA GPUs: nvidia-smi is light and usually enough, DCGM gives more; dashboards cover a fleet overview, single cards and training jobs.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 There are two collection paths for NVIDIA GPUs. The `nvidia_smi` input runs the local `nvidia-smi` command and parses its output, so nothing else needs installing; utilization, memory, temperature, power and clocks are all there, and remote hosts can be reached over SSH. The `dcgm` input talks to NVIDIA DCGM for finer metrics such as SM activity, NVLink traffic and XID errors, but needs the with-cgo-plugin build of Categraf and DCGM on the host.
 
@@ -17,7 +17,7 @@ The dashboards are written for each metric family: a fleet overview, per-card de
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md) and enable the plugins you need. Each config goes in its own `conf/input.<plugin>/` directory; fill in addresses and credentials, then restart Categraf.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md) and enable the plugins you need. Each config goes in its own `conf/input.<plugin>/` directory; fill in addresses and credentials, then restart Categraf.
 
    `conf/input.dcgm/dcgm.toml`
 
@@ -145,9 +145,9 @@ The dashboards are written for each metric family: a fleet overview, per-card de
    query_field_names = "AUTO"
    ```
 
-2. Open the integration center in Nightingale, find NVIDIA, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find NVIDIA, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -243,6 +243,6 @@ Runbook:
 * [NVIDIA template source](https://github.com/ccfos/nightingale/tree/main/integrations/NVIDIA): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `dcgm` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/dcgm): every config option and the full metric list.
 * [Categraf `nvidia_smi` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/nvidia_smi): every config option and the full metric list.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

@@ -79,7 +79,7 @@ RetentionDuration = "15d"
 MaxBytes = "10GiB"
 ```
 
-This section **only exists in the new `etc/config.toml`**, so carrying your old config file over leaves it off — that is the single reason for "I replaced the binary and the embedded TSDB did nothing". It is **handled by the center process only**; `n9e-edge` / `n9e-alert` / `n9e-pushgw` ignore it and log a warning. Data lives on the local disk of **that one center instance**, so it fits single-instance deployments; with several replicas, stay on an external store. See [Embedded TSDB and external storage](https://n9e.github.io/docs/concepts/storage.md).
+This section **only exists in the new `etc/config.toml`**, so carrying your old config file over leaves it off — that is the single reason for "I replaced the binary and the embedded TSDB did nothing". It is **handled by the center process only**; `n9e-edge` / `n9e-alert` / `n9e-pushgw` ignore it and log a warning. Data lives on the local disk of **that one center instance**, so it fits single-instance deployments; with several replicas, stay on an external store. See [Embedded TSDB and external storage](https://n9e.io/docs/concepts/storage.md).
 
 ### Evaluation records: on unless you turn them off[​](#evaluation-records-on-unless-you-turn-them-off "Direct link to Evaluation records: on unless you turn them off")
 
@@ -95,7 +95,7 @@ This section **only exists in the new `etc/config.toml`**, so carrying your old 
 # MaxDiskGB = 20
 ```
 
-This section is **commented out** in the new config file because the code's own defaults already enable it. In other words: change nothing and it still writes to disk. Uncomment these lines only to shorten retention or switch it off. What they are for: [Evaluation records](https://n9e.github.io/docs/alerting/execution-records.md).
+This section is **commented out** in the new config file because the code's own defaults already enable it. In other words: change nothing and it still writes to disk. Uncomment these lines only to shorten retention or switch it off. What they are for: [Evaluation records](https://n9e.io/docs/alerting/execution-records.md).
 
 ### One more if you run telegraf[​](#one-more-if-you-run-telegraf "Direct link to One more if you run telegraf")
 
@@ -115,12 +115,12 @@ v9 reorganised the menu. Coming from v8, these are the entries people cannot fin
 
 ## Behaviour changes that affect scripts and queries[​](#behaviour-changes-that-affect-scripts-and-queries "Direct link to Behaviour changes that affect scripts and queries")
 
-| Change                                                    | Consequence                                                                                                                                                                                                                                       |
-| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `target.update_at` is **no longer the heartbeat time**    | The heartbeat is written only to Redis (key `n9e_meta_update_time_<ident>`); read `beat_time` from the API instead. Judging liveness by `update_at` now marks everything offline                                                                  |
-| Subscription rules' redefined severity / media / callback | On the new notification version these are cleared on save (along with the authorized teams). Express them through the notification rules the subscription selects — see [Alert subscriptions](https://n9e.github.io/docs/events/subscriptions.md) |
-| The alert rule's top-level `prom_ql`                      | Always an empty string; the query lives in `rule_config.queries[].prom_ql`. Anything parsing rule JSON must read the latter                                                                                                                       |
-| `prom_for_duration`                                       | Marked `Deprecated` in the source, but it is **still the only implementation of the for-duration**. Do not strip it                                                                                                                               |
+| Change                                                    | Consequence                                                                                                                                                                                                                                |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `target.update_at` is **no longer the heartbeat time**    | The heartbeat is written only to Redis (key `n9e_meta_update_time_<ident>`); read `beat_time` from the API instead. Judging liveness by `update_at` now marks everything offline                                                           |
+| Subscription rules' redefined severity / media / callback | On the new notification version these are cleared on save (along with the authorized teams). Express them through the notification rules the subscription selects — see [Alert subscriptions](https://n9e.io/docs/events/subscriptions.md) |
+| The alert rule's top-level `prom_ql`                      | Always an empty string; the query lives in `rule_config.queries[].prom_ql`. Anything parsing rule JSON must read the latter                                                                                                                |
+| `prom_for_duration`                                       | Marked `Deprecated` in the source, but it is **still the only implementation of the for-duration**. Do not strip it                                                                                                                        |
 
 The three-layer notification model — notification rules plus media types plus message templates — **arrived in v8**, not v9, so a v8 configuration carries over as-is. What v9 changed is the media type management UI, not the data model.
 
@@ -129,7 +129,7 @@ The three-layer notification model — notification rules plus media types plus 
 1. **Read the startup log.** Search for `failed to migrate table`. That line means a table was not altered, almost always a permissions problem — apply `migrate.sql` by hand as above.
 2. **Check the version.** **System → About** shows the frontend and backend versions separately; both should be v9.
 3. **Check the host list.** Heartbeat times under **Infrastructure → Hosts** should be ticking over. If they are not, check Redis connectivity first.
-4. **Run a test fire.** Pick an existing alert rule and [test fire](https://n9e.github.io/docs/alerting/test-fire.md) it, checking every stage — query, threshold, event, notification. It is the fastest way to prove the whole chain at once.
+4. **Run a test fire.** Pick an existing alert rule and [test fire](https://n9e.io/docs/alerting/test-fire.md) it, checking every stage — query, threshold, event, notification. It is the fastest way to prove the whole chain at once.
 5. **Send a test notification.** Hit **Run test** on any notification rule to confirm the media config survived the upgrade.
 
 ## Rolling back[​](#rolling-back "Direct link to Rolling back")
@@ -145,5 +145,5 @@ Across major versions (v6 straight to v9, say) the project recommends stepping t
 
 ## Next[​](#next "Direct link to Next")
 
-* What changed in each release: [Release notes](https://n9e.github.io/docs/help/release-notes.md)
-* What has been deprecated: [Deprecations and EOL policy](https://n9e.github.io/docs/help/deprecations.md)
+* What changed in each release: [Release notes](https://n9e.io/docs/help/release-notes.md)
+* What has been deprecated: [Deprecations and EOL policy](https://n9e.io/docs/help/deprecations.md)

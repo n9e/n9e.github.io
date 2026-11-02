@@ -10,21 +10,21 @@
 
 两者都是 Go 写的 MIT 协议采集器，夜莺都能接收。实际使用中要看的差别：
 
-|                  | Telegraf                                                                | Categraf                                                                                                              |
-| ---------------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| 插件             | 300+ 输入插件，另有处理器和大量输出插件                                 | 90+ 输入插件，覆盖操作系统、数据库、中间件、网络设备和 Kubernetes                                                     |
-| 怎么写入夜莺     | `outputs.http` 加 `data_format = "prometheusremotewrite"`（配置见下文） | 默认就是 Prometheus Remote Write                                                                                      |
-| 夜莺的主机列表   | 不发送夜莺的心跳                                                        | 每 10 秒发送一次带主机元数据的[心跳](https://n9e.github.io/zh/docs/data/categraf/targets.md)，填充「基础设施 → 主机」 |
-| 内置仪表盘和规则 | 少数模板带 Telegraf 规则组（例如 Linux）                                | 很多[集成模板](https://n9e.github.io/zh/integrations.md)带有 Categraf 规则组和 Categraf 仪表盘                        |
-| 指标名           | Telegraf 插件的命名，例如 `cpu_usage_active`                            | 部分主机插件与 Telegraf 同名，有些规则两边通用                                                                        |
+|                  | Telegraf                                                                | Categraf                                                                                                       |
+| ---------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| 插件             | 300+ 输入插件，另有处理器和大量输出插件                                 | 90+ 输入插件，覆盖操作系统、数据库、中间件、网络设备和 Kubernetes                                              |
+| 怎么写入夜莺     | `outputs.http` 加 `data_format = "prometheusremotewrite"`（配置见下文） | 默认就是 Prometheus Remote Write                                                                               |
+| 夜莺的主机列表   | 不发送夜莺的心跳                                                        | 每 10 秒发送一次带主机元数据的[心跳](https://n9e.io/zh/docs/data/categraf/targets.md)，填充「基础设施 → 主机」 |
+| 内置仪表盘和规则 | 少数模板带 Telegraf 规则组（例如 Linux）                                | 很多[集成模板](https://n9e.io/zh/integrations.md)带有 Categraf 规则组和 Categraf 仪表盘                        |
+| 指标名           | Telegraf 插件的命名，例如 `cpu_usage_active`                            | 部分主机插件与 Telegraf 同名，有些规则两边通用                                                                 |
 
-**继续用 Telegraf**：已经部署好，或依赖 Categraf 没有的插件。夜莺的告警功能不要求换采集器。**选 Categraf**：新主机想直接用上主机列表，以及内置的仪表盘和[告警规则](https://n9e.github.io/zh/alert-rules.md)，不必改写指标名。迁移期间两者可以并存。
+**继续用 Telegraf**：已经部署好，或依赖 Categraf 没有的插件。夜莺的告警功能不要求换采集器。**选 Categraf**：新主机想直接用上主机列表，以及内置的仪表盘和[告警规则](https://n9e.io/zh/alert-rules.md)，不必改写指标名。迁移期间两者可以并存。
 
 ## 开始之前[​](#before-you-start "开始之前的直接链接")
 
 * 夜莺已启动，Telegraf 所在机器能访问 `http://<夜莺地址>:17000`。
 * `[HTTP.APIForAgent]` 的 `Enable` 为 `true`。
-* 已确认使用[内置时序库](https://n9e.github.io/zh/docs/install/embedded-tsdb.md)，或正确配置了[外置写入目标](https://n9e.github.io/zh/docs/install/external-tsdb.md)。
+* 已确认使用[内置时序库](https://n9e.io/zh/docs/install/embedded-tsdb.md)，或正确配置了[外置写入目标](https://n9e.io/zh/docs/install/external-tsdb.md)。
 
 用现有 Telegraf 安装即可。新安装参考 [Telegraf 官方安装说明](https://docs.influxdata.com/telegraf/v1/install/)，不要继续使用旧文里的 1.20.4 下载脚本。
 
@@ -94,5 +94,5 @@ Telegraf 不会上报 Categraf 的 heartbeat 元信息；看到时序数据，�
 
 ## 下一步[​](#next "下一步的直接链接")
 
-* [数据写入协议](https://n9e.github.io/zh/docs/reference/write-protocols.md)
-* [创建第一条告警](https://n9e.github.io/zh/docs/alerting/first-rule.md)
+* [数据写入协议](https://n9e.io/zh/docs/reference/write-protocols.md)
+* [创建第一条告警](https://n9e.io/zh/docs/alerting/first-rule.md)

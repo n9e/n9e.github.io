@@ -2,13 +2,13 @@
 
 What the PrometheusOperatorRejectedResources Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The Prometheus Operator rejected one or more monitoring resources (ServiceMonitor, PodMonitor, Probe, PrometheusRule, AlertmanagerConfig) and left them out of the generated configuration. The resources still exist in the cluster and `kubectl apply` succeeded, but the targets they describe are not scraped and the rules they contain are not loaded. Nothing else tells you this has happened.
 
 * **Severity**: Warning (`warning`)
 * **Fires after**: 5m
-* Part of the [Prometheus alert rules](https://n9e.github.io/alert-rules/prometheus.md) (`prometheus.yml`)
+* Part of the [Prometheus alert rules](https://n9e.io/alert-rules/prometheus.md) (`prometheus.yml`)
 
 ## The rule[​](#the-rule "Direct link to The rule")
 
@@ -43,13 +43,13 @@ Alert message: `Prometheus operator in {{ $labels.namespace }} namespace rejecte
 
 ## Related alerts[​](#related-alerts "Direct link to Related alerts")
 
-* [PrometheusOperatorReconcileErrors](https://n9e.github.io/alert-rules/prometheus.md#prometheusoperatorreconcileerrors): … of reconciling operations failed for … controller in … namespace.
-* [PrometheusOperatorSyncFailed](https://n9e.github.io/alert-rules/prometheus.md#prometheusoperatorsyncfailed): Controller … in … namespace fails to reconcile … objects.
-* [PrometheusBadConfig](https://n9e.github.io/alert-rules/prometheus/prometheusbadconfig.md): Prometheus …/… has failed to reload its configuration.
+* [PrometheusOperatorReconcileErrors](https://n9e.io/alert-rules/prometheus.md#prometheusoperatorreconcileerrors): … of reconciling operations failed for … controller in … namespace.
+* [PrometheusOperatorSyncFailed](https://n9e.io/alert-rules/prometheus.md#prometheusoperatorsyncfailed): Controller … in … namespace fails to reconcile … objects.
+* [PrometheusBadConfig](https://n9e.io/alert-rules/prometheus/prometheusbadconfig.md): Prometheus …/… has failed to reload its configuration.
 
 ## Prometheus rule YAML[​](#prometheus-rule-yaml "Direct link to Prometheus rule YAML")
 
-Add this to a rules file loaded through `rule_files`, or download every Prometheus rule at once as [`prometheus.yml`](https://n9e.github.io/alert-rules/prometheus.yml).
+Add this to a rules file loaded through `rule_files`, or download every Prometheus rule at once as [`prometheus.yml`](https://n9e.io/alert-rules/prometheus.yml).
 
 ```
 - alert: PrometheusOperatorRejectedResources
@@ -68,10 +68,10 @@ Add this to a rules file loaded through `rule_files`, or download every Promethe
 
     summary: "Prometheus operator in {{ $labels.namespace }} namespace rejected {{ printf \"%0.0f\" $value }} {{ $labels.controller }}/{{ $labels.resource }} resources."
 
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusoperatorrejectedresources"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheusoperatorrejectedresources"
 ```
 
-**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.github.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
+**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 

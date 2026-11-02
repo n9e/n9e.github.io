@@ -8,7 +8,7 @@ November 1, 2026 ·
 
 Eric Qin
 
-![From Zabbix hosts, items and triggers to Prometheus targets, metrics and one alert rule covering every host](https://n9e.github.io/assets/images/zabbix-to-prometheus-ab76e9ac8ebf08826765513529b49986.webp)
+![From Zabbix hosts, items and triggers to Prometheus targets, metrics and one alert rule covering every host](https://n9e.io/assets/images/zabbix-to-prometheus-ab76e9ac8ebf08826765513529b49986.webp)
 
 Moving from Zabbix to Prometheus is not a data migration. There is no export file that turns into rule files, and no tool that converts triggers into PromQL. The two systems model monitoring differently. Most of the work is translating concepts, then rebuilding a smaller set of rules on top of them.
 
@@ -98,7 +98,7 @@ Zabbix stays up and keeps paging people until the very last step. Each step can 
 
 1. **Deploy exporters next to the Zabbix agents.** Start with one group of hosts. Leave the agents installed. *Check*: the targets are `up` in Prometheus.
 2. **Pick the storage you will keep.** A single Prometheus for a start; a pair and a long-term store if you need HA or longer retention. Decide now, because changing stores later is a project of its own.
-3. **Import existing rule sets instead of porting templates.** The community rules for node\_exporter, MySQL, Redis, Kubernetes and others cover most of what stock Zabbix templates do. Our [alert rule library](https://n9e.github.io/alert-rules.md) has them as downloadable rule files, each with a runbook.
+3. **Import existing rule sets instead of porting templates.** The community rules for node\_exporter, MySQL, Redis, Kubernetes and others cover most of what stock Zabbix templates do. Our [alert rule library](https://n9e.io/alert-rules.md) has them as downloadable rule files, each with a runbook.
 4. **Port the custom triggers, merged.** List your custom triggers, group them by item and threshold, and write one rule per group. Use labels for the exceptions.
 5. **Send Prometheus alerts somewhere nobody is paged.** A dedicated channel or mailbox. Compare it with Zabbix every day: fired only in Zabbix (missed rule or metric), fired only in Prometheus (threshold typo, or a Zabbix dependency or maintenance window you forgot), fired in both at different severity.
 6. **Move notification one channel at a time.** Chat first, then email, then phone. Disable the matching Zabbix action as each channel moves, but keep Zabbix evaluating so the daily comparison continues.
@@ -110,23 +110,23 @@ Not every Zabbix setup should move. Zabbix suits fleets of long-lived hosts and 
 
 ## With Nightingale[​](#with-nightingale "Direct link to With Nightingale")
 
-[Nightingale](https://n9e.github.io/docs/migration/from-zabbix.md) sits on top of Prometheus or VictoriaMetrics as the alerting layer. It manages rules in a UI with business groups and permissions, and handles notification, muting and subscriptions, so step 6 does not require learning Alertmanager's routing tree. It does **not** import Zabbix templates or triggers; the rebuild described above still applies.
+[Nightingale](https://n9e.io/docs/migration/from-zabbix.md) sits on top of Prometheus or VictoriaMetrics as the alerting layer. It manages rules in a UI with business groups and permissions, and handles notification, muting and subscriptions, so step 6 does not require learning Alertmanager's routing tree. It does **not** import Zabbix templates or triggers; the rebuild described above still applies.
 
 Two Nightingale pages go deeper:
 
-* [From Zabbix](https://n9e.github.io/docs/migration/from-zabbix.md): every Zabbix object mapped to a Nightingale one, including the ones with no equivalent.
-* [Coexistence and rollback plan](https://n9e.github.io/docs/migration/coexistence.md): the daily comparison and channel-by-channel cutover in detail, with a rollback for each stage.
+* [From Zabbix](https://n9e.io/docs/migration/from-zabbix.md): every Zabbix object mapped to a Nightingale one, including the ones with no equivalent.
+* [Coexistence and rollback plan](https://n9e.io/docs/migration/coexistence.md): the daily comparison and channel-by-channel cutover in detail, with a rollback for each stage.
 
-If you are still choosing, see [Nightingale vs Zabbix](https://n9e.github.io/comparisons/zabbix.md).
+If you are still choosing, see [Nightingale vs Zabbix](https://n9e.io/comparisons/zabbix.md).
 
 **Tags:**
 
-* [Migration](https://n9e.github.io/blog/tags/migration.md "Moving between monitoring and alerting systems.")
-* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
-* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+* [Migration](https://n9e.io/blog/tags/migration.md "Moving between monitoring and alerting systems.")
+* [Prometheus](https://n9e.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [Alerting](https://n9e.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
 
-[Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-zabbix-to-prometheus/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fmigrate-zabbix-to-prometheus\&body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fblog%2Fmigrate-zabbix-to-prometheus%0A%0A)
+[Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-zabbix-to-prometheus/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fmigrate-zabbix-to-prometheus\&body=Page%3A%20https%3A%2F%2Fn9e.io%2Fblog%2Fmigrate-zabbix-to-prometheus%0A%0A)
 
-[Newer post](https://n9e.github.io/blog/symptom-based-alerting.md)
+[Newer post](https://n9e.io/blog/symptom-based-alerting.md)
 
-[Symptom-based alerting with Prometheus](https://n9e.github.io/blog/symptom-based-alerting.md)
+[Symptom-based alerting with Prometheus](https://n9e.io/blog/symptom-based-alerting.md)

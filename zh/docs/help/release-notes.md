@@ -47,7 +47,7 @@
 2. **同步更新文件。** 替换二进制和 `integrations` 目录；需要新增语言的指标说明时，同时替换 `etc/metrics.yaml`。保留现有连接配置后重启；使用 `n9e-edge` / `n9e-pushgw` 的一起升级。 预期结果：相关进程正常启动，新集成模板可见。
 3. **按部署方式选择指标存储。** 如果希望启用内置时序库，需要把 [v9.2.0 配置](https://github.com/ccfos/nightingale/blob/v9.2.0/etc/config.toml) 中的 `[EmbeddedTSDB]` 段合入旧配置；只替换二进制不会开启它。它只适合小规模单 Center， 多 Center 部署继续使用外部时序库。预期结果：现有数据源查询、仪表盘和告警规则仍能取得数据。
 
-从 v8 升级时，还需按 [v8 升级 v9](https://n9e.github.io/zh/docs/migration/v8-to-v9.md)处理 Redis、telegraf 写入参数等兼容事项， 并完成其中的验证和回退准备。
+从 v8 升级时，还需按 [v8 升级 v9](https://n9e.io/zh/docs/migration/v8-to-v9.md)处理 Redis、telegraf 写入参数等兼容事项， 并完成其中的验证和回退准备。
 
 ## 读发布说明时重点看三段[​](#读发布说明时重点看三段 "读发布说明时重点看三段的直接链接")
 
@@ -63,9 +63,9 @@ GitHub 上每篇发布说明结构是固定的，升级前至少读这三段：
 
 * **PATCH**（v9.1.0 → v9.1.1）：只修 bug，通常换二进制重启就行；
 * **MINOR**（v9.0.0 → v9.1.0）：加功能，可能带默认行为变化——v9.1.0 就是例子， 一定要读 Upgrade note；
-* **MAJOR**（v8 → v9）：有环境依赖变化和界面重排，按[迁移页](https://n9e.github.io/zh/docs/migration/v8-to-v9.md)走。
+* **MAJOR**（v8 → v9）：有环境依赖变化和界面重排，按[迁移页](https://n9e.io/zh/docs/migration/v8-to-v9.md)走。
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 升级怎么做：[v8 升级 v9](https://n9e.github.io/zh/docs/migration/v8-to-v9.md)
-* 哪些东西被弃用了：[弃用与生命周期](https://n9e.github.io/zh/docs/help/deprecations.md)
+* 升级怎么做：[v8 升级 v9](https://n9e.io/zh/docs/migration/v8-to-v9.md)
+* 哪些东西被弃用了：[弃用与生命周期](https://n9e.io/zh/docs/help/deprecations.md)

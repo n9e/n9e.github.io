@@ -10,7 +10,7 @@ Where this page ends: a working email media type, and — if you need them — S
 
 **Alerts & Notifications → Media types**, then **Email** in the type panel on the left. The open-source edition ships a media type called `Email`; edit that rather than creating a new one.
 
-![Media types](https://n9e.github.io/img/docs/notifications/media-types.webp)![Media types](https://n9e.github.io/img/docs/notifications/media-types.dark.webp)
+![Media types](https://n9e.io/img/docs/notifications/media-types.webp)![Media types](https://n9e.io/img/docs/notifications/media-types.dark.webp)
 
 The SMTP block:
 
@@ -106,10 +106,10 @@ The built-in `Aliyun SMS` / `Aliyun Voice` templates set `incident` to a single 
 | `isv.MOBILE_NUMBER_ILLEGAL` / `InvalidParameterValue.InvalidPhoneNumber`       | Wrong number format, usually a missing or duplicated `+86`                            |
 | `AuthFailure.SignatureFailure` (Tencent)                                       | Wrong key, or the server clock is more than 5 minutes off                             |
 
-Failure details live in the event's **Notification records** — see [Retries and delivery status](https://n9e.github.io/docs/notifications/delivery.md).
+Failure details live in the event's **Notification records** — see [Retries and delivery status](https://n9e.io/docs/notifications/delivery.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Chat bots instead: [DingTalk / Feishu / WeCom](https://n9e.github.io/docs/notifications/dingtalk-feishu-wecom.md)
-* Phone for S1, email for S3: [Notification rules](https://n9e.github.io/docs/notifications/rules.md)
-* Move secrets out of HTTP media types (SMTP fields do not support this): [Variables](https://n9e.github.io/docs/security/variables.md)
+* Chat bots instead: [DingTalk / Feishu / WeCom](https://n9e.io/docs/notifications/dingtalk-feishu-wecom.md)
+* Phone for S1, email for S3: [Notification rules](https://n9e.io/docs/notifications/rules.md)
+* Move secrets out of HTTP media types (SMTP fields do not support this): [Variables](https://n9e.io/docs/security/variables.md)

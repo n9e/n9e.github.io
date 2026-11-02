@@ -39,7 +39,7 @@ Stateless means every POST is self-contained, so several instances behind a load
 
 ## Check that it is up[​](#check-that-it-is-up "Direct link to Check that it is up")
 
-Generate a token first under **Profile → Token management** (see [Personal token authentication](https://n9e.github.io/docs/ai/token-auth.md)), then:
+Generate a token first under **Profile → Token management** (see [Personal token authentication](https://n9e.io/docs/ai/token-auth.md)), then:
 
 ```
 curl -s -X POST http://127.0.0.1:17000/mcp \
@@ -75,7 +75,7 @@ MCPToolsets = ["alerts", "dashboards"]
 
 There are 13 valid names: `alerts`, `targets`, `datasource`, `mutes`, `busi_groups`, `notify_rules`, `alert_subscribes`, `event_pipelines`, `users`, `metrics`, `logs`, `dashboards`, `roles`.
 
-A misspelled name is dropped with an `[MCP] ignoring unknown toolset` warning; it does **not** fall back to "everything". A whitelist made entirely of typos yields zero tools, not 74. What each toolset covers is in [Read and write toolsets](https://n9e.github.io/docs/ai/toolsets.md).
+A misspelled name is dropped with an `[MCP] ignoring unknown toolset` warning; it does **not** fall back to "everything". A whitelist made entirely of typos yields zero tools, not 74. What each toolset covers is in [Read and write toolsets](https://n9e.io/docs/ai/toolsets.md).
 
 ## Behind a reverse proxy[​](#behind-a-reverse-proxy "Direct link to Behind a reverse proxy")
 
@@ -125,6 +125,6 @@ Restart center for either to take effect.
 
 ## Next[​](#next "Direct link to Next")
 
-* Create a token and understand whom it speaks for: [Personal token authentication](https://n9e.github.io/docs/ai/token-auth.md)
-* Connect a client: [Connect Claude Code / Cursor / other clients](https://n9e.github.io/docs/ai/mcp-clients.md)
-* Turn write tools on: [Enable write tools safely](https://n9e.github.io/docs/ai/write-tools.md)
+* Create a token and understand whom it speaks for: [Personal token authentication](https://n9e.io/docs/ai/token-auth.md)
+* Connect a client: [Connect Claude Code / Cursor / other clients](https://n9e.io/docs/ai/mcp-clients.md)
+* Turn write tools on: [Enable write tools safely](https://n9e.io/docs/ai/write-tools.md)

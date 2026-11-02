@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Nightingale (n9e)</title>
-    <link>https://n9e.github.io/</link>
+    <link>https://n9e.io/</link>
     <description>Open-source alerting engine: releases and documentation updates.</description>
     <language>en</language>
-    <atom:link href="https://n9e.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://n9e.io/index.xml" rel="self" type="application/rss+xml" />
     <lastBuildDate>Fri, 30 Oct 2026 00:00:00 GMT</lastBuildDate>
     <item>
       <title>Categraf v0.5.21 released</title>
@@ -22,11 +22,11 @@
       <description>https://github.com/ccfos/nightingale/releases/tag/v9.3.0</description>
     </item>
     <item>
-      <title>Documentation has moved to n9e.github.io</title>
-      <link>https://n9e.github.io/docs</link>
-      <guid isPermaLink="false">https://n9e.github.io/docs#2026-10-10</guid>
+      <title>Documentation has moved to n9e.io</title>
+      <link>https://n9e.io/docs</link>
+      <guid isPermaLink="false">https://n9e.io/docs#2026-10-10</guid>
       <pubDate>Sat, 10 Oct 2026 00:00:00 GMT</pubDate>
-      <description>The Nightingale documentation now lives at n9e.github.io/docs. This feed only carries release announcements.</description>
+      <description>The Nightingale documentation now lives at n9e.io/docs. This feed only carries release announcements.</description>
     </item>
   </channel>
 </rss>

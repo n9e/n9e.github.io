@@ -16,7 +16,7 @@ may edit this alert rule  =  my role holds the "edit alert rule" permission poin
                              that owns the rule
 ```
 
-The model itself is in [Authentication and permissions](https://n9e.github.io/docs/concepts/auth-rbac.md); this page is the lookup table.
+The model itself is in [Authentication and permissions](https://n9e.io/docs/concepts/auth-rbac.md); this page is the lookup table.
 
 ## Three built-in roles[​](#three-built-in-roles "Direct link to Three built-in roles")
 

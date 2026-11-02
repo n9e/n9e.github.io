@@ -14,7 +14,7 @@ The AutoMigrate that `n9e` runs at every startup is additive only: it creates mi
 * "usually" is not a guarantee. A column whose meaning changed, or one that gained a NOT NULL constraint, can make the old version fail on write;
 * data the new version wrote into new tables — the configuration of new features, say — is invisible to the old version and is not migrated back.
 
-Which makes the `mysqldump` you took before upgrading **the only reliable way back**. That is why [Upgrade](https://n9e.github.io/docs/install/upgrade.md) asks for it first.
+Which makes the `mysqldump` you took before upgrading **the only reliable way back**. That is why [Upgrade](https://n9e.io/docs/install/upgrade.md) asks for it first.
 
 ## Rolling back the binary only[​](#rolling-back-the-binary-only "Direct link to Rolling back the binary only")
 
@@ -71,6 +71,6 @@ The `n9e-cli` binary in the release has exactly one purpose: migrating v5 data i
 
 ## Next[​](#next "Direct link to Next")
 
-* [Upgrade](https://n9e.github.io/docs/install/upgrade.md) — do the backup step properly and you never need this page
-* [Backup and restore](https://n9e.github.io/docs/operations/backup-restore.md) — a routine backup policy
-* [Rollback and recovery](https://n9e.github.io/docs/operations/rollback.md) — bad config pushes and corrupted databases
+* [Upgrade](https://n9e.io/docs/install/upgrade.md) — do the backup step properly and you never need this page
+* [Backup and restore](https://n9e.io/docs/operations/backup-restore.md) — a routine backup policy
+* [Rollback and recovery](https://n9e.io/docs/operations/rollback.md) — bad config pushes and corrupted databases

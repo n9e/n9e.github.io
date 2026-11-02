@@ -2,7 +2,7 @@
 
 连上 Redis 执行 INFO 采集内存、命中率、连接、慢日志和主从状态，另带 Sentinel 插件和按 redis\_exporter 写的模板。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Redis 插件连上实例执行 `INFO` 命令并解析，得到内存使用与碎片率、键空间命中率、连接数、阻塞客户端、持久化状态、主从复制状态等指标。多个实例就写多个 `[[instances]]`，建议给每个实例一个 `instance` 标签，仪表盘靠它区分。
 
@@ -16,7 +16,7 @@ Sentinel 环境另有 `redis_sentinel` 插件采集哨兵视角的主从拓扑�
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，按需启用下面的插件。每个配置放到对应的 `conf/input.<插件名>/` 目录，改好地址和凭据后重启 Categraf。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，按需启用下面的插件。每个配置放到对应的 `conf/input.<插件名>/` 目录，改好地址和凭据后重启 Categraf。
 
    `conf/input.redis/redis.toml`
 
@@ -126,9 +126,9 @@ Sentinel 环境另有 `redis_sentinel` 插件采集哨兵视角的主从拓扑�
    # insecure_skip_verify = true
    ```
 
-2. 在夜莺「集成中心」里找到 Redis，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 Redis，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -140,7 +140,7 @@ Sentinel 环境另有 `redis_sentinel` 插件采集哨兵视角的主从拓扑�
 
 ## 内置告警规则[​](#内置告警规则 "内置告警规则的直接链接")
 
-共 13 条，导入后默认停用，按自己环境的阈值逐条启用。每条规则的触发条件（PromQL）和处置步骤收录在告警规则库：[Redis 告警规则](https://n9e.github.io/zh/alert-rules/redis.md)。
+共 13 条，导入后默认停用，按自己环境的阈值逐条启用。每条规则的触发条件（PromQL）和处置步骤收录在告警规则库：[Redis 告警规则](https://n9e.io/zh/alert-rules/redis.md)。
 
 | 规则                                                      | 级别    | 持续   |
 | --------------------------------------------------------- | ------- | ------ |
@@ -163,7 +163,7 @@ Sentinel 环境另有 `redis_sentinel` 插件采集哨兵视角的主从拓扑�
 * \[Redis 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/Redis）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/Redis%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `redis` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/redis)：完整配置项和指标列表。
 * [Categraf `redis_sentinel` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/redis_sentinel)：完整配置项和指标列表。
-* [实践：监控 Redis](https://n9e.github.io/zh/docs/practice/redis.md)
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [实践：监控 Redis](https://n9e.io/zh/docs/practice/redis.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

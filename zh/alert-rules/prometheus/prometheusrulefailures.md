@@ -2,13 +2,13 @@
 
 Prometheus 告警 PrometheusRuleFailures 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Prometheus 在过去 5 分钟里有告警规则或 recording rule 求值失败。求值失败的规则不产生结果：本该触发的告警不会响，recording rule 会出现数据断档，依赖它的其它规则和仪表盘也跟着读到空值。
 
 * **级别**：紧急（`critical`）
 * **持续**：15 分钟
-* 属于 [Prometheus 告警规则](https://n9e.github.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
+* 属于 [Prometheus 告警规则](https://n9e.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
 
 ## 规则[​](#规则 "规则的直接链接")
 
@@ -43,13 +43,13 @@ increase(prometheus_rule_evaluation_failures_total{job="prometheus-k8s",namespac
 
 ## 相关告警[​](#相关告警 "相关告警的直接链接")
 
-* [PrometheusMissingRuleEvaluations](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheusmissingruleevaluations)：Prometheus …/… has missed … rule group evaluations in the last 5m.
-* [PrometheusBadConfig](https://n9e.github.io/zh/alert-rules/prometheus/prometheusbadconfig.md)：Prometheus …/… has failed to reload its configuration.
-* [PrometheusOperatorRejectedResources](https://n9e.github.io/zh/alert-rules/prometheus/prometheusoperatorrejectedresources.md)：Prometheus operator in … namespace rejected … …/… resources.
+* [PrometheusMissingRuleEvaluations](https://n9e.io/zh/alert-rules/prometheus.md#prometheusmissingruleevaluations)：Prometheus …/… has missed … rule group evaluations in the last 5m.
+* [PrometheusBadConfig](https://n9e.io/zh/alert-rules/prometheus/prometheusbadconfig.md)：Prometheus …/… has failed to reload its configuration.
+* [PrometheusOperatorRejectedResources](https://n9e.io/zh/alert-rules/prometheus/prometheusoperatorrejectedresources.md)：Prometheus operator in … namespace rejected … …/… resources.
 
 ## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
 
-加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.github.io/zh/alert-rules/prometheus.yml)。
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.io/zh/alert-rules/prometheus.yml)。
 
 ```
 - alert: PrometheusRuleFailures
@@ -68,10 +68,10 @@ increase(prometheus_rule_evaluation_failures_total{job="prometheus-k8s",namespac
 
     summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to evaluate {{ printf \"%.0f\" $value }} rules in the last 5m."
 
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusrulefailures"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheusrulefailures"
 ```
 
-**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 

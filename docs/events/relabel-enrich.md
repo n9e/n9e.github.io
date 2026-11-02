@@ -6,7 +6,7 @@ Last reviewed 2026-10-10
 
 Where this page ends: a processor that reshapes an event's labels into what you actually want, plus a way to pull information from an external system (CMDB, on-call roster, config store) onto the event.
 
-Both live inside a workflow's processors; see [Event pipelines](https://n9e.github.io/docs/events/pipelines.md) for how to create one.
+Both live inside a workflow's processors; see [Event pipelines](https://n9e.io/docs/events/pipelines.md) for how to create one.
 
 ## Rewriting labels: the event label rewrite processor[​](#rewriting-labels-the-event-label-rewrite-processor "Direct link to Rewriting labels: the event label rewrite processor")
 
@@ -123,7 +123,7 @@ Use callback to tell an external system something; use event update to change th
 
 ## Next[​](#next "Direct link to Next")
 
-* Verify a rewrite: [Try a workflow with a mock event](https://n9e.github.io/docs/events/try-workflow.md)
-* Read the before/after diff: [Inspect workflow execution records](https://n9e.github.io/docs/events/execution-records.md)
-* Make new labels change where things go: [Conditional routing](https://n9e.github.io/docs/events/routing.md)
-* Designing the labels themselves: [Labels and annotations](https://n9e.github.io/docs/concepts/labels-annotations.md)
+* Verify a rewrite: [Try a workflow with a mock event](https://n9e.io/docs/events/try-workflow.md)
+* Read the before/after diff: [Inspect workflow execution records](https://n9e.io/docs/events/execution-records.md)
+* Make new labels change where things go: [Conditional routing](https://n9e.io/docs/events/routing.md)
+* Designing the labels themselves: [Labels and annotations](https://n9e.io/docs/concepts/labels-annotations.md)

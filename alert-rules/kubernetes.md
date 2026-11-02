@@ -2,7 +2,7 @@
 
 77 ready-to-use Kubernetes alert rules in PromQL, each with severity, duration and runbook steps. Metrics from kube-state-metrics, cAdvisor (kubelet), apiserver. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 Alert rules for Kubernetes clusters built on the metrics every cluster already exposes: kube-state-metrics for object state, cAdvisor through the kubelet for container resources, and the apiserver, kubelet, scheduler and controller-manager endpoints for the control plane. They cover crash-looping and unready pods, stuck rollouts, replica mismatches, failed jobs, resource overcommit, quota pressure, certificate expiry and control-plane outages. Most rules keep the alert names used by kubernetes-mixin and kube-prometheus (KubePodCrashLooping, KubeNodeNotReady, KubeAPIErrorBudgetBurn…), so they match the names you already see in Alertmanager.
 
@@ -10,90 +10,90 @@ Alert rules for Kubernetes clusters built on the metrics every cluster already e
 
 * **77 rules**, each with a PromQL condition, a severity, a `for` duration and runbook steps
 * **Metrics from**: kube-state-metrics, cAdvisor (kubelet), apiserver
-* **Download**: [`kubernetes.yml`](https://n9e.github.io/alert-rules/kubernetes.yml), a standard Prometheus rules file (`groups:` format), checked with `promtool check rules`
+* **Download**: [`kubernetes.yml`](https://n9e.io/alert-rules/kubernetes.yml), a standard Prometheus rules file (`groups:` format), checked with `promtool check rules`
 * Thresholds are starting points. Adjust them to your environment before enabling the rules.
 
 ## Rule list[​](#rule-list "Direct link to Rule list")
 
-| Rule                                                                                                                  | Severity | For  |
-| --------------------------------------------------------------------------------------------------------------------- | -------- | ---- |
-| Deployment Pod availability below 70% (replicas above 9 pods)                                                         | Critical | 1m   |
-| Job failed                                                                                                            | Info     | 1m   |
-| Pod startup timeout                                                                                                   | Warning  | 1m   |
-| Pod state abnormal                                                                                                    | Critical | 1m   |
-| Pod restarting frequently                                                                                             | Warning  | 1m   |
-| Container CPU usage exceeds 80%                                                                                       | Info     | 1m   |
-| Container memory usage exceeds 80%                                                                                    | Info     | 1m   |
-| Node CPU usage exceeds 90%                                                                                            | Info     | 1m   |
-| Node memory usage exceeds 90%                                                                                         | Warning  | 1m   |
-| Node not ready                                                                                                        | Critical | 1m   |
-| Node disk usage exceeds 90%                                                                                           | Info     | 1m   |
-| [KubeClientCertificateExpiration-S2](https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration.md) | Warning  | —    |
-| [KubeClientCertificateExpiration-S1](https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration.md) | Critical | —    |
-| AggregatedAPIErrors                                                                                                   | Warning  | —    |
-| AggregatedAPIDown                                                                                                     | Warning  | 5m   |
-| KubeAPIDown                                                                                                           | Critical | 15m  |
-| [KubeAPIErrorBudgetBurn-S1-120s](https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md)              | Critical | 2m   |
-| [KubeAPIErrorBudgetBurn-S1-900s](https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md)              | Critical | 15m  |
-| [KubeAPIErrorBudgetBurn-S2-3600s](https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md)             | Warning  | 60m  |
-| [KubeAPIErrorBudgetBurn-S2-10800s](https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md)            | Warning  | 180m |
-| Deployment replicas mismatch                                                                                          | Warning  | 10m  |
-| StatefulSet replicas mismatch                                                                                         | Warning  | 10m  |
-| DaemonSet has unready Pods                                                                                            | Warning  | 10m  |
-| HPA scaling failed                                                                                                    | Warning  | 5m   |
-| Pod in Failed state                                                                                                   | Warning  | 5m   |
-| Job failed                                                                                                            | Warning  | 5m   |
-| CPUThrottlingHigh                                                                                                     | Info     | 15m  |
-| [KubeAggregatedAPIDown](https://n9e.github.io/alert-rules/kubernetes/kubeaggregatedapidown.md)                        | Warning  | 5m   |
-| KubeAggregatedAPIErrors                                                                                               | Warning  | —    |
-| KubeAPITerminatedRequests                                                                                             | Warning  | 5m   |
-| KubeClientErrors                                                                                                      | Warning  | 15m  |
-| [KubeContainerWaiting](https://n9e.github.io/alert-rules/kubernetes/kubecontainerwaiting.md)                          | Warning  | 60m  |
-| KubeControllerManagerDown                                                                                             | Critical | 15m  |
-| [KubeCPUOvercommit](https://n9e.github.io/alert-rules/kubernetes/kubecpuovercommit.md)                                | Warning  | 10m  |
-| KubeCPUQuotaOvercommit                                                                                                | Warning  | 5m   |
-| [KubeDaemonSetMisScheduled](https://n9e.github.io/alert-rules/kubernetes/kubedaemonsetmisscheduled.md)                | Warning  | 15m  |
-| KubeDaemonSetNotScheduled                                                                                             | Warning  | 10m  |
-| KubeDaemonSetRolloutStuck                                                                                             | Warning  | 15m  |
-| KubeDeploymentGenerationMismatch                                                                                      | Warning  | 15m  |
-| [KubeDeploymentReplicasMismatch](https://n9e.github.io/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md)      | Warning  | 15m  |
-| [KubeDeploymentRolloutStuck](https://n9e.github.io/alert-rules/kubernetes/kubedeploymentrolloutstuck.md)              | Warning  | 15m  |
-| [KubeHpaMaxedOut](https://n9e.github.io/alert-rules/kubernetes/kubehpamaxedout.md)                                    | Warning  | 15m  |
-| KubeHpaReplicasMismatch                                                                                               | Warning  | 15m  |
-| [KubeJobFailed](https://n9e.github.io/alert-rules/kubernetes/kubejobfailed.md)                                        | Warning  | 15m  |
-| KubeJobNotCompleted                                                                                                   | Warning  | —    |
-| KubeletClientCertificateExpiration                                                                                    | Warning  | —    |
-| KubeletClientCertificateRenewalErrors                                                                                 | Warning  | 15m  |
-| [KubeletDown](https://n9e.github.io/alert-rules/kubernetes/kubeletdown.md)                                            | Critical | 15m  |
-| KubeletPlegDurationHigh                                                                                               | Warning  | 5m   |
-| KubeletPodStartUpLatencyHigh                                                                                          | Warning  | 15m  |
-| KubeletServerCertificateExpiration                                                                                    | Warning  | —    |
-| KubeletServerCertificateRenewalErrors                                                                                 | Warning  | 15m  |
-| [KubeletTooManyPods](https://n9e.github.io/alert-rules/kubernetes/kubelettoomanypods.md)                              | Info     | 15m  |
-| [KubeMemoryOvercommit](https://n9e.github.io/alert-rules/kubernetes/kubememoryovercommit.md)                          | Warning  | 10m  |
-| KubeMemoryQuotaOvercommit                                                                                             | Warning  | 5m   |
-| [KubeNodeNotReady](https://n9e.github.io/alert-rules/kubernetes/kubenodenotready.md)                                  | Warning  | 15m  |
-| KubeNodeReadinessFlapping                                                                                             | Warning  | 15m  |
-| KubeNodeUnreachable                                                                                                   | Warning  | 15m  |
-| KubePersistentVolumeErrors                                                                                            | Critical | 5m   |
-| [KubePersistentVolumeFillingUp](https://n9e.github.io/alert-rules/kubernetes/kubepersistentvolumefillingup.md)        | Critical | 1m   |
-| KubePersistentVolumeInodesFillingUp                                                                                   | Critical | 1m   |
-| [KubePodCrashLooping](https://n9e.github.io/alert-rules/kubernetes/kubepodcrashlooping.md)                            | Warning  | 15m  |
-| [KubePodNotReady](https://n9e.github.io/alert-rules/kubernetes/kubepodnotready.md)                                    | Warning  | 15m  |
-| [KubeQuotaAlmostFull](https://n9e.github.io/alert-rules/kubernetes/kubequotaalmostfull.md)                            | Info     | 15m  |
-| KubeQuotaExceeded                                                                                                     | Warning  | 15m  |
-| KubeQuotaFullyUsed                                                                                                    | Info     | 15m  |
-| KubeSchedulerDown                                                                                                     | Critical | 15m  |
-| KubeStatefulSetGenerationMismatch                                                                                     | Warning  | 15m  |
-| [KubeStatefulSetReplicasMismatch](https://n9e.github.io/alert-rules/kubernetes/kubestatefulsetreplicasmismatch.md)    | Warning  | 15m  |
-| KubeStatefulSetUpdateNotRolledOut                                                                                     | Warning  | 15m  |
-| KubeVersionMismatch                                                                                                   | Warning  | 15m  |
-| Node running too many Pods                                                                                            | Warning  | 15m  |
-| Node readiness flapping                                                                                               | Warning  | 15m  |
-| Pod startup duration high                                                                                             | Warning  | 15m  |
-| Client certificate expiring - S1                                                                                      | Critical | —    |
-| Server certificate expiring - S1                                                                                      | Critical | —    |
-| Kubelet down                                                                                                          | Critical | 15m  |
+| Rule                                                                                                           | Severity | For  |
+| -------------------------------------------------------------------------------------------------------------- | -------- | ---- |
+| Deployment Pod availability below 70% (replicas above 9 pods)                                                  | Critical | 1m   |
+| Job failed                                                                                                     | Info     | 1m   |
+| Pod startup timeout                                                                                            | Warning  | 1m   |
+| Pod state abnormal                                                                                             | Critical | 1m   |
+| Pod restarting frequently                                                                                      | Warning  | 1m   |
+| Container CPU usage exceeds 80%                                                                                | Info     | 1m   |
+| Container memory usage exceeds 80%                                                                             | Info     | 1m   |
+| Node CPU usage exceeds 90%                                                                                     | Info     | 1m   |
+| Node memory usage exceeds 90%                                                                                  | Warning  | 1m   |
+| Node not ready                                                                                                 | Critical | 1m   |
+| Node disk usage exceeds 90%                                                                                    | Info     | 1m   |
+| [KubeClientCertificateExpiration-S2](https://n9e.io/alert-rules/kubernetes/kubeclientcertificateexpiration.md) | Warning  | —    |
+| [KubeClientCertificateExpiration-S1](https://n9e.io/alert-rules/kubernetes/kubeclientcertificateexpiration.md) | Critical | —    |
+| AggregatedAPIErrors                                                                                            | Warning  | —    |
+| AggregatedAPIDown                                                                                              | Warning  | 5m   |
+| KubeAPIDown                                                                                                    | Critical | 15m  |
+| [KubeAPIErrorBudgetBurn-S1-120s](https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md)              | Critical | 2m   |
+| [KubeAPIErrorBudgetBurn-S1-900s](https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md)              | Critical | 15m  |
+| [KubeAPIErrorBudgetBurn-S2-3600s](https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md)             | Warning  | 60m  |
+| [KubeAPIErrorBudgetBurn-S2-10800s](https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md)            | Warning  | 180m |
+| Deployment replicas mismatch                                                                                   | Warning  | 10m  |
+| StatefulSet replicas mismatch                                                                                  | Warning  | 10m  |
+| DaemonSet has unready Pods                                                                                     | Warning  | 10m  |
+| HPA scaling failed                                                                                             | Warning  | 5m   |
+| Pod in Failed state                                                                                            | Warning  | 5m   |
+| Job failed                                                                                                     | Warning  | 5m   |
+| CPUThrottlingHigh                                                                                              | Info     | 15m  |
+| [KubeAggregatedAPIDown](https://n9e.io/alert-rules/kubernetes/kubeaggregatedapidown.md)                        | Warning  | 5m   |
+| KubeAggregatedAPIErrors                                                                                        | Warning  | —    |
+| KubeAPITerminatedRequests                                                                                      | Warning  | 5m   |
+| KubeClientErrors                                                                                               | Warning  | 15m  |
+| [KubeContainerWaiting](https://n9e.io/alert-rules/kubernetes/kubecontainerwaiting.md)                          | Warning  | 60m  |
+| KubeControllerManagerDown                                                                                      | Critical | 15m  |
+| [KubeCPUOvercommit](https://n9e.io/alert-rules/kubernetes/kubecpuovercommit.md)                                | Warning  | 10m  |
+| KubeCPUQuotaOvercommit                                                                                         | Warning  | 5m   |
+| [KubeDaemonSetMisScheduled](https://n9e.io/alert-rules/kubernetes/kubedaemonsetmisscheduled.md)                | Warning  | 15m  |
+| KubeDaemonSetNotScheduled                                                                                      | Warning  | 10m  |
+| KubeDaemonSetRolloutStuck                                                                                      | Warning  | 15m  |
+| KubeDeploymentGenerationMismatch                                                                               | Warning  | 15m  |
+| [KubeDeploymentReplicasMismatch](https://n9e.io/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md)      | Warning  | 15m  |
+| [KubeDeploymentRolloutStuck](https://n9e.io/alert-rules/kubernetes/kubedeploymentrolloutstuck.md)              | Warning  | 15m  |
+| [KubeHpaMaxedOut](https://n9e.io/alert-rules/kubernetes/kubehpamaxedout.md)                                    | Warning  | 15m  |
+| KubeHpaReplicasMismatch                                                                                        | Warning  | 15m  |
+| [KubeJobFailed](https://n9e.io/alert-rules/kubernetes/kubejobfailed.md)                                        | Warning  | 15m  |
+| KubeJobNotCompleted                                                                                            | Warning  | —    |
+| KubeletClientCertificateExpiration                                                                             | Warning  | —    |
+| KubeletClientCertificateRenewalErrors                                                                          | Warning  | 15m  |
+| [KubeletDown](https://n9e.io/alert-rules/kubernetes/kubeletdown.md)                                            | Critical | 15m  |
+| KubeletPlegDurationHigh                                                                                        | Warning  | 5m   |
+| KubeletPodStartUpLatencyHigh                                                                                   | Warning  | 15m  |
+| KubeletServerCertificateExpiration                                                                             | Warning  | —    |
+| KubeletServerCertificateRenewalErrors                                                                          | Warning  | 15m  |
+| [KubeletTooManyPods](https://n9e.io/alert-rules/kubernetes/kubelettoomanypods.md)                              | Info     | 15m  |
+| [KubeMemoryOvercommit](https://n9e.io/alert-rules/kubernetes/kubememoryovercommit.md)                          | Warning  | 10m  |
+| KubeMemoryQuotaOvercommit                                                                                      | Warning  | 5m   |
+| [KubeNodeNotReady](https://n9e.io/alert-rules/kubernetes/kubenodenotready.md)                                  | Warning  | 15m  |
+| KubeNodeReadinessFlapping                                                                                      | Warning  | 15m  |
+| KubeNodeUnreachable                                                                                            | Warning  | 15m  |
+| KubePersistentVolumeErrors                                                                                     | Critical | 5m   |
+| [KubePersistentVolumeFillingUp](https://n9e.io/alert-rules/kubernetes/kubepersistentvolumefillingup.md)        | Critical | 1m   |
+| KubePersistentVolumeInodesFillingUp                                                                            | Critical | 1m   |
+| [KubePodCrashLooping](https://n9e.io/alert-rules/kubernetes/kubepodcrashlooping.md)                            | Warning  | 15m  |
+| [KubePodNotReady](https://n9e.io/alert-rules/kubernetes/kubepodnotready.md)                                    | Warning  | 15m  |
+| [KubeQuotaAlmostFull](https://n9e.io/alert-rules/kubernetes/kubequotaalmostfull.md)                            | Info     | 15m  |
+| KubeQuotaExceeded                                                                                              | Warning  | 15m  |
+| KubeQuotaFullyUsed                                                                                             | Info     | 15m  |
+| KubeSchedulerDown                                                                                              | Critical | 15m  |
+| KubeStatefulSetGenerationMismatch                                                                              | Warning  | 15m  |
+| [KubeStatefulSetReplicasMismatch](https://n9e.io/alert-rules/kubernetes/kubestatefulsetreplicasmismatch.md)    | Warning  | 15m  |
+| KubeStatefulSetUpdateNotRolledOut                                                                              | Warning  | 15m  |
+| KubeVersionMismatch                                                                                            | Warning  | 15m  |
+| Node running too many Pods                                                                                     | Warning  | 15m  |
+| Node readiness flapping                                                                                        | Warning  | 15m  |
+| Pod startup duration high                                                                                      | Warning  | 15m  |
+| Client certificate expiring - S1                                                                               | Critical | —    |
+| Server certificate expiring - S1                                                                               | Critical | —    |
+| Kubelet down                                                                                                   | Critical | 15m  |
 
 ## kube-state-metrics, cAdvisor and control plane (77)[​](#kube-state-metrics-cadvisor-and-control-plane-77 "Direct link to kube-state-metrics, cAdvisor and control plane (77)")
 
@@ -266,13 +266,13 @@ Runbook:
 
 A client certificate used to authenticate to the apiserver is expiring in less than 7.0 days.
 
-Warning · — · PromQL, common causes and runbook: [KubeClientCertificateExpiration](https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration.md)
+Warning · — · PromQL, common causes and runbook: [KubeClientCertificateExpiration](https://n9e.io/alert-rules/kubernetes/kubeclientcertificateexpiration.md)
 
 ### KubeClientCertificateExpiration-S1[​](#kubeclientcertificateexpiration-s1 "Direct link to KubeClientCertificateExpiration-S1")
 
 A client certificate used to authenticate to the apiserver is expiring in less than 24.0 hours.
 
-Critical · — · PromQL, common causes and runbook: [KubeClientCertificateExpiration](https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration.md)
+Critical · — · PromQL, common causes and runbook: [KubeClientCertificateExpiration](https://n9e.io/alert-rules/kubernetes/kubeclientcertificateexpiration.md)
 
 ### AggregatedAPIErrors[​](#aggregatedapierrors "Direct link to AggregatedAPIErrors")
 
@@ -329,25 +329,25 @@ Runbook:
 
 The API server is burning too much error budget.
 
-Critical · 2m · PromQL, common causes and runbook: [KubeAPIErrorBudgetBurn](https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md)
+Critical · 2m · PromQL, common causes and runbook: [KubeAPIErrorBudgetBurn](https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md)
 
 ### KubeAPIErrorBudgetBurn-S1-900s[​](#kubeapierrorbudgetburn-s1-900s "Direct link to KubeAPIErrorBudgetBurn-S1-900s")
 
 The API server is burning too much error budget.
 
-Critical · 15m · PromQL, common causes and runbook: [KubeAPIErrorBudgetBurn](https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md)
+Critical · 15m · PromQL, common causes and runbook: [KubeAPIErrorBudgetBurn](https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md)
 
 ### KubeAPIErrorBudgetBurn-S2-3600s[​](#kubeapierrorbudgetburn-s2-3600s "Direct link to KubeAPIErrorBudgetBurn-S2-3600s")
 
 The API server is burning too much error budget.
 
-Warning · 60m · PromQL, common causes and runbook: [KubeAPIErrorBudgetBurn](https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md)
+Warning · 60m · PromQL, common causes and runbook: [KubeAPIErrorBudgetBurn](https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md)
 
 ### KubeAPIErrorBudgetBurn-S2-10800s[​](#kubeapierrorbudgetburn-s2-10800s "Direct link to KubeAPIErrorBudgetBurn-S2-10800s")
 
 The API server is burning too much error budget.
 
-Warning · 180m · PromQL, common causes and runbook: [KubeAPIErrorBudgetBurn](https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md)
+Warning · 180m · PromQL, common causes and runbook: [KubeAPIErrorBudgetBurn](https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md)
 
 ### Deployment replicas mismatch[​](#deployment-replicas-mismatch "Direct link to Deployment replicas mismatch")
 
@@ -478,7 +478,7 @@ Runbook:
 
 Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }} has been only {{ $value | humanize }}% available over the last 10m.
 
-Warning · 5m · PromQL, common causes and runbook: [KubeAggregatedAPIDown](https://n9e.github.io/alert-rules/kubernetes/kubeaggregatedapidown.md)
+Warning · 5m · PromQL, common causes and runbook: [KubeAggregatedAPIDown](https://n9e.io/alert-rules/kubernetes/kubeaggregatedapidown.md)
 
 ### KubeAggregatedAPIErrors[​](#kubeaggregatedapierrors "Direct link to KubeAggregatedAPIErrors")
 
@@ -541,7 +541,7 @@ Runbook:
 
 pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on container {{ $labels.container}} has been in waiting state for longer than 1 hour.
 
-Warning · 60m · PromQL, common causes and runbook: [KubeContainerWaiting](https://n9e.github.io/alert-rules/kubernetes/kubecontainerwaiting.md)
+Warning · 60m · PromQL, common causes and runbook: [KubeContainerWaiting](https://n9e.io/alert-rules/kubernetes/kubecontainerwaiting.md)
 
 ### KubeControllerManagerDown[​](#kubecontrollermanagerdown "Direct link to KubeControllerManagerDown")
 
@@ -564,7 +564,7 @@ Runbook:
 
 Cluster {{ $labels.cluster }} has overcommitted CPU resource requests for Pods by {{ $value }} CPU shares and cannot tolerate node failure.
 
-Warning · 10m · PromQL, common causes and runbook: [KubeCPUOvercommit](https://n9e.github.io/alert-rules/kubernetes/kubecpuovercommit.md)
+Warning · 10m · PromQL, common causes and runbook: [KubeCPUOvercommit](https://n9e.io/alert-rules/kubernetes/kubecpuovercommit.md)
 
 ### KubeCPUQuotaOvercommit[​](#kubecpuquotaovercommit "Direct link to KubeCPUQuotaOvercommit")
 
@@ -593,7 +593,7 @@ Runbook:
 
 {{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} are running where they are not supposed to run.
 
-Warning · 15m · PromQL, common causes and runbook: [KubeDaemonSetMisScheduled](https://n9e.github.io/alert-rules/kubernetes/kubedaemonsetmisscheduled.md)
+Warning · 15m · PromQL, common causes and runbook: [KubeDaemonSetMisScheduled](https://n9e.io/alert-rules/kubernetes/kubedaemonsetmisscheduled.md)
 
 ### KubeDaemonSetNotScheduled[​](#kubedaemonsetnotscheduled "Direct link to KubeDaemonSetNotScheduled")
 
@@ -702,19 +702,19 @@ Runbook:
 
 Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not matched the expected number of replicas for longer than 15 minutes.
 
-Warning · 15m · PromQL, common causes and runbook: [KubeDeploymentReplicasMismatch](https://n9e.github.io/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md)
+Warning · 15m · PromQL, common causes and runbook: [KubeDeploymentReplicasMismatch](https://n9e.io/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md)
 
 ### KubeDeploymentRolloutStuck[​](#kubedeploymentrolloutstuck "Direct link to KubeDeploymentRolloutStuck")
 
 Rollout of deployment {{ $labels.namespace }}/{{ $labels.deployment }} is not progressing for longer than 15 minutes.
 
-Warning · 15m · PromQL, common causes and runbook: [KubeDeploymentRolloutStuck](https://n9e.github.io/alert-rules/kubernetes/kubedeploymentrolloutstuck.md)
+Warning · 15m · PromQL, common causes and runbook: [KubeDeploymentRolloutStuck](https://n9e.io/alert-rules/kubernetes/kubedeploymentrolloutstuck.md)
 
 ### KubeHpaMaxedOut[​](#kubehpamaxedout "Direct link to KubeHpaMaxedOut")
 
 HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler }} has been running at max replicas for longer than 15 minutes.
 
-Warning · 15m · PromQL, common causes and runbook: [KubeHpaMaxedOut](https://n9e.github.io/alert-rules/kubernetes/kubehpamaxedout.md)
+Warning · 15m · PromQL, common causes and runbook: [KubeHpaMaxedOut](https://n9e.io/alert-rules/kubernetes/kubehpamaxedout.md)
 
 ### KubeHpaReplicasMismatch[​](#kubehpareplicasmismatch "Direct link to KubeHpaReplicasMismatch")
 
@@ -761,7 +761,7 @@ Runbook:
 
 Job {{ $labels.namespace }}/{{ $labels.job\_name }} failed to complete. Removing failed job after investigation should clear this alert.
 
-Warning · 15m · PromQL, common causes and runbook: [KubeJobFailed](https://n9e.github.io/alert-rules/kubernetes/kubejobfailed.md)
+Warning · 15m · PromQL, common causes and runbook: [KubeJobFailed](https://n9e.io/alert-rules/kubernetes/kubejobfailed.md)
 
 ### KubeJobNotCompleted[​](#kubejobnotcompleted "Direct link to KubeJobNotCompleted")
 
@@ -822,7 +822,7 @@ Runbook:
 
 Kubelet has disappeared from Prometheus target discovery.
 
-Critical · 15m · PromQL, common causes and runbook: [KubeletDown](https://n9e.github.io/alert-rules/kubernetes/kubeletdown.md)
+Critical · 15m · PromQL, common causes and runbook: [KubeletDown](https://n9e.io/alert-rules/kubernetes/kubeletdown.md)
 
 ### KubeletPlegDurationHigh[​](#kubeletplegdurationhigh "Direct link to KubeletPlegDurationHigh")
 
@@ -896,13 +896,13 @@ Runbook:
 
 Kubelet '{{ $labels.node }}' is running at {{ $value | humanizePercentage }} of its Pod capacity.
 
-Info · 15m · PromQL, common causes and runbook: [KubeletTooManyPods](https://n9e.github.io/alert-rules/kubernetes/kubelettoomanypods.md)
+Info · 15m · PromQL, common causes and runbook: [KubeletTooManyPods](https://n9e.io/alert-rules/kubernetes/kubelettoomanypods.md)
 
 ### KubeMemoryOvercommit[​](#kubememoryovercommit "Direct link to KubeMemoryOvercommit")
 
 Cluster {{ $labels.cluster }} has overcommitted memory resource requests for Pods by {{ $value | humanize }} bytes and cannot tolerate node failure.
 
-Warning · 10m · PromQL, common causes and runbook: [KubeMemoryOvercommit](https://n9e.github.io/alert-rules/kubernetes/kubememoryovercommit.md)
+Warning · 10m · PromQL, common causes and runbook: [KubeMemoryOvercommit](https://n9e.io/alert-rules/kubernetes/kubememoryovercommit.md)
 
 ### KubeMemoryQuotaOvercommit[​](#kubememoryquotaovercommit "Direct link to KubeMemoryQuotaOvercommit")
 
@@ -931,7 +931,7 @@ Runbook:
 
 {{ $labels.node }} has been unready for more than 15 minutes.
 
-Warning · 15m · PromQL, common causes and runbook: [KubeNodeNotReady](https://n9e.github.io/alert-rules/kubernetes/kubenodenotready.md)
+Warning · 15m · PromQL, common causes and runbook: [KubeNodeNotReady](https://n9e.io/alert-rules/kubernetes/kubenodenotready.md)
 
 ### KubeNodeReadinessFlapping[​](#kubenodereadinessflapping "Direct link to KubeNodeReadinessFlapping")
 
@@ -988,7 +988,7 @@ Runbook:
 
 The PersistentVolume claimed by {{ $labels.persistentvolumeclaim }} in Namespace {{ $labels.namespace }} is only {{ $value | humanizePercentage }} free.
 
-Critical · 1m · PromQL, common causes and runbook: [KubePersistentVolumeFillingUp](https://n9e.github.io/alert-rules/kubernetes/kubepersistentvolumefillingup.md)
+Critical · 1m · PromQL, common causes and runbook: [KubePersistentVolumeFillingUp](https://n9e.io/alert-rules/kubernetes/kubepersistentvolumefillingup.md)
 
 ### KubePersistentVolumeInodesFillingUp[​](#kubepersistentvolumeinodesfillingup "Direct link to KubePersistentVolumeInodesFillingUp")
 
@@ -1031,19 +1031,19 @@ Runbook:
 
 Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is in waiting state (reason: "CrashLoopBackOff").
 
-Warning · 15m · PromQL, common causes and runbook: [KubePodCrashLooping](https://n9e.github.io/alert-rules/kubernetes/kubepodcrashlooping.md)
+Warning · 15m · PromQL, common causes and runbook: [KubePodCrashLooping](https://n9e.io/alert-rules/kubernetes/kubepodcrashlooping.md)
 
 ### KubePodNotReady[​](#kubepodnotready "Direct link to KubePodNotReady")
 
 Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 15 minutes.
 
-Warning · 15m · PromQL, common causes and runbook: [KubePodNotReady](https://n9e.github.io/alert-rules/kubernetes/kubepodnotready.md)
+Warning · 15m · PromQL, common causes and runbook: [KubePodNotReady](https://n9e.io/alert-rules/kubernetes/kubepodnotready.md)
 
 ### KubeQuotaAlmostFull[​](#kubequotaalmostfull "Direct link to KubeQuotaAlmostFull")
 
 Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota.
 
-Info · 15m · PromQL, common causes and runbook: [KubeQuotaAlmostFull](https://n9e.github.io/alert-rules/kubernetes/kubequotaalmostfull.md)
+Info · 15m · PromQL, common causes and runbook: [KubeQuotaAlmostFull](https://n9e.io/alert-rules/kubernetes/kubequotaalmostfull.md)
 
 ### KubeQuotaExceeded[​](#kubequotaexceeded "Direct link to KubeQuotaExceeded")
 
@@ -1133,7 +1133,7 @@ Runbook:
 
 StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} has not matched the expected number of replicas for longer than 15 minutes.
 
-Warning · 15m · PromQL, common causes and runbook: [KubeStatefulSetReplicasMismatch](https://n9e.github.io/alert-rules/kubernetes/kubestatefulsetreplicasmismatch.md)
+Warning · 15m · PromQL, common causes and runbook: [KubeStatefulSetReplicasMismatch](https://n9e.io/alert-rules/kubernetes/kubestatefulsetreplicasmismatch.md)
 
 ### KubeStatefulSetUpdateNotRolledOut[​](#kubestatefulsetupdatenotrolledout "Direct link to KubeStatefulSetUpdateNotRolledOut")
 
@@ -1317,8 +1317,8 @@ Runbook:
 
 ## How to use these rules[​](#how-to-use-these-rules "Direct link to How to use these rules")
 
-* **With Prometheus or vmalert**: download [`kubernetes.yml`](https://n9e.github.io/alert-rules/kubernetes.yml), add it to `rule_files` (or `-rule` for vmalert), check the metric names against your exporter version, and tune thresholds. Severity is set as a `severity` label (critical / warning / info), and `runbook_url` points back to this page, or to the rule's own page where it has one.
-* **With Nightingale**: the same rules ship in the [Kubernetes](https://n9e.github.io/integrations/kubernetes.md) integration template. Open the integration center, [import the rules into a business group](https://n9e.github.io/docs/data/integrations/import.md), and enable them one by one. Nightingale keeps the runbook with each alert and can evaluate the rules against Prometheus, VictoriaMetrics and other data sources.
+* **With Prometheus or vmalert**: download [`kubernetes.yml`](https://n9e.io/alert-rules/kubernetes.yml), add it to `rule_files` (or `-rule` for vmalert), check the metric names against your exporter version, and tune thresholds. Severity is set as a `severity` label (critical / warning / info), and `runbook_url` points back to this page, or to the rule's own page where it has one.
+* **With Nightingale**: the same rules ship in the [Kubernetes](https://n9e.io/integrations/kubernetes.md) integration template. Open the integration center, [import the rules into a business group](https://n9e.io/docs/data/integrations/import.md), and enable them one by one. Nightingale keeps the runbook with each alert and can evaluate the rules against Prometheus, VictoriaMetrics and other data sources.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 
@@ -1326,6 +1326,6 @@ Many rule expressions are adapted from [kubernetes-mixin](https://github.com/kub
 
 ## Related[​](#related "Direct link to Related")
 
-* [Monitor Kubernetes with Nightingale](https://n9e.github.io/integrations/kubernetes.md): collector config, dashboards and metric reference
-* [Write a metric rule in Nightingale](https://n9e.github.io/docs/alerting/metric-rules.md)
-* [All alert rules](https://n9e.github.io/alert-rules.md)
+* [Monitor Kubernetes with Nightingale](https://n9e.io/integrations/kubernetes.md): collector config, dashboards and metric reference
+* [Write a metric rule in Nightingale](https://n9e.io/docs/alerting/metric-rules.md)
+* [All alert rules](https://n9e.io/alert-rules.md)

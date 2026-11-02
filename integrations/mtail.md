@@ -2,7 +2,7 @@
 
 Categraf embeds mtail: extract counters, gauges and histograms from log files with regular expressions and expressions, without shipping the logs to a log system first.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The mtail input turns logs into metrics. Input is a log file, output is a set of counters, gauges and histograms defined in mtail syntax; underneath it is Go regular expressions plus expression evaluation. It suits cases such as status-code distribution from Nginx access logs or error counts from application logs, with no need to ship the logs into Elasticsearch or Loki first.
 
@@ -14,7 +14,7 @@ Each `[[instances]]` block points at a set of `progs` (mtail program files or a 
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.mtail/mtail.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.mtail started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.mtail/mtail.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.mtail started` once the plugin is loaded.
 
    ```
    [[instances]]
@@ -43,6 +43,6 @@ Each `[[instances]]` block points at a set of `progs` (mtail program files or a 
 ## Related[​](#related "Direct link to Related")
 
 * [Mtail template source](https://github.com/ccfos/nightingale/tree/main/integrations/Mtail): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

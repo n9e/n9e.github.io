@@ -9,14 +9,14 @@ Where this page ends: one rule you wrote yourself has produced a real event, and
 ## Before you start[​](#before-you-start "Direct link to Before you start")
 
 * Nightingale is running and you can log in;
-* **at least one data source is registered** — the built-in TSDB counts. If not, start at [Data sources](https://n9e.github.io/docs/data/overview.md);
+* **at least one data source is registered** — the built-in TSDB counts. If not, start at [Data sources](https://n9e.io/docs/data/overview.md);
 * you can query that source and get data back. Check in **Explorer → Metrics** first; if nothing comes back, fix that before writing a rule.
 
 ## 1. Open the form[​](#1-open-the-form "Direct link to 1. Open the form")
 
 **Alerts & Notifications → Alert rules**. Pick a business group in the left tree — the rule belongs to it, and so will every event it produces. Then **Add**.
 
-![The new alert rule form](https://n9e.github.io/img/docs/alerting/rule-form.webp)![The new alert rule form](https://n9e.github.io/img/docs/alerting/rule-form.dark.webp)
+![The new alert rule form](https://n9e.io/img/docs/alerting/rule-form.webp)![The new alert rule form](https://n9e.io/img/docs/alerting/rule-form.dark.webp)
 
 The form is six steps down the middle, with a live **Rule summary** on the right that fills in as you type. The controls at the top — **Core steps only**, **Expand all**, **Collapse sidebar** — change how much of it is on screen; they change nothing about the rule.
 
@@ -30,7 +30,7 @@ Step 1, **Basic settings**:
 | -------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | Name           | `First rule test`. Plain text — do not put variables in a rule name, or every event gets a different name and none of them group together |
 | Business group | Pre-filled from the tree. This decides who can edit the rule and who owns its events                                                      |
-| Tags           | Skip for now. See [Labels, annotations and severity](https://n9e.github.io/docs/alerting/labels-severity.md)                              |
+| Tags           | Skip for now. See [Labels, annotations and severity](https://n9e.io/docs/alerting/labels-severity.md)                                     |
 | Note           | Skip                                                                                                                                      |
 
 ## 3. Pick the data source[​](#3-pick-the-data-source "Direct link to 3. Pick the data source")
@@ -56,7 +56,7 @@ Leave severity at **S2**. Below the query, set:
 * **Execution frequency**: `@every 15s` — faster than you would use in production, so you do not have to wait;
 * **For duration (s)**: `0` — fire on the first match.
 
-The threshold lives inside the PromQL. There is no separate threshold box, and the rule produces one event per series the query returns. That is the whole model — [Metric rules](https://n9e.github.io/docs/alerting/metric-rules.md) covers it properly.
+The threshold lives inside the PromQL. There is no separate threshold box, and the rule produces one event per series the query returns. That is the whole model — [Metric rules](https://n9e.io/docs/alerting/metric-rules.md) covers it properly.
 
 Expand **Preview** on the query card. Expected result: a chart with data. An empty chart means the rule can never fire, and no amount of configuration further down will help — swap in any metric you know your source has (`up` only exists if Prometheus scrapes targets itself) and try again.
 
@@ -64,7 +64,7 @@ Expand **Preview** on the query card. Expected result: a chart with data. An emp
 
 Step 4, **Notification settings** → **Select notification rule**.
 
-A fresh install has none, and a rule with no notification rule produces events that nobody is told about. If the list is empty, either create one now — see [Notification rules](https://n9e.github.io/docs/notifications/rules.md) — or continue without one and watch the event list instead of your inbox. For this first rule, either is fine.
+A fresh install has none, and a rule with no notification rule produces events that nobody is told about. If the list is empty, either create one now — see [Notification rules](https://n9e.io/docs/notifications/rules.md) — or continue without one and watch the event list instead of your inbox. For this first rule, either is fine.
 
 Leave everything else at its defaults: recovery notifications on, repeat every 60 minutes, no send limit.
 
@@ -78,7 +78,7 @@ In the dialog, leave the severity as-is, event type **Trigger**, and **make sure
 
 Expected result: six stages, each with a status tag. **Query & trigger check** should say the query returned series with a current value. If it says *Query is valid but returned no data*, go back to step 4 — that is the whole answer.
 
-The other stages tell you what would happen next: whether a mute rule would catch the event, and whether any notification rule matches. Details in [Test fire a rule](https://n9e.github.io/docs/alerting/test-fire.md).
+The other stages tell you what would happen next: whether a mute rule would catch the event, and whether any notification rule matches. Details in [Test fire a rule](https://n9e.io/docs/alerting/test-fire.md).
 
 ## 7. Save and watch it fire[​](#7-save-and-watch-it-fire "Direct link to 7. Save and watch it fire")
 
@@ -91,7 +91,7 @@ Within a minute or two, two things happen:
 
 That is the full chain proved: data source → query → evaluation → event.
 
-If nothing appears after two minutes, open **Eval records** on the rule's row. Every evaluation cycle leaves a record saying what the query returned and what happened to the result — see [Inspect evaluation execution records](https://n9e.github.io/docs/alerting/execution-records.md).
+If nothing appears after two minutes, open **Eval records** on the rule's row. Every evaluation cycle leaves a record saying what the query returned and what happened to the result — see [Inspect evaluation execution records](https://n9e.io/docs/alerting/execution-records.md).
 
 ## 8. Now make it a real rule[​](#8-now-make-it-a-real-rule "Direct link to 8. Now make it a real rule")
 
@@ -103,11 +103,11 @@ Either delete it — a rule has to be disabled before it can be deleted — or t
 mem_used_percent > 85
 ```
 
-and set the frequency to `@every 60s` with a for-duration of `180`. Three minutes of sustained memory pressure is worth a message; one spike is not. [Evaluation interval and recovery](https://n9e.github.io/docs/alerting/evaluation.md) explains how to pick those numbers.
+and set the frequency to `@every 60s` with a for-duration of `180`. Three minutes of sustained memory pressure is worth a message; one spike is not. [Evaluation interval and recovery](https://n9e.io/docs/alerting/evaluation.md) explains how to pick those numbers.
 
 ## Next[​](#next "Direct link to Next")
 
-* Write the query properly: [Metric rules](https://n9e.github.io/docs/alerting/metric-rules.md)
-* Alert on logs or a database instead: [Log rules](https://n9e.github.io/docs/alerting/log-rules.md), [SQL-backed rules](https://n9e.github.io/docs/alerting/sql-rules.md)
-* Import a hundred rules instead of writing them: [Rule templates and built-in rules](https://n9e.github.io/docs/alerting/templates.md)
-* Get the event to a person: [Notification rules](https://n9e.github.io/docs/notifications/rules.md)
+* Write the query properly: [Metric rules](https://n9e.io/docs/alerting/metric-rules.md)
+* Alert on logs or a database instead: [Log rules](https://n9e.io/docs/alerting/log-rules.md), [SQL-backed rules](https://n9e.io/docs/alerting/sql-rules.md)
+* Import a hundred rules instead of writing them: [Rule templates and built-in rules](https://n9e.io/docs/alerting/templates.md)
+* Get the event to a person: [Notification rules](https://n9e.io/docs/notifications/rules.md)

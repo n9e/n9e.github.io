@@ -2,7 +2,7 @@
 
 读取 Manager 应用的 /manager/status/all 接口，采集 JVM 内存、各连接器的线程与请求、流量和错误，需要 manager-gui 角色。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Tomcat 插件访问 Manager 应用的 `/manager/status/all` 接口，解析出 JVM 堆与各内存池的使用、每个连接器（HTTP、AJP）的线程池大小与忙碌数、请求数、处理时间、错误数、收发字节。
 
@@ -16,7 +16,7 @@ Tomcat 插件访问 Manager 应用的 `/manager/status/all` 接口，解析出 J
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.tomcat/tomcat.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.tomcat started` 就说明插件已加载。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.tomcat/tomcat.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.tomcat started` 就说明插件已加载。
 
    ```
    # # collect interval
@@ -80,9 +80,9 @@ Tomcat 插件访问 Manager 应用的 `/manager/status/all` 接口，解析出 J
    # insecure_skip_verify = true
    ```
 
-2. 在夜莺「集成中心」里找到 Tomcat，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 Tomcat，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -188,7 +188,7 @@ tomcat_jvm_memorypool_used{name=~".*Old Gen|Tenured Gen"} / (tomcat_jvm_memorypo
 
 * \[Tomcat 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/Tomcat）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/Tomcat%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `tomcat` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/tomcat)：完整配置项和指标列表。
-* [实践：监控 Java 应用](https://n9e.github.io/zh/docs/practice/java.md)
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [实践：监控 Java 应用](https://n9e.io/zh/docs/practice/java.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

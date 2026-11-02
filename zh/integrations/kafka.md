@@ -2,7 +2,7 @@
 
 Broker 指标走 JMX，消费者延迟靠内置的 kafka\_exporter 逻辑；模板分 Categraf 和 exporter 两套，规则盯积压、离线分区和 ISR 收缩。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Kafka 的核心指标通过 JMX 暴露，这部分用 jolokia 或 jmx\_exporter 采集即可。Categraf 的 `kafka` 插件解决的是 JMX 拿不到的那块：消费组的 lag、每个分区的 offset 和消费速率。它 fork 自 davidmparrott 版本的 kafka\_exporter，指标名和 danielqsj 版本略有差异，设置 `rename_uncommit_offset_to_lag = true` 可以切回更常见的 `kafka_consumergroup_lag` 命名。
 
@@ -17,7 +17,7 @@ Kafka 的核心指标通过 JMX 暴露，这部分用 jolokia 或 jmx\_exporter 
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.kafka/kafka.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.kafka started` 就说明插件已加载。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.kafka/kafka.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.kafka started` 就说明插件已加载。
 
    ```
    # # collect interval
@@ -217,9 +217,9 @@ Kafka 的核心指标通过 JMX 暴露，这部分用 jolokia 或 jmx\_exporter 
    # disable_calculate_lag_rate = false
    ```
 
-2. 在夜莺「集成中心」里找到 Kafka，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 Kafka，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -330,6 +330,6 @@ max by (topic) (kafka_topic_partition_under_replicated_partition) > 0
 
 * \[Kafka 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/Kafka）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/Kafka%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `kafka` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/kafka)：完整配置项和指标列表。
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

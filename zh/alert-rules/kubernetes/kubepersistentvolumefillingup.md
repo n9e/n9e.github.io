@@ -2,13 +2,13 @@
 
 Prometheus 告警 KubePersistentVolumeFillingUp 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 一个 PersistentVolume 剩余空间不足 3%，数据来自挂载它的节点上的 kubelet。数据库、队列等有状态服务在卷写满后通常会拒绝写入或直接崩溃，所以这条是紧急级别。
 
 * **级别**：紧急（`critical`）
 * **持续**：1 分钟
-* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+* 属于 [Kubernetes 告警规则](https://n9e.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
 
 ## 规则[​](#规则 "规则的直接链接")
 
@@ -68,13 +68,13 @@ kube_persistentvolumeclaim_labels{label_excluded_from_alerts="true"} == 1
 
 ## 相关告警[​](#相关告警 "相关告警的直接链接")
 
-* [KubePersistentVolumeInodesFillingUp](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubepersistentvolumeinodesfillingup)：The PersistentVolume claimed by … in Namespace … only has … free inodes.
-* [KubePersistentVolumeErrors](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubepersistentvolumeerrors)：The persistent volume … has status ….
-* [KubeStatefulSetReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes/kubestatefulsetreplicasmismatch.md)：StatefulSet …/… has not matched the expected number of replicas for longer than 15 minutes.
+* [KubePersistentVolumeInodesFillingUp](https://n9e.io/zh/alert-rules/kubernetes.md#kubepersistentvolumeinodesfillingup)：The PersistentVolume claimed by … in Namespace … only has … free inodes.
+* [KubePersistentVolumeErrors](https://n9e.io/zh/alert-rules/kubernetes.md#kubepersistentvolumeerrors)：The persistent volume … has status ….
+* [KubeStatefulSetReplicasMismatch](https://n9e.io/zh/alert-rules/kubernetes/kubestatefulsetreplicasmismatch.md)：StatefulSet …/… has not matched the expected number of replicas for longer than 15 minutes.
 
 ## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
 
-加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.io/zh/alert-rules/kubernetes.yml)。
 
 ```
 - alert: KubePersistentVolumeFillingUp
@@ -113,10 +113,10 @@ kube_persistentvolumeclaim_labels{label_excluded_from_alerts="true"} == 1
 
     summary: "The PersistentVolume claimed by {{ $labels.persistentvolumeclaim }} in Namespace {{ $labels.namespace }} is only {{ $value | humanizePercentage }} free."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubepersistentvolumefillingup"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubepersistentvolumefillingup"
 ```
 
-**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 

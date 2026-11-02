@@ -2,7 +2,7 @@
 
 MinIO ships a Prometheus endpoint; scrape the cluster, bucket and node paths together or the object, bucket, process and disk panels stay empty.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 MinIO exposes Prometheus metrics under `/minio/v2/metrics/` on three paths: `cluster`, `bucket` and `node`. The two bundled dashboards use all three families, so scraping `/cluster` alone leaves the object count, bucket usage, process and disk panels without data.
 
@@ -15,7 +15,7 @@ The endpoint requires a Bearer Token by default. `MINIO_PROMETHEUS_AUTH_TYPE=pub
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-These components expose Prometheus-format `/metrics` themselves, so the Categraf `prometheus` input scrapes them without a dedicated plugin. If a Prometheus or VictoriaMetrics instance is already scraping them, [add it as a Nightingale data source](https://n9e.github.io/docs/data/prometheus.md) and the templates work as they are.
+These components expose Prometheus-format `/metrics` themselves, so the Categraf `prometheus` input scrapes them without a dedicated plugin. If a Prometheus or VictoriaMetrics instance is already scraping them, [add it as a Nightingale data source](https://n9e.io/docs/data/prometheus.md) and the templates work as they are.
 
 ```
 # conf/input.prometheus/minio.toml
@@ -43,8 +43,8 @@ urls = ["http://127.0.0.1:9000/minio/v2/metrics/node"]
 labels = { job = "minio", instance = "minio-01:9000" }
 ```
 
-1. Open the integration center in Nightingale, find MinIO, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
-2. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+1. Open the integration center in Nightingale, find MinIO, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
+2. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -94,6 +94,6 @@ Runbook:
 ## Related[​](#related "Direct link to Related")
 
 * [MinIO template source](https://github.com/ccfos/nightingale/tree/main/integrations/MinIO): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

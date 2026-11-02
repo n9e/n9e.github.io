@@ -27,7 +27,7 @@ An event's business group comes from **the rule's business group**, not the host
 
 ## Finding the one you want[​](#finding-the-one-you-want "Direct link to Finding the one you want")
 
-![Active alerts](https://n9e.github.io/img/docs/events/active-events.webp)![Active alerts](https://n9e.github.io/img/docs/events/active-events.dark.webp)
+![Active alerts](https://n9e.io/img/docs/events/active-events.webp)![Active alerts](https://n9e.io/img/docs/events/active-events.dark.webp)
 
 The top row:
 
@@ -40,31 +40,31 @@ The left panel has three multi-select groups: **Type** (Metric / Host / Log), **
 
 Each row has a coloured bar on the left for severity, and the bar under **Duration** shifts green to red with age, so the longest-burning event is visible at a glance.
 
-When there are still too many rows, fold them into cards with the **Aggregate rule** selector above the table — see [Event aggregation and deduplication](https://n9e.github.io/docs/events/aggregation.md).
+When there are still too many rows, fold them into cards with the **Aggregate rule** selector above the table — see [Event aggregation and deduplication](https://n9e.io/docs/events/aggregation.md).
 
 ## What to look at inside one event[​](#what-to-look-at-inside-one-event "Direct link to What to look at inside one event")
 
 Clicking the event title (the blue line) slides a detail panel in from the right. Beyond rule name, severity, labels, first trigger time and trigger value, three things are worth going to directly:
 
 * **The query**: the PromQL / SQL the rule actually ran, with a button next to it to re-run it. This is how you tell "the data really is abnormal" from "the threshold is wrong";
-* **Notification records**: which media types this event was pushed to, whether they succeeded, and what a failure returned. Start here when nothing arrives, then follow [Why is there an alert event but no notification?](https://n9e.github.io/docs/troubleshooting/no-notification.md);
+* **Notification records**: which media types this event was pushed to, whether they succeeded, and what a failure returned. Start here when nothing arrives, then follow [Why is there an alert event but no notification?](https://n9e.io/docs/troubleshooting/no-notification.md);
 * **Hash**: the event fingerprint, computed from rule plus labels. Copy and compare it when working out why two rows are treated as the same event.
 
 Three buttons at the bottom:
 
-* **Mute**: pre-fills a mute rule with this event's labels and jumps to the new-mute form. This is the most-used way to stop the noise — see [Mute rules](https://n9e.github.io/docs/events/mute-rules.md);
+* **Mute**: pre-fills a mute rule with this event's labels and jumps to the new-mute form. This is the most-used way to stop the noise — see [Mute rules](https://n9e.io/docs/events/mute-rules.md);
 * **Delete**: physically removes the event. **Only when you are sure the metric will never be reported again** (host decommissioned, label renamed) — such events can never recover. In every other case let it recover by itself;
-* **Sharing link**: issues a read-only link that needs no login, 7 days by default, for a colleague to look at. Same mechanism as [Anonymous time-limited sharing](https://n9e.github.io/docs/query/sharing.md), applied to one event.
+* **Sharing link**: issues a read-only link that needs no login, 7 days by default, for a colleague to look at. Same mechanism as [Anonymous time-limited sharing](https://n9e.io/docs/query/sharing.md), applied to one event.
 
 ## Handling several at once[​](#handling-several-at-once "Direct link to Handling several at once")
 
 Tick multiple rows and a batch bar appears above the list. The open-source edition can batch **delete**.
 
-Deleting is not muting: the rule is still enabled, so if the condition still holds on the next evaluation a fresh event is produced (possibly with the same hash). To stop the noise for longer, use [Mute rules](https://n9e.github.io/docs/events/mute-rules.md) or disable the rule.
+Deleting is not muting: the rule is still enabled, so if the condition still holds on the next evaluation a fresh event is produced (possibly with the same hash). To stop the noise for longer, use [Mute rules](https://n9e.io/docs/events/mute-rules.md) or disable the rule.
 
 ## Historical events: export and cleanup[​](#historical-events-export-and-cleanup "Direct link to Historical events: export and cleanup")
 
-![Historical alerts](https://n9e.github.io/img/docs/events/historical-events.webp)![Historical alerts](https://n9e.github.io/img/docs/events/historical-events.dark.webp)
+![Historical alerts](https://n9e.io/img/docs/events/historical-events.webp)![Historical alerts](https://n9e.io/img/docs/events/historical-events.dark.webp)
 
 The historical columns differ from the active ones: **First triggered** (when it entered the alerting state) and **Last evaluated** (when evaluation last confirmed it was still firing, or recovered) are separate columns. Those two are what you reconstruct a timeline from.
 
@@ -77,7 +77,7 @@ Historical events never expire on their own; leaving them unattended grows the t
 
 ## Next[​](#next "Direct link to Next")
 
-* Silence a class of event during a window: [Mute rules](https://n9e.github.io/docs/events/mute-rules.md)
-* Let another team receive them too: [Alert subscriptions](https://n9e.github.io/docs/events/subscriptions.md)
-* What else happens between event and person: [Noise reduction and routing model](https://n9e.github.io/docs/concepts/noise-routing.md)
-* An event that never recovers: [Alerts fire and recover repeatedly](https://n9e.github.io/docs/troubleshooting/alert-flapping.md)
+* Silence a class of event during a window: [Mute rules](https://n9e.io/docs/events/mute-rules.md)
+* Let another team receive them too: [Alert subscriptions](https://n9e.io/docs/events/subscriptions.md)
+* What else happens between event and person: [Noise reduction and routing model](https://n9e.io/docs/concepts/noise-routing.md)
+* An event that never recovers: [Alerts fire and recover repeatedly](https://n9e.io/docs/troubleshooting/alert-flapping.md)

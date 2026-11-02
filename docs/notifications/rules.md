@@ -10,7 +10,7 @@ Where this page ends: a working notification rule — S1 through one media type,
 
 **Alerts & Notifications → Notification rules**, then **Add** at the top right.
 
-![Notification rules](https://n9e.github.io/img/docs/notifications/notify-rules.webp)![Notification rules](https://n9e.github.io/img/docs/notifications/notify-rules.dark.webp)
+![Notification rules](https://n9e.io/img/docs/notifications/notify-rules.webp)![Notification rules](https://n9e.io/img/docs/notifications/notify-rules.dark.webp)
 
 The form has three sections: **Notification configuration** (the core one), **Basic configuration**, and **Event workflow** (optional). Skip basic configuration for now — the name is generated for you once you have picked a media type and a team.
 
@@ -18,7 +18,7 @@ The form has three sections: **Notification configuration** (the core one), **Ba
 
 | Field            | Notes                                                                                                                                                                                                                           |
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Media type       | Pick an existing one. If nothing fits, create one first — see [DingTalk / Feishu / WeCom](https://n9e.github.io/docs/notifications/dingtalk-feishu-wecom.md)                                                                    |
+| Media type       | Pick an existing one. If nothing fits, create one first — see [DingTalk / Feishu / WeCom](https://n9e.io/docs/notifications/dingtalk-feishu-wecom.md)                                                                           |
 | Message template | Appears only after a media type is chosen, and lists only templates of the same media type; the first one is selected for you. FlashDuty, PagerDuty and Callback media types do not show this field — they do not use templates |
 | Media parameters | Vary by media type: DingTalk wants Access Token + Bot Name, WeCom wants Key, Callback wants Callback Url                                                                                                                        |
 | Users / Teams    | Shown only when the media type declares a contact key (email, SMS, phone). The two cannot both be empty                                                                                                                         |
@@ -47,7 +47,7 @@ Every notification config has a **Run test** button. Two modes:
 * **Use mock event** — sends a built-in fake event and **does not check the filters**. It answers only "is the address reachable and the secret correct". Use this on a fresh install.
 * **Pick history events** — takes real past events and runs them through the filters first, so a non-matching event is rejected outright. That doubles as a check on your filters.
 
-Expected result: the dialog shows the target's response, *and* a real message shows up in your room or mailbox. Either one alone does not count as a pass — see [Test a notification end to end](https://n9e.github.io/docs/notifications/test.md).
+Expected result: the dialog shows the target's response, *and* a real message shows up in your room or mailbox. Either one alone does not count as a pass — see [Test a notification end to end](https://n9e.io/docs/notifications/test.md).
 
 ## 5. Attach it to an alert rule[​](#5-attach-it-to-an-alert-rule "Direct link to 5. Attach it to an alert rule")
 
@@ -65,7 +65,7 @@ Recipients are chosen separately, inside the notification config. The two are un
 
 ## Event workflow (optional)[​](#event-workflow-optional "Direct link to Event workflow (optional)")
 
-A notification rule can carry one or more [event pipelines](https://n9e.github.io/docs/events/pipelines.md) that transform the event before it is sent — add labels, rewrite fields, or drop it entirely. They run *before* the filters, so labels written by a pipeline are visible to **Applicable tags**.
+A notification rule can carry one or more [event pipelines](https://n9e.io/docs/events/pipelines.md) that transform the event before it is sent — add labels, rewrite fields, or drop it entirely. They run *before* the filters, so labels written by a pipeline are visible to **Applicable tags**.
 
 Note that an alert rule can also carry a pipeline; that one affects everything downstream, while this one affects only this notification rule.
 
@@ -78,7 +78,7 @@ Note that an alert rule can also carry a pipeline; that one affects everything d
 
 ## Next[​](#next "Direct link to Next")
 
-* Change the wording: [Templates and variables](https://n9e.github.io/docs/notifications/templates.md)
-* Let another team receive the same events: [Alert subscriptions](https://n9e.github.io/docs/events/subscriptions.md)
-* Stay quiet during a change window: [Mute rules](https://n9e.github.io/docs/events/mute-rules.md)
-* Configured but nothing arrives: [Why is there an alert event but no notification?](https://n9e.github.io/docs/troubleshooting/no-notification.md)
+* Change the wording: [Templates and variables](https://n9e.io/docs/notifications/templates.md)
+* Let another team receive the same events: [Alert subscriptions](https://n9e.io/docs/events/subscriptions.md)
+* Stay quiet during a change window: [Mute rules](https://n9e.io/docs/events/mute-rules.md)
+* Configured but nothing arrives: [Why is there an alert event but no notification?](https://n9e.io/docs/troubleshooting/no-notification.md)

@@ -2,7 +2,7 @@
 
 Pulls CPU, memory, disk and network performance counters for ESXi hosts, virtual machines, datastores and clusters through the vCenter API.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The vSphere input pulls performance data through the vCenter Server API across five levels: datacenter, cluster, ESXi host, virtual machine and datastore. That includes CPU ready time and usage, active memory and ballooning, disk latency and IOPS, network throughput and datastore capacity. A vCenter is required; connecting to a bare ESXi host does not work.
 
@@ -16,7 +16,7 @@ Give Categraf a vCenter account with a read-only role rather than administrator.
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.vsphere/vsphere.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.vsphere started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.vsphere/vsphere.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.vsphere started` once the plugin is loaded.
 
    ```
    # # collect interval
@@ -424,9 +424,9 @@ Give Categraf a vCenter account with a read-only role rather than administrator.
      # historical_interval = "5m"
    ```
 
-2. Open the integration center in Nightingale, find vSphere, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find vSphere, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -518,6 +518,6 @@ Runbook:
 
 * [vSphere template source](https://github.com/ccfos/nightingale/tree/main/integrations/vSphere): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `vsphere` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/vsphere): every config option and the full metric list.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

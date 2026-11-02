@@ -2,7 +2,7 @@
 
 3.8 以上直接抓内置 Prometheus 插件的 15692 端口，旧版本走管理 API；模板按版本分开，规则盯队列积压、未确认消息和节点状态。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 RabbitMQ 3.8 起内置 `rabbitmq_prometheus` 插件，`rabbitmq-plugins enable rabbitmq_prometheus` 后在 15692 端口暴露 `/metrics`，推荐用 Categraf 的 `prometheus` 插件抓取。低于 3.8 的版本启用 `rabbitmq_management`，用 Categraf 的 `rabbitmq` 插件访问 15672 的管理 API。
 
@@ -16,7 +16,7 @@ RabbitMQ 3.8 起内置 `rabbitmq_prometheus` 插件，`rabbitmq-plugins enable r
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，按需启用下面的插件。每个配置放到对应的 `conf/input.<插件名>/` 目录，改好地址和凭据后重启 Categraf。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，按需启用下面的插件。每个配置放到对应的 `conf/input.<插件名>/` 目录，改好地址和凭据后重启 Categraf。
 
    `conf/input.rabbitmq/rabbitmq.toml`
 
@@ -292,9 +292,9 @@ RabbitMQ 3.8 起内置 `rabbitmq_prometheus` 插件，`rabbitmq-plugins enable r
      # labels = { instance = "rabbitmq-001" }
    ```
 
-2. 在夜莺「集成中心」里找到 RabbitMQ，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 RabbitMQ，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -415,6 +415,6 @@ sum (increase(rabbitmq_channel_messages_unroutable_dropped_total[5m])) >= 1 or s
 
 * \[RabbitMQ 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/RabbitMQ）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/RabbitMQ%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `rabbitmq` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/rabbitmq)：完整配置项和指标列表。
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

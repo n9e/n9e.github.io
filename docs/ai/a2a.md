@@ -15,7 +15,7 @@ Where this page ends: a Nightingale agent that a third-party agent platform can 
 | Needs an LLM configured? | **No** — tools hit Nightingale's API directly           | **Yes** — it drives the built-in assistant   |
 | Suits                    | Clients that bring their own model: Claude Code, Cursor | Somebody else's agent orchestration platform |
 
-Both endpoints are on by default and share one auth path. **A question the assistant cannot answer in the UI, it cannot answer over A2A either** — get a conversation working first, see [Nightingale AI overview](https://n9e.github.io/docs/ai/nightingale-ai.md).
+Both endpoints are on by default and share one auth path. **A question the assistant cannot answer in the UI, it cannot answer over A2A either** — get a conversation working first, see [Nightingale AI overview](https://n9e.io/docs/ai/nightingale-ai.md).
 
 ## The agent card is the only address a third party needs[​](#the-agent-card-is-the-only-address-a-third-party-needs "Direct link to The agent card is the only address a third party needs")
 
@@ -160,6 +160,6 @@ To close MCP only and keep A2A, use `DisableMCP = true`.
 
 ## Next[​](#next "Direct link to Next")
 
-* Get the assistant answering first: [Nightingale AI overview](https://n9e.github.io/docs/ai/nightingale-ai.md)
-* Let callers use their own accounts: [OAuth 2.1 and external identity providers](https://n9e.github.io/docs/ai/oauth.md)
-* The fine-grained-tools path: [Enable the MCP endpoint](https://n9e.github.io/docs/ai/mcp-endpoint.md)
+* Get the assistant answering first: [Nightingale AI overview](https://n9e.io/docs/ai/nightingale-ai.md)
+* Let callers use their own accounts: [OAuth 2.1 and external identity providers](https://n9e.io/docs/ai/oauth.md)
+* The fine-grained-tools path: [Enable the MCP endpoint](https://n9e.io/docs/ai/mcp-endpoint.md)

@@ -2,7 +2,7 @@
 
 Pulls metric statistics from any CloudWatch namespace through the API, so EC2, RDS, ELB and Lambda all fit; the template ships an RDS dashboard and common rules.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The CloudWatch input is ported from Telegraf. It calls the GetMetricData API to pull statistics per namespace (`AWS/EC2`, `AWS/RDS`, `AWS/ELB` and so on), with dimension filters to limit collection to the resources you care about. Authentication follows the standard credential chain: `role_arn`, explicit access keys, a named profile, environment variables, the shared credentials file and the EC2 instance profile, tried in that order.
 
@@ -16,7 +16,7 @@ CloudWatch bills per API call, so choose the interval and namespace scope with t
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.cloudwatch/cloud.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.cloudwatch started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.cloudwatch/cloud.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.cloudwatch started` once the plugin is loaded.
 
    ```
    interval="5m"
@@ -230,9 +230,9 @@ CloudWatch bills per API call, so choose the interval and namespace scope with t
      #    value = "p-example"
    ```
 
-2. Open the integration center in Nightingale, find CloudWatch, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find CloudWatch, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -368,6 +368,6 @@ Runbook:
 
 * [CloudWatch template source](https://github.com/ccfos/nightingale/tree/main/integrations/CloudWatch): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `cloudwatch` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/cloudwatch): every config option and the full metric list.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

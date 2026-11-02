@@ -6,7 +6,7 @@ Last reviewed 2026-10-10
 
 Where this page ends: you can set the four timing fields on a rule deliberately instead of leaving them at their defaults, and you know which of them decide whether an event exists at all versus whether a message goes out.
 
-The state machine behind these fields is described in [Evaluation, recovery and state changes](https://n9e.github.io/docs/concepts/evaluation.md). This page is about the fields.
+The state machine behind these fields is described in [Evaluation, recovery and state changes](https://n9e.io/docs/concepts/evaluation.md). This page is about the fields.
 
 ## The four fields and where they are[​](#the-four-fields-and-where-they-are "Direct link to The four fields and where they are")
 
@@ -26,7 +26,7 @@ Two constraints, and they pull in opposite directions:
 * **Do not run faster than the data arrives.** Categraf's default scrape interval is 15s. Evaluating every 5s just re-reads the same three points and triples the load for nothing.
 * **Do not run slower than you need to know.** The frequency is the floor on your detection time, before for-duration adds to it.
 
-And one that people discover the expensive way: the frequency is **per data source**. A rule that matches ten instances at `@every 15s` issues 2400 queries an hour. Widening a data source filter multiplies this silently — see [Scope by business group and data source](https://n9e.github.io/docs/alerting/scope.md).
+And one that people discover the expensive way: the frequency is **per data source**. A rule that matches ten instances at `@every 15s` issues 2400 queries an hour. Widening a data source filter multiplies this silently — see [Scope by business group and data source](https://n9e.io/docs/alerting/scope.md).
 
 For SQL-backed rules, weigh the frequency against how long the statement takes. A query that takes eight seconds should not run every fifteen.
 
@@ -78,7 +78,7 @@ Trigger      $A.value > 90
 Recovery     $A.value < 80
 ```
 
-Between 80 and 90 the alert neither fires again nor recovers — it just stays as it is until the metric commits to one side. An unparseable recovery expression is treated as "not recovered", with no visible error, so verify it with [Test fire](https://n9e.github.io/docs/alerting/test-fire.md).
+Between 80 and 90 the alert neither fires again nor recovers — it just stays as it is until the metric commits to one side. An unparseable recovery expression is treated as "not recovered", with no visible error, so verify it with [Test fire](https://n9e.io/docs/alerting/test-fire.md).
 
 ### Alerting on the data disappearing[​](#alerting-on-the-data-disappearing "Direct link to Alerting on the data disappearing")
 
@@ -96,7 +96,7 @@ Three more fields in step 4 decide what happens after the event exists:
 | Repeat interval (mins) | 60      | How long before an unrecovered alert notifies again. `0` means never repeat                                                 |
 | Max send times         | 0       | How many notifications one event may produce in total. `0` means no limit                                                   |
 
-A trap worth knowing: **disabling a rule that is currently firing means you never get the recovery notification**, because a disabled rule produces no events of any kind. For a temporary silence use a [mute rule](https://n9e.github.io/docs/events/mute-rules.md) instead.
+A trap worth knowing: **disabling a rule that is currently firing means you never get the recovery notification**, because a disabled rule produces no events of any kind. For a temporary silence use a [mute rule](https://n9e.io/docs/events/mute-rules.md) instead.
 
 ## Choosing a set of values[​](#choosing-a-set-of-values "Direct link to Choosing a set of values")
 
@@ -108,10 +108,10 @@ Three combinations that hold up in practice:
 
 **A rate crosses a line.** Frequency `@every 60s`, for duration `120`, and — on rule types that support it — an asymmetric recovery condition rather than a recover duration.
 
-When the numbers are not doing what you expect, the answer is in [the evaluation records](https://n9e.github.io/docs/alerting/execution-records.md): every cycle logs whether the condition matched and which stage the event stopped at.
+When the numbers are not doing what you expect, the answer is in [the evaluation records](https://n9e.io/docs/alerting/execution-records.md): every cycle logs whether the condition matched and which stage the event stopped at.
 
 ## Next[​](#next "Direct link to Next")
 
-* The state machine these fields drive: [Evaluation, recovery and state changes](https://n9e.github.io/docs/concepts/evaluation.md)
-* When it will not stop: [Why does an alert fire repeatedly or never recover?](https://n9e.github.io/docs/troubleshooting/alert-flapping.md)
-* When it never starts: [Alert rule does not fire](https://n9e.github.io/docs/troubleshooting/alert-not-firing.md)
+* The state machine these fields drive: [Evaluation, recovery and state changes](https://n9e.io/docs/concepts/evaluation.md)
+* When it will not stop: [Why does an alert fire repeatedly or never recover?](https://n9e.io/docs/troubleshooting/alert-flapping.md)
+* When it never starts: [Alert rule does not fire](https://n9e.io/docs/troubleshooting/alert-not-firing.md)

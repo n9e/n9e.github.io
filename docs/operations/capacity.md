@@ -66,7 +66,7 @@ n9e_pushgw_sample_queue_size{queueid="..."}               # backlog per queue
 n9e_pushgw_push_queue_error_total{queueid="..."}          # samples dropped
 ```
 
-The number of queues defaults to the CPU count, and the global admission ceiling is `queues × QueueMaxSize × 0.1`. Once `push_queue_error_total` is non-zero you are genuinely losing data — see [Pushgw queue, writers and dual write](https://n9e.github.io/docs/operations/pushgw.md).
+The number of queues defaults to the CPU count, and the global admission ceiling is `queues × QueueMaxSize × 0.1`. Once `push_queue_error_total` is non-zero you are genuinely losing data — see [Pushgw queue, writers and dual write](https://n9e.io/docs/operations/pushgw.md).
 
 ## Disk is its own calculation[​](#disk-is-its-own-calculation "Direct link to Disk is its own calculation")
 
@@ -94,15 +94,15 @@ On the metadata database side, three tables grow over time, and their cleanup de
 
 Find which of the numbers topped out first; adding machines does not solve every case.
 
-| What topped out                           | What to do                                                                                                                         |
-| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| Evaluation cost (rules no longer fit)     | Add `n9e` instances — rules redistribute onto them automatically                                                                   |
-| Evaluation cost (a handful of slow rules) | Fix those rules; hardware will not help                                                                                            |
-| Active series                             | Move to an external TSDB — see [Embedded TSDB single-Center limits](https://n9e.github.io/docs/operations/embedded-tsdb-limits.md) |
-| Ingest volume                             | Split out `n9e-pushgw`, or add `n9e` instances behind a load balancer                                                              |
-| Database queuing                          | Find slow queries, then raise `[DB] MaxOpenConns`, and only then resize the database                                               |
-| Disk                                      | Shorten retention, or move off the embedded TSDB                                                                                   |
-| Slow UI while evaluation is fine          | Split out `n9e-alert` so evaluation and the web tier stop competing for CPU                                                        |
+| What topped out                           | What to do                                                                                                                  |
+| ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Evaluation cost (rules no longer fit)     | Add `n9e` instances — rules redistribute onto them automatically                                                            |
+| Evaluation cost (a handful of slow rules) | Fix those rules; hardware will not help                                                                                     |
+| Active series                             | Move to an external TSDB — see [Embedded TSDB single-Center limits](https://n9e.io/docs/operations/embedded-tsdb-limits.md) |
+| Ingest volume                             | Split out `n9e-pushgw`, or add `n9e` instances behind a load balancer                                                       |
+| Database queuing                          | Find slow queries, then raise `[DB] MaxOpenConns`, and only then resize the database                                        |
+| Disk                                      | Shorten retention, or move off the embedded TSDB                                                                            |
+| Slow UI while evaluation is fine          | Split out `n9e-alert` so evaluation and the web tier stop competing for CPU                                                 |
 
 One cost that is easy to miss: Pushgw exposes one `n9e_pushgw_sample_received_by_ident{host_ident="..."}` series on its own `/metrics` for **every monitored host**. At ten thousand hosts that single metric is ten thousand series, and there is no switch to turn it off — budget for it when you scrape Nightingale's own metrics.
 
@@ -114,7 +114,7 @@ Publishing a number without its preconditions means someone buys hardware from i
 
 ## Related[​](#related "Direct link to Related")
 
-* [Production topology](https://n9e.github.io/docs/operations/topology.md)
-* [High availability and failure domains](https://n9e.github.io/docs/operations/high-availability.md)
-* [Pushgw queue, writers and dual write](https://n9e.github.io/docs/operations/pushgw.md)
-* [Built-in metrics and health checks](https://n9e.github.io/docs/operations/health.md)
+* [Production topology](https://n9e.io/docs/operations/topology.md)
+* [High availability and failure domains](https://n9e.io/docs/operations/high-availability.md)
+* [Pushgw queue, writers and dual write](https://n9e.io/docs/operations/pushgw.md)
+* [Built-in metrics and health checks](https://n9e.io/docs/operations/health.md)

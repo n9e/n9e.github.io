@@ -13,11 +13,11 @@ Where this page ends: people sign in to Nightingale with their corporate account
 * **LDAP / CAS / OIDC / OAuth2**: one block of TOML, edited directly in a code editor. The field names *are* the TOML keys.
 * **DingTalk / Feishu**: an ordinary form.
 
-![Single sign-on settings](https://n9e.github.io/img/docs/security/sso.webp)![Single sign-on settings](https://n9e.github.io/img/docs/security/sso.dark.webp)
+![Single sign-on settings](https://n9e.io/img/docs/security/sso.webp)![Single sign-on settings](https://n9e.io/img/docs/security/sso.dark.webp)
 
-Both end in a **Save** button at the bottom. Saving needs **no process restart** — the backend periodically compares the configuration's update time and reloads when it moves. Saving requires `Admin`; the `/system/sso-settings` permission point only governs menu visibility, as covered in [Roles and permission matrix](https://n9e.github.io/docs/security/roles.md).
+Both end in a **Save** button at the bottom. Saving needs **no process restart** — the backend periodically compares the configuration's update time and reloads when it moves. Saving requires `Admin`; the `/system/sso-settings` permission point only governs menu visibility, as covered in [Roles and permission matrix](https://n9e.io/docs/security/roles.md).
 
-Configuration bodies can reference encrypted variables as `{{.variable_name}}`, and all six providers support it. Use that for values like `ClientSecret` and `BindPass` when you would rather not leave them as plaintext in the database — see [Secret management](https://n9e.github.io/docs/security/secrets.md).
+Configuration bodies can reference encrypted variables as `{{.variable_name}}`, and all six providers support it. Use that for values like `ClientSecret` and `BindPass` when you would rather not leave them as plaintext in the database — see [Secret management](https://n9e.io/docs/security/secrets.md).
 
 ## 1. Connect an OIDC provider[​](#1-connect-an-oidc-provider "Direct link to 1. Connect an OIDC provider")
 
@@ -146,7 +146,7 @@ Reading `UserinfoPrefix` and `UserinfoIsArray` against a real response:
 
 Call `UserInfoAddr` once by hand with a real token before you save: a prefix or attribute name that does not match produces empty fields rather than an error.
 
-`RSVerifyMethod`, `IntrospectAddr` and `IntrospectCacheSeconds` do not affect browser login. They apply only when this provider also guards A2A and MCP access tokens; see [OAuth 2.1 and external identity providers](https://n9e.github.io/docs/ai/oauth.md).
+`RSVerifyMethod`, `IntrospectAddr` and `IntrospectCacheSeconds` do not affect browser login. They apply only when this provider also guards A2A and MCP access tokens; see [OAuth 2.1 and external identity providers](https://n9e.io/docs/ai/oauth.md).
 
 ## 3. Connect CAS[​](#cas "Direct link to 3. Connect CAS")
 
@@ -301,7 +301,7 @@ Whichever provider is used, the first login creates a user:
 
 Under **Organization → Users**, these accounts show the provider's name in the **Source** column, so it is obvious at a glance which accounts are yours and which belong to the IdP.
 
-**And here is the trap**: `DefaultRoles` may say `Standard`, and the person really can log in — but with no team, they open the UI and see nothing at all, because permissions have two layers and the second one is unconnected. So when wiring up SSO, `DefaultTeams` (or the form's default team) should almost always be set, and that team should hold an authorization on some business group. The long version is in [Users and teams](https://n9e.github.io/docs/security/users-teams.md) and [Business group authorization](https://n9e.github.io/docs/security/business-groups.md).
+**And here is the trap**: `DefaultRoles` may say `Standard`, and the person really can log in — but with no team, they open the UI and see nothing at all, because permissions have two layers and the second one is unconnected. So when wiring up SSO, `DefaultTeams` (or the form's default team) should almost always be set, and that team should hold an authorization on some business group. The long version is in [Users and teams](https://n9e.io/docs/security/users-teams.md) and [Business group authorization](https://n9e.io/docs/security/business-groups.md).
 
 One more: **do not delete SSO accounts by hand in Nightingale** — the next login recreates them. Let the identity provider own the lifecycle, and let Nightingale follow with settings like `SyncDelUsers`.
 
@@ -309,10 +309,10 @@ One more: **do not delete SSO accounts by hand in Nightingale** — the next log
 
 If a gateway in front already handles authentication centrally, you can skip every provider on this page and use `[HTTP.ProxyAuth]` in the config file instead: the gateway authenticates and passes the username in a header.
 
-It is not the same thing, and the two **cannot be mixed** — enabling `ProxyAuth` disables JWT login altogether, which makes all six buttons configured here useless. Its prerequisite (17000 reachable from the gateway only) and its risks are in [Network and TLS hardening](https://n9e.github.io/docs/security/network-tls.md).
+It is not the same thing, and the two **cannot be mixed** — enabling `ProxyAuth` disables JWT login altogether, which makes all six buttons configured here useless. Its prerequisite (17000 reachable from the gateway only) and its risks are in [Network and TLS hardening](https://n9e.io/docs/security/network-tls.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Granting permissions once accounts exist: [Users and teams](https://n9e.github.io/docs/security/users-teams.md)
-* What is actually in a role: [Roles and permission matrix](https://n9e.github.io/docs/security/roles.md)
-* Turning a client secret into an encrypted variable: [Site and user variable settings](https://n9e.github.io/docs/security/variables.md)
+* Granting permissions once accounts exist: [Users and teams](https://n9e.io/docs/security/users-teams.md)
+* What is actually in a role: [Roles and permission matrix](https://n9e.io/docs/security/roles.md)
+* Turning a client secret into an encrypted variable: [Site and user variable settings](https://n9e.io/docs/security/variables.md)

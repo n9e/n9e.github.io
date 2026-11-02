@@ -56,16 +56,16 @@ A freshly started process **waits 30 seconds before it starts evaluating** (`[Al
 
 ## What it survives, what it does not[​](#what-it-survives-what-it-does-not "Direct link to What it survives, what it does not")
 
-| Failure                                         | Result                                                                                                                                           |
-| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| One `n9e` instance dies                         | Its rules are taken over within 30 seconds; that batch is not evaluated meanwhile                                                                |
-| One `n9e` instance is restarted for an upgrade  | Same, plus the 30-second evaluation delay after start                                                                                            |
-| The metadata database is unavailable            | **Everything is down** — rules, users and events all live there, and there is no degraded mode                                                   |
-| Redis is unavailable                            | **A process that cannot reach Redis at startup exits**; losing it at runtime breaks sessions and heartbeat caches widely                         |
-| One data source is unavailable                  | Only the rules using it; the query error is written into the evaluation records                                                                  |
-| A notification channel is unavailable           | Events are still produced; the notification record shows the failure                                                                             |
-| The instance holding the embedded TSDB dies     | Metrics cannot be written and history cannot be queried for that period                                                                          |
-| The link between centre and an edge site breaks | The edge keeps evaluating and notifying locally — see [Edge network partition behavior](https://n9e.github.io/docs/operations/edge-partition.md) |
+| Failure                                         | Result                                                                                                                                    |
+| ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| One `n9e` instance dies                         | Its rules are taken over within 30 seconds; that batch is not evaluated meanwhile                                                         |
+| One `n9e` instance is restarted for an upgrade  | Same, plus the 30-second evaluation delay after start                                                                                     |
+| The metadata database is unavailable            | **Everything is down** — rules, users and events all live there, and there is no degraded mode                                            |
+| Redis is unavailable                            | **A process that cannot reach Redis at startup exits**; losing it at runtime breaks sessions and heartbeat caches widely                  |
+| One data source is unavailable                  | Only the rules using it; the query error is written into the evaluation records                                                           |
+| A notification channel is unavailable           | Events are still produced; the notification record shows the failure                                                                      |
+| The instance holding the embedded TSDB dies     | Metrics cannot be written and history cannot be queried for that period                                                                   |
+| The link between centre and an edge site breaks | The edge keeps evaluating and notifying locally — see [Edge network partition behavior](https://n9e.io/docs/operations/edge-partition.md) |
 
 The conclusion is blunt: **several instances only remove one failure domain, the `n9e` process itself**. MySQL and Redis need their own high availability; Nightingale does not compensate for them.
 
@@ -79,7 +79,7 @@ The embedded store keeps its data on the **local disk of one Center process**. W
 Enable = false
 ```
 
-At startup, Center logs a warning when it detects other active instances in the same engine cluster. For the migration path see [Embedded TSDB single-Center limits](https://n9e.github.io/docs/operations/embedded-tsdb-limits.md).
+At startup, Center logs a warning when it detects other active instances in the same engine cluster. For the migration path see [Embedded TSDB single-Center limits](https://n9e.io/docs/operations/embedded-tsdb-limits.md).
 
 ## Rehearsing it[​](#rehearsing-it "Direct link to Rehearsing it")
 
@@ -95,7 +95,7 @@ Step 4 is the one people skip. A live instance with climbing counters does not p
 
 ## Related[​](#related "Direct link to Related")
 
-* [Production topology](https://n9e.github.io/docs/operations/topology.md)
-* [Embedded TSDB single-Center limits](https://n9e.github.io/docs/operations/embedded-tsdb-limits.md)
-* [Upgrade and database migration](https://n9e.github.io/docs/operations/upgrade.md)
-* [Monitor Nightingale itself](https://n9e.github.io/docs/operations/self-monitoring.md)
+* [Production topology](https://n9e.io/docs/operations/topology.md)
+* [Embedded TSDB single-Center limits](https://n9e.io/docs/operations/embedded-tsdb-limits.md)
+* [Upgrade and database migration](https://n9e.io/docs/operations/upgrade.md)
+* [Monitor Nightingale itself](https://n9e.io/docs/operations/self-monitoring.md)

@@ -10,7 +10,7 @@ A community-maintained Helm chart brings up Nightingale in Kubernetes together w
 
 Monitoring is a P0 system: **when the Kubernetes cluster is in trouble is exactly when you need monitoring alive**. Deploying Nightingale into the cluster it monitors creates a circular dependency — the cluster goes, and the tool you would debug it with goes with it.
 
-Either use a separate infrastructure cluster, or install on machines outside the cluster with [binary packages](https://n9e.github.io/docs/install/binary.md). This is a topology decision, not a criticism of the chart.
+Either use a separate infrastructure cluster, or install on machines outside the cluster with [binary packages](https://n9e.io/docs/install/binary.md). This is a topology decision, not a criticism of the chart.
 
 ## The state of the chart[​](#the-state-of-the-chart "Direct link to The state of the chart")
 
@@ -22,7 +22,7 @@ The chart lives at [flashcatcloud/n9e-helm](https://github.com/flashcatcloud/n9e
 
 **Packaged releases have not caught up yet.** The newest chart in the Helm repository at `https://flashcatcloud.github.io/n9e-helm` is still v8's `v8.0.0-beta12`, so `helm repo add` gets you v8. To install v9, install from a clone of master, as in the next section.
 
-Coming from an older chart, switch to the new one and run `helm upgrade`; `n9e` fills in the schema with AutoMigrate on startup. See [Upgrade](https://n9e.github.io/docs/install/upgrade.md) for what to check first.
+Coming from an older chart, switch to the new one and run `helm upgrade`; `n9e` fills in the schema with AutoMigrate on startup. See [Upgrade](https://n9e.io/docs/install/upgrade.md) for what to check first.
 
 ## Install[​](#install "Direct link to Install")
 
@@ -128,6 +128,6 @@ externalURL: https://n9e.example.com
 
 ## Next[​](#next "Direct link to Next")
 
-* [Choosing a metadata database](https://n9e.github.io/docs/install/databases.md)
-* [Production readiness checklist](https://n9e.github.io/docs/get-started/production-checklist.md)
-* [Binary packages](https://n9e.github.io/docs/install/binary.md) — deploying outside the cluster
+* [Choosing a metadata database](https://n9e.io/docs/install/databases.md)
+* [Production readiness checklist](https://n9e.io/docs/get-started/production-checklist.md)
+* [Binary packages](https://n9e.io/docs/install/binary.md) — deploying outside the cluster

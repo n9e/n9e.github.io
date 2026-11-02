@@ -2,7 +2,7 @@
 
 12 条开箱可用的 Redis 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 redis\_exporter, Categraf。可下载为 Prometheus 规则文件，或导入夜莺。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Redis 告警规则：内存使用率过高、key 驱逐速率升高、连接被拒、客户端连接数过多、缓存命中率下降、命令或 PING 延迟过高、实例刚刚重启。exporter 一组使用 oliver006/redis\_exporter 的指标名；Categraf 一组为用 Categraf 采集的实例提供同样的检查。
 
@@ -10,7 +10,7 @@ Redis 告警规则：内存使用率过高、key 驱逐速率升高、连接被�
 
 * **12 条规则**，每条都有 PromQL 触发条件、级别、持续时间（`for`）和处置步骤
 * **指标来源**：redis\_exporter, Categraf
-* **下载**：[`redis.yml`](https://n9e.github.io/zh/alert-rules/redis.yml)，标准 Prometheus 规则文件（`groups:` 格式），已用 `promtool check rules` 校验
+* **下载**：[`redis.yml`](https://n9e.io/zh/alert-rules/redis.yml)，标准 Prometheus 规则文件（`groups:` 格式），已用 `promtool check rules` 校验
 * 阈值只是起点，启用前请按自己的环境调整。
 
 ## 规则一览[​](#规则一览 "规则一览的直接链接")
@@ -232,8 +232,8 @@ rate(redis_keyspace_hits[5m])
 
 ## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直接链接")
 
-* **用 Prometheus 或 vmalert**：下载 [`redis.yml`](https://n9e.github.io/zh/alert-rules/redis.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
-* **用夜莺**：同样的规则内置在 [Redis](https://n9e.github.io/zh/integrations/redis.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
+* **用 Prometheus 或 vmalert**：下载 [`redis.yml`](https://n9e.io/zh/alert-rules/redis.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
+* **用夜莺**：同样的规则内置在 [Redis](https://n9e.io/zh/integrations/redis.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 
@@ -241,6 +241,6 @@ rate(redis_keyspace_hits[5m])
 
 ## 相关链接[​](#�相关链接 "相关链接的直接链接")
 
-* [用夜莺监控 Redis](https://n9e.github.io/zh/integrations/redis.md)：采集配置、仪表盘与指标说明
-* [在夜莺里写指标告警规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)
-* [全部告警规则](https://n9e.github.io/zh/alert-rules.md)
+* [用夜莺监控 Redis](https://n9e.io/zh/integrations/redis.md)：采集配置、仪表盘与指标说明
+* [在夜莺里写指标告警规则](https://n9e.io/zh/docs/alerting/metric-rules.md)
+* [全部告警规则](https://n9e.io/zh/alert-rules.md)

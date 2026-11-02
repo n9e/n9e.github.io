@@ -6,19 +6,19 @@ Last reviewed 2026-10-10
 
 The notification went out, but to the wrong people: the on-call room's alert landed in the all-hands room, something you muted paged anyway, one event arrived twice, or a label rewrite made it reach nobody at all. What these share is that **the step which decided the destination is not the step you think it is**.
 
-Gauge urgency by direction. **Over-delivery** — people who should not have been told — is noise, and can wait. **Under-delivery** — someone who should have been told was not — is a blind spot: stop the bleeding with [Why is there an alert event but no notification?](https://n9e.github.io/docs/troubleshooting/no-notification.md) first, then come back here for the routing.
+Gauge urgency by direction. **Over-delivery** — people who should not have been told — is noise, and can wait. **Under-delivery** — someone who should have been told was not — is a blind spot: stop the bleeding with [Why is there an alert event but no notification?](https://n9e.io/docs/troubleshooting/no-notification.md) first, then come back here for the routing.
 
 ## Start at the notification records: who sent this one[​](#start-at-the-notification-records-who-sent-this-one "Direct link to Start at the notification records: who sent this one")
 
 **Events → open the event → Notification records.** Every record names **which notification rule** and **which media type** sent it. Write those two down and the problem space halves immediately:
 
-| What the records show                                             | Where the destination was decided                                                                                                                          |
-| ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| One record, and its notification rule is not the one you expected | The wrong notification rule is attached to the alert rule                                                                                                  |
-| Several records with different notification rule IDs              | The alert rule references several notification rules, and **each sends on its own**                                                                        |
-| The record sits under Subscription rule notification              | It is a subscription's copy, not the original rule's                                                                                                       |
-| The record's channel reads "mute"                                 | A notification-only mute rule matched                                                                                                                      |
-| No records at all, yet somebody got the message                   | The event was produced on an edge — see [Why does the edge lose contact with the center?](https://n9e.github.io/docs/troubleshooting/edge-disconnected.md) |
+| What the records show                                             | Where the destination was decided                                                                                                                   |
+| ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| One record, and its notification rule is not the one you expected | The wrong notification rule is attached to the alert rule                                                                                           |
+| Several records with different notification rule IDs              | The alert rule references several notification rules, and **each sends on its own**                                                                 |
+| The record sits under Subscription rule notification              | It is a subscription's copy, not the original rule's                                                                                                |
+| The record's channel reads "mute"                                 | A notification-only mute rule matched                                                                                                               |
+| No records at all, yet somebody got the message                   | The event was produced on an edge — see [Why does the edge lose contact with the center?](https://n9e.io/docs/troubleshooting/edge-disconnected.md) |
 
 ## Which step decides the destination[​](#which-step-decides-the-destination "Direct link to Which step decides the destination")
 
@@ -54,7 +54,7 @@ Three places decide the destination, ordered by how often they are misread:
 2. **The label rewrite in step 1** — everything in steps 2 and 4 uses the labels it left behind;
 3. **The subscription fan-out in step 3** — it only ever adds; the original rule still sends.
 
-The full model is in [Noise reduction and routing model](https://n9e.github.io/docs/concepts/noise-routing.md).
+The full model is in [Noise reduction and routing model](https://n9e.io/docs/concepts/noise-routing.md).
 
 ## Two attachment points, with completely different reach[​](#two-attachment-points-with-completely-different-reach "Direct link to Two attachment points, with completely different reach")
 
@@ -177,9 +177,9 @@ Mock event mode skips every filter, so it cannot verify routing — only renderi
 
 ## Next[​](#next "Direct link to Next")
 
-* Nothing arrived at all: [Why is there an alert event but no notification?](https://n9e.github.io/docs/troubleshooting/no-notification.md)
-* Fine in the test run, wrong in production: [Why does a workflow Try run succeed but production execution fail?](https://n9e.github.io/docs/troubleshooting/workflow-prod-fails.md)
-* The full model: [Noise reduction and routing model](https://n9e.github.io/docs/concepts/noise-routing.md)
-* Configuring a workflow: [Event pipelines](https://n9e.github.io/docs/events/pipelines.md)
-* Reading the records: [Inspect workflow execution records](https://n9e.github.io/docs/events/execution-records.md)
-* The two mute modes: [Mute rules](https://n9e.github.io/docs/events/mute-rules.md)
+* Nothing arrived at all: [Why is there an alert event but no notification?](https://n9e.io/docs/troubleshooting/no-notification.md)
+* Fine in the test run, wrong in production: [Why does a workflow Try run succeed but production execution fail?](https://n9e.io/docs/troubleshooting/workflow-prod-fails.md)
+* The full model: [Noise reduction and routing model](https://n9e.io/docs/concepts/noise-routing.md)
+* Configuring a workflow: [Event pipelines](https://n9e.io/docs/events/pipelines.md)
+* Reading the records: [Inspect workflow execution records](https://n9e.io/docs/events/execution-records.md)
+* The two mute modes: [Mute rules](https://n9e.io/docs/events/mute-rules.md)

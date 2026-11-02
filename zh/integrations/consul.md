@@ -2,7 +2,7 @@
 
 通过 Consul API 采集所有注册服务的健康检查状态，哪个服务在哪个节点上 critical 或 warning 一目了然。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Consul 插件调用 Consul 的健康检查 API，把每一项注册的 health check 转成指标：服务名、节点、检查名、当前状态（passing、warning、critical）。它不采集 Consul 自身的 telemetry（那部分 Consul 可以通过 StatsD 或自带的 Prometheus 端点输出），专注于「注册在 Consul 里的服务有没有挂」这一个问题。
 
@@ -15,7 +15,7 @@ Consul 插件调用 Consul 的健康检查 API，把每一项注册的 health ch
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.consul/consul.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.consul started` 就说明插件已加载。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.consul/consul.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.consul started` 就说明插件已加载。
 
    ```
    # # collect interval
@@ -101,9 +101,9 @@ Consul 插件调用 Consul 的健康检查 API，把每一项注册的 health ch
      # insecure_skip_verify = true
    ```
 
-2. 在夜莺「集成中心」里找到 Consul，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 Consul，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置告警规则[​](#内置告警规则 "内置告警规则的直接链接")
 
@@ -220,6 +220,6 @@ consul_serf_lan_member_status != 1
 
 * \[Consul 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/Consul）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/Consul%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `consul` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/consul)：完整配置项和指标列表。
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

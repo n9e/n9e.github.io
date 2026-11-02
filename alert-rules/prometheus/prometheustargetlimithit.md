@@ -2,13 +2,13 @@
 
 What the PrometheusTargetLimitHit Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 A scrape job discovered more targets than its `target_limit` allows. Prometheus does not scrape just the first N in that case: it marks every target of that scrape pool as failed and scrapes none of them. A whole job goes dark at once, and its `up` series turn to 0.
 
 * **Severity**: Warning (`warning`)
 * **Fires after**: 15m
-* Part of the [Prometheus alert rules](https://n9e.github.io/alert-rules/prometheus.md) (`prometheus.yml`)
+* Part of the [Prometheus alert rules](https://n9e.io/alert-rules/prometheus.md) (`prometheus.yml`)
 
 ## The rule[​](#the-rule "Direct link to The rule")
 
@@ -43,13 +43,13 @@ Alert message: `Prometheus {{$labels.namespace}}/{{$labels.pod}} has dropped {{ 
 
 ## Related alerts[​](#related-alerts "Direct link to Related alerts")
 
-* [PrometheusScrapeSampleLimitHit](https://n9e.github.io/alert-rules/prometheus.md#prometheusscrapesamplelimithit): Prometheus …/… has failed … scrapes in the last 5m because some targets exceeded the configured sample\_limit.
-* [PrometheusLabelLimitHit](https://n9e.github.io/alert-rules/prometheus.md#prometheuslabellimithit): Prometheus …/… has dropped … targets because some samples exceeded the configured label\_limit, label\_name\_length\_limit or label\_value\_length\_limit.
-* [PrometheusTargetSyncFailure](https://n9e.github.io/alert-rules/prometheus.md#prometheustargetsyncfailure): … targets in Prometheus …/… have failed to sync because invalid configuration was supplied.
+* [PrometheusScrapeSampleLimitHit](https://n9e.io/alert-rules/prometheus.md#prometheusscrapesamplelimithit): Prometheus …/… has failed … scrapes in the last 5m because some targets exceeded the configured sample\_limit.
+* [PrometheusLabelLimitHit](https://n9e.io/alert-rules/prometheus.md#prometheuslabellimithit): Prometheus …/… has dropped … targets because some samples exceeded the configured label\_limit, label\_name\_length\_limit or label\_value\_length\_limit.
+* [PrometheusTargetSyncFailure](https://n9e.io/alert-rules/prometheus.md#prometheustargetsyncfailure): … targets in Prometheus …/… have failed to sync because invalid configuration was supplied.
 
 ## Prometheus rule YAML[​](#prometheus-rule-yaml "Direct link to Prometheus rule YAML")
 
-Add this to a rules file loaded through `rule_files`, or download every Prometheus rule at once as [`prometheus.yml`](https://n9e.github.io/alert-rules/prometheus.yml).
+Add this to a rules file loaded through `rule_files`, or download every Prometheus rule at once as [`prometheus.yml`](https://n9e.io/alert-rules/prometheus.yml).
 
 ```
 - alert: PrometheusTargetLimitHit
@@ -68,10 +68,10 @@ Add this to a rules file loaded through `rule_files`, or download every Promethe
 
     summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} has dropped {{ printf \"%.0f\" $value }} targets because the number of targets exceeded the configured target_limit."
 
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheustargetlimithit"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheustargetlimithit"
 ```
 
-**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.github.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
+**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 

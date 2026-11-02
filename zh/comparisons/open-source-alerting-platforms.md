@@ -21,7 +21,7 @@ Alertmanager 的世界里规则是 Prometheus 的 YAML，靠 reload 和 GitOps �
 搜「Alertmanager UI」的人通常想要两种东西之一，答案不一样。
 
 * **更好地查看正在触发的告警。** Alertmanager 自带 Web 界面（9093 端口），能列出告警、创建静默。[karma](https://github.com/prymitive/karma) 提供分组展示和跨多个 Alertmanager 的看板；Grafana 可以把 Alertmanager 加为数据源来浏览告警、管理静默。这些工具都叠在 Alertmanager 之上，不改变它本身。
-* **不碰 YAML 就能改规则和路由。** 上面这些工具都做不到：Prometheus 规则和 `alertmanager.yml` 仍然是文件。想在页面上管理规则、路由和屏蔽，并按团队划分权限，就得换掉告警这一层。Grafana Alerting 在 Grafana 内部做到这一点；夜莺是独立的告警引擎，直接查询 Prometheus，[从 Prometheus + Alertmanager 迁移](https://n9e.github.io/zh/docs/migration/from-alertmanager.md)说明了 `alertmanager.yml` 如何对应到夜莺。夜莺不接收 Alertmanager 发来的告警，所以它是替换这一层，而不是叠在上面。
+* **不碰 YAML 就能改规则和路由。** 上面这些工具都做不到：Prometheus 规则和 `alertmanager.yml` 仍然是文件。想在页面上管理规则、路由和屏蔽，并按团队划分权限，就得换掉告警这一层。Grafana Alerting 在 Grafana 内部做到这一点；夜莺是独立的告警引擎，直接查询 Prometheus，[从 Prometheus + Alertmanager 迁移](https://n9e.io/zh/docs/migration/from-alertmanager.md)说明了 `alertmanager.yml` 如何对应到夜莺。夜莺不接收 Alertmanager 发来的告警，所以它是替换这一层，而不是叠在上面。
 
 ## 数据在一个地方还是好几个地方？[​](#数据在一个地方还是好几个地方 "数据在一个地方还是好几个地方？的直接链接")
 
@@ -68,9 +68,9 @@ Alertmanager 没有内置 AI。Grafana 的 Assistant 只在 Cloud 版，开源�
 
 * **小团队，数据全在 Prometheus，习惯 GitOps**：Prometheus + Alertmanager。组件最少，模型最干净。
 * **Grafana 重度用户，告警量中等，联系点够用**：Grafana Alerting。少一个系统。
-* **多种数据源、业务团队自己配规则、要电话短信和国内 IM、想用 AI 排查**：夜莺。完整对比见[夜莺 vs Prometheus + Alertmanager](https://n9e.github.io/zh/comparisons/prometheus-alertmanager.md)和[夜莺 vs Grafana Alerting](https://n9e.github.io/zh/comparisons/grafana-alerting.md)。
+* **多种数据源、业务团队自己配规则、要电话短信和国内 IM、想用 AI 排查**：夜莺。完整对比见[夜莺 vs Prometheus + Alertmanager](https://n9e.io/zh/comparisons/prometheus-alertmanager.md)和[夜莺 vs Grafana Alerting](https://n9e.io/zh/comparisons/grafana-alerting.md)。
 * **已经有三套监控各自在报警，想统一收口**：Keep 或 Alerta 这类聚合层。注意夜莺不是聚合层。
-* **从 Zabbix 过来**：先看[Zabbix 替代方案](https://n9e.github.io/zh/comparisons/zabbix-alternatives.md)，再看[夜莺 vs Zabbix](https://n9e.github.io/zh/comparisons/zabbix.md)。
+* **从 Zabbix 过来**：先看[Zabbix 替代方案](https://n9e.io/zh/comparisons/zabbix-alternatives.md)，再看[夜莺 vs Zabbix](https://n9e.io/zh/comparisons/zabbix.md)。
 
 ## 常见问题[​](#常见问题 "常见问题的直接链接")
 

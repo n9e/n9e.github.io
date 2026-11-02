@@ -2,7 +2,7 @@
 
 调用 rocm-smi 采集 AMD GPU 的利用率、显存、温度、功耗和时钟，规则覆盖过热和显存吃满。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 AMD ROCm SMI 插件从 Telegraf 移植，执行 ROCm 自带的 `rocm-smi` 二进制并解析输出，得到每张 AMD GPU 的使用率、显存占用、温度、功耗、风扇和各级时钟。
 
@@ -15,7 +15,7 @@ AMD ROCm SMI 插件从 Telegraf 移植，执行 ROCm 自带的 `rocm-smi` 二进
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.amd_rocm_smi/rocm.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.amd_rocm_smi started` 就说明插件已加载。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.amd_rocm_smi/rocm.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.amd_rocm_smi started` 就说明插件已加载。
 
    ```
    # Query statistics from AMD Graphics cards using rocm-smi binary
@@ -29,9 +29,9 @@ AMD ROCm SMI 插件从 Telegraf 移植，执行 ROCm 自带的 `rocm-smi` 二进
    # timeout = "5s"
    ```
 
-2. 在夜莺「集成中心」里找到 AMD ROCm SMI，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 AMD ROCm SMI，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置告警规则[​](#内置告警规则 "内置告警规则的直接链接")
 
@@ -101,6 +101,6 @@ amd_rocm_smi_temperature_sensor_memory > 95
 
 * \[AMD ROCm SMI 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/AMD\_ROCm\_SMI）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/AMD_ROCm_SMI%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `amd_rocm_smi` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/amd_rocm_smi)：完整配置项和指标列表。
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

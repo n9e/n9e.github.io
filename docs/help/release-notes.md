@@ -47,7 +47,7 @@ Headline features per release, one line each — details on GitHub:
 2. **Update the files together.** Replace the binary and the `integrations` directory. Also replace `etc/metrics.yaml` if you need metric descriptions in the added languages. Preserve your connection settings and restart; upgrade `n9e-edge` / `n9e-pushgw` in the same pass if you run them. Expected result: the processes start normally and the new integration templates are available.
 3. **Choose metric storage for your deployment.** To enable the embedded TSDB, merge the `[EmbeddedTSDB]` section from the [v9.2.0 config](https://github.com/ccfos/nightingale/blob/v9.2.0/etc/config.toml) into your old config; replacing the binary alone does not enable it. It suits small, single-Center deployments only. Multi-Center deployments should keep an external TSDB. Expected result: existing data source queries, dashboards and alert rules still return data.
 
-When upgrading from v8, also follow [v8 to v9](https://n9e.github.io/docs/migration/v8-to-v9.md) for Redis requirements, telegraf write parameters, verification and rollback preparation.
+When upgrading from v8, also follow [v8 to v9](https://n9e.io/docs/migration/v8-to-v9.md) for Redis requirements, telegraf write parameters, verification and rollback preparation.
 
 ## Three sections to read in any release note[​](#three-sections-to-read-in-any-release-note "Direct link to Three sections to read in any release note")
 
@@ -63,9 +63,9 @@ Every GitHub release follows the same shape. Before upgrading, read at least the
 
 * **PATCH** (v9.1.0 → v9.1.1): bug fixes only; usually replace the binary and restart.
 * **MINOR** (v9.0.0 → v9.1.0): new features, possibly with changed defaults — v9.1.0 is exactly that case, so read the upgrade note.
-* **MAJOR** (v8 → v9): environment requirements change and the UI is reorganised; follow the [migration page](https://n9e.github.io/docs/migration/v8-to-v9.md).
+* **MAJOR** (v8 → v9): environment requirements change and the UI is reorganised; follow the [migration page](https://n9e.io/docs/migration/v8-to-v9.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* How to upgrade: [v8 to v9](https://n9e.github.io/docs/migration/v8-to-v9.md)
-* What has been deprecated: [Deprecations and EOL policy](https://n9e.github.io/docs/help/deprecations.md)
+* How to upgrade: [v8 to v9](https://n9e.io/docs/migration/v8-to-v9.md)
+* What has been deprecated: [Deprecations and EOL policy](https://n9e.io/docs/help/deprecations.md)

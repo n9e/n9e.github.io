@@ -2,13 +2,13 @@
 
 What the KubeAggregatedAPIDown Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 An aggregated API, an APIService that the Kubernetes API server proxies to another service, has been available less than 85% of the time over the last 10 minutes. The most common one is `v1beta1.metrics.k8s.io` from metrics-server; others come from prometheus-adapter, custom metrics adapters and various operators.
 
 * **Severity**: Warning (`warning`)
 * **Fires after**: 5m
-* Part of the [Kubernetes alert rules](https://n9e.github.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
+* Part of the [Kubernetes alert rules](https://n9e.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
 
 ## The rule[​](#the-rule "Direct link to The rule")
 
@@ -43,13 +43,13 @@ Alert message: `Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespac
 
 ## Related alerts[​](#related-alerts "Direct link to Related alerts")
 
-* [KubeAggregatedAPIErrors](https://n9e.github.io/alert-rules/kubernetes.md#kubeaggregatedapierrors): Kubernetes aggregated API …/… has reported errors. It has appeared unavailable … times averaged over the past 10m.
-* [KubeAPIErrorBudgetBurn](https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md): The API server is burning too much error budget.
-* [KubeHpaReplicasMismatch](https://n9e.github.io/alert-rules/kubernetes.md#kubehpareplicasmismatch): HPA …/… has not matched the desired number of replicas for longer than 15 minutes.
+* [KubeAggregatedAPIErrors](https://n9e.io/alert-rules/kubernetes.md#kubeaggregatedapierrors): Kubernetes aggregated API …/… has reported errors. It has appeared unavailable … times averaged over the past 10m.
+* [KubeAPIErrorBudgetBurn](https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md): The API server is burning too much error budget.
+* [KubeHpaReplicasMismatch](https://n9e.io/alert-rules/kubernetes.md#kubehpareplicasmismatch): HPA …/… has not matched the desired number of replicas for longer than 15 minutes.
 
 ## Prometheus rule YAML[​](#prometheus-rule-yaml "Direct link to Prometheus rule YAML")
 
-Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.github.io/alert-rules/kubernetes.yml).
+Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.io/alert-rules/kubernetes.yml).
 
 ```
 - alert: KubeAggregatedAPIDown
@@ -68,10 +68,10 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
 
     summary: "Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }} has been only {{ $value | humanize }}% available over the last 10m."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeaggregatedapidown"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeaggregatedapidown"
 ```
 
-**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.github.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
+**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 

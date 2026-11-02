@@ -73,6 +73,6 @@ One more thing that is not a limit but is worth knowing: this data has no replic
 
 ## Next[​](#next "Direct link to Next")
 
-* [External TSDB and dual-write migration](https://n9e.github.io/docs/install/external-tsdb.md) — moving without downtime
-* [Auto-registered Embedded TSDB datasource](https://n9e.github.io/docs/data/embedded-tsdb.md) — using it from the UI
-* [Embedded TSDB and external storage](https://n9e.github.io/docs/concepts/storage.md) — which data lives where
+* [External TSDB and dual-write migration](https://n9e.io/docs/install/external-tsdb.md) — moving without downtime
+* [Auto-registered Embedded TSDB datasource](https://n9e.io/docs/data/embedded-tsdb.md) — using it from the UI
+* [Embedded TSDB and external storage](https://n9e.io/docs/concepts/storage.md) — which data lives where

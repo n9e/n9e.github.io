@@ -2,7 +2,7 @@
 
 Add Actuator and micrometer-registry-prometheus and the application exposes /actuator/prometheus itself; the template ships JVM dashboards split by application name.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 Spring Boot applications need no external agent. Add the `spring-boot-starter-actuator` and `micrometer-registry-prometheus` dependencies, expose the prometheus endpoint, and the application serves JVM, HTTP request, datasource pool, executor and custom metrics on `/actuator/prometheus`. Actuator is built on Micrometer underneath.
 
@@ -27,8 +27,8 @@ management.prometheus.metrics.export.enabled=true
 
 On 2.x the last line is `management.metrics.export.prometheus.enabled=true`. Check that `http://localhost:8080/actuator/prometheus` responds, then scrape it with the Categraf `prometheus` input and set an `application` label to the service name. Do not set `exposure.include` to `*`.
 
-1. Open the integration center in Nightingale, find SpringBoot, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
-2. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+1. Open the integration center in Nightingale, find SpringBoot, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
+2. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -119,7 +119,7 @@ Runbook:
 ## Related[​](#related "Direct link to Related")
 
 * [SpringBoot template source](https://github.com/ccfos/nightingale/tree/main/integrations/SpringBoot): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
-* [Walkthrough: monitor Java applications](https://n9e.github.io/docs/practice/java.md)
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Walkthrough: monitor Java applications](https://n9e.io/docs/practice/java.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

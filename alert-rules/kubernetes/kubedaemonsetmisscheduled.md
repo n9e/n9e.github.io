@@ -2,13 +2,13 @@
 
 What the KubeDaemonSetMisScheduled Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 Some of a DaemonSet's Pods are running on nodes where, according to the DaemonSet's current node selector, affinity and the node's taints, they should not run. It rarely breaks anything by itself, but it means the DaemonSet's placement and the cluster's node layout disagree.
 
 * **Severity**: Warning (`warning`)
 * **Fires after**: 15m
-* Part of the [Kubernetes alert rules](https://n9e.github.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
+* Part of the [Kubernetes alert rules](https://n9e.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
 
 ## The rule[​](#the-rule "Direct link to The rule")
 
@@ -42,12 +42,12 @@ Alert message: `{{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $label
 
 ## Related alerts[​](#related-alerts "Direct link to Related alerts")
 
-* [KubeDaemonSetNotScheduled](https://n9e.github.io/alert-rules/kubernetes.md#kubedaemonsetnotscheduled): … Pods of DaemonSet …/… are not scheduled.
-* [KubeDaemonSetRolloutStuck](https://n9e.github.io/alert-rules/kubernetes.md#kubedaemonsetrolloutstuck): DaemonSet …/… has not finished or progressed for at least 15 minutes.
+* [KubeDaemonSetNotScheduled](https://n9e.io/alert-rules/kubernetes.md#kubedaemonsetnotscheduled): … Pods of DaemonSet …/… are not scheduled.
+* [KubeDaemonSetRolloutStuck](https://n9e.io/alert-rules/kubernetes.md#kubedaemonsetrolloutstuck): DaemonSet …/… has not finished or progressed for at least 15 minutes.
 
 ## Prometheus rule YAML[​](#prometheus-rule-yaml "Direct link to Prometheus rule YAML")
 
-Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.github.io/alert-rules/kubernetes.yml).
+Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.io/alert-rules/kubernetes.yml).
 
 ```
 - alert: KubeDaemonSetMisScheduled
@@ -66,10 +66,10 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
 
     summary: "{{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} are running where they are not supposed to run."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubedaemonsetmisscheduled"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubedaemonsetmisscheduled"
 ```
 
-**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.github.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
+**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 

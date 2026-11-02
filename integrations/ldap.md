@@ -2,7 +2,7 @@
 
 Reads the LDAP server's cn=Monitor backend for connections, operation counters, waiters and thread state; supports OpenLDAP and 389 Directory Server.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The LDAP input queries the server's monitoring backend (`cn=Monitor`) for current and total connections, counters for bind, search, modify, add, delete and other operations, pending reads and writes, thread pool state and uptime. OpenLDAP and 389ds dialects are both supported, with slightly different metric names.
 
@@ -15,7 +15,7 @@ The server must have the monitor backend enabled (`olcDatabase=monitor` on OpenL
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.ldap/ldap.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.ldap started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.ldap/ldap.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.ldap started` once the plugin is loaded.
 
    ```
    # # collect interval
@@ -93,9 +93,9 @@ The server must have the monitor backend enabled (`olcDatabase=monitor` on OpenL
    # insecure_skip_verify = false
    ```
 
-2. Open the integration center in Nightingale, find Ldap, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find Ldap, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled alert rules[​](#bundled-alert-rules "Direct link to Bundled alert rules")
 
@@ -180,6 +180,6 @@ Runbook:
 
 * [Ldap template source](https://github.com/ccfos/nightingale/tree/main/integrations/Ldap): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `ldap` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/ldap): every config option and the full metric list.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

@@ -56,7 +56,7 @@ Expected result: after saving, a dropdown appears on the variable bar; pick a va
 | Datasource identifier | The same, but yielding the identifier rather than the internal id |                                                       |
 | Host ident            | The hosts the current user may see                                | Filtering the host list by permission                 |
 
-The last one has a side effect worth remembering: **a dashboard using Host ident cannot be shared anonymously**, because it depends on an authenticated API. The UI disables link generation outright — see [Anonymous time-limited sharing](https://n9e.github.io/docs/query/sharing.md).
+The last one has a side effect worth remembering: **a dashboard using Host ident cannot be shared anonymously**, because it depends on an authenticated API. The UI disables link generation outright — see [Anonymous time-limited sharing](https://n9e.io/docs/query/sharing.md).
 
 ## 3. Chain the dropdowns together[​](#3-chain-the-dropdowns-together "Direct link to 3. Chain the dropdowns together")
 
@@ -111,10 +111,10 @@ Two things people conflate:
 * Names allow only letters, numbers and underscores, matching how `$name` is parsed;
 * **A multi-select variable needs `=~`.** With `=` the query matches the literal string `a|b|c` and always returns nothing;
 * With **Include all option** and no **Custom all value**, "all" expands to every current option joined together (`a|b|c`), so it too only works under `=~`. Put `.*` in Custom all value if that is what you want;
-* This page is about **dashboard variables**. System → Variable (`/system/variable-settings`) is a different feature: global variables for notification templates and rules, covered in [Global variables and secrets](https://n9e.github.io/docs/security/variables.md).
+* This page is about **dashboard variables**. System → Variable (`/system/variable-settings`) is a different feature: global variables for notification templates and rules, covered in [Global variables and secrets](https://n9e.io/docs/security/variables.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Put them to work on panels: [Build a dashboard](https://n9e.github.io/docs/query/dashboards.md)
-* Sharing a board that has variables: [Anonymous time-limited sharing](https://n9e.github.io/docs/query/sharing.md)
-* Where the labels come from: [Labels and annotations](https://n9e.github.io/docs/concepts/labels-annotations.md)
+* Put them to work on panels: [Build a dashboard](https://n9e.io/docs/query/dashboards.md)
+* Sharing a board that has variables: [Anonymous time-limited sharing](https://n9e.io/docs/query/sharing.md)
+* Where the labels come from: [Labels and annotations](https://n9e.io/docs/concepts/labels-annotations.md)

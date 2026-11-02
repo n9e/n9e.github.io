@@ -6,18 +6,18 @@ Last reviewed 2026-10-10
 
 Where this page ends: every event a notification rule matches is handed to a program you wrote — a shell or Python script that calls an internal SMS gateway, writes to a queue, or does anything an HTTP callback cannot.
 
-Reach for this only when [Callback](https://n9e.github.io/docs/notifications/callback.md) is not enough. A script runs **on the alert engine's machine, as the engine's user**, so it is more powerful and also easier to get wrong.
+Reach for this only when [Callback](https://n9e.io/docs/notifications/callback.md) is not enough. A script runs **on the alert engine's machine, as the engine's user**, so it is more powerful and also easier to get wrong.
 
 ## 1. Create the media type[​](#1-create-the-media-type "Direct link to 1. Create the media type")
 
 **Alerts & Notifications → Media types → Add**, and pick **Script** in the type panel.
 
-| Field             | Notes                                                                                                                                                                                |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Script / Path     | Two ways to supply the program — see below                                                                                                                                           |
-| Timeout           | Milliseconds, 5000 by default. The process is killed when it runs over                                                                                                               |
-| Contact           | Under **Variable configuration**: which contact field to collect from the users and teams picked in the rule; see [Contact methods](https://n9e.github.io/docs/security/contacts.md) |
-| Custom parameters | Under **Variable configuration**: fields that appear in the notification rule; your script reads them from `params`                                                                  |
+| Field             | Notes                                                                                                                                                                         |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Script / Path     | Two ways to supply the program — see below                                                                                                                                    |
+| Timeout           | Milliseconds, 5000 by default. The process is killed when it runs over                                                                                                        |
+| Contact           | Under **Variable configuration**: which contact field to collect from the users and teams picked in the rule; see [Contact methods](https://n9e.io/docs/security/contacts.md) |
+| Custom parameters | Under **Variable configuration**: fields that appear in the notification rule; your script reads them from `params`                                                           |
 
 ### Script: paste the content[​](#script-paste-the-content "Direct link to Script: paste the content")
 
@@ -47,7 +47,7 @@ Nothing on the command line. Everything arrives as **one JSON object on stdin**:
 | `params`  | The custom parameters filled in on the notification rule                              |
 | `sendtos` | The recipients' addresses for the chosen Contact, as an array                         |
 
-Event fields are the same as in the history table; see [Notification variables](https://n9e.github.io/docs/reference/notification-variables.md). Users without the chosen contact are already left out of `sendtos`.
+Event fields are the same as in the history table; see [Notification variables](https://n9e.io/docs/reference/notification-variables.md). Users without the chosen contact are already left out of `sendtos`.
 
 A minimal script that forwards each event to an internal gateway:
 
@@ -105,17 +105,17 @@ Script sends are **not retried** and do not go through a queue: one run per send
 
 ## 4. Testing[​](#4-testing "Direct link to 4. Testing")
 
-**A script media type must be saved before it can be tested.** Testing an unsaved one would mean writing request content to disk and executing it, so the media type form's test refuses with "Script media types must be saved before testing". Save first, then use **Run test** on a notification rule that uses it; that runs the saved script with an event. See [Test a notification end to end](https://n9e.github.io/docs/notifications/test.md).
+**A script media type must be saved before it can be tested.** Testing an unsaved one would mean writing request content to disk and executing it, so the media type form's test refuses with "Script media types must be saved before testing". Save first, then use **Run test** on a notification rule that uses it; that runs the saved script with an event. See [Test a notification end to end](https://n9e.io/docs/notifications/test.md).
 
 ## What catches people out[​](#what-catches-people-out "Direct link to What catches people out")
 
 * **Missing shebang.** The most common failure: `exec format error`.
 * **Works by hand, fails from the engine.** The engine's user, `PATH` and working directory are not your login shell's. Use absolute paths for every command and file the script touches.
 * **Path mode on a multi-engine install.** The file exists on one machine but the rule is evaluated by an engine on another; that engine fails with "no such file".
-* **Anyone who can edit media types can run code on the engine's machine.** Grant that permission accordingly; see [Roles and permission matrix](https://n9e.github.io/docs/security/roles.md).
+* **Anyone who can edit media types can run code on the engine's machine.** Grant that permission accordingly; see [Roles and permission matrix](https://n9e.io/docs/security/roles.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Wire it into a rule: [Notification rules](https://n9e.github.io/docs/notifications/rules.md)
-* The HTTP alternative: [Callback (generic webhook)](https://n9e.github.io/docs/notifications/callback.md)
-* Where addresses in `sendtos` come from: [Contact methods](https://n9e.github.io/docs/security/contacts.md)
+* Wire it into a rule: [Notification rules](https://n9e.io/docs/notifications/rules.md)
+* The HTTP alternative: [Callback (generic webhook)](https://n9e.io/docs/notifications/callback.md)
+* Where addresses in `sendtos` come from: [Contact methods](https://n9e.io/docs/security/contacts.md)

@@ -2,7 +2,7 @@
 
 TiDB、PD、TiKV 都通过 /metrics 暴露 Prometheus 指标，模板覆盖 SQL 延迟、Region 调度、存储和节点健康。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 TiDB 集群的各组件都自带 Prometheus 指标端点：TiDB Server 在 10080、PD 在 2379、TiKV 在 20180，TiFlash、TiCDC 等按各自配置。用 Categraf 的 `prometheus` 插件逐个抓取，或者直接把 TiUP 部署时自带的 Prometheus 接成夜莺数据源。
 
@@ -15,7 +15,7 @@ TiDB 集群的各组件都自带 Prometheus 指标端点：TiDB Server 在 10080
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-这类组件自己就暴露 Prometheus 格式的 `/metrics`，用 Categraf 的 `prometheus` 插件抓取即可，不需要专门的插件。如果你已经有 Prometheus 或 VictoriaMetrics 在抓这些端点，直接把它[接成夜莺的数据源](https://n9e.github.io/zh/docs/data/prometheus.md)，模板同样能用。
+这类组件自己就暴露 Prometheus 格式的 `/metrics`，用 Categraf 的 `prometheus` 插件抓取即可，不需要专门的插件。如果你已经有 Prometheus 或 VictoriaMetrics 在抓这些端点，直接把它[接成夜莺的数据源](https://n9e.io/zh/docs/data/prometheus.md)，模板同样能用。
 
 ```
 # conf/input.prometheus/tidb.toml
@@ -47,8 +47,8 @@ urls = ["http://<tikv>:20180/metrics"]
 labels = { job = "tikv", k8s_cluster = "", tidb_cluster = "prod" }
 ```
 
-1. 在夜莺「集成中心」里找到 TiDB，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
-2. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+1. 在夜莺「集成中心」里找到 TiDB，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
+2. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -539,6 +539,6 @@ S1 紧急 · 持续 1 分钟 · 触发条件:
 ## 相关链接[​](#相关链接 "相关链接的直接链接")
 
 * \[TiDB 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/TiDB）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/TiDB%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

@@ -2,13 +2,13 @@
 
 Prometheus 告警 PrometheusRemoteWriteDesiredShards 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Remote Write 会根据进来的样本速度，计算需要多少个并行分片（shard）才能跟上。这条告警在这个计算值连续 15 分钟高于配置的 `max_shards` 时触发：Remote Write 加不了它需要的分片，如果情况不变，就会开始落后（PrometheusRemoteWriteBehind）。
 
 * **级别**：警告（`warning`）
 * **持续**：15 分钟
-* 属于 [Prometheus 告警规则](https://n9e.github.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
+* 属于 [Prometheus 告警规则](https://n9e.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
 
 ## 规则[​](#规则 "规则的直接链接")
 
@@ -55,12 +55,12 @@ Remote Write 会根据进来的样本速度，计算需要多少个并行分片�
 
 ## 相关告警[​](#相关告警 "相关告警的直接链接")
 
-* [PrometheusRemoteWriteBehind](https://n9e.github.io/zh/alert-rules/prometheus/prometheusremotewritebehind.md)：Prometheus …/… remote write is …s behind for …:….
-* [PrometheusRemoteStorageFailures](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheusremotestoragefailures)：Prometheus …/… failed to send …% of the samples to …:…
+* [PrometheusRemoteWriteBehind](https://n9e.io/zh/alert-rules/prometheus/prometheusremotewritebehind.md)：Prometheus …/… remote write is …s behind for …:….
+* [PrometheusRemoteStorageFailures](https://n9e.io/zh/alert-rules/prometheus.md#prometheusremotestoragefailures)：Prometheus …/… failed to send …% of the samples to …:…
 
 ## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
 
-加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.github.io/zh/alert-rules/prometheus.yml)。
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.io/zh/alert-rules/prometheus.yml)。
 
 ```
 - alert: PrometheusRemoteWriteDesiredShards
@@ -91,10 +91,10 @@ Remote Write 会根据进来的样本速度，计算需要多少个并行分片�
 
     summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} remote write desired shards calculation wants to run {{ $value }} shards for queue {{ $labels.remote_name}}:{{ $labels.url }}, which is more than the max of {{ printf `prometheus_remote_storage_shards_max{instance=\"%s\",job=\"prometheus-k8s\",namespace=\"monitoring\"}` $labels.instance | query | first | value }}."
 
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusremotewritedesiredshards"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheusremotewritedesiredshards"
 ```
 
-**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 

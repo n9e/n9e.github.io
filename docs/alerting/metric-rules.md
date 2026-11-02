@@ -6,7 +6,7 @@ Last reviewed 2026-10-10
 
 Where this page ends: you can read and write the alert-conditions step of a Prometheus-type rule — where the threshold goes, how one rule carries several severities, and which of the returned labels end up on the event.
 
-This is the rule type for **Prometheus Like** data sources: Prometheus itself, VictoriaMetrics, Thanos, Mimir. For the others, see [Log rules](https://n9e.github.io/docs/alerting/log-rules.md) and [SQL-backed rules](https://n9e.github.io/docs/alerting/sql-rules.md).
+This is the rule type for **Prometheus Like** data sources: Prometheus itself, VictoriaMetrics, Thanos, Mimir. For the others, see [Log rules](https://n9e.io/docs/alerting/log-rules.md) and [SQL-backed rules](https://n9e.io/docs/alerting/sql-rules.md).
 
 ## The query list[​](#the-query-list "Direct link to The query list")
 
@@ -67,7 +67,7 @@ Below the query list:
 
 For-duration is checked per series: the same series must come back on consecutive cycles until the elapsed time covers the duration. A series that appears once and vanishes never produces an event — and never produces a recovery either, since no event existed.
 
-Set the frequency to what you can afford, not to the smallest number available. A rule matching ten data sources at `@every 15s` is 2400 queries an hour before anyone looks at a dashboard. More in [Evaluation interval and recovery](https://n9e.github.io/docs/alerting/evaluation.md).
+Set the frequency to what you can afford, not to the smallest number available. A rule matching ten data sources at `@every 15s` is 2400 queries an hour before anyone looks at a dashboard. More in [Evaluation interval and recovery](https://n9e.io/docs/alerting/evaluation.md).
 
 ## Preview before you save[​](#preview-before-you-save "Direct link to Preview before you save")
 
@@ -78,7 +78,7 @@ Each query card has a **Preview** area that runs the expression against the sele
 
 The preview needs a concrete data source, so pick one in step 2 first even if the rule will eventually match several.
 
-For a stricter check that also covers labels, templates and notification routing, use [Test fire](https://n9e.github.io/docs/alerting/test-fire.md).
+For a stricter check that also covers labels, templates and notification routing, use [Test fire](https://n9e.io/docs/alerting/test-fire.md).
 
 ## What ends up on the event[​](#what-ends-up-on-the-event "Direct link to What ends up on the event")
 
@@ -88,7 +88,7 @@ The event's labels come from three places, in this order:
 2. **the rule's tags** from step 1, added to every event this rule produces;
 3. **annotations**, rendered per event, which are text rather than labels.
 
-The event value is the series' value at trigger time, available in templates as `$value`, and the labels as `$labels.<name>`. See [Labels, annotations and severity](https://n9e.github.io/docs/alerting/labels-severity.md).
+The event value is the series' value at trigger time, available in templates as `$value`, and the labels as `$labels.<name>`. See [Labels, annotations and severity](https://n9e.io/docs/alerting/labels-severity.md).
 
 A note on aggregation: `sum by (service) (...)` drops `instance` and `ident`. That is usually what you want for a service-level alert, but it also means the event has no host to point at — and self-healing, which reads the `ident` label, has nothing to work with.
 
@@ -114,7 +114,7 @@ Variables cost performance: the rule expands into one query per combination. Use
 
 ## Next[​](#next "Direct link to Next")
 
-* Get the timing right: [Evaluation interval and recovery](https://n9e.github.io/docs/alerting/evaluation.md)
-* Make the event readable: [Labels, annotations and severity](https://n9e.github.io/docs/alerting/labels-severity.md)
-* Make an expensive query cheap: [Recording rules](https://n9e.github.io/docs/query/recording-rules.md)
-* When it does not fire: [Alert rule does not fire](https://n9e.github.io/docs/troubleshooting/alert-not-firing.md)
+* Get the timing right: [Evaluation interval and recovery](https://n9e.io/docs/alerting/evaluation.md)
+* Make the event readable: [Labels, annotations and severity](https://n9e.io/docs/alerting/labels-severity.md)
+* Make an expensive query cheap: [Recording rules](https://n9e.io/docs/query/recording-rules.md)
+* When it does not fire: [Alert rule does not fire](https://n9e.io/docs/troubleshooting/alert-not-firing.md)

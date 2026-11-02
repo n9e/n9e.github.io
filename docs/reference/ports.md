@@ -29,7 +29,7 @@ Last reviewed 2026-10-10
 | `/mcp`, `/a2a`           | MCP / A2A endpoints                 | AI clients                                     |
 | `/metrics`               | Its own metrics                     | Your monitoring                                |
 
-So **"just expose 17000" is not an answer**. Either put the whole thing behind a gateway that splits by path, or separate the collector network from the user network. See [Network and TLS hardening](https://n9e.github.io/docs/security/network-tls.md).
+So **"just expose 17000" is not an answer**. Either put the whole thing behind a gateway that splits by path, or separate the collector network from the user network. See [Network and TLS hardening](https://n9e.io/docs/security/network-tls.md).
 
 ## Outbound[​](#outbound "Direct link to Outbound")
 
@@ -44,10 +44,10 @@ So **"just expose 17000" is not an answer**. Either put the whole thing behind a
 
 ## Edge mode[​](#edge-mode "Direct link to Edge mode")
 
-`n9e-edge` needs to reach the centre's 17000 to pull rule configuration, and the centre needs `[HTTP.APIForService] Enable = true`. The rest of the edge flows are in [Edge data centers](https://n9e.github.io/docs/install/edge.md).
+`n9e-edge` needs to reach the centre's 17000 to pull rule configuration, and the centre needs `[HTTP.APIForService] Enable = true`. The rest of the edge flows are in [Edge data centers](https://n9e.io/docs/install/edge.md).
 
 ## Related[​](#related "Direct link to Related")
 
-* [Configuration reference](https://n9e.github.io/docs/reference/configuration.md)
-* [Network and TLS hardening](https://n9e.github.io/docs/security/network-tls.md)
-* [Production topology](https://n9e.github.io/docs/operations/topology.md)
+* [Configuration reference](https://n9e.io/docs/reference/configuration.md)
+* [Network and TLS hardening](https://n9e.io/docs/security/network-tls.md)
+* [Production topology](https://n9e.io/docs/operations/topology.md)

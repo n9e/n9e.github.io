@@ -79,10 +79,10 @@ Enable = false
 Url = "http://victoriametrics:8428/api/v1/write"
 ```
 
-No `embedded-tsdb` data source is registered in that case, so register the external store yourself on the data sources page. Any highly available deployment has to take this route — see [High availability](https://n9e.github.io/docs/install/high-availability.md).
+No `embedded-tsdb` data source is registered in that case, so register the external store yourself on the data sources page. Any highly available deployment has to take this route — see [High availability](https://n9e.io/docs/install/high-availability.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* [VictoriaMetrics](https://n9e.github.io/docs/data/victoriametrics.md)
-* [Prometheus](https://n9e.github.io/docs/data/prometheus.md)
-* [Embedded TSDB and external storage](https://n9e.github.io/docs/concepts/storage.md)
+* [VictoriaMetrics](https://n9e.io/docs/data/victoriametrics.md)
+* [Prometheus](https://n9e.io/docs/data/prometheus.md)
+* [Embedded TSDB and external storage](https://n9e.io/docs/concepts/storage.md)

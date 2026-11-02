@@ -2,7 +2,7 @@
 
 Collects resources and quotas from Nova, Neutron, Cinder, Glance, Keystone and Heat through the OpenStack API, plus the state of every instance.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The OpenStack input calls each service's API with a read-capable account: Nova instances, hypervisors and quotas; Neutron networks, subnets, ports, floating IPs and security groups; Cinder volumes and snapshots; Glance images; Keystone projects and users; Heat stacks. Every instance's state, project and flavor is reported as a metric too.
 
@@ -15,7 +15,7 @@ Required API versions: blockstorage v3, compute v2, identity v3, networking v2. 
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.openstack/openstack.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.openstack started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.openstack/openstack.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.openstack started` once the plugin is loaded.
 
    ```
    # Collects performance metrics from OpenStack services
@@ -313,9 +313,9 @@ Required API versions: blockstorage v3, compute v2, identity v3, networking v2. 
    ## measure_openstack_requests = false
    ```
 
-2. Open the integration center in Nightingale, find OpenStack, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find OpenStack, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled alert rules[​](#bundled-alert-rules "Direct link to Bundled alert rules")
 
@@ -399,6 +399,6 @@ Runbook:
 ## Related[​](#related "Direct link to Related")
 
 * [OpenStack template source](https://github.com/ccfos/nightingale/tree/main/integrations/OpenStack): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

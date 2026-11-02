@@ -100,7 +100,7 @@ The cluster trigger is worth configuring: one host going quiet and a whole data 
 
 ## Next[​](#next "Direct link to Next")
 
-* The host doesn't appear, or the status is wrong: [Troubleshooting](https://n9e.github.io/docs/data/categraf/troubleshooting.md)
-* What business groups are: [Business groups](https://n9e.github.io/docs/concepts/business-groups.md)
-* Writing rules for these hosts: [Your first alert rule](https://n9e.github.io/docs/alerting/first-rule.md)
-* From one host to its key metrics: [Object quick view](https://n9e.github.io/docs/query/object-view.md)
+* The host doesn't appear, or the status is wrong: [Troubleshooting](https://n9e.io/docs/data/categraf/troubleshooting.md)
+* What business groups are: [Business groups](https://n9e.io/docs/concepts/business-groups.md)
+* Writing rules for these hosts: [Your first alert rule](https://n9e.io/docs/alerting/first-rule.md)
+* From one host to its key metrics: [Object quick view](https://n9e.io/docs/query/object-view.md)

@@ -10,9 +10,9 @@ By the end of this page, you will distinguish excessive system process counts fr
 
 * `processes` counts system processes by state and helps detect runaway jobs.
 * `procstat` matches a service and collects its count, CPU, memory and file descriptors.
-* Application Prometheus metrics also describe requests, errors and runtime behavior. See [Java monitoring](https://n9e.github.io/docs/practice/java.md).
+* Application Prometheus metrics also describe requests, errors and runtime behavior. See [Java monitoring](https://n9e.io/docs/practice/java.md).
 
-An existing process does not prove that a service works; add [port or HTTP probes](https://n9e.github.io/docs/practice/port.md) where needed.
+An existing process does not prove that a service works; add [port or HTTP probes](https://n9e.io/docs/practice/port.md) where needed.
 
 ## Configure procstat[​](#configure "Direct link to Configure procstat")
 
@@ -42,7 +42,7 @@ Replace the match and confirm that it selects the intended service. Add another 
 
 **Expected result**: system counts and service metrics appear; the matched count agrees with the actual processes. Restart the collector service and query `procstat_lookup_count` in Nightingale.
 
-It is positive when matching processes exist and zero when none match. Verify on a test service before adding a sustained-duration alert to avoid noise from normal restarts. If the host or collector disappears, samples may disappear instead of becoming zero. Add [missing-host detection](https://n9e.github.io/docs/practice/linux.md#missing-host) separately.
+It is positive when matching processes exist and zero when none match. Verify on a test service before adding a sustained-duration alert to avoid noise from normal restarts. If the host or collector disappears, samples may disappear instead of becoming zero. Add [missing-host detection](https://n9e.io/docs/practice/linux.md#missing-host) separately.
 
 ## JVM and systemd environment[​](#jvm "Direct link to JVM and systemd environment")
 
@@ -58,5 +58,5 @@ Restart and inspect the logs. Replace the example path if that JDK is not instal
 
 ## Next[​](#next "Direct link to Next")
 
-* [Java application monitoring](https://n9e.github.io/docs/practice/java.md)
-* [Metric alert rules](https://n9e.github.io/docs/alerting/metric-rules.md)
+* [Java application monitoring](https://n9e.io/docs/practice/java.md)
+* [Metric alert rules](https://n9e.io/docs/alerting/metric-rules.md)

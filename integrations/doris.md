@@ -2,7 +2,7 @@
 
 FE and BE both expose Prometheus-format /metrics; scrape them with the Categraf prometheus input. Templates cover queries, loads, compaction and node state.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 Doris FE (port 8030 by default) and BE (8040) processes both expose Prometheus metrics on `/metrics`, so no dedicated plugin is needed. Label each node type with `group` and `job`; the dashboards use those labels to separate FE from BE and one cluster from another.
 
@@ -16,9 +16,9 @@ The templates cover query QPS and latency, load jobs, compaction backlog, tablet
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-These components expose Prometheus-format `/metrics` themselves, so the Categraf `prometheus` input scrapes them without a dedicated plugin. If a Prometheus or VictoriaMetrics instance is already scraping them, [add it as a Nightingale data source](https://n9e.github.io/docs/data/prometheus.md) and the templates work as they are.
+These components expose Prometheus-format `/metrics` themselves, so the Categraf `prometheus` input scrapes them without a dedicated plugin. If a Prometheus or VictoriaMetrics instance is already scraping them, [add it as a Nightingale data source](https://n9e.io/docs/data/prometheus.md) and the templates work as they are.
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.prometheus/collect_doris_examples.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.prometheus started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.prometheus/collect_doris_examples.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.prometheus started` once the plugin is loaded.
 
    ```
    # doris_fe
@@ -66,9 +66,9 @@ These components expose Prometheus-format `/metrics` themselves, so the Categraf
    labels = { group = "be",job = "doris_cluster01"}
    ```
 
-2. Open the integration center in Nightingale, find Doris, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find Doris, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -399,7 +399,7 @@ Runbook:
 
 * [Doris template source](https://github.com/ccfos/nightingale/tree/main/integrations/Doris): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `prometheus` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/prometheus): every config option and the full metric list.
-* [Use Doris as a data source](https://n9e.github.io/docs/data/clickhouse-doris-iotdb.md)
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Use Doris as a data source](https://n9e.io/docs/data/clickhouse-doris-iotdb.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

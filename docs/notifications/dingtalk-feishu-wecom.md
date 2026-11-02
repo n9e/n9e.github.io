@@ -29,7 +29,7 @@ Anything it cannot recognise (Slack, your own webhook) goes through the manual f
 
 **Alerts & Notifications → Media types**. The open-source edition ships `Dingtalk`, `Wecom` and `Feishu Card` ready to use; Lark Card has a card in the type panel on the left, one click to create.
 
-![Media types](https://n9e.github.io/img/docs/notifications/media-types.webp)![Media types](https://n9e.github.io/img/docs/notifications/media-types.dark.webp)
+![Media types](https://n9e.io/img/docs/notifications/media-types.webp)![Media types](https://n9e.io/img/docs/notifications/media-types.dark.webp)
 
 URL, method, headers and body are all pre-filled. You only need to touch them when:
 
@@ -89,10 +89,10 @@ A WeCom group bot **cannot mention by phone number** (only `<@userid>` inside ma
 | `errcode 45009` (WeCom), or DingTalk throttling                       | Over 20 msg/min. Use mute rules, or split across several rooms                                        |
 | `status_code:200` but nothing in the room                             | The bot was removed from the room, or the keyword policy filtered the message out                     |
 
-Failure details live in the event's **Notification records** — see [Retries and delivery status](https://n9e.github.io/docs/notifications/delivery.md).
+Failure details live in the event's **Notification records** — see [Retries and delivery status](https://n9e.io/docs/notifications/delivery.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Change the layout of the message: [Templates and variables](https://n9e.github.io/docs/notifications/templates.md)
-* Slack / Telegram / Discord: [Slack / Telegram / Discord / Mattermost](https://n9e.github.io/docs/notifications/chat.md)
-* Verify the whole path before you rely on it: [Test a notification end to end](https://n9e.github.io/docs/notifications/test.md)
+* Change the layout of the message: [Templates and variables](https://n9e.io/docs/notifications/templates.md)
+* Slack / Telegram / Discord: [Slack / Telegram / Discord / Mattermost](https://n9e.io/docs/notifications/chat.md)
+* Verify the whole path before you rely on it: [Test a notification end to end](https://n9e.io/docs/notifications/test.md)

@@ -4,7 +4,7 @@ Add teams to a business group with read or write rights, and see the effect on r
 
 Last reviewed 2026-10-10
 
-Where this page ends: one business group, plus a list of which teams may read it and which may write to it. This is layer two of the permission model — layer one is roles, covered in [Roles and permission matrix](https://n9e.github.io/docs/security/roles.md).
+Where this page ends: one business group, plus a list of which teams may read it and which may write to it. This is layer two of the permission model — layer one is roles, covered in [Roles and permission matrix](https://n9e.io/docs/security/roles.md).
 
 ## Where to find it[​](#where-to-find-it "Direct link to Where to find it")
 
@@ -60,7 +60,7 @@ DBA/Postgres
 K8S/cluster-a
 ```
 
-Both the separator and the tree-or-list choice live in **System → Site**, as **Business group separator** and **Business group display mode** (the separator defaults to `-`). This is purely a display concern — renaming a group moves nothing that belongs to it. For advice on how to divide groups up in the first place, see [Business groups](https://n9e.github.io/docs/concepts/business-groups.md).
+Both the separator and the tree-or-list choice live in **System → Site**, as **Business group separator** and **Business group display mode** (the separator defaults to `-`). This is purely a display concern — renaming a group moves nothing that belongs to it. For advice on how to divide groups up in the first place, see [Business groups](https://n9e.io/docs/concepts/business-groups.md).
 
 ## Two rules that will stop you[​](#two-rules-that-will-stop-you "Direct link to Two rules that will stop you")
 
@@ -69,10 +69,10 @@ Both the separator and the tree-or-list choice live in **System → Site**, as *
 
 ## Hosts must be assigned by hand[​](#hosts-must-be-assigned-by-hand "Direct link to Hosts must be assigned by hand")
 
-A host running the collector registers itself, but lands in **Ungrouped**. Someone has to assign it to a business group before that group's members can see it or write rules for it. This step is routinely forgotten; the symptom is "it is clearly in the host list, but my colleague says they cannot see it". See [Targets and heartbeats](https://n9e.github.io/docs/data/categraf/targets.md).
+A host running the collector registers itself, but lands in **Ungrouped**. Someone has to assign it to a business group before that group's members can see it or write rules for it. This step is routinely forgotten; the symptom is "it is clearly in the host list, but my colleague says they cannot see it". See [Targets and heartbeats](https://n9e.io/docs/data/categraf/targets.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Put people into teams: [Users and teams](https://n9e.github.io/docs/security/users-teams.md)
-* Decide which pages those people can reach: [Roles and permission matrix](https://n9e.github.io/docs/security/roles.md)
-* How to divide business groups sensibly: [Business groups](https://n9e.github.io/docs/concepts/business-groups.md)
+* Put people into teams: [Users and teams](https://n9e.io/docs/security/users-teams.md)
+* Decide which pages those people can reach: [Roles and permission matrix](https://n9e.io/docs/security/roles.md)
+* How to divide business groups sensibly: [Business groups](https://n9e.io/docs/concepts/business-groups.md)

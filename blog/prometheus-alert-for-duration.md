@@ -8,7 +8,7 @@ November 1, 2026 ·
 
 Eric Qin
 
-![A histogram of for durations across 692 alert rule templates, with 304 rules at 60 seconds](https://n9e.github.io/assets/images/alert-for-duration-8a11aeeb3b53ac4cd26ec55c82f56d39.webp)
+![A histogram of for durations across 692 alert rule templates, with 304 rules at 60 seconds](https://n9e.io/assets/images/alert-for-duration-8a11aeeb3b53ac4cd26ec55c82f56d39.webp)
 
 Every alert rule answers two questions: what counts as bad, and how long it has to stay bad. Most review effort goes into the first one, the expression and the threshold. The second is the `for` duration, and it often gets whatever value the tool filled in.
 
@@ -26,7 +26,7 @@ Three consequences follow:
 
 ## How we counted[​](#how-we-counted "Direct link to How we counted")
 
-The data is the alert rule templates bundled with Nightingale's integrations: Kubernetes, Linux, MySQL, Redis, Elasticsearch and 44 more. They are published in the [alert rule library](https://n9e.github.io/alert-rules.md) and on each integration page.
+The data is the alert rule templates bundled with Nightingale's integrations: Kubernetes, Linux, MySQL, Redis, Elasticsearch and 44 more. They are published in the [alert rule library](https://n9e.io/alert-rules.md) and on each integration page.
 
 * 705 rules in total, **692 after removing exact duplicates** (same integration, same name, same expression).
 * Some checks exist twice on purpose, once for Categraf metrics and once for a Prometheus exporter, because the metric names differ. We count those separately.
@@ -137,20 +137,20 @@ Five rules have no rule-level severity. When seven rules in ten share a level, t
 | Something that often recovers by itself           | Longer than its normal recovery time | A queue that usually drains in 5 minutes: 10m        |
 | A slow trend                                      | 30m to several hours, lower severity | Disk full within 24 hours                            |
 
-`for` only controls when an alert starts. If an alert fires and recovers over and over, `for` is not the fix. Use a recovery delay instead: `keep_firing_for` in Prometheus, or the recover duration in Nightingale. See [Evaluation interval and recovery](https://n9e.github.io/docs/alerting/evaluation.md).
+`for` only controls when an alert starts. If an alert fires and recovers over and over, `for` is not the fix. Use a recovery delay instead: `keep_firing_for` in Prometheus, or the recover duration in Nightingale. See [Evaluation interval and recovery](https://n9e.io/docs/alerting/evaluation.md).
 
 ## Where to look next[​](#where-to-look-next "Direct link to Where to look next")
 
-Every rule in the [alert rule library](https://n9e.github.io/alert-rules.md) shows its severity and its `for` value ("Fires after"), and links to a runbook. You can download a whole rule set as a Prometheus rules file, or import it into Nightingale from the matching [integration](https://n9e.github.io/integrations.md).
+Every rule in the [alert rule library](https://n9e.io/alert-rules.md) shows its severity and its `for` value ("Fires after"), and links to a runbook. You can download a whole rule set as a Prometheus rules file, or import it into Nightingale from the matching [integration](https://n9e.io/integrations.md).
 
 **Tags:**
 
-* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
-* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
-* [Data](https://n9e.github.io/blog/tags/data.md "Posts built on numbers from Nightingale's own templates and rule library.")
+* [Alerting](https://n9e.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+* [Prometheus](https://n9e.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [Data](https://n9e.io/blog/tags/data.md "Posts built on numbers from Nightingale's own templates and rule library.")
 
-[Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-alert-for-duration/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fprometheus-alert-for-duration\&body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fblog%2Fprometheus-alert-for-duration%0A%0A)
+[Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-alert-for-duration/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fprometheus-alert-for-duration\&body=Page%3A%20https%3A%2F%2Fn9e.io%2Fblog%2Fprometheus-alert-for-duration%0A%0A)
 
-[Older post](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+[Older post](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
 
-[kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+[kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)

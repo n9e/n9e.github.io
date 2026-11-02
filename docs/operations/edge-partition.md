@@ -111,7 +111,7 @@ That last row is the signature symptom: **someone got paged and the system has n
 
 ## Related[​](#related "Direct link to Related")
 
-* [Edge data centers](https://n9e.github.io/docs/install/edge.md)
-* [Production topology](https://n9e.github.io/docs/operations/topology.md)
-* [An edge node has gone offline](https://n9e.github.io/docs/troubleshooting/edge-disconnected.md)
-* [High availability and failure domains](https://n9e.github.io/docs/operations/high-availability.md)
+* [Edge data centers](https://n9e.io/docs/install/edge.md)
+* [Production topology](https://n9e.io/docs/operations/topology.md)
+* [An edge node has gone offline](https://n9e.io/docs/troubleshooting/edge-disconnected.md)
+* [High availability and failure domains](https://n9e.io/docs/operations/high-availability.md)

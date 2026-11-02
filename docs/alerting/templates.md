@@ -33,7 +33,7 @@ All the rules in one import must share a data source type; a mixed selection is 
 
 Submit. Expected result: the rules appear in that business group's rule list, disabled, with your data source filter and notification rule already set.
 
-Unlike the export/import round trip described in [Import, export and reuse](https://n9e.github.io/docs/alerting/import-export.md), this path keeps the effective time window — the built-in rules carry theirs in the file.
+Unlike the export/import round trip described in [Import, export and reuse](https://n9e.io/docs/alerting/import-export.md), this path keeps the effective time window — the built-in rules carry theirs in the file.
 
 ## The same import, from the rule list[​](#the-same-import-from-the-rule-list "Direct link to The same import, from the rule list")
 
@@ -46,7 +46,7 @@ One difference worth knowing: this path does **not** offer the notification rule
 A built-in rule is a starting point, not a finished configuration. Three things need your attention before you enable them:
 
 1. **Thresholds.** They were written against a generic install. `disk_used_percent > 85` is reasonable for a database server and noisy for a log collector. Go through them once.
-2. **Severity.** The library is generous with S1. Decide which of these genuinely justify waking someone — see [Labels, annotations and severity](https://n9e.github.io/docs/alerting/labels-severity.md).
+2. **Severity.** The library is generous with S1. Decide which of these genuinely justify waking someone — see [Labels, annotations and severity](https://n9e.io/docs/alerting/labels-severity.md).
 3. **A notification rule**, if you imported from the rule list. Without it the rule fires into silence.
 
 Then enable them a few at a time rather than all at once, so that a wave of noise can be traced to a specific batch.
@@ -55,7 +55,7 @@ Then enable them a few at a time rather than all at once, so that a wave of nois
 
 There is no "save as template" button. The supported path is a deliberate three-step one, and the form itself tells you so:
 
-1. build and refine the rule in your own business group, where you can [test fire](https://n9e.github.io/docs/alerting/test-fire.md) it against real data;
+1. build and refine the rule in your own business group, where you can [test fire](https://n9e.io/docs/alerting/test-fire.md) it against real data;
 2. select it in the rule list and use **More → Export rules JSON**;
 3. go to **Integrations → Components**, open the integration it belongs to (or create one), the **Alert rules** tab, and click **Create**. Fill in a category name and paste the JSON.
 
@@ -75,6 +75,6 @@ The directory defaults to `integrations` next to the working directory, and can 
 
 ## Next[​](#next "Direct link to Next")
 
-* Adapt what you imported: [Metric rules](https://n9e.github.io/docs/alerting/metric-rules.md)
-* Move your rules between environments: [Import, export and reuse](https://n9e.github.io/docs/alerting/import-export.md)
-* Decide what deserves to page someone: [Rule design best practices](https://n9e.github.io/docs/alerting/best-practices.md)
+* Adapt what you imported: [Metric rules](https://n9e.io/docs/alerting/metric-rules.md)
+* Move your rules between environments: [Import, export and reuse](https://n9e.io/docs/alerting/import-export.md)
+* Decide what deserves to page someone: [Rule design best practices](https://n9e.io/docs/alerting/best-practices.md)

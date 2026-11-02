@@ -12,13 +12,13 @@ The open-source Log explorer supports **three categories only**: **Elasticsearch
 
 OpenSearch, ClickHouse and Doris can be registered as data sources, but **cannot be selected on this page**. With none available, the page says "No available data source type" and points at data source management.
 
-Registering the source itself is covered in [ElasticSearch / OpenSearch](https://n9e.github.io/docs/data/elasticsearch.md) and [Loki / VictoriaLogs](https://n9e.github.io/docs/data/loki-victorialogs.md).
+Registering the source itself is covered in [ElasticSearch / OpenSearch](https://n9e.io/docs/data/elasticsearch.md) and [Loki / VictoriaLogs](https://n9e.io/docs/data/loki-victorialogs.md).
 
 ## 1. Pick a source and run the first search[​](#1-pick-a-source-and-run-the-first-search "Direct link to 1. Pick a source and run the first search")
 
 **Explorer → Logs** (`/log/explorer`).
 
-![Log explorer](https://n9e.github.io/img/docs/query/log-explorer.webp)![Log explorer](https://n9e.github.io/img/docs/query/log-explorer.dark.webp)
+![Log explorer](https://n9e.io/img/docs/query/log-explorer.webp)![Log explorer](https://n9e.io/img/docs/query/log-explorer.dark.webp)
 
 The left column, top to bottom (this is the Elasticsearch shape):
 
@@ -113,10 +113,10 @@ Neither has the concept of an index or a date field, so those two boxes do not a
 2. go to **Alerts & Notifications → Alert rules → Add** and pick a log rule type;
 3. fill those four in as they are, then decide how many matches count as a problem.
 
-Field semantics and picking the threshold are covered in [Log rules](https://n9e.github.io/docs/alerting/log-rules.md).
+Field semantics and picking the threshold are covered in [Log rules](https://n9e.io/docs/alerting/log-rules.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Write the log rule: [Log rules](https://n9e.github.io/docs/alerting/log-rules.md)
-* Connect an ES / OpenSearch cluster: [ElasticSearch / OpenSearch](https://n9e.github.io/docs/data/elasticsearch.md)
-* Connect Loki / VictoriaLogs: [Loki / VictoriaLogs](https://n9e.github.io/docs/data/loki-victorialogs.md)
+* Write the log rule: [Log rules](https://n9e.io/docs/alerting/log-rules.md)
+* Connect an ES / OpenSearch cluster: [ElasticSearch / OpenSearch](https://n9e.io/docs/data/elasticsearch.md)
+* Connect Loki / VictoriaLogs: [Loki / VictoriaLogs](https://n9e.io/docs/data/loki-victorialogs.md)

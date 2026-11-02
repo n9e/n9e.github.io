@@ -2,7 +2,7 @@
 
 Reads the server-status?auto output of mod\_status for request rate, busy and idle workers, CPU and traffic; rules watch worker exhaustion and unreachable servers.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 With `mod_status` enabled, Apache httpd serves a machine-readable status page at `/server-status?auto`. The input scrapes it for total accesses and traffic, requests per second, busy and idle workers, CPU load, uptime and the distribution of worker states.
 
@@ -15,7 +15,7 @@ The rules cover idle workers running out, requests queuing, httpd being unreacha
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.apache/apache.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.apache started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.apache/apache.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.apache started` once the plugin is loaded.
 
    ```
    [[instances]]
@@ -35,9 +35,9 @@ The rules cover idle workers running out, requests queuing, httpd being unreacha
    # log_level = "info"
    ```
 
-2. Open the integration center in Nightingale, find Apache, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find Apache, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled alert rules[​](#bundled-alert-rules "Direct link to Bundled alert rules")
 
@@ -122,6 +122,6 @@ Runbook:
 
 * [Apache template source](https://github.com/ccfos/nightingale/tree/main/integrations/Apache): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `apache` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/apache): every config option and the full metric list.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

@@ -2,11 +2,11 @@
 
 Prometheus 告警 KubeClientCertificateExpiration 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 过去 5 分钟里客户端向 API Server 出示的证书中，至少有 1% 会在 7 天内（警告）或 24 小时内（紧急）过期。规则取的是剩余有效期的第 1 百分位。过期后这些客户端会收到 `401 Unauthorized`。如果它们属于 kubelet、控制器或调度器，节点会变成 NotReady，或者控制面停止调和。
 
-* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+* 属于 [Kubernetes 告警规则](https://n9e.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
 
 ## 规则[​](#规则 "规则的直接链接")
 
@@ -56,13 +56,13 @@ apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0 and o
 
 ## 相关告警[​](#相关告警 "相关告警的直接链接")
 
-* [KubeletClientCertificateExpiration](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubeletclientcertificateexpiration)：Client certificate for Kubelet on node … expires in ….
-* [KubeletServerCertificateExpiration](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubeletservercertificateexpiration)：Server certificate for Kubelet on node … expires in ….
-* [KubeNodeNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubenodenotready.md)：… has been unready for more than 15 minutes.
+* [KubeletClientCertificateExpiration](https://n9e.io/zh/alert-rules/kubernetes.md#kubeletclientcertificateexpiration)：Client certificate for Kubelet on node … expires in ….
+* [KubeletServerCertificateExpiration](https://n9e.io/zh/alert-rules/kubernetes.md#kubeletservercertificateexpiration)：Server certificate for Kubelet on node … expires in ….
+* [KubeNodeNotReady](https://n9e.io/zh/alert-rules/kubernetes/kubenodenotready.md)：… has been unready for more than 15 minutes.
 
 ## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
 
-加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.io/zh/alert-rules/kubernetes.yml)。
 
 ```
 - alert: KubeClientCertificateExpiration-S2
@@ -79,7 +79,7 @@ apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0 and o
 
     summary: "A client certificate used to authenticate to the apiserver is expiring in less than 7.0 days."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
 
 - alert: KubeClientCertificateExpiration-S1
 
@@ -95,10 +95,10 @@ apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0 and o
 
     summary: "A client certificate used to authenticate to the apiserver is expiring in less than 24.0 hours."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
 ```
 
-**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 

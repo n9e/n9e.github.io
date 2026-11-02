@@ -2,11 +2,11 @@
 
 给一组 IP 就能自动识别设备型号，采 CPU、内存和每个端口的流量、错包与状态，只支持 SNMP v2c。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 switch\_legacy 插件 fork 自 swcollector，面向「只想把交换机快速接进来」的场景：配置里给 IP 列表（单个、网段或范围），插件自动探测设备型号，用通用 OID 采集 CPU、内存使用率以及每个网口的流量、包数、错包、丢包和 up/down 状态，不用自己写 OID。
 
-只支持 SNMP v2c，认证就是一个 community 字符串。把 `switch_id_label` 设为 `ident`，交换机会以 IP 为标识自动出现在夜莺的监控对象列表里。需要自定义 OID 或 SNMP v3 时换 [SNMP 集成](https://n9e.github.io/zh/integrations/snmp.md)。规则覆盖端口 down、流量逼近带宽、错包升高和设备不可达。
+只支持 SNMP v2c，认证就是一个 community 字符串。把 `switch_id_label` 设为 `ident`，交换机会以 IP 为标识自动出现在夜莺的监控对象列表里。需要自定义 OID 或 SNMP v3 时换 [SNMP 集成](https://n9e.io/zh/integrations/snmp.md)。规则覆盖端口 down、流量逼近带宽、错包升高和设备不可达。
 
 ## 模板里有什么[​](#模板里有什么 "模板里有什么的直接链接")
 
@@ -16,7 +16,7 @@ switch\_legacy 插件 fork 自 swcollector，面向「只想把交换机快速�
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.switch_legacy/switch_legacy.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.switch_legacy started` 就说明插件已加载。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.switch_legacy/switch_legacy.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.switch_legacy started` 就说明插件已加载。
 
    ```
    # # collect interval
@@ -178,9 +178,9 @@ switch\_legacy 插件 fork 自 swcollector，面向「只想把交换机快速�
    # oid = "1.3.6.1.4.1.9.9.13.1.3.1.3.1004"
    ```
 
-2. 在夜莺「集成中心」里找到 Switch (legacy)，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 Switch (legacy)，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -301,7 +301,7 @@ switch_legacy_if_out_speed_percent > 80
 
 * \[Switch (legacy) 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/Switch\_Legacy）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/Switch_Legacy%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `switch_legacy` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/switch_legacy)：完整配置项和指标列表。
-* [SNMP：按 OID 自定义采集](https://n9e.github.io/zh/integrations/snmp.md)
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [SNMP：按 OID 自定义采集](https://n9e.io/zh/integrations/snmp.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

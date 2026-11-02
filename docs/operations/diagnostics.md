@@ -127,6 +127,6 @@ Issues go to [ccfos/nightingale](https://github.com/ccfos/nightingale/issues).
 
 ## Related[​](#related "Direct link to Related")
 
-* [Built-in metrics and health checks](https://n9e.github.io/docs/operations/health.md)
-* [Inspect evaluation execution records](https://n9e.github.io/docs/alerting/execution-records.md)
-* [A rule is not firing](https://n9e.github.io/docs/troubleshooting/alert-not-firing.md)
+* [Built-in metrics and health checks](https://n9e.io/docs/operations/health.md)
+* [Inspect evaluation execution records](https://n9e.io/docs/alerting/execution-records.md)
+* [A rule is not firing](https://n9e.io/docs/troubleshooting/alert-not-firing.md)

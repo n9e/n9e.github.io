@@ -75,7 +75,7 @@ Rehearse the restore. A backup nobody has restored is not a backup.
 
 An alerting system that is down will not alert you about being down. Every process exposes its own metrics on `/metrics`; point Nightingale at itself and watch at least process liveness, whether rule evaluation is still running on schedule, and notification delivery failures.
 
-See [Monitor Nightingale itself](https://n9e.github.io/docs/operations/self-monitoring.md).
+See [Monitor Nightingale itself](https://n9e.io/docs/operations/self-monitoring.md).
 
 ### Decide whether anonymous access stays on[​](#decide-whether-anonymous-access-stays-on "Direct link to Decide whether anonymous access stays on")
 
@@ -95,14 +95,14 @@ The default exists so anonymous dashboard share links work. Turn it off if you d
 
 ### Close down the network[​](#close-down-the-network "Direct link to Close down the network")
 
-The write endpoints (`/prometheus/v1/write`, `/v1/n9e/heartbeat`) and the admin UI should not face the internet directly. Put them behind a gateway with TLS if outside access is needed. See [Network and TLS hardening](https://n9e.github.io/docs/security/network-tls.md).
+The write endpoints (`/prometheus/v1/write`, `/v1/n9e/heartbeat`) and the admin UI should not face the internet directly. Put them behind a gateway with TLS if outside access is needed. See [Network and TLS hardening](https://n9e.io/docs/security/network-tls.md).
 
 ### Get credentials out of the config file[​](#get-credentials-out-of-the-config-file "Direct link to Get credentials out of the config file")
 
-Database passwords, channel tokens and LLM API keys do not belong hard-coded in `config.toml`. See [Secret management](https://n9e.github.io/docs/security/secrets.md).
+Database passwords, channel tokens and LLM API keys do not belong hard-coded in `config.toml`. See [Secret management](https://n9e.io/docs/security/secrets.md).
 
 ## After you are live[​](#after-you-are-live "Direct link to After you are live")
 
 * **Actually verify the notification chain once**, rule to phone. Do not discover a misconfigured channel during a real incident;
 * add at least one "collector went quiet" rule, or you will not notice when data stops arriving;
-* walk the upgrade and rollback procedures before you need them: [Upgrade](https://n9e.github.io/docs/install/upgrade.md), [Rollback](https://n9e.github.io/docs/install/rollback.md).
+* walk the upgrade and rollback procedures before you need them: [Upgrade](https://n9e.io/docs/install/upgrade.md), [Rollback](https://n9e.io/docs/install/rollback.md).

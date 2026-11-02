@@ -38,10 +38,10 @@ Three approaches, best first:
 
 1. **One config file per environment**, selected with `N9E_CONFIGS` or `--configs`. Plainest, and the easiest to audit.
 2. **Template plus render at start**: have the container entrypoint substitute variables into the toml (envsubst or similar) before launching the process.
-3. **Encrypted fields**: store sensitive values encrypted in the config file against a `--crypto-key`, and keep the key itself in the environment or a secret manager. See [Secret management](https://n9e.github.io/docs/security/secrets.md).
+3. **Encrypted fields**: store sensitive values encrypted in the config file against a `--crypto-key`, and keep the key itself in the environment or a secret manager. See [Secret management](https://n9e.io/docs/security/secrets.md).
 
 ## Related[​](#related "Direct link to Related")
 
-* [Configuration reference](https://n9e.github.io/docs/reference/configuration.md)
-* [CLI reference](https://n9e.github.io/docs/reference/cli.md)
-* [Docker Compose](https://n9e.github.io/docs/install/docker-compose.md)
+* [Configuration reference](https://n9e.io/docs/reference/configuration.md)
+* [CLI reference](https://n9e.io/docs/reference/cli.md)
+* [Docker Compose](https://n9e.io/docs/install/docker-compose.md)

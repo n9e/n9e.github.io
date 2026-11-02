@@ -2,13 +2,13 @@
 
 What the KubeNodeNotReady Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 A node's `Ready` condition has not been `True` for 15 minutes; it is either `False` (the kubelet reports a problem) or `Unknown` (the kubelet has stopped reporting). New Pods are not scheduled there, and Pods already on it are evicted once the not-ready or unreachable taint outlasts their toleration, which is 300 seconds by default.
 
 * **Severity**: Warning (`warning`)
 * **Fires after**: 15m
-* Part of the [Kubernetes alert rules](https://n9e.github.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
+* Part of the [Kubernetes alert rules](https://n9e.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
 
 ## The rule[​](#the-rule "Direct link to The rule")
 
@@ -44,13 +44,13 @@ Alert message: `{{ $labels.node }} has been unready for more than 15 minutes.`
 
 ## Related alerts[​](#related-alerts "Direct link to Related alerts")
 
-* [KubeletDown](https://n9e.github.io/alert-rules/kubernetes/kubeletdown.md): Kubelet has disappeared from Prometheus target discovery.
-* [KubePodNotReady](https://n9e.github.io/alert-rules/kubernetes/kubepodnotready.md): Pod …/… has been in a non-ready state for longer than 15 minutes.
-* [KubeletTooManyPods](https://n9e.github.io/alert-rules/kubernetes/kubelettoomanypods.md): Kubelet '…' is running at … of its Pod capacity.
+* [KubeletDown](https://n9e.io/alert-rules/kubernetes/kubeletdown.md): Kubelet has disappeared from Prometheus target discovery.
+* [KubePodNotReady](https://n9e.io/alert-rules/kubernetes/kubepodnotready.md): Pod …/… has been in a non-ready state for longer than 15 minutes.
+* [KubeletTooManyPods](https://n9e.io/alert-rules/kubernetes/kubelettoomanypods.md): Kubelet '…' is running at … of its Pod capacity.
 
 ## Prometheus rule YAML[​](#prometheus-rule-yaml "Direct link to Prometheus rule YAML")
 
-Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.github.io/alert-rules/kubernetes.yml).
+Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.io/alert-rules/kubernetes.yml).
 
 ```
 - alert: KubeNodeNotReady
@@ -69,10 +69,10 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
 
     summary: "{{ $labels.node }} has been unready for more than 15 minutes."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubenodenotready"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubenodenotready"
 ```
 
-**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.github.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
+**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 

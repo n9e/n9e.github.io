@@ -2,7 +2,7 @@
 
 Reads HAProxy's CSV stats page or Runtime API for sessions, queues, errors and health state per frontend, backend and server.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The HAProxy input reads the CSV output of the stats page (`/stats;csv`) or the Runtime API Unix socket. It collects current and maximum sessions, queue length, request rate, status code classes, connection and response errors, retries and redispatches at frontend, backend and server level, plus the health-check result of every backend server. Verified against real backend traffic.
 
@@ -16,7 +16,7 @@ The rules cover backend servers marked DOWN, backends with no servers left, queu
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.haproxy/haproxy.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.haproxy started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.haproxy/haproxy.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.haproxy started` once the plugin is loaded.
 
    ```
    [[instances]]
@@ -64,9 +64,9 @@ The rules cover backend servers marked DOWN, backends with no servers left, queu
    proxy_from_env = false
    ```
 
-2. Open the integration center in Nightingale, find HAProxy, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find HAProxy, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -202,6 +202,6 @@ Runbook:
 
 * [HAProxy template source](https://github.com/ccfos/nightingale/tree/main/integrations/HAProxy): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `haproxy` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/haproxy): every config option and the full metric list.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

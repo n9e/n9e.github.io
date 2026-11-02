@@ -6,7 +6,7 @@ Last reviewed 2026-10-10
 
 The ingest side is called Pushgw and lives inside the Center process (it can also run on its own as `n9e-pushgw`). **Pushgw itself keeps nothing** — what arrives goes to the embedded TSDB (on by default) and to any TSDBs listed in `[[Pushgw.Writers]]`.
 
-You do not have to use it. Your existing Prometheus can keep scraping while Nightingale only queries, and alerting works the same. The difference between the two shapes is in [Where it fits](https://n9e.github.io/docs/get-started/where-it-fits.md).
+You do not have to use it. Your existing Prometheus can keep scraping while Nightingale only queries, and alerting works the same. The difference between the two shapes is in [Where it fits](https://n9e.io/docs/get-started/where-it-fits.md).
 
 ## Endpoints[​](#endpoints "Direct link to Endpoints")
 
@@ -65,10 +65,10 @@ Url = "http://prometheus:9090/api/v1/write"
 
 Forwarding to Prometheus requires **Prometheus to be started with `--web.enable-remote-write-receiver`** (older versions: `--enable-feature=remote-write-receiver`). Without it `/api/v1/write` is not listening at all and Nightingale's forwarding gets a 404.
 
-The embedded TSDB and an external one can be written at the same time — that overlap is the migration window, see [External TSDB and dual-write migration](https://n9e.github.io/docs/install/external-tsdb.md).
+The embedded TSDB and an external one can be written at the same time — that overlap is the migration window, see [External TSDB and dual-write migration](https://n9e.io/docs/install/external-tsdb.md).
 
 ## Related[​](#related "Direct link to Related")
 
-* [Categraf remote write](https://n9e.github.io/docs/data/categraf/remote-write.md)
-* [Pushgw queue and dual write](https://n9e.github.io/docs/operations/pushgw.md)
-* [Ports and network flows](https://n9e.github.io/docs/reference/ports.md)
+* [Categraf remote write](https://n9e.io/docs/data/categraf/remote-write.md)
+* [Pushgw queue and dual write](https://n9e.io/docs/operations/pushgw.md)
+* [Ports and network flows](https://n9e.io/docs/reference/ports.md)

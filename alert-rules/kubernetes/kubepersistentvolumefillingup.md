@@ -2,13 +2,13 @@
 
 What the KubePersistentVolumeFillingUp Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 A PersistentVolume has less than 3% of its space left, as reported by the kubelet on the node that mounts it. Databases, queues and other stateful services usually stop accepting writes or crash once the volume is full, so this one is critical.
 
 * **Severity**: Critical (`critical`)
 * **Fires after**: 1m
-* Part of the [Kubernetes alert rules](https://n9e.github.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
+* Part of the [Kubernetes alert rules](https://n9e.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
 
 ## The rule[​](#the-rule "Direct link to The rule")
 
@@ -68,13 +68,13 @@ Alert message: `The PersistentVolume claimed by {{ $labels.persistentvolumeclaim
 
 ## Related alerts[​](#related-alerts "Direct link to Related alerts")
 
-* [KubePersistentVolumeInodesFillingUp](https://n9e.github.io/alert-rules/kubernetes.md#kubepersistentvolumeinodesfillingup): The PersistentVolume claimed by … in Namespace … only has … free inodes.
-* [KubePersistentVolumeErrors](https://n9e.github.io/alert-rules/kubernetes.md#kubepersistentvolumeerrors): The persistent volume … has status ….
-* [KubeStatefulSetReplicasMismatch](https://n9e.github.io/alert-rules/kubernetes/kubestatefulsetreplicasmismatch.md): StatefulSet …/… has not matched the expected number of replicas for longer than 15 minutes.
+* [KubePersistentVolumeInodesFillingUp](https://n9e.io/alert-rules/kubernetes.md#kubepersistentvolumeinodesfillingup): The PersistentVolume claimed by … in Namespace … only has … free inodes.
+* [KubePersistentVolumeErrors](https://n9e.io/alert-rules/kubernetes.md#kubepersistentvolumeerrors): The persistent volume … has status ….
+* [KubeStatefulSetReplicasMismatch](https://n9e.io/alert-rules/kubernetes/kubestatefulsetreplicasmismatch.md): StatefulSet …/… has not matched the expected number of replicas for longer than 15 minutes.
 
 ## Prometheus rule YAML[​](#prometheus-rule-yaml "Direct link to Prometheus rule YAML")
 
-Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.github.io/alert-rules/kubernetes.yml).
+Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.io/alert-rules/kubernetes.yml).
 
 ```
 - alert: KubePersistentVolumeFillingUp
@@ -113,10 +113,10 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
 
     summary: "The PersistentVolume claimed by {{ $labels.persistentvolumeclaim }} in Namespace {{ $labels.namespace }} is only {{ $value | humanizePercentage }} free."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubepersistentvolumefillingup"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubepersistentvolumefillingup"
 ```
 
-**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.github.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
+**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 

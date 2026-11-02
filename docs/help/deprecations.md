@@ -8,15 +8,15 @@ This page lists what Nightingale marks as deprecated and what replaced it. It do
 
 ## There is no published maintenance policy[​](#there-is-no-published-maintenance-policy "Direct link to There is no published maintenance policy")
 
-The project publishes no support matrix, no LTS designation, no stated maintenance window per minor version, and no announced removal schedule for anything on this page. [Compatibility matrix](https://n9e.github.io/docs/reference/compatibility.md) says the same thing about platform versions, for the same reason.
+The project publishes no support matrix, no LTS designation, no stated maintenance window per minor version, and no announced removal schedule for anything on this page. [Compatibility matrix](https://n9e.io/docs/reference/compatibility.md) says the same thing about platform versions, for the same reason.
 
 In practice the head of the release line is what receives fixes: v9.1.1 is a patch on top of v9.1.0, and that is where a bug fix appears. Beyond that, the authoritative record is GitHub:
 
-| What you want to know                            | Where                                                                                                      |
-| ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- |
-| Which versions exist, and when each was released | [GitHub Releases](https://github.com/ccfos/nightingale/releases)                                           |
-| Whether a fix has landed                         | The `fix:` entries in each release — see [Release notes](https://n9e.github.io/docs/help/release-notes.md) |
-| Whether a field is still read by the engine      | The source. Nothing else is binding                                                                        |
+| What you want to know                            | Where                                                                                               |
+| ------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| Which versions exist, and when each was released | [GitHub Releases](https://github.com/ccfos/nightingale/releases)                                    |
+| Whether a fix has landed                         | The `fix:` entries in each release — see [Release notes](https://n9e.io/docs/help/release-notes.md) |
+| Whether a field is still read by the engine      | The source. Nothing else is binding                                                                 |
 
 **Everything marked deprecated below still exists and still works in v9.1.1.** Nothing has been removed. Read "deprecated" as "the replacement is where new work should go", not as "this stops working next release" — nobody has said when, and you should not infer a date from this page.
 
@@ -61,17 +61,17 @@ Saving a subscription rule with `notify_version: 1` clears these fields to empty
 * the redefined webhooks (`redefine_webhooks`, `webhooks`);
 * the redefined severity (`redefine_severity`, `new_severity`).
 
-This is intended, not a bug: on the new model those decisions belong to the notification rules the subscription selects, not to the subscription. See [Alert subscriptions](https://n9e.github.io/docs/events/subscriptions.md). If you create subscriptions from a script, sending those fields alongside `notify_version: 1` silently drops them.
+This is intended, not a bug: on the new model those decisions belong to the notification rules the subscription selects, not to the subscription. See [Alert subscriptions](https://n9e.io/docs/events/subscriptions.md). If you create subscriptions from a script, sending those fields alongside `notify_version: 1` silently drops them.
 
 ## Code that is still there but no longer on any path[​](#code-that-is-still-there-but-no-longer-on-any-path "Direct link to Code that is still there but no longer on any path")
 
 Two things you may find by reading the source or watching a network trace. Both still respond; build on neither.
 
-* **`POST /api/n9e/busi-group/alert-rules/notify-tryrun` and `.../enable-tryrun`.** The frontend still defines a wrapper for each, and its only call sites for them are commented out. Their job is done by [test fire](https://n9e.github.io/docs/alerting/test-fire.md), which walks query → threshold → event → notification in one pass instead of two partial checks.
+* **`POST /api/n9e/busi-group/alert-rules/notify-tryrun` and `.../enable-tryrun`.** The frontend still defines a wrapper for each, and its only call sites for them are commented out. Their job is done by [test fire](https://n9e.io/docs/alerting/test-fire.md), which walks query → threshold → event → notification in one pass instead of two partial checks.
 * **The v7-era senders in `alert/sender/`** (DingTalk, WeCom, Feishu, Lark, Telegram, Mattermost, email). They are still compiled in and still wired up, but only the legacy path reaches them: an event from a rule on `notify_version: 0` carrying `notify_channels` and `notify_groups`. Notification rules take an entirely different route, through the media types configured under **Alerts & Notifications → Media types**. Editing a template on the old path does not change what notification rules send.
 
 ## Related[​](#related "Direct link to Related")
 
-* [Release notes](https://n9e.github.io/docs/help/release-notes.md) — upgrade impact per version
-* [v8 to v9](https://n9e.github.io/docs/migration/v8-to-v9.md) — where most of these replacements arrived
-* [Compatibility matrix](https://n9e.github.io/docs/reference/compatibility.md) — the other page with no official promise behind it
+* [Release notes](https://n9e.io/docs/help/release-notes.md) — upgrade impact per version
+* [v8 to v9](https://n9e.io/docs/migration/v8-to-v9.md) — where most of these replacements arrived
+* [Compatibility matrix](https://n9e.io/docs/reference/compatibility.md) — the other page with no official promise behind it

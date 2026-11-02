@@ -2,13 +2,13 @@
 
 What the KubeHpaMaxedOut Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 A HorizontalPodAutoscaler has been running at `maxReplicas` for 15 minutes. It cannot add more replicas, so if load keeps rising, each replica takes more of it and latency or error rates follow.
 
 * **Severity**: Warning (`warning`)
 * **Fires after**: 15m
-* Part of the [Kubernetes alert rules](https://n9e.github.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
+* Part of the [Kubernetes alert rules](https://n9e.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
 
 ## The rule[​](#the-rule "Direct link to The rule")
 
@@ -48,14 +48,14 @@ Alert message: `HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler }
 
 ## Related alerts[​](#related-alerts "Direct link to Related alerts")
 
-* [KubeHpaReplicasMismatch](https://n9e.github.io/alert-rules/kubernetes.md#kubehpareplicasmismatch): HPA …/… has not matched the desired number of replicas for longer than 15 minutes.
-* [KubeCPUOvercommit](https://n9e.github.io/alert-rules/kubernetes/kubecpuovercommit.md): Cluster … has overcommitted CPU resource requests for Pods by … CPU shares and cannot tolerate node failure.
-* [KubeMemoryOvercommit](https://n9e.github.io/alert-rules/kubernetes/kubememoryovercommit.md): Cluster … has overcommitted memory resource requests for Pods by … bytes and cannot tolerate node failure.
-* [KubeDeploymentReplicasMismatch](https://n9e.github.io/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md): Deployment …/… has not matched the expected number of replicas for longer than 15 minutes.
+* [KubeHpaReplicasMismatch](https://n9e.io/alert-rules/kubernetes.md#kubehpareplicasmismatch): HPA …/… has not matched the desired number of replicas for longer than 15 minutes.
+* [KubeCPUOvercommit](https://n9e.io/alert-rules/kubernetes/kubecpuovercommit.md): Cluster … has overcommitted CPU resource requests for Pods by … CPU shares and cannot tolerate node failure.
+* [KubeMemoryOvercommit](https://n9e.io/alert-rules/kubernetes/kubememoryovercommit.md): Cluster … has overcommitted memory resource requests for Pods by … bytes and cannot tolerate node failure.
+* [KubeDeploymentReplicasMismatch](https://n9e.io/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md): Deployment …/… has not matched the expected number of replicas for longer than 15 minutes.
 
 ## Prometheus rule YAML[​](#prometheus-rule-yaml "Direct link to Prometheus rule YAML")
 
-Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.github.io/alert-rules/kubernetes.yml).
+Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.io/alert-rules/kubernetes.yml).
 
 ```
 - alert: KubeHpaMaxedOut
@@ -78,10 +78,10 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
 
     summary: "HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler  }} has been running at max replicas for longer than 15 minutes."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubehpamaxedout"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubehpamaxedout"
 ```
 
-**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.github.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
+**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 

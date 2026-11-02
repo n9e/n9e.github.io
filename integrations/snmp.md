@@ -2,7 +2,7 @@
 
 Collect any network device by listing OIDs, with OID values usable as labels; the template ships Cisco, Juniper and generic switch dashboards and dozens of rules.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 Categraf has included Telegraf's snmp input since v0.2.13. The idea is simple: list the OIDs for the metrics you want. `[[instances.field]]` reads single values, `[[instances.table]]` walks a table into multiple rows, and selected OIDs in a table (interface names, say) can become labels. Generic OIDs for interface traffic, errors and state work on almost every device; vendor-specific OIDs for CPU and memory are configured per vendor and model.
 
@@ -17,7 +17,7 @@ The template ships dashboards for a generic switch overview, device traffic, acc
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md) and enable the plugins you need. Each config goes in its own `conf/input.<plugin>/` directory; fill in addresses and credentials, then restart Categraf.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md) and enable the plugins you need. Each config goes in its own `conf/input.<plugin>/` directory; fill in addresses and credentials, then restart Categraf.
 
    `conf/input.snmp/Cisco.toml`
 
@@ -397,9 +397,9 @@ The template ships dashboards for a generic switch overview, device traffic, acc
    #is_tag = true
    ```
 
-2. Open the integration center in Nightingale, find SNMP, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find SNMP, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -1088,7 +1088,7 @@ Runbook:
 
 * [SNMP template source](https://github.com/ccfos/nightingale/tree/main/integrations/SNMP): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `snmp` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/snmp): every config option and the full metric list.
-* [Switch Legacy: zero-config switch collection](https://n9e.github.io/integrations/switch-legacy.md)
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Switch Legacy: zero-config switch collection](https://n9e.io/integrations/switch-legacy.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

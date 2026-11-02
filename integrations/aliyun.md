@@ -2,7 +2,7 @@
 
 Pulls ECS, RDS, Redis, SLB, CDN, ARMS and other product metrics through the CloudMonitor OpenAPI; the template ships dozens of per-product dashboards and rules.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The `aliyun` input calls the CloudMonitor OpenAPI and pulls metrics per namespace: ECS, RDS, Redis, MongoDB, SLB/ALB, OSS, CDN, message queues, ARMS application monitoring and more. Metrics arrive named `aliyun_<namespace>_<metric>` with instance ID and region labels.
 
@@ -16,7 +16,7 @@ Create a RAM user, grant `AliyunCloudMonitorReadOnlyAccess` and issue an AccessK
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.aliyun/cloud.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.aliyun started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.aliyun/cloud.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.aliyun started` once the plugin is loaded.
 
    ```
    # # collect interval
@@ -62,9 +62,9 @@ Create a RAM user, grant `AliyunCloudMonitorReadOnlyAccess` and issue an AccessK
    # timeout="5s"
    ```
 
-2. Open the integration center in Nightingale, find Alibaba Cloud, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find Alibaba Cloud, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -1224,6 +1224,6 @@ Runbook:
 
 * [Alibaba Cloud template source](https://github.com/ccfos/nightingale/tree/main/integrations/AliYun): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `aliyun` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/aliyun): every config option and the full metric list.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

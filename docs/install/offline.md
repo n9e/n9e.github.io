@@ -31,7 +31,7 @@ The compose bundles also use `mysql:8`, `redis:6.2` and `victoriametrics/victori
 
 ## From the binary package[​](#from-the-binary-package "Direct link to From the binary package")
 
-Once the file is inside, the steps are **exactly the same** as online — see [Binary packages](https://n9e.github.io/docs/install/binary.md): extract, edit `etc/config.toml`, add the systemd unit, start.
+Once the file is inside, the steps are **exactly the same** as online — see [Binary packages](https://n9e.io/docs/install/binary.md): extract, edit `etc/config.toml`, add the systemd unit, start.
 
 Three things are worth confirming, because they are the parts you never notice when online:
 
@@ -47,7 +47,7 @@ Three things are worth confirming, because they are the parts you never notice w
 docker load -i n9e-images.tar
 ```
 
-Then follow [Docker Compose](https://n9e.github.io/docs/install/docker-compose.md), replacing every `image:` with the tags you loaded and dropping `:latest` — it means nothing offline and invites a pull failure on the next restart.
+Then follow [Docker Compose](https://n9e.io/docs/install/docker-compose.md), replacing every `image:` with the tags you loaded and dropping `:latest` — it means nothing offline and invites a pull failure on the next restart.
 
 ## Building from source[​](#building-from-source "Direct link to Building from source")
 
@@ -76,6 +76,6 @@ At startup the process also detects its outbound IP to build its instance identi
 
 ## Next[​](#next "Direct link to Next")
 
-* [Binary packages](https://n9e.github.io/docs/install/binary.md)
-* [Upgrade](https://n9e.github.io/docs/install/upgrade.md) — offline upgrades start with the same carry step
-* [Production readiness checklist](https://n9e.github.io/docs/get-started/production-checklist.md)
+* [Binary packages](https://n9e.io/docs/install/binary.md)
+* [Upgrade](https://n9e.io/docs/install/upgrade.md) — offline upgrades start with the same carry step
+* [Production readiness checklist](https://n9e.io/docs/get-started/production-checklist.md)

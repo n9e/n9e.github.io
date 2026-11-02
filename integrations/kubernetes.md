@@ -2,7 +2,7 @@
 
 Scrapes the native /metrics of the apiserver, kubelet, controller-manager, scheduler, kube-proxy, CoreDNS, kube-state-metrics and node-exporter; templates cover every layer from control plane to Pod.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 Every Kubernetes component exposes Prometheus-format `/metrics`. The recommended path is to scrape them directly with the Categraf `prometheus` input and deploy kube-state-metrics (workload state) and node-exporter (node resources). The old Categraf kubernetes input is deprecated, but the dashboards and rules in this template keep working.
 
@@ -27,12 +27,12 @@ This is the largest template in the catalog. Dashboards cover each control-plane
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-These components expose Prometheus-format `/metrics` themselves, so the Categraf `prometheus` input scrapes them without a dedicated plugin. If a Prometheus or VictoriaMetrics instance is already scraping them, [add it as a Nightingale data source](https://n9e.github.io/docs/data/prometheus.md) and the templates work as they are.
+These components expose Prometheus-format `/metrics` themselves, so the Categraf `prometheus` input scrapes them without a dedicated plugin. If a Prometheus or VictoriaMetrics instance is already scraping them, [add it as a Nightingale data source](https://n9e.io/docs/data/prometheus.md) and the templates work as they are.
 
 Control-plane endpoints need a ServiceAccount token or client certificate; when Categraf runs as a DaemonSet inside the cluster, use `bearer_token_file` to read the mounted token. On distributions such as K3s, the scheduler, controller-manager and kube-proxy may listen on loopback only, so collect them on the control-plane node itself. Do not expose these unauthenticated endpoints to the internet for convenience.
 
-1. Open the integration center in Nightingale, find Kubernetes, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
-2. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+1. Open the integration center in Nightingale, find Kubernetes, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
+2. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -58,7 +58,7 @@ Control-plane endpoints need a ServiceAccount token or client certificate; when 
 
 ## Bundled alert rules[​](#bundled-alert-rules "Direct link to Bundled alert rules")
 
-154 rules, disabled on import so you can enable them one by one with your own thresholds. The PromQL condition and runbook steps for every rule are in the alert rule library: [Kubernetes alert rules](https://n9e.github.io/alert-rules/kubernetes.md), [Prometheus alert rules](https://n9e.github.io/alert-rules/prometheus.md), [Linux alert rules](https://n9e.github.io/alert-rules/linux.md).
+154 rules, disabled on import so you can enable them one by one with your own thresholds. The PromQL condition and runbook steps for every rule are in the alert rule library: [Kubernetes alert rules](https://n9e.io/alert-rules/kubernetes.md), [Prometheus alert rules](https://n9e.io/alert-rules/prometheus.md), [Linux alert rules](https://n9e.io/alert-rules/linux.md).
 
 | Rule                                                          | Severity    | For  |
 | ------------------------------------------------------------- | ----------- | ---- |
@@ -532,6 +532,6 @@ Control-plane endpoints need a ServiceAccount token or client certificate; when 
 ## Related[​](#related "Direct link to Related")
 
 * [Kubernetes template source](https://github.com/ccfos/nightingale/tree/main/integrations/Kubernetes): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

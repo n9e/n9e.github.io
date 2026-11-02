@@ -2,11 +2,11 @@
 
 Prometheus 告警 KubeAPIErrorBudgetBurn 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Kubernetes API Server 失败或变慢的请求太多，正在提前耗尽错误预算。规则采用 Google SRE Workbook 的多窗口燃烧率方法，可用性目标为 99%。每条规则搭配一长一短两个窗口，两个都超过阈值才触发：1h 与 5m 超过 14.4、6h 与 30m 超过 6 为紧急；1d 与 2h 超过 3、3d 与 6h 超过 1 为警告。燃烧率 14.4 时，30 天的错误预算大约两天就会用完。控制器、kubectl、CI 流水线都要经过 API Server，它出错会波及所有地方。
 
-* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+* 属于 [Kubernetes 告警规则](https://n9e.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
 
 ## 规则[​](#规则 "规则的直接链接")
 
@@ -93,13 +93,13 @@ sum(apiserver_request:burnrate6h) > (1.00 * 0.01000)
 
 ## 相关告警[​](#相关告警 "相关告警的直接链接")
 
-* [KubeAPIDown](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubeapidown)：KubeAPI has disappeared from Prometheus target discovery.
-* [KubeClientErrors](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubeclienterrors)：Kubernetes API server client '…/…' is experiencing … errors.'
-* [KubeAggregatedAPIDown](https://n9e.github.io/zh/alert-rules/kubernetes/kubeaggregatedapidown.md)：Kubernetes aggregated API …/… has been only …% available over the last 10m.
+* [KubeAPIDown](https://n9e.io/zh/alert-rules/kubernetes.md#kubeapidown)：KubeAPI has disappeared from Prometheus target discovery.
+* [KubeClientErrors](https://n9e.io/zh/alert-rules/kubernetes.md#kubeclienterrors)：Kubernetes API server client '…/…' is experiencing … errors.'
+* [KubeAggregatedAPIDown](https://n9e.io/zh/alert-rules/kubernetes/kubeaggregatedapidown.md)：Kubernetes aggregated API …/… has been only …% available over the last 10m.
 
 ## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
 
-加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.io/zh/alert-rules/kubernetes.yml)。
 
 ```
 - alert: KubeAPIErrorBudgetBurn-S1-120s
@@ -122,7 +122,7 @@ sum(apiserver_request:burnrate6h) > (1.00 * 0.01000)
 
     summary: "The API server is burning too much error budget."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
 
 - alert: KubeAPIErrorBudgetBurn-S1-900s
 
@@ -144,7 +144,7 @@ sum(apiserver_request:burnrate6h) > (1.00 * 0.01000)
 
     summary: "The API server is burning too much error budget."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
 
 - alert: KubeAPIErrorBudgetBurn-S2-3600s
 
@@ -166,7 +166,7 @@ sum(apiserver_request:burnrate6h) > (1.00 * 0.01000)
 
     summary: "The API server is burning too much error budget."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
 
 - alert: KubeAPIErrorBudgetBurn-S2-10800s
 
@@ -188,10 +188,10 @@ sum(apiserver_request:burnrate6h) > (1.00 * 0.01000)
 
     summary: "The API server is burning too much error budget."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
 ```
 
-**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 

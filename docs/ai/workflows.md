@@ -18,7 +18,7 @@ The same sentence gets a different answer in three places, and it is worth knowi
 
 **In the workspace.** No page context, so name the thing: the rule, the host, the business group. Better for questions that span areas.
 
-**From an MCP client.** Claude Code and Cursor bring their own model and their own toolbox — no skills, no documentation search, no confirmation card. Prompts that lean on a skill will not behave the same. Stick to retrieval there: *"List every business group I can see"*, *"Which alerts are firing right now? Group them by severity."* See [Connect an MCP client](https://n9e.github.io/docs/ai/mcp-clients.md).
+**From an MCP client.** Claude Code and Cursor bring their own model and their own toolbox — no skills, no documentation search, no confirmation card. Prompts that lean on a skill will not behave the same. Stick to retrieval there: *"List every business group I can see"*, *"Which alerts are firing right now? Group them by severity."* See [Connect an MCP client](https://n9e.io/docs/ai/mcp-clients.md).
 
 ## Triage: what is on fire right now[​](#triage-what-is-on-fire-right-now "Direct link to Triage: what is on fire right now")
 
@@ -68,7 +68,7 @@ Both halves matter: the noisy rules cost attention, and rules that have never fi
 
 > Which alerts fired most frequently recently? Any scenarios suitable for self-healing?
 
-That last one comes from the self-healing page, and it is a good bridge: a mechanical alert that recurs weekly is a candidate for a script. See [Trigger self-healing with ibex / webhook](https://n9e.github.io/docs/events/self-healing.md).
+That last one comes from the self-healing page, and it is a good bridge: a mechanical alert that recurs weekly is a candidate for a script. See [Trigger self-healing with ibex / webhook](https://n9e.io/docs/events/self-healing.md).
 
 ## Explain a spike, or write the query[​](#explain-a-spike-or-write-the-query "Direct link to Explain a spike, or write the query")
 
@@ -119,6 +119,6 @@ The last one is the interesting case — a test send bypasses matching, so "test
 
 ## Next[​](#next "Direct link to Next")
 
-* Why some of these need a skill: [Install, manage and write Skills](https://n9e.github.io/docs/ai/skills.md)
-* Before letting it change anything: [Safe automation patterns](https://n9e.github.io/docs/ai/automation.md)
-* When it answers badly or not at all: [AI / Skill / MCP troubleshooting](https://n9e.github.io/docs/ai/troubleshooting.md)
+* Why some of these need a skill: [Install, manage and write Skills](https://n9e.io/docs/ai/skills.md)
+* Before letting it change anything: [Safe automation patterns](https://n9e.io/docs/ai/automation.md)
+* When it answers badly or not at all: [AI / Skill / MCP troubleshooting](https://n9e.io/docs/ai/troubleshooting.md)

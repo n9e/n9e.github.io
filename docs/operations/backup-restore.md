@@ -48,7 +48,7 @@ tar czf n9e-etc-$(date +%F).tar.gz etc/ integrations/
 
 `etc/` holds `config.toml`, the edge's `etc/edge/edge.toml`, `metrics.yaml` and the notification scripts. Better yet, **keep `etc/` in version control**: you get a record of what changed, when and by whom, and rolling back becomes one `git checkout`.
 
-`config.toml` contains the database password, so move credentials out before committing it — see [Secret management](https://n9e.github.io/docs/security/secrets.md).
+`config.toml` contains the database password, so move credentials out before committing it — see [Secret management](https://n9e.io/docs/security/secrets.md).
 
 ## The embedded TSDB[​](#the-embedded-tsdb "Direct link to The embedded TSDB")
 
@@ -64,7 +64,7 @@ systemctl start n9e
 
 Copying it while running captures half-written blocks, which may not open on restore.
 
-Be pragmatic: if the embedded store holds "the last 15 days for looking at trends", a backup that costs downtime is not worth it — losing it is acceptable. If it is your only metric store and you cannot afford to lose it, the right answer is not to back it up but to **move to an external store** — see [Embedded TSDB single-Center limits](https://n9e.github.io/docs/operations/embedded-tsdb-limits.md).
+Be pragmatic: if the embedded store holds "the last 15 days for looking at trends", a backup that costs downtime is not worth it — losing it is acceptable. If it is your only metric store and you cannot afford to lose it, the right answer is not to back it up but to **move to an external store** — see [Embedded TSDB single-Center limits](https://n9e.io/docs/operations/embedded-tsdb-limits.md).
 
 ## The restore procedure[​](#the-restore-procedure "Direct link to The restore procedure")
 
@@ -100,11 +100,11 @@ A backup nobody has restored is not a backup. At minimum:
 * **do a full restore once a quarter** into a separate test database and test instance, verifying through steps 5 and 6 that you can log in, the rules are there, and evaluation is running;
 * time the rehearsal. When it actually happens, "how long does a restore take" is a question you will have to answer.
 
-For rebuilding from scratch in a fresh environment, see [Disaster recovery](https://n9e.github.io/docs/operations/disaster-recovery.md).
+For rebuilding from scratch in a fresh environment, see [Disaster recovery](https://n9e.io/docs/operations/disaster-recovery.md).
 
 ## Related[​](#related "Direct link to Related")
 
-* [Disaster recovery](https://n9e.github.io/docs/operations/disaster-recovery.md)
-* [Rollback and recovery](https://n9e.github.io/docs/operations/rollback.md)
-* [Embedded TSDB single-Center limits](https://n9e.github.io/docs/operations/embedded-tsdb-limits.md)
-* [Production readiness checklist](https://n9e.github.io/docs/get-started/production-checklist.md)
+* [Disaster recovery](https://n9e.io/docs/operations/disaster-recovery.md)
+* [Rollback and recovery](https://n9e.io/docs/operations/rollback.md)
+* [Embedded TSDB single-Center limits](https://n9e.io/docs/operations/embedded-tsdb-limits.md)
+* [Production readiness checklist](https://n9e.io/docs/get-started/production-checklist.md)

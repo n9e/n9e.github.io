@@ -15,7 +15,7 @@ Where this page ends: extra entries in the Nightingale side menu that open your 
 
 **Integrations → Embedded products** (`/embedded-products`), then **Add**.
 
-![Embedded products](https://n9e.github.io/img/docs/query/embedded-products.webp)![Embedded products](https://n9e.github.io/img/docs/query/embedded-products.dark.webp)
+![Embedded products](https://n9e.io/img/docs/query/embedded-products.webp)![Embedded products](https://n9e.io/img/docs/query/embedded-products.dark.webp)
 
 | Field      | What to put in it                                                                      |
 | ---------- | -------------------------------------------------------------------------------------- |
@@ -65,7 +65,7 @@ For example, a dashboard embedded as a bare canvas:
 
 There is no way out of `viewMode=fullscreen` from inside an iframe — the exit shortcut is blocked by iframe security, so the parameter has to be removed from the URL by hand. The product says as much in its own hint.
 
-If all you want is to expose one dashboard to someone outside, do not use this route. Use [anonymous time-limited sharing](https://n9e.github.io/docs/query/sharing.md) instead: `/dashboards/share/<id>?__token=` already renders without the menu, and it expires on its own.
+If all you want is to expose one dashboard to someone outside, do not use this route. Use [anonymous time-limited sharing](https://n9e.io/docs/query/sharing.md) instead: `/dashboards/share/<id>?__token=` already renders without the menu, and it expires on its own.
 
 ## Pass identity through[​](#pass-identity-through "Direct link to Pass identity through")
 
@@ -96,10 +96,10 @@ Three things you must get right, or this becomes an open impersonation endpoint:
 ## What this does not cover[​](#what-this-does-not-cover "Direct link to What this does not cover")
 
 * Visibility only controls who sees the entry in the side menu. It is **not a security boundary for the embedded system** — Nightingale has no say once a user hits that URL directly, so the embedded system must authenticate on its own.
-* There is no URL parameter that hides a named subset of menus. `menu=hide` is all or nothing; to tailor menus per person, use roles and permission points — see [Roles and permissions](https://n9e.github.io/docs/security/roles.md).
+* There is no URL parameter that hides a named subset of menus. `menu=hide` is all or nothing; to tailor menus per person, use roles and permission points — see [Roles and permissions](https://n9e.io/docs/security/roles.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Expose a single board: [Anonymous time-limited sharing](https://n9e.github.io/docs/query/sharing.md)
-* Already running Grafana: [Use Grafana with Nightingale](https://n9e.github.io/docs/query/grafana.md)
-* Who sees what: [Users and teams](https://n9e.github.io/docs/security/users-teams.md)
+* Expose a single board: [Anonymous time-limited sharing](https://n9e.io/docs/query/sharing.md)
+* Already running Grafana: [Use Grafana with Nightingale](https://n9e.io/docs/query/grafana.md)
+* Who sees what: [Users and teams](https://n9e.io/docs/security/users-teams.md)

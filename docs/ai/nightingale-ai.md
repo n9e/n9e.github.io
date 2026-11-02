@@ -8,17 +8,17 @@ Where this page ends: you know which questions the built-in assistant can actual
 
 ## Before you start[​](#before-you-start "Direct link to Before you start")
 
-One LLM config that is both **enabled** and **Default** — see [Configure an LLM provider](https://n9e.github.io/docs/ai/llm-provider.md). Without it every question comes back as a card reading *No LLM configured in the current environment*. Nothing else is needed; the assistant is part of the `n9e` process.
+One LLM config that is both **enabled** and **Default** — see [Configure an LLM provider](https://n9e.io/docs/ai/llm-provider.md). Without it every question comes back as a card reading *No LLM configured in the current environment*. Nothing else is needed; the assistant is part of the `n9e` process.
 
 ## The workspace[​](#the-workspace "Direct link to The workspace")
 
 **Nightingale AI** is a top-level item in the sidebar, just under Home. Its own left rail holds **New chat**, and — for accounts that hold the matching permission points — **LLM configs** and **Skill management**. Below them, **Conversations** lists your own history with a search box.
 
-![The Nightingale AI workspace](https://n9e.github.io/img/docs/ai/assistant.webp)![The Nightingale AI workspace](https://n9e.github.io/img/docs/ai/assistant.dark.webp)
+![The Nightingale AI workspace](https://n9e.io/img/docs/ai/assistant.webp)![The Nightingale AI workspace](https://n9e.io/img/docs/ai/assistant.dark.webp)
 
 A new chat offers three starting points, which are a fair summary of what it is for: *Get to know Nightingale*, *Review my alerts* (which rules are the noisiest, and which have never fired) and *Create an alert in one sentence*.
 
-Conversations are stored per user and kept until deleted — see [Agents and conversation history](https://n9e.github.io/docs/ai/agents.md).
+Conversations are stored per user and kept until deleted — see [Agents and conversation history](https://n9e.io/docs/ai/agents.md).
 
 ## What it can do[​](#what-it-can-do "Direct link to What it can do")
 
@@ -47,7 +47,7 @@ The `update_*` tools are two-phase, and the gate is on the server rather than in
 
 A proposal expires after 30 minutes and can be confirmed only once. If the object changed underneath in the meantime, the confirmation is refused rather than silently overwriting somebody else's edit.
 
-This is the mechanism [Safe automation patterns](https://n9e.github.io/docs/ai/automation.md) builds on — and it is the reason the built-in assistant is a safer place to change configuration than a write-enabled MCP client.
+This is the mechanism [Safe automation patterns](https://n9e.io/docs/ai/automation.md) builds on — and it is the reason the built-in assistant is a safer place to change configuration than a write-enabled MCP client.
 
 ## The AI buttons elsewhere in the product[​](#the-ai-buttons-elsewhere-in-the-product "Direct link to The AI buttons elsewhere in the product")
 
@@ -63,11 +63,11 @@ You do not have to go to the workspace. A **Nightingale AI** button sits in the 
 | Notification rules and media types | Which events this rule will match; why a notification was not sent; how to at-mention someone           |
 | Self-healing                       | Write a script for disk cleanup or a service restart; how a script reads alert fields from stdin        |
 
-There is also a small AI button beside every PromQL editor — in the Metrics explorer, the alert rule form, recording rules and dashboard panels — and inside the message template editor. Worked examples are in [Common investigation workflows](https://n9e.github.io/docs/ai/workflows.md).
+There is also a small AI button beside every PromQL editor — in the Metrics explorer, the alert rule form, recording rules and dashboard panels — and inside the message template editor. Worked examples are in [Common investigation workflows](https://n9e.io/docs/ai/workflows.md).
 
 ## It can never see more than you can[​](#it-can-never-see-more-than-you-can "Direct link to It can never see more than you can")
 
-The assistant runs in the permission context of the account asking. A business group you cannot open, it cannot read; a rule you cannot edit, it cannot change. There is no service account behind it and no separate "permissions for the AI" — the model is in [Authentication and permissions](https://n9e.github.io/docs/concepts/auth-rbac.md).
+The assistant runs in the permission context of the account asking. A business group you cannot open, it cannot read; a rule you cannot edit, it cannot change. There is no service account behind it and no separate "permissions for the AI" — the model is in [Authentication and permissions](https://n9e.io/docs/concepts/auth-rbac.md).
 
 Skills add a second layer: a skill marked *Visible to managing teams only* is removed from the catalogue for everyone else, so the model is not even told it exists.
 
@@ -82,7 +82,7 @@ Both surfaces exist and they are independent.
 | Toolbox               | The built-in one described above, plus skills | A separate set of fine-grained toolsets      |
 | Writes                | Two-phase confirmation, always                | Off by default; immediate when enabled       |
 
-`/a2a` is the third surface: it wraps *this* assistant so another agent platform can talk to it in natural language, which is why it does need an LLM config. See [A2A endpoint](https://n9e.github.io/docs/ai/a2a.md).
+`/a2a` is the third surface: it wraps *this* assistant so another agent platform can talk to it in natural language, which is why it does need an LLM config. See [A2A endpoint](https://n9e.io/docs/ai/a2a.md).
 
 ## Where your data goes[​](#where-your-data-goes "Direct link to Where your data goes")
 
@@ -92,6 +92,6 @@ One outbound call is worth knowing about: the documentation-search tool download
 
 ## Next[​](#next "Direct link to Next")
 
-* Set up the model: [Configure an LLM provider](https://n9e.github.io/docs/ai/llm-provider.md)
-* Teach it your team's methods: [Install, manage and write Skills](https://n9e.github.io/docs/ai/skills.md)
-* Prompts that work: [Common investigation workflows](https://n9e.github.io/docs/ai/workflows.md)
+* Set up the model: [Configure an LLM provider](https://n9e.io/docs/ai/llm-provider.md)
+* Teach it your team's methods: [Install, manage and write Skills](https://n9e.io/docs/ai/skills.md)
+* Prompts that work: [Common investigation workflows](https://n9e.io/docs/ai/workflows.md)

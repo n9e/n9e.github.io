@@ -2,7 +2,7 @@
 
 30 条开箱可用的 Prometheus 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 Prometheus's own /metrics, Prometheus Operator。可下载为 Prometheus 规则文件，或导入夜莺。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 盯 Prometheus 自身的规则：配置重载失败、规则评估失败或漏评、通知队列积压、连不上 Alertmanager、Remote Write 落后、TSDB 压缩或重载失败、触及采集与标签上限，以及 Prometheus Operator 调和失败。这类告警一响，你依赖的其它告警可能已经悄悄失效，所以应该发给维护监控系统的人，而不是业务团队。
 
@@ -10,43 +10,43 @@
 
 * **30 条规则**，每条都有 PromQL 触发条件、级别、持续时间（`for`）和处置步骤
 * **指标来源**：Prometheus's own /metrics, Prometheus Operator
-* **下载**：[`prometheus.yml`](https://n9e.github.io/zh/alert-rules/prometheus.yml)，标准 Prometheus 规则文件（`groups:` 格式），已用 `promtool check rules` 校验
+* **下载**：[`prometheus.yml`](https://n9e.io/zh/alert-rules/prometheus.yml)，标准 Prometheus 规则文件（`groups:` 格式），已用 `promtool check rules` 校验
 * 阈值只是起点，启用前请按自己的环境调整。
 
 ## 规则一览[​](#规则一览 "规则一览的直接链接")
 
-| 规则                                                                                                                              | 级别 | 持续     |
-| --------------------------------------------------------------------------------------------------------------------------------- | ---- | -------- |
-| ConfigReloaderSidecarErrors                                                                                                       | 警告 | 10 分钟  |
-| PrometheusOperatorListErrors                                                                                                      | 警告 | 15 分钟  |
-| PrometheusOperatorNodeLookupErrors                                                                                                | 警告 | 10 分钟  |
-| PrometheusOperatorNotReady                                                                                                        | 警告 | 5 分钟   |
-| PrometheusOperatorReconcileErrors                                                                                                 | 警告 | 10 分钟  |
-| [PrometheusOperatorRejectedResources](https://n9e.github.io/zh/alert-rules/prometheus/prometheusoperatorrejectedresources.md)     | 警告 | 5 分钟   |
-| PrometheusOperatorSyncFailed                                                                                                      | 警告 | 10 分钟  |
-| PrometheusOperatorWatchErrors                                                                                                     | 警告 | 15 分钟  |
-| [PrometheusBadConfig](https://n9e.github.io/zh/alert-rules/prometheus/prometheusbadconfig.md)                                     | 紧急 | 10 分钟  |
-| PrometheusDuplicateTimestamps                                                                                                     | 警告 | 10 分钟  |
-| PrometheusErrorSendingAlertsToAnyAlertmanager                                                                                     | 紧急 | 15 分钟  |
-| PrometheusErrorSendingAlertsToSomeAlertmanagers                                                                                   | 警告 | 15 分钟  |
-| PrometheusHighQueryLoad                                                                                                           | 警告 | 15 分钟  |
-| PrometheusLabelLimitHit                                                                                                           | 警告 | 15 分钟  |
-| PrometheusMissingRuleEvaluations                                                                                                  | 警告 | 15 分钟  |
-| [PrometheusNotConnectedToAlertmanagers](https://n9e.github.io/zh/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers.md) | 警告 | 10 分钟  |
-| PrometheusNotificationQueueRunningFull                                                                                            | 警告 | 15 分钟  |
-| PrometheusNotIngestingSamples                                                                                                     | 警告 | 10 分钟  |
-| PrometheusOutOfOrderTimestamps                                                                                                    | 警告 | 10 分钟  |
-| PrometheusRemoteStorageFailures                                                                                                   | 紧急 | 15 分钟  |
-| [PrometheusRemoteWriteBehind](https://n9e.github.io/zh/alert-rules/prometheus/prometheusremotewritebehind.md)                     | 紧急 | 15 分钟  |
-| [PrometheusRemoteWriteDesiredShards](https://n9e.github.io/zh/alert-rules/prometheus/prometheusremotewritedesiredshards.md)       | 警告 | 15 分钟  |
-| [PrometheusRuleFailures](https://n9e.github.io/zh/alert-rules/prometheus/prometheusrulefailures.md)                               | 紧急 | 15 分钟  |
-| PrometheusScrapeBodySizeLimitHit                                                                                                  | 警告 | 15 分钟  |
-| PrometheusScrapeSampleLimitHit                                                                                                    | 警告 | 15 分钟  |
-| PrometheusSDRefreshFailure                                                                                                        | 警告 | 20 分钟  |
-| [PrometheusTargetLimitHit](https://n9e.github.io/zh/alert-rules/prometheus/prometheustargetlimithit.md)                           | 警告 | 15 分钟  |
-| PrometheusTargetSyncFailure                                                                                                       | 紧急 | 5 分钟   |
-| PrometheusTSDBCompactionsFailing                                                                                                  | 警告 | 240 分钟 |
-| PrometheusTSDBReloadsFailing                                                                                                      | 警告 | 240 分钟 |
+| 规则                                                                                                                       | 级别 | 持续     |
+| -------------------------------------------------------------------------------------------------------------------------- | ---- | -------- |
+| ConfigReloaderSidecarErrors                                                                                                | 警告 | 10 分钟  |
+| PrometheusOperatorListErrors                                                                                               | 警告 | 15 分钟  |
+| PrometheusOperatorNodeLookupErrors                                                                                         | 警告 | 10 分钟  |
+| PrometheusOperatorNotReady                                                                                                 | 警告 | 5 分钟   |
+| PrometheusOperatorReconcileErrors                                                                                          | 警告 | 10 分钟  |
+| [PrometheusOperatorRejectedResources](https://n9e.io/zh/alert-rules/prometheus/prometheusoperatorrejectedresources.md)     | 警告 | 5 分钟   |
+| PrometheusOperatorSyncFailed                                                                                               | 警告 | 10 分钟  |
+| PrometheusOperatorWatchErrors                                                                                              | 警告 | 15 分钟  |
+| [PrometheusBadConfig](https://n9e.io/zh/alert-rules/prometheus/prometheusbadconfig.md)                                     | 紧急 | 10 分钟  |
+| PrometheusDuplicateTimestamps                                                                                              | 警告 | 10 分钟  |
+| PrometheusErrorSendingAlertsToAnyAlertmanager                                                                              | 紧急 | 15 分钟  |
+| PrometheusErrorSendingAlertsToSomeAlertmanagers                                                                            | 警告 | 15 分钟  |
+| PrometheusHighQueryLoad                                                                                                    | 警告 | 15 分钟  |
+| PrometheusLabelLimitHit                                                                                                    | 警告 | 15 分钟  |
+| PrometheusMissingRuleEvaluations                                                                                           | 警告 | 15 分钟  |
+| [PrometheusNotConnectedToAlertmanagers](https://n9e.io/zh/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers.md) | 警告 | 10 分钟  |
+| PrometheusNotificationQueueRunningFull                                                                                     | 警告 | 15 分钟  |
+| PrometheusNotIngestingSamples                                                                                              | 警告 | 10 分钟  |
+| PrometheusOutOfOrderTimestamps                                                                                             | 警告 | 10 分钟  |
+| PrometheusRemoteStorageFailures                                                                                            | 紧急 | 15 分钟  |
+| [PrometheusRemoteWriteBehind](https://n9e.io/zh/alert-rules/prometheus/prometheusremotewritebehind.md)                     | 紧急 | 15 分钟  |
+| [PrometheusRemoteWriteDesiredShards](https://n9e.io/zh/alert-rules/prometheus/prometheusremotewritedesiredshards.md)       | 警告 | 15 分钟  |
+| [PrometheusRuleFailures](https://n9e.io/zh/alert-rules/prometheus/prometheusrulefailures.md)                               | 紧急 | 15 分钟  |
+| PrometheusScrapeBodySizeLimitHit                                                                                           | 警告 | 15 分钟  |
+| PrometheusScrapeSampleLimitHit                                                                                             | 警告 | 15 分钟  |
+| PrometheusSDRefreshFailure                                                                                                 | 警告 | 20 分钟  |
+| [PrometheusTargetLimitHit](https://n9e.io/zh/alert-rules/prometheus/prometheustargetlimithit.md)                           | 警告 | 15 分钟  |
+| PrometheusTargetSyncFailure                                                                                                | 紧急 | 5 分钟   |
+| PrometheusTSDBCompactionsFailing                                                                                           | 警告 | 240 分钟 |
+| PrometheusTSDBReloadsFailing                                                                                               | 警告 | 240 分钟 |
 
 ## Prometheus 自监控（30）[​](#prometheus-自监控30 "Prometheus 自监控（30）的直接链接")
 
@@ -139,7 +139,7 @@ min by (cluster,controller,namespace) (max_over_time(prometheus_operator_ready{j
 
 Prometheus operator in {{ $labels.namespace }} namespace rejected {{ printf "%0.0f" $value }} {{ $labels.controller }}/{{ $labels.resource }} resources.
 
-警告 · 5 分钟 · PromQL、常见原因与处置步骤：[PrometheusOperatorRejectedResources](https://n9e.github.io/zh/alert-rules/prometheus/prometheusoperatorrejectedresources.md)
+警告 · 5 分钟 · PromQL、常见原因与处置步骤：[PrometheusOperatorRejectedResources](https://n9e.io/zh/alert-rules/prometheus/prometheusoperatorrejectedresources.md)
 
 ### PrometheusOperatorSyncFailed[​](#prometheusoperatorsyncfailed "PrometheusOperatorSyncFailed的直接链接")
 
@@ -179,7 +179,7 @@ Errors while performing watch operations in controller {{$labels.controller}} in
 
 Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to reload its configuration.
 
-紧急 · 10 分钟 · PromQL、常见原因与处置步骤：[PrometheusBadConfig](https://n9e.github.io/zh/alert-rules/prometheus/prometheusbadconfig.md)
+紧急 · 10 分钟 · PromQL、常见原因与处置步骤：[PrometheusBadConfig](https://n9e.io/zh/alert-rules/prometheus/prometheusbadconfig.md)
 
 ### PrometheusDuplicateTimestamps[​](#prometheusduplicatetimestamps "PrometheusDuplicateTimestamps的直接链接")
 
@@ -311,7 +311,7 @@ increase(prometheus_rule_group_iterations_missed_total{job="prometheus-k8s",name
 
 Prometheus {{$labels.namespace}}/{{$labels.pod}} is not connected to any Alertmanagers.
 
-警告 · 10 分钟 · PromQL、常见原因与处置步骤：[PrometheusNotConnectedToAlertmanagers](https://n9e.github.io/zh/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers.md)
+警告 · 10 分钟 · PromQL、常见原因与处置步骤：[PrometheusNotConnectedToAlertmanagers](https://n9e.io/zh/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers.md)
 
 ### PrometheusNotificationQueueRunningFull[​](#prometheusnotificationqueuerunningfull "PrometheusNotificationQueueRunningFull的直接链接")
 
@@ -433,19 +433,19 @@ Prometheus {{$labels.namespace}}/{{$labels.pod}} failed to send {{ printf "%.1f"
 
 Prometheus {{$labels.namespace}}/{{$labels.pod}} remote write is {{ printf "%.1f" $value }}s behind for {{ $labels.remote\_name}}:{{ $labels.url }}.
 
-紧急 · 15 分钟 · PromQL、常见原因与处置步骤：[PrometheusRemoteWriteBehind](https://n9e.github.io/zh/alert-rules/prometheus/prometheusremotewritebehind.md)
+紧急 · 15 分钟 · PromQL、常见原因与处置步骤：[PrometheusRemoteWriteBehind](https://n9e.io/zh/alert-rules/prometheus/prometheusremotewritebehind.md)
 
 ### PrometheusRemoteWriteDesiredShards[​](#prometheusremotewritedesiredshards "PrometheusRemoteWriteDesiredShards的直接链接")
 
 Prometheus {{$labels.namespace}}/{{$labels.pod}} remote write desired shards calculation wants to run {{ $value }} shards for queue {{ $labels.remote\_name}}:{{ $labels.url }}, which is more than the max of {{ printf `prometheus_remote_storage_shards_max\{instance="%s",job="prometheus-k8s",namespace="monitoring"\}` $labels.instance | query | first | value }}.
 
-警告 · 15 分钟 · PromQL、常见原因与处置步骤：[PrometheusRemoteWriteDesiredShards](https://n9e.github.io/zh/alert-rules/prometheus/prometheusremotewritedesiredshards.md)
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[PrometheusRemoteWriteDesiredShards](https://n9e.io/zh/alert-rules/prometheus/prometheusremotewritedesiredshards.md)
 
 ### PrometheusRuleFailures[​](#prometheusrulefailures "PrometheusRuleFailures的直接链接")
 
 Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to evaluate {{ printf "%.0f" $value }} rules in the last 5m.
 
-紧急 · 15 分钟 · PromQL、常见原因与处置步骤：[PrometheusRuleFailures](https://n9e.github.io/zh/alert-rules/prometheus/prometheusrulefailures.md)
+紧急 · 15 分钟 · PromQL、常见原因与处置步骤：[PrometheusRuleFailures](https://n9e.io/zh/alert-rules/prometheus/prometheusrulefailures.md)
 
 ### PrometheusScrapeBodySizeLimitHit[​](#prometheusscrapebodysizelimithit "PrometheusScrapeBodySizeLimitHit的直接链接")
 
@@ -502,7 +502,7 @@ increase(prometheus_sd_refresh_failures_total{job="prometheus-k8s",namespace="mo
 
 Prometheus {{$labels.namespace}}/{{$labels.pod}} has dropped {{ printf "%.0f" $value }} targets because the number of targets exceeded the configured target\_limit.
 
-警告 · 15 分钟 · PromQL、常见原因与处置步骤：[PrometheusTargetLimitHit](https://n9e.github.io/zh/alert-rules/prometheus/prometheustargetlimithit.md)
+警告 · 15 分钟 · PromQL、常见原因与处置步骤：[PrometheusTargetLimitHit](https://n9e.io/zh/alert-rules/prometheus/prometheustargetlimithit.md)
 
 ### PrometheusTargetSyncFailure[​](#prometheustargetsyncfailure "PrometheusTargetSyncFailure的直接链接")
 
@@ -557,8 +557,8 @@ increase(prometheus_tsdb_reloads_failures_total{job="prometheus-k8s",namespace="
 
 ## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直接链接")
 
-* **用 Prometheus 或 vmalert**：下载 [`prometheus.yml`](https://n9e.github.io/zh/alert-rules/prometheus.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
-* **用夜莺**：同样的规则内置在 [Kubernetes](https://n9e.github.io/zh/integrations/kubernetes.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
+* **用 Prometheus 或 vmalert**：下载 [`prometheus.yml`](https://n9e.io/zh/alert-rules/prometheus.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
+* **用夜莺**：同样的规则内置在 [Kubernetes](https://n9e.io/zh/integrations/kubernetes.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 
@@ -566,6 +566,6 @@ increase(prometheus_tsdb_reloads_failures_total{job="prometheus-k8s",namespace="
 
 ## 相关链接[​](#相关链接 "相关链接的直接链接")
 
-* [用夜莺监控 Kubernetes](https://n9e.github.io/zh/integrations/kubernetes.md)：采集配置、仪表盘与指标说明
-* [在夜莺里写指标告警规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)
-* [全部告警规则](https://n9e.github.io/zh/alert-rules.md)
+* [用夜莺监控 Kubernetes](https://n9e.io/zh/integrations/kubernetes.md)：采集配置、仪表盘与指标说明
+* [在夜莺里写指标告警规则](https://n9e.io/zh/docs/alerting/metric-rules.md)
+* [全部告警规则](https://n9e.io/zh/alert-rules.md)

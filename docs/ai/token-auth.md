@@ -10,7 +10,7 @@ Where this page ends: a least-privilege account dedicated to AI access with one 
 
 Resist the urge to reuse root's token. **A token has no permissions of its own — it is a credential to act *as that user*.** What an MCP client can touch is decided entirely by whose token it holds.
 
-Under **Organization → Users**, add a user such as `ai-readonly` with the `Guest` or `Standard` role (not `Admin`, which bypasses the business-group layer). Then under **Teams**, put it in a team that has read access to the business groups you want the AI to see. How the two layers combine is in [Permission inheritance and RBAC](https://n9e.github.io/docs/ai/permissions.md).
+Under **Organization → Users**, add a user such as `ai-readonly` with the `Guest` or `Standard` role (not `Admin`, which bypasses the business-group layer). Then under **Teams**, put it in a team that has read access to the business groups you want the AI to see. How the two layers combine is in [Permission inheritance and RBAC](https://n9e.io/docs/ai/permissions.md).
 
 ## 2. Generate the token[​](#2-generate-the-token "Direct link to 2. Generate the token")
 
@@ -66,10 +66,10 @@ Tokens are **long-lived until deleted** — there is no expiry. Rotate them on a
 
 ## 6. Beyond tokens[​](#6-beyond-tokens "Direct link to 6. Beyond tokens")
 
-Tokens are the least-effort option, but every integration means issuing another credential. If you already run SSO, or want hosted clients like Claude and ChatGPT to "connect by entering an address", OAuth fits better: the user authorizes with their own account and you issue nothing. See [OAuth 2.1 and external identity providers](https://n9e.github.io/docs/ai/oauth.md).
+Tokens are the least-effort option, but every integration means issuing another credential. If you already run SSO, or want hosted clients like Claude and ChatGPT to "connect by entering an address", OAuth fits better: the user authorizes with their own account and you issue nothing. See [OAuth 2.1 and external identity providers](https://n9e.io/docs/ai/oauth.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* How permissions are actually computed: [Permission inheritance and RBAC](https://n9e.github.io/docs/ai/permissions.md)
-* Put the token into a client: [Connect Claude Code / Cursor / other clients](https://n9e.github.io/docs/ai/mcp-clients.md)
-* Rotation policy: [Tokens and credential rotation](https://n9e.github.io/docs/security/tokens.md)
+* How permissions are actually computed: [Permission inheritance and RBAC](https://n9e.io/docs/ai/permissions.md)
+* Put the token into a client: [Connect Claude Code / Cursor / other clients](https://n9e.io/docs/ai/mcp-clients.md)
+* Rotation policy: [Tokens and credential rotation](https://n9e.io/docs/security/tokens.md)

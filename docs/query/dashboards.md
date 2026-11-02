@@ -17,20 +17,20 @@ Either way, note one thing first: **the Add / Import / More buttons only appear 
 
 **Explorer → Dashboards** (`/dashboards`), pick a business group on the left, then **Import**.
 
-![Dashboard list](https://n9e.github.io/img/docs/query/dashboard-list.webp)![Dashboard list](https://n9e.github.io/img/docs/query/dashboard-list.dark.webp)
+![Dashboard list](https://n9e.io/img/docs/query/dashboard-list.webp)![Dashboard list](https://n9e.io/img/docs/query/dashboard-list.dark.webp)
 
 The dialog has four tabs:
 
-| Tab                                            | When to use it                                                                                                                                                     |
-| ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Import built-in dashboard** (default)        | Pick a component (MySQL, Redis…), then tick the dashboards shipped with it. This is the usual path                                                                 |
-| **Import Grafana dashboard URL** (recommended) | Converts nothing; creates an iframe-mode dashboard that embeds your Grafana page                                                                                   |
-| **Import Nightingale dashboard JSON**          | Paste JSON exported from another Nightingale                                                                                                                       |
-| **Import Grafana dashboard (not recommended)** | Beta, converts Grafana dashboard JSON into Nightingale's model. Plenty of limits — see [Use Grafana with Nightingale](https://n9e.github.io/docs/query/grafana.md) |
+| Tab                                            | When to use it                                                                                                                                              |
+| ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Import built-in dashboard** (default)        | Pick a component (MySQL, Redis…), then tick the dashboards shipped with it. This is the usual path                                                          |
+| **Import Grafana dashboard URL** (recommended) | Converts nothing; creates an iframe-mode dashboard that embeds your Grafana page                                                                            |
+| **Import Nightingale dashboard JSON**          | Paste JSON exported from another Nightingale                                                                                                                |
+| **Import Grafana dashboard (not recommended)** | Beta, converts Grafana dashboard JSON into Nightingale's model. Plenty of limits — see [Use Grafana with Nightingale](https://n9e.io/docs/query/grafana.md) |
 
-Expected result: the boards appear in the list and open with charts on them. **If the charts are empty, do not start editing the board** — the component's metrics probably are not arriving yet; go back to [Verify incoming data](https://n9e.github.io/docs/data/integrations/verify.md).
+Expected result: the boards appear in the list and open with charts on them. **If the charts are empty, do not start editing the board** — the component's metrics probably are not arriving yet; go back to [Verify incoming data](https://n9e.io/docs/data/integrations/verify.md).
 
-The templates themselves live under **Integrations → Components**, which offers the same set of dashboards. Importing collector config and alert rules alongside them is covered in [Import dashboards and rules](https://n9e.github.io/docs/data/integrations/import.md).
+The templates themselves live under **Integrations → Components**, which offers the same set of dashboards. Importing collector config and alert rules alongside them is covered in [Import dashboards and rules](https://n9e.io/docs/data/integrations/import.md).
 
 ## 2. Start empty and add the first panel[​](#2-start-empty-and-add-the-first-panel "Direct link to 2. Start empty and add the first panel")
 
@@ -40,7 +40,7 @@ Click **Add panel**. Besides the 12 visualization types, the dropdown offers **R
 
 Pick a type to open the panel editor. It is a full-screen modal with **two columns, not tabs**:
 
-* **Left**: the variable bar on top, a live preview in the middle, the query editor below. That query editor is the same one the [Metrics explorer](https://n9e.github.io/docs/query/metric-explorer.md) uses, so the preview updates as you type. Text and Iframe panels have no query editor.
+* **Left**: the variable bar on top, a live preview in the middle, the query editor below. That query editor is the same one the [Metrics explorer](https://n9e.io/docs/query/metric-explorer.md) uses, so the preview updates as you type. Text and Iframe panels have no query editor.
 * **Right**: a stack of collapsible sections, of which a type-specific subset appears — **Panel options** (name, description, links, repeat by variable), **Graph styles**, Legend, Tooltip, **Value mappings**, **Standard options**, **Thresholds**, **Colors**, **Links**, Override.
 
 The modal header also carries the visualization-type selector and a time range picker. **Change the chart type there** rather than deleting the panel and adding a new one.
@@ -72,7 +72,7 @@ Switching Table to Table NG raises a confirmation offering **Auto upgrade** (car
 * **Time range and auto refresh**: top right. The selected range goes into the URL (`__from` / `__to` / `__refresh`) and is remembered per dashboard in the browser. Refresh intervals are 5s / 10s / 20s / 30s / 1m / 2m / 3m / 5m / 10m. **A refresh interval shorter than the query step buys nothing**, and the UI says so.
 * **Links**: the link icon in the title bar configures jump targets (name, URL, open in a new tab), which is how you chain related boards together.
 * **Dashboard settings** (the gear): name, ident, tags, note, plus two behaviour switches — **Graph tooltip** (Default / Shared crosshair / Shared tooltip) and **Graph zoom** (Default / Update time range).
-* **Variables**: the entry point sits at the end of the variable bar, showing "Add variable" while there are none. See [Variables and filters](https://n9e.github.io/docs/query/variables.md).
+* **Variables**: the entry point sits at the end of the variable bar, showing "Add variable" while there are none. See [Variables and filters](https://n9e.io/docs/query/variables.md).
 
 ## Save, export, move a panel elsewhere[​](#save-export-move-a-panel-elsewhere "Direct link to Save, export, move a panel elsewhere")
 
@@ -84,6 +84,6 @@ Switching Table to Table NG raises a confirmation offering **Auto upgrade** (car
 
 ## Next[​](#next "Direct link to Next")
 
-* Make one board serve many hosts: [Variables and filters](https://n9e.github.io/docs/query/variables.md)
-* Show it to someone without an account: [Anonymous time-limited sharing](https://n9e.github.io/docs/query/sharing.md)
-* Import the template's rules too: [Import dashboards and rules](https://n9e.github.io/docs/data/integrations/import.md)
+* Make one board serve many hosts: [Variables and filters](https://n9e.io/docs/query/variables.md)
+* Show it to someone without an account: [Anonymous time-limited sharing](https://n9e.io/docs/query/sharing.md)
+* Import the template's rules too: [Import dashboards and rules](https://n9e.io/docs/data/integrations/import.md)

@@ -33,7 +33,7 @@ Sending to the on-call room on day one means validating your configuration with 
 Two ways, depending on what you want to compare:
 
 * **A shadow channel** (recommended): create one notification rule whose media points at a dedicated room, mailbox, or a Callback URL that only writes a log, and attach the whole batch of new rules to it. The upside is that the delivery chain — media, template, filters — gets validated too.
-* **Events without notifications**: enable the rules normally and cover the business group with a **mute notifications only** [mute rule](https://n9e.github.io/docs/events/mute-rules.md). Events are produced and recorded as usual, they just are not sent. No shadow media to build, but the notification side is not exercised at all.
+* **Events without notifications**: enable the rules normally and cover the business group with a **mute notifications only** [mute rule](https://n9e.io/docs/events/mute-rules.md). Events are produced and recorded as usual, they just are not sent. No shadow media to build, but the notification side is not exercised at all.
 
 Either works, but **do not use "mute events and notifications"** — that produces no events, and then there is nothing to compare.
 
@@ -41,13 +41,13 @@ Either works, but **do not use "mute events and notifications"** — that produc
 
 ## Step 2: reconcile three buckets[​](#step-2-reconcile-three-buckets "Direct link to Step 2: reconcile three buckets")
 
-Every day (or every shift) pull both sides' results and sort them into three buckets. On the Nightingale side the source is the historical [alert events](https://n9e.github.io/docs/events/active-historical.md) list, filtered by business group and time range.
+Every day (or every shift) pull both sides' results and sort them into three buckets. On the Nightingale side the source is the historical [alert events](https://n9e.io/docs/events/active-historical.md) list, filtered by business group and time range.
 
-| Bucket                         | What it means                                                                                                | Look at first                                                                                                                                                        |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Only the old system fired**  | A rule was missed, or the metric was never queried at all                                                    | Confirm the data exists in the Metrics explorer or Log explorer, then read the rule's [evaluation records](https://n9e.github.io/docs/alerting/execution-records.md) |
-| **Only Nightingale fired**     | A mistyped threshold, or an inhibition, dependency or maintenance window on the old side you had not noticed | [Test fire](https://n9e.github.io/docs/alerting/test-fire.md) the rule and read the actual value at each stage                                                       |
-| **Both fired but differently** | Severity mapping, for-duration, or recovery condition drift                                                  | Walk them item by item; squeezing six severity levels into three loses information by definition                                                                     |
+| Bucket                         | What it means                                                                                                | Look at first                                                                                                                                                 |
+| ------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Only the old system fired**  | A rule was missed, or the metric was never queried at all                                                    | Confirm the data exists in the Metrics explorer or Log explorer, then read the rule's [evaluation records](https://n9e.io/docs/alerting/execution-records.md) |
+| **Only Nightingale fired**     | A mistyped threshold, or an inhibition, dependency or maintenance window on the old side you had not noticed | [Test fire](https://n9e.io/docs/alerting/test-fire.md) the rule and read the actual value at each stage                                                       |
+| **Both fired but differently** | Severity mapping, for-duration, or recovery condition drift                                                  | Walk them item by item; squeezing six severity levels into three loses information by definition                                                              |
 
 Evaluation records are the most useful thing here: they persist what **each round** queried and how it judged, on the alerting engine's local disk, so "why did this round not fire" is an answerable question rather than a guess.
 
@@ -67,13 +67,13 @@ The unit of cutover is a **channel tier**, not a rule. The risk is not in the ru
 | 3    | Everything                       | **Evaluates but does not notify** | One week                                               |
 | 4    | Everything                       | Stopped evaluating                | Migration complete                                     |
 
-Leave at least a week between tiers. Moving from tier 1 to tier 2 is a **notification rule** change, not an alert rule change: use **Alert rules → More → Update alert rules** to swap the attached notification rule across the whole batch in one operation. See [Notification rules](https://n9e.github.io/docs/notifications/rules.md).
+Leave at least a week between tiers. Moving from tier 1 to tier 2 is a **notification rule** change, not an alert rule change: use **Alert rules → More → Update alert rules** to swap the attached notification rule across the whole batch in one operation. See [Notification rules](https://n9e.io/docs/notifications/rules.md).
 
 How to do tier 3 depends on the old system: point Alertmanager's receivers at a blackhole, disable Zabbix's Actions, pause Grafana's rules. What they have in common is **keeping evaluation on**, so the step 2 reconciliation can continue.
 
 ## Two things that must never run in parallel[​](#two-things-that-must-never-run-in-parallel "Direct link to Two things that must never run in parallel")
 
-* **Anything that acts on its own.** [Self-healing](https://n9e.github.io/docs/events/self-healing.md) scripts, callbacks in event pipelines, automatic ticket creation — only one side may have these on. With both on they run twice: the service restarts twice, two duplicate tickets get filed. **Turn Nightingale's self-healing and callbacks off for the whole parallel period** and enable them at tier 4.
+* **Anything that acts on its own.** [Self-healing](https://n9e.io/docs/events/self-healing.md) scripts, callbacks in event pipelines, automatic ticket creation — only one side may have these on. With both on they run twice: the service restarts twice, two duplicate tickets get filed. **Turn Nightingale's self-healing and callbacks off for the whole parallel period** and enable them at tier 4.
 * **The same phone or SMS channel.** Phone and SMS are usually billed per message and they wake people up. Two systems dialling the same number costs real money and real credibility. From tier 0 to tier 2, do **not** put phone or SMS media on the Nightingale notification rules.
 
 ## The rollback for each tier[​](#the-rollback-for-each-tier "Direct link to The rollback for each tier")
@@ -89,7 +89,7 @@ Rollback has the same granularity as cutover — one tier:
 Three disciplines:
 
 1. **Delete nothing in the old system before tier 4.** Disabled, paused, pointed at a blackhole — all fine. Deleted means rollback becomes a rebuild.
-2. **Export a snapshot of the Nightingale rules as JSON before each tier.** **Alert rules → More → Export rules JSON**, into version control. Note that the export drops the effective time window — see [Import, export and reuse](https://n9e.github.io/docs/alerting/import-export.md).
+2. **Export a snapshot of the Nightingale rules as JSON before each tier.** **Alert rules → More → Export rules JSON**, into version control. Note that the export drops the effective time window — see [Import, export and reuse](https://n9e.io/docs/alerting/import-export.md).
 3. **Backing out is not a failure.** Dropping a tier, fixing the divergence and cutting again is far cheaper than pushing through tier 3 with a known difference.
 
 ## When it counts as done[​](#when-it-counts-as-done "Direct link to When it counts as done")
@@ -101,10 +101,10 @@ All four have to hold at once:
 * the old system has had notifications off at tier 3 for over a week, with no complaints of a missed alert;
 * Nightingale's self-healing and callbacks are back on and verified.
 
-With all four true, go to tier 4, then walk the [production checklist](https://n9e.github.io/docs/get-started/production-checklist.md) over the new system's own reliability.
+With all four true, go to tier 4, then walk the [production checklist](https://n9e.io/docs/get-started/production-checklist.md) over the new system's own reliability.
 
 ## Next[​](#next "Direct link to Next")
 
-* Everything to check before going live: [Production checklist](https://n9e.github.io/docs/get-started/production-checklist.md)
-* How events are processed in Nightingale: [Noise reduction and routing model](https://n9e.github.io/docs/concepts/noise-routing.md)
-* The per-system guides: [From Prometheus + Alertmanager](https://n9e.github.io/docs/migration/from-alertmanager.md), [From Zabbix](https://n9e.github.io/docs/migration/from-zabbix.md), [From Grafana Alerting](https://n9e.github.io/docs/migration/from-grafana-alerting.md)
+* Everything to check before going live: [Production checklist](https://n9e.io/docs/get-started/production-checklist.md)
+* How events are processed in Nightingale: [Noise reduction and routing model](https://n9e.io/docs/concepts/noise-routing.md)
+* The per-system guides: [From Prometheus + Alertmanager](https://n9e.io/docs/migration/from-alertmanager.md), [From Zabbix](https://n9e.io/docs/migration/from-zabbix.md), [From Grafana Alerting](https://n9e.io/docs/migration/from-grafana-alerting.md)

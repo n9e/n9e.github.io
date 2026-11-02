@@ -2,7 +2,7 @@
 
 Runs INFO against Redis to collect memory, hit ratio, connections, slowlog and replication state; includes a Sentinel input and templates for redis\_exporter.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The Redis input connects to the instance, runs `INFO` and parses the result into memory usage and fragmentation, keyspace hit ratio, connected and blocked clients, persistence state and replication status. Add one `[[instances]]` block per instance and give each an `instance` label; the dashboards filter on it.
 
@@ -16,7 +16,7 @@ For Sentinel deployments the `redis_sentinel` input collects the topology from t
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md) and enable the plugins you need. Each config goes in its own `conf/input.<plugin>/` directory; fill in addresses and credentials, then restart Categraf.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md) and enable the plugins you need. Each config goes in its own `conf/input.<plugin>/` directory; fill in addresses and credentials, then restart Categraf.
 
    `conf/input.redis/redis.toml`
 
@@ -126,9 +126,9 @@ For Sentinel deployments the `redis_sentinel` input collects the topology from t
    # insecure_skip_verify = true
    ```
 
-2. Open the integration center in Nightingale, find Redis, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find Redis, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -140,7 +140,7 @@ For Sentinel deployments the `redis_sentinel` input collects the topology from t
 
 ## Bundled alert rules[​](#bundled-alert-rules "Direct link to Bundled alert rules")
 
-13 rules, disabled on import so you can enable them one by one with your own thresholds. The PromQL condition and runbook steps for every rule are in the alert rule library: [Redis alert rules](https://n9e.github.io/alert-rules/redis.md).
+13 rules, disabled on import so you can enable them one by one with your own thresholds. The PromQL condition and runbook steps for every rule are in the alert rule library: [Redis alert rules](https://n9e.io/alert-rules/redis.md).
 
 | Rule                                                      | Severity   | For |
 | --------------------------------------------------------- | ---------- | --- |
@@ -163,7 +163,7 @@ For Sentinel deployments the `redis_sentinel` input collects the topology from t
 * [Redis template source](https://github.com/ccfos/nightingale/tree/main/integrations/Redis): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `redis` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/redis): every config option and the full metric list.
 * [Categraf `redis_sentinel` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/redis_sentinel): every config option and the full metric list.
-* [Walkthrough: monitor Redis](https://n9e.github.io/docs/practice/redis.md)
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Walkthrough: monitor Redis](https://n9e.io/docs/practice/redis.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

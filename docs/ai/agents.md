@@ -19,7 +19,7 @@ Both bodies are compressed, so the rows are smaller than the transcripts suggest
 
 **Conversations are strictly per user.** Every read and write checks that the requesting account owns the conversation, with no administrator override, so one person's chats are not visible to anyone else — including through the API.
 
-An `/a2a` conversation is the same object: the `contextId` a caller passes back is the `chat_id`, so an agent talking to Nightingale through [A2A](https://n9e.github.io/docs/ai/a2a.md) appears in that user's list alongside what they typed in the browser.
+An `/a2a` conversation is the same object: the `contextId` a caller passes back is the `chat_id`, so an agent talking to Nightingale through [A2A](https://n9e.io/docs/ai/a2a.md) appears in that user's list alongside what they typed in the browser.
 
 ## What you can do with one[​](#what-you-can-do-with-one "Direct link to What you can do with one")
 
@@ -51,23 +51,23 @@ There is an `ai_agent` table, and rows in it bind a **use case** to an LLM confi
 * **The only use case is `chat`**, and exactly one enabled row for it is ever consulted;
 * **A row is created for you at startup** — `default-chat-agent`, bound to no specific model — so the assistant works out of the box;
 * **There is no system prompt and no tool selection on the row.** Both are compiled into the product; nothing on an agent changes how the assistant thinks or what it may call;
-* **The skills bound to the chat agent are ignored** on the ordinary conversation path. Skills are discovered from the catalogue and loaded on demand instead — see [Install, manage and write Skills](https://n9e.github.io/docs/ai/skills.md);
+* **The skills bound to the chat agent are ignored** on the ordinary conversation path. Skills are discovered from the catalogue and loaded on demand instead — see [Install, manage and write Skills](https://n9e.io/docs/ai/skills.md);
 * **There is no menu entry**, no permission point of its own, and the list page that does exist has had its create button removed. It is administrator-only and reachable by typing the address.
 
 So: do not build a workflow on named agents in the open-source build. If a page or a screenshot elsewhere shows agent management as a feature, it is not this edition.
 
 ## What to change instead of an agent[​](#what-to-change-instead-of-an-agent "Direct link to What to change instead of an agent")
 
-| What you actually want                      | Where to do it                                                                                                                                               |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| A different model for the assistant         | Mark a different LLM config **Default** — it wins over any agent binding anyway ([Configure an LLM provider](https://n9e.github.io/docs/ai/llm-provider.md)) |
-| Different behaviour for a class of question | Write a skill; its description decides when it applies ([Install, manage and write Skills](https://n9e.github.io/docs/ai/skills.md))                         |
-| More tools for one procedure                | `builtin_tools` in that skill's frontmatter                                                                                                                  |
-| A longer diagnostic chain                   | `max_iterations` in that skill's frontmatter                                                                                                                 |
-| Restrict what the assistant can reach       | The asking account's role and business groups ([Permission inheritance and RBAC](https://n9e.github.io/docs/ai/permissions.md))                              |
+| What you actually want                      | Where to do it                                                                                                                                        |
+| ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| A different model for the assistant         | Mark a different LLM config **Default** — it wins over any agent binding anyway ([Configure an LLM provider](https://n9e.io/docs/ai/llm-provider.md)) |
+| Different behaviour for a class of question | Write a skill; its description decides when it applies ([Install, manage and write Skills](https://n9e.io/docs/ai/skills.md))                         |
+| More tools for one procedure                | `builtin_tools` in that skill's frontmatter                                                                                                           |
+| A longer diagnostic chain                   | `max_iterations` in that skill's frontmatter                                                                                                          |
+| Restrict what the assistant can reach       | The asking account's role and business groups ([Permission inheritance and RBAC](https://n9e.io/docs/ai/permissions.md))                              |
 
 ## Next[​](#next "Direct link to Next")
 
-* What the assistant does with a conversation: [Nightingale AI overview](https://n9e.github.io/docs/ai/nightingale-ai.md)
-* The skill mechanism that replaces per-agent prompts: [Install, manage and write Skills](https://n9e.github.io/docs/ai/skills.md)
-* Conversations that arrive from another agent: [A2A endpoint](https://n9e.github.io/docs/ai/a2a.md)
+* What the assistant does with a conversation: [Nightingale AI overview](https://n9e.io/docs/ai/nightingale-ai.md)
+* The skill mechanism that replaces per-agent prompts: [Install, manage and write Skills](https://n9e.io/docs/ai/skills.md)
+* Conversations that arrive from another agent: [A2A endpoint](https://n9e.io/docs/ai/a2a.md)

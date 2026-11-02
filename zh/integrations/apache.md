@@ -2,7 +2,7 @@
 
 读取 mod\_status 的 server-status?auto 输出，采集请求速率、busy/idle worker、CPU 和流量，规则盯 worker 耗尽和服务不可达。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Apache httpd 开启 `mod_status` 后，`/server-status?auto` 以机器可读格式输出运行状态。插件抓这个页面，得到总访问量与流量、每秒请求数、busy 与 idle worker、CPU 负载、运行时长，以及各个 worker 的状态分布。
 
@@ -15,7 +15,7 @@ Apache httpd 开启 `mod_status` 后，`/server-status?auto` 以机器可读格�
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.apache/apache.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.apache started` 就说明插件已加载。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.apache/apache.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.apache started` 就说明插件已加载。
 
    ```
    [[instances]]
@@ -35,9 +35,9 @@ Apache httpd 开启 `mod_status` 后，`/server-status?auto` 以机器可读格�
    # log_level = "info"
    ```
 
-2. 在夜莺「集成中心」里找到 Apache，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 Apache，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置告警规则[​](#内置告警规则 "内置告警规则的直接链接")
 
@@ -122,6 +122,6 @@ apache_uptime_seconds_total < 300
 
 * \[Apache 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/Apache）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/Apache%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `apache` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/apache)：完整配置项和指标列表。
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

@@ -21,7 +21,7 @@ In the Alertmanager world, rules are Prometheus YAML managed by reload and GitOp
 Most people who search for an Alertmanager UI want one of two things, and they have different answers.
 
 * **A better view of firing alerts.** Alertmanager's built-in web UI (port 9093) lists alerts and lets you create silences. [karma](https://github.com/prymitive/karma) adds grouping and a dashboard across several Alertmanagers, and Grafana can add Alertmanager as a data source to browse alerts and manage silences. All of these sit on top of Alertmanager and leave it unchanged.
-* **Editing rules and routing without touching YAML.** None of the tools above do this: Prometheus rules and `alertmanager.yml` stay files. To manage rules, routing and mutes in a UI with per-team permissions, the alerting layer itself has to move. Grafana Alerting does that inside Grafana; Nightingale does it as a standalone engine that queries Prometheus directly, and [Migrating from Prometheus + Alertmanager](https://n9e.github.io/docs/migration/from-alertmanager.md) shows how `alertmanager.yml` maps onto it. Nightingale does not receive alerts from Alertmanager, so it replaces that layer rather than sitting on top of it.
+* **Editing rules and routing without touching YAML.** None of the tools above do this: Prometheus rules and `alertmanager.yml` stay files. To manage rules, routing and mutes in a UI with per-team permissions, the alerting layer itself has to move. Grafana Alerting does that inside Grafana; Nightingale does it as a standalone engine that queries Prometheus directly, and [Migrating from Prometheus + Alertmanager](https://n9e.io/docs/migration/from-alertmanager.md) shows how `alertmanager.yml` maps onto it. Nightingale does not receive alerts from Alertmanager, so it replaces that layer rather than sitting on top of it.
 
 ## Is the data in one place or several?[​](#is-the-data-in-one-place-or-several "Direct link to Is the data in one place or several?")
 
@@ -68,9 +68,9 @@ Alertmanager has no built-in AI. Grafana Assistant is Cloud-only; OSS relies on 
 
 * **Small team, all data in Prometheus, comfortable with GitOps**: Prometheus + Alertmanager. Fewest components, cleanest model.
 * **Heavy Grafana users, moderate alert volume, contact points suffice**: Grafana Alerting. One system fewer.
-* **Several data sources, product teams configuring their own rules, phone and SMS and chat tools required, AI-assisted investigation wanted**: Nightingale. Full comparisons: [Nightingale vs Prometheus + Alertmanager](https://n9e.github.io/comparisons/prometheus-alertmanager.md) and [Nightingale vs Grafana Alerting](https://n9e.github.io/comparisons/grafana-alerting.md).
+* **Several data sources, product teams configuring their own rules, phone and SMS and chat tools required, AI-assisted investigation wanted**: Nightingale. Full comparisons: [Nightingale vs Prometheus + Alertmanager](https://n9e.io/comparisons/prometheus-alertmanager.md) and [Nightingale vs Grafana Alerting](https://n9e.io/comparisons/grafana-alerting.md).
 * **Three monitoring systems already alerting, want one inbox**: an aggregation layer such as Keep or Alerta. Nightingale is not one.
-* **Coming from Zabbix**: start with [Zabbix alternatives](https://n9e.github.io/comparisons/zabbix-alternatives.md), then [Nightingale vs Zabbix](https://n9e.github.io/comparisons/zabbix.md).
+* **Coming from Zabbix**: start with [Zabbix alternatives](https://n9e.io/comparisons/zabbix-alternatives.md), then [Nightingale vs Zabbix](https://n9e.io/comparisons/zabbix.md).
 
 ## Questions[​](#questions "Direct link to Questions")
 

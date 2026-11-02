@@ -37,9 +37,9 @@ Creates are handled differently but with the same intent: when a create tool is 
 
 On `/mcp` there is no confirmation card, so the boundary has to be built out of accounts and config. The pattern that works:
 
-* every client gets its own least-privilege account and its own token, so an incident is traceable to one integration ([Personal token authentication](https://n9e.github.io/docs/ai/token-auth.md));
-* write tools stay off unless one specific client genuinely needs them, and even then the toolsets are narrowed to what that client does — with `users` and `roles` dropped ([Enable write tools safely](https://n9e.github.io/docs/ai/write-tools.md));
-* the account's business-group membership is the real limit on blast radius, because it applies to reads and writes alike ([Permission inheritance and RBAC](https://n9e.github.io/docs/ai/permissions.md)).
+* every client gets its own least-privilege account and its own token, so an incident is traceable to one integration ([Personal token authentication](https://n9e.io/docs/ai/token-auth.md));
+* write tools stay off unless one specific client genuinely needs them, and even then the toolsets are narrowed to what that client does — with `users` and `roles` dropped ([Enable write tools safely](https://n9e.io/docs/ai/write-tools.md));
+* the account's business-group membership is the real limit on blast radius, because it applies to reads and writes alike ([Permission inheritance and RBAC](https://n9e.io/docs/ai/permissions.md)).
 
 If what you actually wanted was "let the AI help me change configuration", note that the built-in assistant already does that with a confirmation step. Turning MCP write tools on to get the same outcome trades that away.
 
@@ -53,20 +53,20 @@ Self-healing is the case where automation is most tempting and most dangerous, s
 
 > How does a self-healing script read alert fields from stdin?
 
-**It cannot create one and it cannot run one.** There is no tool for either. Saving the script and running it against hosts stays entirely in **Alerts & Notifications → Self-healing**, where the existing controls apply — see [Trigger self-healing with ibex / webhook](https://n9e.github.io/docs/events/self-healing.md).
+**It cannot create one and it cannot run one.** There is no tool for either. Saving the script and running it against hosts stays entirely in **Alerts & Notifications → Self-healing**, where the existing controls apply — see [Trigger self-healing with ibex / webhook](https://n9e.io/docs/events/self-healing.md).
 
 That division is the pattern: the model produces a proposal in a form you can read and review, a human commits it, and the execution path never has a model in it.
 
 ## Guardrails worth setting deliberately[​](#guardrails-worth-setting-deliberately "Direct link to Guardrails worth setting deliberately")
 
-| Guardrail                                                        | Where                                                                                                                        |
-| ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Write tools off on `/mcp` — the default; leave it                | `MCPEnableWriteTools` under `[HTTP.A2A]`                                                                                     |
-| Drop `users` and `roles` from any client that does write         | `MCPToolsets`                                                                                                                |
-| Drop `logs` if you have SQL datasources registered               | `MCPToolsets`, and see [Permission inheritance and RBAC](https://n9e.github.io/docs/ai/permissions.md)                       |
-| Refuse skill scripts rather than running them unisolated         | `RequireIsolation` under `[Center.Sandbox]`, see [Install, manage and write Skills](https://n9e.github.io/docs/ai/skills.md) |
-| Keep the AI account out of business groups it has no business in | **Organization → Teams**                                                                                                     |
-| Never give an AI account the `Admin` role                        | It bypasses the business-group layer entirely                                                                                |
+| Guardrail                                                        | Where                                                                                                                 |
+| ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| Write tools off on `/mcp` — the default; leave it                | `MCPEnableWriteTools` under `[HTTP.A2A]`                                                                              |
+| Drop `users` and `roles` from any client that does write         | `MCPToolsets`                                                                                                         |
+| Drop `logs` if you have SQL datasources registered               | `MCPToolsets`, and see [Permission inheritance and RBAC](https://n9e.io/docs/ai/permissions.md)                       |
+| Refuse skill scripts rather than running them unisolated         | `RequireIsolation` under `[Center.Sandbox]`, see [Install, manage and write Skills](https://n9e.io/docs/ai/skills.md) |
+| Keep the AI account out of business groups it has no business in | **Organization → Teams**                                                                                              |
+| Never give an AI account the `Admin` role                        | It bypasses the business-group layer entirely                                                                         |
 
 ## How to check what changed[​](#how-to-check-what-changed "Direct link to How to check what changed")
 
@@ -74,16 +74,16 @@ Three trails, in increasing order of effort:
 
 **The object itself.** Anything changed through the assistant or over MCP carries the acting user's name in its "updated by" field, exactly as a UI edit would. The list pages show it.
 
-**The conversation.** An assistant change leaves the proposal card and your confirmation in the transcript, which is stored per user and not expired — so "what exactly did I approve" is answerable months later. See [Agents and conversation history](https://n9e.github.io/docs/ai/agents.md).
+**The conversation.** An assistant change leaves the proposal card and your confirmation in the transcript, which is stored per user and not expired — so "what exactly did I approve" is answerable months later. See [Agents and conversation history](https://n9e.io/docs/ai/agents.md).
 
-**The logs.** Every `/mcp` request is logged with the tool name, arguments and the acting user; every skill script execution is logged with its isolation level and exit code. Details and a grep-able example are in [Enable write tools safely](https://n9e.github.io/docs/ai/write-tools.md).
+**The logs.** Every `/mcp` request is logged with the tool name, arguments and the acting user; every skill script execution is logged with its isolation level and exit code. Details and a grep-able example are in [Enable write tools safely](https://n9e.io/docs/ai/write-tools.md).
 
 ## What it will not do on its own[​](#what-it-will-not-do-on-its-own "Direct link to What it will not do on its own")
 
-In the open-source build **every AI action starts with a person in a conversation**. Nothing is scheduled, nothing runs unattended, and no tool executes a command on a monitored host. A skill script is the one thing that runs code, it only runs when the model calls it inside a turn you started, and you can refuse it outright — again, in [Install, manage and write Skills](https://n9e.github.io/docs/ai/skills.md).
+In the open-source build **every AI action starts with a person in a conversation**. Nothing is scheduled, nothing runs unattended, and no tool executes a command on a monitored host. A skill script is the one thing that runs code, it only runs when the model calls it inside a turn you started, and you can refuse it outright — again, in [Install, manage and write Skills](https://n9e.io/docs/ai/skills.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* The confirmation mechanism in context: [Nightingale AI overview](https://n9e.github.io/docs/ai/nightingale-ai.md)
-* The MCP write switch: [Enable write tools safely](https://n9e.github.io/docs/ai/write-tools.md)
-* Prompts that keep a session read-only: [Common investigation workflows](https://n9e.github.io/docs/ai/workflows.md)
+* The confirmation mechanism in context: [Nightingale AI overview](https://n9e.io/docs/ai/nightingale-ai.md)
+* The MCP write switch: [Enable write tools safely](https://n9e.io/docs/ai/write-tools.md)
+* Prompts that keep a session read-only: [Common investigation workflows](https://n9e.io/docs/ai/workflows.md)

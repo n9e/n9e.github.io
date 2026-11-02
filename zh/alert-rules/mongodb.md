@@ -2,7 +2,7 @@
 
 8 条开箱可用的 MongoDB 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 mongodb\_exporter。可下载为 Prometheus 规则文件，或导入夜莺。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 MongoDB 告警规则：实例宕机或刚重启、连接数逼近上限、平均操作延迟过高、Assert 错误、游标超时、缺页中断、副本集主从延迟。使用 mongodb\_exporter 的指标名。
 
@@ -10,7 +10,7 @@ MongoDB 告警规则：实例宕机或刚重启、连接数逼近上限、平均
 
 * **8 条规则**，每条都有 PromQL 触发条件、级别、持续时间（`for`）和处置步骤
 * **指标来源**：mongodb\_exporter
-* **下载**：[`mongodb.yml`](https://n9e.github.io/zh/alert-rules/mongodb.yml)，标准 Prometheus 规则文件（`groups:` 格式），已用 `promtool check rules` 校验
+* **下载**：[`mongodb.yml`](https://n9e.io/zh/alert-rules/mongodb.yml)，标准 Prometheus 规则文件（`groups:` 格式），已用 `promtool check rules` 校验
 * 阈值只是起点，启用前请按自己的环境调整。
 
 ## 规则一览[​](#规则一览 "规则一览的直接链接")
@@ -150,8 +150,8 @@ mongodb_up == 0
 
 ## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直接链接")
 
-* **用 Prometheus 或 vmalert**：下载 [`mongodb.yml`](https://n9e.github.io/zh/alert-rules/mongodb.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
-* **用夜莺**：同样的规则内置在 [MongoDB](https://n9e.github.io/zh/integrations/mongodb.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
+* **用 Prometheus 或 vmalert**：下载 [`mongodb.yml`](https://n9e.io/zh/alert-rules/mongodb.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
+* **用夜莺**：同样的规则内置在 [MongoDB](https://n9e.io/zh/integrations/mongodb.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 
@@ -159,6 +159,6 @@ mongodb_up == 0
 
 ## 相关链接[​](#相关链接 "相关链接的直接链接")
 
-* [用夜莺监控 MongoDB](https://n9e.github.io/zh/integrations/mongodb.md)：采集配置、仪表盘与指标说明
-* [在夜莺里写指标告警规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)
-* [全部告警规则](https://n9e.github.io/zh/alert-rules.md)
+* [用夜莺监控 MongoDB](https://n9e.io/zh/integrations/mongodb.md)：采集配置、仪表盘与指标说明
+* [在夜莺里写指标告警规则](https://n9e.io/zh/docs/alerting/metric-rules.md)
+* [全部告警规则](https://n9e.io/zh/alert-rules.md)

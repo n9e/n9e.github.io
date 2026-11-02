@@ -2,13 +2,13 @@
 
 What the KubeJobFailed Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 A Job has been marked `Failed` (`kube_job_failed > 0`): it used up its `backoffLimit` (6 retries by default) or ran past `activeDeadlineSeconds`, and the batch work it was meant to do (a backup, a report, a data sync) did not happen.
 
 * **Severity**: Warning (`warning`)
 * **Fires after**: 15m
-* Part of the [Kubernetes alert rules](https://n9e.github.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
+* Part of the [Kubernetes alert rules](https://n9e.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
 
 ## The rule[​](#the-rule "Direct link to The rule")
 
@@ -43,12 +43,12 @@ Alert message: `Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to com
 
 ## Related alerts[​](#related-alerts "Direct link to Related alerts")
 
-* [KubeJobNotCompleted](https://n9e.github.io/alert-rules/kubernetes.md#kubejobnotcompleted): Job …/… is taking more than … to complete.
-* [KubePodCrashLooping](https://n9e.github.io/alert-rules/kubernetes/kubepodcrashlooping.md): Pod …/… (…) is in waiting state (reason: "CrashLoopBackOff").
+* [KubeJobNotCompleted](https://n9e.io/alert-rules/kubernetes.md#kubejobnotcompleted): Job …/… is taking more than … to complete.
+* [KubePodCrashLooping](https://n9e.io/alert-rules/kubernetes/kubepodcrashlooping.md): Pod …/… (…) is in waiting state (reason: "CrashLoopBackOff").
 
 ## Prometheus rule YAML[​](#prometheus-rule-yaml "Direct link to Prometheus rule YAML")
 
-Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.github.io/alert-rules/kubernetes.yml).
+Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.io/alert-rules/kubernetes.yml).
 
 ```
 - alert: KubeJobFailed
@@ -67,10 +67,10 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
 
     summary: "Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete. Removing failed job after investigation should clear this alert."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubejobfailed"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubejobfailed"
 ```
 
-**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.github.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
+**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 

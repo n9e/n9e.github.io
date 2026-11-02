@@ -33,13 +33,13 @@ Prove the model path independently: edit the config and press **Test connection*
 | No content in the reply | Usually a pure reasoning model that spent the whole budget thinking. Raise **Max tokens**, or pick a non-reasoning model |
 | Anything network-shaped | The Nightingale host cannot reach the address. Test it from that machine, then set **Proxy** if it needs one             |
 
-Field-by-field detail is in [Configure an LLM provider](https://n9e.github.io/docs/ai/llm-provider.md).
+Field-by-field detail is in [Configure an LLM provider](https://n9e.io/docs/ai/llm-provider.md).
 
 ## The answer is wrong, thin, or stops early[​](#the-answer-is-wrong-thin-or-stops-early "Direct link to The answer is wrong, thin, or stops early")
 
 **"Reached maximum iterations."** The chain of tool calls hit its budget — 25 by default. Narrow the question, or raise `max_iterations` in the frontmatter of the skill that covers this kind of question.
 
-**It cannot see data you can see.** It runs as the account asking, so this is a permissions answer, not an AI one: check that account's role and its teams' business groups. The model is in [Permission inheritance and RBAC](https://n9e.github.io/docs/ai/permissions.md).
+**It cannot see data you can see.** It runs as the account asking, so this is a permissions answer, not an AI one: check that account's role and its teams' business groups. The model is in [Permission inheritance and RBAC](https://n9e.io/docs/ai/permissions.md).
 
 **It invents field names or metric names.** Name the object and the window, and ask it to look rather than recall: *"read the definition of rule 42 and tell me"*. The documentation-search tool exists precisely so version-specific names come from the docs — if outbound access to `flashcat.cloud` is blocked, that tool degrades and this gets worse.
 
@@ -54,7 +54,7 @@ Enabling a skill does not mean it is loaded. The match is made on its **descript
 3. **Rewrite the description in the words a user would type**, including the alert names and error strings they would paste. This is the cause the overwhelming majority of the time.
 4. Look for near-duplicates. Several similar descriptions all match and all consume context; merge them.
 
-Guidance and worked examples are in [Install, manage and write Skills](https://n9e.github.io/docs/ai/skills.md).
+Guidance and worked examples are in [Install, manage and write Skills](https://n9e.io/docs/ai/skills.md).
 
 ## A skill will not install[​](#a-skill-will-not-install "Direct link to A skill will not install")
 
@@ -77,7 +77,7 @@ Script execution has two independent gates, and the message tells you which one 
 
 **Execution is refused.** You set `RequireIsolation = true` and the host cannot build a real sandbox. That is the configuration working as intended. Either supply a python-base root filesystem on Linux, or accept that this host does not run skill scripts.
 
-**It runs, but the startup log carries `SKILL EXECUTION RUNNING WITHOUT ISOLATION (unsafe-exec)`.** The script is running directly on the Nightingale host with no network. Read the safety section of [Install, manage and write Skills](https://n9e.github.io/docs/ai/skills.md) before leaving it that way.
+**It runs, but the startup log carries `SKILL EXECUTION RUNNING WITHOUT ISOLATION (unsafe-exec)`.** The script is running directly on the Nightingale host with no network. Read the safety section of [Install, manage and write Skills](https://n9e.io/docs/ai/skills.md) before leaving it that way.
 
 Every run logs `sandbox audit: exec_id=... engine=... network=... exit_code=...`, which is where a non-zero exit code shows up.
 
@@ -92,7 +92,7 @@ Every run logs `sandbox audit: exec_id=... engine=... network=... exit_code=...`
 | A 404 from the proxy, or HTML where JSON should be | The request never reached `n9e`. `/mcp` sits at the root path, not under `/api/n9e`, so a proxy that only forwards `/api/n9e/*` never passes it through — add a `location /mcp` block |
 | The connection drops after about 60 seconds        | nginx defaults. `proxy_buffering off` plus `proxy_read_timeout` and `proxy_send_timeout` of an hour                                                                                   |
 
-The proxy block that satisfies all of these is in [Enable the MCP endpoint](https://n9e.github.io/docs/ai/mcp-endpoint.md). To take the client out of the picture, reproduce it with the curl from that page.
+The proxy block that satisfies all of these is in [Enable the MCP endpoint](https://n9e.io/docs/ai/mcp-endpoint.md). To take the client out of the picture, reproduce it with the curl from that page.
 
 ## Connected, but the tools are wrong[​](#connected-but-the-tools-are-wrong "Direct link to Connected, but the tools are wrong")
 
@@ -115,10 +115,10 @@ The proxy block that satisfies all of these is in [Enable the MCP endpoint](http
 | `tasks/get` returns task-not-found for a task that completed | Task state lives in Redis with a 24-hour TTL. The conversation itself is still in the database                                                     |
 | The agent card advertises an internal address                | `BaseURL` was left empty and got inferred from request headers. Set it explicitly                                                                  |
 
-More in [A2A endpoint](https://n9e.github.io/docs/ai/a2a.md).
+More in [A2A endpoint](https://n9e.io/docs/ai/a2a.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Config reference for the endpoints: [Enable the MCP endpoint](https://n9e.github.io/docs/ai/mcp-endpoint.md)
-* Authentication failures in depth: [Why does MCP authentication fail?](https://n9e.github.io/docs/troubleshooting/mcp-auth.md)
-* Missing tools in depth: [Why are MCP tools missing or denied?](https://n9e.github.io/docs/troubleshooting/mcp-tools-missing.md)
+* Config reference for the endpoints: [Enable the MCP endpoint](https://n9e.io/docs/ai/mcp-endpoint.md)
+* Authentication failures in depth: [Why does MCP authentication fail?](https://n9e.io/docs/troubleshooting/mcp-auth.md)
+* Missing tools in depth: [Why are MCP tools missing or denied?](https://n9e.io/docs/troubleshooting/mcp-tools-missing.md)

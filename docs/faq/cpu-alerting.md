@@ -32,7 +32,7 @@ This is a convention, not automatic delivery behavior. Marking a rule S3 does no
 
 CPU utilization, load average, run queues and container throttling describe different conditions. Load average is not a CPU percentage, and the same load threshold cannot be compared blindly across machines with different core counts.
 
-Understand the metric and its baseline, then correlate it with latency, errors or backlog. Sustained high utilization on a batch worker may be expected. Use a duration that tolerates normal transients. Check actual samples in the [metrics explorer](https://n9e.github.io/docs/query/metric-explorer.md) before enabling a rule.
+Understand the metric and its baseline, then correlate it with latency, errors or backlog. Sustained high utilization on a batch worker may be expected. Use a duration that tolerates normal transients. Check actual samples in the [metrics explorer](https://n9e.io/docs/query/metric-explorer.md) before enabling a rule.
 
 ## Write a usable runbook[​](#runbook "Direct link to Write a usable runbook")
 
@@ -48,6 +48,6 @@ Put SOP and dashboard URLs in rule annotations so the recipient can reach the co
 
 ## Next[​](#next "Direct link to Next")
 
-* [Labels, annotations and identity](https://n9e.github.io/docs/concepts/labels-annotations.md)
-* [Alerting best practices](https://n9e.github.io/docs/alerting/best-practices.md)
-* [Notification rules](https://n9e.github.io/docs/notifications/rules.md)
+* [Labels, annotations and identity](https://n9e.io/docs/concepts/labels-annotations.md)
+* [Alerting best practices](https://n9e.io/docs/alerting/best-practices.md)
+* [Notification rules](https://n9e.io/docs/notifications/rules.md)

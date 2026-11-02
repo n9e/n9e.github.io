@@ -2,7 +2,7 @@
 
 配置 OID 就能采任意网络设备，还能把 OID 的值当标签用；模板带 Cisco、Juniper 和通用交换机的仪表盘与几十条规则。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Categraf 从 v0.2.13 起集成了 Telegraf 的 snmp 插件。核心逻辑是：要采什么指标，配置对应的 OID；`[[instances.field]]` 采单个值，`[[instances.table]]` 按表采多行，表里的某些 OID（比如接口名）可以作为标签。通用 OID（接口流量、错误、状态）对绝大多数设备都有效，CPU、内存这类私有 OID 则按厂商和型号配置。
 
@@ -17,7 +17,7 @@ Categraf 从 v0.2.13 起集成了 Telegraf 的 snmp 插件。核心逻辑是：�
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，按需启用下面的插件。每个配置放到对应的 `conf/input.<插件名>/` 目录，改好地址和凭据后重启 Categraf。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，按需启用下面的插件。每个配置放到对应的 `conf/input.<插件名>/` 目录，改好地址和凭据后重启 Categraf。
 
    `conf/input.snmp/Cisco.toml`
 
@@ -397,9 +397,9 @@ Categraf 从 v0.2.13 起集成了 Telegraf 的 snmp 插件。核心逻辑是：�
    #is_tag = true
    ```
 
-2. 在夜莺「集成中心」里找到 SNMP，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 SNMP，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -1086,7 +1086,7 @@ snmp_network_status_admin_status == 1 and snmp_network_status_ostatus offset 4m 
 
 * \[SNMP 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/SNMP）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/SNMP%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `snmp` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/snmp)：完整配置项和指标列表。
-* [Switch Legacy：交换机零配置采集](https://n9e.github.io/zh/integrations/switch-legacy.md)
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [Switch Legacy：交换机零配置采集](https://n9e.io/zh/integrations/switch-legacy.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

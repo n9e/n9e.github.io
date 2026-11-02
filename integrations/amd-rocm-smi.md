@@ -2,7 +2,7 @@
 
 Runs rocm-smi to collect AMD GPU utilization, memory, temperature, power and clocks; rules cover overheating and full memory.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The AMD ROCm SMI input is ported from Telegraf. It runs the `rocm-smi` binary that ships with ROCm and parses the output into per-GPU utilization, memory usage, temperature, power draw, fan speed and clock frequencies.
 
@@ -15,7 +15,7 @@ ROCm must be installed on the host; the default binary path is `/opt/rocm/bin/ro
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.amd_rocm_smi/rocm.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.amd_rocm_smi started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.amd_rocm_smi/rocm.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.amd_rocm_smi started` once the plugin is loaded.
 
    ```
    # Query statistics from AMD Graphics cards using rocm-smi binary
@@ -29,9 +29,9 @@ ROCm must be installed on the host; the default binary path is `/opt/rocm/bin/ro
    # timeout = "5s"
    ```
 
-2. Open the integration center in Nightingale, find AMD ROCm SMI, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find AMD ROCm SMI, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled alert rules[​](#bundled-alert-rules "Direct link to Bundled alert rules")
 
@@ -101,6 +101,6 @@ Runbook:
 
 * [AMD ROCm SMI template source](https://github.com/ccfos/nightingale/tree/main/integrations/AMD_ROCm_SMI): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `amd_rocm_smi` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/amd_rocm_smi): every config option and the full metric list.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

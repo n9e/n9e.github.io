@@ -13,7 +13,7 @@ Where this page ends: metrics for a few selected hosts without having to work ou
 | Look at a few hosts once and move on              | Tick rows on the host list, click the icon in the toolbar |
 | Look at the same hosts and the same metrics daily | Quick view — configure it once and save it                |
 
-Both read the same [built-in metric catalogue](https://n9e.github.io/docs/query/built-in-views.md); they differ in where you enter and whether the selection is saved.
+Both read the same [built-in metric catalogue](https://n9e.io/docs/query/built-in-views.md); they differ in where you enter and whether the selection is saved.
 
 ## 1. One click from the host list[​](#1-one-click-from-the-host-list "Direct link to 1. One click from the host list")
 
@@ -29,7 +29,7 @@ Expected result: tick `n9e-web-01`, click `cpu_usage_idle`, and you get that hos
 
 **Explorer → Metrics → Quick view** (`/object/explorer`).
 
-![Quick view](https://n9e.github.io/img/docs/query/object-explorer.webp)![Quick view](https://n9e.github.io/img/docs/query/object-explorer.dark.webp)
+![Quick view](https://n9e.io/img/docs/query/object-explorer.webp)![Quick view](https://n9e.io/img/docs/query/object-explorer.dark.webp)
 
 **Pick a data source at the top right first.** Without one, all three columns are empty — which is the most common reason the page "looks blank", and it is not a data problem.
 
@@ -62,10 +62,10 @@ Click **+** at the top of the **List** column:
 
 * It stores **filters and dimensions**, not a fixed set of charts. Everything is picked and drawn on the spot, which is also why it is not a wall display;
 * It only accepts **Prometheus-type** data sources;
-* For a fixed layout, for sharing outside, or for embedding elsewhere, use a dashboard — see [Build a dashboard](https://n9e.github.io/docs/query/dashboards.md).
+* For a fixed layout, for sharing outside, or for embedding elsewhere, use a dashboard — see [Build a dashboard](https://n9e.io/docs/query/dashboards.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Maintaining what is in the catalogue: [Built-in metric views](https://n9e.github.io/docs/query/built-in-views.md)
-* How hosts get into the list: [Targets and heartbeat](https://n9e.github.io/docs/data/categraf/targets.md)
-* Charts you want to keep: [Build a dashboard](https://n9e.github.io/docs/query/dashboards.md)
+* Maintaining what is in the catalogue: [Built-in metric views](https://n9e.io/docs/query/built-in-views.md)
+* How hosts get into the list: [Targets and heartbeat](https://n9e.io/docs/data/categraf/targets.md)
+* Charts you want to keep: [Build a dashboard](https://n9e.io/docs/query/dashboards.md)

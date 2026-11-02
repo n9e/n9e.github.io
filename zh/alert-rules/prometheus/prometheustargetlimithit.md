@@ -2,13 +2,13 @@
 
 Prometheus 告警 PrometheusTargetLimitHit 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 某个采集任务发现的目标数超过了它的 `target_limit`。这时 Prometheus 不会只抓前 N 个，而是把这个采集池里的所有目标都标成失败，一个都不抓。整个任务一下子全部断掉，对应的 `up` 序列全部变成 0。
 
 * **级别**：警告（`warning`）
 * **持续**：15 分钟
-* 属于 [Prometheus 告警规则](https://n9e.github.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
+* 属于 [Prometheus 告警规则](https://n9e.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
 
 ## 规则[​](#规则 "规则的直接链接")
 
@@ -43,13 +43,13 @@ increase(prometheus_target_scrape_pool_exceeded_target_limit_total{job="promethe
 
 ## 相关告警[​](#相关告警 "相关告警的直接链接")
 
-* [PrometheusScrapeSampleLimitHit](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheusscrapesamplelimithit)：Prometheus …/… has failed … scrapes in the last 5m because some targets exceeded the configured sample\_limit.
-* [PrometheusLabelLimitHit](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheuslabellimithit)：Prometheus …/… has dropped … targets because some samples exceeded the configured label\_limit, label\_name\_length\_limit or label\_value\_length\_limit.
-* [PrometheusTargetSyncFailure](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheustargetsyncfailure)：… targets in Prometheus …/… have failed to sync because invalid configuration was supplied.
+* [PrometheusScrapeSampleLimitHit](https://n9e.io/zh/alert-rules/prometheus.md#prometheusscrapesamplelimithit)：Prometheus …/… has failed … scrapes in the last 5m because some targets exceeded the configured sample\_limit.
+* [PrometheusLabelLimitHit](https://n9e.io/zh/alert-rules/prometheus.md#prometheuslabellimithit)：Prometheus …/… has dropped … targets because some samples exceeded the configured label\_limit, label\_name\_length\_limit or label\_value\_length\_limit.
+* [PrometheusTargetSyncFailure](https://n9e.io/zh/alert-rules/prometheus.md#prometheustargetsyncfailure)：… targets in Prometheus …/… have failed to sync because invalid configuration was supplied.
 
 ## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
 
-加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.github.io/zh/alert-rules/prometheus.yml)。
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.io/zh/alert-rules/prometheus.yml)。
 
 ```
 - alert: PrometheusTargetLimitHit
@@ -68,10 +68,10 @@ increase(prometheus_target_scrape_pool_exceeded_target_limit_total{job="promethe
 
     summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} has dropped {{ printf \"%.0f\" $value }} targets because the number of targets exceeded the configured target_limit."
 
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheustargetlimithit"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheustargetlimithit"
 ```
 
-**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 

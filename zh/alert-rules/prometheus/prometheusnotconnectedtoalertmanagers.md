@@ -2,13 +2,13 @@
 
 Prometheus 告警 PrometheusNotConnectedToAlertmanagers 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Prometheus 没有发现任何可以发送告警的 Alertmanager。规则照常求值，告警在 Prometheus 的 `/alerts` 页面上照样显示为触发，但没有任何通知发出去。一切都静悄悄的、看不出异常，所以这条告警应该走一条不依赖同一个 Alertmanager 的通道发出。
 
 * **级别**：警告（`warning`）
 * **持续**：10 分钟
-* 属于 [Prometheus 告警规则](https://n9e.github.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
+* 属于 [Prometheus 告警规则](https://n9e.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
 
 ## 规则[​](#规则 "规则的直接链接")
 
@@ -47,13 +47,13 @@ max_over_time(prometheus_notifications_alertmanagers_discovered{job="prometheus-
 
 ## 相关告警[​](#相关告警 "相关告警的直接链接")
 
-* [PrometheusErrorSendingAlertsToAnyAlertmanager](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheuserrorsendingalertstoanyalertmanager)：…% minimum errors while sending alerts from Prometheus …/… to any Alertmanager.
-* [PrometheusErrorSendingAlertsToSomeAlertmanagers](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheuserrorsendingalertstosomealertmanagers)：…% errors while sending alerts from Prometheus …/… to Alertmanager ….
-* [PrometheusNotificationQueueRunningFull](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheusnotificationqueuerunningfull)：Alert notification queue of Prometheus …/… is running full.
+* [PrometheusErrorSendingAlertsToAnyAlertmanager](https://n9e.io/zh/alert-rules/prometheus.md#prometheuserrorsendingalertstoanyalertmanager)：…% minimum errors while sending alerts from Prometheus …/… to any Alertmanager.
+* [PrometheusErrorSendingAlertsToSomeAlertmanagers](https://n9e.io/zh/alert-rules/prometheus.md#prometheuserrorsendingalertstosomealertmanagers)：…% errors while sending alerts from Prometheus …/… to Alertmanager ….
+* [PrometheusNotificationQueueRunningFull](https://n9e.io/zh/alert-rules/prometheus.md#prometheusnotificationqueuerunningfull)：Alert notification queue of Prometheus …/… is running full.
 
 ## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
 
-加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.github.io/zh/alert-rules/prometheus.yml)。
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.io/zh/alert-rules/prometheus.yml)。
 
 ```
 - alert: PrometheusNotConnectedToAlertmanagers
@@ -76,10 +76,10 @@ max_over_time(prometheus_notifications_alertmanagers_discovered{job="prometheus-
 
     summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} is not connected to any Alertmanagers."
 
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers"
 ```
 
-**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 

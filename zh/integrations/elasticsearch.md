@@ -2,7 +2,7 @@
 
 通过 ES 自己的 HTTP 接口采集集群健康、节点 JVM、线程池、索引和分片状态，小集群抓一个节点即可拿到全集群数据。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Elasticsearch 通过 HTTP JSON 接口暴露自身状态，插件抓 `_cluster/health`、`_cluster/stats`、`_nodes/stats` 和索引统计：集群颜色、未分配分片、节点 JVM 堆与 GC、断路器、线程池拒绝、索引写入与查询延迟、磁盘水位。
 
@@ -17,7 +17,7 @@ Elasticsearch 通过 HTTP JSON 接口暴露自身状态，插件抓 `_cluster/he
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.elasticsearch/elasticsearch.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.elasticsearch started` 就说明插件已加载。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.elasticsearch/elasticsearch.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.elasticsearch started` 就说明插件已加载。
 
    ```
    # # collect interval
@@ -147,9 +147,9 @@ Elasticsearch 通过 HTTP JSON 接口暴露自身状态，插件抓 `_cluster/he
    num_most_recent_indices = 1
    ```
 
-2. 在夜莺「集成中心」里找到 Elasticsearch，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 Elasticsearch，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -163,7 +163,7 @@ Elasticsearch 通过 HTTP JSON 接口暴露自身状态，插件抓 `_cluster/he
 
 ## 内置告警规则[​](#内置告警规则 "内置告警规则的直接链接")
 
-共 22 条，导入后默认停用，按自己环境的阈值逐条启用。每条规则的触发条件（PromQL）和处置步骤收录在告警规则库：[Elasticsearch 告警规则](https://n9e.github.io/zh/alert-rules/elasticsearch.md)。
+共 22 条，导入后默认停用，按自己环境的阈值逐条启用。每条规则的触发条件（PromQL）和处置步骤收录在告警规则库：[Elasticsearch 告警规则](https://n9e.io/zh/alert-rules/elasticsearch.md)。
 
 | 规则                                              | 级别    | 持续    |
 | ------------------------------------------------- | ------- | ------- |
@@ -231,7 +231,7 @@ Elasticsearch 通过 HTTP JSON 接口暴露自身状态，插件抓 `_cluster/he
 
 * \[Elasticsearch 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/Elasticsearch）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/Elasticsearch%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `elasticsearch` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/elasticsearch)：完整配置项和指标列表。
-* [把 Elasticsearch 接成日志数据源](https://n9e.github.io/zh/docs/data/elasticsearch.md)
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [把 Elasticsearch 接成日志数据源](https://n9e.io/zh/docs/data/elasticsearch.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

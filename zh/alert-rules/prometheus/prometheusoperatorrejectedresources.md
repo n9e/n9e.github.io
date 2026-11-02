@@ -2,13 +2,13 @@
 
 Prometheus 告警 PrometheusOperatorRejectedResources 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Prometheus Operator 拒绝了一个或多个监控资源（ServiceMonitor、PodMonitor、Probe、PrometheusRule、AlertmanagerConfig），没有把它们放进生成的配置。这些资源在集群里照样存在，`kubectl apply` 也成功了，但它们描述的目标没有被采集，里面的规则也没有加载。除了这条告警，没有别的地方会提醒你。
 
 * **级别**：警告（`warning`）
 * **持续**：5 分钟
-* 属于 [Prometheus 告警规则](https://n9e.github.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
+* 属于 [Prometheus 告警规则](https://n9e.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
 
 ## 规则[​](#规则 "规则的直接链接")
 
@@ -43,13 +43,13 @@ min_over_time(prometheus_operator_managed_resources{state="rejected",job="promet
 
 ## 相关告警[​](#相关告警 "相关告警的直接链接")
 
-* [PrometheusOperatorReconcileErrors](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheusoperatorreconcileerrors)：… of reconciling operations failed for … controller in … namespace.
-* [PrometheusOperatorSyncFailed](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheusoperatorsyncfailed)：Controller … in … namespace fails to reconcile … objects.
-* [PrometheusBadConfig](https://n9e.github.io/zh/alert-rules/prometheus/prometheusbadconfig.md)：Prometheus …/… has failed to reload its configuration.
+* [PrometheusOperatorReconcileErrors](https://n9e.io/zh/alert-rules/prometheus.md#prometheusoperatorreconcileerrors)：… of reconciling operations failed for … controller in … namespace.
+* [PrometheusOperatorSyncFailed](https://n9e.io/zh/alert-rules/prometheus.md#prometheusoperatorsyncfailed)：Controller … in … namespace fails to reconcile … objects.
+* [PrometheusBadConfig](https://n9e.io/zh/alert-rules/prometheus/prometheusbadconfig.md)：Prometheus …/… has failed to reload its configuration.
 
 ## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
 
-加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.github.io/zh/alert-rules/prometheus.yml)。
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.io/zh/alert-rules/prometheus.yml)。
 
 ```
 - alert: PrometheusOperatorRejectedResources
@@ -68,10 +68,10 @@ min_over_time(prometheus_operator_managed_resources{state="rejected",job="promet
 
     summary: "Prometheus operator in {{ $labels.namespace }} namespace rejected {{ printf \"%0.0f\" $value }} {{ $labels.controller }}/{{ $labels.resource }} resources."
 
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusoperatorrejectedresources"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheusoperatorrejectedresources"
 ```
 
-**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 

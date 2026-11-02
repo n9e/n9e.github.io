@@ -2,13 +2,13 @@
 
 What the KubeMemoryOvercommit Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The memory requested by all Pods in the cluster is more than the cluster could provide if its largest node went away, so a single node failure would leave Pods unschedulable. Like its CPU twin it is about requests, not usage, but memory is less forgiving: Pods that do not fit stay Pending instead of running slower.
 
 * **Severity**: Warning (`warning`)
 * **Fires after**: 10m
-* Part of the [Kubernetes alert rules](https://n9e.github.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
+* Part of the [Kubernetes alert rules](https://n9e.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
 
 ## The rule[​](#the-rule "Direct link to The rule")
 
@@ -48,13 +48,13 @@ Alert message: `Cluster {{ $labels.cluster }} has overcommitted memory resource 
 
 ## Related alerts[​](#related-alerts "Direct link to Related alerts")
 
-* [KubeCPUOvercommit](https://n9e.github.io/alert-rules/kubernetes/kubecpuovercommit.md): Cluster … has overcommitted CPU resource requests for Pods by … CPU shares and cannot tolerate node failure.
-* [KubeMemoryQuotaOvercommit](https://n9e.github.io/alert-rules/kubernetes.md#kubememoryquotaovercommit): Cluster … has overcommitted memory resource requests for Namespaces.
-* [KubeHpaMaxedOut](https://n9e.github.io/alert-rules/kubernetes/kubehpamaxedout.md): HPA …/… has been running at max replicas for longer than 15 minutes.
+* [KubeCPUOvercommit](https://n9e.io/alert-rules/kubernetes/kubecpuovercommit.md): Cluster … has overcommitted CPU resource requests for Pods by … CPU shares and cannot tolerate node failure.
+* [KubeMemoryQuotaOvercommit](https://n9e.io/alert-rules/kubernetes.md#kubememoryquotaovercommit): Cluster … has overcommitted memory resource requests for Namespaces.
+* [KubeHpaMaxedOut](https://n9e.io/alert-rules/kubernetes/kubehpamaxedout.md): HPA …/… has been running at max replicas for longer than 15 minutes.
 
 ## Prometheus rule YAML[​](#prometheus-rule-yaml "Direct link to Prometheus rule YAML")
 
-Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.github.io/alert-rules/kubernetes.yml).
+Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.io/alert-rules/kubernetes.yml).
 
 ```
 - alert: KubeMemoryOvercommit
@@ -77,10 +77,10 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
 
     summary: "Cluster {{ $labels.cluster }} has overcommitted memory resource requests for Pods by {{ $value | humanize }} bytes and cannot tolerate node failure."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubememoryovercommit"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubememoryovercommit"
 ```
 
-**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.github.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
+**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 

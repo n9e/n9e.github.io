@@ -13,7 +13,7 @@ Where this page ends: an MCP client connected to Nightingale, and a read-only pr
 | Address          | `https://n9e.example.com/mcp` — root path, **not** under `/api/n9e` |
 | Auth             | The header `X-User-Token: <your token>`                             |
 
-Creating a token is covered in [Personal token authentication](https://n9e.github.io/docs/ai/token-auth.md). Testing locally, the address is `http://127.0.0.1:17000/mcp`.
+Creating a token is covered in [Personal token authentication](https://n9e.io/docs/ai/token-auth.md). Testing locally, the address is `http://127.0.0.1:17000/mcp`.
 
 The transport is MCP Streamable HTTP, so **no** local stdio gateway or proxy process is involved. If a client config asks for `command` and `args`, that is the stdio style and does not apply here.
 
@@ -51,7 +51,7 @@ Restart the client afterwards. Expected result: `nightingale` shows as connected
 
 These run on somebody else's servers and cannot send a custom header — they only take an address. They use OAuth instead: you enable the built-in authorization server, the user clicks "Allow" once inside their client, and you issue no tokens at all.
 
-In the client's "add custom connector" / "Remote MCP server" field, enter `https://n9e.example.com/mcp` and let it discover the rest. The server side has to be prepared first — see [OAuth 2.1 and external identity providers](https://n9e.github.io/docs/ai/oauth.md), which also lists the three conditions the address must satisfy (reachable from the browser, byte-identical to `Issuer`, and HTTPS).
+In the client's "add custom connector" / "Remote MCP server" field, enter `https://n9e.example.com/mcp` and let it discover the rest. The server side has to be prepared first — see [OAuth 2.1 and external identity providers](https://n9e.io/docs/ai/oauth.md), which also lists the three conditions the address must satisfy (reachable from the browser, byte-identical to `Issuer`, and HTTPS).
 
 ## A first prompt to prove the connection[​](#a-first-prompt-to-prove-the-connection "Direct link to A first prompt to prove the connection")
 
@@ -59,7 +59,7 @@ Once connected, ask for something read-only whose answer you can check at a glan
 
 > List every business group I can see.
 
-Expected result: exactly the groups you see when logged into the UI as that account. A different count means the token belongs to another account, or the account is not scoped the way you thought — go back to [Permission inheritance and RBAC](https://n9e.github.io/docs/ai/permissions.md).
+Expected result: exactly the groups you see when logged into the UI as that account. A different count means the token belongs to another account, or the account is not scoped the way you thought — go back to [Permission inheritance and RBAC](https://n9e.io/docs/ai/permissions.md).
 
 Then try one that touches data:
 
@@ -78,10 +78,10 @@ That one exercises `list_active_alerts`; a useful answer means the tool-call pat
 | Connects but has no tools    | Every name in `MCPToolsets` was misspelled and dropped                                    |
 | Drops after about 60 seconds | nginx is missing `proxy_buffering off` and long timeouts                                  |
 
-Step-by-step fixes are in [AI / Skill / MCP troubleshooting](https://n9e.github.io/docs/ai/troubleshooting.md).
+Step-by-step fixes are in [AI / Skill / MCP troubleshooting](https://n9e.io/docs/ai/troubleshooting.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Let it change things: [Enable write tools safely](https://n9e.github.io/docs/ai/write-tools.md)
-* Prompts that work: [Common investigation workflows](https://n9e.github.io/docs/ai/workflows.md)
-* The tool list: [MCP tool reference](https://n9e.github.io/docs/reference/mcp-tools.md)
+* Let it change things: [Enable write tools safely](https://n9e.io/docs/ai/write-tools.md)
+* Prompts that work: [Common investigation workflows](https://n9e.io/docs/ai/workflows.md)
+* The tool list: [MCP tool reference](https://n9e.io/docs/reference/mcp-tools.md)

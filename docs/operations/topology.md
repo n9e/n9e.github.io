@@ -102,7 +102,7 @@ Points to get right:
 * the edge **needs its own Redis** — it cannot reuse the one at the centre;
 * start it against the right config directory: `n9e-edge --configs etc/edge`. The default `etc` holds the central config, and pointing at it fails silently rather than loudly.
 
-See [Edge data centers](https://n9e.github.io/docs/install/edge.md) and [Edge network partition behavior](https://n9e.github.io/docs/operations/edge-partition.md).
+See [Edge data centers](https://n9e.io/docs/install/edge.md) and [Edge network partition behavior](https://n9e.io/docs/operations/edge-partition.md).
 
 ## When splitting processes is worth it[​](#when-splitting-processes-is-worth-it "Direct link to When splitting processes is worth it")
 
@@ -129,7 +129,7 @@ Starting with three processes only gives you two more config files to keep in sy
 
 ## Related[​](#related "Direct link to Related")
 
-* [High availability and failure domains](https://n9e.github.io/docs/operations/high-availability.md)
-* [Capacity planning](https://n9e.github.io/docs/operations/capacity.md)
-* [Processes and roles](https://n9e.github.io/docs/concepts/components.md)
-* [Production readiness checklist](https://n9e.github.io/docs/get-started/production-checklist.md)
+* [High availability and failure domains](https://n9e.io/docs/operations/high-availability.md)
+* [Capacity planning](https://n9e.io/docs/operations/capacity.md)
+* [Processes and roles](https://n9e.io/docs/concepts/components.md)
+* [Production readiness checklist](https://n9e.io/docs/get-started/production-checklist.md)

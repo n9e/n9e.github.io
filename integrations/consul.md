@@ -2,7 +2,7 @@
 
 Collects the health-check state of every registered service through the Consul API, so you see at once which service is critical or warning on which node.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The Consul input calls the Consul health API and turns every registered health check into a metric with service name, node, check name and current state (passing, warning, critical). It does not collect Consul's own telemetry, which Consul can emit over StatsD or its built-in Prometheus endpoint; its single job is answering "is anything registered in Consul unhealthy".
 
@@ -15,7 +15,7 @@ The rules cover service instances turning critical, services with no healthy ins
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.consul/consul.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.consul started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.consul/consul.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.consul started` once the plugin is loaded.
 
    ```
    # # collect interval
@@ -101,9 +101,9 @@ The rules cover service instances turning critical, services with no healthy ins
      # insecure_skip_verify = true
    ```
 
-2. Open the integration center in Nightingale, find Consul, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find Consul, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled alert rules[​](#bundled-alert-rules "Direct link to Bundled alert rules")
 
@@ -220,6 +220,6 @@ Runbook:
 
 * [Consul template source](https://github.com/ccfos/nightingale/tree/main/integrations/Consul): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `consul` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/consul): every config option and the full metric list.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

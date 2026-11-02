@@ -4,7 +4,7 @@ Register a Prometheus or Thanos endpoint, set auth and timeouts, and verify with
 
 Last reviewed 2026-10-10
 
-Where this page ends: a registered Prometheus data source whose connection has been tested and which returns a line in the Metrics explorer. Thanos, Mimir, M3 and VictoriaMetrics all implement Prometheus's query API and use this same type (VictoriaMetrics has one extra switch — see [VictoriaMetrics](https://n9e.github.io/docs/data/victoriametrics.md)).
+Where this page ends: a registered Prometheus data source whose connection has been tested and which returns a line in the Metrics explorer. Thanos, Mimir, M3 and VictoriaMetrics all implement Prometheus's query API and use this same type (VictoriaMetrics has one extra switch — see [VictoriaMetrics](https://n9e.io/docs/data/victoriametrics.md)).
 
 Nothing is moved. A data source is a connection: Nightingale queries your store where it is, and your scrape config stays exactly as it is.
 
@@ -46,7 +46,7 @@ The form lists the shape for each product:
 
 **Timeout(ms)** defaults to 10000. Raise it for a large, slow cluster, but not to minutes — the alerting engine evaluates on a schedule, and one stuck query holds up a whole batch of rules.
 
-![The Prometheus data source form](https://n9e.github.io/img/docs/data/form-prometheus.webp)![The Prometheus data source form](https://n9e.github.io/img/docs/data/form-prometheus.dark.webp)
+![The Prometheus data source form](https://n9e.io/img/docs/data/form-prometheus.webp)![The Prometheus data source form](https://n9e.io/img/docs/data/form-prometheus.dark.webp)
 
 ## 2. Auth and TLS[​](#2-auth-and-tls "Direct link to 2. Auth and TLS")
 
@@ -59,11 +59,11 @@ The form lists the shape for each product:
 
 None of these are required, but getting them wrong bites you somewhere else:
 
-| Field                                        | When you need it                                                                                                                                                                                                                                                                                       |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Remote Write URL                             | Only when you use [recording rules](https://n9e.github.io/docs/query/recording-rules.md). The new series a recording rule computes are written back to this address. For Prometheus that is `http://localhost:9090/api/v1/write`, for single-node VictoriaMetrics `http://localhost:8428/api/v1/write` |
-| Internal address of the time series database | Only when the alerting engine is deployed down in an edge data center. When set, `n9e-edge` uses this address to reach the store; when empty it uses the URL above                                                                                                                                     |
-| Time series database type                    | Prometheus / Thanos / VictoriaMetrics / M3 / SLS. It changes how dashboard variables are resolved and which endpoint "delete series" calls, so pick the right one for VictoriaMetrics                                                                                                                  |
+| Field                                        | When you need it                                                                                                                                                                                                                                                                                |
+| -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Remote Write URL                             | Only when you use [recording rules](https://n9e.io/docs/query/recording-rules.md). The new series a recording rule computes are written back to this address. For Prometheus that is `http://localhost:9090/api/v1/write`, for single-node VictoriaMetrics `http://localhost:8428/api/v1/write` |
+| Internal address of the time series database | Only when the alerting engine is deployed down in an edge data center. When set, `n9e-edge` uses this address to reach the store; when empty it uses the URL above                                                                                                                              |
+| Time series database type                    | Prometheus / Thanos / VictoriaMetrics / M3 / SLS. It changes how dashboard variables are resolved and which endpoint "delete series" calls, so pick the right one for VictoriaMetrics                                                                                                           |
 
 Leave **Associated alerting engine cluster** at `default` if you run a single engine. If this field is empty, rules against this data source are never evaluated.
 
@@ -85,7 +85,7 @@ Then confirm it yourself: **Explorer → Metrics**, pick the source you just cre
 up
 ```
 
-A line on the chart means this half works. If nothing comes back, stop here — [Why does a data source connect but return no data?](https://n9e.github.io/docs/troubleshooting/no-data.md).
+A line on the chart means this half works. If nothing comes back, stop here — [Why does a data source connect but return no data?](https://n9e.io/docs/troubleshooting/no-data.md).
 
 ## When it doesn't connect[​](#when-it-doesnt-connect "Direct link to When it doesn't connect")
 
@@ -99,7 +99,7 @@ A line on the chart means this half works. If nothing comes back, stop here — 
 
 ## Next[​](#next "Direct link to Next")
 
-* Write the first rule against it: [Your first alert rule](https://n9e.github.io/docs/alerting/first-rule.md)
-* Query ad hoc: [Metrics explorer](https://n9e.github.io/docs/query/metric-explorer.md)
-* Moving to VictoriaMetrics: [VictoriaMetrics](https://n9e.github.io/docs/data/victoriametrics.md)
-* Nothing collecting yet: [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md)
+* Write the first rule against it: [Your first alert rule](https://n9e.io/docs/alerting/first-rule.md)
+* Query ad hoc: [Metrics explorer](https://n9e.io/docs/query/metric-explorer.md)
+* Moving to VictoriaMetrics: [VictoriaMetrics](https://n9e.io/docs/data/victoriametrics.md)
+* Nothing collecting yet: [Install Categraf](https://n9e.io/docs/data/categraf/install.md)

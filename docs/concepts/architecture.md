@@ -36,7 +36,7 @@ The `n9e` process only needs the `etc/` and `integrations/` directories next to 
 
 Download a release, run `./n9e`. Port 17000, `root` / `root.2020`.
 
-Metadata goes into `n9e.db` (SQLite) next to the binary, Redis is an in-process miniredis, and metrics land in the embedded TSDB. **Convenient, but not for production** — see the [Production readiness checklist](https://n9e.github.io/docs/get-started/production-checklist.md).
+Metadata goes into `n9e.db` (SQLite) next to the binary, Redis is an in-process miniredis, and metrics land in the embedded TSDB. **Convenient, but not for production** — see the [Production readiness checklist](https://n9e.io/docs/get-started/production-checklist.md).
 
 ### Single node, production[​](#single-node-production "Direct link to Single node, production")
 
@@ -80,7 +80,7 @@ These are two genuinely different shapes, and the choice decides which features 
 | Self-healing      | Unavailable                 | Available                                  |
 | Alert rules       | Fully available             | Fully available                            |
 
-Nightingale is not a long-term metric store. The embedded TSDB is the deliberate exception — see [Storage](https://n9e.github.io/docs/concepts/storage.md).
+Nightingale is not a long-term metric store. The embedded TSDB is the deliberate exception — see [Storage](https://n9e.io/docs/concepts/storage.md).
 
 ## Edge mode[​](#edge-mode "Direct link to Edge mode")
 
@@ -88,10 +88,10 @@ With several sites, having the central `n9e` query a remote site's TSDB makes al
 
 Deploy `n9e-edge` at the site instead: rules are still managed centrally and pushed down, but **evaluation happens locally** against the site's own TSDB. When the link drops, the edge keeps alerting.
 
-See [Edge data centers](https://n9e.github.io/docs/install/edge.md).
+See [Edge data centers](https://n9e.io/docs/install/edge.md).
 
 ## Related[​](#related "Direct link to Related")
 
-* What each process is responsible for: [Components](https://n9e.github.io/docs/concepts/components.md)
-* Where metadata lives and where metrics live: [Storage](https://n9e.github.io/docs/concepts/storage.md)
-* Choosing a deployment: [Install and deploy](https://n9e.github.io/docs/install/overview.md)
+* What each process is responsible for: [Components](https://n9e.io/docs/concepts/components.md)
+* Where metadata lives and where metrics live: [Storage](https://n9e.io/docs/concepts/storage.md)
+* Choosing a deployment: [Install and deploy](https://n9e.io/docs/install/overview.md)

@@ -2,13 +2,13 @@
 
 Prometheus 告警 KubeAggregatedAPIDown 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 某个聚合 API（由 Kubernetes API Server 代理转发到其它服务的 APIService）在过去 10 分钟里可用时间低于 85%。最常见的是 metrics-server 提供的 `v1beta1.metrics.k8s.io`，其它的来自 prometheus-adapter、自定义指标适配器和各类 Operator。
 
 * **级别**：警告（`warning`）
 * **持续**：5 分钟
-* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+* 属于 [Kubernetes 告警规则](https://n9e.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
 
 ## 规则[​](#规则 "规则的直接链接")
 
@@ -43,13 +43,13 @@ Prometheus 告警 KubeAggregatedAPIDown 是什么意思、常见原因有哪些�
 
 ## 相关告警[​](#相关告警 "相关告警的直接链接")
 
-* [KubeAggregatedAPIErrors](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubeaggregatedapierrors)：Kubernetes aggregated API …/… has reported errors. It has appeared unavailable … times averaged over the past 10m.
-* [KubeAPIErrorBudgetBurn](https://n9e.github.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)：The API server is burning too much error budget.
-* [KubeHpaReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubehpareplicasmismatch)：HPA …/… has not matched the desired number of replicas for longer than 15 minutes.
+* [KubeAggregatedAPIErrors](https://n9e.io/zh/alert-rules/kubernetes.md#kubeaggregatedapierrors)：Kubernetes aggregated API …/… has reported errors. It has appeared unavailable … times averaged over the past 10m.
+* [KubeAPIErrorBudgetBurn](https://n9e.io/zh/alert-rules/kubernetes/kubeapierrorbudgetburn.md)：The API server is burning too much error budget.
+* [KubeHpaReplicasMismatch](https://n9e.io/zh/alert-rules/kubernetes.md#kubehpareplicasmismatch)：HPA …/… has not matched the desired number of replicas for longer than 15 minutes.
 
 ## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
 
-加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.io/zh/alert-rules/kubernetes.yml)。
 
 ```
 - alert: KubeAggregatedAPIDown
@@ -68,10 +68,10 @@ Prometheus 告警 KubeAggregatedAPIDown 是什么意思、常见原因有哪些�
 
     summary: "Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }} has been only {{ $value | humanize }}% available over the last 10m."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeaggregatedapidown"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeaggregatedapidown"
 ```
 
-**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 

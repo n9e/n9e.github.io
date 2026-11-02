@@ -2,11 +2,11 @@
 
 Collects per-container CPU, memory, block and network IO plus daemon state through the Docker API; the dashboard is written against docker\_\* metrics and verified on real hosts.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The Docker input is based on Telegraf's docker plugin. It connects to the Docker daemon socket (`unix:///var/run/docker.sock`) or a TCP endpoint and collects engine-level container counts and states, image count and storage driver information, plus CPU, memory, blkio and network IO for every container. Swarm services and extended memory statistics are optional.
 
-The bundled `Docker Dashboard` is written against these `docker_*` metrics and verified on real hosts, so this input must be enabled for it. cAdvisor is also a recommended way to collect containers, but it emits `container_*` metrics and needs the dashboards from the [cAdvisor integration](https://n9e.github.io/integrations/cadvisor.md); the two do not mix. The rules cover container OOM kills, abnormal exits, CPU and memory over limits and the daemon being unreachable.
+The bundled `Docker Dashboard` is written against these `docker_*` metrics and verified on real hosts, so this input must be enabled for it. cAdvisor is also a recommended way to collect containers, but it emits `container_*` metrics and needs the dashboards from the [cAdvisor integration](https://n9e.io/integrations/cadvisor.md); the two do not mix. The rules cover container OOM kills, abnormal exits, CPU and memory over limits and the daemon being unreachable.
 
 ## What's in the template[​](#whats-in-the-template "Direct link to What's in the template")
 
@@ -16,7 +16,7 @@ The bundled `Docker Dashboard` is written against these `docker_*` metrics and v
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.docker/docker.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.docker started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.docker/docker.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.docker started` once the plugin is loaded.
 
    ```
    # # collect interval
@@ -148,9 +148,9 @@ The bundled `Docker Dashboard` is written against these `docker_*` metrics and v
    # insecure_skip_verify = false
    ```
 
-2. Open the integration center in Nightingale, find Docker, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find Docker, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -256,6 +256,6 @@ Runbook:
 
 * [Docker template source](https://github.com/ccfos/nightingale/tree/main/integrations/Docker): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `docker` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/docker): every config option and the full metric list.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

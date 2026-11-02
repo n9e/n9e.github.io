@@ -2,7 +2,7 @@
 
 11 ready-to-use MySQL alert rules in PromQL, each with severity, duration and runbook steps. Metrics from mysqld\_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 MySQL alert rules for the failures that page people in practice: an instance that is down or has just restarted, slow queries piling up, connections approaching max\_connections, too many running threads, InnoDB log waits, open files nearing the limit, and replication problems (IO or SQL thread stopped, replica lag). The exporter group uses mysqld\_exporter metric names (`mysql_global_status_*`, `mysql_slave_status_*`); each rule comes with the first commands to run, such as SHOW FULL PROCESSLIST and pt-query-digest, when it fires.
 
@@ -10,7 +10,7 @@ MySQL alert rules for the failures that page people in practice: an instance tha
 
 * **11 rules**, each with a PromQL condition, a severity, a `for` duration and runbook steps
 * **Metrics from**: mysqld\_exporter, Categraf
-* **Download**: [`mysql.yml`](https://n9e.github.io/alert-rules/mysql.yml), a standard Prometheus rules file (`groups:` format), checked with `promtool check rules`
+* **Download**: [`mysql.yml`](https://n9e.io/alert-rules/mysql.yml), a standard Prometheus rules file (`groups:` format), checked with `promtool check rules`
 * Thresholds are starting points. Adjust them to your environment before enabling the rules.
 
 ## Rule list[​](#rule-list "Direct link to Rule list")
@@ -220,8 +220,8 @@ Runbook:
 
 ## How to use these rules[​](#how-to-use-these-rules "Direct link to How to use these rules")
 
-* **With Prometheus or vmalert**: download [`mysql.yml`](https://n9e.github.io/alert-rules/mysql.yml), add it to `rule_files` (or `-rule` for vmalert), check the metric names against your exporter version, and tune thresholds. Severity is set as a `severity` label (critical / warning / info), and `runbook_url` points back to this page, or to the rule's own page where it has one.
-* **With Nightingale**: the same rules ship in the [MySQL](https://n9e.github.io/integrations/mysql.md) integration template. Open the integration center, [import the rules into a business group](https://n9e.github.io/docs/data/integrations/import.md), and enable them one by one. Nightingale keeps the runbook with each alert and can evaluate the rules against Prometheus, VictoriaMetrics and other data sources.
+* **With Prometheus or vmalert**: download [`mysql.yml`](https://n9e.io/alert-rules/mysql.yml), add it to `rule_files` (or `-rule` for vmalert), check the metric names against your exporter version, and tune thresholds. Severity is set as a `severity` label (critical / warning / info), and `runbook_url` points back to this page, or to the rule's own page where it has one.
+* **With Nightingale**: the same rules ship in the [MySQL](https://n9e.io/integrations/mysql.md) integration template. Open the integration center, [import the rules into a business group](https://n9e.io/docs/data/integrations/import.md), and enable them one by one. Nightingale keeps the runbook with each alert and can evaluate the rules against Prometheus, VictoriaMetrics and other data sources.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 
@@ -229,6 +229,6 @@ The runbook steps and the remaining rules come from Nightingale's integration te
 
 ## Related[​](#related "Direct link to Related")
 
-* [Monitor MySQL with Nightingale](https://n9e.github.io/integrations/mysql.md): collector config, dashboards and metric reference
-* [Write a metric rule in Nightingale](https://n9e.github.io/docs/alerting/metric-rules.md)
-* [All alert rules](https://n9e.github.io/alert-rules.md)
+* [Monitor MySQL with Nightingale](https://n9e.io/integrations/mysql.md): collector config, dashboards and metric reference
+* [Write a metric rule in Nightingale](https://n9e.io/docs/alerting/metric-rules.md)
+* [All alert rules](https://n9e.io/alert-rules.md)

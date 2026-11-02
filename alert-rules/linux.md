@@ -2,7 +2,7 @@
 
 76 ready-to-use Linux alert rules in PromQL, each with severity, duration and runbook steps. Metrics from node\_exporter, Categraf, Telegraf. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 Host-level alert rules for Linux servers and Kubernetes nodes: memory exhaustion and pressure, disks and inodes running out (including "will fill up within 24 hours" predictions), disk latency, network errors, packet loss and saturation, CPU load and steal, OOM kills, conntrack and file-handle exhaustion, clock skew, crashed system services, missing processes, and failed PING, port and HTTP probes. The node\_exporter group uses standard `node_*` metric names; the Categraf and Telegraf groups cover the same ground for hosts collected by those agents.
 
@@ -10,7 +10,7 @@ Host-level alert rules for Linux servers and Kubernetes nodes: memory exhaustion
 
 * **76 rules**, each with a PromQL condition, a severity, a `for` duration and runbook steps
 * **Metrics from**: node\_exporter, Categraf, Telegraf
-* **Download**: [`linux.yml`](https://n9e.github.io/alert-rules/linux.yml), a standard Prometheus rules file (`groups:` format), checked with `promtool check rules`
+* **Download**: [`linux.yml`](https://n9e.io/alert-rules/linux.yml), a standard Prometheus rules file (`groups:` format), checked with `promtool check rules`
 * Thresholds are starting points. Adjust them to your environment before enabling the rules.
 
 ## Rule list[​](#rule-list "Direct link to Rule list")
@@ -1436,8 +1436,8 @@ Runbook:
 
 ## How to use these rules[​](#how-to-use-these-rules "Direct link to How to use these rules")
 
-* **With Prometheus or vmalert**: download [`linux.yml`](https://n9e.github.io/alert-rules/linux.yml), add it to `rule_files` (or `-rule` for vmalert), check the metric names against your exporter version, and tune thresholds. Severity is set as a `severity` label (critical / warning / info), and `runbook_url` points back to this page, or to the rule's own page where it has one.
-* **With Nightingale**: the same rules ship in the [Kubernetes](https://n9e.github.io/integrations/kubernetes.md) and [Linux](https://n9e.github.io/integrations/linux.md) integration template. Open the integration center, [import the rules into a business group](https://n9e.github.io/docs/data/integrations/import.md), and enable them one by one. Nightingale keeps the runbook with each alert and can evaluate the rules against Prometheus, VictoriaMetrics and other data sources.
+* **With Prometheus or vmalert**: download [`linux.yml`](https://n9e.io/alert-rules/linux.yml), add it to `rule_files` (or `-rule` for vmalert), check the metric names against your exporter version, and tune thresholds. Severity is set as a `severity` label (critical / warning / info), and `runbook_url` points back to this page, or to the rule's own page where it has one.
+* **With Nightingale**: the same rules ship in the [Kubernetes](https://n9e.io/integrations/kubernetes.md) and [Linux](https://n9e.io/integrations/linux.md) integration template. Open the integration center, [import the rules into a business group](https://n9e.io/docs/data/integrations/import.md), and enable them one by one. Nightingale keeps the runbook with each alert and can evaluate the rules against Prometheus, VictoriaMetrics and other data sources.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 
@@ -1445,7 +1445,7 @@ Many rule expressions are adapted from [awesome-prometheus-alerts](https://githu
 
 ## Related[​](#related "Direct link to Related")
 
-* [Monitor Kubernetes with Nightingale](https://n9e.github.io/integrations/kubernetes.md): collector config, dashboards and metric reference
-* [Monitor Linux with Nightingale](https://n9e.github.io/integrations/linux.md): collector config, dashboards and metric reference
-* [Write a metric rule in Nightingale](https://n9e.github.io/docs/alerting/metric-rules.md)
-* [All alert rules](https://n9e.github.io/alert-rules.md)
+* [Monitor Kubernetes with Nightingale](https://n9e.io/integrations/kubernetes.md): collector config, dashboards and metric reference
+* [Monitor Linux with Nightingale](https://n9e.io/integrations/linux.md): collector config, dashboards and metric reference
+* [Write a metric rule in Nightingale](https://n9e.io/docs/alerting/metric-rules.md)
+* [All alert rules](https://n9e.io/alert-rules.md)

@@ -20,12 +20,12 @@ curl -s --noproxy '*' http://127.0.0.1:17000/metrics | grep -E \
 
 Run it again a minute later and compare:
 
-| What you see                                          | Conclusion                                                                                                                                                             |
-| ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `n9e_pushgw_samples_received_total` is not climbing   | Samples never reached Nightingale — a **collection or network** problem, go to [Categraf troubleshooting](https://n9e.github.io/docs/data/categraf/troubleshooting.md) |
-| It climbs, but `head_samples_appended_total` does not | Received but not stored — see "out of order" below, and check the forwarding config                                                                                    |
-| Both climb, yet the chart is empty                    | It was stored; the problem is on the **query side** — wrong data source, or several instances each holding half                                                        |
-| Both climb, and only a recent stretch is missing      | Usually the process restarted or collection stopped during that window; line up the timestamps first                                                                   |
+| What you see                                          | Conclusion                                                                                                                                                      |
+| ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `n9e_pushgw_samples_received_total` is not climbing   | Samples never reached Nightingale — a **collection or network** problem, go to [Categraf troubleshooting](https://n9e.io/docs/data/categraf/troubleshooting.md) |
+| It climbs, but `head_samples_appended_total` does not | Received but not stored — see "out of order" below, and check the forwarding config                                                                             |
+| Both climb, yet the chart is empty                    | It was stored; the problem is on the **query side** — wrong data source, or several instances each holding half                                                 |
+| Both climb, and only a recent stretch is missing      | Usually the process restarted or collection stopped during that window; line up the timestamps first                                                            |
 
 Both `n9e_pushgw_samples_received_total` and `prometheus_tsdb_head_series` count for the **current process** and reset on restart — do not read a restart as data loss.
 
@@ -76,7 +76,7 @@ So a `MaxBytes` that is too small **silently** shortens the effective retention 
 
 **How to confirm**: convert `prometheus_tsdb_lowest_timestamp` to a date. If it is clearly later than `RetentionDuration` would allow, the disk cap is what is biting, not time. Then check with `du -sh data/tsdb` whether real usage is sitting against `MaxBytes`.
 
-**How to fix**: raise `MaxBytes` to what the disk can absorb and restart. If you need more history than the disk holds, it is time for an external store — see [Embedded TSDB single-Center limits](https://n9e.github.io/docs/operations/embedded-tsdb-limits.md). **Blocks already deleted do not come back.**
+**How to fix**: raise `MaxBytes` to what the disk can absorb and restart. If you need more history than the disk holds, it is time for an external store — see [Embedded TSDB single-Center limits](https://n9e.io/docs/operations/embedded-tsdb-limits.md). **Blocks already deleted do not come back.**
 
 ### A collector's clock drifted and its samples are dropped as out of order[​](#a-collectors-clock-drifted-and-its-samples-are-dropped-as-out-of-order "Direct link to A collector's clock drifted and its samples are dropped as out of order")
 
@@ -159,8 +159,8 @@ Old data that the retention policy already deleted **does not come back** after 
 
 ## Next[​](#next "Direct link to Next")
 
-* Where that data source came from: [Auto-registered Embedded TSDB datasource](https://n9e.github.io/docs/data/embedded-tsdb.md)
-* When to move off it: [Embedded TSDB single-Center limits](https://n9e.github.io/docs/operations/embedded-tsdb-limits.md)
-* Migrating without downtime: [External TSDB and dual-write migration](https://n9e.github.io/docs/install/external-tsdb.md)
-* The source connects but returns nothing: [Why does a data source connect but return no data?](https://n9e.github.io/docs/troubleshooting/no-data.md)
-* The collection side: [Categraf troubleshooting](https://n9e.github.io/docs/data/categraf/troubleshooting.md)
+* Where that data source came from: [Auto-registered Embedded TSDB datasource](https://n9e.io/docs/data/embedded-tsdb.md)
+* When to move off it: [Embedded TSDB single-Center limits](https://n9e.io/docs/operations/embedded-tsdb-limits.md)
+* Migrating without downtime: [External TSDB and dual-write migration](https://n9e.io/docs/install/external-tsdb.md)
+* The source connects but returns nothing: [Why does a data source connect but return no data?](https://n9e.io/docs/troubleshooting/no-data.md)
+* The collection side: [Categraf troubleshooting](https://n9e.io/docs/data/categraf/troubleshooting.md)

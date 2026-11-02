@@ -53,7 +53,7 @@ The two to drop first:
 
 Next in line: `datasource` (writes credentials and probes the address it is given) and `notify_rules` (a webhook media type sends alert content to an arbitrary address).
 
-What each toolset contains is in [Read and write toolsets](https://n9e.github.io/docs/ai/toolsets.md).
+What each toolset contains is in [Read and write toolsets](https://n9e.io/docs/ai/toolsets.md).
 
 ## What "scope them to a token" actually means[​](#what-scope-them-to-a-token-actually-means "Direct link to What \"scope them to a token\" actually means")
 
@@ -69,7 +69,7 @@ this client may edit this rule  =  MCPEnableWriteTools = true
                                    AND  one of their teams has write on the rule's business group
 ```
 
-So in practice: **give the client that needs writes a dedicated, more privileged account, and give every other client a read-only one.** Both connect to the same endpoint; what each can do follows its own token. Creating accounts is covered in [Personal token authentication](https://n9e.github.io/docs/ai/token-auth.md).
+So in practice: **give the client that needs writes a dedicated, more privileged account, and give every other client a read-only one.** Both connect to the same endpoint; what each can do follows its own token. Creating accounts is covered in [Personal token authentication](https://n9e.io/docs/ai/token-auth.md).
 
 When you need certainty that nobody can write, turn the switch off rather than relying on account permissions — those quietly widen the day somebody adds a role to that account.
 
@@ -99,10 +99,10 @@ Oversized bodies are truncated, and `body_truncated=true` says so.
 
 ## A safer alternative: let the AI propose, a human confirm[​](#a-safer-alternative-let-the-ai-propose-a-human-confirm "Direct link to A safer alternative: let the AI propose, a human confirm")
 
-If what you actually want is "let the AI help me change configuration", note that the **built-in assistant** takes a different path: `update_*` operations are two-phase — the first call only computes the change and returns a confirmation card, and nothing is written until a person confirms in a later turn. That mechanism does not exist on `/mcp` (a write tool there writes on the first call), so for configuration changes the built-in assistant is the safer surface. See [Safe automation patterns](https://n9e.github.io/docs/ai/automation.md).
+If what you actually want is "let the AI help me change configuration", note that the **built-in assistant** takes a different path: `update_*` operations are two-phase — the first call only computes the change and returns a confirmation card, and nothing is written until a person confirms in a later turn. That mechanism does not exist on `/mcp` (a write tool there writes on the first call), so for configuration changes the built-in assistant is the safer surface. See [Safe automation patterns](https://n9e.io/docs/ai/automation.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Choosing toolsets: [Read and write toolsets](https://n9e.github.io/docs/ai/toolsets.md)
-* The permission boundary: [Permission inheritance and RBAC](https://n9e.github.io/docs/ai/permissions.md)
-* Human-in-the-loop writes: [Safe automation patterns](https://n9e.github.io/docs/ai/automation.md)
+* Choosing toolsets: [Read and write toolsets](https://n9e.io/docs/ai/toolsets.md)
+* The permission boundary: [Permission inheritance and RBAC](https://n9e.io/docs/ai/permissions.md)
+* Human-in-the-loop writes: [Safe automation patterns](https://n9e.io/docs/ai/automation.md)

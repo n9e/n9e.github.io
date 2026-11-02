@@ -2,13 +2,13 @@
 
 Prometheus 告警 KubePodNotReady 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 一个不属于 Job 的 Pod 已经处于 `Pending`、`Unknown` 或 `Failed` 阶段 15 分钟。Pending 表示容器还没全部启动（常常是还没调度上）；Unknown 通常是所在节点失联；Failed 表示 Pod 已经终止、不会再起来。无论哪种，这个 Pod 都没在提供服务，负载的实际副本数低于期望值。
 
 * **级别**：警告（`warning`）
 * **持续**：15 分钟
-* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+* 属于 [Kubernetes 告警规则](https://n9e.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
 
 ## 规则[​](#规则 "规则的直接链接")
 
@@ -58,14 +58,14 @@ sum by (namespace, pod, cluster) (
 
 ## 相关告警[​](#相关告警 "相关告警的直接链接")
 
-* [KubeContainerWaiting](https://n9e.github.io/zh/alert-rules/kubernetes/kubecontainerwaiting.md)：pod/… in namespace … on container … has been in waiting state for longer than 1 hour.
-* [KubePodCrashLooping](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodcrashlooping.md)：Pod …/… (…) is in waiting state (reason: "CrashLoopBackOff").
-* [KubeNodeNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubenodenotready.md)：… has been unready for more than 15 minutes.
-* [KubeQuotaAlmostFull](https://n9e.github.io/zh/alert-rules/kubernetes/kubequotaalmostfull.md)：Namespace … is using … of its … quota.
+* [KubeContainerWaiting](https://n9e.io/zh/alert-rules/kubernetes/kubecontainerwaiting.md)：pod/… in namespace … on container … has been in waiting state for longer than 1 hour.
+* [KubePodCrashLooping](https://n9e.io/zh/alert-rules/kubernetes/kubepodcrashlooping.md)：Pod …/… (…) is in waiting state (reason: "CrashLoopBackOff").
+* [KubeNodeNotReady](https://n9e.io/zh/alert-rules/kubernetes/kubenodenotready.md)：… has been unready for more than 15 minutes.
+* [KubeQuotaAlmostFull](https://n9e.io/zh/alert-rules/kubernetes/kubequotaalmostfull.md)：Namespace … is using … of its … quota.
 
 ## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
 
-加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.io/zh/alert-rules/kubernetes.yml)。
 
 ```
 - alert: KubePodNotReady
@@ -96,10 +96,10 @@ sum by (namespace, pod, cluster) (
 
     summary: "Pod {{ $labels.namespace }}/{{ $labels.pod }} has been in a non-ready state for longer than 15 minutes."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubepodnotready"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubepodnotready"
 ```
 
-**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 

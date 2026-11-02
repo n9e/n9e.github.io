@@ -54,7 +54,7 @@ Every part is optional — a contribution with dashboards but no rules is fine.
 
 **`dashboards/*.json`** is the dashboard export format. Build it in the UI, export it, drop it in.
 
-**`alerts/*.json`** is the alert rule export format, either one object or an array. The fields that matter: `name`, `cate`, `prod`, `severity`, `rule_config` (since v6 the queries live in its `queries` array and the top-level `prom_ql` stays empty), `prom_eval_interval`, `prom_for_duration`, `append_tags`, `annotations`. Full field list in [Import, export and reuse](https://n9e.github.io/docs/alerting/import-export.md).
+**`alerts/*.json`** is the alert rule export format, either one object or an array. The fields that matter: `name`, `cate`, `prod`, `severity`, `rule_config` (since v6 the queries live in its `queries` array and the top-level `prom_ql` stays empty), `prom_eval_interval`, `prom_for_duration`, `append_tags`, `annotations`. Full field list in [Import, export and reuse](https://n9e.io/docs/alerting/import-export.md).
 
 **`metrics/*.json`** describes what metrics the component emits and what each means, feeding the product's **built-in metric views**. There are over 1300 built in.
 
@@ -74,6 +74,6 @@ Add a directory under `integrations/` in [ccfos/nightingale](https://github.com/
 
 ## Related[​](#related "Direct link to Related")
 
-* [Import dashboards and rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Install collector configuration](https://n9e.github.io/docs/data/integrations/collector-config.md)
-* [Import, export and reuse](https://n9e.github.io/docs/alerting/import-export.md)
+* [Import dashboards and rules](https://n9e.io/docs/data/integrations/import.md)
+* [Install collector configuration](https://n9e.io/docs/data/integrations/collector-config.md)
+* [Import, export and reuse](https://n9e.io/docs/alerting/import-export.md)

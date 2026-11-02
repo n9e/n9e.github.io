@@ -2,13 +2,13 @@
 
 Prometheus 告警 KubeNodeNotReady 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 节点的 `Ready` 状态已经 15 分钟不是 `True`：要么是 `False`（kubelet 报告了问题），要么是 `Unknown`（kubelet 不再上报）。新的 Pod 不会再调度上来；节点上已有的 Pod，在 not-ready 或 unreachable 污点持续时间超过它的容忍时间（默认 300 秒）后会被驱逐。
 
 * **级别**：警告（`warning`）
 * **持续**：15 分钟
-* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+* 属于 [Kubernetes 告警规则](https://n9e.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
 
 ## 规则[​](#规则 "规则的直接链接")
 
@@ -44,13 +44,13 @@ kube_node_status_condition{job="kube-state-metrics",condition="Ready",status="tr
 
 ## 相关告警[​](#相关告警 "相关告警的直接链接")
 
-* [KubeletDown](https://n9e.github.io/zh/alert-rules/kubernetes/kubeletdown.md)：Kubelet has disappeared from Prometheus target discovery.
-* [KubePodNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodnotready.md)：Pod …/… has been in a non-ready state for longer than 15 minutes.
-* [KubeletTooManyPods](https://n9e.github.io/zh/alert-rules/kubernetes/kubelettoomanypods.md)：Kubelet '…' is running at … of its Pod capacity.
+* [KubeletDown](https://n9e.io/zh/alert-rules/kubernetes/kubeletdown.md)：Kubelet has disappeared from Prometheus target discovery.
+* [KubePodNotReady](https://n9e.io/zh/alert-rules/kubernetes/kubepodnotready.md)：Pod …/… has been in a non-ready state for longer than 15 minutes.
+* [KubeletTooManyPods](https://n9e.io/zh/alert-rules/kubernetes/kubelettoomanypods.md)：Kubelet '…' is running at … of its Pod capacity.
 
 ## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
 
-加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.io/zh/alert-rules/kubernetes.yml)。
 
 ```
 - alert: KubeNodeNotReady
@@ -69,10 +69,10 @@ kube_node_status_condition{job="kube-state-metrics",condition="Ready",status="tr
 
     summary: "{{ $labels.node }} has been unready for more than 15 minutes."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubenodenotready"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubenodenotready"
 ```
 
-**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 

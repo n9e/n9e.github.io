@@ -88,7 +88,7 @@ The event detail page lists annotations automatically. To put one in a message, 
 Runbook: {{$event.AnnotationsJSON.runbook_url}}
 ```
 
-See [Templates and variables](https://n9e.github.io/docs/notifications/templates.md) for the full variable list.
+See [Templates and variables](https://n9e.io/docs/notifications/templates.md) for the full variable list.
 
 ## Severity[​](#severity "Direct link to Severity")
 
@@ -111,11 +111,11 @@ Two questions, in order:
 
 What is left is S1. In a healthy rule set this is a small minority: things that are user-visible or that will be within the hour.
 
-Two habits that keep it honest. Review what actually paged people over the last month and demote whatever nobody acted on immediately — see [Rule design best practices](https://n9e.github.io/docs/alerting/best-practices.md). And when one rule needs two severities, use [several thresholds in one rule](https://n9e.github.io/docs/alerting/metric-rules.md) with inhibit on, rather than two rules that will drift apart.
+Two habits that keep it honest. Review what actually paged people over the last month and demote whatever nobody acted on immediately — see [Rule design best practices](https://n9e.io/docs/alerting/best-practices.md). And when one rule needs two severities, use [several thresholds in one rule](https://n9e.io/docs/alerting/metric-rules.md) with inhibit on, rather than two rules that will drift apart.
 
 ## Next[​](#next "Direct link to Next")
 
-* Where these fields sit in the form: [Metric rules](https://n9e.github.io/docs/alerting/metric-rules.md)
-* What routing does with them: [Notification rules](https://n9e.github.io/docs/notifications/rules.md)
-* Rewrite labels after the fact: [Rewrite labels and enrich context](https://n9e.github.io/docs/events/relabel-enrich.md)
-* The model behind all this: [Labels and annotations](https://n9e.github.io/docs/concepts/labels-annotations.md)
+* Where these fields sit in the form: [Metric rules](https://n9e.io/docs/alerting/metric-rules.md)
+* What routing does with them: [Notification rules](https://n9e.io/docs/notifications/rules.md)
+* Rewrite labels after the fact: [Rewrite labels and enrich context](https://n9e.io/docs/events/relabel-enrich.md)
+* The model behind all this: [Labels and annotations](https://n9e.io/docs/concepts/labels-annotations.md)

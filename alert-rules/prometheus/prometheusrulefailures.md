@@ -2,13 +2,13 @@
 
 What the PrometheusRuleFailures Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 Prometheus failed to evaluate one or more alerting or recording rules in the last 5 minutes. A rule that fails to evaluate produces no result, so an alert that should be firing stays silent, and recording rules leave gaps that other rules and dashboards then read.
 
 * **Severity**: Critical (`critical`)
 * **Fires after**: 15m
-* Part of the [Prometheus alert rules](https://n9e.github.io/alert-rules/prometheus.md) (`prometheus.yml`)
+* Part of the [Prometheus alert rules](https://n9e.io/alert-rules/prometheus.md) (`prometheus.yml`)
 
 ## The rule[​](#the-rule "Direct link to The rule")
 
@@ -43,13 +43,13 @@ Alert message: `Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to e
 
 ## Related alerts[​](#related-alerts "Direct link to Related alerts")
 
-* [PrometheusMissingRuleEvaluations](https://n9e.github.io/alert-rules/prometheus.md#prometheusmissingruleevaluations): Prometheus …/… has missed … rule group evaluations in the last 5m.
-* [PrometheusBadConfig](https://n9e.github.io/alert-rules/prometheus/prometheusbadconfig.md): Prometheus …/… has failed to reload its configuration.
-* [PrometheusOperatorRejectedResources](https://n9e.github.io/alert-rules/prometheus/prometheusoperatorrejectedresources.md): Prometheus operator in … namespace rejected … …/… resources.
+* [PrometheusMissingRuleEvaluations](https://n9e.io/alert-rules/prometheus.md#prometheusmissingruleevaluations): Prometheus …/… has missed … rule group evaluations in the last 5m.
+* [PrometheusBadConfig](https://n9e.io/alert-rules/prometheus/prometheusbadconfig.md): Prometheus …/… has failed to reload its configuration.
+* [PrometheusOperatorRejectedResources](https://n9e.io/alert-rules/prometheus/prometheusoperatorrejectedresources.md): Prometheus operator in … namespace rejected … …/… resources.
 
 ## Prometheus rule YAML[​](#prometheus-rule-yaml "Direct link to Prometheus rule YAML")
 
-Add this to a rules file loaded through `rule_files`, or download every Prometheus rule at once as [`prometheus.yml`](https://n9e.github.io/alert-rules/prometheus.yml).
+Add this to a rules file loaded through `rule_files`, or download every Prometheus rule at once as [`prometheus.yml`](https://n9e.io/alert-rules/prometheus.yml).
 
 ```
 - alert: PrometheusRuleFailures
@@ -68,10 +68,10 @@ Add this to a rules file loaded through `rule_files`, or download every Promethe
 
     summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to evaluate {{ printf \"%.0f\" $value }} rules in the last 5m."
 
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusrulefailures"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheusrulefailures"
 ```
 
-**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.github.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
+**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 

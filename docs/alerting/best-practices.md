@@ -23,7 +23,7 @@ Two that consistently fail it:
 
 ## What belongs on a dashboard instead[​](#what-belongs-on-a-dashboard-instead "Direct link to What belongs on a dashboard instead")
 
-Capacity trends, traffic patterns, comparative views, anything you look at weekly rather than react to. A [dashboard](https://n9e.github.io/docs/query/dashboards.md) is the right home for a number you want to know but do not want to be told.
+Capacity trends, traffic patterns, comparative views, anything you look at weekly rather than react to. A [dashboard](https://n9e.io/docs/query/dashboards.md) is the right home for a number you want to know but do not want to be told.
 
 The reliable signal that you have crossed the line: a rule whose notification you would silence if you were on call. That rule is a dashboard panel with extra steps.
 
@@ -33,8 +33,8 @@ Prefer **one rule covering many objects** over one rule per object. A rule match
 
 Split into separate rules only when something genuinely differs:
 
-* a different severity is not a reason to split — put [several thresholds in one rule](https://n9e.github.io/docs/alerting/metric-rules.md) with **Inhibit** on;
-* a different threshold for a handful of exceptions is not a reason either — that is what [variables](https://n9e.github.io/docs/alerting/metric-rules.md) are for;
+* a different severity is not a reason to split — put [several thresholds in one rule](https://n9e.io/docs/alerting/metric-rules.md) with **Inhibit** on;
+* a different threshold for a handful of exceptions is not a reason either — that is what [variables](https://n9e.io/docs/alerting/metric-rules.md) are for;
 * a different **owning team** is a reason, because the business group is a per-rule property;
 * a different **query** is a reason, obviously.
 
@@ -48,7 +48,7 @@ At that size the constraint stops being "is each rule correct" and becomes "can 
 
 **Names describe the condition, not the metric.** `Root filesystem almost full` beats `disk_used_percent high`, because the first survives a change of metric and the second does not. Never put a variable in a rule name — every event then has a different name and none of them group.
 
-**Tags are a small shared vocabulary.** Decide on the handful of keys everything carries — `team`, `service`, `env` is usually enough — and use exactly those, spelled exactly that way. Every notification rule, mute rule and subscription downstream matches on them, and each synonym you allow has to be encoded in all of them. See [Labels, annotations and severity](https://n9e.github.io/docs/alerting/labels-severity.md).
+**Tags are a small shared vocabulary.** Decide on the handful of keys everything carries — `team`, `service`, `env` is usually enough — and use exactly those, spelled exactly that way. Every notification rule, mute rule and subscription downstream matches on them, and each synonym you allow has to be encoded in all of them. See [Labels, annotations and severity](https://n9e.io/docs/alerting/labels-severity.md).
 
 **Severity means the same thing everywhere.** Write the three definitions down and hold to them. S1 that sometimes means "urgent" and sometimes "important" makes routing unfixable.
 
@@ -58,28 +58,28 @@ At that size the constraint stops being "is each rule correct" and becomes "can 
 
 The business group decides both **who can edit a rule** and **which team owns its events** — and the ownership comes from the rule, not from the machine the event is about. So the grouping that works is by **owning team**, not by environment or by technology.
 
-If several teams need to see the same events, do not clone the rule into each group; that makes N rules to keep in sync. Keep one rule in the owning team's group and let the others use [subscriptions](https://n9e.github.io/docs/events/subscriptions.md).
+If several teams need to see the same events, do not clone the rule into each group; that makes N rules to keep in sync. Keep one rule in the owning team's group and let the others use [subscriptions](https://n9e.io/docs/events/subscriptions.md).
 
 Business group names can be rendered as a tree by using a separator such as `/` — `DBA/MySQL` and `DBA/Redis` — which keeps a long flat list navigable.
 
 ### Keeping changes reviewable[​](#keeping-changes-reviewable "Direct link to Keeping changes reviewable")
 
-Rules built through the UI can be exported as JSON and committed, then imported into production with overwrite-by-name. That gives you a diff to review and a history to blame, which a hundred rules edited in place do not have. The workflow and its two sharp edges are in [Import, export and reuse](https://n9e.github.io/docs/alerting/import-export.md).
+Rules built through the UI can be exported as JSON and committed, then imported into production with overwrite-by-name. That gives you a diff to review and a history to blame, which a hundred rules edited in place do not have. The workflow and its two sharp edges are in [Import, export and reuse](https://n9e.io/docs/alerting/import-export.md).
 
-Start from the [shipped rule library](https://n9e.github.io/docs/alerting/templates.md) rather than writing standard rules yourself — then treat what you import as a draft, because its thresholds were written for a generic install.
+Start from the [shipped rule library](https://n9e.io/docs/alerting/templates.md) rather than writing standard rules yourself — then treat what you import as a draft, because its thresholds were written for a generic install.
 
 ## The review that keeps it honest[​](#the-review-that-keeps-it-honest "Direct link to The review that keeps it honest")
 
 Once a month, take the events from the last period and ask two questions per rule:
 
-1. **Did it fire?** A rule that has never fired is either protecting you or lying to you, and you cannot tell which without [test firing](https://n9e.github.io/docs/alerting/test-fire.md) it. Do that; delete the ones that turn out to be broken.
-2. **Did anyone act?** A rule that fired forty times and was acted on zero times should be demoted to S3 or deleted. Muting it is the wrong answer — a [mute rule](https://n9e.github.io/docs/events/mute-rules.md) hides the noise and keeps the maintenance cost.
+1. **Did it fire?** A rule that has never fired is either protecting you or lying to you, and you cannot tell which without [test firing](https://n9e.io/docs/alerting/test-fire.md) it. Do that; delete the ones that turn out to be broken.
+2. **Did anyone act?** A rule that fired forty times and was acted on zero times should be demoted to S3 or deleted. Muting it is the wrong answer — a [mute rule](https://n9e.io/docs/events/mute-rules.md) hides the noise and keeps the maintenance cost.
 
-Then look at the loudest rules specifically. Usually one or two rules account for most of the volume, and usually the fix is a longer for-duration, an asymmetric recovery condition, or an aggregation that turns thirty per-host events into one per-service event. The techniques are in [Noise reduction patterns](https://n9e.github.io/docs/events/noise-patterns.md).
+Then look at the loudest rules specifically. Usually one or two rules account for most of the volume, and usually the fix is a longer for-duration, an asymmetric recovery condition, or an aggregation that turns thirty per-host events into one per-service event. The techniques are in [Noise reduction patterns](https://n9e.io/docs/events/noise-patterns.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Cut the noise you already have: [Noise reduction patterns](https://n9e.github.io/docs/events/noise-patterns.md)
-* Make the numbers behave: [Evaluation interval and recovery](https://n9e.github.io/docs/alerting/evaluation.md)
-* Version the rule set: [Import, export and reuse](https://n9e.github.io/docs/alerting/import-export.md)
-* Before going live: [Production checklist](https://n9e.github.io/docs/get-started/production-checklist.md)
+* Cut the noise you already have: [Noise reduction patterns](https://n9e.io/docs/events/noise-patterns.md)
+* Make the numbers behave: [Evaluation interval and recovery](https://n9e.io/docs/alerting/evaluation.md)
+* Version the rule set: [Import, export and reuse](https://n9e.io/docs/alerting/import-export.md)
+* Before going live: [Production checklist](https://n9e.io/docs/get-started/production-checklist.md)

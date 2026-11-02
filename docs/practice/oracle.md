@@ -12,7 +12,7 @@ By the end of this page, Oracle samples will reach your TSDB, and you will know 
 * `conf/input.oracle/metric.toml`: shared collection queries.
 * `[[instances.metrics]]`: queries specific to the owning instance.
 
-Reuse the writer configured during [installation and registration](https://n9e.github.io/docs/data/categraf/install.md); Oracle collection does not require another TSDB.
+Reuse the writer configured during [installation and registration](https://n9e.io/docs/data/categraf/install.md); Oracle collection does not require another TSDB.
 
 ## Configure one instance[​](#configure "Direct link to Configure one instance")
 
@@ -80,5 +80,5 @@ Put queries required by every instance in `metric.toml`; keep special queries un
 
 ## Next[​](#next "Direct link to Next")
 
-* [Input plugins](https://n9e.github.io/docs/data/categraf/plugins.md)
-* [Import dashboards and rules](https://n9e.github.io/docs/data/integrations/import.md)
+* [Input plugins](https://n9e.io/docs/data/categraf/plugins.md)
+* [Import dashboards and rules](https://n9e.io/docs/data/integrations/import.md)

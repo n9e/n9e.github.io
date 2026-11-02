@@ -60,6 +60,6 @@ The test is simple: **will anything ever filter on this field?** If yes, it is a
 
 ## Related[​](#related "Direct link to Related")
 
-* [Labels, annotations and severity](https://n9e.github.io/docs/alerting/labels-severity.md)
-* [Rewrite labels and enrich context](https://n9e.github.io/docs/events/relabel-enrich.md)
-* [Notification variables](https://n9e.github.io/docs/reference/notification-variables.md)
+* [Labels, annotations and severity](https://n9e.io/docs/alerting/labels-severity.md)
+* [Rewrite labels and enrich context](https://n9e.io/docs/events/relabel-enrich.md)
+* [Notification variables](https://n9e.io/docs/reference/notification-variables.md)

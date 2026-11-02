@@ -48,7 +48,7 @@ journalctl -u categraf | grep -i heartbeat
 
 **`hostname` is mandatory in the heartbeat body**; without it the server refuses, and an edge node answers 400 `hostname is required`.
 
-The full agent-side walkthrough is [Categraf troubleshooting](https://n9e.github.io/docs/data/categraf/troubleshooting.md).
+The full agent-side walkthrough is [Categraf troubleshooting](https://n9e.io/docs/data/categraf/troubleshooting.md).
 
 ### On the server[​](#on-the-server "Direct link to On the server")
 
@@ -97,7 +97,7 @@ If the symptom is "this host was never in the list" rather than "it turned red",
 
 ## Next[​](#next "Direct link to Next")
 
-* The host is there but has no metrics: [Why does a data source connect but return no data?](https://n9e.github.io/docs/troubleshooting/no-data.md)
-* The full agent-side walkthrough: [Categraf troubleshooting](https://n9e.github.io/docs/data/categraf/troubleshooting.md)
-* The host list page itself: [Targets](https://n9e.github.io/docs/data/categraf/targets.md)
-* Configuring liveness alerts: [Rule scope](https://n9e.github.io/docs/alerting/scope.md)
+* The host is there but has no metrics: [Why does a data source connect but return no data?](https://n9e.io/docs/troubleshooting/no-data.md)
+* The full agent-side walkthrough: [Categraf troubleshooting](https://n9e.io/docs/data/categraf/troubleshooting.md)
+* The host list page itself: [Targets](https://n9e.io/docs/data/categraf/targets.md)
+* Configuring liveness alerts: [Rule scope](https://n9e.io/docs/alerting/scope.md)

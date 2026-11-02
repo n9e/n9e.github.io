@@ -2,7 +2,7 @@
 
 stub\_status covers connections and request totals, the VTS module adds per-server and per-upstream status codes and latency; an upstream\_check input reads health-check results.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 Nginx can be monitored at three levels. The built-in `stub_status` module reports active connections, accepts, handled, requests and reading/writing/waiting counts, enough for liveness and traffic trends. The VTS module (`nginx-module-vts`) breaks requests, status codes, response time and traffic down by server zone and upstream, which is the recommended path; scrape its `/status/format/prometheus` with the Categraf `prometheus` input. The third is the `nginx_upstream_check` input, which reads the results of the upstream\_check module.
 
@@ -17,7 +17,7 @@ The three dashboards map to stub\_status, upstream health checks and VTS. The ru
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md) and enable the plugins you need. Each config goes in its own `conf/input.<plugin>/` directory; fill in addresses and credentials, then restart Categraf.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md) and enable the plugins you need. Each config goes in its own `conf/input.<plugin>/` directory; fill in addresses and credentials, then restart Categraf.
 
    `conf/input.nginx/nginx.toml`
 
@@ -187,9 +187,9 @@ The three dashboards map to stub\_status, upstream health checks and VTS. The ru
    # insecure_skip_verify = false
    ```
 
-2. Open the integration center in Nightingale, find Nginx, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find Nginx, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -267,6 +267,6 @@ Runbook:
 * [Nginx template source](https://github.com/ccfos/nightingale/tree/main/integrations/Nginx): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `nginx` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/nginx): every config option and the full metric list.
 * [Categraf `nginx_upstream_check` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/nginx_upstream_check): every config option and the full metric list.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

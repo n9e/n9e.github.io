@@ -34,7 +34,7 @@ cd /path/to/categraf
 
 看到指标行就说明插件配对了。**注意两点**：这个进程不会自己退出，看到输出就 Ctrl-C； 另外 `--test` **不会关掉心跳**，它照样会往夜莺发心跳，别在生产上随手跑。
 
-一行都没有？看[排障](https://n9e.github.io/zh/docs/data/categraf/troubleshooting.md)。
+一行都没有？看[排障](https://n9e.io/zh/docs/data/categraf/troubleshooting.md)。
 
 ## 3. 在夜莺里确认指标到了[​](#3-在夜莺里确认指标到了 "3. 在夜莺里确认指标到了的直接链接")
 
@@ -60,7 +60,7 @@ mysql_global_status_threads_connected
 {agent_hostname="n9e-web-01"}
 ```
 
-第二条也空，说明问题不在插件，在写入链路——回到 [Categraf 排障](https://n9e.github.io/zh/docs/data/categraf/troubleshooting.md)。
+第二条也空，说明问题不在插件，在写入链路——回到 [Categraf 排障](https://n9e.io/zh/docs/data/categraf/troubleshooting.md)。
 
 ## 4. 用采集向导的自动检测[​](#4-用采集向导的自动检测 "4. 用采集向导的自动检测的直接链接")
 
@@ -102,6 +102,6 @@ mysql_global_status_threads_connected
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 数据到了，去调阈值：[导入仪表盘与规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* 数据没到：[Categraf 排障](https://n9e.github.io/zh/docs/data/categraf/troubleshooting.md)
-* 数据源本身有问题：[数据源连上了，为什么查不到数据？](https://n9e.github.io/zh/docs/troubleshooting/no-data.md)
+* 数据到了，去调阈值：[导入仪表盘与规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* 数据没到：[Categraf 排障](https://n9e.io/zh/docs/data/categraf/troubleshooting.md)
+* 数据源本身有问题：[数据源连上了，为什么查不到数据？](https://n9e.io/zh/docs/troubleshooting/no-data.md)

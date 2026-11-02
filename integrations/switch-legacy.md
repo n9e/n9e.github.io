@@ -2,11 +2,11 @@
 
 Give it a list of IPs and it detects the device model and collects CPU, memory and per-port traffic, errors and state; SNMP v2c only.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The switch\_legacy input is forked from swcollector and targets the "just get the switches in quickly" case. List IPs in the config (single addresses, subnets or ranges), and the input detects the device model and uses generic OIDs to collect CPU and memory usage plus traffic, packets, errors, discards and up/down state for every port. No OIDs to write.
 
-It supports SNMP v2c only, so authentication is a single community string. Set `switch_id_label` to `ident` and each switch appears in Nightingale's host list keyed by its IP. For custom OIDs or SNMP v3, use the [SNMP integration](https://n9e.github.io/integrations/snmp.md) instead. The rules cover ports going down, traffic near bandwidth, rising errors and unreachable devices.
+It supports SNMP v2c only, so authentication is a single community string. Set `switch_id_label` to `ident` and each switch appears in Nightingale's host list keyed by its IP. For custom OIDs or SNMP v3, use the [SNMP integration](https://n9e.io/integrations/snmp.md) instead. The rules cover ports going down, traffic near bandwidth, rising errors and unreachable devices.
 
 ## What's in the template[​](#whats-in-the-template "Direct link to What's in the template")
 
@@ -16,7 +16,7 @@ It supports SNMP v2c only, so authentication is a single community string. Set `
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.switch_legacy/switch_legacy.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.switch_legacy started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.switch_legacy/switch_legacy.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.switch_legacy started` once the plugin is loaded.
 
    ```
    # # collect interval
@@ -178,9 +178,9 @@ It supports SNMP v2c only, so authentication is a single community string. Set `
    # oid = "1.3.6.1.4.1.9.9.13.1.3.1.3.1004"
    ```
 
-2. Open the integration center in Nightingale, find Switch (legacy), and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find Switch (legacy), and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -301,7 +301,7 @@ Runbook:
 
 * [Switch (legacy) template source](https://github.com/ccfos/nightingale/tree/main/integrations/Switch_Legacy): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `switch_legacy` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/switch_legacy): every config option and the full metric list.
-* [SNMP: custom collection by OID](https://n9e.github.io/integrations/snmp.md)
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [SNMP: custom collection by OID](https://n9e.io/integrations/snmp.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

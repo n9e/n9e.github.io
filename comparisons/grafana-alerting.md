@@ -1,11 +1,11 @@
-1. [Comparisons](https://n9e.github.io/comparisons.md)
+1. [Comparisons](https://n9e.io/comparisons.md)
 2. Grafana Alerting
 
 # Nightingale vs Grafana Alerting
 
 The short answer: Grafana is a visualization platform that ships alerting as one module; Nightingale (n9e) is an open-source alerting engine that makes alerting the whole product. Nightingale does not try to replace Grafana dashboards, so the comparison is about the alerting layer, and for many teams the answer is both: chart in Grafana, alert in Nightingale.
 
-[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)
+[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.io/docs/get-started/quick-start.md)
 
 ## The 30-second version
 
@@ -105,7 +105,7 @@ Where each part of Grafana unified alerting lands once it is taken apart. Dashbo
 
 When you cut over, pause the Grafana rules rather than delete them; rolling back is then one click.
 
-[From Grafana Alerting<!-- --> →](https://n9e.github.io/docs/migration/from-grafana-alerting.md)[Coexistence and rollback plan<!-- --> →](https://n9e.github.io/docs/migration/coexistence.md)
+[From Grafana Alerting<!-- --> →](https://n9e.io/docs/migration/from-grafana-alerting.md)[Coexistence and rollback plan<!-- --> →](https://n9e.io/docs/migration/coexistence.md)
 
 ## Questions about this comparison
 
@@ -131,18 +131,18 @@ Nightingale sends one event per notification and does no label aggregation. If t
 
 ## Other comparisons
 
-* [Nightingale vs Prometheus + Alertmanager](https://n9e.github.io/comparisons/prometheus-alertmanager.md)
+* [Nightingale vs Prometheus + Alertmanager](https://n9e.io/comparisons/prometheus-alertmanager.md)
   <!-- -->
-  [ →](https://n9e.github.io/comparisons/prometheus-alertmanager.md)
-* [Nightingale vs Zabbix](https://n9e.github.io/comparisons/zabbix.md)
+  [ →](https://n9e.io/comparisons/prometheus-alertmanager.md)
+* [Nightingale vs Zabbix](https://n9e.io/comparisons/zabbix.md)
   <!-- -->
-  [ →](https://n9e.github.io/comparisons/zabbix.md)
-* [Comparisons](https://n9e.github.io/comparisons.md)
+  [ →](https://n9e.io/comparisons/zabbix.md)
+* [Comparisons](https://n9e.io/comparisons.md)
   <!-- -->
-  [ →](https://n9e.github.io/comparisons.md)
+  [ →](https://n9e.io/comparisons.md)
 
 ## Not sure? Run both.
 
 Nightingale reads the storage you already have. Installing it changes nothing about the alerting you run today.
 
-[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)
+[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.io/docs/get-started/quick-start.md)

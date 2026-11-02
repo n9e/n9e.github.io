@@ -68,7 +68,7 @@ The drawer shows **Alert rule notification** and **Subscription rule notificatio
 * **Targets are masked by default**, last 8 characters replaced with asterisks. Only email, SMS, voice, script and mute records show the full value — for those the target is something the recipient can see anyway.
 * Records are written asynchronously (an in-memory queue flushed in batches every 100 ms), so refreshing the instant after a send may show nothing yet.
 
-There are three statuses: **success**, **failure**, and **muted**. The last one comes from a "mute notification only" mute rule: the channel shows as `mute`, the target as `id=<mute rule id>`, and the detail names the mute rule. That is how you answer "what exactly did we swallow during that window" — see [Mute rules](https://n9e.github.io/docs/events/mute-rules.md).
+There are three statuses: **success**, **failure**, and **muted**. The last one comes from a "mute notification only" mute rule: the channel shows as `mute`, the target as `id=<mute rule id>`, and the detail names the mute rule. That is how you answer "what exactly did we swallow during that window" — see [Mute rules](https://n9e.io/docs/events/mute-rules.md).
 
 ## Records are kept for 7 days[​](#records-are-kept-for-7-days "Direct link to Records are kept for 7 days")
 
@@ -86,6 +86,6 @@ If you need long-term retention, export the rows elsewhere rather than raising t
 
 ## Next[​](#next "Direct link to Next")
 
-* Prove the channel works first: [Test a notification end to end](https://n9e.github.io/docs/notifications/test.md)
-* The message body failed to render: [Template rendering errors](https://n9e.github.io/docs/troubleshooting/template-errors.md)
-* Nothing arrives at all: [Why is there an alert event but no notification?](https://n9e.github.io/docs/troubleshooting/no-notification.md)
+* Prove the channel works first: [Test a notification end to end](https://n9e.io/docs/notifications/test.md)
+* The message body failed to render: [Template rendering errors](https://n9e.io/docs/troubleshooting/template-errors.md)
+* Nothing arrives at all: [Why is there an alert event but no notification?](https://n9e.io/docs/troubleshooting/no-notification.md)

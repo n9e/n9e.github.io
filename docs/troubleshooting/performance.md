@@ -4,7 +4,7 @@ Late alerts, growing queues and high database CPU each map to one built-in metri
 
 Last reviewed 2026-10-10
 
-Alerts arrive minutes later than the thing they are about; a page in the UI takes forever to load; charts show regular holes. This page does one job: **get from a symptom to the metric that localises it, and from that metric to the cause.** How to size a deployment and what the defaults are belong to [Capacity planning](https://n9e.github.io/docs/operations/capacity.md) and [Limits and defaults](https://n9e.github.io/docs/reference/limits.md) — not repeated here.
+Alerts arrive minutes later than the thing they are about; a page in the UI takes forever to load; charts show regular holes. This page does one job: **get from a symptom to the metric that localises it, and from that metric to the cause.** How to size a deployment and what the defaults are belong to [Capacity planning](https://n9e.io/docs/operations/capacity.md) and [Limits and defaults](https://n9e.io/docs/reference/limits.md) — not repeated here.
 
 Gauge urgency by the queues. **A steady non-zero queue** means the system is saturated but keeping up, and can be scheduled as optimisation work. **A queue that keeps climbing** means data is being lost — a full queue drops — so stop the bleeding first.
 
@@ -85,7 +85,7 @@ Three queues sit at different points in the chain, so whichever is climbing name
 * **Aggregate before returning** — use `sum by (...)` or `topk` to collapse ten thousand series rather than hauling them all back into Nightingale to evaluate;
 * **Lower the frequency** — not every rule needs to run once a minute.
 
-If it is genuinely expensive and genuinely necessary, precompute it with a [recording rule](https://n9e.github.io/docs/query/recording-rules.md) and alert on the result instead.
+If it is genuinely expensive and genuinely necessary, precompute it with a [recording rule](https://n9e.io/docs/query/recording-rules.md) and alert on the result instead.
 
 ### The data source itself got slow[​](#the-data-source-itself-got-slow "Direct link to The data source itself got slow")
 
@@ -101,7 +101,7 @@ One rule matching tens of thousands of series produces tens of thousands of even
 
 **How to confirm**: `n9e_alert_alerts_total` spikes while `n9e_alert_alert_queue_size` starts climbing. That counter is labelled `busi_group` / `cluster` / `type` — **there is no `rule_id` on it**, so it narrows the storm to a business group, not to a rule. To get to the rule, group the events list by rule and see whether it is concentrated on one.
 
-**How to fix**: put alert inhibition or a longer for-duration on that rule first to filter the spikes, then go back and narrow the query. Choosing among the noise-reduction mechanisms is covered in [Noise reduction and routing model](https://n9e.github.io/docs/concepts/noise-routing.md).
+**How to fix**: put alert inhibition or a longer for-duration on that rule first to filter the spikes, then go back and narrow the query. Choosing among the noise-reduction mechanisms is covered in [Noise reduction and routing model](https://n9e.io/docs/concepts/noise-routing.md).
 
 ### The metadata database is queuing[​](#the-metadata-database-is-queuing "Direct link to The metadata database is queuing")
 
@@ -138,7 +138,7 @@ grep -E '^n9e_alert_eval_log_drop_total|^n9e_alert_eval_log_query_reject_total' 
 5. Pick a rule that was noticeably late and **test fire** it; the time from trigger to notification is back to what you expect;
 6. Charts are continuous after the window that had holes.
 
-Once it is fixed, **build alert rules on these metrics** so you do not investigate by hand next time — concrete expressions are in [Monitor Nightingale itself](https://n9e.github.io/docs/operations/self-monitoring.md).
+Once it is fixed, **build alert rules on these metrics** so you do not investigate by hand next time — concrete expressions are in [Monitor Nightingale itself](https://n9e.io/docs/operations/self-monitoring.md).
 
 ## Collect this before you ask[​](#collect-this-before-you-ask "Direct link to Collect this before you ask")
 
@@ -152,8 +152,8 @@ Once it is fixed, **build alert rules on these metrics** so you do not investiga
 
 ## Next[​](#next "Direct link to Next")
 
-* Where to scale and how to estimate: [Capacity planning](https://n9e.github.io/docs/operations/capacity.md)
-* The defaults and ceilings: [Limits and defaults](https://n9e.github.io/docs/reference/limits.md)
-* What each metric means: [Built-in metrics](https://n9e.github.io/docs/reference/built-in-metrics.md)
-* Turning these into alerts: [Monitor Nightingale itself](https://n9e.github.io/docs/operations/self-monitoring.md)
-* Evaluation stopped entirely: [Why are evaluation records missing or dropped?](https://n9e.github.io/docs/troubleshooting/evaluation-missing.md)
+* Where to scale and how to estimate: [Capacity planning](https://n9e.io/docs/operations/capacity.md)
+* The defaults and ceilings: [Limits and defaults](https://n9e.io/docs/reference/limits.md)
+* What each metric means: [Built-in metrics](https://n9e.io/docs/reference/built-in-metrics.md)
+* Turning these into alerts: [Monitor Nightingale itself](https://n9e.io/docs/operations/self-monitoring.md)
+* Evaluation stopped entirely: [Why are evaluation records missing or dropped?](https://n9e.io/docs/troubleshooting/evaluation-missing.md)

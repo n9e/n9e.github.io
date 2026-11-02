@@ -2,7 +2,7 @@
 
 Reads out-of-band temperature, fan, voltage, power and sensor state over IPMI, from the local BMC or remote ones.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The IPMI input is ported from ipmi\_exporter. It runs a set of FreeIPMI commands and turns the output into metrics: temperatures, fan speeds, voltages, power draw, the health of every sensor and the chassis power state. The data comes from the BMC, so it is still available when the operating system is down.
 
@@ -17,7 +17,7 @@ Collect locally on each server, or point one collector at a list of remote BMC a
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.ipmi/conf.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.ipmi started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.ipmi/conf.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.ipmi started` once the plugin is loaded.
 
    ```
    # Read metrics from the bare metal servers via freeipmi
@@ -87,9 +87,9 @@ Collect locally on each server, or point one collector at a list of remote BMC a
    #sel = [ "ipmi-sel" ]
    ```
 
-2. Open the integration center in Nightingale, find IPMI, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find IPMI, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -193,6 +193,6 @@ Runbook:
 
 * [IPMI template source](https://github.com/ccfos/nightingale/tree/main/integrations/IPMI): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `ipmi` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/ipmi): every config option and the full metric list.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

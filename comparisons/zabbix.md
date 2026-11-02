@@ -1,11 +1,11 @@
-1. [Comparisons](https://n9e.github.io/comparisons.md)
+1. [Comparisons](https://n9e.io/comparisons.md)
 2. Zabbix
 
 # Nightingale vs Zabbix
 
 Zabbix is built around hosts and items: it collects, stores and alerts on its own. Nightingale is built around queries: it evaluates on the Prometheus, VictoriaMetrics or Elasticsearch you already run, and Categraf fills only the gaps. This is not one product beating another; two architectures fit two kinds of infrastructure.
 
-[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)
+[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.io/docs/get-started/quick-start.md)
 
 ## The 30-second version
 
@@ -45,13 +45,13 @@ If your telemetry already lives in Prometheus, VictoriaMetrics or ElasticSearch,
 
 Storage you already run
 
-![](https://n9e.github.io/img/logos/prometheus.png)Prometheus![](https://n9e.github.io/img/logos/victoriametrics.png)VictoriaMetrics![](https://n9e.github.io/img/logos/elasticsearch.png)ElasticSearch![](https://n9e.github.io/img/logos/ck.png)ClickHouse
+![](https://n9e.io/img/logos/prometheus.png)Prometheus![](https://n9e.io/img/logos/victoriametrics.png)VictoriaMetrics![](https://n9e.io/img/logos/elasticsearch.png)ElasticSearch![](https://n9e.io/img/logos/ck.png)ClickHouse
 
-![](https://n9e.github.io/img/logo-mark.webp)**Nightingale**Reads in place, moves nothing
+![](https://n9e.io/img/logo-mark.webp)**Nightingale**Reads in place, moves nothing
 
 20 notification channels
 
-Phone / SMSEmail![](https://n9e.github.io/img/logos/dingtalk.png)DingTalk![](https://n9e.github.io/img/logos/slack.png)Slack+16
+Phone / SMSEmail![](https://n9e.io/img/logos/dingtalk.png)DingTalk![](https://n9e.io/img/logos/slack.png)Slack+16
 
 Categraf fills only the gaps
 
@@ -107,7 +107,7 @@ What each kind of Zabbix object is called in Nightingale, and which have no equi
 
 Nightingale has no importer for Zabbix templates or triggers and cannot read its XML or YAML. Coming from Zabbix is a rebuild, not a move; the good news is that it is smaller than it looks: built-in components replace most templates, and one rule replaces a whole set of triggers.
 
-[From Zabbix<!-- --> →](https://n9e.github.io/docs/migration/from-zabbix.md)[Coexistence and rollback plan<!-- --> →](https://n9e.github.io/docs/migration/coexistence.md)
+[From Zabbix<!-- --> →](https://n9e.io/docs/migration/from-zabbix.md)[Coexistence and rollback plan<!-- --> →](https://n9e.io/docs/migration/coexistence.md)
 
 ## Questions about this comparison
 
@@ -133,18 +133,18 @@ Never. Install Categraf, settle the storage, import built-in templates, translat
 
 ## Other comparisons
 
-* [Nightingale vs Prometheus + Alertmanager](https://n9e.github.io/comparisons/prometheus-alertmanager.md)
+* [Nightingale vs Prometheus + Alertmanager](https://n9e.io/comparisons/prometheus-alertmanager.md)
   <!-- -->
-  [ →](https://n9e.github.io/comparisons/prometheus-alertmanager.md)
-* [Nightingale vs Grafana Alerting](https://n9e.github.io/comparisons/grafana-alerting.md)
+  [ →](https://n9e.io/comparisons/prometheus-alertmanager.md)
+* [Nightingale vs Grafana Alerting](https://n9e.io/comparisons/grafana-alerting.md)
   <!-- -->
-  [ →](https://n9e.github.io/comparisons/grafana-alerting.md)
-* [Comparisons](https://n9e.github.io/comparisons.md)
+  [ →](https://n9e.io/comparisons/grafana-alerting.md)
+* [Comparisons](https://n9e.io/comparisons.md)
   <!-- -->
-  [ →](https://n9e.github.io/comparisons.md)
+  [ →](https://n9e.io/comparisons.md)
 
 ## Not sure? Run both.
 
 Nightingale reads the storage you already have. Installing it changes nothing about the alerting you run today.
 
-[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.github.io/docs/get-started/quick-start.md)
+[Try live demo](https://play.n9e.io/api/n9e/auth/demo-login)[Install in 5 minutes](https://n9e.io/docs/get-started/quick-start.md)

@@ -45,7 +45,7 @@ Select the target business group in the left tree, then **Import**. The dialog h
 
 Click **Import**. Expected result: a table with one row per rule, showing the rule name and either an empty result cell (success) or an error message.
 
-Notification settings are not carried over. The importer clears the legacy channel and group fields and leaves the rule with no notification rule attached, so **attach one after importing** or nothing will be sent. See [Notification rules](https://n9e.github.io/docs/notifications/rules.md).
+Notification settings are not carried over. The importer clears the legacy channel and group fields and leaves the rule with no notification rule attached, so **attach one after importing** or nothing will be sent. See [Notification rules](https://n9e.io/docs/notifications/rules.md).
 
 ## Import Prometheus alerting rules[​](#import-prometheus-alerting-rules "Direct link to Import Prometheus alerting rules")
 
@@ -87,13 +87,13 @@ A bare list of rules, or a single rule object, is accepted as well and wrapped i
 | every other entry in `labels` | A `key=value` tag                                                                                                                                                                                         |
 | `annotations`                 | Annotations, as-is                                                                                                                                                                                        |
 
-**Recording rules in the file are silently ignored.** Only entries with an `alert:` key are converted — see [Recording rules](https://n9e.github.io/docs/query/recording-rules.md) for the Nightingale equivalent. `keep_firing_for` and `limit` are not converted either.
+**Recording rules in the file are silently ignored.** Only entries with an `alert:` key are converted — see [Recording rules](https://n9e.io/docs/query/recording-rules.md) for the Nightingale equivalent. `keep_firing_for` and `limit` are not converted either.
 
 ## Keeping rules in version control[​](#keeping-rules-in-version-control "Direct link to Keeping rules in version control")
 
 The exported JSON is stable enough to diff, which makes a usable review workflow:
 
-1. edit rules in a staging environment through the UI, where the form validates them and [Test fire](https://n9e.github.io/docs/alerting/test-fire.md) proves they work;
+1. edit rules in a staging environment through the UI, where the form validates them and [Test fire](https://n9e.io/docs/alerting/test-fire.md) proves they work;
 2. export the group's rules and commit the JSON;
 3. review the diff like any other change;
 4. import into production with **Overwrite rules with the same name** on, so the merge is by name.
@@ -112,6 +112,6 @@ One caveat on batch edit: changing **Severity** only works on rules that have ex
 
 ## Next[​](#next "Direct link to Next")
 
-* Start from the shipped library instead: [Rule templates and built-in rules](https://n9e.github.io/docs/alerting/templates.md)
-* Re-point imported rules: [Scope by business group and data source](https://n9e.github.io/docs/alerting/scope.md)
-* Make sure they can actually notify: [Notification rules](https://n9e.github.io/docs/notifications/rules.md)
+* Start from the shipped library instead: [Rule templates and built-in rules](https://n9e.io/docs/alerting/templates.md)
+* Re-point imported rules: [Scope by business group and data source](https://n9e.io/docs/alerting/scope.md)
+* Make sure they can actually notify: [Notification rules](https://n9e.io/docs/notifications/rules.md)

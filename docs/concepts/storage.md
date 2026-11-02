@@ -76,7 +76,7 @@ Url = "http://victoriametrics:8428/api/v1/write"
 Enable = false
 ```
 
-The embedded store and `Pushgw.Writers` can be active at the same time — that overlap is the migration window. See [External TSDB and dual-write migration](https://n9e.github.io/docs/install/external-tsdb.md).
+The embedded store and `Pushgw.Writers` can be active at the same time — that overlap is the migration window. See [External TSDB and dual-write migration](https://n9e.io/docs/install/external-tsdb.md).
 
 ## Note: edge / alert / pushgw ignore this section[​](#note-edge--alert--pushgw-ignore-this-section "Direct link to Note: edge / alert / pushgw ignore this section")
 
@@ -84,6 +84,6 @@ The embedded store and `Pushgw.Writers` can be active at the same time — that 
 
 ## Related[​](#related "Direct link to Related")
 
-* [Embedded TSDB for onboarding and small scale](https://n9e.github.io/docs/install/embedded-tsdb.md)
-* [Embedded TSDB single-Center limits](https://n9e.github.io/docs/operations/embedded-tsdb-limits.md)
-* [Choosing a metadata database](https://n9e.github.io/docs/install/databases.md)
+* [Embedded TSDB for onboarding and small scale](https://n9e.io/docs/install/embedded-tsdb.md)
+* [Embedded TSDB single-Center limits](https://n9e.io/docs/operations/embedded-tsdb-limits.md)
+* [Choosing a metadata database](https://n9e.io/docs/install/databases.md)

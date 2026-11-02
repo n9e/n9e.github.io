@@ -34,7 +34,7 @@ cd /path/to/categraf
 
 Metric lines mean the plugin config is right. **Two caveats**: the process does not exit on its own, so Ctrl-C once you have seen output; and `--test` **does not disable the heartbeat** — it still reports to Nightingale, so don't run it casually in production.
 
-Not a single line? See [Troubleshooting](https://n9e.github.io/docs/data/categraf/troubleshooting.md).
+Not a single line? See [Troubleshooting](https://n9e.io/docs/data/categraf/troubleshooting.md).
 
 ## 3. In Nightingale: did the metrics arrive[​](#3-in-nightingale-did-the-metrics-arrive "Direct link to 3. In Nightingale: did the metrics arrive")
 
@@ -60,7 +60,7 @@ If nothing comes back, widen the net to tell "this metric is missing" from "this
 {agent_hostname="n9e-web-01"}
 ```
 
-If the second one is empty too, the problem is not the plugin but the write path — back to [Categraf troubleshooting](https://n9e.github.io/docs/data/categraf/troubleshooting.md).
+If the second one is empty too, the problem is not the plugin but the write path — back to [Categraf troubleshooting](https://n9e.io/docs/data/categraf/troubleshooting.md).
 
 ## 4. The wizard's automatic check[​](#4-the-wizards-automatic-check "Direct link to 4. The wizard's automatic check")
 
@@ -101,6 +101,6 @@ One more case worth calling out on its own: **the wrong data source**. Metrics w
 
 ## Next[​](#next "Direct link to Next")
 
-* Data is in, now tune the thresholds: [Import dashboards and rules](https://n9e.github.io/docs/data/integrations/import.md)
-* Data is not in: [Categraf troubleshooting](https://n9e.github.io/docs/data/categraf/troubleshooting.md)
-* The data source itself is the problem: [Why does a data source connect but return no data?](https://n9e.github.io/docs/troubleshooting/no-data.md)
+* Data is in, now tune the thresholds: [Import dashboards and rules](https://n9e.io/docs/data/integrations/import.md)
+* Data is not in: [Categraf troubleshooting](https://n9e.io/docs/data/categraf/troubleshooting.md)
+* The data source itself is the problem: [Why does a data source connect but return no data?](https://n9e.io/docs/troubleshooting/no-data.md)

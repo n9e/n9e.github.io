@@ -4,7 +4,7 @@ The MCP endpoint offers 74 tools in 13 toolsets; six toolsets are entirely read-
 
 Last reviewed 2026-10-10
 
-This page exists to support one decision: which toolsets to expose. Per-tool parameters live in the [MCP tool reference](https://n9e.github.io/docs/reference/mcp-tools.md), which is generated from source.
+This page exists to support one decision: which toolsets to expose. Per-tool parameters live in the [MCP tool reference](https://n9e.io/docs/reference/mcp-tools.md), which is generated from source.
 
 ## The 13 toolsets at a glance[​](#the-13-toolsets-at-a-glance "Direct link to The 13 toolsets at a glance")
 
@@ -66,11 +66,11 @@ Ordered by blast radius; worth reading before you flip the switch:
 | `set_dashboard_public`                                         | Flips a dashboard to anonymous access                                                       |
 | `toggle_alert_rules` / `set_datasource_status` / `create_mute` | All create monitoring blind spots: bulk-disable rules, disable a datasource, silence alerts |
 
-The conclusion is blunt: **turn write tools on only where you genuinely need writes, and use `MCPToolsets` to drop `users` and `roles`.** How to do that is in [Enable write tools safely](https://n9e.github.io/docs/ai/write-tools.md).
+The conclusion is blunt: **turn write tools on only where you genuinely need writes, and use `MCPToolsets` to drop `users` and `roles`.** How to do that is in [Enable write tools safely](https://n9e.io/docs/ai/write-tools.md).
 
 ## One read tool that still deserves care[​](#one-read-tool-that-still-deserves-care "Direct link to One read tool that still deserves care")
 
-`query_logs` in the `logs` toolset passes the query body through verbatim to Nightingale's log-query endpoint, which dispatches on the datasource type it is given. With SQL-family datasources registered — MySQL, PostgreSQL, ClickHouse, Doris, TDengine — the SQL runs as written. **If you have SQL datasources, drop `logs`**; details in [Permission inheritance and RBAC](https://n9e.github.io/docs/ai/permissions.md).
+`query_logs` in the `logs` toolset passes the query body through verbatim to Nightingale's log-query endpoint, which dispatches on the datasource type it is given. With SQL-family datasources registered — MySQL, PostgreSQL, ClickHouse, Doris, TDengine — the SQL runs as written. **If you have SQL datasources, drop `logs`**; details in [Permission inheritance and RBAC](https://n9e.io/docs/ai/permissions.md).
 
 ## Picking a minimal set[​](#picking-a-minimal-set "Direct link to Picking a minimal set")
 
@@ -85,6 +85,6 @@ Work backwards from what you want the AI to do, rather than enabling everything 
 
 ## Next[​](#next "Direct link to Next")
 
-* Per-tool list and parameters: [MCP tool reference](https://n9e.github.io/docs/reference/mcp-tools.md)
-* Turning writes on: [Enable write tools safely](https://n9e.github.io/docs/ai/write-tools.md)
-* The endpoint itself: [Enable the MCP endpoint](https://n9e.github.io/docs/ai/mcp-endpoint.md)
+* Per-tool list and parameters: [MCP tool reference](https://n9e.io/docs/reference/mcp-tools.md)
+* Turning writes on: [Enable write tools safely](https://n9e.io/docs/ai/write-tools.md)
+* The endpoint itself: [Enable the MCP endpoint](https://n9e.io/docs/ai/mcp-endpoint.md)

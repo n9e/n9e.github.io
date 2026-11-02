@@ -190,10 +190,10 @@ reload_interval = 120
 
 It periodically issues `GET <remote_url>?agent=categraf&host=<hostname>` and rebuilds its inputs from the response. `providers` accepts only `local` and `http`; anything else panics at startup.
 
-Note this is Categraf's own feature, not a service Nightingale provides — you implement the config server. For pushing collector config from the Nightingale side, see [Install collector configuration](https://n9e.github.io/docs/data/integrations/collector-config.md).
+Note this is Categraf's own feature, not a service Nightingale provides — you implement the config server. For pushing collector config from the Nightingale side, see [Install collector configuration](https://n9e.io/docs/data/integrations/collector-config.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Onboard a component in one go (config + dashboards + rules): [Install collector configuration](https://n9e.github.io/docs/data/integrations/collector-config.md)
-* Where metrics go and how: [Remote write](https://n9e.github.io/docs/data/categraf/remote-write.md)
-* Plugin errors, missing data: [Troubleshooting](https://n9e.github.io/docs/data/categraf/troubleshooting.md)
+* Onboard a component in one go (config + dashboards + rules): [Install collector configuration](https://n9e.io/docs/data/integrations/collector-config.md)
+* Where metrics go and how: [Remote write](https://n9e.io/docs/data/categraf/remote-write.md)
+* Plugin errors, missing data: [Troubleshooting](https://n9e.io/docs/data/categraf/troubleshooting.md)

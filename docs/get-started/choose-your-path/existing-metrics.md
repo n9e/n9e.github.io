@@ -8,7 +8,7 @@ Where this path ends: one alert rule evaluating against the time-series database
 
 ## Before you start[​](#before-you-start "Direct link to Before you start")
 
-* Nightingale is running (if not, start at [Quick start](https://n9e.github.io/docs/get-started/quick-start.md));
+* Nightingale is running (if not, start at [Quick start](https://n9e.io/docs/get-started/quick-start.md));
 * the query endpoint of your Prometheus / VictoriaMetrics / Thanos / Mimir, and network access to it **from the host running Nightingale**;
 * credentials, if the endpoint is behind auth.
 
@@ -45,13 +45,13 @@ If the endpoint uses basic auth, fill **User** and **Password** under **Auth** �
 
 Click **Save & test**. A failed test is not saved, and the error names the step that failed.
 
-![The Prometheus data source form](https://n9e.github.io/img/docs/data/form-prometheus.webp)![The Prometheus data source form](https://n9e.github.io/img/docs/data/form-prometheus.dark.webp)
+![The Prometheus data source form](https://n9e.io/img/docs/data/form-prometheus.webp)![The Prometheus data source form](https://n9e.io/img/docs/data/form-prometheus.dark.webp)
 
 ## 2. Saving opens a guided dialog[​](#2-saving-opens-a-guided-dialog "Direct link to 2. Saving opens a guided dialog")
 
 Saving does not drop you back on the list. A dialog opens and answers, right there, whether the source you just registered actually works — and offers the few things worth doing next.
 
-![The guided dialog that opens after saving a data source](https://n9e.github.io/img/docs/get-started/ds-next-step.webp)![The guided dialog that opens after saving a data source](https://n9e.github.io/img/docs/get-started/ds-next-step.dark.webp)
+![The guided dialog that opens after saving a data source](https://n9e.io/img/docs/get-started/ds-next-step.webp)![The guided dialog that opens after saving a data source](https://n9e.io/img/docs/get-started/ds-next-step.dark.webp)
 
 ### Health check[​](#health-check "Direct link to Health check")
 
@@ -64,7 +64,7 @@ The dialog runs a real query against the source as it opens. There are four verd
 | Historical data exists, but nothing recent | Metrics are there, no recent samples                                           | Check whether the collector is still running                |
 | Cannot reach the datasource                | URL, credentials or network                                                    | Use **Back to edit config** in the dialog                   |
 
-The health check only runs for Prometheus-family sources. Other types say it is not available — run a query in the [Metrics explorer](https://n9e.github.io/docs/query/metric-explorer.md) instead.
+The health check only runs for Prometheus-family sources. Other types say it is not available — run a query in the [Metrics explorer](https://n9e.io/docs/query/metric-explorer.md) instead.
 
 ### The three "Next steps" buttons[​](#the-three-next-steps-buttons "Direct link to The three \"Next steps\" buttons")
 
@@ -81,9 +81,9 @@ The matching runs on sentinel metrics: every built-in template picks one to thre
 
 Click a card to open the import dialog:
 
-![Importing component templates from the data source dialog](https://n9e.github.io/img/docs/get-started/ds-template-import.webp)![Importing component templates from the data source dialog](https://n9e.github.io/img/docs/get-started/ds-template-import.dark.webp)
+![Importing component templates from the data source dialog](https://n9e.io/img/docs/get-started/ds-template-import.webp)![Importing component templates from the data source dialog](https://n9e.io/img/docs/get-started/ds-template-import.dark.webp)
 
-Pick a business group, tick the dashboards or alert rules to bring in, and the import binds them to the source you just saved. The other two import entry points, and the templates themselves, are covered in [Import dashboards and rules](https://n9e.github.io/docs/data/integrations/import.md).
+Pick a business group, tick the dashboards or alert rules to bring in, and the import binds them to the source you just saved. The other two import entry points, and the templates themselves, are covered in [Import dashboards and rules](https://n9e.io/docs/data/integrations/import.md).
 
 ### Reopening it later[​](#reopening-it-later "Direct link to Reopening it later")
 
@@ -97,7 +97,7 @@ Pick a business group, tick the dashboards or alert rules to bring in, and the i
 up
 ```
 
-A line on the chart means this half works. If nothing comes back, stop here — [Why does a data source connect but return no data?](https://n9e.github.io/docs/troubleshooting/no-data.md).
+A line on the chart means this half works. If nothing comes back, stop here — [Why does a data source connect but return no data?](https://n9e.io/docs/troubleshooting/no-data.md).
 
 ## 4. Write the first rule[​](#4-write-the-first-rule "Direct link to 4. Write the first rule")
 
@@ -115,6 +115,6 @@ A minute later, **Alerts & Notifications → Events** should show events. That m
 
 ## Next[​](#next "Direct link to Next")
 
-* Get events to a person: [Notifications](https://n9e.github.io/docs/notifications/overview.md)
-* Write rules properly: [Alert rules](https://n9e.github.io/docs/alerting/overview.md)
-* Also monitor the hosts themselves: [Start with Categraf](https://n9e.github.io/docs/get-started/choose-your-path/categraf.md)
+* Get events to a person: [Notifications](https://n9e.io/docs/notifications/overview.md)
+* Write rules properly: [Alert rules](https://n9e.io/docs/alerting/overview.md)
+* Also monitor the hosts themselves: [Start with Categraf](https://n9e.io/docs/get-started/choose-your-path/categraf.md)

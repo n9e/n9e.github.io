@@ -8,7 +8,7 @@ November 1, 2026 ·
 
 Eric Qin
 
-![A greyed-out CPU alert next to a highlighted checkout error-rate alert](https://n9e.github.io/assets/images/symptom-based-alerting-f69a35ab01ce77da6511c872a7877225.webp)
+![A greyed-out CPU alert next to a highlighted checkout error-rate alert](https://n9e.io/assets/images/symptom-based-alerting-f69a35ab01ce77da6511c872a7877225.webp)
 
 At 3 a.m. an alert says CPU is at 92% on `db-3`. The on-call engineer opens the dashboards. Checkout is fast, errors are flat, and nobody is affected. The alert was true and useless.
 
@@ -59,7 +59,7 @@ histogram_quantile(0.99,
 
 Alert on a high percentile, not the average. An average of 200 ms can hide one request in fifty taking ten seconds.
 
-**Availability from outside.** A probe that calls the service the way a user would catches DNS, TLS, load balancer and network failures that internal metrics never see. With the Prometheus blackbox exporter that is `probe_success == 0`. Our [Linux rule set](https://n9e.github.io/alert-rules/linux.md) includes an "HTTP probe failed" rule for Categraf's HTTP checks.
+**Availability from outside.** A probe that calls the service the way a user would catches DNS, TLS, load balancer and network failures that internal metrics never see. With the Prometheus blackbox exporter that is `probe_success == 0`. Our [Linux rule set](https://n9e.io/alert-rules/linux.md) includes an "HTTP probe failed" rule for Categraf's HTTP checks.
 
 **Freshness and throughput** for things that are not request-driven. Did the nightly job run? Is the queue draining?
 
@@ -93,19 +93,19 @@ time() - batch_job_last_success_timestamp_seconds{job="nightly-export"} > 26 * 3
 
 "Alert on symptoms" doesn't mean "delete every cause alert". Some causes deserve a notification. They just shouldn't wake anyone up.
 
-**Deadlines.** A disk that will be full in 24 hours, or a certificate that expires in 7 days, is a symptom waiting to happen, with a known date. Alert on these during working hours, at warning severity. The Linux library has a `predict_linear` rule for disks; the Kubernetes library has [certificate expiry](https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration.md) rules.
+**Deadlines.** A disk that will be full in 24 hours, or a certificate that expires in 7 days, is a symptom waiting to happen, with a known date. Alert on these during working hours, at warning severity. The Linux library has a `predict_linear` rule for disks; the Kubernetes library has [certificate expiry](https://n9e.io/alert-rules/kubernetes/kubeclientcertificateexpiration.md) rules.
 
 **Lost redundancy.** One replica of three is down. Users are fine, but the next failure will hurt them. That is worth a ticket today, not a page tonight.
 
 **The monitoring itself.** If a scrape target or collector stops reporting, every rule that depends on it looks healthy. `up == 0`, or a dead-man's-switch alert that always fires, is a cause alert you need from day one.
 
-**Explanation.** Everything else, such as CPU, memory, GC pauses and connection counts, belongs on a dashboard or as a low-severity alert that someone looks at while investigating a symptom. The Kubernetes rules in our library follow this: "Node CPU usage exceeds 90%" ships at **info** severity, while the symptom-shaped rules such as [KubeAPIErrorBudgetBurn](https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md) go up to critical.
+**Explanation.** Everything else, such as CPU, memory, GC pauses and connection counts, belongs on a dashboard or as a low-severity alert that someone looks at while investigating a symptom. The Kubernetes rules in our library follow this: "Node CPU usage exceeds 90%" ships at **info** severity, while the symptom-shaped rules such as [KubeAPIErrorBudgetBurn](https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md) go up to critical.
 
 ## Connecting symptoms to causes[​](#connecting-symptoms-to-causes "Direct link to Connecting symptoms to causes")
 
 A symptom alert tells you that something is wrong. The responder then needs to know where to look. Two ways to close that gap:
 
-* **Put the causes in the runbook.** Every symptom alert should link to a list of likely causes and the commands that confirm each one. Each page in our [alert rule library](https://n9e.github.io/alert-rules.md) follows that shape: what the alert means, common causes, then the steps to fix it. [KubePodCrashLooping](https://n9e.github.io/alert-rules/kubernetes/kubepodcrashlooping.md) is a typical example.
+* **Put the causes in the runbook.** Every symptom alert should link to a list of likely causes and the commands that confirm each one. Each page in our [alert rule library](https://n9e.io/alert-rules.md) follows that shape: what the alert means, common causes, then the steps to fix it. [KubePodCrashLooping](https://n9e.io/alert-rules/kubernetes/kubepodcrashlooping.md) is a typical example.
 * **Mute symptoms while a known cause is active.** If a whole site loses its uplink, every service there reports errors. Alertmanager's `inhibit_rules`, or an equivalent, can mute the dependent alerts while the upstream alert is firing. That needs a shared label such as `site` on both.
 
 ## A worked example[​](#a-worked-example "Direct link to A worked example")
@@ -129,21 +129,21 @@ Three rules can page, and all three describe something a customer would notice.
 
 For each rule that can page, ask: *if this fires and users are fine, would anyone do anything?* If the answer is no, lower its severity or move it to a dashboard.
 
-Then look at the data. List the rules that fired most often in the last month and how many of those firings led to an action. Also list the rules that never fired in a year. They are usually broken rather than lucky: a renamed metric, a label that changed, a threshold that cannot be reached. Nightingale's built-in assistant can answer both questions directly ("which rules fired most often in the last 7 days, and which have never fired?"); see [Common investigation workflows](https://n9e.github.io/docs/ai/workflows.md#find-the-noise).
+Then look at the data. List the rules that fired most often in the last month and how many of those firings led to an action. Also list the rules that never fired in a year. They are usually broken rather than lucky: a renamed metric, a label that changed, a threshold that cannot be reached. Nightingale's built-in assistant can answer both questions directly ("which rules fired most often in the last 7 days, and which have never fired?"); see [Common investigation workflows](https://n9e.io/docs/ai/workflows.md#find-the-noise).
 
-For the rules that stay, the [rule design best practices](https://n9e.github.io/docs/alerting/best-practices.md) page covers naming, labels and how much one rule should cover.
+For the rules that stay, the [rule design best practices](https://n9e.io/docs/alerting/best-practices.md) page covers naming, labels and how much one rule should cover.
 
 **Tags:**
 
-* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
-* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [Alerting](https://n9e.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+* [Prometheus](https://n9e.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
 
-[Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-symptom-based-alerting/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fsymptom-based-alerting\&body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fblog%2Fsymptom-based-alerting%0A%0A)
+[Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-symptom-based-alerting/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fsymptom-based-alerting\&body=Page%3A%20https%3A%2F%2Fn9e.io%2Fblog%2Fsymptom-based-alerting%0A%0A)
 
-[Newer post](https://n9e.github.io/blog/prometheus-high-availability.md)
+[Newer post](https://n9e.io/blog/prometheus-high-availability.md)
 
-[Prometheus high availability: storage vs alerting](https://n9e.github.io/blog/prometheus-high-availability.md)
+[Prometheus high availability: storage vs alerting](https://n9e.io/blog/prometheus-high-availability.md)
 
-[Older post](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+[Older post](https://n9e.io/blog/migrate-zabbix-to-prometheus.md)
 
-[Migrating from Zabbix to Prometheus](https://n9e.github.io/blog/migrate-zabbix-to-prometheus.md)
+[Migrating from Zabbix to Prometheus](https://n9e.io/blog/migrate-zabbix-to-prometheus.md)

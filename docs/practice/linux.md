@@ -8,7 +8,7 @@ By the end of this page, Linux host metrics will be queryable in Nightingale, an
 
 ## Collect and connect[​](#collect "Direct link to Collect and connect")
 
-Configure `writers` and `heartbeat` using [Install and register](https://n9e.github.io/docs/data/categraf/install.md). Host metrics come from inputs such as `cpu`, `mem`, `disk`, `diskio`, `net` and `system`, configured under `conf/input.<name>/`.
+Configure `writers` and `heartbeat` using [Install and register](https://n9e.io/docs/data/categraf/install.md). Host metrics come from inputs such as `cpu`, `mem`, `disk`, `diskio`, `net` and `system`, configured under `conf/input.<name>/`.
 
 From the collector installation directory:
 
@@ -42,7 +42,7 @@ Work through these checks:
 sudo journalctl -u categraf.service -n 100 --no-pager
 ```
 
-**Expected result**: a direct query against the correct store returns samples. Resolve dashboard filtering after that. See [Connected datasource with no data](https://n9e.github.io/docs/troubleshooting/no-data.md) for detailed troubleshooting.
+**Expected result**: a direct query against the correct store returns samples. Resolve dashboard filtering after that. See [Connected datasource with no data](https://n9e.io/docs/troubleshooting/no-data.md) for detailed troubleshooting.
 
 ## Detect missing hosts[​](#missing-host "Direct link to Detect missing hosts")
 
@@ -54,5 +54,5 @@ Use a **Host-type rule** in Nightingale for missing-target detection. Select the
 
 ## Next[​](#next "Direct link to Next")
 
-* [Targets and heartbeat](https://n9e.github.io/docs/data/categraf/targets.md)
-* [Import dashboards and rules](https://n9e.github.io/docs/data/integrations/import.md)
+* [Targets and heartbeat](https://n9e.io/docs/data/categraf/targets.md)
+* [Import dashboards and rules](https://n9e.io/docs/data/integrations/import.md)

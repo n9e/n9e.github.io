@@ -8,7 +8,7 @@ By the end of this page, Redis runtime metrics will be available in Nightingale.
 
 ## Collect Redis directly[​](#direct-collection "Direct link to Collect Redis directly")
 
-The input connects to Redis and reads status using commands such as `INFO`. After [installing and registering Categraf](https://n9e.github.io/docs/data/categraf/install.md), edit `conf/input.redis/redis.toml`:
+The input connects to Redis and reads status using commands such as `INFO`. After [installing and registering Categraf](https://n9e.io/docs/data/categraf/install.md), edit `conf/input.redis/redis.toml`:
 
 ```
 [[instances]]
@@ -28,7 +28,7 @@ Replace the credentials and instance label. Older Redis installations without AC
 
 ## Reuse an exporter[​](#exporter "Direct link to Reuse an exporter")
 
-If Prometheus or vmagent already scrapes the exporter, register that [store as a datasource](https://n9e.github.io/docs/data/overview.md) without collecting it twice.
+If Prometheus or vmagent already scrapes the exporter, register that [store as a datasource](https://n9e.io/docs/data/overview.md) without collecting it twice.
 
 Alternatively, add the exporter to `conf/input.prometheus/prometheus.toml`:
 
@@ -62,5 +62,5 @@ The native input and Redis Exporter do not use identical metric names. Import da
 
 ## Next[​](#next "Direct link to Next")
 
-* [Import dashboards and rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Remote Write](https://n9e.github.io/docs/data/categraf/remote-write.md)
+* [Import dashboards and rules](https://n9e.io/docs/data/integrations/import.md)
+* [Remote Write](https://n9e.io/docs/data/categraf/remote-write.md)

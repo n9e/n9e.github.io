@@ -8,7 +8,7 @@ A Nightingale cluster needs no extra component: **run several `n9e` processes wi
 
 ## Building it[​](#building-it "Direct link to Building it")
 
-Install `n9e` on several hosts ([Binary packages](https://n9e.github.io/docs/install/binary.md)) with the same configuration file. Three sections have to match:
+Install `n9e` on several hosts ([Binary packages](https://n9e.io/docs/install/binary.md)) with the same configuration file. Three sections have to match:
 
 ```
 [DB]
@@ -96,7 +96,7 @@ Turning the embedded store off:
 Enable = false
 ```
 
-For the migration path see [External TSDB and dual-write migration](https://n9e.github.io/docs/install/external-tsdb.md).
+For the migration path see [External TSDB and dual-write migration](https://n9e.io/docs/install/external-tsdb.md).
 
 ## About n9e-alert and n9e-pushgw[​](#about-n9e-alert-and-n9e-pushgw "Direct link to About n9e-alert and n9e-pushgw")
 
@@ -104,6 +104,6 @@ Rule evaluation and ingestion already live inside `n9e`, so scaling out means ru
 
 ## Next[​](#next "Direct link to Next")
 
-* [High availability and failure domains](https://n9e.github.io/docs/operations/high-availability.md) — what it survives, and how to rehearse it
-* [External TSDB and dual-write migration](https://n9e.github.io/docs/install/external-tsdb.md)
-* [Upgrade](https://n9e.github.io/docs/install/upgrade.md) — rolling a cluster
+* [High availability and failure domains](https://n9e.io/docs/operations/high-availability.md) — what it survives, and how to rehearse it
+* [External TSDB and dual-write migration](https://n9e.io/docs/install/external-tsdb.md)
+* [Upgrade](https://n9e.io/docs/install/upgrade.md) — rolling a cluster

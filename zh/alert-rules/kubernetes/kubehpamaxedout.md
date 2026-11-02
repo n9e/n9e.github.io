@@ -2,13 +2,13 @@
 
 Prometheus 告警 KubeHpaMaxedOut 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 一个 HorizontalPodAutoscaler 已经在 `maxReplicas` 上运行了 15 分钟。它不能再加副本，如果负载继续上涨，压力会摊到每个副本身上，延迟和错误率随之上升。
 
 * **级别**：警告（`warning`）
 * **持续**：15 分钟
-* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+* 属于 [Kubernetes 告警规则](https://n9e.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
 
 ## 规则[​](#规则 "规则的直接链接")
 
@@ -48,14 +48,14 @@ kube_horizontalpodautoscaler_spec_max_replicas{job="kube-state-metrics"}
 
 ## 相关告警[​](#相关告警 "相关告警的直接链接")
 
-* [KubeHpaReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubehpareplicasmismatch)：HPA …/… has not matched the desired number of replicas for longer than 15 minutes.
-* [KubeCPUOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes/kubecpuovercommit.md)：Cluster … has overcommitted CPU resource requests for Pods by … CPU shares and cannot tolerate node failure.
-* [KubeMemoryOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes/kubememoryovercommit.md)：Cluster … has overcommitted memory resource requests for Pods by … bytes and cannot tolerate node failure.
-* [KubeDeploymentReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md)：Deployment …/… has not matched the expected number of replicas for longer than 15 minutes.
+* [KubeHpaReplicasMismatch](https://n9e.io/zh/alert-rules/kubernetes.md#kubehpareplicasmismatch)：HPA …/… has not matched the desired number of replicas for longer than 15 minutes.
+* [KubeCPUOvercommit](https://n9e.io/zh/alert-rules/kubernetes/kubecpuovercommit.md)：Cluster … has overcommitted CPU resource requests for Pods by … CPU shares and cannot tolerate node failure.
+* [KubeMemoryOvercommit](https://n9e.io/zh/alert-rules/kubernetes/kubememoryovercommit.md)：Cluster … has overcommitted memory resource requests for Pods by … bytes and cannot tolerate node failure.
+* [KubeDeploymentReplicasMismatch](https://n9e.io/zh/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md)：Deployment …/… has not matched the expected number of replicas for longer than 15 minutes.
 
 ## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
 
-加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.io/zh/alert-rules/kubernetes.yml)。
 
 ```
 - alert: KubeHpaMaxedOut
@@ -78,10 +78,10 @@ kube_horizontalpodautoscaler_spec_max_replicas{job="kube-state-metrics"}
 
     summary: "HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler  }} has been running at max replicas for longer than 15 minutes."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubehpamaxedout"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubehpamaxedout"
 ```
 
-**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 

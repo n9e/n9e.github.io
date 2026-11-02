@@ -68,6 +68,6 @@ Verify with something read-only, such as "list all alert rules".
 
 ## Next[​](#next "Direct link to Next")
 
-* What the assistant can see and do: [AI and MCP](https://n9e.github.io/docs/ai/overview.md)
-* Turning on write access safely: [Enable write tools safely](https://n9e.github.io/docs/ai/write-tools.md)
-* The tool list: [MCP tool reference](https://n9e.github.io/docs/reference/mcp-tools.md)
+* What the assistant can see and do: [AI and MCP](https://n9e.io/docs/ai/overview.md)
+* Turning on write access safely: [Enable write tools safely](https://n9e.io/docs/ai/write-tools.md)
+* The tool list: [MCP tool reference](https://n9e.io/docs/reference/mcp-tools.md)

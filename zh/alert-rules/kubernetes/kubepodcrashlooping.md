@@ -2,13 +2,13 @@
 
 Prometheus 告警 KubePodCrashLooping 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 容器反复退出，kubelet 以逐渐拉长的退避间隔（从 10 秒到最长 5 分钟）重启它，等待原因显示为 `CrashLoopBackOff`。规则的条件是：最近 5 分钟内 kube-state-metrics 报告过这个原因，并且持续 15 分钟。循环期间这个容器不提供服务；如果所有副本都在循环，这个负载就等于挂了。
 
 * **级别**：警告（`warning`）
 * **持续**：15 分钟
-* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+* 属于 [Kubernetes 告警规则](https://n9e.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
 
 ## 规则[​](#规则 "规则的直接链接")
 
@@ -44,13 +44,13 @@ max_over_time(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff"
 
 ## 相关告警[​](#相关告警 "相关告警的直接链接")
 
-* [KubeContainerWaiting](https://n9e.github.io/zh/alert-rules/kubernetes/kubecontainerwaiting.md)：pod/… in namespace … on container … has been in waiting state for longer than 1 hour.
-* [KubePodNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubepodnotready.md)：Pod …/… has been in a non-ready state for longer than 15 minutes.
-* [KubeDeploymentReplicasMismatch](https://n9e.github.io/zh/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md)：Deployment …/… has not matched the expected number of replicas for longer than 15 minutes.
+* [KubeContainerWaiting](https://n9e.io/zh/alert-rules/kubernetes/kubecontainerwaiting.md)：pod/… in namespace … on container … has been in waiting state for longer than 1 hour.
+* [KubePodNotReady](https://n9e.io/zh/alert-rules/kubernetes/kubepodnotready.md)：Pod …/… has been in a non-ready state for longer than 15 minutes.
+* [KubeDeploymentReplicasMismatch](https://n9e.io/zh/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md)：Deployment …/… has not matched the expected number of replicas for longer than 15 minutes.
 
 ## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
 
-加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.io/zh/alert-rules/kubernetes.yml)。
 
 ```
 - alert: KubePodCrashLooping
@@ -69,10 +69,10 @@ max_over_time(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff"
 
     summary: "Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is in waiting state (reason: \"CrashLoopBackOff\")."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubepodcrashlooping"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubepodcrashlooping"
 ```
 
-**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 

@@ -157,8 +157,8 @@ One more normal behaviour: in the narrow window where the centre actually commit
 
 ## Next[​](#next "Direct link to Next")
 
-* The full partition behaviour model: [Edge network partition behavior](https://n9e.github.io/docs/operations/edge-partition.md)
-* Deploying an edge: [Edge data centers](https://n9e.github.io/docs/install/edge.md)
-* Choosing a deployment shape: [Production topology](https://n9e.github.io/docs/operations/topology.md)
-* The event exists but nothing was sent: [Why is there an alert event but no notification?](https://n9e.github.io/docs/troubleshooting/no-notification.md)
-* No data at the centre either: [Why does a data source connect but return no data?](https://n9e.github.io/docs/troubleshooting/no-data.md)
+* The full partition behaviour model: [Edge network partition behavior](https://n9e.io/docs/operations/edge-partition.md)
+* Deploying an edge: [Edge data centers](https://n9e.io/docs/install/edge.md)
+* Choosing a deployment shape: [Production topology](https://n9e.io/docs/operations/topology.md)
+* The event exists but nothing was sent: [Why is there an alert event but no notification?](https://n9e.io/docs/troubleshooting/no-notification.md)
+* No data at the centre either: [Why does a data source connect but return no data?](https://n9e.io/docs/troubleshooting/no-data.md)

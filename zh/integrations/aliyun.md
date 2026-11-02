@@ -2,7 +2,7 @@
 
 通过云监控 OpenAPI 拉取 ECS、RDS、Redis、SLB、CDN、ARMS 等产品的指标，模板里有几十张按产品划分的仪表盘和告警规则。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 阿里云插件用 `aliyun` 插件调用云监控（CloudMonitor）的 OpenAPI，按 namespace 拉取各产品的指标：ECS、RDS、Redis、MongoDB、SLB/ALB、OSS、CDN、消息队列、ARMS 应用监控等。拉下来的指标以 `aliyun_<namespace>_<metric>` 命名，带实例 ID 和地域标签。
 
@@ -16,7 +16,7 @@
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.aliyun/cloud.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.aliyun started` 就说明插件已加载。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.aliyun/cloud.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.aliyun started` 就说明插件已加载。
 
    ```
    # # collect interval
@@ -62,9 +62,9 @@
    # timeout="5s"
    ```
 
-2. 在夜莺「集成中心」里找到 Alibaba Cloud，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 Alibaba Cloud，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -1224,6 +1224,6 @@ AliyunSlb_DropConnection{} > 10
 
 * \[Alibaba Cloud 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/AliYun）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/AliYun%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `aliyun` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/aliyun)：完整配置项和指标列表。
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

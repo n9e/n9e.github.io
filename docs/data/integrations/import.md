@@ -12,12 +12,12 @@ Nightingale ships templates for <!-- -->83<!-- --> components. Once metrics are 
 
 **Integrations → Components**, click any component card, and the drawer has four tabs:
 
-| Tab          | Contents                                                                                                                                  |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Instructions | How this component is collected — see [Install collector configuration](https://n9e.github.io/docs/data/integrations/collector-config.md) |
-| Metrics      | Which metrics it produces and what each one means                                                                                         |
-| Dashboards   | Ready-made dashboard templates                                                                                                            |
-| Alert rules  | Ready-made alert rule templates                                                                                                           |
+| Tab          | Contents                                                                                                                           |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Instructions | How this component is collected — see [Install collector configuration](https://n9e.io/docs/data/integrations/collector-config.md) |
+| Metrics      | Which metrics it produces and what each one means                                                                                  |
+| Dashboards   | Ready-made dashboard templates                                                                                                     |
+| Alert rules  | Ready-made alert rule templates                                                                                                    |
 
 Not every component has all four. Of the <!-- -->83<!-- -->, <!-- -->63<!-- --> ship alert rules, <!-- -->51<!-- --> ship dashboards, and <!-- -->21<!-- --> ship metric descriptions.
 
@@ -86,7 +86,7 @@ Then turn **Enabled** on. Enabling all of them at once is the classic way to los
 
 ## Next[​](#next "Direct link to Next")
 
-* Confirm the data is really there before trusting the rules: [Verify incoming data](https://n9e.github.io/docs/data/integrations/verify.md)
-* Tuning rules: [Alert rules](https://n9e.github.io/docs/alerting/overview.md)
-* Editing dashboards: [Build a dashboard](https://n9e.github.io/docs/query/dashboards.md)
-* Nothing collecting yet: [Install collector configuration](https://n9e.github.io/docs/data/integrations/collector-config.md)
+* Confirm the data is really there before trusting the rules: [Verify incoming data](https://n9e.io/docs/data/integrations/verify.md)
+* Tuning rules: [Alert rules](https://n9e.io/docs/alerting/overview.md)
+* Editing dashboards: [Build a dashboard](https://n9e.io/docs/query/dashboards.md)
+* Nothing collecting yet: [Install collector configuration](https://n9e.io/docs/data/integrations/collector-config.md)

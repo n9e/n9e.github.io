@@ -8,7 +8,7 @@ November 1, 2026 ·
 
 Eric Qin
 
-![An AI client asking which alerts are firing, connected with a user\&#39;s token to Nightingale\&#39;s MCP endpoint](https://n9e.github.io/assets/images/mcp-server-design-c8e30bb02b115a796a5092ccdd548d47.webp)
+![An AI client asking which alerts are firing, connected with a user\&#39;s token to Nightingale\&#39;s MCP endpoint](https://n9e.io/assets/images/mcp-server-design-c8e30bb02b115a796a5092ccdd548d47.webp)
 
 Since v9, the Nightingale process is also an MCP server. Claude Code, Cursor or any other MCP client can connect to `/mcp` and ask which alerts are firing, which rules are noisiest, or what a metric did over the last hour.
 
@@ -139,19 +139,19 @@ Create a token for a dedicated, least-privileged user under **Profile → Token 
 
 Then ask something you can check: *"Which alerts are firing right now? Group them by severity."* or *"List every business group I can see."* The second one is also a quick test that the account is scoped the way you intended.
 
-More detail is in the docs: [Enable the MCP endpoint](https://n9e.github.io/docs/ai/mcp-endpoint.md), [Permission inheritance and RBAC](https://n9e.github.io/docs/ai/permissions.md), [Read and write toolsets](https://n9e.github.io/docs/ai/toolsets.md) and [Enable write tools safely](https://n9e.github.io/docs/ai/write-tools.md).
+More detail is in the docs: [Enable the MCP endpoint](https://n9e.io/docs/ai/mcp-endpoint.md), [Permission inheritance and RBAC](https://n9e.io/docs/ai/permissions.md), [Read and write toolsets](https://n9e.io/docs/ai/toolsets.md) and [Enable write tools safely](https://n9e.io/docs/ai/write-tools.md).
 
 **Tags:**
 
-* [AI and MCP](https://n9e.github.io/blog/tags/ai.md "AI assistants, MCP servers and how they touch production systems.")
-* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+* [AI and MCP](https://n9e.io/blog/tags/ai.md "AI assistants, MCP servers and how they touch production systems.")
+* [Alerting](https://n9e.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
 
-[Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-mcp-server-design/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fmcp-server-for-alerting\&body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fblog%2Fmcp-server-for-alerting%0A%0A)
+[Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-mcp-server-design/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fmcp-server-for-alerting\&body=Page%3A%20https%3A%2F%2Fn9e.io%2Fblog%2Fmcp-server-for-alerting%0A%0A)
 
-[Newer post](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+[Newer post](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
 
-[kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter](https://n9e.github.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+[kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
 
-[Older post](https://n9e.github.io/blog/prometheus-high-availability.md)
+[Older post](https://n9e.io/blog/prometheus-high-availability.md)
 
-[Prometheus high availability: storage vs alerting](https://n9e.github.io/blog/prometheus-high-availability.md)
+[Prometheus high availability: storage vs alerting](https://n9e.io/blog/prometheus-high-availability.md)

@@ -2,7 +2,7 @@
 
 13 条开箱可用的 Windows 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 windows\_exporter, Categraf。可下载为 Prometheus 规则文件，或导入夜莺。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Windows Server 告警规则：CPU 与内存使用率过高、磁盘已满或预计 4 小时内写满、磁盘 IO 繁忙、出入方向丢包、近期发生重启，以及采集端失联。exporter 一组使用 prometheus-community/windows\_exporter 的指标名（`windows_*`）；Categraf 一组针对在 Windows 上用 Categraf 采集的主机。
 
@@ -10,7 +10,7 @@ Windows Server 告警规则：CPU 与内存使用率过高、磁盘已满或预�
 
 * **13 条规则**，每条都有 PromQL 触发条件、级别、持续时间（`for`）和处置步骤
 * **指标来源**：windows\_exporter, Categraf
-* **下载**：[`windows.yml`](https://n9e.github.io/zh/alert-rules/windows.yml)，标准 Prometheus 规则文件（`groups:` 格式），已用 `promtool check rules` 校验
+* **下载**：[`windows.yml`](https://n9e.io/zh/alert-rules/windows.yml)，标准 Prometheus 规则文件（`groups:` 格式），已用 `promtool check rules` 校验
 * 阈值只是起点，启用前请按自己的环境调整。
 
 ## 规则一览[​](#规则一览 "规则一览的直接链接")
@@ -258,8 +258,8 @@ disk_used_percent{platform=~"windows"} > 99 and disk_total{platform=~"windows"}/
 
 ## 怎么使用这些规则[​](#怎么使用这些规则 "怎么使用这些规则的直接链接")
 
-* **用 Prometheus 或 vmalert**：下载 [`windows.yml`](https://n9e.github.io/zh/alert-rules/windows.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
-* **用夜莺**：同样的规则内置在 [Windows](https://n9e.github.io/zh/integrations/windows.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
+* **用 Prometheus 或 vmalert**：下载 [`windows.yml`](https://n9e.io/zh/alert-rules/windows.yml)，加到 `rule_files`（vmalert 用 `-rule` 参数），对照自己的 exporter 版本核对指标名，再调整阈值。级别写在 `severity` 标签里（critical / warning / info），`runbook_url` 指回本页；有单独页面的规则指向它自己的页面。
+* **用夜莺**：同样的规则内置在 [Windows](https://n9e.io/zh/integrations/windows.md) 集成模板里。在集成中心把规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)，再逐条启用。夜莺会把处置步骤带进每条告警，规则可以对 Prometheus、VictoriaMetrics 等多种数据源求值。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 
@@ -267,6 +267,6 @@ disk_used_percent{platform=~"windows"} > 99 and disk_total{platform=~"windows"}/
 
 ## 相关链接[​](#相关链接 "相关链接的直接链接")
 
-* [用夜莺监控 Windows](https://n9e.github.io/zh/integrations/windows.md)：采集配置、仪表盘与指标说明
-* [在夜莺里写指标告警规则](https://n9e.github.io/zh/docs/alerting/metric-rules.md)
-* [全部告警规则](https://n9e.github.io/zh/alert-rules.md)
+* [用夜莺监控 Windows](https://n9e.io/zh/integrations/windows.md)：采集配置、仪表盘与指标说明
+* [在夜莺里写指标告警规则](https://n9e.io/zh/docs/alerting/metric-rules.md)
+* [全部告警规则](https://n9e.io/zh/alert-rules.md)

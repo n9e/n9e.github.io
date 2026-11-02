@@ -46,7 +46,7 @@ The embedded TSDB's `/prometheus` endpoint only accepts requests from the local 
 
 **Explorer → Metrics → Recording rules** (`/recording-rules`), then **Add**.
 
-![Recording rules](https://n9e.github.io/img/docs/query/recording-rules.webp)![Recording rules](https://n9e.github.io/img/docs/query/recording-rules.dark.webp)
+![Recording rules](https://n9e.io/img/docs/query/recording-rules.webp)![Recording rules](https://n9e.io/img/docs/query/recording-rules.dark.webp)
 
 | Field               | What to put in it                                                                                                                    |
 | ------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
@@ -118,6 +118,6 @@ The whole gain comes from **the output being much smaller than the input**. Done
 
 ## Next[​](#next "Direct link to Next")
 
-* Alert on the new metric: [Metric rules](https://n9e.github.io/docs/alerting/metric-rules.md)
-* Chart it: [Build a dashboard](https://n9e.github.io/docs/query/dashboards.md)
-* Find out where the time actually goes: [Slow queries and evaluation](https://n9e.github.io/docs/troubleshooting/performance.md)
+* Alert on the new metric: [Metric rules](https://n9e.io/docs/alerting/metric-rules.md)
+* Chart it: [Build a dashboard](https://n9e.io/docs/query/dashboards.md)
+* Find out where the time actually goes: [Slow queries and evaluation](https://n9e.io/docs/troubleshooting/performance.md)

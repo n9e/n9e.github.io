@@ -2,7 +2,7 @@
 
 CPU、内存、磁盘、网络、进程到内核参数，Categraf 装上就有数据，模板覆盖 Categraf、node\_exporter 和 Telegraf 三种采集口径。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Linux 主机是绝大多数监控的起点。Categraf 自带的 cpu、mem、disk、diskio、net、netstat、kernel、processes 等插件默认开启，装好就上报，不用额外配置；下面列出的是那些有可调项的插件。
 
@@ -17,7 +17,7 @@ Linux 主机是绝大多数监控的起点。Categraf 自带的 cpu、mem、disk
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，按需启用下面的插件。每个配置放到对应的 `conf/input.<插件名>/` 目录，改好地址和凭据后重启 Categraf。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，按需启用下面的插件。每个配置放到对应的 `conf/input.<插件名>/` 目录，改好地址和凭据后重启 Categraf。
 
    `conf/input.arp_packet/arp_packet.toml`
 
@@ -669,9 +669,9 @@ Linux 主机是绝大多数监控的起点。Categraf 自带的 cpu、mem、disk
    # metrics_exclude = ["pid", "rc"]
    ```
 
-2. 在夜莺「集成中心」里找到 Linux，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 Linux，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -685,7 +685,7 @@ Linux 主机是绝大多数监控的起点。Categraf 自带的 cpu、mem、disk
 
 ## 内置告警规则[​](#内置告警规则 "内置告警规则的直接链接")
 
-共 60 条，导入后默认停用，按自己环境的阈值逐条启用。下表 56 条规则的触发条件（PromQL）和处置步骤收录在告警规则库：[Linux 告警规则](https://n9e.github.io/zh/alert-rules/linux.md)。
+共 60 条，导入后默认停用，按自己环境的阈值逐条启用。下表 56 条规则的触发条件（PromQL）和处置步骤收录在告警规则库：[Linux 告警规则](https://n9e.io/zh/alert-rules/linux.md)。
 
 | 规则                                                                                                           | 级别    | 持续   |
 | -------------------------------------------------------------------------------------------------------------- | ------- | ------ |
@@ -937,7 +937,7 @@ Linux 主机是绝大多数监控的起点。Categraf 自带的 cpu、mem、disk
 * [Categraf `ntp` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/ntp)：完整配置项和指标列表。
 * [Categraf `processes` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/processes)：完整配置项和指标列表。
 * [Categraf `supervisor` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/supervisor)：完整配置项和指标列表。
-* [实践：监控 Linux 主机](https://n9e.github.io/zh/docs/practice/linux.md)
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [实践：监控 Linux 主机](https://n9e.io/zh/docs/practice/linux.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

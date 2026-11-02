@@ -57,11 +57,11 @@ Concretely:
 * **Mock events need extra care.** A mock event has those four fixed labels and nothing else, so processors branching on any other label can never be reached here;
 * **A whole-workflow test run does write an execution record**, with trigger mode API and your username as the trigger. A single-processor test run writes nothing.
 
-So a passing test run is not the last step: attach the workflow to a rule, wait for a real event, and confirm in [Execution records](https://n9e.github.io/docs/events/execution-records.md).
+So a passing test run is not the last step: attach the workflow to a rule, wait for a real event, and confirm in [Execution records](https://n9e.io/docs/events/execution-records.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Attach the workflow: [Event pipelines](https://n9e.github.io/docs/events/pipelines.md)
-* Results for real events: [Inspect workflow execution records](https://n9e.github.io/docs/events/execution-records.md)
-* Tests fine but does nothing live: [A workflow tests fine but does nothing in production](https://n9e.github.io/docs/troubleshooting/workflow-prod-fails.md)
-* The notification side has the same idea: [Verify the notification path](https://n9e.github.io/docs/notifications/test.md)
+* Attach the workflow: [Event pipelines](https://n9e.io/docs/events/pipelines.md)
+* Results for real events: [Inspect workflow execution records](https://n9e.io/docs/events/execution-records.md)
+* Tests fine but does nothing live: [A workflow tests fine but does nothing in production](https://n9e.io/docs/troubleshooting/workflow-prod-fails.md)
+* The notification side has the same idea: [Verify the notification path](https://n9e.io/docs/notifications/test.md)

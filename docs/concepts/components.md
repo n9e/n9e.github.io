@@ -36,7 +36,7 @@ A cluster is just several `n9e` processes with identical config sharing MySQL an
 
 Edge runs at the remote site. Rules are still managed centrally and pushed down, but querying and evaluation happen locally. During a partition the edge keeps evaluating and keeps notifying, then reconciles with the centre afterwards.
 
-See [Edge data centers](https://n9e.github.io/docs/install/edge.md) and [Edge network partition behavior](https://n9e.github.io/docs/operations/edge-partition.md).
+See [Edge data centers](https://n9e.io/docs/install/edge.md) and [Edge network partition behavior](https://n9e.io/docs/operations/edge-partition.md).
 
 ## Categraf is the collection side[​](#categraf-is-the-collection-side "Direct link to Categraf is the collection side")
 
@@ -54,6 +54,6 @@ You do not have to use it. Your existing Prometheus, Telegraf, exporters and Dat
 
 ## Related[​](#related "Direct link to Related")
 
-* [System architecture](https://n9e.github.io/docs/concepts/architecture.md)
-* [Install and deploy](https://n9e.github.io/docs/install/overview.md)
-* [Production topology](https://n9e.github.io/docs/operations/topology.md)
+* [System architecture](https://n9e.io/docs/concepts/architecture.md)
+* [Install and deploy](https://n9e.io/docs/install/overview.md)
+* [Production topology](https://n9e.io/docs/operations/topology.md)

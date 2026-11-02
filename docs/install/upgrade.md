@@ -22,7 +22,7 @@ mv /opt/n9e/integrations /opt/n9e/integrations.bak
 
 The database is the only one you cannot recreate; the other three just save time. `./n9e -version` prints the running version — putting it in the backup filename means not guessing during a rollback.
 
-Then read the release notes for the target version. Across a major version, start with [v8 to v9](https://n9e.github.io/docs/migration/v8-to-v9.md), which lists the config sections you have to add by hand.
+Then read the release notes for the target version. Across a major version, start with [v8 to v9](https://n9e.io/docs/migration/v8-to-v9.md), which lists the config sections you have to add by hand.
 
 ## A minor version upgrade[​](#a-minor-version-upgrade "Direct link to A minor version upgrade")
 
@@ -72,12 +72,12 @@ grep -i "failed to migrate table" /opt/n9e/logs/*.log
 
 Then open **System → About**; the version there should match the command line:
 
-![The About page](https://n9e.github.io/img/docs/operations/about.webp)![The About page](https://n9e.github.io/img/docs/operations/about.dark.webp)
+![The About page](https://n9e.io/img/docs/operations/about.webp)![The About page](https://n9e.io/img/docs/operations/about.dark.webp)
 
 Finally check that nothing broke: open a dashboard and confirm charts render, and look at the events page to confirm new events are still being produced. Indexes on the large tables (`alert_his_event`, `notification_record`) are built **asynchronously after startup** and can take tens of minutes on a big database. The service is usable throughout — do not restart just because you see index-building in the log.
 
 ## Next[​](#next "Direct link to Next")
 
-* [Rollback](https://n9e.github.io/docs/install/rollback.md) — when the upgrade does not go well
-* [v8 to v9](https://n9e.github.io/docs/migration/v8-to-v9.md) — the cross-major breaking points
-* [Upgrade and database migration](https://n9e.github.io/docs/operations/upgrade.md) — how schema migration works
+* [Rollback](https://n9e.io/docs/install/rollback.md) — when the upgrade does not go well
+* [v8 to v9](https://n9e.io/docs/migration/v8-to-v9.md) — the cross-major breaking points
+* [Upgrade and database migration](https://n9e.io/docs/operations/upgrade.md) — how schema migration works

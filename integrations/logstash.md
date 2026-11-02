@@ -2,7 +2,7 @@
 
 Collects pipeline event in/out and filter time, queue state and JVM health from Logstash's node API; rules watch event backlog and JVM pressure.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 Logstash serves an HTTP API on port 9600 by default. The input reads `_node/stats`: input, filter and output event counts and durations per pipeline, persistent queue capacity and backlog, JVM heap, GC and threads, and process CPU and file descriptors.
 
@@ -16,7 +16,7 @@ If the API has Basic Auth or TLS enabled, configure the username, password and c
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.logstash/logstash.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.logstash started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.logstash/logstash.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.logstash started` once the plugin is loaded.
 
    ```
    # # collect interval
@@ -104,9 +104,9 @@ If the API has Basic Auth or TLS enabled, configure the username, password and c
    # insecure_skip_verify = true
    ```
 
-2. Open the integration center in Nightingale, find Logstash, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find Logstash, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -212,6 +212,6 @@ Runbook:
 
 * [Logstash template source](https://github.com/ccfos/nightingale/tree/main/integrations/Logstash): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `logstash` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/logstash): every config option and the full metric list.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

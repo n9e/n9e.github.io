@@ -107,6 +107,6 @@ A credential-less request to `/mcp` comes back 401 with a `WWW-Authenticate: Bea
 
 ## Next[​](#next "Direct link to Next")
 
-* The simpler path: [Personal token authentication](https://n9e.github.io/docs/ai/token-auth.md)
-* The permission boundary does not change with the auth method: [Permission inheritance and RBAC](https://n9e.github.io/docs/ai/permissions.md)
-* Configuring SSO itself: [SSO / external identity integration](https://n9e.github.io/docs/security/sso.md)
+* The simpler path: [Personal token authentication](https://n9e.io/docs/ai/token-auth.md)
+* The permission boundary does not change with the auth method: [Permission inheritance and RBAC](https://n9e.io/docs/ai/permissions.md)
+* Configuring SSO itself: [SSO / external identity integration](https://n9e.io/docs/security/sso.md)

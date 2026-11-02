@@ -36,7 +36,7 @@ Center logs a warning at startup when it detects other active instances in the s
 
 So this limit rules out:
 
-* multi-instance high availability (see [High availability and failure domains](https://n9e.github.io/docs/operations/high-availability.md));
+* multi-instance high availability (see [High availability and failure domains](https://n9e.io/docs/operations/high-availability.md));
 * running Center as a multi-replica Deployment on Kubernetes;
 * rolling restarts behind a load balancer without losing queries — this data is wholly unavailable while that process is down.
 
@@ -70,7 +70,7 @@ Once set, the auto-registered data source URL switches from `127.0.0.1` to the d
 
 ## Limit three: no online backup, and no replica[​](#limit-three-no-online-backup-and-no-replica "Direct link to Limit three: no online backup, and no replica")
 
-There is no Prometheus snapshot endpoint. Keeping a copy means stopping the process and copying the `data/tsdb` directory — see [Backup and restore](https://n9e.github.io/docs/operations/backup-restore.md). The destructive `delete_series` / `clean_tombstones` endpoints are not even registered by default; using them means setting `EnableAdminAPI = true`, and configuring basic auth first.
+There is no Prometheus snapshot endpoint. Keeping a copy means stopping the process and copying the `data/tsdb` directory — see [Backup and restore](https://n9e.io/docs/operations/backup-restore.md). The destructive `delete_series` / `clean_tombstones` endpoints are not even registered by default; using them means setting `EnableAdminAPI = true`, and configuring basic auth first.
 
 ## When to move off it[​](#when-to-move-off-it "Direct link to When to move off it")
 
@@ -112,7 +112,7 @@ The `embedded-tsdb` data source stays in the list afterwards but returns nothing
 
 ## Related[​](#related "Direct link to Related")
 
-* [Embedded TSDB and external storage](https://n9e.github.io/docs/concepts/storage.md)
-* [External TSDB and dual-write migration](https://n9e.github.io/docs/install/external-tsdb.md)
-* [High availability and failure domains](https://n9e.github.io/docs/operations/high-availability.md)
-* [Backup and restore](https://n9e.github.io/docs/operations/backup-restore.md)
+* [Embedded TSDB and external storage](https://n9e.io/docs/concepts/storage.md)
+* [External TSDB and dual-write migration](https://n9e.io/docs/install/external-tsdb.md)
+* [High availability and failure domains](https://n9e.io/docs/operations/high-availability.md)
+* [Backup and restore](https://n9e.io/docs/operations/backup-restore.md)

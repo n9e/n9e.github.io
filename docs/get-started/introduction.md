@@ -6,7 +6,7 @@ Last reviewed 2026-10-15
 
 Nightingale (夜莺, also known as **n9e**) is an open-source alerting engine, hosted by the China Computer Federation's open-source committee (CCF ODTC) and developed on [GitHub](https://github.com/ccfos/nightingale) under Apache-2.0. It queries your existing Prometheus, log stores and databases to evaluate alert rules, reduce noise and deliver notifications. You can keep your data and collectors in place.
 
-Without an external time series store, small, single-Center deployments can use the embedded TSDB. Multi-Center or larger deployments should use an external TSDB. See [Embedded TSDB and external storage](https://n9e.github.io/docs/concepts/storage.md) for the limits and migration path.
+Without an external time series store, small, single-Center deployments can use the embedded TSDB. Multi-Center or larger deployments should use an external TSDB. See [Embedded TSDB and external storage](https://n9e.io/docs/concepts/storage.md) for the limits and migration path.
 
 ## What it owns[​](#what-it-owns "Direct link to What it owns")
 
@@ -32,4 +32,4 @@ Register a data source, write one rule against it, and the resulting event flows
 
 Apache-2.0, fully featured.
 
-Next: [Quick start](https://n9e.github.io/docs/get-started/quick-start.md).
+Next: [Quick start](https://n9e.io/docs/get-started/quick-start.md).

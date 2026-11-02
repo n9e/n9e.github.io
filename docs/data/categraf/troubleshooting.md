@@ -191,7 +191,7 @@ One more for container deployments: **the image's `N9E_HOST` environment variabl
 
 ## Next[​](#next "Direct link to Next")
 
-* The host shows as dead: [Categraf offline](https://n9e.github.io/docs/troubleshooting/categraf-offline.md)
-* The source connects but returns nothing: [No data](https://n9e.github.io/docs/troubleshooting/no-data.md)
-* The write path in detail: [Remote write](https://n9e.github.io/docs/data/categraf/remote-write.md)
-* Plugin configuration in detail: [Input plugins](https://n9e.github.io/docs/data/categraf/plugins.md)
+* The host shows as dead: [Categraf offline](https://n9e.io/docs/troubleshooting/categraf-offline.md)
+* The source connects but returns nothing: [No data](https://n9e.io/docs/troubleshooting/no-data.md)
+* The write path in detail: [Remote write](https://n9e.io/docs/data/categraf/remote-write.md)
+* Plugin configuration in detail: [Input plugins](https://n9e.io/docs/data/categraf/plugins.md)

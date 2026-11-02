@@ -34,7 +34,7 @@ Under **Organization → Roles** the points are collapsed into 7 groups:
 | Organization    | 16     | Users, teams, business groups, roles                                                             |
 | System Settings | 7      | Site, variables, SSO, alerting engines, about, LLM configs, skill management                     |
 
-96 in total. The point-by-point table — which built-in role holds each one, and which endpoints it guards — is in [Permission matrix](https://n9e.github.io/docs/reference/permissions.md).
+96 in total. The point-by-point table — which built-in role holds each one, and which endpoints it guards — is in [Permission matrix](https://n9e.io/docs/reference/permissions.md).
 
 ## Three built-in roles[​](#three-built-in-roles "Direct link to Three built-in roles")
 
@@ -50,7 +50,7 @@ What `Standard` does *not* get is worth memorising, because it rarely matches wh
 
 ## Build a custom role[​](#build-a-custom-role "Direct link to Build a custom role")
 
-![Role management](https://n9e.github.io/img/docs/security/roles.webp)![Role management](https://n9e.github.io/img/docs/security/roles.dark.webp)
+![Role management](https://n9e.io/img/docs/security/roles.webp)![Role management](https://n9e.io/img/docs/security/roles.dark.webp)
 
 1. **Organization → Roles**, then the **+** next to the **Role list** heading on the left.
 2. Enter a name and a note. The name is the string shown in the user form — keep it ASCII and without spaces.
@@ -67,10 +67,10 @@ Subtracting is safer than adding: start from `Guest`'s 6 points and add what is 
 * **`Standard` holds the full `/busi-groups` create/edit/delete set.** Out of the box an ordinary user can create business groups, and delete the ones they have rights to. Locking that down means a custom role with those four points removed.
 * **`/alert-mutes` is missing its `put`.** `Standard` has `add` and `del` but not `put` — muting rules can be created and deleted, but not edited. That is a historical quirk of the seed data, not a design decision.
 * **Only `Admin` can change data sources.** The `/datasources` point governs only whether the data source list page is reachable; create, edit and delete all require `Admin`, and records returned to a non-admin have their addresses, headers, certificates and credentials stripped out.
-* **System settings points behave the same way.** `/system/site-settings` and `/system/sso-settings` govern menu visibility; the actual save requires `Admin`. Variable settings are the exception — see [Site and user variables](https://n9e.github.io/docs/security/variables.md).
+* **System settings points behave the same way.** `/system/site-settings` and `/system/sso-settings` govern menu visibility; the actual save requires `Admin`. Variable settings are the exception — see [Site and user variables](https://n9e.io/docs/security/variables.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* The full point-by-point table: [Permission matrix](https://n9e.github.io/docs/reference/permissions.md)
-* Configuring layer two: [Business group authorization](https://n9e.github.io/docs/security/business-groups.md)
-* How the two layers combine: [Authentication, tokens and RBAC model](https://n9e.github.io/docs/concepts/auth-rbac.md)
+* The full point-by-point table: [Permission matrix](https://n9e.io/docs/reference/permissions.md)
+* Configuring layer two: [Business group authorization](https://n9e.io/docs/security/business-groups.md)
+* How the two layers combine: [Authentication, tokens and RBAC model](https://n9e.io/docs/concepts/auth-rbac.md)

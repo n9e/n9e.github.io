@@ -8,7 +8,7 @@ November 1, 2026 ·
 
 Eric Qin
 
-![Four Kubernetes metric sources: kube-state-metrics, cAdvisor, node\_exporter and metrics-server](https://n9e.github.io/assets/images/kubernetes-metrics-sources-29962af59a23c3f84206f81323ffa542.webp)
+![Four Kubernetes metric sources: kube-state-metrics, cAdvisor, node\_exporter and metrics-server](https://n9e.io/assets/images/kubernetes-metrics-sources-29962af59a23c3f84206f81323ffa542.webp)
 
 Kubernetes metrics come from four places, and their names look alike. `kube_pod_container_resource_limits`, `container_memory_working_set_bytes`, `node_memory_MemAvailable_bytes` and the numbers in `kubectl top` all sound like they describe the same thing. They are made by different components and they answer different questions. Only three of the four are meant for monitoring.
 
@@ -52,7 +52,7 @@ kube_pod_container_resource_limits_cpu_cores
 kube_pod_container_resource_limits{resource="cpu", unit="core"}
 ```
 
-A query that uses the old name does not fail. It returns an empty result, and an alert rule built on it never fires. We found exactly this in our own Kubernetes template while writing this post: the [container CPU rule](https://n9e.github.io/alert-rules/kubernetes.md#container-cpu-usage-exceeds-80) still used the 1.x metric name and the old `pod_name` label. It now uses the current names.
+A query that uses the old name does not fail. It returns an empty result, and an alert rule built on it never fires. We found exactly this in our own Kubernetes template while writing this post: the [container CPU rule](https://n9e.io/alert-rules/kubernetes.md#container-cpu-usage-exceeds-80) still used the 1.x metric name and the old `pod_name` label. It now uses the current names.
 
 ## cAdvisor: what containers actually use[​](#cadvisor-what-containers-actually-use "Direct link to cAdvisor: what containers actually use")
 
@@ -60,7 +60,7 @@ cAdvisor is compiled into the kubelet, so there is nothing extra to deploy. Prom
 
 * `container_cpu_usage_seconds_total`: CPU time consumed. Take a `rate()` to get cores in use.
 * `container_memory_working_set_bytes`: memory the kernel cannot easily reclaim. The kubelet uses the working set for eviction decisions, and `kubectl top` shows the same number.
-* `container_cpu_cfs_throttled_periods_total` and `container_cpu_cfs_periods_total`: how often the container hit its CPU limit and was paused. The [CPUThrottlingHigh](https://n9e.github.io/alert-rules/kubernetes.md#cputhrottlinghigh) rule is the ratio of the two.
+* `container_cpu_cfs_throttled_periods_total` and `container_cpu_cfs_periods_total`: how often the container hit its CPU limit and was paused. The [CPUThrottlingHigh](https://n9e.io/alert-rules/kubernetes.md#cputhrottlinghigh) rule is the ratio of the two.
 
 Two things trip people up:
 
@@ -85,7 +85,7 @@ node\_exporter runs as a DaemonSet with access to the host's `/proc` and `/sys`.
 
 Use it for the questions Kubernetes does not answer. Is the node's root filesystem filling up? Is the clock drifting? Is a NIC dropping packets? Is the kernel OOM killer firing (`node_vmstat_oom_kill`)? Node-level memory includes page cache and every process on the host, so it will not add up to the sum of your containers. That is expected.
 
-The [Linux rule set](https://n9e.github.io/alert-rules/linux.md) covers the common host checks, including disk-fill prediction with `predict_linear`.
+The [Linux rule set](https://n9e.io/alert-rules/linux.md) covers the common host checks, including disk-fill prediction with `predict_linear`.
 
 ## metrics-server: for autoscaling, not alerting[​](#metrics-server-for-autoscaling-not-alerting "Direct link to metrics-server: for autoscaling, not alerting")
 
@@ -113,29 +113,29 @@ So when `kubectl top` and your dashboard disagree by a few percent, neither is w
 
 Most of the standard Kubernetes alerts read kube-state-metrics. Each of these pages explains what the alert means, its common causes and the steps to fix it, and lists the metrics it uses:
 
-* kube-state-metrics: [KubePodCrashLooping](https://n9e.github.io/alert-rules/kubernetes/kubepodcrashlooping.md), [KubePodNotReady](https://n9e.github.io/alert-rules/kubernetes/kubepodnotready.md), [KubeDeploymentReplicasMismatch](https://n9e.github.io/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md), [KubeNodeNotReady](https://n9e.github.io/alert-rules/kubernetes/kubenodenotready.md), [KubeJobFailed](https://n9e.github.io/alert-rules/kubernetes/kubejobfailed.md), [KubeHpaMaxedOut](https://n9e.github.io/alert-rules/kubernetes/kubehpamaxedout.md)
-* kubelet: [KubePersistentVolumeFillingUp](https://n9e.github.io/alert-rules/kubernetes/kubepersistentvolumefillingup.md)
-* cAdvisor: [CPUThrottlingHigh](https://n9e.github.io/alert-rules/kubernetes.md#cputhrottlinghigh)
-* API server: [KubeAPIErrorBudgetBurn](https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md), [KubeClientCertificateExpiration](https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration.md)
+* kube-state-metrics: [KubePodCrashLooping](https://n9e.io/alert-rules/kubernetes/kubepodcrashlooping.md), [KubePodNotReady](https://n9e.io/alert-rules/kubernetes/kubepodnotready.md), [KubeDeploymentReplicasMismatch](https://n9e.io/alert-rules/kubernetes/kubedeploymentreplicasmismatch.md), [KubeNodeNotReady](https://n9e.io/alert-rules/kubernetes/kubenodenotready.md), [KubeJobFailed](https://n9e.io/alert-rules/kubernetes/kubejobfailed.md), [KubeHpaMaxedOut](https://n9e.io/alert-rules/kubernetes/kubehpamaxedout.md)
+* kubelet: [KubePersistentVolumeFillingUp](https://n9e.io/alert-rules/kubernetes/kubepersistentvolumefillingup.md)
+* cAdvisor: [CPUThrottlingHigh](https://n9e.io/alert-rules/kubernetes.md#cputhrottlinghigh)
+* API server: [KubeAPIErrorBudgetBurn](https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn.md), [KubeClientCertificateExpiration](https://n9e.io/alert-rules/kubernetes/kubeclientcertificateexpiration.md)
 
-The full [Kubernetes rule set](https://n9e.github.io/alert-rules/kubernetes.md) is available as a Prometheus rules file you can download and load with `rule_files`.
+The full [Kubernetes rule set](https://n9e.io/alert-rules/kubernetes.md) is available as a Prometheus rules file you can download and load with `rule_files`.
 
 ## With Nightingale[​](#with-nightingale "Direct link to With Nightingale")
 
-Nightingale does not replace any of these four components. It queries the store where their metrics already land, such as Prometheus or VictoriaMetrics, and runs alert rules against it. The [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) ships the rules above, each with its runbook attached, and you can [import them into a business group](https://n9e.github.io/docs/data/integrations/import.md) in one step.
+Nightingale does not replace any of these four components. It queries the store where their metrics already land, such as Prometheus or VictoriaMetrics, and runs alert rules against it. The [Kubernetes integration](https://n9e.io/integrations/kubernetes.md) ships the rules above, each with its runbook attached, and you can [import them into a business group](https://n9e.io/docs/data/integrations/import.md) in one step.
 
 **Tags:**
 
-* [Kubernetes](https://n9e.github.io/blog/tags/kubernetes.md "Monitoring and alerting on Kubernetes clusters.")
-* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
-* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+* [Kubernetes](https://n9e.io/blog/tags/kubernetes.md "Monitoring and alerting on Kubernetes clusters.")
+* [Prometheus](https://n9e.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [Alerting](https://n9e.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
 
-[Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-kubernetes-metrics-sources/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fkube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter\&body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fblog%2Fkube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter%0A%0A)
+[Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-kubernetes-metrics-sources/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fkube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter\&body=Page%3A%20https%3A%2F%2Fn9e.io%2Fblog%2Fkube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter%0A%0A)
 
-[Newer post](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+[Newer post](https://n9e.io/blog/prometheus-alert-for-duration.md)
 
-[How long should a Prometheus alert wait? Data from 692 rules](https://n9e.github.io/blog/prometheus-alert-for-duration.md)
+[How long should a Prometheus alert wait? Data from 692 rules](https://n9e.io/blog/prometheus-alert-for-duration.md)
 
-[Older post](https://n9e.github.io/blog/mcp-server-for-alerting.md)
+[Older post](https://n9e.io/blog/mcp-server-for-alerting.md)
 
-[MCP server for alerting: six design decisions](https://n9e.github.io/blog/mcp-server-for-alerting.md)
+[MCP server for alerting: six design decisions](https://n9e.io/blog/mcp-server-for-alerting.md)

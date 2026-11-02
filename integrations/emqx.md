@@ -2,7 +2,7 @@
 
 Collects node state, connections, subscriptions, message throughput and drops through the EMQX Dashboard API; supports v3, v4 and v5.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The EMQX input calls the Dashboard API (port 18083 by default). It first reads `/nodes` for each node's version, running state, connection count, processes and memory, then the cluster-level subscription count, routes, message sent, received and dropped counters, sessions and retained messages. Listing several node addresses for one cluster makes it pick a reachable one at random; use separate `[[instances]]` blocks for separate clusters.
 
@@ -15,7 +15,7 @@ Set `version` to match the EMQX major version (v3, v4 or v5), and supply Dashboa
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.emqx/emqx.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.emqx started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.emqx/emqx.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.emqx started` once the plugin is loaded.
 
    ```
    [[instances]]
@@ -37,9 +37,9 @@ Set `version` to match the EMQX major version (v3, v4 or v5), and supply Dashboa
    password="public"
    ```
 
-2. Open the integration center in Nightingale, find EMQX, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find EMQX, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled alert rules[​](#bundled-alert-rules "Direct link to Bundled alert rules")
 
@@ -183,6 +183,6 @@ Runbook:
 ## Related[​](#related "Direct link to Related")
 
 * [EMQX template source](https://github.com/ccfos/nightingale/tree/main/integrations/EMQX): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

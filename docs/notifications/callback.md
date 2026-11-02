@@ -27,7 +27,7 @@ What the endpoint receives by default:
 | Header | `Content-Type: application/json`                                                             |
 | Body   | `{{ jsonMarshal $events }}` — a JSON **array** of event objects, even when there is only one |
 
-The event object is the same structure the history table stores; its fields are listed in [Notification variables](https://n9e.github.io/docs/reference/notification-variables.md).
+The event object is the same structure the history table stores; its fields are listed in [Notification variables](https://n9e.io/docs/reference/notification-variables.md).
 
 ## When you need your own: the fields on the media type[​](#when-you-need-your-own-the-fields-on-the-media-type "Direct link to When you need your own: the fields on the media type")
 
@@ -48,7 +48,7 @@ Create a separate media type (**Alerts & Notifications → Media types → Add �
 
 Above those, a **Variable configuration** block holds two more things:
 
-* **Contact** — which contact field to read from the users and teams picked in the rule; see [Contact methods](https://n9e.github.io/docs/security/contacts.md). Leave it empty for a plain webhook.
+* **Contact** — which contact field to read from the users and teams picked in the rule; see [Contact methods](https://n9e.io/docs/security/contacts.md). Leave it empty for a plain webhook.
 * **Custom parameters** — fields that appear in the notification rule when this media type is picked. Read them in templates as `$params.<key>`; the built-in media type's Callback Url and Note are exactly this.
 
 ## What the templates can see[​](#what-the-templates-can-see "Direct link to What the templates can see")
@@ -63,7 +63,7 @@ URL, header values, query parameter values and the body are all rendered with th
 | `$tpl`      | The message template picked on the rule, already rendered; each template field is a key, e.g. `$tpl.content` |
 | `$sendto`   | One recipient's address (see the next section)                                                               |
 | `$sendtos`  | All recipients' addresses, as an array                                                                       |
-| `{{.name}}` | A [site variable](https://n9e.github.io/docs/security/variables.md) — the place for tokens and secrets       |
+| `{{.name}}` | A [site variable](https://n9e.io/docs/security/variables.md) — the place for tokens and secrets              |
 
 Template functions such as `jsonMarshal` are available everywhere.
 
@@ -104,7 +104,7 @@ With no Contact set and no recipients — the usual case for a plain webhook —
 * **A response that is not 200 is not retried.** Retries only cover failing to connect at all (DNS, refused, timeout), up to the retry count, waiting the retry interval in between.
 * Callback sends go through a queue with the media type's concurrency. If the queue is full, the send is recorded as failed with `queue is full`.
 
-The record — target, status code, response body — is in the event's notification records; see [Retries and delivery status](https://n9e.github.io/docs/notifications/delivery.md).
+The record — target, status code, response body — is in the event's notification records; see [Retries and delivery status](https://n9e.io/docs/notifications/delivery.md).
 
 ## Common errors[​](#common-errors "Direct link to Common errors")
 
@@ -118,6 +118,6 @@ The record — target, status code, response body — is in the event's notifica
 
 ## Next[​](#next "Direct link to Next")
 
-* Wire it into a rule: [Notification rules](https://n9e.github.io/docs/notifications/rules.md)
-* Run your own program instead of calling HTTP: [Script media type](https://n9e.github.io/docs/notifications/script.md)
-* Callback inside a workflow, before notification: [Rewrite labels and enrich context](https://n9e.github.io/docs/events/relabel-enrich.md)
+* Wire it into a rule: [Notification rules](https://n9e.io/docs/notifications/rules.md)
+* Run your own program instead of calling HTTP: [Script media type](https://n9e.io/docs/notifications/script.md)
+* Callback inside a workflow, before notification: [Rewrite labels and enrich context](https://n9e.io/docs/events/relabel-enrich.md)

@@ -2,7 +2,7 @@
 
 内置 mongodb\_exporter 的采集逻辑，覆盖连接、操作计数、复制集与分片状态；仪表盘要求开启兼容模式的指标名。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 MongoDB 插件由 percona 的 mongodb\_exporter 封装而来，通过 `serverStatus`、`replSetGetStatus` 等命令采集连接数、操作计数、队列、WiredTiger 缓存、复制集成员状态和 oplog 窗口。分片集群用 `mongodb_cluster` 插件从 mongos 侧采集。
 
@@ -16,7 +16,7 @@ MongoDB 插件由 percona 的 mongodb\_exporter 封装而来，通过 `serverSta
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，按需启用下面的插件。每个配置放到对应的 `conf/input.<插件名>/` 目录，改好地址和凭据后重启 Categraf。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，按需启用下面的插件。每个配置放到对应的 `conf/input.<插件名>/` 目录，改好地址和凭据后重启 Categraf。
 
    `conf/input.mongodb/mongodb.toml`
 
@@ -246,9 +246,9 @@ MongoDB 插件由 percona 的 mongodb\_exporter 封装而来，通过 `serverSta
    # compatible_mode = true
    ```
 
-2. 在夜莺「集成中心」里找到 MongoDB，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 MongoDB，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -258,7 +258,7 @@ MongoDB 插件由 percona 的 mongodb\_exporter 封装而来，通过 `serverSta
 
 ## 内置告警规则[​](#内置告警规则 "内置告警规则的直接链接")
 
-共 8 条，导入后默认停用，按自己环境的阈值逐条启用。每条规则的触发条件（PromQL）和处置步骤收录在告警规则库：[MongoDB 告警规则](https://n9e.github.io/zh/alert-rules/mongodb.md)。
+共 8 条，导入后默认停用，按自己环境的阈值逐条启用。每条规则的触发条件（PromQL）和处置步骤收录在告警规则库：[MongoDB 告警规则](https://n9e.io/zh/alert-rules/mongodb.md)。
 
 | 规则                                                               | 级别    | 持续    |
 | ------------------------------------------------------------------ | ------- | ------- |
@@ -275,6 +275,6 @@ MongoDB 插件由 percona 的 mongodb\_exporter 封装而来，通过 `serverSta
 
 * \[MongoDB 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/MongoDB）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/MongoDB%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `mongodb` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/mongodb)：完整配置项和指标列表。
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

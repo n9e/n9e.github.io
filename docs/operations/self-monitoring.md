@@ -82,13 +82,13 @@ That rule is a different thing from the ones above: those check Nightingale's ow
 So there are two ways to see delivery failures:
 
 * **for a human**: the notification records on the alert event detail, or the event list page;
-* **for a machine**: register Nightingale's own metadata database as a MySQL / PostgreSQL data source and write a SQL alert rule counting rows with `status = 2` over a recent window. See [MySQL and PostgreSQL as data sources](https://n9e.github.io/docs/data/sql-databases.md) for registering it and [SQL alert rules](https://n9e.github.io/docs/alerting/sql-rules.md) for the rule.
+* **for a machine**: register Nightingale's own metadata database as a MySQL / PostgreSQL data source and write a SQL alert rule counting rows with `status = 2` over a recent window. See [MySQL and PostgreSQL as data sources](https://n9e.io/docs/data/sql-databases.md) for registering it and [SQL alert rules](https://n9e.io/docs/alerting/sql-rules.md) for the rule.
 
 Note that notification records are kept for 7 days by default (`[Center] CleanNotifyRecordDay`, cleaned daily at 01:00), so keep the SQL rule's window inside that.
 
 ## Related[​](#related "Direct link to Related")
 
-* [Built-in metrics and health checks](https://n9e.github.io/docs/operations/health.md)
-* [High availability and failure domains](https://n9e.github.io/docs/operations/high-availability.md)
-* [Logs and diagnostic bundles](https://n9e.github.io/docs/operations/diagnostics.md)
-* [Production readiness checklist](https://n9e.github.io/docs/get-started/production-checklist.md)
+* [Built-in metrics and health checks](https://n9e.io/docs/operations/health.md)
+* [High availability and failure domains](https://n9e.io/docs/operations/high-availability.md)
+* [Logs and diagnostic bundles](https://n9e.io/docs/operations/diagnostics.md)
+* [Production readiness checklist](https://n9e.io/docs/get-started/production-checklist.md)

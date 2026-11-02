@@ -8,7 +8,7 @@ November 1, 2026 ·
 
 Eric Qin
 
-![Two Prometheus replicas writing to deduplicated storage and sending alerts to a clustered Alertmanager](https://n9e.github.io/assets/images/prometheus-high-availability-116818454807068016c0d755e596c981.webp)
+![Two Prometheus replicas writing to deduplicated storage and sending alerts to a clustered Alertmanager](https://n9e.io/assets/images/prometheus-high-availability-116818454807068016c0d755e596c981.webp)
 
 Ask how to make Prometheus highly available and the usual answer is "run two of them". That is correct, and it is only half the job. Two replicas give you two copies of every alert and two slightly different copies of every time series. Each needs its own fix, and the fixes don't share a configuration.
 
@@ -90,7 +90,7 @@ Federation, functional sharding (one Prometheus per team or per cluster) and `ha
 
 ## Where a separate alerting engine changes the picture[​](#where-a-separate-alerting-engine-changes-the-picture "Direct link to Where a separate alerting engine changes the picture")
 
-Everything above assumes Prometheus evaluates the rules. Some setups move evaluation out of Prometheus: Grafana Alerting, vmalert, Thanos Ruler, or [Nightingale](https://n9e.github.io/docs/install/high-availability.md). Then storage HA and alerting HA become two different systems.
+Everything above assumes Prometheus evaluates the rules. Some setups move evaluation out of Prometheus: Grafana Alerting, vmalert, Thanos Ruler, or [Nightingale](https://n9e.io/docs/install/high-availability.md). Then storage HA and alerting HA become two different systems.
 
 Nightingale takes a different approach from a Prometheus pair, with a different trade-off:
 
@@ -99,7 +99,7 @@ Nightingale takes a different approach from a Prometheus pair, with a different 
 * **The trade-off is a failover gap.** An instance counts as dead after 30 seconds without a heartbeat, and only then does its share of rules move to another instance. A freshly started instance also waits 30 seconds before evaluating. A Prometheus pair has no such gap, because the other replica was evaluating all along.
 * **Shared dependencies need their own HA.** If MySQL is down, everything is down. If Redis is unreachable at startup, the process exits. Running several `n9e` instances protects against losing an `n9e` process, and nothing else.
 
-Neither design is better in general. Duplicate evaluation with downstream deduplication gives zero-gap failover and costs you a deduplication layer that must be configured exactly right. Single evaluation with a hash ring avoids duplicates by construction and costs you up to 30 seconds of blindness for the rules on a failed instance. The details are in [High availability and failure domains](https://n9e.github.io/docs/operations/high-availability.md).
+Neither design is better in general. Duplicate evaluation with downstream deduplication gives zero-gap failover and costs you a deduplication layer that must be configured exactly right. Single evaluation with a hash ring avoids duplicates by construction and costs you up to 30 seconds of blindness for the rules on a failed instance. The details are in [High availability and failure domains](https://n9e.io/docs/operations/high-availability.md).
 
 ## Checklist[​](#checklist "Direct link to Checklist")
 
@@ -136,16 +136,16 @@ The last item is the one most often skipped. Every check above runs inside the s
 
 **Tags:**
 
-* [Prometheus](https://n9e.github.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
-* [High availability](https://n9e.github.io/blog/tags/high-availability.md "Keeping monitoring and alerting up when parts of it fail.")
-* [Alerting](https://n9e.github.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+* [Prometheus](https://n9e.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [High availability](https://n9e.io/blog/tags/high-availability.md "Keeping monitoring and alerting up when parts of it fail.")
+* [Alerting](https://n9e.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
 
-[Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-prometheus-high-availability/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fprometheus-high-availability\&body=Page%3A%20https%3A%2F%2Fn9e.github.io%2Fblog%2Fprometheus-high-availability%0A%0A)
+[Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-prometheus-high-availability/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fprometheus-high-availability\&body=Page%3A%20https%3A%2F%2Fn9e.io%2Fblog%2Fprometheus-high-availability%0A%0A)
 
-[Newer post](https://n9e.github.io/blog/mcp-server-for-alerting.md)
+[Newer post](https://n9e.io/blog/mcp-server-for-alerting.md)
 
-[MCP server for alerting: six design decisions](https://n9e.github.io/blog/mcp-server-for-alerting.md)
+[MCP server for alerting: six design decisions](https://n9e.io/blog/mcp-server-for-alerting.md)
 
-[Older post](https://n9e.github.io/blog/symptom-based-alerting.md)
+[Older post](https://n9e.io/blog/symptom-based-alerting.md)
 
-[Symptom-based alerting with Prometheus](https://n9e.github.io/blog/symptom-based-alerting.md)
+[Symptom-based alerting with Prometheus](https://n9e.io/blog/symptom-based-alerting.md)

@@ -20,7 +20,7 @@ Not the rule — the **rule plus the label set**.
 
 One `Host memory usage too high` rule running against 5 machines produces **5 separate events**, because their `ident` labels differ. When one machine recovers, only that event recovers; the other four keep firing.
 
-Conversely, repeated triggers with an identical label set are treated as a continuation of the same alert, not as new alerts. **A badly designed label set therefore breaks grouping directly** — see [Labels, annotations and identity](https://n9e.github.io/docs/concepts/labels-annotations.md).
+Conversely, repeated triggers with an identical label set are treated as a continuation of the same alert, not as new alerts. **A badly designed label set therefore breaks grouping directly** — see [Labels, annotations and identity](https://n9e.io/docs/concepts/labels-annotations.md).
 
 ## The three severities are for humans[​](#the-three-severities-are-for-humans "Direct link to The three severities are for humans")
 
@@ -45,6 +45,6 @@ From the active events list you can do two things to an event:
 
 ## Related[​](#related "Direct link to Related")
 
-* [Evaluation, recovery and state changes](https://n9e.github.io/docs/concepts/evaluation.md)
-* [Active and historical events](https://n9e.github.io/docs/events/active-historical.md)
-* [Labels, annotations and severity](https://n9e.github.io/docs/alerting/labels-severity.md)
+* [Evaluation, recovery and state changes](https://n9e.io/docs/concepts/evaluation.md)
+* [Active and historical events](https://n9e.io/docs/events/active-historical.md)
+* [Labels, annotations and severity](https://n9e.io/docs/alerting/labels-severity.md)

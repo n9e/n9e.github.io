@@ -56,6 +56,6 @@ To check the query and the threshold before anything is live, use **Test fire** 
 
 ## Next[​](#next "Direct link to Next")
 
-* Full field reference per source type: [Collect and connect data](https://n9e.github.io/docs/data/overview.md)
-* Writing log rules: [Log rules](https://n9e.github.io/docs/alerting/log-rules.md)
-* Writing SQL rules: [SQL-backed rules](https://n9e.github.io/docs/alerting/sql-rules.md)
+* Full field reference per source type: [Collect and connect data](https://n9e.io/docs/data/overview.md)
+* Writing log rules: [Log rules](https://n9e.io/docs/alerting/log-rules.md)
+* Writing SQL rules: [SQL-backed rules](https://n9e.io/docs/alerting/sql-rules.md)

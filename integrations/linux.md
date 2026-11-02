@@ -2,7 +2,7 @@
 
 CPU, memory, disk, network, processes and kernel parameters out of the box; templates cover Categraf, node\_exporter and Telegraf metric names.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 Linux hosts are where most monitoring starts. Categraf's cpu, mem, disk, diskio, net, netstat, kernel and processes inputs are enabled by default and report as soon as the agent starts. The configs listed below are the plugins that have options worth tuning.
 
@@ -17,7 +17,7 @@ The templates come in three sets, written against Categraf, node\_exporter and T
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md) and enable the plugins you need. Each config goes in its own `conf/input.<plugin>/` directory; fill in addresses and credentials, then restart Categraf.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md) and enable the plugins you need. Each config goes in its own `conf/input.<plugin>/` directory; fill in addresses and credentials, then restart Categraf.
 
    `conf/input.arp_packet/arp_packet.toml`
 
@@ -669,9 +669,9 @@ The templates come in three sets, written against Categraf, node\_exporter and T
    # metrics_exclude = ["pid", "rc"]
    ```
 
-2. Open the integration center in Nightingale, find Linux, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find Linux, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -685,7 +685,7 @@ The templates come in three sets, written against Categraf, node\_exporter and T
 
 ## Bundled alert rules[​](#bundled-alert-rules "Direct link to Bundled alert rules")
 
-60 rules, disabled on import so you can enable them one by one with your own thresholds. The PromQL condition and runbook steps for the 56 rules in the table below are in the alert rule library: [Linux alert rules](https://n9e.github.io/alert-rules/linux.md).
+60 rules, disabled on import so you can enable them one by one with your own thresholds. The PromQL condition and runbook steps for the 56 rules in the table below are in the alert rule library: [Linux alert rules](https://n9e.io/alert-rules/linux.md).
 
 | Rule                                                                                                           | Severity    | For |
 | -------------------------------------------------------------------------------------------------------------- | ----------- | --- |
@@ -937,7 +937,7 @@ Runbook:
 * [Categraf `ntp` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/ntp): every config option and the full metric list.
 * [Categraf `processes` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/processes): every config option and the full metric list.
 * [Categraf `supervisor` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/supervisor): every config option and the full metric list.
-* [Walkthrough: monitor Linux hosts](https://n9e.github.io/docs/practice/linux.md)
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Walkthrough: monitor Linux hosts](https://n9e.io/docs/practice/linux.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

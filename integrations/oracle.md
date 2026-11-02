@@ -2,7 +2,7 @@
 
 Runs a customizable set of SQL queries with a read-only account to collect sessions, tablespaces, wait events and cache hit ratios; a Linux Categraf can monitor Oracle on Windows remotely.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The Oracle input connects to the instance and runs the queries defined in `metric.toml`: session counts, active sessions, tablespace usage, wait events, SGA and PGA, cache hit ratios, archive logs and more. Every query can be edited or extended. Connection settings and query definitions live in separate files so they can be trimmed per version and environment.
 
@@ -16,7 +16,7 @@ The input does not run on Windows itself, but a Categraf on Linux can connect to
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md) and enable the plugins you need. Each config goes in its own `conf/input.<plugin>/` directory; fill in addresses and credentials, then restart Categraf.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md) and enable the plugins you need. Each config goes in its own `conf/input.<plugin>/` directory; fill in addresses and credentials, then restart Categraf.
 
    `conf/input.oracle/metric.toml`
 
@@ -350,9 +350,9 @@ The input does not run on Windows itself, but a Categraf on Linux can connect to
    # # labels = { region="local" }
    ```
 
-2. Open the integration center in Nightingale, find Oracle, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find Oracle, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -455,7 +455,7 @@ Runbook:
 
 * [Oracle template source](https://github.com/ccfos/nightingale/tree/main/integrations/Oracle): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `oracle` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/oracle): every config option and the full metric list.
-* [Walkthrough: monitor Oracle](https://n9e.github.io/docs/practice/oracle.md)
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Walkthrough: monitor Oracle](https://n9e.io/docs/practice/oracle.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

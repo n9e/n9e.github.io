@@ -2,7 +2,7 @@
 
 引入 Actuator 和 micrometer-registry-prometheus，应用自己暴露 /actuator/prometheus，模板带按应用名区分的 JVM 仪表盘。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Spring Boot 应用不需要外挂 agent：引入 `spring-boot-starter-actuator` 和 `micrometer-registry-prometheus` 两个依赖，开放 prometheus 端点，应用就在 `/actuator/prometheus` 暴露 JVM、HTTP 请求、数据源连接池、线程池和自定义指标。Actuator 底层用的就是 Micrometer。
 
@@ -27,8 +27,8 @@ management.prometheus.metrics.export.enabled=true
 
 2.x 把最后一行换成 `management.metrics.export.prometheus.enabled=true`。启动后确认 `http://localhost:8080/actuator/prometheus` 有输出，再用 Categraf 的 `prometheus` 插件抓取，`labels` 里给 `application` 标签填应用名。不要把 `exposure.include` 设成 `*`。
 
-1. 在夜莺「集成中心」里找到 SpringBoot，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
-2. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+1. 在夜莺「集成中心」里找到 SpringBoot，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
+2. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -119,7 +119,7 @@ sum by (instance) (increase(logback_events_total{level="error"}[5m])) > 0
 ## 相关链接[​](#相关链接 "相关链接的直接链接")
 
 * \[SpringBoot 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/SpringBoot）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/SpringBoot%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
-* [实践：监控 Java 应用](https://n9e.github.io/zh/docs/practice/java.md)
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [实践：监控 Java 应用](https://n9e.io/zh/docs/practice/java.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

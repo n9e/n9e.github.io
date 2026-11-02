@@ -22,6 +22,6 @@ Open **`http://localhost:17000`** and sign in as `root` / `root.2020`.
 2. **Write one alert rule** against that source, scoped to a business group and graded S1 / S2 / S3.
 3. **Add a notification channel** so the event reaches somebody.
 
-Nothing collecting yet? [Categraf](https://n9e.github.io/categraf.md) covers operating systems, middleware, databases, network gear and Kubernetes with a single agent.
+Nothing collecting yet? [Categraf](https://n9e.io/categraf.md) covers operating systems, middleware, databases, network gear and Kubernetes with a single agent.
 
-Next: [Installation](https://n9e.github.io/docs/install/overview.md) for production deployments.
+Next: [Installation](https://n9e.io/docs/install/overview.md) for production deployments.

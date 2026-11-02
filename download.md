@@ -22,7 +22,7 @@ Five containers: n9e, MySQL, Redis, VictoriaMetrics, and Categraf collecting the
 2. Open http\://localhost:17000 and sign in as root / root.2020
 3. The host it runs on is already listed under Targets, reported by the bundled Categraf
 
-[Docker Compose guide<!-- --> →](https://n9e.github.io/docs/install/docker-compose.md)
+[Docker Compose guide<!-- --> →](https://n9e.io/docs/install/docker-compose.md)
 
 ### Other bundles in the same directory
 
@@ -47,13 +47,13 @@ A slim build with metrics collection only, and one with the NVIDIA DCGM plugin, 
 
 Point config.toml at your Nightingale address and the host appears under Targets within a minute.
 
-[About Categraf<!-- --> →](https://n9e.github.io/categraf.md)[Categraf docs<!-- --> →](https://n9e.github.io/docs/data/categraf.md)
+[About Categraf<!-- --> →](https://n9e.io/categraf.md)[Categraf docs<!-- --> →](https://n9e.io/docs/data/categraf.md)
 
 ## Upgrading and rolling back
 
 Minor versions roll the binary. Across v8 to v9, back up the database first and read the schema changes in the release notes; the migration runs on first start.
 
-[Upgrade guide<!-- --> →](https://n9e.github.io/docs/install/upgrade.md)[Rollback<!-- --> →](https://n9e.github.io/docs/install/rollback.md)[v8 to v9<!-- --> →](https://n9e.github.io/docs/migration/v8-to-v9.md)
+[Upgrade guide<!-- --> →](https://n9e.io/docs/install/upgrade.md)[Rollback<!-- --> →](https://n9e.io/docs/install/rollback.md)[v8 to v9<!-- --> →](https://n9e.io/docs/migration/v8-to-v9.md)
 
 ## Stuck?
 

@@ -103,7 +103,7 @@ DBType = "postgres"
 DSN="host=postgres port=5432 user=root dbname=n9e_v6 password=1234 sslmode=disable"
 ```
 
-It publishes 5432 instead of 3306. For the trade-off between the two, see [Choosing a metadata database](https://n9e.github.io/docs/install/databases.md).
+It publishes 5432 instead of 3306. For the trade-off between the two, see [Choosing a metadata database](https://n9e.io/docs/install/databases.md).
 
 ## Using your own database and TSDB[​](#using-your-own-database-and-tsdb "Direct link to Using your own database and TSDB")
 
@@ -113,6 +113,6 @@ Update `WAIT_HOSTS` at the same time, or the process waits forever on a service 
 
 ## Next[​](#next "Direct link to Next")
 
-* [Choosing a metadata database](https://n9e.github.io/docs/install/databases.md)
-* [External TSDB and dual-write migration](https://n9e.github.io/docs/install/external-tsdb.md)
-* [Production readiness checklist](https://n9e.github.io/docs/get-started/production-checklist.md)
+* [Choosing a metadata database](https://n9e.io/docs/install/databases.md)
+* [External TSDB and dual-write migration](https://n9e.io/docs/install/external-tsdb.md)
+* [Production readiness checklist](https://n9e.io/docs/get-started/production-checklist.md)

@@ -12,7 +12,7 @@ Both live under **System**, but they do different jobs: Variable settings holds 
 
 **System → Variable** (`/system/variable-settings`), then **Create** at the top right.
 
-![Variable settings](https://n9e.github.io/img/docs/security/variables.webp)![Variable settings](https://n9e.github.io/img/docs/security/variables.dark.webp)
+![Variable settings](https://n9e.io/img/docs/security/variables.webp)![Variable settings](https://n9e.io/img/docs/security/variables.dark.webp)
 
 | Field          | Notes                                                                                |
 | -------------- | ------------------------------------------------------------------------------------ |
@@ -54,7 +54,7 @@ What it stops:
 
 What it does not stop is **anyone who can read the database**: the private key and its passphrase sit in the same `configs` table as the ciphertext. This layer solves credential visibility in the operator UI, not database compromise — the real boundary is database access control.
 
-On permissions, all four endpoints are guarded by the `/system/variable-settings` permission point rather than being `Admin`-only — the single exception among the system settings (see [Roles and permission matrix](https://n9e.github.io/docs/security/roles.md)). Editing and deleting carry a second check: you must be `Admin` or the variable's creator, otherwise the call returns 403.
+On permissions, all four endpoints are guarded by the `/system/variable-settings` permission point rather than being `Admin`-only — the single exception among the system settings (see [Roles and permission matrix](https://n9e.io/docs/security/roles.md)). Editing and deleting carry a second check: you must be `Admin` or the variable's creator, otherwise the call returns 403.
 
 ## 4. Naming rules and reserved words[​](#4-naming-rules-and-reserved-words "Direct link to 4. Naming rules and reserved words")
 
@@ -104,6 +104,6 @@ Saving requires `Admin`, and the page reloads itself afterwards.
 
 ## Next[​](#next "Direct link to Next")
 
-* How variables get used in notifications: [DingTalk / Feishu / WeCom](https://n9e.github.io/docs/notifications/dingtalk-feishu-wecom.md)
-* Storing config-file credentials as ciphertext: [Secret management](https://n9e.github.io/docs/security/secrets.md)
-* Who can reach these two pages: [Roles and permission matrix](https://n9e.github.io/docs/security/roles.md)
+* How variables get used in notifications: [DingTalk / Feishu / WeCom](https://n9e.io/docs/notifications/dingtalk-feishu-wecom.md)
+* Storing config-file credentials as ciphertext: [Secret management](https://n9e.io/docs/security/secrets.md)
+* Who can reach these two pages: [Roles and permission matrix](https://n9e.io/docs/security/roles.md)

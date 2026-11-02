@@ -31,7 +31,7 @@ for=180s elapsed=45s
 
 The for-duration is 180 seconds and only 45 have accumulated — it is not failing to fire, it is not due yet.
 
-If `anomaly_total` is 0, **no series crossed the threshold at query time**. That is not a judgement problem; go back to the query: [Why does a data source connect but return no data?](https://n9e.github.io/docs/troubleshooting/no-data.md).
+If `anomaly_total` is 0, **no series crossed the threshold at query time**. That is not a judgement problem; go back to the query: [Why does a data source connect but return no data?](https://n9e.io/docs/troubleshooting/no-data.md).
 
 ## The rule is never evaluated[​](#the-rule-is-never-evaluated "Direct link to The rule is never evaluated")
 
@@ -88,8 +88,8 @@ Mute rules have two modes and they behave very differently:
 
 ## Next[​](#next "Direct link to Next")
 
-* The evaluation records themselves are empty: [Why are evaluation records missing or dropped?](https://n9e.github.io/docs/troubleshooting/evaluation-missing.md)
-* The event exists but nothing arrives: [Why is there an alert event but no notification?](https://n9e.github.io/docs/troubleshooting/no-notification.md)
-* Fires and recovers repeatedly: [Why does an alert fire repeatedly or never recover?](https://n9e.github.io/docs/troubleshooting/alert-flapping.md)
-* The full model: [Evaluation, recovery and state changes](https://n9e.github.io/docs/concepts/evaluation.md)
-* How to read the records page: [Evaluation execution records](https://n9e.github.io/docs/alerting/execution-records.md)
+* The evaluation records themselves are empty: [Why are evaluation records missing or dropped?](https://n9e.io/docs/troubleshooting/evaluation-missing.md)
+* The event exists but nothing arrives: [Why is there an alert event but no notification?](https://n9e.io/docs/troubleshooting/no-notification.md)
+* Fires and recovers repeatedly: [Why does an alert fire repeatedly or never recover?](https://n9e.io/docs/troubleshooting/alert-flapping.md)
+* The full model: [Evaluation, recovery and state changes](https://n9e.io/docs/concepts/evaluation.md)
+* How to read the records page: [Evaluation execution records](https://n9e.io/docs/alerting/execution-records.md)

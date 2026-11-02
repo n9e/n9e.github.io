@@ -137,7 +137,7 @@ One more: the template function `printf` **has been redefined by the product and
 
 ## Next[​](#next "Direct link to Next")
 
-* Every variable spelled out: [Message templates and variables](https://n9e.github.io/docs/notifications/templates.md)
-* Nothing arrived at all: [Why is there an alert event but no notification?](https://n9e.github.io/docs/troubleshooting/no-notification.md)
-* Testing the chain end to end: [Test a notification end to end](https://n9e.github.io/docs/notifications/test.md)
-* Reading delivery status: [Retries and delivery status](https://n9e.github.io/docs/notifications/delivery.md)
+* Every variable spelled out: [Message templates and variables](https://n9e.io/docs/notifications/templates.md)
+* Nothing arrived at all: [Why is there an alert event but no notification?](https://n9e.io/docs/troubleshooting/no-notification.md)
+* Testing the chain end to end: [Test a notification end to end](https://n9e.io/docs/notifications/test.md)
+* Reading delivery status: [Retries and delivery status](https://n9e.io/docs/notifications/delivery.md)

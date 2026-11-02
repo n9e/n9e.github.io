@@ -6,7 +6,7 @@ Last reviewed 2026-10-10
 
 Where this page ends: a practice that can answer "which token belongs to whom, when was it last used, when is it due for replacement", and an order of operations for swapping a token without breaking anything in production.
 
-The shortest path to creating and using a token is [Personal token authentication](https://n9e.github.io/docs/ai/token-auth.md); this page is about everything after that.
+The shortest path to creating and using a token is [Personal token authentication](https://n9e.io/docs/ai/token-auth.md); this page is about everything after that.
 
 ## What a token is, and what it is not[​](#what-a-token-is-and-what-it-is-not "Direct link to What a token is, and what it is not")
 
@@ -28,7 +28,7 @@ Do not hand a personal account's token to CI or to an AI client. Create one acco
 | Syncing alert rules from CI    | Custom role holding only the `/alert-rules` quartet     | **Read-write** on the matching business group             |
 | External system reading events | `Guest` plus `/alert-cur-events`, `/alert-his-events`   | Read-only on the relevant groups                          |
 
-Creating accounts is covered in [Users and teams](https://n9e.github.io/docs/security/users-teams.md), custom roles in [Roles and permission matrix](https://n9e.github.io/docs/security/roles.md).
+Creating accounts is covered in [Users and teams](https://n9e.io/docs/security/users-teams.md), custom roles in [Roles and permission matrix](https://n9e.io/docs/security/roles.md).
 
 **Do not give these accounts `Admin`**: `Admin` skips the business-group layer entirely, which amounts to handing over all the data.
 
@@ -61,20 +61,20 @@ There is no site-wide token list in the UI, and `GET /api/n9e/self/token` return
 
 Tokens are only one kind. A real credential rotation should sweep all of these:
 
-| Credential                      | Where to change it                       | Notes                                                                                                                                           |
-| ------------------------------- | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `root`'s password               | Reset password in user management        | The default `root.2020` is public knowledge; change it at install time                                                                          |
-| Collector basic auth            | `[HTTP.APIForAgent.BasicAuth]`           | Every collector has to be updated too — see [Network and TLS hardening](https://n9e.github.io/docs/security/network-tls.md)                     |
-| Service-to-service basic auth   | `[HTTP.APIForService.BasicAuth]`         | The sample credentials shipped in the config file are public; do not keep them                                                                  |
-| Data source credentials         | The data source edit page                | Non-admins cannot see these values; re-run a query afterwards to confirm                                                                        |
-| SSO client secrets              | System → SSO                             | Better held in an encrypted variable — see [Secret management](https://n9e.github.io/docs/security/secrets.md)                                  |
-| Notification media tokens       | Media type configuration                 | Same                                                                                                                                            |
-| Dashboard anonymous share links | The Public setting on the dashboard list | A separate token; changing a password does not invalidate it. See [Anonymous time-limited sharing](https://n9e.github.io/docs/query/sharing.md) |
+| Credential                      | Where to change it                       | Notes                                                                                                                                    |
+| ------------------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `root`'s password               | Reset password in user management        | The default `root.2020` is public knowledge; change it at install time                                                                   |
+| Collector basic auth            | `[HTTP.APIForAgent.BasicAuth]`           | Every collector has to be updated too — see [Network and TLS hardening](https://n9e.io/docs/security/network-tls.md)                     |
+| Service-to-service basic auth   | `[HTTP.APIForService.BasicAuth]`         | The sample credentials shipped in the config file are public; do not keep them                                                           |
+| Data source credentials         | The data source edit page                | Non-admins cannot see these values; re-run a query afterwards to confirm                                                                 |
+| SSO client secrets              | System → SSO                             | Better held in an encrypted variable — see [Secret management](https://n9e.io/docs/security/secrets.md)                                  |
+| Notification media tokens       | Media type configuration                 | Same                                                                                                                                     |
+| Dashboard anonymous share links | The Public setting on the dashboard list | A separate token; changing a password does not invalidate it. See [Anonymous time-limited sharing](https://n9e.io/docs/query/sharing.md) |
 
-The config-file entries above can be stored as ciphertext — see [Secret management](https://n9e.github.io/docs/security/secrets.md).
+The config-file entries above can be stored as ciphertext — see [Secret management](https://n9e.io/docs/security/secrets.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Creating a token and making requests with it: [Personal token authentication](https://n9e.github.io/docs/ai/token-auth.md)
-* Getting credentials out of the config file: [Secret management](https://n9e.github.io/docs/security/secrets.md)
-* A pass over everything before going live: [Security checklist](https://n9e.github.io/docs/security/checklist.md)
+* Creating a token and making requests with it: [Personal token authentication](https://n9e.io/docs/ai/token-auth.md)
+* Getting credentials out of the config file: [Secret management](https://n9e.io/docs/security/secrets.md)
+* A pass over everything before going live: [Security checklist](https://n9e.io/docs/security/checklist.md)

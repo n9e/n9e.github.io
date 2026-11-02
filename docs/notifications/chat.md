@@ -112,13 +112,13 @@ For the other three, swap `ident`, `param_config` and `body`:
 
 Every `…` above is `{{$tpl.content}}`. The body is a JSON **string**, so the quotes inside it must be escaped. Do not hard-code the webhook URL in the media type — leave `{{$params.webhook_url}}` and let each notification rule supply its own, so one media type serves many channels.
 
-For the bot variants (`slackbot`, `mattermostbot`) the token lives in a header, and a header value may be written `{{.your_variable}}` to pull the secret from [Variables](https://n9e.github.io/docs/security/variables.md) instead of storing it in the clear.
+For the bot variants (`slackbot`, `mattermostbot`) the token lives in a header, and a header value may be written `{{.your_variable}}` to pull the secret from [Variables](https://n9e.io/docs/security/variables.md) instead of storing it in the clear.
 
 ## The other route: a Callback media type with a hand-written body[​](#the-other-route-a-callback-media-type-with-a-hand-written-body "Direct link to The other route: a Callback media type with a hand-written body")
 
 If you would rather not touch JSON, use the built-in **Callback** media type: click Callback in the type panel, leave the URL as `{{$params.callback_url}}`, and rewrite the body into whatever shape the target expects.
 
-![Add a media type](https://n9e.github.io/img/docs/notifications/media-type-add.webp)![Add a media type](https://n9e.github.io/img/docs/notifications/media-type-add.dark.webp)
+![Add a media type](https://n9e.io/img/docs/notifications/media-type-add.webp)![Add a media type](https://n9e.io/img/docs/notifications/media-type-add.dark.webp)
 
 The cost: **Callback media types do not consume message templates**, and the UI hides the template dropdown for them. The whole message layout has to live in the media type's body, assembled from event variables directly:
 
@@ -146,7 +146,7 @@ If you want one template that reads correctly everywhere, stick to plain text an
 Rendering treats the `slackwebhook` and `slackbot` media types specially:
 
 * **`<` is restored.** Every other media type goes through `html/template`, which escapes `<` to `&lt;`. That would break Slack's `<url|text>` link syntax, so after rendering `&lt;` is turned back into `<`.
-* **A failed render drops the whole field.** Other media types send the Go template error as the message body — ugly, but at least visible. Slack simply omits the field, so the message can come out empty. Always check a Slack template with **Preview**; see [Templates and variables](https://n9e.github.io/docs/notifications/templates.md).
+* **A failed render drops the whole field.** Other media types send the Go template error as the message body — ugly, but at least visible. Slack simply omits the field, so the message can come out empty. Always check a Slack template with **Preview**; see [Templates and variables](https://n9e.io/docs/notifications/templates.md).
 
 ## Wire it into a notification rule[​](#wire-it-into-a-notification-rule "Direct link to Wire it into a notification rule")
 
@@ -169,6 +169,6 @@ One trap worth knowing in advance: **Nightingale counts only HTTP 200 as success
 
 ## Next[​](#next "Direct link to Next")
 
-* Template variables and helpers: [Templates and variables](https://n9e.github.io/docs/notifications/templates.md)
-* How media types, templates and rules relate: [Notification architecture](https://n9e.github.io/docs/notifications/architecture.md)
-* On-call platforms and tickets: [PagerDuty / FlashDuty / Jira](https://n9e.github.io/docs/notifications/oncall-ticketing.md)
+* Template variables and helpers: [Templates and variables](https://n9e.io/docs/notifications/templates.md)
+* How media types, templates and rules relate: [Notification architecture](https://n9e.io/docs/notifications/architecture.md)
+* On-call platforms and tickets: [PagerDuty / FlashDuty / Jira](https://n9e.io/docs/notifications/oncall-ticketing.md)

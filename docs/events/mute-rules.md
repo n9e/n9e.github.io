@@ -8,13 +8,13 @@ Where this page ends: a rule that keeps a class of alert quiet during a window y
 
 Entry point: **Alerts & Notifications → Alert rules**, then the **Muting rules** tab at the top of the page (`/alert-mutes`).
 
-![The muting rules list](https://n9e.github.io/img/docs/events/mute-rules.webp)![The muting rules list](https://n9e.github.io/img/docs/events/mute-rules.dark.webp)
+![The muting rules list](https://n9e.io/img/docs/events/mute-rules.webp)![The muting rules list](https://n9e.io/img/docs/events/mute-rules.dark.webp)
 
 ## 1. Create a mute rule[​](#1-create-a-mute-rule "Direct link to 1. Create a mute rule")
 
 Click **Add**. The form has three sections; the first two are marked as the core ones.
 
-![The mute rule form](https://n9e.github.io/img/docs/events/mute-form.webp)![The mute rule form](https://n9e.github.io/img/docs/events/mute-form.dark.webp)
+![The mute rule form](https://n9e.io/img/docs/events/mute-form.webp)![The mute rule form](https://n9e.io/img/docs/events/mute-form.dark.webp)
 
 **Filter conditions** decide which events get muted. They are AND-ed, and an empty one means no restriction:
 
@@ -76,14 +76,14 @@ When one event matches several mute rules, **the stronger one wins**: if any mat
 
 ## What catches people out[​](#what-catches-people-out "Direct link to What catches people out")
 
-* **Muting only affects new evaluation results.** An event already in the active list does not vanish because you created a mute rule; it just stops producing notifications during the window. To make it disappear now, delete it from the detail panel (mind the precondition — see [Active and historical events](https://n9e.github.io/docs/events/active-historical.md)).
+* **Muting only affects new evaluation results.** An event already in the active list does not vanish because you created a mute rule; it just stops producing notifications during the window. To make it disappear now, delete it from the detail panel (mind the precondition — see [Active and historical events](https://n9e.io/docs/events/active-historical.md)).
 * **The time window is judged against the event's trigger time.** That trigger time is refreshed on every evaluation, so an event that started before the window is muted once the window opens, and starts sending again once it closes.
-* **Pipelines run before mutes.** Labels a workflow writes are visible to mute rules, so "enrich first, then mute on the new label" works. The full order is in [Noise reduction and routing model](https://n9e.github.io/docs/concepts/noise-routing.md).
+* **Pipelines run before mutes.** Labels a workflow writes are visible to mute rules, so "enrich first, then mute on the new label" works. The full order is in [Noise reduction and routing model](https://n9e.io/docs/concepts/noise-routing.md).
 * **Muting does not save engine work.** The rule still queries and evaluates on schedule; what is skipped is storage and notification downstream.
 
 ## Next[​](#next "Direct link to Next")
 
-* The opposite need, more people receiving it: [Alert subscriptions](https://n9e.github.io/docs/events/subscriptions.md)
-* A class of event that should not exist at all: [Event pipelines](https://n9e.github.io/docs/events/pipelines.md)
-* Muted and still paged: [Notifications go to the wrong people](https://n9e.github.io/docs/troubleshooting/wrong-routing.md)
-* Ready-made recipes: [Noise reduction patterns](https://n9e.github.io/docs/events/noise-patterns.md)
+* The opposite need, more people receiving it: [Alert subscriptions](https://n9e.io/docs/events/subscriptions.md)
+* A class of event that should not exist at all: [Event pipelines](https://n9e.io/docs/events/pipelines.md)
+* Muted and still paged: [Notifications go to the wrong people](https://n9e.io/docs/troubleshooting/wrong-routing.md)
+* Ready-made recipes: [Noise reduction patterns](https://n9e.io/docs/events/noise-patterns.md)

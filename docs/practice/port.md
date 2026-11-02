@@ -70,7 +70,7 @@ Verify the metric exists before enabling an expiry threshold. DNS, network acces
 
 ## Next[​](#next "Direct link to Next")
 
-* [Metric alert rules](https://n9e.github.io/docs/alerting/metric-rules.md)
-* [Import dashboards and rules](https://n9e.github.io/docs/data/integrations/import.md)
+* [Metric alert rules](https://n9e.io/docs/alerting/metric-rules.md)
+* [Import dashboards and rules](https://n9e.io/docs/data/integrations/import.md)
 
 Full HTTP options: [v0.5.17 configuration](https://github.com/flashcatcloud/categraf/blob/v0.5.17/conf/input.http_response/http_response.toml).

@@ -124,7 +124,7 @@ curl -s --noproxy '*' -o /dev/null -w '%{http_code}\n' \
 
 **How to confirm**: both 404 means neither `[HTTP.MCPAuth]` nor `[HTTP.RSAuth]` is on. Neither section **exists in `etc/config.toml`** — you add them by hand. In the same state, a 401 response carries **no `WWW-Authenticate` header**, and since that header is exactly how a hosted client discovers where to authorize, all it can report is "cannot connect".
 
-**How to fix**: see [OAuth 2.1 and external identity providers](https://n9e.github.io/docs/ai/oauth.md). The proxy needs `/oauth/` and `/.well-known/` allowed through as well as `/mcp`.
+**How to fix**: see [OAuth 2.1 and external identity providers](https://n9e.io/docs/ai/oauth.md). The proxy needs `/oauth/` and `/.well-known/` allowed through as well as `/mcp`.
 
 ### OAuth: the address does not match `Issuer`[​](#oauth-the-address-does-not-match-issuer "Direct link to oauth-the-address-does-not-match-issuer")
 
@@ -168,7 +168,7 @@ In a multi-instance deployment (several centers behind a load balancer) **`Issue
 
 4. Ask it something read-only — "list the business groups I can see" — and check the count matches what that account sees in the UI.
 
-A wrong tool count, or specific tools missing, is a different problem: see [Why are MCP tools missing or denied?](https://n9e.github.io/docs/troubleshooting/mcp-tools-missing.md).
+A wrong tool count, or specific tools missing, is a different problem: see [Why are MCP tools missing or denied?](https://n9e.io/docs/troubleshooting/mcp-tools-missing.md).
 
 ## Collect this before you ask[​](#collect-this-before-you-ask "Direct link to Collect this before you ask")
 
@@ -182,8 +182,8 @@ A wrong tool count, or specific tools missing, is a different problem: see [Why 
 
 ## Next[​](#next "Direct link to Next")
 
-* Turning the endpoint on: [Enable the MCP endpoint](https://n9e.github.io/docs/ai/mcp-endpoint.md)
-* Creating a token and whom it speaks for: [Personal token authentication](https://n9e.github.io/docs/ai/token-auth.md)
-* Hosted clients and company SSO: [OAuth 2.1 and external identity providers](https://n9e.github.io/docs/ai/oauth.md)
-* Connected, but the tools are wrong: [Why are MCP tools missing or denied?](https://n9e.github.io/docs/troubleshooting/mcp-tools-missing.md)
-* Client-side configuration: [Connect Claude Code / Cursor / other clients](https://n9e.github.io/docs/ai/mcp-clients.md)
+* Turning the endpoint on: [Enable the MCP endpoint](https://n9e.io/docs/ai/mcp-endpoint.md)
+* Creating a token and whom it speaks for: [Personal token authentication](https://n9e.io/docs/ai/token-auth.md)
+* Hosted clients and company SSO: [OAuth 2.1 and external identity providers](https://n9e.io/docs/ai/oauth.md)
+* Connected, but the tools are wrong: [Why are MCP tools missing or denied?](https://n9e.io/docs/troubleshooting/mcp-tools-missing.md)
+* Client-side configuration: [Connect Claude Code / Cursor / other clients](https://n9e.io/docs/ai/mcp-clients.md)

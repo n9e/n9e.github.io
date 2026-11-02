@@ -2,13 +2,13 @@
 
 Prometheus 告警 KubeCPUOvercommit 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 集群里所有 Pod 申请的 CPU，已经超过「去掉最大那台节点后」集群能提供的量。换句话说，集群扛不住任何一台节点宕机：那台节点上的 Pod 将无处可调度。这是容量预警，不是故障；它看的是 requests，不是实际 CPU 用量。
 
 * **级别**：警告（`warning`）
 * **持续**：10 分钟
-* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+* 属于 [Kubernetes 告警规则](https://n9e.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
 
 ## 规则[​](#规则 "规则的直接链接")
 
@@ -48,13 +48,13 @@ and
 
 ## 相关告警[​](#相关告警 "相关告警的直接链接")
 
-* [KubeMemoryOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes/kubememoryovercommit.md)：Cluster … has overcommitted memory resource requests for Pods by … bytes and cannot tolerate node failure.
-* [KubeCPUQuotaOvercommit](https://n9e.github.io/zh/alert-rules/kubernetes.md#kubecpuquotaovercommit)：Cluster … has overcommitted CPU resource requests for Namespaces.
-* [KubeHpaMaxedOut](https://n9e.github.io/zh/alert-rules/kubernetes/kubehpamaxedout.md)：HPA …/… has been running at max replicas for longer than 15 minutes.
+* [KubeMemoryOvercommit](https://n9e.io/zh/alert-rules/kubernetes/kubememoryovercommit.md)：Cluster … has overcommitted memory resource requests for Pods by … bytes and cannot tolerate node failure.
+* [KubeCPUQuotaOvercommit](https://n9e.io/zh/alert-rules/kubernetes.md#kubecpuquotaovercommit)：Cluster … has overcommitted CPU resource requests for Namespaces.
+* [KubeHpaMaxedOut](https://n9e.io/zh/alert-rules/kubernetes/kubehpamaxedout.md)：HPA …/… has been running at max replicas for longer than 15 minutes.
 
 ## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
 
-加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.io/zh/alert-rules/kubernetes.yml)。
 
 ```
 - alert: KubeCPUOvercommit
@@ -77,10 +77,10 @@ and
 
     summary: "Cluster {{ $labels.cluster }} has overcommitted CPU resource requests for Pods by {{ $value }} CPU shares and cannot tolerate node failure."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubecpuovercommit"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubecpuovercommit"
 ```
 
-**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 

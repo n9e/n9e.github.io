@@ -8,16 +8,16 @@ Continue from this former catalogue to the current guides and the practical arti
 
 ## Browse by topic[​](#topics "Direct link to Browse by topic")
 
-* [Linux hosts](https://n9e.github.io/docs/practice/linux.md)
-* [MySQL](https://n9e.github.io/docs/practice/mysql.md)
-* [Oracle](https://n9e.github.io/docs/practice/oracle.md)
-* [Redis](https://n9e.github.io/docs/practice/redis.md)
-* [Processes](https://n9e.github.io/docs/practice/proc.md)
-* [Ports and HTTP](https://n9e.github.io/docs/practice/port.md)
-* [Java](https://n9e.github.io/docs/practice/java.md)
-* [Custom scripts](https://n9e.github.io/docs/practice/exec.md)
+* [Linux hosts](https://n9e.io/docs/practice/linux.md)
+* [MySQL](https://n9e.io/docs/practice/mysql.md)
+* [Oracle](https://n9e.io/docs/practice/oracle.md)
+* [Redis](https://n9e.io/docs/practice/redis.md)
+* [Processes](https://n9e.io/docs/practice/proc.md)
+* [Ports and HTTP](https://n9e.io/docs/practice/port.md)
+* [Java](https://n9e.io/docs/practice/java.md)
+* [Custom scripts](https://n9e.io/docs/practice/exec.md)
 
 ## Next[​](#next "Direct link to Next")
 
-* [Documentation home](https://n9e.github.io/docs.md)
-* [System architecture](https://n9e.github.io/docs/concepts/architecture.md)
+* [Documentation home](https://n9e.io/docs.md)
+* [System architecture](https://n9e.io/docs/concepts/architecture.md)

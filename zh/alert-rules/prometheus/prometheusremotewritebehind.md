@@ -2,13 +2,13 @@
 
 Prometheus 告警 PrometheusRemoteWriteBehind 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Remote Write 落后超过 2 分钟：Prometheus 已接收的最新样本，比已发往远端的最新样本新了 120 秒以上。读远端存储（VictoriaMetrics、Thanos Receive、Mimir、托管服务）的仪表盘和告警看到的都是旧数据。落后量如果持续扩大，可能有样本在发出去之前就被丢掉。
 
 * **级别**：紧急（`critical`）
 * **持续**：15 分钟
-* 属于 [Prometheus 告警规则](https://n9e.github.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
+* 属于 [Prometheus 告警规则](https://n9e.io/zh/alert-rules/prometheus.md)（`prometheus.yml`）
 
 ## 规则[​](#规则 "规则的直接链接")
 
@@ -58,12 +58,12 @@ Remote Write 落后超过 2 分钟：Prometheus 已接收的最新样本，比�
 
 ## 相关告警[​](#相关告警 "相关告警的直接链接")
 
-* [PrometheusRemoteWriteDesiredShards](https://n9e.github.io/zh/alert-rules/prometheus/prometheusremotewritedesiredshards.md)：Prometheus …/… remote write desired shards calculation wants to run … shards for queue …:…, which is more than the max of {{ printf `prometheus_remote_storage_shards_max\{instance="%s",job="prometheus-k8s",namespace="monitoring"\}` $labels.instance | query | first | value }}.
-* [PrometheusRemoteStorageFailures](https://n9e.github.io/zh/alert-rules/prometheus.md#prometheusremotestoragefailures)：Prometheus …/… failed to send …% of the samples to …:…
+* [PrometheusRemoteWriteDesiredShards](https://n9e.io/zh/alert-rules/prometheus/prometheusremotewritedesiredshards.md)：Prometheus …/… remote write desired shards calculation wants to run … shards for queue …:…, which is more than the max of {{ printf `prometheus_remote_storage_shards_max\{instance="%s",job="prometheus-k8s",namespace="monitoring"\}` $labels.instance | query | first | value }}.
+* [PrometheusRemoteStorageFailures](https://n9e.io/zh/alert-rules/prometheus.md#prometheusremotestoragefailures)：Prometheus …/… failed to send …% of the samples to …:…
 
 ## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
 
-加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.github.io/zh/alert-rules/prometheus.yml)。
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Prometheus 规则：[`prometheus.yml`](https://n9e.io/zh/alert-rules/prometheus.yml)。
 
 ```
 - alert: PrometheusRemoteWriteBehind
@@ -96,10 +96,10 @@ Remote Write 落后超过 2 分钟：Prometheus 已接收的最新样本，比�
 
     summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} remote write is {{ printf \"%.1f\" $value }}s behind for {{ $labels.remote_name}}:{{ $labels.url }}."
 
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusremotewritebehind"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheusremotewritebehind"
 ```
 
-**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 

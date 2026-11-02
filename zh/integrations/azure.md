@@ -2,7 +2,7 @@
 
 通过 Azure Monitor API 按资源类型拉取指标，用服务主体鉴权，只需 Monitoring Reader 角色。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Azure 插件调用 Azure Monitor 的指标 API，按订阅、资源组或资源类型（虚拟机、存储账户、SQL 数据库、应用服务等）拉取指标，配置里可以按资源类型指定要采的指标名和聚合方式。
 
@@ -14,7 +14,7 @@ Azure 插件调用 Azure Monitor 的指标 API，按订阅、资源组或资源�
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.azure/azure.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.azure started` 就说明插件已加载。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.azure/azure.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.azure started` 就说明插件已加载。
 
    ```
    # Gather Azure resources metrics from Azure Monitor API
@@ -151,6 +151,6 @@ Azure 插件调用 Azure Monitor 的指标 API，按订阅、资源组或资源�
 ## 相关链接[​](#相关链接 "相关链接的直接链接")
 
 * \[Azure 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/Azure）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/Azure%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

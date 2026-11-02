@@ -43,11 +43,11 @@ Installs upgraded from earlier versions keep the six built-in entries those vers
 | `telegram_robot_token` | Telegram bot token         |
 | `mm_webhook_url`       | Mattermost webhook URL     |
 
-Built-in entries can be disabled but not deleted, and their identifier cannot be edited. They date from when each person's robot token lived on their profile; in v9 the usual path is to put the robot token in the notification rule instead, as described in [DingTalk / Feishu / WeCom](https://n9e.github.io/docs/notifications/dingtalk-feishu-wecom.md).
+Built-in entries can be disabled but not deleted, and their identifier cannot be edited. They date from when each person's robot token lived on their profile; in v9 the usual path is to put the robot token in the notification rule instead, as described in [DingTalk / Feishu / WeCom](https://n9e.io/docs/notifications/dingtalk-feishu-wecom.md).
 
 ## How a media type uses it[​](#how-a-media-type-uses-it "Direct link to How a media type uses it")
 
-A media type that sends to people — [Callback](https://n9e.github.io/docs/notifications/callback.md), [Script](https://n9e.github.io/docs/notifications/script.md) and the HTTP-based types — has a **Contact** dropdown under **Variable configuration**. It lists `phone`, `email`, and every enabled contact method.
+A media type that sends to people — [Callback](https://n9e.io/docs/notifications/callback.md), [Script](https://n9e.io/docs/notifications/script.md) and the HTTP-based types — has a **Contact** dropdown under **Variable configuration**. It lists `phone`, `email`, and every enabled contact method.
 
 When a notification rule picks users or teams for that media type, Nightingale takes each person's value for the chosen key:
 
@@ -80,6 +80,6 @@ Say an internal service sends WeCom app messages and needs each recipient's WeCo
 
 ## Next[​](#next "Direct link to Next")
 
-* Where people's details are filled in: [Users and teams](https://n9e.github.io/docs/security/users-teams.md)
-* Use the addresses in a request: [Callback (generic webhook)](https://n9e.github.io/docs/notifications/callback.md)
-* Or in your own program: [Script media type](https://n9e.github.io/docs/notifications/script.md)
+* Where people's details are filled in: [Users and teams](https://n9e.io/docs/security/users-teams.md)
+* Use the addresses in a request: [Callback (generic webhook)](https://n9e.io/docs/notifications/callback.md)
+* Or in your own program: [Script media type](https://n9e.io/docs/notifications/script.md)

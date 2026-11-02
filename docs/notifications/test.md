@@ -48,7 +48,7 @@ Expected result: the dialog echoes the target's response (for HTTP media types, 
 
 Neither of the first two steps goes through an alert rule, so the easiest thing to miss is that **the notification rule was never attached to one**.
 
-Go to **Alerts & Notifications → Alert rules**, confirm the rule's **Notification rule** field contains it, then use the rule's own [test fire](https://n9e.github.io/docs/alerting/test-fire.md) to produce a real event.
+Go to **Alerts & Notifications → Alert rules**, confirm the rule's **Notification rule** field contains it, then use the rule's own [test fire](https://n9e.io/docs/alerting/test-fire.md) to produce a real event.
 
 Expected result: a new event appears under **Alerts & Notifications → Events**, and the message reaches you.
 
@@ -73,10 +73,10 @@ The drawer holds two tables, **Alert rule notification** and **Subscription rule
 1. Media type test fails → it is a network or credential problem and has nothing to do with the rest of Nightingale. Read the status code in the error.
 2. Media type passes, rule test fails → look at the filters (especially **no severity checked**) and at whether a template is selected.
 3. Both pass, real alert does not arrive → the alert rule does not reference this notification rule, or a mute rule swallowed the event.
-4. No record at all for that event → the event never reached the notification stage; walk [Why is there an alert event but no notification?](https://n9e.github.io/docs/troubleshooting/no-notification.md).
+4. No record at all for that event → the event never reached the notification stage; walk [Why is there an alert event but no notification?](https://n9e.io/docs/troubleshooting/no-notification.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* The message content is wrong: [Templates and variables](https://n9e.github.io/docs/notifications/templates.md)
-* How failures are retried: [Retries and delivery status](https://n9e.github.io/docs/notifications/delivery.md)
-* It arrived, but at the wrong people: [Notifications routed to the wrong people](https://n9e.github.io/docs/troubleshooting/wrong-routing.md)
+* The message content is wrong: [Templates and variables](https://n9e.io/docs/notifications/templates.md)
+* How failures are retried: [Retries and delivery status](https://n9e.io/docs/notifications/delivery.md)
+* It arrived, but at the wrong people: [Notifications routed to the wrong people](https://n9e.io/docs/troubleshooting/wrong-routing.md)

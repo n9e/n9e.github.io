@@ -2,13 +2,13 @@
 
 What the KubeletDown Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 Prometheus has no kubelet target reporting `up == 1`. Because the rule wraps the whole selector in `absent()`, it only fires when every kubelet is missing or failing to scrape. One broken node does not trigger it. When it fires you lose kubelet and cAdvisor metrics (container CPU and memory, volume usage) for the whole cluster, and any rule built on them goes quiet.
 
 * **Severity**: Critical (`critical`)
 * **Fires after**: 15m
-* Part of the [Kubernetes alert rules](https://n9e.github.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
+* Part of the [Kubernetes alert rules](https://n9e.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
 
 ## The rule[​](#the-rule "Direct link to The rule")
 
@@ -43,11 +43,11 @@ Alert message: `Kubelet has disappeared from Prometheus target discovery.`
 
 ## Related alerts[​](#related-alerts "Direct link to Related alerts")
 
-* [KubeNodeNotReady](https://n9e.github.io/alert-rules/kubernetes/kubenodenotready.md): … has been unready for more than 15 minutes.
+* [KubeNodeNotReady](https://n9e.io/alert-rules/kubernetes/kubenodenotready.md): … has been unready for more than 15 minutes.
 
 ## Prometheus rule YAML[​](#prometheus-rule-yaml "Direct link to Prometheus rule YAML")
 
-Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.github.io/alert-rules/kubernetes.yml).
+Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.io/alert-rules/kubernetes.yml).
 
 ```
 - alert: KubeletDown
@@ -66,10 +66,10 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
 
     summary: "Kubelet has disappeared from Prometheus target discovery."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeletdown"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeletdown"
 ```
 
-**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.github.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
+**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 

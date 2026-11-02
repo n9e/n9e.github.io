@@ -53,7 +53,7 @@ Eleven types in the open-source build:
 | Loki                                                                      | The URL **must end in `/loki`**                                                                           |
 | VictoriaLogs / TDengine / ClickHouse / Doris / IoTDB / MySQL / PostgreSQL | See their own pages                                                                                       |
 
-Note that **being registerable** and **being usable everywhere** are different things: ClickHouse, Doris, MySQL, PostgreSQL and OpenSearch are kept out of both explorers and dashboards in the open-source build, and can only back alert rules. See [Collect and connect data](https://n9e.github.io/docs/data/overview.md).
+Note that **being registerable** and **being usable everywhere** are different things: ClickHouse, Doris, MySQL, PostgreSQL and OpenSearch are kept out of both explorers and dashboards in the open-source build, and can only back alert rules. See [Collect and connect data](https://n9e.io/docs/data/overview.md).
 
 ## Collectors[​](#collectors "Direct link to Collectors")
 
@@ -71,6 +71,6 @@ Go 1.25. The frontend is Vite + React; see the `n9e/fe` repository for its build
 
 ## Related[​](#related "Direct link to Related")
 
-* [Choosing a metadata database](https://n9e.github.io/docs/install/databases.md)
-* [Collect and connect data](https://n9e.github.io/docs/data/overview.md)
-* [Data write protocols](https://n9e.github.io/docs/reference/write-protocols.md)
+* [Choosing a metadata database](https://n9e.io/docs/install/databases.md)
+* [Collect and connect data](https://n9e.io/docs/data/overview.md)
+* [Data write protocols](https://n9e.io/docs/reference/write-protocols.md)

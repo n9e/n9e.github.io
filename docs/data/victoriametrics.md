@@ -19,7 +19,7 @@ Cluster VictoriaMetrics splits reads and writes across two components with compl
 
 The `0` in the cluster path is the tenant ID (`accountID`). In a multi-tenant setup, register one data source per tenant with its own ID in the path.
 
-Every other field behaves exactly as described in [Prometheus](https://n9e.github.io/docs/data/prometheus.md): name, timeout, user and password, skip SSL verify, custom HTTP headers.
+Every other field behaves exactly as described in [Prometheus](https://n9e.io/docs/data/prometheus.md): name, timeout, user and password, skip SSL verify, custom HTTP headers.
 
 ## Set the time series database type[​](#set-the-time-series-database-type "Direct link to Set the time series database type")
 
@@ -62,9 +62,9 @@ Url = "http://victoriametrics:8428/api/v1/write"
 # Timeout = 10000
 ```
 
-Two settings are easy to confuse, so remember this: **the data source URL points at vmselect, `Pushgw.Writers` points at vminsert.** The **Remote Write URL** field in the data source form is a third, unrelated thing — it is only where [recording rules](https://n9e.github.io/docs/query/recording-rules.md) write their results back, and has nothing to do with the Categraf data flow.
+Two settings are easy to confuse, so remember this: **the data source URL points at vmselect, `Pushgw.Writers` points at vminsert.** The **Remote Write URL** field in the data source form is a third, unrelated thing — it is only where [recording rules](https://n9e.io/docs/query/recording-rules.md) write their results back, and has nothing to do with the Categraf data flow.
 
-`[[Pushgw.Writers]]` can run at the same time as [`[EmbeddedTSDB]`](https://n9e.github.io/docs/data/embedded-tsdb.md), writing to both. That overlap is the migration window from the embedded store to VictoriaMetrics — see [External TSDB and dual-write migration](https://n9e.github.io/docs/install/external-tsdb.md).
+`[[Pushgw.Writers]]` can run at the same time as [`[EmbeddedTSDB]`](https://n9e.io/docs/data/embedded-tsdb.md), writing to both. That overlap is the migration window from the embedded store to VictoriaMetrics — see [External TSDB and dual-write migration](https://n9e.io/docs/install/external-tsdb.md).
 
 ## Verify[​](#verify "Direct link to Verify")
 
@@ -74,6 +74,6 @@ Two settings are easy to confuse, so remember this: **the data source URL points
 
 ## Next[​](#next "Direct link to Next")
 
-* Write the first rule against it: [Your first alert rule](https://n9e.github.io/docs/alerting/first-rule.md)
-* Migrating off the embedded store: [External TSDB and dual-write migration](https://n9e.github.io/docs/install/external-tsdb.md)
-* Field-by-field walkthrough of the form: [Prometheus](https://n9e.github.io/docs/data/prometheus.md)
+* Write the first rule against it: [Your first alert rule](https://n9e.io/docs/alerting/first-rule.md)
+* Migrating off the embedded store: [External TSDB and dual-write migration](https://n9e.io/docs/install/external-tsdb.md)
+* Field-by-field walkthrough of the form: [Prometheus](https://n9e.io/docs/data/prometheus.md)

@@ -2,7 +2,7 @@
 
 Collects connections, transactions, cache hit ratio, locks and replication state with a read-only pg\_monitor account; custom queries against business tables are supported.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The PostgreSQL input connects as a client and reads the `pg_stat_*` monitoring views: connections per database, commits and rollbacks, cache hit ratio, deadlocks, temp files and replication lag. Custom queries can turn numbers from your own tables into metrics as well.
 
@@ -16,7 +16,7 @@ A dedicated account with the `pg_monitor` role is all it needs; only custom quer
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.postgresql/postgresql.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.postgresql started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.postgresql/postgresql.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.postgresql started` once the plugin is loaded.
 
    ```
    # Read metrics from one or many postgresql servers
@@ -124,9 +124,9 @@ A dedicated account with the `pg_monitor` role is all it needs; only custom quer
      # '''
    ```
 
-2. Open the integration center in Nightingale, find PostgreSQL, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find PostgreSQL, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -221,6 +221,6 @@ Runbook:
 
 * [PostgreSQL template source](https://github.com/ccfos/nightingale/tree/main/integrations/PostgreSQL): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `postgresql` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/postgresql): every config option and the full metric list.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

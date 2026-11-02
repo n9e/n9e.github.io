@@ -34,7 +34,7 @@ may edit this alert rule  =  my role holds the "edit alert rule" permission poin
                              that owns the rule
 ```
 
-The `Admin` role bypasses layer two, so **do not give the AI account `Admin`** — that hands it every business group at once. The full model is in [Authentication, tokens and RBAC model](https://n9e.github.io/docs/concepts/auth-rbac.md).
+The `Admin` role bypasses layer two, so **do not give the AI account `Admin`** — that hands it every business group at once. The full model is in [Authentication, tokens and RBAC model](https://n9e.io/docs/concepts/auth-rbac.md).
 
 ## How business groups reach the tools[​](#how-business-groups-reach-the-tools "Direct link to How business groups reach the tools")
 
@@ -50,7 +50,7 @@ The practical consequence: to make the AI see only the "Trading System" group, y
 
 **One: an OAuth token is confined to the agent plane.** An access token from the built-in authorization server or an external IdP works on `/a2a` and `/mcp` only; the rest of `/api/n9e/*` rejects it. Personal tokens have no such restriction.
 
-**Two: write tools are not registered at all by default.** The 32 write tools do not appear in `tools/list` until `MCPEnableWriteTools = true`. That is a gate *on top of* RBAC, independent of the account's permissions — see [Enable write tools safely](https://n9e.github.io/docs/ai/write-tools.md).
+**Two: write tools are not registered at all by default.** The 32 write tools do not appear in `tools/list` until `MCPEnableWriteTools = true`. That is a gate *on top of* RBAC, independent of the account's permissions — see [Enable write tools safely](https://n9e.io/docs/ai/write-tools.md).
 
 **Three: "read-only tool" does not mean "no side effects".** `query_logs` in the `logs` toolset passes the query body through verbatim to Nightingale's log-query endpoint, which dispatches on the datasource type you name. If you have SQL-family datasources registered — MySQL, PostgreSQL, ClickHouse, Doris, TDengine — the SQL is executed as written. There **is** a read-only check on this path (`validateReadOnlySQL` in `aiagent/tools/datasource_query.go`), but it is a keyword blocklist — it rejects a statement whose text starts with or contains `INSERT`, `UPDATE`, `DELETE`, `DROP`, `ALTER`, `CREATE`, `TRUNCATE`, `REPLACE`, `GRANT` or `REVOKE`. That stops the obvious cases; it is not a SQL parser, so treat it as defence in depth rather than a guarantee. **If you have SQL datasources and want MCP on, drop `logs` from `MCPToolsets`**, or give the AI account a role that cannot reach those datasources.
 
@@ -76,6 +76,6 @@ Expected result: the returned list contains **only** the groups you authorized. 
 
 ## Next[​](#next "Direct link to Next")
 
-* Create the account and its token: [Personal token authentication](https://n9e.github.io/docs/ai/token-auth.md)
-* The full permission points: [Permission matrix](https://n9e.github.io/docs/reference/permissions.md)
-* The business-group model: [Business groups](https://n9e.github.io/docs/concepts/business-groups.md)
+* Create the account and its token: [Personal token authentication](https://n9e.io/docs/ai/token-auth.md)
+* The full permission points: [Permission matrix](https://n9e.io/docs/reference/permissions.md)
+* The business-group model: [Business groups](https://n9e.io/docs/concepts/business-groups.md)

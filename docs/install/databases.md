@@ -4,7 +4,7 @@ The metadata store is MySQL, PostgreSQL or SQLite (testing only); the process cr
 
 Last reviewed 2026-10-10
 
-Nightingale connects to two stores: a **metadata database** (users, business groups, alert rules, dashboards, notification config) and **Redis**. Metrics are not in either — those belong to the [time-series store](https://n9e.github.io/docs/concepts/storage.md).
+Nightingale connects to two stores: a **metadata database** (users, business groups, alert rules, dashboards, notification config) and **Redis**. Metrics are not in either — those belong to the [time-series store](https://n9e.io/docs/concepts/storage.md).
 
 ## Which one[​](#which-one "Direct link to Which one")
 
@@ -102,6 +102,6 @@ Address = "redis:6379"
 
 ## Next[​](#next "Direct link to Next")
 
-* [Binary packages](https://n9e.github.io/docs/install/binary.md) — starting the process after the config change
-* [Configuration layout](https://n9e.github.io/docs/install/configuration.md) — keeping passwords out of plain text
-* [High availability](https://n9e.github.io/docs/install/high-availability.md) — several instances on one MySQL and one Redis
+* [Binary packages](https://n9e.io/docs/install/binary.md) — starting the process after the config change
+* [Configuration layout](https://n9e.io/docs/install/configuration.md) — keeping passwords out of plain text
+* [High availability](https://n9e.io/docs/install/high-availability.md) — several instances on one MySQL and one Redis

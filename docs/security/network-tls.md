@@ -8,7 +8,7 @@ Where this page ends: a network plan you can turn straight into firewall rules a
 
 ## What is on port 17000[​](#what-is-on-port-17000 "Direct link to What is on port 17000")
 
-In one word: **everything**. The web UI, `/api/n9e/*`, four protocols' worth of write endpoints, collector heartbeats, the embedded TSDB's query interface, `/mcp` and `/a2a`, and `/metrics` all share the port. The itemised list is in [Ports and network flows](https://n9e.github.io/docs/reference/ports.md).
+In one word: **everything**. The web UI, `/api/n9e/*`, four protocols' worth of write endpoints, collector heartbeats, the embedded TSDB's query interface, `/mcp` and `/a2a`, and `/metrics` all share the port. The itemised list is in [Ports and network flows](https://n9e.io/docs/reference/ports.md).
 
 Two other ports exist: 19000 for `n9e-edge`, and 20090 for ibex self-healing (gRPC). Both are site-internal only.
 
@@ -36,7 +36,7 @@ Expected result: **200 and the site-wide data source list**, with no credential 
 
 `AlertDetail = true` does the same for alert event details, which open anonymously.
 
-Both switches exist to serve the ad-hoc chart share link and event detail sharing. So there are only two honest positions: **turn them off, or design the network as though 17000 were public.** Turning them off leaves dashboard time-limited share links working — that path uses a separate board-scoped token and does not depend on these switches. Only the `/chart/<id>` style temporary chart link breaks (see [Anonymous time-limited sharing](https://n9e.github.io/docs/query/sharing.md)).
+Both switches exist to serve the ad-hoc chart share link and event detail sharing. So there are only two honest positions: **turn them off, or design the network as though 17000 were public.** Turning them off leaves dashboard time-limited share links working — that path uses a separate board-scoped token and does not depend on these switches. Only the `/chart/<id>` style temporary chart link breaks (see [Anonymous time-limited sharing](https://n9e.io/docs/query/sharing.md)).
 
 ## 1. Terminate TLS on Nightingale itself[​](#1-terminate-tls-on-nightingale-itself "Direct link to 1. Terminate TLS on Nightingale itself")
 
@@ -104,7 +104,7 @@ Enable = true
 n9e-agent = "<a passphrase you generate>"
 ```
 
-Every collector has to be updated with the same credential afterwards, or all heartbeats stop. The rotation order is in [Tokens and credential rotation](https://n9e.github.io/docs/security/tokens.md).
+Every collector has to be updated with the same credential afterwards, or all heartbeats stop. The rotation order is in [Tokens and credential rotation](https://n9e.io/docs/security/tokens.md).
 
 `[HTTP.APIForService]` is a separate set, and **defaults to `Enable = false`**. While it is off the entire `/v1/n9e` route group is never mounted, which is why the sample credentials shipped in the config file are currently inert. Edge mode, a standalone alert process and variable decryption all need it on — replace those sample credentials before you turn it on.
 
@@ -140,10 +140,10 @@ Setting **either one** lifts the local-only restriction. This is the trap: `Data
 | `[HTTP.JWTAuth] RefreshExpired`  | `10080` (minutes, 7 days) | The same                                                                                                                           |
 | `[HTTP.ShowCaptcha] Enable`      | `false`                   | Login page captcha. Turn it on when the login page is externally reachable                                                         |
 
-The outbound connections (database, Redis, data sources, notification media, LLM provider) are listed in [Ports and network flows](https://n9e.github.io/docs/reference/ports.md); write egress rules from that table. Redis and `[[Pushgw.Writers]]` each carry their own TLS options, which matter across sites.
+The outbound connections (database, Redis, data sources, notification media, LLM provider) are listed in [Ports and network flows](https://n9e.io/docs/reference/ports.md); write egress rules from that table. Redis and `[[Pushgw.Writers]]` each carry their own TLS options, which matter across sites.
 
 ## Next[​](#next "Direct link to Next")
 
-* The complete port and flow tables: [Ports and network flows](https://n9e.github.io/docs/reference/ports.md)
-* Turning config-file credentials into ciphertext: [Secret management](https://n9e.github.io/docs/security/secrets.md)
-* A pass over everything before going live: [Security checklist](https://n9e.github.io/docs/security/checklist.md)
+* The complete port and flow tables: [Ports and network flows](https://n9e.io/docs/reference/ports.md)
+* Turning config-file credentials into ciphertext: [Secret management](https://n9e.io/docs/security/secrets.md)
+* A pass over everything before going live: [Security checklist](https://n9e.io/docs/security/checklist.md)

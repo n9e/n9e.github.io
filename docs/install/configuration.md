@@ -89,7 +89,7 @@ Two other groups are unaffected because they never reach the config loader: the 
 | `[Ibex]`                                                   | RPC listener for self-healing tasks                                              | Center, Edge         |
 | `[CenterApi]`                                              | Central address and credentials (only in `edge.toml`)                            | Edge                 |
 
-Defaults and notes for every key are in the [Configuration reference](https://n9e.github.io/docs/reference/configuration.md).
+Defaults and notes for every key are in the [Configuration reference](https://n9e.io/docs/reference/configuration.md).
 
 ## Keep passwords out of plain text[​](#keep-passwords-out-of-plain-text "Direct link to Keep passwords out of plain text")
 
@@ -99,10 +99,10 @@ Defaults and notes for every key are in the [Configuration reference](https://n9
 ./n9e --crypto-key '<your-key>'
 ```
 
-Values without the `{{cipher}}` prefix are treated as plain text, so you can migrate them one at a time. For the full approach see [Secret management](https://n9e.github.io/docs/security/secrets.md).
+Values without the `{{cipher}}` prefix are treated as plain text, so you can migrate them one at a time. For the full approach see [Secret management](https://n9e.io/docs/security/secrets.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* [Configuration reference](https://n9e.github.io/docs/reference/configuration.md) — every key and its default
-* [Choosing a metadata database](https://n9e.github.io/docs/install/databases.md)
-* [High availability](https://n9e.github.io/docs/install/high-availability.md) — which settings must match across instances
+* [Configuration reference](https://n9e.io/docs/reference/configuration.md) — every key and its default
+* [Choosing a metadata database](https://n9e.io/docs/install/databases.md)
+* [High availability](https://n9e.io/docs/install/high-availability.md) — which settings must match across instances

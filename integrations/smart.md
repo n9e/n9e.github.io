@@ -2,7 +2,7 @@
 
 Runs smartctl to read S.M.A.R.T. health attributes from HDDs, SSDs and NVMe drives, so you see reallocated sectors, temperature and wear before a disk actually dies.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 S.M.A.R.T. is the self-monitoring built into hard drives and SSDs. The Categraf smart input runs `smartctl` (and the `nvme` tool for NVMe devices) and emits `smart_device` for overall health plus `smart_attribute` for individual attributes: reallocated sectors, pending sectors, temperature, power-on hours, SSD wear and more.
 
@@ -17,7 +17,7 @@ The bundled rules watch the precursors of data loss: failed health checks, growi
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.smart/smart.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.smart started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.smart/smart.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.smart started` once the plugin is loaded.
 
    ```
    # Read metrics from storage devices supporting S.M.A.R.T.
@@ -121,9 +121,9 @@ The bundled rules watch the precursors of data loss: failed health checks, growi
        # read_method = "concurrent"
    ```
 
-2. Open the integration center in Nightingale, find SMART, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
+2. Open the integration center in Nightingale, find SMART, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
 
-3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+3. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -262,6 +262,6 @@ Runbook:
 
 * [SMART template source](https://github.com/ccfos/nightingale/tree/main/integrations/SMART): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
 * [Categraf `smart` plugin docs](https://github.com/flashcatcloud/categraf/tree/main/inputs/smart): every config option and the full metric list.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

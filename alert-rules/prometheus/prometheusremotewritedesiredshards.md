@@ -2,13 +2,13 @@
 
 What the PrometheusRemoteWriteDesiredShards Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 Remote write calculates how many parallel shards it needs to keep up with the incoming samples. This alert fires when that number has been above the configured `max_shards` for 15 minutes. Remote write cannot add the shards it needs, so it will fall behind (PrometheusRemoteWriteBehind) unless something changes.
 
 * **Severity**: Warning (`warning`)
 * **Fires after**: 15m
-* Part of the [Prometheus alert rules](https://n9e.github.io/alert-rules/prometheus.md) (`prometheus.yml`)
+* Part of the [Prometheus alert rules](https://n9e.io/alert-rules/prometheus.md) (`prometheus.yml`)
 
 ## The rule[​](#the-rule "Direct link to The rule")
 
@@ -55,12 +55,12 @@ Alert message: Prometheus {{$labels.namespace}}/{{$labels.pod}} remote write des
 
 ## Related alerts[​](#related-alerts "Direct link to Related alerts")
 
-* [PrometheusRemoteWriteBehind](https://n9e.github.io/alert-rules/prometheus/prometheusremotewritebehind.md): Prometheus …/… remote write is …s behind for …:….
-* [PrometheusRemoteStorageFailures](https://n9e.github.io/alert-rules/prometheus.md#prometheusremotestoragefailures): Prometheus …/… failed to send …% of the samples to …:…
+* [PrometheusRemoteWriteBehind](https://n9e.io/alert-rules/prometheus/prometheusremotewritebehind.md): Prometheus …/… remote write is …s behind for …:….
+* [PrometheusRemoteStorageFailures](https://n9e.io/alert-rules/prometheus.md#prometheusremotestoragefailures): Prometheus …/… failed to send …% of the samples to …:…
 
 ## Prometheus rule YAML[​](#prometheus-rule-yaml "Direct link to Prometheus rule YAML")
 
-Add this to a rules file loaded through `rule_files`, or download every Prometheus rule at once as [`prometheus.yml`](https://n9e.github.io/alert-rules/prometheus.yml).
+Add this to a rules file loaded through `rule_files`, or download every Prometheus rule at once as [`prometheus.yml`](https://n9e.io/alert-rules/prometheus.yml).
 
 ```
 - alert: PrometheusRemoteWriteDesiredShards
@@ -91,10 +91,10 @@ Add this to a rules file loaded through `rule_files`, or download every Promethe
 
     summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} remote write desired shards calculation wants to run {{ $value }} shards for queue {{ $labels.remote_name}}:{{ $labels.url }}, which is more than the max of {{ printf `prometheus_remote_storage_shards_max{instance=\"%s\",job=\"prometheus-k8s\",namespace=\"monitoring\"}` $labels.instance | query | first | value }}."
 
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusremotewritedesiredshards"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheusremotewritedesiredshards"
 ```
 
-**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.github.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
+**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 

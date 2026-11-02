@@ -71,7 +71,7 @@ Give `--configs` **an absolute path**, or be sure of your working directory: Cat
 
 **Infrastructure → Hosts**. Within a minute the machine should be listed, marked up, and carrying CPU and memory utilisation.
 
-![The host list, showing hosts reporting in](https://n9e.github.io/img/docs/data/targets-list.webp)![The host list, showing hosts reporting in](https://n9e.github.io/img/docs/data/targets-list.dark.webp)
+![The host list, showing hosts reporting in](https://n9e.io/img/docs/data/targets-list.webp)![The host list, showing hosts reporting in](https://n9e.io/img/docs/data/targets-list.dark.webp)
 
 If it is not there, check in this order:
 
@@ -79,7 +79,7 @@ If it is not there, check in this order:
 2. whether the host can actually reach Nightingale (firewall, security group);
 3. whether the clocks differ by more than a couple of minutes.
 
-Details in [Why does a Categraf target show as offline?](https://n9e.github.io/docs/troubleshooting/categraf-offline.md).
+Details in [Why does a Categraf target show as offline?](https://n9e.io/docs/troubleshooting/categraf-offline.md).
 
 ## 5. Import a dashboard and rules while you are here[​](#5-import-a-dashboard-and-rules-while-you-are-here "Direct link to 5. Import a dashboard and rules while you are here")
 
@@ -87,6 +87,6 @@ Details in [Why does a Categraf target show as offline?](https://n9e.github.io/d
 
 ## Next[​](#next "Direct link to Next")
 
-* Get alerts to a person: [Notifications](https://n9e.github.io/docs/notifications/overview.md)
+* Get alerts to a person: [Notifications](https://n9e.io/docs/notifications/overview.md)
 * Collect other things (MySQL, Redis, Nginx…): 80+ component packs under Components
-* Running the collector in production: [Categraf](https://n9e.github.io/docs/data/categraf/install.md)
+* Running the collector in production: [Categraf](https://n9e.io/docs/data/categraf/install.md)

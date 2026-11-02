@@ -8,7 +8,7 @@ Where this page ends: a chain of processors attached to an alert rule or a notif
 
 In the UI this feature is called **Workflows**, under **Alerts & Notifications → Workflows** (`/event-pipelines`).
 
-![The workflow list](https://n9e.github.io/img/docs/events/pipelines.webp)![The workflow list](https://n9e.github.io/img/docs/events/pipelines.dark.webp)
+![The workflow list](https://n9e.io/img/docs/events/pipelines.webp)![The workflow list](https://n9e.io/img/docs/events/pipelines.dark.webp)
 
 ## 1. Create a workflow[​](#1-create-a-workflow "Direct link to 1. Create a workflow")
 
@@ -47,7 +47,7 @@ Processors run **top to bottom**; the event takes one straight path, with no bra
 {{ if eq $event.TagsMap.env "dev" }}true{{ end }}
 ```
 
-For how to configure label rewrite and event update, see [Rewrite labels and enrich context](https://n9e.github.io/docs/events/relabel-enrich.md). AI summary — model setup, prompt and where the result lands — is in [AI summary processor](https://n9e.github.io/docs/events/ai-summary.md).
+For how to configure label rewrite and event update, see [Rewrite labels and enrich context](https://n9e.io/docs/events/relabel-enrich.md). AI summary — model setup, prompt and where the result lands — is in [AI summary processor](https://n9e.io/docs/events/ai-summary.md).
 
 The first processor card **has no type pre-selected** on purpose, and the type is required — saving without one is refused with "Pick a processor type — a processor without one fails on every event". That validation exists precisely because a typeless processor would otherwise fail on every event it saw.
 
@@ -62,7 +62,7 @@ Two attachment points, with different meaning:
 
 In the notification rule form the section is called **Event workflow**; click "Add a new event workflow" to pick one, and each entry can be enabled or disabled on its own.
 
-**Pipelines run before mutes**, so labels written by a workflow attached to an alert rule are visible to mute rules. The full order is in [Noise reduction and routing model](https://n9e.github.io/docs/concepts/noise-routing.md).
+**Pipelines run before mutes**, so labels written by a workflow attached to an alert rule are visible to mute rules. The full order is in [Noise reduction and routing model](https://n9e.io/docs/concepts/noise-routing.md).
 
 ## What catches people out[​](#what-catches-people-out "Direct link to What catches people out")
 
@@ -73,7 +73,7 @@ In the notification rule form the section is called **Event workflow**; click "A
 
 ## Next[​](#next "Direct link to Next")
 
-* Try it before it is live: [Try a workflow with a mock event](https://n9e.github.io/docs/events/try-workflow.md)
-* Where the results land: [Inspect workflow execution records](https://n9e.github.io/docs/events/execution-records.md)
-* The label mechanics: [Rewrite labels and enrich context](https://n9e.github.io/docs/events/relabel-enrich.md)
-* Passes the test run but not in production: [A workflow tests fine but does nothing in production](https://n9e.github.io/docs/troubleshooting/workflow-prod-fails.md)
+* Try it before it is live: [Try a workflow with a mock event](https://n9e.io/docs/events/try-workflow.md)
+* Where the results land: [Inspect workflow execution records](https://n9e.io/docs/events/execution-records.md)
+* The label mechanics: [Rewrite labels and enrich context](https://n9e.io/docs/events/relabel-enrich.md)
+* Passes the test run but not in production: [A workflow tests fine but does nothing in production](https://n9e.io/docs/troubleshooting/workflow-prod-fails.md)

@@ -17,7 +17,7 @@ They do not overlap; each covers a different half:
 
 **These do not exist — do not go looking:**
 
-* There is no mechanism for overriding arbitrary config keys from the environment. There is no `N9E_DB_DSN`; configuration is read from the toml files under `etc/` and nowhere else. See [Environment variables](https://n9e.github.io/docs/reference/environment-variables.md).
+* There is no mechanism for overriding arbitrary config keys from the environment. There is no `N9E_DB_DSN`; configuration is read from the toml files under `etc/` and nowhere else. See [Environment variables](https://n9e.io/docs/reference/environment-variables.md).
 * There is no integration with an external secret manager (Vault, a cloud KMS).
 * **Data source credentials and LLM API keys are covered by neither mechanism** — they live only in their own tables.
 
@@ -95,21 +95,21 @@ All four binaries (`n9e`, `n9e-alert`, `n9e-pushgw`, `n9e-edge`) accept `--crypt
 
 Media type tokens, SMTP passwords and SSO client secrets are entered in the UI rather than in a config file, so they take the other route: create an encrypted variable under **System → Variable**, then reference it from the configuration as `{{.variable_name}}`.
 
-The value is encrypted **in the browser** with an RSA public key before it is sent, cannot be read back through the UI afterwards (the list shows `******`), and is masked to `***` in logs and notification records. The full rules and limits are in [Site and user variable settings](https://n9e.github.io/docs/security/variables.md).
+The value is encrypted **in the browser** with an RSA public key before it is sent, cannot be read back through the UI afterwards (the list shows `******`), and is masked to `***` in logs and notification records. The full rules and limits are in [Site and user variable settings](https://n9e.io/docs/security/variables.md).
 
 Be clear about the boundary: **the RSA private key sits in the same `configs` table as the ciphertext.** This layer defends against a colleague with system-settings permission casually reading a credential, and against credentials landing in logs. It does not defend against anyone who can read the database.
 
 ## 3. Where the remaining credentials live[​](#3-where-the-remaining-credentials-live "Direct link to 3. Where the remaining credentials live")
 
-| Credential                                      | Stored in                 | Encryptable                                                                                                                |
-| ----------------------------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| User passwords                                  | The `users` table         | Salted hash, not reversible. But one salt serves the whole site, so weak passwords still fall to offline cracking          |
-| Personal tokens                                 | The `user_token` table    | Plaintext UUIDs, revoked by deletion — see [Tokens and credential rotation](https://n9e.github.io/docs/security/tokens.md) |
-| Data source credentials, certificates, headers  | The `datasource` table    | Neither mechanism reaches these. They are stripped from records returned to non-admins                                     |
-| LLM API keys                                    | The `ai_llm_config` table | The same                                                                                                                   |
-| Media type tokens, SMTP passwords               | Media type configuration  | Can be changed to reference an encrypted variable                                                                          |
-| SSO client secrets and bind passwords           | The `sso_config` table    | The same                                                                                                                   |
-| RSA private key, JWT signing key, password salt | The `configs` table       | Generated automatically; nothing to do, but they set the sensitivity of the database                                       |
+| Credential                                      | Stored in                 | Encryptable                                                                                                         |
+| ----------------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| User passwords                                  | The `users` table         | Salted hash, not reversible. But one salt serves the whole site, so weak passwords still fall to offline cracking   |
+| Personal tokens                                 | The `user_token` table    | Plaintext UUIDs, revoked by deletion — see [Tokens and credential rotation](https://n9e.io/docs/security/tokens.md) |
+| Data source credentials, certificates, headers  | The `datasource` table    | Neither mechanism reaches these. They are stripped from records returned to non-admins                              |
+| LLM API keys                                    | The `ai_llm_config` table | The same                                                                                                            |
+| Media type tokens, SMTP passwords               | Media type configuration  | Can be changed to reference an encrypted variable                                                                   |
+| SSO client secrets and bind passwords           | The `sso_config` table    | The same                                                                                                            |
+| RSA private key, JWT signing key, password salt | The `configs` table       | Generated automatically; nothing to do, but they set the sensitivity of the database                                |
 
 The thing to take away from that table: **only a minority can be encrypted, and for most credentials the real boundary is the database itself.**
 
@@ -118,11 +118,11 @@ The thing to take away from that table: **only a minority can be encrypted, and 
 What the product does not reach has to be handled in deployment. These three pay best:
 
 1. **File permissions on the config.** Even with all six fields encrypted, the file still carries the database address, the Redis address and the write targets — topology worth having. `chmod 600`, owned by the user the process runs as.
-2. **Keep config files out of version control.** Version a template instead and inject values at deploy time; for multiple environments, point `N9E_CONFIGS` (or `--configs`) at different directories — the plainest approach and the easiest to audit. See [Environment variables](https://n9e.github.io/docs/reference/environment-variables.md).
-3. **Treat the database as the real boundary.** Password hashes, tokens, data source credentials and the RSA private key are all in it. Give the database account least privilege, expose it on the network to Nightingale only, and encrypt backups at rest — see [Backup and restore](https://n9e.github.io/docs/operations/backup-restore.md).
+2. **Keep config files out of version control.** Version a template instead and inject values at deploy time; for multiple environments, point `N9E_CONFIGS` (or `--configs`) at different directories — the plainest approach and the easiest to audit. See [Environment variables](https://n9e.io/docs/reference/environment-variables.md).
+3. **Treat the database as the real boundary.** Password hashes, tokens, data source credentials and the RSA private key are all in it. Give the database account least privilege, expose it on the network to Nightingale only, and encrypt backups at rest — see [Backup and restore](https://n9e.io/docs/operations/backup-restore.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* The full rules for encrypted variables: [Site and user variable settings](https://n9e.github.io/docs/security/variables.md)
-* How to rotate credentials: [Tokens and credential rotation](https://n9e.github.io/docs/security/tokens.md)
-* A pass over everything before going live: [Security checklist](https://n9e.github.io/docs/security/checklist.md)
+* The full rules for encrypted variables: [Site and user variable settings](https://n9e.io/docs/security/variables.md)
+* How to rotate credentials: [Tokens and credential rotation](https://n9e.io/docs/security/tokens.md)
+* A pass over everything before going live: [Security checklist](https://n9e.io/docs/security/checklist.md)

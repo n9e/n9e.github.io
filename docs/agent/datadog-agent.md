@@ -46,11 +46,11 @@ sudo journalctl -u datadog-agent -n 100 --no-pager
 
 Nightingale replaces dots and hyphens in metric names with underscores: `system.cpu.user` becomes `system_cpu_user`. Inspect both Agent and Nightingale logs; a running service alone does not prove delivery.
 
-Success on auxiliary compatibility endpoints does not prove that logs, APM, events or all service checks were stored. This guide covers the v1 metric-series path only. If your Agent cannot use it, choose [Categraf](https://n9e.github.io/docs/data/categraf/install.md) or a verified Prometheus collection path.
+Success on auxiliary compatibility endpoints does not prove that logs, APM, events or all service checks were stored. This guide covers the v1 metric-series path only. If your Agent cannot use it, choose [Categraf](https://n9e.io/docs/data/categraf/install.md) or a verified Prometheus collection path.
 
 ## Next[​](#next "Direct link to Next")
 
-* [Data ingestion protocols](https://n9e.github.io/docs/reference/write-protocols.md)
-* [Connected datasource with no data](https://n9e.github.io/docs/troubleshooting/no-data.md)
+* [Data ingestion protocols](https://n9e.io/docs/reference/write-protocols.md)
+* [Connected datasource with no data](https://n9e.io/docs/troubleshooting/no-data.md)
 
 Implementation: [Pushgw routes](https://github.com/ccfos/nightingale/blob/01a8e22eb21d81f5cbe5c34e5a1511ff63e39983/pushgw/router/router.go) and [series parsing and authentication](https://github.com/ccfos/nightingale/blob/01a8e22eb21d81f5cbe5c34e5a1511ff63e39983/pushgw/router/router_datadog.go).

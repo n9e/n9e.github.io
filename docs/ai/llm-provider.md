@@ -10,7 +10,7 @@ Where this page ends: one LLM config that passed **Test connection**, is enabled
 
 **Nightingale AI → LLM configs**, at `/nightingale-ai/llm-configs`. There is no top-level menu item for it; the older address `/ai-config/llm-configs` redirects here.
 
-![The LLM configs list](https://n9e.github.io/img/docs/ai/llm-configs.webp)![The LLM configs list](https://n9e.github.io/img/docs/ai/llm-configs.dark.webp)
+![The LLM configs list](https://n9e.io/img/docs/ai/llm-configs.webp)![The LLM configs list](https://n9e.io/img/docs/ai/llm-configs.dark.webp)
 
 The page is guarded by the permission point `/ai-config/llm-configs`, which **neither `Standard` nor `Guest` holds**. So: an `Admin`, or a custom role you granted that point to under **Organization → Roles**.
 
@@ -109,6 +109,6 @@ Then ask something that needs your data, which exercises the tool-calling half a
 
 ## Next[​](#next "Direct link to Next")
 
-* What the assistant does with the model: [Nightingale AI overview](https://n9e.github.io/docs/ai/nightingale-ai.md)
-* Teach it your team's methods: [Install, manage and write Skills](https://n9e.github.io/docs/ai/skills.md)
-* When it errors: [AI / Skill / MCP troubleshooting](https://n9e.github.io/docs/ai/troubleshooting.md)
+* What the assistant does with the model: [Nightingale AI overview](https://n9e.io/docs/ai/nightingale-ai.md)
+* Teach it your team's methods: [Install, manage and write Skills](https://n9e.io/docs/ai/skills.md)
+* When it errors: [AI / Skill / MCP troubleshooting](https://n9e.io/docs/ai/troubleshooting.md)

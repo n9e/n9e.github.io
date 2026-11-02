@@ -39,7 +39,7 @@ curl -X POST http://n9e:17000/api/n9e/auth/login \
 # take dat.access_token from the response, then send Authorization: Bearer <token>
 ```
 
-**A token has no permissions of its own** — it acts as its owner. Generate automation tokens from a dedicated least-privilege account; see [Tokens and credential rotation](https://n9e.github.io/docs/security/tokens.md).
+**A token has no permissions of its own** — it acts as its owner. Generate automation tokens from a dedicated least-privilege account; see [Tokens and credential rotation](https://n9e.io/docs/security/tokens.md).
 
 ## Response shape[​](#response-shape "Direct link to Response shape")
 
@@ -63,7 +63,7 @@ List endpoints return `dat` in **two different shapes**, and a script has to han
 curl -o /dev/null -w '%{http_code}' http://n9e:17000/api/n9e/does-not-exist
 ```
 
-To tell whether an endpoint exists, check that the response is JSON, or read the routing table. This trap comes back in [troubleshooting](https://n9e.github.io/docs/troubleshooting/no-data.md).
+To tell whether an endpoint exists, check that the response is JSON, or read the routing table. This trap comes back in [troubleshooting](https://n9e.io/docs/troubleshooting/no-data.md).
 
 ## Common endpoints[​](#common-endpoints "Direct link to Common endpoints")
 
@@ -97,16 +97,16 @@ By object; the routing table has the complete list:
 
 Collector requests are separate from the management API. They are enabled by `[HTTP.APIForAgent].Enable` and write metrics into the embedded store or configured external writers. A web-login JWT is not the collector credential.
 
-| Format                  | Receiver                      | Guide                                                                                                                          |
-| ----------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| Prometheus Remote Write | `POST /prometheus/v1/write`   | [Telegraf](https://n9e.github.io/docs/agent/telegraf.md), [Categraf](https://n9e.github.io/docs/data/categraf/remote-write.md) |
-| OpenTSDB JSON           | `POST /opentsdb/put`          | [Data ingestion protocols](https://n9e.github.io/docs/reference/write-protocols.md)                                            |
-| Datadog v1 series       | `POST /datadog/api/v1/series` | [Datadog Agent compatibility](https://n9e.github.io/docs/agent/datadog-agent.md)                                               |
+| Format                  | Receiver                      | Guide                                                                                                            |
+| ----------------------- | ----------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Prometheus Remote Write | `POST /prometheus/v1/write`   | [Telegraf](https://n9e.io/docs/agent/telegraf.md), [Categraf](https://n9e.io/docs/data/categraf/remote-write.md) |
+| OpenTSDB JSON           | `POST /opentsdb/put`          | [Data ingestion protocols](https://n9e.io/docs/reference/write-protocols.md)                                     |
+| Datadog v1 series       | `POST /datadog/api/v1/series` | [Datadog Agent compatibility](https://n9e.io/docs/agent/datadog-agent.md)                                        |
 
 Remote Write and OpenTSDB use the configured Agent BasicAuth when enabled. Datadog v1 series instead matches `api_key` against its password values. Check authentication and the actual destination store before treating an HTTP response as proof that a sample is queryable.
 
 ## Related[​](#related "Direct link to Related")
 
-* [Tokens and credential rotation](https://n9e.github.io/docs/security/tokens.md)
-* [Permission matrix](https://n9e.github.io/docs/reference/permissions.md)
-* [MCP tool reference](https://n9e.github.io/docs/reference/mcp-tools.md) — the same permission model, a different door
+* [Tokens and credential rotation](https://n9e.io/docs/security/tokens.md)
+* [Permission matrix](https://n9e.io/docs/reference/permissions.md)
+* [MCP tool reference](https://n9e.io/docs/reference/mcp-tools.md) — the same permission model, a different door

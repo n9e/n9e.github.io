@@ -17,7 +17,7 @@ Log alerting always reduces to the same thing — **turn a window of logs into o
 | VictoriaLogs  | Same block                                   | `$A.<stats alias> > 100`       |
 | Loki          | **Inside the LogQL**, like a Prometheus rule | none — it is part of the query |
 
-Loki is the odd one out and is documented separately below. The other three share the trigger model described in [Evaluation interval and recovery](https://n9e.github.io/docs/alerting/evaluation.md).
+Loki is the odd one out and is documented separately below. The other three share the trigger model described in [Evaluation interval and recovery](https://n9e.io/docs/alerting/evaluation.md).
 
 ## Elasticsearch and OpenSearch[​](#elasticsearch-and-opensearch "Direct link to Elasticsearch and OpenSearch")
 
@@ -56,7 +56,7 @@ $A > 100 && $B < 10
 
 For Elasticsearch, a query is referenced as bare `$A`. Add more query cards to get `$B`, `$C`, and combine them.
 
-Two things silently do not work, so check them with [Test fire](https://n9e.github.io/docs/alerting/test-fire.md):
+Two things silently do not work, so check them with [Test fire](https://n9e.io/docs/alerting/test-fire.md):
 
 * referencing a query alias that no longer exists;
 * comparing a label with a number. Labels are strings — `$A.service == 'checkout'` is fine, `$A.service > 10` is a type error, and the engine treats an expression it cannot evaluate as "not met" without complaining.
@@ -89,7 +89,7 @@ Loki rules are shaped like Prometheus rules, not like the other log rules. There
 count_over_time({job="myapp"} |= "error" [5m]) > 10
 ```
 
-Consequences, all of them the same as for [metric rules](https://n9e.github.io/docs/alerting/metric-rules.md):
+Consequences, all of them the same as for [metric rules](https://n9e.io/docs/alerting/metric-rules.md):
 
 * the query must return an instant vector, so it needs `count_over_time`, `rate` or another aggregation over a range — a bare log selector will not do;
 * one returned series produces one event, so `sum by (job) (...)` decides the granularity;
@@ -113,10 +113,10 @@ Each query card has a **Preview** that runs the query and shows the resulting va
 
 For Elasticsearch, Loki and VictoriaLogs you can also explore interactively first in **Explorer → Logs**, which is easier for iterating on a filter. **OpenSearch is not available in the Log explorer**, so the rule form's Preview is where you check an OpenSearch query.
 
-Then use [Test fire](https://n9e.github.io/docs/alerting/test-fire.md) to check the trigger expression against real data, and after saving read [the evaluation records](https://n9e.github.io/docs/alerting/execution-records.md) to see what each cycle actually returned.
+Then use [Test fire](https://n9e.io/docs/alerting/test-fire.md) to check the trigger expression against real data, and after saving read [the evaluation records](https://n9e.io/docs/alerting/execution-records.md) to see what each cycle actually returned.
 
 ## Next[​](#next "Direct link to Next")
 
-* Timing and recovery in detail: [Evaluation interval and recovery](https://n9e.github.io/docs/alerting/evaluation.md)
-* Alert on a database instead: [SQL-backed rules](https://n9e.github.io/docs/alerting/sql-rules.md)
-* Register the store first: [Elasticsearch](https://n9e.github.io/docs/data/elasticsearch.md), [Loki and VictoriaLogs](https://n9e.github.io/docs/data/loki-victorialogs.md)
+* Timing and recovery in detail: [Evaluation interval and recovery](https://n9e.io/docs/alerting/evaluation.md)
+* Alert on a database instead: [SQL-backed rules](https://n9e.io/docs/alerting/sql-rules.md)
+* Register the store first: [Elasticsearch](https://n9e.io/docs/data/elasticsearch.md), [Loki and VictoriaLogs](https://n9e.io/docs/data/loki-victorialogs.md)

@@ -2,7 +2,7 @@
 
 通过 CloudWatch API 拉取任意 namespace 的指标统计值，EC2、RDS、ELB、Lambda 都能接；模板带 RDS 仪表盘和常用规则。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 CloudWatch 插件从 Telegraf 移植，调用 CloudWatch 的 GetMetricData API 按 namespace（`AWS/EC2`、`AWS/RDS`、`AWS/ELB` 等）拉取指标的统计值，可以按维度过滤只采自己关心的资源。认证走标准的凭证链：`role_arn`、显式 AK/SK、profile、环境变量、共享凭证文件、EC2 实例角色，按这个顺序尝试。
 
@@ -16,7 +16,7 @@ CloudWatch 按 API 调用计费，采集周期和 namespace 范围要和账单�
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.cloudwatch/cloud.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.cloudwatch started` 就说明插件已加载。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.cloudwatch/cloud.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.cloudwatch started` 就说明插件已加载。
 
    ```
    interval="5m"
@@ -230,9 +230,9 @@ CloudWatch 按 API 调用计费，采集周期和 namespace 范围要和账单�
      #    value = "p-example"
    ```
 
-2. 在夜莺「集成中心」里找到 CloudWatch，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 CloudWatch，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -368,6 +368,6 @@ cloudwatch_aws_rds_swap_usage_average > 268435456
 
 * \[CloudWatch 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/CloudWatch）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/CloudWatch%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `cloudwatch` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/cloudwatch)：完整配置项和指标列表。
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

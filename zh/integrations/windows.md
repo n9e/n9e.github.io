@@ -2,7 +2,7 @@
 
 Categraf 在 Windows 上采集的指标和 Linux 同名，主机仪表盘与规则可以复用；另有按 windows\_exporter 指标写的 AD、DNS、ADFS 仪表盘。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Categraf 同样支持 Windows，而且 CPU、内存、磁盘、网络这些基础指标的命名和 Linux 保持一致，所以主机类的告警规则和仪表盘不用为 Windows 另写一份。
 
@@ -15,10 +15,10 @@ Categraf 同样支持 Windows，而且 CPU、内存、磁盘、网络这些基�
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-Categraf 的 Windows 版本以服务方式安装，步骤见 [Categraf 安装](https://n9e.github.io/zh/docs/data/categraf/install.md)。基础插件默认开启，不需要为 Windows 单独写采集配置。用 windows\_exporter 的话，用 Categraf 的 `prometheus` 插件抓 `http://<host>:9182/metrics`，或把已有的 Prometheus [接成数据源](https://n9e.github.io/zh/docs/data/prometheus.md)。
+Categraf 的 Windows 版本以服务方式安装，步骤见 [Categraf 安装](https://n9e.io/zh/docs/data/categraf/install.md)。基础插件默认开启，不需要为 Windows 单独写采集配置。用 windows\_exporter 的话，用 Categraf 的 `prometheus` 插件抓 `http://<host>:9182/metrics`，或把已有的 Prometheus [接成数据源](https://n9e.io/zh/docs/data/prometheus.md)。
 
-1. 在夜莺「集成中心」里找到 Windows，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
-2. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+1. 在夜莺「集成中心」里找到 Windows，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
+2. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -33,7 +33,7 @@ Categraf 的 Windows 版本以服务方式安装，步骤见 [Categraf 安装](h
 
 ## 内置告警规则[​](#内置告警规则 "内置告警规则的直接链接")
 
-共 14 条，导入后默认停用，按自己环境的阈值逐条启用。下表 13 条规则的触发条件（PromQL）和处置步骤收录在告警规则库：[Windows 告警规则](https://n9e.github.io/zh/alert-rules/windows.md)。
+共 14 条，导入后默认停用，按自己环境的阈值逐条启用。下表 13 条规则的触发条件（PromQL）和处置步骤收录在告警规则库：[Windows 告警规则](https://n9e.io/zh/alert-rules/windows.md)。
 
 | 规则                                                                     | 级别    | 持续   |
 | ------------------------------------------------------------------------ | ------- | ------ |
@@ -67,6 +67,6 @@ Categraf 的 Windows 版本以服务方式安装，步骤见 [Categraf 安装](h
 ## 相关链接[​](#相关链接 "相关链接的直接链接")
 
 * \[Windows 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/Windows）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/Windows%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

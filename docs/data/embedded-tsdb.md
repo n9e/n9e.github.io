@@ -6,7 +6,7 @@ Last reviewed 2026-10-10
 
 Open **Integrations → Data sources** on a fresh install and there is already a Prometheus-type source named `embedded-tsdb`, carrying a default badge. This page explains who created it, what writes into it, and how it actually differs from an external Prometheus source you add yourself.
 
-![The data source list, with embedded-tsdb at the top](https://n9e.github.io/img/docs/data/datasource-list.webp)![The data source list, with embedded-tsdb at the top](https://n9e.github.io/img/docs/data/datasource-list.dark.webp)
+![The data source list, with embedded-tsdb at the top](https://n9e.io/img/docs/data/datasource-list.webp)![The data source list, with embedded-tsdb at the top](https://n9e.io/img/docs/data/datasource-list.dark.webp)
 
 ## Who creates it[​](#who-creates-it "Direct link to Who creates it")
 
@@ -73,7 +73,7 @@ Exceeding `MaxBytes` deletes the oldest blocks first. `OutOfOrderTimeWindow` is 
 
 ## Next[​](#next "Direct link to Next")
 
-* Where it stops being enough: [Embedded TSDB single-Center limits](https://n9e.github.io/docs/operations/embedded-tsdb-limits.md)
-* Moving to an external store: [External TSDB and dual-write migration](https://n9e.github.io/docs/install/external-tsdb.md)
-* Nothing in it: [No data in the embedded TSDB](https://n9e.github.io/docs/troubleshooting/embedded-tsdb-data.md)
-* How the two kinds of storage divide up: [Embedded TSDB and external storage](https://n9e.github.io/docs/concepts/storage.md)
+* Where it stops being enough: [Embedded TSDB single-Center limits](https://n9e.io/docs/operations/embedded-tsdb-limits.md)
+* Moving to an external store: [External TSDB and dual-write migration](https://n9e.io/docs/install/external-tsdb.md)
+* Nothing in it: [No data in the embedded TSDB](https://n9e.io/docs/troubleshooting/embedded-tsdb-data.md)
+* How the two kinds of storage divide up: [Embedded TSDB and external storage](https://n9e.io/docs/concepts/storage.md)

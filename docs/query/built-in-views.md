@@ -12,13 +12,13 @@ You have just connected a component, data is arriving, and you have no idea **wh
 
 A fresh install ships with more than 1300 entries covering Linux, MySQL, Redis, Nginx, Kafka, ClickHouse, Kubernetes and other common components.
 
-Compared with the [Metrics explorer](https://n9e.github.io/docs/query/metric-explorer.md): that one is for people writing PromQL during an incident; this one is for routine checks and for finding out what a newly connected component even exposes.
+Compared with the [Metrics explorer](https://n9e.io/docs/query/metric-explorer.md): that one is for people writing PromQL during an incident; this one is for routine checks and for finding out what a newly connected component even exposes.
 
 **Explorer → Metrics → Built-in metrics** (`/metrics-built-in`).
 
 ## 1. Set a filter before clicking a metric[​](#1-set-a-filter-before-clicking-a-metric "Direct link to 1. Set a filter before clicking a metric")
 
-![Built-in metrics](https://n9e.github.io/img/docs/query/metrics-built-in.webp)![Built-in metrics](https://n9e.github.io/img/docs/query/metrics-built-in.dark.webp)
+![Built-in metrics](https://n9e.io/img/docs/query/metrics-built-in.webp)![Built-in metrics](https://n9e.io/img/docs/query/metrics-built-in.dark.webp)
 
 The left column is **Filters**, and its job is to **attach a set of label conditions to the query whenever you click a metric**.
 
@@ -72,10 +72,10 @@ This decides where you go to change something:
 * Metrics you create here are stored in the database. **For the same PromQL, the database row wins over the file** — so when a built-in entry cannot be edited, the workaround is to create a new one with the same PromQL;
 * Integrations → Components has a **Metrics** tab under each component. That is another view onto the same data; editing either side is equivalent.
 
-Two other places consume this catalogue: the **Built-in metrics** button beside the PromQL input in the Metrics explorer, and the [one-click drawer](https://n9e.github.io/docs/query/object-view.md) on the host list.
+Two other places consume this catalogue: the **Built-in metrics** button beside the PromQL input in the Metrics explorer, and the [one-click drawer](https://n9e.io/docs/query/object-view.md) on the host list.
 
 ## Next[​](#next "Direct link to Next")
 
-* Write the PromQL yourself: [Metrics explorer](https://n9e.github.io/docs/query/metric-explorer.md)
-* Look at things host by host: [Object quick view](https://n9e.github.io/docs/query/object-view.md)
-* What else a component template carries: [Import dashboards and rules](https://n9e.github.io/docs/data/integrations/import.md)
+* Write the PromQL yourself: [Metrics explorer](https://n9e.io/docs/query/metric-explorer.md)
+* Look at things host by host: [Object quick view](https://n9e.io/docs/query/object-view.md)
+* What else a component template carries: [Import dashboards and rules](https://n9e.io/docs/data/integrations/import.md)

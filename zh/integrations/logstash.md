@@ -2,7 +2,7 @@
 
 通过 Logstash 的节点 API 采集 pipeline 的事件进出与过滤耗时、队列和 JVM 状态，规则盯事件堆积和 JVM 压力。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Logstash 默认在 9600 端口提供 HTTP API，插件抓 `_node/stats`：每个 pipeline 的输入、过滤、输出事件数与耗时，持久化队列的容量与积压，JVM 堆、GC 与线程，以及进程的 CPU 和文件描述符。
 
@@ -16,7 +16,7 @@ API 开了 Basic Auth 或 TLS 就同步配置用户名、密码和证书。模�
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.logstash/logstash.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.logstash started` 就说明插件已加载。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.logstash/logstash.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.logstash started` 就说明插件已加载。
 
    ```
    # # collect interval
@@ -104,9 +104,9 @@ API 开了 Basic Auth 或 TLS 就同步配置用户名、密码和证书。模�
    # insecure_skip_verify = true
    ```
 
-2. 在夜莺「集成中心」里找到 Logstash，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 Logstash，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -212,6 +212,6 @@ logstash_process_cpu_percent > 90
 
 * \[Logstash 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/Logstash）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/Logstash%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `logstash` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/logstash)：完整配置项和指标列表。
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

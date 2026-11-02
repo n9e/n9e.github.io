@@ -2,7 +2,7 @@
 
 stub\_status 够看连接和请求总量，VTS 模块能到每个 server 和 upstream 的状态码与延迟；另带 upstream\_check 健康检查插件。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Nginx 监控有三个层次。`stub_status` 模块自带，给出活跃连接、accepts、handled、requests 和读写等待数，够做存活与流量趋势。VTS 模块（`nginx-module-vts`）能按 server zone 和 upstream 细分请求数、状态码、响应时间和流量，是最推荐的方式，用 Categraf 的 `prometheus` 插件抓它的 `/status/format/prometheus`。第三个是 `nginx_upstream_check` 插件，读取 upstream\_check 模块的健康检查结果。
 
@@ -17,7 +17,7 @@ Nginx 监控有三个层次。`stub_status` 模块自带，给出活跃连接、
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，按需启用下面的插件。每个配置放到对应的 `conf/input.<插件名>/` 目录，改好地址和凭据后重启 Categraf。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，按需启用下面的插件。每个配置放到对应的 `conf/input.<插件名>/` 目录，改好地址和凭据后重启 Categraf。
 
    `conf/input.nginx/nginx.toml`
 
@@ -187,9 +187,9 @@ Nginx 监控有三个层次。`stub_status` 模块自带，给出活跃连接、
    # insecure_skip_verify = false
    ```
 
-2. 在夜莺「集成中心」里找到 Nginx，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 Nginx，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -267,6 +267,6 @@ nginx_upstream_check_status_code == 2
 * \[Nginx 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/Nginx）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/Nginx%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `nginx` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/nginx)：完整配置项和指标列表。
 * [Categraf `nginx_upstream_check` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/nginx_upstream_check)：完整配置项和指标列表。
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

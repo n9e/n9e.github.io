@@ -6,7 +6,7 @@ Last reviewed 2026-10-10
 
 The client connected, but the model says it has no such tool; or the tool list is far shorter than expected; or a call comes back refused. Those are three different causes with **three differently shaped responses**, so classifying by shape is much faster than working through the config.
 
-This assumes the connection itself works. If the client cannot connect at all, start with [Why does MCP authentication fail?](https://n9e.github.io/docs/troubleshooting/mcp-auth.md).
+This assumes the connection itself works. If the client cannot connect at all, start with [Why does MCP authentication fail?](https://n9e.io/docs/troubleshooting/mcp-auth.md).
 
 ## Count what `tools/list` returns[​](#count-what-toolslist-returns "Direct link to count-what-toolslist-returns")
 
@@ -68,7 +68,7 @@ While `MCPEnableWriteTools` is off, the 32 write tools are **not refused at call
 MCPEnableWriteTools = true
 ```
 
-**Restart center** for it to take effect; `tools/list` should then return 74. Read [Enable write tools safely](https://n9e.github.io/docs/ai/write-tools.md) before you flip it — the write tools in the `users` and `roles` toolsets can reassign roles and reset passwords, so exclude those with the whitelist at the same time.
+**Restart center** for it to take effect; `tools/list` should then return 74. Read [Enable write tools safely](https://n9e.io/docs/ai/write-tools.md) before you flip it — the write tools in the `users` and `roles` toolsets can reassign roles and reset passwords, so exclude those with the whitelist at the same time.
 
 Two expectations worth correcting while you are here: **none of the 74 tools deletes anything** — "write" means create and update; and the six toolsets `targets`, `busi_groups`, `alert_subscribes`, `event_pipelines`, `metrics` and `logs` **contain no write tools at all**, so the switch does not add anything to them.
 
@@ -84,7 +84,7 @@ WARNING [MCP] ignoring unknown toolset "alert"; valid names: [alert_subscribes a
 
 Singular-for-plural is the usual slip (`alert` for `alerts`, `mute` for `mutes`).
 
-**How to fix**: correct them against the list in that warning. Two extra semantics are worth knowing: **empty means all default toolsets**, and so does the literal `"all"` (kept for config back-compatibility); an empty string in the list is skipped without a warning. What each toolset covers is in [Read and write toolsets](https://n9e.github.io/docs/ai/toolsets.md).
+**How to fix**: correct them against the list in that warning. Two extra semantics are worth knowing: **empty means all default toolsets**, and so does the literal `"all"` (kept for config back-compatibility); an empty string in the list is skipped without a warning. What each toolset covers is in [Read and write toolsets](https://n9e.io/docs/ai/toolsets.md).
 
 ### The tool exists, but the token's user lacks the permission[​](#the-tool-exists-but-the-tokens-user-lacks-the-permission "Direct link to The tool exists, but the token's user lacks the permission")
 
@@ -92,7 +92,7 @@ Singular-for-plural is the usual slip (`alert` for `alerts`, `mute` for `mutes`)
 
 **How to confirm**: the response is a `result` with `"isError": true` whose body starts with `forbidden:` — for example `forbidden: no access to busi group 3` or `forbidden: no access to this alert rule`. Then find that request's `[MCP] done` line in the server log: **the name after `user=` is the identity it connected as**, which is often not the account you assumed.
 
-**How to fix**: change that account's role and teams; no MCP configuration changes. The two layers are AND-ed: the role decides which endpoints are reachable, business groups decide which data can be acted on. Do not reach for `Admin` as a shortcut — it bypasses the business-group layer and hands over every group at once. Details in [Permission inheritance and RBAC](https://n9e.github.io/docs/ai/permissions.md).
+**How to fix**: change that account's role and teams; no MCP configuration changes. The two layers are AND-ed: the role decides which endpoints are reachable, business groups decide which data can be acted on. Do not reach for `Admin` as a shortcut — it bypasses the business-group layer and hands over every group at once. Details in [Permission inheritance and RBAC](https://n9e.io/docs/ai/permissions.md).
 
 ### An empty list does not necessarily mean "no data"[​](#an-empty-list-does-not-necessarily-mean-no-data "Direct link to An empty list does not necessarily mean \"no data\"")
 
@@ -134,8 +134,8 @@ You changed the server config, restarted center, and the client looks unchanged.
 
 ## Next[​](#next "Direct link to Next")
 
-* What the 13 toolsets contain: [Read and write toolsets](https://n9e.github.io/docs/ai/toolsets.md)
-* Per-tool parameters: [MCP tool reference](https://n9e.github.io/docs/reference/mcp-tools.md)
-* Read before turning writes on: [Enable write tools safely](https://n9e.github.io/docs/ai/write-tools.md)
-* How the boundary is computed: [Permission inheritance and RBAC](https://n9e.github.io/docs/ai/permissions.md)
-* It will not connect at all: [Why does MCP authentication fail?](https://n9e.github.io/docs/troubleshooting/mcp-auth.md)
+* What the 13 toolsets contain: [Read and write toolsets](https://n9e.io/docs/ai/toolsets.md)
+* Per-tool parameters: [MCP tool reference](https://n9e.io/docs/reference/mcp-tools.md)
+* Read before turning writes on: [Enable write tools safely](https://n9e.io/docs/ai/write-tools.md)
+* How the boundary is computed: [Permission inheritance and RBAC](https://n9e.io/docs/ai/permissions.md)
+* It will not connect at all: [Why does MCP authentication fail?](https://n9e.io/docs/troubleshooting/mcp-auth.md)

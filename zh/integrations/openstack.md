@@ -2,7 +2,7 @@
 
 通过 OpenStack API 采集 Nova、Neutron、Cinder、Glance、Keystone 和 Heat 的资源与配额，以及每台实例的状态。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 OpenStack 插件以一个有读取权限的账号调用各服务的 API：Nova 的实例、hypervisor 与配额，Neutron 的网络、子网、端口、浮动 IP 与安全组，Cinder 的卷与快照，Glance 的镜像，Keystone 的项目与用户，Heat 的栈。每台实例的状态、所属项目和 flavor 也会作为指标上报。
 
@@ -15,7 +15,7 @@ OpenStack 插件以一个有读取权限的账号调用各服务的 API：Nova �
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.openstack/openstack.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.openstack started` 就说明插件已加载。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.openstack/openstack.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.openstack started` 就说明插件已加载。
 
    ```
    # Collects performance metrics from OpenStack services
@@ -313,9 +313,9 @@ OpenStack 插件以一个有读取权限的账号调用各服务的 API：Nova �
    ## measure_openstack_requests = false
    ```
 
-2. 在夜莺「集成中心」里找到 OpenStack，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 OpenStack，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置告警规则[​](#内置告警规则 "内置告警规则的直接链接")
 
@@ -399,6 +399,6 @@ openstack_hypervisor_local_gb_used / (openstack_hypervisor_local_gb > 0) * 100 >
 ## 相关链接[​](#相关链接 "相关链接的直接链接")
 
 * \[OpenStack 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/OpenStack）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/OpenStack%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

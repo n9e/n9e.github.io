@@ -2,13 +2,13 @@
 
 What the KubeQuotaAlmostFull Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 A namespace is using between 90% and 100% of one of its ResourceQuota limits (CPU, memory, Pod count, storage and so on). Nothing is broken yet. Once the quota is full, the API server rejects new Pods and objects in that namespace, which typically shows up as a failed rollout or a scale-out that never happens.
 
 * **Severity**: Info (`info`)
 * **Fires after**: 15m
-* Part of the [Kubernetes alert rules](https://n9e.github.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
+* Part of the [Kubernetes alert rules](https://n9e.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
 
 ## The rule[​](#the-rule "Direct link to The rule")
 
@@ -49,13 +49,13 @@ Alert message: `Namespace {{ $labels.namespace }} is using {{ $value | humanizeP
 
 ## Related alerts[​](#related-alerts "Direct link to Related alerts")
 
-* [KubeQuotaFullyUsed](https://n9e.github.io/alert-rules/kubernetes.md#kubequotafullyused): Namespace … is using … of its … quota.
-* [KubeQuotaExceeded](https://n9e.github.io/alert-rules/kubernetes.md#kubequotaexceeded): Namespace … is using … of its … quota.
-* [KubePodNotReady](https://n9e.github.io/alert-rules/kubernetes/kubepodnotready.md): Pod …/… has been in a non-ready state for longer than 15 minutes.
+* [KubeQuotaFullyUsed](https://n9e.io/alert-rules/kubernetes.md#kubequotafullyused): Namespace … is using … of its … quota.
+* [KubeQuotaExceeded](https://n9e.io/alert-rules/kubernetes.md#kubequotaexceeded): Namespace … is using … of its … quota.
+* [KubePodNotReady](https://n9e.io/alert-rules/kubernetes/kubepodnotready.md): Pod …/… has been in a non-ready state for longer than 15 minutes.
 
 ## Prometheus rule YAML[​](#prometheus-rule-yaml "Direct link to Prometheus rule YAML")
 
-Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.github.io/alert-rules/kubernetes.yml).
+Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.io/alert-rules/kubernetes.yml).
 
 ```
 - alert: KubeQuotaAlmostFull
@@ -80,10 +80,10 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
 
     summary: "Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubequotaalmostfull"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubequotaalmostfull"
 ```
 
-**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.github.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
+**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 

@@ -70,8 +70,8 @@ That is different from adding one more recipient to somebody else's notification
 
 ## Related[​](#related "Direct link to Related")
 
-* [Mute rules](https://n9e.github.io/docs/events/mute-rules.md)
-* [Alert subscriptions](https://n9e.github.io/docs/events/subscriptions.md)
-* [Event pipelines](https://n9e.github.io/docs/events/pipelines.md)
-* [Notification rules](https://n9e.github.io/docs/notifications/rules.md)
-* When nothing arrives, walk this chain: [Why is there an alert event but no notification?](https://n9e.github.io/docs/troubleshooting/no-notification.md)
+* [Mute rules](https://n9e.io/docs/events/mute-rules.md)
+* [Alert subscriptions](https://n9e.io/docs/events/subscriptions.md)
+* [Event pipelines](https://n9e.io/docs/events/pipelines.md)
+* [Notification rules](https://n9e.io/docs/notifications/rules.md)
+* When nothing arrives, walk this chain: [Why is there an alert event but no notification?](https://n9e.io/docs/troubleshooting/no-notification.md)

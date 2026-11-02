@@ -2,7 +2,7 @@
 
 通过 D-Bus 读取 systemd unit 的状态、重启次数和启动耗时，服务挂了或反复拉起都能第一时间告警。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 systemd 插件通过 D-Bus 接口和 systemd 通信，采集每个 unit 的运行状态、是否 enabled、重启次数、任务数和启动耗时。相比只看进程是否存在，它能分辨「服务在但处于 failed」和「服务被反复拉起」这两种更隐蔽的故障。
 
@@ -17,7 +17,7 @@ systemd 插件通过 D-Bus 接口和 systemd 通信，采集每个 unit 的运�
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.systemd/systemd.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.systemd started` 就说明插件已加载。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.systemd/systemd.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.systemd started` 就说明插件已加载。
 
    ```
    # # collect interval
@@ -67,9 +67,9 @@ systemd 插件通过 D-Bus 接口和 systemd 通信，采集每个 unit 的运�
    systemd_private = true
    ```
 
-2. 在夜莺「集成中心」里找到 Systemd，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 Systemd，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -149,7 +149,7 @@ systemd_system_running == 0
 
 * \[Systemd 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/Systemd）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/Systemd%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `systemd` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/systemd)：完整配置项和指标列表。
-* [实践：进程与端口监控](https://n9e.github.io/zh/docs/practice/proc.md)
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [实践：进程与端口监控](https://n9e.io/zh/docs/practice/proc.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

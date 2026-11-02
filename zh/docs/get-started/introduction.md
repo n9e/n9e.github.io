@@ -6,7 +6,7 @@
 
 夜莺监控（Nightingale，简称 **n9e**）是一个开源告警引擎，由中国计算机学会开源发展技术委员会（CCF ODTC） 托管，代码在 [GitHub](https://github.com/ccfos/nightingale)，Apache-2.0 许可。它可以直接查询你已有的 Prometheus、日志库和数据库，做告警判定、降噪和通知分发，数据不用搬、采集器不用换。
 
-没有外部时序库时，小规模单 Center 部署也可以使用内置时序库。多 Center 或更大规模部署应使用外部时序库， 适用范围与切换方式见[内置时序库与外部存储](https://n9e.github.io/zh/docs/concepts/storage.md)。
+没有外部时序库时，小规模单 Center 部署也可以使用内置时序库。多 Center 或更大规模部署应使用外部时序库， 适用范围与切换方式见[内置时序库与外部存储](https://n9e.io/zh/docs/concepts/storage.md)。
 
 ## 它负责哪一层[​](#它负责哪一层 "它负责哪一层的直接链接")
 
@@ -32,4 +32,4 @@
 
 Apache-2.0 全功能开源。
 
-下一步：[快速开始](https://n9e.github.io/zh/docs/get-started/quick-start.md)。
+下一步：[快速开始](https://n9e.io/zh/docs/get-started/quick-start.md)。

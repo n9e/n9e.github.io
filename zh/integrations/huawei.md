@@ -2,7 +2,7 @@
 
 用华为云 cloudeye-exporter 把云监控（CES）指标转成 Prometheus 格式后抓取，模板覆盖 ECS、RDS、DCS、ELB、Kafka、RocketMQ、CSS 和 WAF。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 华为云的指标来自云监控服务（Cloud Eye）。华为云官方维护的 `cloudeye-exporter` 会按产品 namespace 把 CES 指标转成 `huaweicloud_sys_<service>_<metric>` 形式的 Prometheus 指标，用 Categraf 的 `prometheus` 插件抓取即可。
 
@@ -34,8 +34,8 @@ labels = { job = "huaweicloud" }
 
 云监控指标粒度通常是 60 秒以上，采集周期不要短于它。
 
-1. 在夜莺「集成中心」里找到 Huawei Cloud，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
-2. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+1. 在夜莺「集成中心」里找到 Huawei Cloud，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
+2. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -893,6 +893,6 @@ huaweicloud_sys_dms_broker_memory_usage > 85
 ## 相关链接[​](#相关链接 "相关链接的直接链接")
 
 * \[Huawei Cloud 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/Huawei）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/Huawei%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

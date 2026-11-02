@@ -67,6 +67,6 @@ Too fine, and writing a rule means switching groups constantly. Too coarse, and 
 
 ## Related[​](#related "Direct link to Related")
 
-* [Business group authorization](https://n9e.github.io/docs/security/business-groups.md)
-* [Roles and permission matrix](https://n9e.github.io/docs/security/roles.md)
-* [Authentication, tokens and RBAC model](https://n9e.github.io/docs/concepts/auth-rbac.md)
+* [Business group authorization](https://n9e.io/docs/security/business-groups.md)
+* [Roles and permission matrix](https://n9e.io/docs/security/roles.md)
+* [Authentication, tokens and RBAC model](https://n9e.io/docs/concepts/auth-rbac.md)

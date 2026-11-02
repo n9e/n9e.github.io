@@ -73,5 +73,5 @@ Values such as the site address are `{{"{{"}}$.domain{{"}}"}}` — note the dot.
 
 ## Related[​](#related "Direct link to Related")
 
-* [Templates and variables](https://n9e.github.io/docs/notifications/templates.md)
-* [Why does notification template rendering fail?](https://n9e.github.io/docs/troubleshooting/template-errors.md)
+* [Templates and variables](https://n9e.io/docs/notifications/templates.md)
+* [Why does notification template rendering fail?](https://n9e.io/docs/troubleshooting/template-errors.md)

@@ -54,11 +54,11 @@ Configuration lives in the conf directory — config.toml for the agent itself, 
 
 Connecting it to Nightingale, tagging hosts, and what to check when no data arrives are covered step by step in the docs.
 
-[Categraf docs](https://n9e.github.io/docs/data/categraf.md)
+[Categraf docs](https://n9e.io/docs/data/categraf.md)
 
 <!-- -->
 
-[ →](https://n9e.github.io/docs/data/categraf.md)
+[ →](https://n9e.io/docs/data/categraf.md)
 
 ### Kubernetes
 
@@ -178,11 +178,11 @@ Generic
 
 Categraf pushes over the Prometheus Remote Write protocol, so it writes into Nightingale, Prometheus, VictoriaMetrics or anything else that speaks it. Push means the agent opens the connection — which matters when network policy will not let a central server reach into every subnet.
 
-[Register it as a data source](https://n9e.github.io/integrations.md)
+[Register it as a data source](https://n9e.io/integrations.md)
 
 <!-- -->
 
-[ →](https://n9e.github.io/integrations.md)
+[ →](https://n9e.io/integrations.md)
 
 ### Not the only option
 

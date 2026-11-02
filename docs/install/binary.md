@@ -55,7 +55,7 @@ The defaults need nothing else installed: SQLite for metadata, an in-process min
 
 **Expected result**: the log says `http server listening on: 0.0.0.0:17000` and the login works.
 
-Those defaults are **not for production**. Keep going to replace them, or walk the [Production readiness checklist](https://n9e.github.io/docs/get-started/production-checklist.md).
+Those defaults are **not for production**. Keep going to replace them, or walk the [Production readiness checklist](https://n9e.io/docs/get-started/production-checklist.md).
 
 ## Point it at an existing MySQL and Redis[​](#point-it-at-an-existing-mysql-and-redis "Direct link to Point it at an existing MySQL and Redis")
 
@@ -85,7 +85,7 @@ RedisType = "standalone"
 Address = "redis:6379"
 ```
 
-**Expected result** after a restart: no `failed to migrate table` in the log, and the login is still `root` / `root.2020` — that row is written into the new database on first start. For the choice itself and the permissions involved, see [Choosing a metadata database](https://n9e.github.io/docs/install/databases.md).
+**Expected result** after a restart: no `failed to migrate table` in the log, and the login is still `root` / `root.2020` — that row is written into the new database on first start. For the choice itself and the permissions involved, see [Choosing a metadata database](https://n9e.io/docs/install/databases.md).
 
 ## Run it under systemd[​](#run-it-under-systemd "Direct link to Run it under systemd")
 
@@ -143,10 +143,10 @@ curl -s http://127.0.0.1:17000/ping
 ./n9e-edge --configs etc/edge
 ```
 
-Passing `--configs etc` makes it load the central `config.toml` instead, and it does not complain. See [Edge data centers](https://n9e.github.io/docs/install/edge.md).
+Passing `--configs etc` makes it load the central `config.toml` instead, and it does not complain. See [Edge data centers](https://n9e.io/docs/install/edge.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* [Choosing a metadata database](https://n9e.github.io/docs/install/databases.md) — MySQL or PostgreSQL, and what Redis is for
-* [Configuration layout](https://n9e.github.io/docs/install/configuration.md) — what each section of `etc/` does
-* [High availability](https://n9e.github.io/docs/install/high-availability.md) — running more than one instance
+* [Choosing a metadata database](https://n9e.io/docs/install/databases.md) — MySQL or PostgreSQL, and what Redis is for
+* [Configuration layout](https://n9e.io/docs/install/configuration.md) — what each section of `etc/` does
+* [High availability](https://n9e.io/docs/install/high-availability.md) — running more than one instance

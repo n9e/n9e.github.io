@@ -2,7 +2,7 @@
 
 读取 LDAP 服务器的 cn=Monitor 后端，采集连接、各类操作计数、等待者和线程状态，支持 OpenLDAP 和 389 Directory Server。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 LDAP 插件查询服务器的监控后端（`cn=Monitor`），得到当前与累计连接数、bind、search、modify、add、delete 等操作的计数、等待中的读写、线程池状态和运行时长。支持 OpenLDAP 和 389ds 两种方言，指标名按方言略有不同。
 
@@ -15,7 +15,7 @@ LDAP 插件查询服务器的监控后端（`cn=Monitor`），得到当前与累
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.ldap/ldap.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.ldap started` 就说明插件已加载。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.ldap/ldap.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.ldap started` 就说明插件已加载。
 
    ```
    # # collect interval
@@ -93,9 +93,9 @@ LDAP 插件查询服务器的监控后端（`cn=Monitor`），得到当前与累
    # insecure_skip_verify = false
    ```
 
-2. 在夜莺「集成中心」里找到 Ldap，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 Ldap，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置告警规则[​](#内置告警规则 "内置告警规则的直接链接")
 
@@ -180,6 +180,6 @@ openldap_uptime_time < 300
 
 * \[Ldap 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/Ldap）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/Ldap%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `ldap` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/ldap)：完整配置项和指标列表。
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

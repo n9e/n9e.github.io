@@ -4,7 +4,7 @@ Rebuild from backups in a new environment, and the order in which to bring compo
 
 Last reviewed 2026-10-10
 
-[Backup and restore](https://n9e.github.io/docs/operations/backup-restore.md) puts a database back where it came from. This page covers the harder case: **the environment is gone and you are rebuilding on different machines.** Almost everything about the procedure is the same; what is different is that the addresses changed, and several things inside Nightingale were pinned to the old ones.
+[Backup and restore](https://n9e.io/docs/operations/backup-restore.md) puts a database back where it came from. This page covers the harder case: **the environment is gone and you are rebuilding on different machines.** Almost everything about the procedure is the same; what is different is that the addresses changed, and several things inside Nightingale were pinned to the old ones.
 
 ## What you have to have brought with you[​](#what-you-have-to-have-brought-with-you "Direct link to What you have to have brought with you")
 
@@ -20,7 +20,7 @@ The first two are the ones that matter. If `etc/` is in version control and the 
 ## Bring it back in this order[​](#bring-it-back-in-this-order "Direct link to Bring it back in this order")
 
 1. **The metadata database.** Restore the dump into a fresh, empty database. Nothing else can start before this: a process that cannot reach its database exits.
-2. **Redis, empty.** Do not restore it — sessions, heartbeat timestamps and host metadata all expire on their own. [Backup and restore](https://n9e.github.io/docs/operations/backup-restore.md) explains what that costs.
+2. **Redis, empty.** Do not restore it — sessions, heartbeat timestamps and host metadata all expire on their own. [Backup and restore](https://n9e.io/docs/operations/backup-restore.md) explains what that costs.
 3. **One `n9e` instance.** Restore `etc/`, then edit `[DB] DSN` and `[Redis] Address` to the new addresses. Start it alone.
 4. **Verify before adding anything.** `curl --noproxy '*' http://n9e:17000/ping` returns `pong`; `grep -i "failed to migrate table" logs/*.log` is empty; you can log in and the rules, dashboards and notification config are all there.
 5. **Fix the addresses** — the next section. Do this before the collectors come back, so that data lands where the dashboards look for it.
@@ -46,7 +46,7 @@ Notification media types and the addresses they call are usually external and su
 
 ## What does not come back[​](#what-does-not-come-back "Direct link to What does not come back")
 
-* **Embedded TSDB samples**, unless you deliberately backed the directory up. There is no online snapshot; see [Embedded TSDB single-Center limits](https://n9e.github.io/docs/operations/embedded-tsdb-limits.md).
+* **Embedded TSDB samples**, unless you deliberately backed the directory up. There is no online snapshot; see [Embedded TSDB single-Center limits](https://n9e.io/docs/operations/embedded-tsdb-limits.md).
 * **Everything written after the dump** — rules edited since, alert events, notification records.
 * **Metrics from the outage itself.** Nothing replays them; expect a gap in every chart.
 * **Redis contents.** Everyone logs in again, and host heartbeat times stay blank until the collectors next report.
@@ -58,13 +58,13 @@ Two numbers, and both come from things you control rather than things you hope f
 * **How much you can lose** is your backup interval. A nightly dump means up to 24 hours of rule and dashboard edits. Nothing about Nightingale changes that number — the dump schedule does.
 * **How long it takes** is whatever your last rehearsal took. Not an estimate.
 
-Which makes the rehearsal the whole exercise. [Backup and restore](https://n9e.github.io/docs/operations/backup-restore.md) asks for a quarterly restore; make **one of those a rebuild** — restore into a machine with a different hostname and address, and work down the table above. Every entry in it is something that only shows up when the address changes, so a same-address restore rehearsal will never find them.
+Which makes the rehearsal the whole exercise. [Backup and restore](https://n9e.io/docs/operations/backup-restore.md) asks for a quarterly restore; make **one of those a rebuild** — restore into a machine with a different hostname and address, and work down the table above. Every entry in it is something that only shows up when the address changes, so a same-address restore rehearsal will never find them.
 
 Time it, write the number down, and keep the runbook somewhere that is not the environment it describes.
 
 ## Related[​](#related "Direct link to Related")
 
-* [Backup and restore](https://n9e.github.io/docs/operations/backup-restore.md) — what to back up, and the restore procedure
-* [Rollback and recovery](https://n9e.github.io/docs/operations/rollback.md) — smaller undos
-* [Production topology](https://n9e.github.io/docs/operations/topology.md) — the shape you are rebuilding
-* [Production readiness checklist](https://n9e.github.io/docs/get-started/production-checklist.md)
+* [Backup and restore](https://n9e.io/docs/operations/backup-restore.md) — what to back up, and the restore procedure
+* [Rollback and recovery](https://n9e.io/docs/operations/rollback.md) — smaller undos
+* [Production topology](https://n9e.io/docs/operations/topology.md) — the shape you are rebuilding
+* [Production readiness checklist](https://n9e.io/docs/get-started/production-checklist.md)

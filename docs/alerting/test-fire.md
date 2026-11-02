@@ -10,7 +10,7 @@ Where this page ends: you press one button on the rule form and get a six-stage 
 
 **Test fire** sits at the bottom of the alert rule form, next to **Save**. The rule does not have to be saved first — the test runs against whatever is currently in the form.
 
-![The alert rule form](https://n9e.github.io/img/docs/alerting/rule-edit.webp)![The alert rule form](https://n9e.github.io/img/docs/alerting/rule-edit.dark.webp)
+![The alert rule form](https://n9e.io/img/docs/alerting/rule-edit.webp)![The alert rule form](https://n9e.io/img/docs/alerting/rule-edit.dark.webp)
 
 A small dialog asks for four things:
 
@@ -70,10 +70,10 @@ Two caveats on the query stage. A rule matching several data sources is only che
 
 ## After it passes[​](#after-it-passes "Direct link to After it passes")
 
-Test fire proves the configuration is coherent. It does not prove the threshold is right — for that, save the rule, let it evaluate for real, and read [the evaluation records](https://n9e.github.io/docs/alerting/execution-records.md) to see what the query returns cycle by cycle.
+Test fire proves the configuration is coherent. It does not prove the threshold is right — for that, save the rule, let it evaluate for real, and read [the evaluation records](https://n9e.io/docs/alerting/execution-records.md) to see what the query returns cycle by cycle.
 
 ## Next[​](#next "Direct link to Next")
 
-* See real evaluations: [Inspect evaluation execution records](https://n9e.github.io/docs/alerting/execution-records.md)
-* Get the message right: [Templates and variables](https://n9e.github.io/docs/notifications/templates.md)
-* Prove the channel works too: [Test a notification end to end](https://n9e.github.io/docs/notifications/test.md)
+* See real evaluations: [Inspect evaluation execution records](https://n9e.io/docs/alerting/execution-records.md)
+* Get the message right: [Templates and variables](https://n9e.io/docs/notifications/templates.md)
+* Prove the channel works too: [Test a notification end to end](https://n9e.io/docs/notifications/test.md)

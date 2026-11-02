@@ -2,7 +2,7 @@
 
 抓 apiserver、kubelet、controller-manager、scheduler、kube-proxy、CoreDNS、kube-state-metrics 和 node-exporter 的原生 /metrics，模板覆盖控制面到 Pod 的每一层。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Kubernetes 的每个组件都自带 Prometheus 格式的 `/metrics`，推荐用 Categraf 的 `prometheus` 插件直接抓取，再部署 kube-state-metrics（工作负载状态）和 node-exporter（节点资源）。旧的 Categraf kubernetes 插件已废弃，但模板里的仪表盘和规则照常可用。
 
@@ -27,12 +27,12 @@ Kubernetes 的每个组件都自带 Prometheus 格式的 `/metrics`，推荐用 
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-这类组件自己就暴露 Prometheus 格式的 `/metrics`，用 Categraf 的 `prometheus` 插件抓取即可，不需要专门的插件。如果你已经有 Prometheus 或 VictoriaMetrics 在抓这些端点，直接把它[接成夜莺的数据源](https://n9e.github.io/zh/docs/data/prometheus.md)，模板同样能用。
+这类组件自己就暴露 Prometheus 格式的 `/metrics`，用 Categraf 的 `prometheus` 插件抓取即可，不需要专门的插件。如果你已经有 Prometheus 或 VictoriaMetrics 在抓这些端点，直接把它[接成夜莺的数据源](https://n9e.io/zh/docs/data/prometheus.md)，模板同样能用。
 
 控制面组件的端点需要 ServiceAccount token 或客户端证书，Categraf 以 DaemonSet 部署在集群内时用 `bearer_token_file` 读取挂载的 token。K3s 等发行版的 scheduler、controller-manager 和 kube-proxy 可能只监听 loopback，要在控制面节点本机采集；不要为了方便把这些无鉴权端点暴露到公网。
 
-1. 在夜莺「集成中心」里找到 Kubernetes，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
-2. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+1. 在夜莺「集成中心」里找到 Kubernetes，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
+2. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -58,7 +58,7 @@ Kubernetes 的每个组件都自带 Prometheus 格式的 `/metrics`，推荐用 
 
 ## 内置告警规则[​](#内置告警规则 "内置告警规则的直接链接")
 
-共 154 条，导入后默认停用，按自己环境的阈值逐条启用。每条规则的触发条件（PromQL）和处置步骤收录在告警规则库：[Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)、[Prometheus 告警规则](https://n9e.github.io/zh/alert-rules/prometheus.md)、[Linux 告警规则](https://n9e.github.io/zh/alert-rules/linux.md)。
+共 154 条，导入后默认停用，按自己环境的阈值逐条启用。每条规则的触发条件（PromQL）和处置步骤收录在告警规则库：[Kubernetes 告警规则](https://n9e.io/zh/alert-rules/kubernetes.md)、[Prometheus 告警规则](https://n9e.io/zh/alert-rules/prometheus.md)、[Linux 告警规则](https://n9e.io/zh/alert-rules/linux.md)。
 
 | 规则                                              | 级别    | 持续     |
 | ------------------------------------------------- | ------- | -------- |
@@ -532,6 +532,6 @@ Kubernetes 的每个组件都自带 Prometheus 格式的 `/metrics`，推荐用 
 ## 相关链接[​](#相关链接 "相关链接的直接链接")
 
 * \[Kubernetes 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/Kubernetes）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/Kubernetes%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

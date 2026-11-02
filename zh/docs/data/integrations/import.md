@@ -12,12 +12,12 @@
 
 **集成中心 → 模板中心**，点开任意一张组件卡片，抽屉里有四个页签：
 
-| 页签     | 内容                                                                                                  |
-| -------- | ----------------------------------------------------------------------------------------------------- |
-| 采集说明 | 这个组件怎么采，见[安装采集配置](https://n9e.github.io/zh/docs/data/integrations/collector-config.md) |
-| 指标说明 | 这个组件会产出哪些指标、每个指标什么意思                                                              |
-| 仪表盘   | 现成的仪表盘模板                                                                                      |
-| 告警规则 | 现成的告警规则模板                                                                                    |
+| 页签     | 内容                                                                                           |
+| -------- | ---------------------------------------------------------------------------------------------- |
+| 采集说明 | 这个组件怎么采，见[安装采集配置](https://n9e.io/zh/docs/data/integrations/collector-config.md) |
+| 指标说明 | 这个组件会产出哪些指标、每个指标什么意思                                                       |
+| 仪表盘   | 现成的仪表盘模板                                                                               |
+| 告警规则 | 现成的告警规则模板                                                                             |
 
 不是每个组件四样都全。<!-- -->83<!-- --> 个组件里，<!-- -->63<!-- --> 个带告警规则、<!-- -->51<!-- --> 个带仪表盘、<!-- -->21<!-- --> 个带指标说明。
 
@@ -86,7 +86,7 @@
 
 ## 下一步[​](#下一步 "下一步的直接链接")
 
-* 确认数据真的到了再信规则：[验证数据到达](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* 规则怎么调：[告警规则](https://n9e.github.io/zh/docs/alerting/overview.md)
-* 仪表盘怎么改：[创建仪表盘](https://n9e.github.io/zh/docs/query/dashboards.md)
-* 还没开始采集：[安装采集配置](https://n9e.github.io/zh/docs/data/integrations/collector-config.md)
+* 确认数据真的到了再信规则：[验证数据到达](https://n9e.io/zh/docs/data/integrations/verify.md)
+* 规则怎么调：[告警规则](https://n9e.io/zh/docs/alerting/overview.md)
+* 仪表盘怎么改：[创建仪表盘](https://n9e.io/zh/docs/query/dashboards.md)
+* 还没开始采集：[安装采集配置](https://n9e.io/zh/docs/data/integrations/collector-config.md)

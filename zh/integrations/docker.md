@@ -2,11 +2,11 @@
 
 通过 Docker API 采集每个容器的 CPU、内存、块设备和网络 IO 以及守护进程状态，仪表盘按 docker\_\* 指标编写并经过真实验证。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Docker 插件基于 Telegraf 的 docker 插件，连接 Docker 守护进程的 socket（`unix:///var/run/docker.sock`）或 TCP 端点，采集引擎层面的容器数量与状态、镜像数、存储驱动信息，以及每个容器的 CPU、内存、blkio 和网络 IO。可选采集 Swarm service 和扩展内存统计。
 
-模板里的 `Docker Dashboard` 按这些 `docker_*` 指标编写并完成真实验证，所以必须启用本插件。cAdvisor 也是推荐的容器采集方式，但它输出的是 `container_*` 指标，要用 [cAdvisor 集成](https://n9e.github.io/zh/integrations/cadvisor.md)的仪表盘，两者不能混用。规则覆盖容器 OOM、异常退出、CPU 与内存超限和守护进程不可达。
+模板里的 `Docker Dashboard` 按这些 `docker_*` 指标编写并完成真实验证，所以必须启用本插件。cAdvisor 也是推荐的容器采集方式，但它输出的是 `container_*` 指标，要用 [cAdvisor 集成](https://n9e.io/zh/integrations/cadvisor.md)的仪表盘，两者不能混用。规则覆盖容器 OOM、异常退出、CPU 与内存超限和守护进程不可达。
 
 ## 模板里有什么[​](#模板里有什么 "模板里有什么的直接链接")
 
@@ -16,7 +16,7 @@ Docker 插件基于 Telegraf 的 docker 插件，连接 Docker 守护进程的 s
 
 ## 怎么接入[​](#怎么接入 "怎么接入的直接链接")
 
-1. [安装 Categraf](https://n9e.github.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.docker/docker.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.docker started` 就说明插件已加载。
+1. [安装 Categraf](https://n9e.io/zh/docs/data/categraf/install.md)，把下面的配置放到 `conf/input.docker/docker.toml`，按实际地址和凭据改好后重启 Categraf。启动日志里出现 `input: local.docker started` 就说明插件已加载。
 
    ```
    # # collect interval
@@ -148,9 +148,9 @@ Docker 插件基于 Telegraf 的 docker 插件，连接 Docker 守护进程的 s
    # insecure_skip_verify = false
    ```
 
-2. 在夜莺「集成中心」里找到 Docker，把仪表盘和告警规则[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)。
+2. 在夜莺「集成中心」里找到 Docker，把仪表盘和告警规则[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)。
 
-3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
+3. 导入的告警规则默认是停用的。先[确认指标已经入库](https://n9e.io/zh/docs/data/integrations/verify.md)，再按自己环境的阈值逐条启用。
 
 ## 内置仪表盘[​](#内置仪表盘 "内置仪表盘的直接链接")
 
@@ -256,6 +256,6 @@ rate(docker_container_cpu_throttling_throttled_periods[5m]) / rate(docker_contai
 
 * \[Docker 模板源文件]\([https://github.com/ccfos/nightingale/tree/main/integrations/Docker）：仪表盘、规则和采集配置的](https://github.com/ccfos/nightingale/tree/main/integrations/Docker%EF%BC%89%EF%BC%9A%E4%BB%AA%E8%A1%A8%E7%9B%98%E3%80%81%E8%A7%84%E5%88%99%E5%92%8C%E9%87%87%E9%9B%86%E9%85%8D%E7%BD%AE%E7%9A%84) JSON 原文，欢迎提 PR。
 * [Categraf `docker` 插件文档](https://github.com/flashcatcloud/categraf/tree/main/inputs/docker)：完整配置项和指标列表。
-* [导入仪表盘和告警规则](https://n9e.github.io/zh/docs/data/integrations/import.md)
-* [核对指标是否入库](https://n9e.github.io/zh/docs/data/integrations/verify.md)
-* [全部集成目录](https://n9e.github.io/zh/integrations.md)
+* [导入仪表盘和告警规则](https://n9e.io/zh/docs/data/integrations/import.md)
+* [核对指标是否入库](https://n9e.io/zh/docs/data/integrations/verify.md)
+* [全部集成目录](https://n9e.io/zh/integrations.md)

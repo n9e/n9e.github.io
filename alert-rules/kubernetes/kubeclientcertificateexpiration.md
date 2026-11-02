@@ -2,11 +2,11 @@
 
 What the KubeClientCertificateExpiration Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 Of the client certificates presented to the API server over the last 5 minutes, at least 1% expire within 7 days (warning) or within 24 hours (critical). The rules take the 1st percentile of their remaining lifetime. When they expire, those clients get `401 Unauthorized`. If they belong to a kubelet, a controller or the scheduler, nodes go NotReady or the control plane stops reconciling.
 
-* Part of the [Kubernetes alert rules](https://n9e.github.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
+* Part of the [Kubernetes alert rules](https://n9e.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
 
 ## The rule[​](#the-rule "Direct link to The rule")
 
@@ -56,13 +56,13 @@ Alert message: `A client certificate used to authenticate to the apiserver is ex
 
 ## Related alerts[​](#related-alerts "Direct link to Related alerts")
 
-* [KubeletClientCertificateExpiration](https://n9e.github.io/alert-rules/kubernetes.md#kubeletclientcertificateexpiration): Client certificate for Kubelet on node … expires in ….
-* [KubeletServerCertificateExpiration](https://n9e.github.io/alert-rules/kubernetes.md#kubeletservercertificateexpiration): Server certificate for Kubelet on node … expires in ….
-* [KubeNodeNotReady](https://n9e.github.io/alert-rules/kubernetes/kubenodenotready.md): … has been unready for more than 15 minutes.
+* [KubeletClientCertificateExpiration](https://n9e.io/alert-rules/kubernetes.md#kubeletclientcertificateexpiration): Client certificate for Kubelet on node … expires in ….
+* [KubeletServerCertificateExpiration](https://n9e.io/alert-rules/kubernetes.md#kubeletservercertificateexpiration): Server certificate for Kubelet on node … expires in ….
+* [KubeNodeNotReady](https://n9e.io/alert-rules/kubernetes/kubenodenotready.md): … has been unready for more than 15 minutes.
 
 ## Prometheus rule YAML[​](#prometheus-rule-yaml "Direct link to Prometheus rule YAML")
 
-Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.github.io/alert-rules/kubernetes.yml).
+Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.io/alert-rules/kubernetes.yml).
 
 ```
 - alert: KubeClientCertificateExpiration-S2
@@ -79,7 +79,7 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
 
     summary: "A client certificate used to authenticate to the apiserver is expiring in less than 7.0 days."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
 
 - alert: KubeClientCertificateExpiration-S1
 
@@ -95,10 +95,10 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
 
     summary: "A client certificate used to authenticate to the apiserver is expiring in less than 24.0 hours."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
 ```
 
-**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.github.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
+**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 

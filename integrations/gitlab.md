@@ -2,7 +2,7 @@
 
 The GitLab package bundles several exporters for the host, Rails/Sidekiq, Gitaly, Workhorse, PostgreSQL, Redis and NGINX; the template ships five dashboards.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The GitLab Linux Package comes with a full set of exporters: node\_exporter (host), gitlab\_exporter (Rails and Sidekiq), Gitaly, Workhorse, postgres\_exporter, redis\_exporter and NGINX VTS. The five dashboards (overview, machine performance, NGINX, PostgreSQL, Redis) each use part of that set, so scrape all of these endpoints rather than a single `/metrics`.
 
@@ -35,10 +35,10 @@ postgres_exporter['listen_address'] = '0.0.0.0:9187'
 gitaly['configuration'] = { prometheus_listen_addr: '0.0.0.0:9236' }
 ```
 
-After `gitlab-ctl reconfigure`, list each port in the `urls` of the Categraf `prometheus` input with `job = "gitlab"` in `labels`. If you keep GitLab's bundled Prometheus, [adding it as a data source](https://n9e.github.io/docs/data/prometheus.md) works too.
+After `gitlab-ctl reconfigure`, list each port in the `urls` of the Categraf `prometheus` input with `job = "gitlab"` in `labels`. If you keep GitLab's bundled Prometheus, [adding it as a data source](https://n9e.io/docs/data/prometheus.md) works too.
 
-1. Open the integration center in Nightingale, find Gitlab, and [import the dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md) into a business group.
-2. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.github.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
+1. Open the integration center in Nightingale, find Gitlab, and [import the dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md) into a business group.
+2. Imported rules start disabled. [Check that the metrics are arriving](https://n9e.io/docs/data/integrations/verify.md) first, then enable the rules one by one with thresholds that fit your environment.
 
 ## Bundled dashboards[​](#bundled-dashboards "Direct link to Bundled dashboards")
 
@@ -232,6 +232,6 @@ Runbook:
 ## Related[​](#related "Direct link to Related")
 
 * [Gitlab template source](https://github.com/ccfos/nightingale/tree/main/integrations/Gitlab): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

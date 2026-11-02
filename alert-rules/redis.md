@@ -2,7 +2,7 @@
 
 12 ready-to-use Redis alert rules in PromQL, each with severity, duration and runbook steps. Metrics from redis\_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 Redis alert rules for high memory usage, a rising eviction rate, rejected connections, too many client connections, a falling cache hit ratio, high command or ping latency, and an instance that has just restarted. The exporter group uses oliver006/redis\_exporter metric names; the Categraf group covers the same checks for instances collected by Categraf.
 
@@ -10,7 +10,7 @@ Redis alert rules for high memory usage, a rising eviction rate, rejected connec
 
 * **12 rules**, each with a PromQL condition, a severity, a `for` duration and runbook steps
 * **Metrics from**: redis\_exporter, Categraf
-* **Download**: [`redis.yml`](https://n9e.github.io/alert-rules/redis.yml), a standard Prometheus rules file (`groups:` format), checked with `promtool check rules`
+* **Download**: [`redis.yml`](https://n9e.io/alert-rules/redis.yml), a standard Prometheus rules file (`groups:` format), checked with `promtool check rules`
 * Thresholds are starting points. Adjust them to your environment before enabling the rules.
 
 ## Rule list[​](#rule-list "Direct link to Rule list")
@@ -232,8 +232,8 @@ Runbook:
 
 ## How to use these rules[​](#how-to-use-these-rules "Direct link to How to use these rules")
 
-* **With Prometheus or vmalert**: download [`redis.yml`](https://n9e.github.io/alert-rules/redis.yml), add it to `rule_files` (or `-rule` for vmalert), check the metric names against your exporter version, and tune thresholds. Severity is set as a `severity` label (critical / warning / info), and `runbook_url` points back to this page, or to the rule's own page where it has one.
-* **With Nightingale**: the same rules ship in the [Redis](https://n9e.github.io/integrations/redis.md) integration template. Open the integration center, [import the rules into a business group](https://n9e.github.io/docs/data/integrations/import.md), and enable them one by one. Nightingale keeps the runbook with each alert and can evaluate the rules against Prometheus, VictoriaMetrics and other data sources.
+* **With Prometheus or vmalert**: download [`redis.yml`](https://n9e.io/alert-rules/redis.yml), add it to `rule_files` (or `-rule` for vmalert), check the metric names against your exporter version, and tune thresholds. Severity is set as a `severity` label (critical / warning / info), and `runbook_url` points back to this page, or to the rule's own page where it has one.
+* **With Nightingale**: the same rules ship in the [Redis](https://n9e.io/integrations/redis.md) integration template. Open the integration center, [import the rules into a business group](https://n9e.io/docs/data/integrations/import.md), and enable them one by one. Nightingale keeps the runbook with each alert and can evaluate the rules against Prometheus, VictoriaMetrics and other data sources.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 
@@ -241,6 +241,6 @@ The runbook steps and the remaining rules come from Nightingale's integration te
 
 ## Related[​](#related "Direct link to Related")
 
-* [Monitor Redis with Nightingale](https://n9e.github.io/integrations/redis.md): collector config, dashboards and metric reference
-* [Write a metric rule in Nightingale](https://n9e.github.io/docs/alerting/metric-rules.md)
-* [All alert rules](https://n9e.github.io/alert-rules.md)
+* [Monitor Redis with Nightingale](https://n9e.io/integrations/redis.md): collector config, dashboards and metric reference
+* [Write a metric rule in Nightingale](https://n9e.io/docs/alerting/metric-rules.md)
+* [All alert rules](https://n9e.io/alert-rules.md)

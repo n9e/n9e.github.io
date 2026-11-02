@@ -91,7 +91,7 @@ There is no Jira card in the type panel, but the **built-in templates include `J
 * Custom parameter: `project_key`
 * Body: create an issue, with `fields.project.key` from `{{$params.project_key}}`, `summary` from `{{$event.RuleName}}`, the description wrapping `{{$tpl.content}}` in ADF, and `eventHash={{$event.Hash}}` among the `labels`
 
-Do not hard-code the credential in the URL — write `{{.jira_token}}` and keep the value in [Variables](https://n9e.github.io/docs/security/variables.md). This path **opens tickets but never closes them**; to close the loop, write your own reconciliation against the `eventHash` label.
+Do not hard-code the credential in the URL — write `{{.jira_token}}` and keep the value in [Variables](https://n9e.io/docs/security/variables.md). This path **opens tickets but never closes them**; to close the loop, write your own reconciliation against the `eventHash` label.
 
 **JSM Alert** (Jira Service Management alerts, formerly Opsgenie) does close the loop:
 
@@ -123,6 +123,6 @@ PagerDuty's `dedup_key` and JSM's `alias` are both Nightingale's **event hash**.
 
 ## Next[​](#next "Direct link to Next")
 
-* The event arrives but reads badly: [Templates and variables](https://n9e.github.io/docs/notifications/templates.md)
-* Where to look when nothing goes out: [Retries and delivery status](https://n9e.github.io/docs/notifications/delivery.md)
-* Deduplicate here or over there: [Noise reduction and routing model](https://n9e.github.io/docs/concepts/noise-routing.md)
+* The event arrives but reads badly: [Templates and variables](https://n9e.io/docs/notifications/templates.md)
+* Where to look when nothing goes out: [Retries and delivery status](https://n9e.io/docs/notifications/delivery.md)
+* Deduplicate here or over there: [Noise reduction and routing model](https://n9e.io/docs/concepts/noise-routing.md)

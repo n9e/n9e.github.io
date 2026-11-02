@@ -2,13 +2,13 @@
 
 What the KubeletTooManyPods Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 A node is running more than 95% of the Pods it can hold, as set by the kubelet's `maxPods` (110 by default). When it reaches the limit, new Pods that would land there stay Pending, and a crowded node is more likely to show kubelet slowness.
 
 * **Severity**: Info (`info`)
 * **Fires after**: 15m
-* Part of the [Kubernetes alert rules](https://n9e.github.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
+* Part of the [Kubernetes alert rules](https://n9e.io/alert-rules/kubernetes.md) (`kubernetes.yml`)
 
 ## The rule[​](#the-rule "Direct link to The rule")
 
@@ -57,12 +57,12 @@ Alert message: `Kubelet '{{ $labels.node }}' is running at {{ $value | humanizeP
 
 ## Related alerts[​](#related-alerts "Direct link to Related alerts")
 
-* [KubeNodeNotReady](https://n9e.github.io/alert-rules/kubernetes/kubenodenotready.md): … has been unready for more than 15 minutes.
-* [KubePodNotReady](https://n9e.github.io/alert-rules/kubernetes/kubepodnotready.md): Pod …/… has been in a non-ready state for longer than 15 minutes.
+* [KubeNodeNotReady](https://n9e.io/alert-rules/kubernetes/kubenodenotready.md): … has been unready for more than 15 minutes.
+* [KubePodNotReady](https://n9e.io/alert-rules/kubernetes/kubepodnotready.md): Pod …/… has been in a non-ready state for longer than 15 minutes.
 
 ## Prometheus rule YAML[​](#prometheus-rule-yaml "Direct link to Prometheus rule YAML")
 
-Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.github.io/alert-rules/kubernetes.yml).
+Add this to a rules file loaded through `rule_files`, or download every Kubernetes rule at once as [`kubernetes.yml`](https://n9e.io/alert-rules/kubernetes.yml).
 
 ```
 - alert: KubeletTooManyPods
@@ -93,10 +93,10 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
 
     summary: "Kubelet '{{ $labels.node }}' is running at {{ $value | humanizePercentage }} of its Pod capacity."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubelettoomanypods"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubelettoomanypods"
 ```
 
-**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.github.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
+**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 

@@ -2,13 +2,13 @@
 
 What the PrometheusNotConnectedToAlertmanagers Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 Prometheus has discovered no Alertmanager to send alerts to. Rules are still evaluated and alerts still show as firing on the Prometheus `/alerts` page, but no notifications go out. Everything is silent and nothing looks wrong, which is why this alert should be routed through a channel that does not depend on the same Alertmanager.
 
 * **Severity**: Warning (`warning`)
 * **Fires after**: 10m
-* Part of the [Prometheus alert rules](https://n9e.github.io/alert-rules/prometheus.md) (`prometheus.yml`)
+* Part of the [Prometheus alert rules](https://n9e.io/alert-rules/prometheus.md) (`prometheus.yml`)
 
 ## The rule[​](#the-rule "Direct link to The rule")
 
@@ -47,13 +47,13 @@ Alert message: `Prometheus {{$labels.namespace}}/{{$labels.pod}} is not connecte
 
 ## Related alerts[​](#related-alerts "Direct link to Related alerts")
 
-* [PrometheusErrorSendingAlertsToAnyAlertmanager](https://n9e.github.io/alert-rules/prometheus.md#prometheuserrorsendingalertstoanyalertmanager): …% minimum errors while sending alerts from Prometheus …/… to any Alertmanager.
-* [PrometheusErrorSendingAlertsToSomeAlertmanagers](https://n9e.github.io/alert-rules/prometheus.md#prometheuserrorsendingalertstosomealertmanagers): …% errors while sending alerts from Prometheus …/… to Alertmanager ….
-* [PrometheusNotificationQueueRunningFull](https://n9e.github.io/alert-rules/prometheus.md#prometheusnotificationqueuerunningfull): Alert notification queue of Prometheus …/… is running full.
+* [PrometheusErrorSendingAlertsToAnyAlertmanager](https://n9e.io/alert-rules/prometheus.md#prometheuserrorsendingalertstoanyalertmanager): …% minimum errors while sending alerts from Prometheus …/… to any Alertmanager.
+* [PrometheusErrorSendingAlertsToSomeAlertmanagers](https://n9e.io/alert-rules/prometheus.md#prometheuserrorsendingalertstosomealertmanagers): …% errors while sending alerts from Prometheus …/… to Alertmanager ….
+* [PrometheusNotificationQueueRunningFull](https://n9e.io/alert-rules/prometheus.md#prometheusnotificationqueuerunningfull): Alert notification queue of Prometheus …/… is running full.
 
 ## Prometheus rule YAML[​](#prometheus-rule-yaml "Direct link to Prometheus rule YAML")
 
-Add this to a rules file loaded through `rule_files`, or download every Prometheus rule at once as [`prometheus.yml`](https://n9e.github.io/alert-rules/prometheus.yml).
+Add this to a rules file loaded through `rule_files`, or download every Prometheus rule at once as [`prometheus.yml`](https://n9e.io/alert-rules/prometheus.yml).
 
 ```
 - alert: PrometheusNotConnectedToAlertmanagers
@@ -76,10 +76,10 @@ Add this to a rules file loaded through `rule_files`, or download every Promethe
 
     summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} is not connected to any Alertmanagers."
 
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers"
 ```
 
-**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.github.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.github.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
+**With Nightingale**: this rule ships in the [Kubernetes integration](https://n9e.io/integrations/kubernetes.md) template; [import it into a business group](https://n9e.io/docs/data/integrations/import.md) and Nightingale attaches the runbook to every alert it sends.
 
 ## Sources and license[​](#sources-and-license "Direct link to Sources and license")
 

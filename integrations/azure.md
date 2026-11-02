@@ -2,7 +2,7 @@
 
 Pulls metrics per resource type through the Azure Monitor API, authenticating with a service principal that only needs the Monitoring Reader role.
 
-Last reviewed 2026-11-01
+Last reviewed 2026-11-02
 
 The Azure input calls the Azure Monitor metrics API and pulls metrics by subscription, resource group or resource type (virtual machines, storage accounts, SQL databases, App Service and so on). The config lets you name the metrics and aggregations to collect per resource type.
 
@@ -14,7 +14,7 @@ Register a service principal, grant it the `Monitoring Reader` role, and put the
 
 ## How to connect[​](#how-to-connect "Direct link to How to connect")
 
-1. [Install Categraf](https://n9e.github.io/docs/data/categraf/install.md), put the config below in `conf/input.azure/azure.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.azure started` once the plugin is loaded.
+1. [Install Categraf](https://n9e.io/docs/data/categraf/install.md), put the config below in `conf/input.azure/azure.toml`, fill in your own address and credentials, and restart Categraf. The startup log prints `input: local.azure started` once the plugin is loaded.
 
    ```
    # Gather Azure resources metrics from Azure Monitor API
@@ -151,6 +151,6 @@ Register a service principal, grant it the `Monitoring Reader` role, and put the
 ## Related[​](#related "Direct link to Related")
 
 * [Azure template source](https://github.com/ccfos/nightingale/tree/main/integrations/Azure): the raw JSON for dashboards, rules and collector config. Pull requests welcome.
-* [Import dashboards and alert rules](https://n9e.github.io/docs/data/integrations/import.md)
-* [Verify that metrics are stored](https://n9e.github.io/docs/data/integrations/verify.md)
-* [All integrations](https://n9e.github.io/integrations.md)
+* [Import dashboards and alert rules](https://n9e.io/docs/data/integrations/import.md)
+* [Verify that metrics are stored](https://n9e.io/docs/data/integrations/verify.md)
+* [All integrations](https://n9e.io/integrations.md)

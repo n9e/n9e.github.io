@@ -54,9 +54,9 @@ If foreground execution works but service execution fails, check the service acc
 
 The constant value 1 verifies the pipeline only. A real check should report its actual result, such as queue length or last-success time. Emit an explicit failure value. No output and a value of zero require different alert conditions.
 
-Avoid random IDs, timestamps and full error messages as labels; they create unbounded series. Use Counter semantics for cumulative counts and Gauge semantics for current values. See [Prerequisites](https://n9e.github.io/docs/prologue/pre-knowledge.md).
+Avoid random IDs, timestamps and full error messages as labels; they create unbounded series. Use Counter semantics for cumulative counts and Gauge semantics for current values. See [Prerequisites](https://n9e.io/docs/prologue/pre-knowledge.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* [Create your first alert](https://n9e.github.io/docs/alerting/first-rule.md)
-* [Connected datasource with no data](https://n9e.github.io/docs/troubleshooting/no-data.md)
+* [Create your first alert](https://n9e.io/docs/alerting/first-rule.md)
+* [Connected datasource with no data](https://n9e.io/docs/troubleshooting/no-data.md)

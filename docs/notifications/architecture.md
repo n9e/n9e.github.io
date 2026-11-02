@@ -53,7 +53,7 @@ an alert rule fires an event, carrying the list of notification rule ids attache
 Two things that catch people out:
 
 * **The filters are ANDed, but an empty value does not mean the same thing everywhere.** Empty time ranges, labels and attributes mean *no restriction*; an **empty severity list matches nothing at all**, which effectively disables that notification config.
-* **Mute rules and subscriptions are not on this path.** They act earlier, when the event is stored. For the full ordering see [Noise reduction and routing model](https://n9e.github.io/docs/concepts/noise-routing.md).
+* **Mute rules and subscriptions are not on this path.** They act earlier, when the event is stored. For the full ordering see [Noise reduction and routing model](https://n9e.io/docs/concepts/noise-routing.md).
 
 ## Template and media type are joined by a string[​](#template-and-media-type-are-joined-by-a-string "Direct link to Template and media type are joined by a string")
 
@@ -95,11 +95,11 @@ Declare rule-specific inputs such as a token in the medium's parameter configura
 
 Create a message template with the same media-type string, then select the medium and template in a notification rule and fill in its parameters. Matching the display names is insufficient: the media-type strings must match.
 
-Use the [notification test](https://n9e.github.io/docs/notifications/test.md) before attaching the rule to production alerts. Confirm both a successful delivery record and the receiver's actual payload. For a whole-event callback, see [Callback](https://n9e.github.io/docs/notifications/callback.md); for a local executable, see [Script medium](https://n9e.github.io/docs/notifications/script.md).
+Use the [notification test](https://n9e.io/docs/notifications/test.md) before attaching the rule to production alerts. Confirm both a successful delivery record and the receiver's actual payload. For a whole-event callback, see [Callback](https://n9e.io/docs/notifications/callback.md); for a local executable, see [Script medium](https://n9e.io/docs/notifications/script.md).
 
 ## Next[​](#next "Direct link to Next")
 
-* Configure one: [Notification rules](https://n9e.github.io/docs/notifications/rules.md)
-* Change the wording: [Templates and variables](https://n9e.github.io/docs/notifications/templates.md)
-* Prove it works before you rely on it: [Test a notification end to end](https://n9e.github.io/docs/notifications/test.md)
-* Where failures show up: [Retries and delivery status](https://n9e.github.io/docs/notifications/delivery.md)
+* Configure one: [Notification rules](https://n9e.io/docs/notifications/rules.md)
+* Change the wording: [Templates and variables](https://n9e.io/docs/notifications/templates.md)
+* Prove it works before you rely on it: [Test a notification end to end](https://n9e.io/docs/notifications/test.md)
+* Where failures show up: [Retries and delivery status](https://n9e.io/docs/notifications/delivery.md)

@@ -6,7 +6,7 @@ Last reviewed 2026-10-10
 
 Where this page ends: the target host has a new `conf/input.<plugin>/<plugin>.toml`, Categraf is collecting that component's metrics, and you have confirmed they reached Nightingale.
 
-This assumes Categraf is **already installed** on the host — if not, start at [Install and register](https://n9e.github.io/docs/data/categraf/install.md). Nightingale collects nothing itself; it only tells you what to put into Categraf.
+This assumes Categraf is **already installed** on the host — if not, start at [Install and register](https://n9e.io/docs/data/categraf/install.md). Nightingale collects nothing itself; it only tells you what to put into Categraf.
 
 ## Two paths[​](#two-paths "Direct link to Two paths")
 
@@ -48,7 +48,7 @@ If piping straight into bash makes you uncomfortable, the wizard also offers the
 
 The command embeds the whole config base64-encoded. **It may contain passwords — do not share it over untrusted channels.**
 
-**4. Verify data.** The wizard watches for a sentinel metric, polling every 5 seconds; it normally appears within a minute of the command succeeding. See [Verify incoming data](https://n9e.github.io/docs/data/integrations/verify.md).
+**4. Verify data.** The wizard watches for a sentinel metric, polling every 5 seconds; it normally appears within a minute of the command succeeding. See [Verify incoming data](https://n9e.io/docs/data/integrations/verify.md).
 
 ## Path 2: the Instructions tab in the template center[​](#path-2-the-instructions-tab-in-the-template-center "Direct link to Path 2: the Instructions tab in the template center")
 
@@ -108,7 +108,7 @@ So a broken config stops at step 2 rather than leaving you with an agent that wo
 
 ## Next[​](#next "Direct link to Next")
 
-* Install this component's dashboards and rules too: [Import dashboards and rules](https://n9e.github.io/docs/data/integrations/import.md)
-* Confirm the metrics really arrived: [Verify incoming data](https://n9e.github.io/docs/data/integrations/verify.md)
-* Writing plugin configs by hand: [Input plugins](https://n9e.github.io/docs/data/categraf/plugins.md)
-* Nothing showed up: [Categraf troubleshooting](https://n9e.github.io/docs/data/categraf/troubleshooting.md)
+* Install this component's dashboards and rules too: [Import dashboards and rules](https://n9e.io/docs/data/integrations/import.md)
+* Confirm the metrics really arrived: [Verify incoming data](https://n9e.io/docs/data/integrations/verify.md)
+* Writing plugin configs by hand: [Input plugins](https://n9e.io/docs/data/categraf/plugins.md)
+* Nothing showed up: [Categraf troubleshooting](https://n9e.io/docs/data/categraf/troubleshooting.md)

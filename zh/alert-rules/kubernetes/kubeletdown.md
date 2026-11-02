@@ -2,13 +2,13 @@
 
 Prometheus 告警 KubeletDown 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-01
+最后校对于 2026-11-02
 
 Prometheus 里没有任何一个 kubelet 目标处于 `up == 1`。规则把整个选择器包在 `absent()` 里，所以只有所有 kubelet 都消失或都抓取失败时才会触发，单个节点坏了不会触发。它一响，整个集群的 kubelet 和 cAdvisor 指标（容器 CPU、内存、卷用量）都断了，依赖这些指标的规则也会跟着失声。
 
 * **级别**：紧急（`critical`）
 * **持续**：15 分钟
-* 属于 [Kubernetes 告警规则](https://n9e.github.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
+* 属于 [Kubernetes 告警规则](https://n9e.io/zh/alert-rules/kubernetes.md)（`kubernetes.yml`）
 
 ## 规则[​](#规则 "规则的直接链接")
 
@@ -43,11 +43,11 @@ absent(up{job="kubelet", metrics_path="/metrics"} == 1)
 
 ## 相关告警[​](#相关告警 "相关告警的直接链接")
 
-* [KubeNodeNotReady](https://n9e.github.io/zh/alert-rules/kubernetes/kubenodenotready.md)：… has been unready for more than 15 minutes.
+* [KubeNodeNotReady](https://n9e.io/zh/alert-rules/kubernetes/kubenodenotready.md)：… has been unready for more than 15 minutes.
 
 ## Prometheus 规则 YAML[​](#prometheus-规则-yaml "Prometheus 规则 YAML的直接链接")
 
-加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.github.io/zh/alert-rules/kubernetes.yml)。
+加到通过 `rule_files` 加载的规则文件里即可；也可以一次下载全部 Kubernetes 规则：[`kubernetes.yml`](https://n9e.io/zh/alert-rules/kubernetes.yml)。
 
 ```
 - alert: KubeletDown
@@ -66,10 +66,10 @@ absent(up{job="kubelet", metrics_path="/metrics"} == 1)
 
     summary: "Kubelet has disappeared from Prometheus target discovery."
 
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeletdown"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeletdown"
 ```
 
-**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.github.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.github.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
+**用夜莺**：这条规则内置在 [Kubernetes 集成](https://n9e.io/zh/integrations/kubernetes.md)模板里，[导入到业务组](https://n9e.io/zh/docs/data/integrations/import.md)后，夜莺发出的每条告警都会带上处置步骤。
 
 ## 来源与许可[​](#来源与许可 "来源与许可的直接链接")
 
