@@ -1,8 +1,8 @@
 /**
  * 构建后处理：给每个有 .md 副本的页面在 <head> 里加两条发现链接。
  *
- *   <link rel="alternate" type="text/markdown" href="https://n9e.github.io/docs/x.md">
- *   <link rel="describedby" href="https://n9e.github.io/llms.txt">
+ *   <link rel="alternate" type="text/markdown" href="https://n9e.io/docs/x.md">
+ *   <link rel="describedby" href="https://n9e.io/llms.txt">
  *
  * llms.txt 规范的 Proposal 一节推荐这两条，让 AI 爬虫从任意 HTML 页直达 Markdown 原文和
  * 覆盖它的 llms.txt。规范同时给出了 HTTP Link 头和 Accept: text/markdown 内容协商两条路，
@@ -15,7 +15,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'build');
-const SITE = 'https://n9e.github.io';
+const SITE = 'https://n9e.io';
 let count = 0;
 
 async function* walk(dir) {

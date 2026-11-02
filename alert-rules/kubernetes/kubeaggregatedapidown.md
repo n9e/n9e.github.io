@@ -66,7 +66,7 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
     severity: warning
   annotations:
     summary: "Kubernetes aggregated API {{ $labels.name }}/{{ $labels.namespace }} has been only {{ $value | humanize }}% available over the last 10m."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeaggregatedapidown"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeaggregatedapidown"
 ```
 
 **With Nightingale**: this rule ships in the [Kubernetes integration](/integrations/kubernetes) template; [import it into a business group](/docs/data/integrations/import) and Nightingale attaches the runbook to every alert it sends.

@@ -68,7 +68,7 @@ kube_deployment_status_condition{condition="Progressing", status="false",job="ku
     severity: warning
   annotations:
     summary: "Rollout of deployment {{ $labels.namespace }}/{{ $labels.deployment }} is not progressing for longer than 15 minutes."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubedeploymentrolloutstuck"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubedeploymentrolloutstuck"
 ```
 
 **用夜莺**：这条规则内置在 [Kubernetes 集成](/integrations/kubernetes)模板里，[导入到业务组](/docs/data/integrations/import)后，夜莺发出的每条告警都会带上处置步骤。

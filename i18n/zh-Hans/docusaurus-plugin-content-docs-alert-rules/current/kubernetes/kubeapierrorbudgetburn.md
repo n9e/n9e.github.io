@@ -110,7 +110,7 @@ sum(apiserver_request:burnrate6h) > (1.00 * 0.01000)
     severity: critical
   annotations:
     summary: "The API server is burning too much error budget."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
 - alert: KubeAPIErrorBudgetBurn-S1-900s
   expr: |-
     sum(apiserver_request:burnrate6h) > (6.00 * 0.01000)
@@ -121,7 +121,7 @@ sum(apiserver_request:burnrate6h) > (1.00 * 0.01000)
     severity: critical
   annotations:
     summary: "The API server is burning too much error budget."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
 - alert: KubeAPIErrorBudgetBurn-S2-3600s
   expr: |-
     sum(apiserver_request:burnrate1d) > (3.00 * 0.01000)
@@ -132,7 +132,7 @@ sum(apiserver_request:burnrate6h) > (1.00 * 0.01000)
     severity: warning
   annotations:
     summary: "The API server is burning too much error budget."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
 - alert: KubeAPIErrorBudgetBurn-S2-10800s
   expr: |-
     sum(apiserver_request:burnrate3d) > (1.00 * 0.01000)
@@ -143,7 +143,7 @@ sum(apiserver_request:burnrate6h) > (1.00 * 0.01000)
     severity: warning
   annotations:
     summary: "The API server is burning too much error budget."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
 ```
 
 **用夜莺**：这条规则内置在 [Kubernetes 集成](/integrations/kubernetes)模板里，[导入到业务组](/docs/data/integrations/import)后，夜莺发出的每条告警都会带上处置步骤。

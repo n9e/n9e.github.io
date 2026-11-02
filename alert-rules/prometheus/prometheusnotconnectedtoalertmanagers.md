@@ -70,7 +70,7 @@ Add this to a rules file loaded through `rule_files`, or download every Promethe
     severity: warning
   annotations:
     summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} is not connected to any Alertmanagers."
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers"
 ```
 
 **With Nightingale**: this rule ships in the [Kubernetes integration](/integrations/kubernetes) template; [import it into a business group](/docs/data/integrations/import) and Nightingale attaches the runbook to every alert it sends.

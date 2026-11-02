@@ -78,7 +78,7 @@ apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0 and o
     severity: warning
   annotations:
     summary: "A client certificate used to authenticate to the apiserver is expiring in less than 7.0 days."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
 - alert: KubeClientCertificateExpiration-S1
   expr: |-
     apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0 and on(job) histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="apiserver"}[5m]))) < 86400
@@ -86,7 +86,7 @@ apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0 and o
     severity: critical
   annotations:
     summary: "A client certificate used to authenticate to the apiserver is expiring in less than 24.0 hours."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
 ```
 
 **用夜莺**：这条规则内置在 [Kubernetes 集成](/integrations/kubernetes)模板里，[导入到业务组](/docs/data/integrations/import)后，夜莺发出的每条告警都会带上处置步骤。

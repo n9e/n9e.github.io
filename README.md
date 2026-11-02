@@ -1,7 +1,7 @@
 # Nightingale website
 
 The open-source website and documentation for [Nightingale](https://github.com/ccfos/nightingale),
-served at <https://n9e.github.io>. Built with Docusaurus 3. English is the default locale at `/`;
+served at <https://n9e.io>. Built with Docusaurus 3. English is the default locale at `/`;
 Chinese is at `/zh/`. Chinese copy is the source of truth for wording, and the English copy is
 written alongside it rather than machine-translated.
 
@@ -46,7 +46,7 @@ questions on purpose: that is how people and AI assistants phrase the query.
 
 Every push to `main` triggers `.github/workflows/deploy.yml`: it runs `npm ci && npm run build`
 and publishes `build/` to the `gh-pages` branch, which GitHub Pages serves at
-<https://n9e.github.io>. **Pushing to `main` is a production release.** The workflow can also be
+<https://n9e.io>. **Pushing to `main` is a production release.** The workflow can also be
 run by hand from the Actions tab.
 
 ## Analytics

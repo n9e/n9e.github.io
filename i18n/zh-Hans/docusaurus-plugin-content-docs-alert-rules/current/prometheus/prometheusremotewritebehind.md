@@ -80,7 +80,7 @@ Remote Write 落后超过 2 分钟：Prometheus 已接收的最新样本，比�
     severity: critical
   annotations:
     summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} remote write is {{ printf \"%.1f\" $value }}s behind for {{ $labels.remote_name}}:{{ $labels.url }}."
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusremotewritebehind"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheusremotewritebehind"
 ```
 
 **用夜莺**：这条规则内置在 [Kubernetes 集成](/integrations/kubernetes)模板里，[导入到业务组](/docs/data/integrations/import)后，夜莺发出的每条告警都会带上处置步骤。

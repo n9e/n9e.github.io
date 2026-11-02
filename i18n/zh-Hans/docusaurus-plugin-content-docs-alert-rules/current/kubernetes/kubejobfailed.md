@@ -65,7 +65,7 @@ kube_job_failed{job="kube-state-metrics"}  > 0
     severity: warning
   annotations:
     summary: "Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete. Removing failed job after investigation should clear this alert."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubejobfailed"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubejobfailed"
 ```
 
 **用夜莺**：这条规则内置在 [Kubernetes 集成](/integrations/kubernetes)模板里，[导入到业务组](/docs/data/integrations/import)后，夜莺发出的每条告警都会带上处置步骤。

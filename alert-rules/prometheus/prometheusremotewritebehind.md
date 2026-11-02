@@ -80,7 +80,7 @@ Add this to a rules file loaded through `rule_files`, or download every Promethe
     severity: critical
   annotations:
     summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} remote write is {{ printf \"%.1f\" $value }}s behind for {{ $labels.remote_name}}:{{ $labels.url }}."
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusremotewritebehind"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheusremotewritebehind"
 ```
 
 **With Nightingale**: this rule ships in the [Kubernetes integration](/integrations/kubernetes) template; [import it into a business group](/docs/data/integrations/import) and Nightingale attaches the runbook to every alert it sends.

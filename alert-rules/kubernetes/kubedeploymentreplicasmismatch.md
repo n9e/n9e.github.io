@@ -86,7 +86,7 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
     severity: warning
   annotations:
     summary: "Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has not matched the expected number of replicas for longer than 15 minutes."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubedeploymentreplicasmismatch"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubedeploymentreplicasmismatch"
 ```
 
 **With Nightingale**: this rule ships in the [Kubernetes integration](/integrations/kubernetes) template; [import it into a business group](/docs/data/integrations/import) and Nightingale attaches the runbook to every alert it sends.

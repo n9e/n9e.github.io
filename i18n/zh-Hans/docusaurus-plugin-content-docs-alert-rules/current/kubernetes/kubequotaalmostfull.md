@@ -72,7 +72,7 @@ kube_resourcequota{job="kube-state-metrics", type="used"}
     severity: info
   annotations:
     summary: "Namespace {{ $labels.namespace }} is using {{ $value | humanizePercentage }} of its {{ $labels.resource }} quota."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubequotaalmostfull"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubequotaalmostfull"
 ```
 
 **用夜莺**：这条规则内置在 [Kubernetes 集成](/integrations/kubernetes)模板里，[导入到业务组](/docs/data/integrations/import)后，夜莺发出的每条告警都会带上处置步骤。

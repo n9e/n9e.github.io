@@ -78,7 +78,7 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
     severity: warning
   annotations:
     summary: "A client certificate used to authenticate to the apiserver is expiring in less than 7.0 days."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
 - alert: KubeClientCertificateExpiration-S1
   expr: |-
     apiserver_client_certificate_expiration_seconds_count{job="apiserver"} > 0 and on(job) histogram_quantile(0.01, sum by (job, le) (rate(apiserver_client_certificate_expiration_seconds_bucket{job="apiserver"}[5m]))) < 86400
@@ -86,7 +86,7 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
     severity: critical
   annotations:
     summary: "A client certificate used to authenticate to the apiserver is expiring in less than 24.0 hours."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeclientcertificateexpiration"
 ```
 
 **With Nightingale**: this rule ships in the [Kubernetes integration](/integrations/kubernetes) template; [import it into a business group](/docs/data/integrations/import) and Nightingale attaches the runbook to every alert it sends.

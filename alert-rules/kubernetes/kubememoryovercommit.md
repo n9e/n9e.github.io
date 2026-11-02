@@ -71,7 +71,7 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
     severity: warning
   annotations:
     summary: "Cluster {{ $labels.cluster }} has overcommitted memory resource requests for Pods by {{ $value | humanize }} bytes and cannot tolerate node failure."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubememoryovercommit"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubememoryovercommit"
 ```
 
 **With Nightingale**: this rule ships in the [Kubernetes integration](/integrations/kubernetes) template; [import it into a business group](/docs/data/integrations/import) and Nightingale attaches the runbook to every alert it sends.

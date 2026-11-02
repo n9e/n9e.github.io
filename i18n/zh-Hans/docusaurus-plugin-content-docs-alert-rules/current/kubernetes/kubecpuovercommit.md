@@ -71,7 +71,7 @@ and
     severity: warning
   annotations:
     summary: "Cluster {{ $labels.cluster }} has overcommitted CPU resource requests for Pods by {{ $value }} CPU shares and cannot tolerate node failure."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubecpuovercommit"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubecpuovercommit"
 ```
 
 **用夜莺**：这条规则内置在 [Kubernetes 集成](/integrations/kubernetes)模板里，[导入到业务组](/docs/data/integrations/import)后，夜莺发出的每条告警都会带上处置步骤。

@@ -72,7 +72,7 @@ kube_horizontalpodautoscaler_spec_max_replicas{job="kube-state-metrics"}
     severity: warning
   annotations:
     summary: "HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler  }} has been running at max replicas for longer than 15 minutes."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubehpamaxedout"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubehpamaxedout"
 ```
 
 **用夜莺**：这条规则内置在 [Kubernetes 集成](/integrations/kubernetes)模板里，[导入到业务组](/docs/data/integrations/import)后，夜莺发出的每条告警都会带上处置步骤。

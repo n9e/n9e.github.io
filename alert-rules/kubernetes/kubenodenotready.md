@@ -67,7 +67,7 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
     severity: warning
   annotations:
     summary: "{{ $labels.node }} has been unready for more than 15 minutes."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubenodenotready"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubenodenotready"
 ```
 
 **With Nightingale**: this rule ships in the [Kubernetes integration](/integrations/kubernetes) template; [import it into a business group](/docs/data/integrations/import) and Nightingale attaches the runbook to every alert it sends.

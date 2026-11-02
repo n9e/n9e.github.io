@@ -66,7 +66,7 @@ increase(prometheus_target_scrape_pool_exceeded_target_limit_total{job="promethe
     severity: warning
   annotations:
     summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} has dropped {{ printf \"%.0f\" $value }} targets because the number of targets exceeded the configured target_limit."
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheustargetlimithit"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheustargetlimithit"
 ```
 
 **用夜莺**：这条规则内置在 [Kubernetes 集成](/integrations/kubernetes)模板里，[导入到业务组](/docs/data/integrations/import)后，夜莺发出的每条告警都会带上处置步骤。

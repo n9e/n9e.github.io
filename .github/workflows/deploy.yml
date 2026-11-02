@@ -1,4 +1,4 @@
-# 构建官网（Docusaurus）并发布到 gh-pages 分支，GitHub Pages 从这个分支提供 https://n9e.github.io
+# 构建官网（Docusaurus）并发布到 gh-pages 分支，GitHub Pages 从这个分支提供 https://n9e.io
 # 沿用旧站的做法：push 到 main 即构建发布；也可以在 Actions 页面手动触发。
 
 name: Deploy site

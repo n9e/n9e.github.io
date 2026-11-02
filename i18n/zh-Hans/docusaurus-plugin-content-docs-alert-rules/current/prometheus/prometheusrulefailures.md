@@ -66,7 +66,7 @@ increase(prometheus_rule_evaluation_failures_total{job="prometheus-k8s",namespac
     severity: critical
   annotations:
     summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} has failed to evaluate {{ printf \"%.0f\" $value }} rules in the last 5m."
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusrulefailures"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheusrulefailures"
 ```
 
 **用夜莺**：这条规则内置在 [Kubernetes 集成](/integrations/kubernetes)模板里，[导入到业务组](/docs/data/integrations/import)后，夜莺发出的每条告警都会带上处置步骤。

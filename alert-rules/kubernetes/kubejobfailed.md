@@ -65,7 +65,7 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
     severity: warning
   annotations:
     summary: "Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete. Removing failed job after investigation should clear this alert."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubejobfailed"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubejobfailed"
 ```
 
 **With Nightingale**: this rule ships in the [Kubernetes integration](/integrations/kubernetes) template; [import it into a business group](/docs/data/integrations/import) and Nightingale attaches the runbook to every alert it sends.

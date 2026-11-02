@@ -70,7 +70,7 @@ max_over_time(prometheus_notifications_alertmanagers_discovered{job="prometheus-
     severity: warning
   annotations:
     summary: "Prometheus {{$labels.namespace}}/{{$labels.pod}} is not connected to any Alertmanagers."
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheusnotconnectedtoalertmanagers"
 ```
 
 **用夜莺**：这条规则内置在 [Kubernetes 集成](/integrations/kubernetes)模板里，[导入到业务组](/docs/data/integrations/import)后，夜莺发出的每条告警都会带上处置步骤。

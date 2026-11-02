@@ -29,7 +29,7 @@ const OUT = {
   zh: join(ROOT, 'i18n', 'zh-Hans', 'docusaurus-plugin-content-docs-alert-rules', 'current'),
   yml: join(ROOT, 'static', 'alert-rules'),
 };
-const SITE = 'https://n9e.github.io';
+const SITE = 'https://n9e.io';
 const UPSTREAM = 'https://github.com/ccfos/nightingale/tree/main/integrations';
 const SOURCE_ORDER = ['default', 'exporter', 'native', 'categraf', 'telegraf'];
 const PROM_SEVERITY = { 1: 'critical', 2: 'warning', 3: 'info' };

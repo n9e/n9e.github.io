@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const build = path.join(root, 'build');
 const releases = JSON.parse(await fs.readFile(path.join(root, 'src/data/releases.json'), 'utf8'));
-const SITE = 'https://n9e.github.io';
+const SITE = 'https://n9e.io';
 const MOVED_ON = '2026-10-10'; // 新站首次部署（54cbdc54）
 // 旧站 docs 下的分区（scripts/legacy-doc-inventory.json 里路径的第二段）
 const SECTIONS = ['agent', 'faq', 'install', 'practice', 'prologue', 'usage', 'usecase'];
@@ -25,14 +25,14 @@ const locales = [
     prefix: '', lang: 'en',
     title: 'Nightingale (n9e)',
     description: 'Open-source alerting engine: releases and documentation updates.',
-    moved: { title: 'Documentation has moved to n9e.github.io', body: 'The Nightingale documentation now lives at n9e.github.io/docs. This feed only carries release announcements.' },
+    moved: { title: 'Documentation has moved to n9e.io', body: 'The Nightingale documentation now lives at n9e.io/docs. This feed only carries release announcements.' },
     release: (name, tag) => `${name} ${tag} released`,
   },
   {
     prefix: '/zh', lang: 'zh-CN',
     title: '夜莺监控 Nightingale (n9e)',
     description: '开源监控告警引擎：版本发布与文档更新。',
-    moved: { title: '文档已迁移到 n9e.github.io', body: '夜莺文档现在位于 n9e.github.io/zh/docs。这个订阅源只推送版本发布。' },
+    moved: { title: '文档已迁移到 n9e.io', body: '夜莺文档现在位于 n9e.io/zh/docs。这个订阅源只推送版本发布。' },
     release: (name, tag) => `${name} ${tag} 发布`,
   },
 ];

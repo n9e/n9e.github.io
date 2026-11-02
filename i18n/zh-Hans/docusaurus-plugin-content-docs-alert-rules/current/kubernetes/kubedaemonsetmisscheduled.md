@@ -64,7 +64,7 @@ kube_daemonset_status_number_misscheduled{job="kube-state-metrics"} > 0
     severity: warning
   annotations:
     summary: "{{ $value }} Pods of DaemonSet {{ $labels.namespace }}/{{ $labels.daemonset }} are running where they are not supposed to run."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubedaemonsetmisscheduled"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubedaemonsetmisscheduled"
 ```
 
 **用夜莺**：这条规则内置在 [Kubernetes 集成](/integrations/kubernetes)模板里，[导入到业务组](/docs/data/integrations/import)后，夜莺发出的每条告警都会带上处置步骤。

@@ -67,7 +67,7 @@ max_over_time(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff"
     severity: warning
   annotations:
     summary: "Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is in waiting state (reason: \"CrashLoopBackOff\")."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubepodcrashlooping"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubepodcrashlooping"
 ```
 
 **用夜莺**：这条规则内置在 [Kubernetes 集成](/integrations/kubernetes)模板里，[导入到业务组](/docs/data/integrations/import)后，夜莺发出的每条告警都会带上处置步骤。

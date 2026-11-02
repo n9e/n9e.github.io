@@ -12,7 +12,7 @@ import { readFileSync } from 'node:fs';
 const FONT_FACE_CSS = readFileSync(new URL('./src/css/fonts.css', import.meta.url), 'utf8').replace(/^\/\*.*\*\/\n/, '');
 
 // 域名待定（方案 §6 待拍板项 2）。改这里即可，页面内不硬编码站点地址。
-const SITE_URL = 'https://n9e.github.io';
+const SITE_URL = 'https://n9e.io';
 const BASE_URL = '/';
 
 // 产品前端用 iframe 抽屉嵌入文档：地址后面带 `/?onlyContent&theme=dark|light`。

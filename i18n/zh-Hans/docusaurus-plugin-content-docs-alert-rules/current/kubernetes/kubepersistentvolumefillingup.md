@@ -91,7 +91,7 @@ kube_persistentvolumeclaim_labels{label_excluded_from_alerts="true"} == 1
     severity: critical
   annotations:
     summary: "The PersistentVolume claimed by {{ $labels.persistentvolumeclaim }} in Namespace {{ $labels.namespace }} is only {{ $value | humanizePercentage }} free."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubepersistentvolumefillingup"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubepersistentvolumefillingup"
 ```
 
 **用夜莺**：这条规则内置在 [Kubernetes 集成](/integrations/kubernetes)模板里，[导入到业务组](/docs/data/integrations/import)后，夜莺发出的每条告警都会带上处置步骤。

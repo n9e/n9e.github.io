@@ -66,7 +66,7 @@ sum by (namespace, pod, container, cluster) (kube_pod_container_status_waiting_r
     severity: warning
   annotations:
     summary: "pod/{{ $labels.pod }} in namespace {{ $labels.namespace }} on container {{ $labels.container}} has been in waiting state for longer than 1 hour."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubecontainerwaiting"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubecontainerwaiting"
 ```
 
 **用夜莺**：这条规则内置在 [Kubernetes 集成](/integrations/kubernetes)模板里，[导入到业务组](/docs/data/integrations/import)后，夜莺发出的每条告警都会带上处置步骤。

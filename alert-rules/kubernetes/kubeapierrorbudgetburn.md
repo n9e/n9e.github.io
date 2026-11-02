@@ -110,7 +110,7 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
     severity: critical
   annotations:
     summary: "The API server is burning too much error budget."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
 - alert: KubeAPIErrorBudgetBurn-S1-900s
   expr: |-
     sum(apiserver_request:burnrate6h) > (6.00 * 0.01000)
@@ -121,7 +121,7 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
     severity: critical
   annotations:
     summary: "The API server is burning too much error budget."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
 - alert: KubeAPIErrorBudgetBurn-S2-3600s
   expr: |-
     sum(apiserver_request:burnrate1d) > (3.00 * 0.01000)
@@ -132,7 +132,7 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
     severity: warning
   annotations:
     summary: "The API server is burning too much error budget."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
 - alert: KubeAPIErrorBudgetBurn-S2-10800s
   expr: |-
     sum(apiserver_request:burnrate3d) > (1.00 * 0.01000)
@@ -143,7 +143,7 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
     severity: warning
   annotations:
     summary: "The API server is burning too much error budget."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubeapierrorbudgetburn"
 ```
 
 **With Nightingale**: this rule ships in the [Kubernetes integration](/integrations/kubernetes) template; [import it into a business group](/docs/data/integrations/import) and Nightingale attaches the runbook to every alert it sends.

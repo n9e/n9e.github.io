@@ -67,7 +67,7 @@ kube_node_status_condition{job="kube-state-metrics",condition="Ready",status="tr
     severity: warning
   annotations:
     summary: "{{ $labels.node }} has been unready for more than 15 minutes."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubenodenotready"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubenodenotready"
 ```
 
 **用夜莺**：这条规则内置在 [Kubernetes 集成](/integrations/kubernetes)模板里，[导入到业务组](/docs/data/integrations/import)后，夜莺发出的每条告警都会带上处置步骤。

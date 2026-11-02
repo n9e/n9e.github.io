@@ -67,7 +67,7 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
     severity: warning
   annotations:
     summary: "Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.container }}) is in waiting state (reason: \"CrashLoopBackOff\")."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubepodcrashlooping"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubepodcrashlooping"
 ```
 
 **With Nightingale**: this rule ships in the [Kubernetes integration](/integrations/kubernetes) template; [import it into a business group](/docs/data/integrations/import) and Nightingale attaches the runbook to every alert it sends.

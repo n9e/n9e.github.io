@@ -2,7 +2,7 @@
  * 给 @signalwire/docusaurus-plugin-llms-txt 用的 remark 插件，修两处链接问题。
  *
  * 1. 中文站 `/zh/zh/...`。插件把站内链接拼成绝对地址时用的是 siteConfig.url + baseUrl
- *    （中文构建里是 https://n9e.github.io/zh/），而构建出的 HTML 里 href 本身已经带了
+ *    （中文构建里是 https://n9e.io/zh/），而构建出的 HTML 里 href 本身已经带了
  *    baseUrl（/zh/docs/x），两段一拼就多了一层 /zh/。英文站 baseUrl 是 /，碰不到。
  *    不能在 HTML 阶段把前缀剥掉：插件的路由表按带前缀的路径建，剥了就查不到，
  *    链接会被当成站外路径、丢掉 .md 后缀。所以等它拼完，在 Markdown 树上把

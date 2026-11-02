@@ -79,7 +79,7 @@ Add this to a rules file loaded through `rule_files`, or download every Kubernet
     severity: info
   annotations:
     summary: "Kubelet '{{ $labels.node }}' is running at {{ $value | humanizePercentage }} of its Pod capacity."
-    runbook_url: "https://n9e.github.io/alert-rules/kubernetes/kubelettoomanypods"
+    runbook_url: "https://n9e.io/alert-rules/kubernetes/kubelettoomanypods"
 ```
 
 **With Nightingale**: this rule ships in the [Kubernetes integration](/integrations/kubernetes) template; [import it into a business group](/docs/data/integrations/import) and Nightingale attaches the runbook to every alert it sends.

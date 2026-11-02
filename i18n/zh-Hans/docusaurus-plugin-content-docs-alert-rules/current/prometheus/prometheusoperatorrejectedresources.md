@@ -66,7 +66,7 @@ min_over_time(prometheus_operator_managed_resources{state="rejected",job="promet
     severity: warning
   annotations:
     summary: "Prometheus operator in {{ $labels.namespace }} namespace rejected {{ printf \"%0.0f\" $value }} {{ $labels.controller }}/{{ $labels.resource }} resources."
-    runbook_url: "https://n9e.github.io/alert-rules/prometheus/prometheusoperatorrejectedresources"
+    runbook_url: "https://n9e.io/alert-rules/prometheus/prometheusoperatorrejectedresources"
 ```
 
 **用夜莺**：这条规则内置在 [Kubernetes 集成](/integrations/kubernetes)模板里，[导入到业务组](/docs/data/integrations/import)后，夜莺发出的每条告警都会带上处置步骤。
