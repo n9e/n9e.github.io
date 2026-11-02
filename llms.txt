@@ -105,9 +105,9 @@ Nightingale (n9e, 夜莺) versus Zabbix: collection model, storage, triggers ver
 
 ### zabbix-alternatives
 
-Thinking of replacing Zabbix? Prometheus + Alertmanager, Nightingale (n9e), Grafana Alerting, Checkmk, Netdata, LibreNMS and SigNoz compared by license, collection model, alerting capabilities and upkeep, including the cases where you should not switch.
+Prometheus, Nightingale, Grafana, Checkmk, Netdata, LibreNMS and SigNoz compared on license, data collection, alerting and upkeep, plus when to keep Zabbix.
 
-- [Open-source Zabbix alternatives: pick by scenario, not by ranking](https://n9e.io/comparisons/zabbix-alternatives.md): Thinking of replacing Zabbix? Prometheus + Alertmanager, Nightingale (n9e), Grafana Alerting, Checkmk, Netdata, LibreNMS and SigNoz compared by license, collection model, alerting capabilities and upkeep, including the cases where you should not switch.
+- [Open-source Zabbix alternatives: pick by scenario, not by ranking](https://n9e.io/comparisons/zabbix-alternatives.md): Prometheus, Nightingale, Grafana, Checkmk, Netdata, LibreNMS and SigNoz compared on license, data collection, alerting and upkeep, plus when to keep Zabbix.
 
 ## download
 
