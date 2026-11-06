@@ -43,7 +43,7 @@ Fired
 
 Delivered![Slack](https://n9e.io/img/logos/slack.png)![PagerDuty](https://n9e.io/img/logos/pagerduty.png)![Telegram](https://n9e.io/img/logos/telegram.png)
 
-13,428GitHub stars
+13,453GitHub stars
 
 10+Data source types
 

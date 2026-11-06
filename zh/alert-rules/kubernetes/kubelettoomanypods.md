@@ -2,7 +2,7 @@
 
 Prometheus 告警 KubeletTooManyPods 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-02
+最后校对于 2026-11-06
 
 一个节点上运行的 Pod 数超过了它能容纳数量的 95%，上限由 kubelet 的 `maxPods` 决定（默认 110）。到上限后，本该落到这台节点的新 Pod 会一直 Pending；Pod 太密的节点也更容易出现 kubelet 变慢的问题。
 

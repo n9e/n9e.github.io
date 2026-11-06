@@ -2,7 +2,7 @@
 
 12 条开箱可用的 Redis 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 redis\_exporter, Categraf。可下载为 Prometheus 规则文件，或导入夜莺。
 
-最后校对于 2026-11-02
+最后校对于 2026-11-06
 
 Redis 告警规则：内存使用率过高、key 驱逐速率升高、连接被拒、客户端连接数过多、缓存命中率下降、命令或 PING 延迟过高、实例刚刚重启。exporter 一组使用 oliver006/redis\_exporter 的指标名；Categraf 一组为用 Categraf 采集的实例提供同样的检查。
 

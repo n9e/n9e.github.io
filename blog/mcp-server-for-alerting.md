@@ -150,7 +150,7 @@ More detail is in the docs: [Enable the MCP endpoint](https://n9e.io/docs/ai/mcp
 
 [Newer post](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
 
-[kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+[kube-state-metrics vs metrics-server: which should you use?](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
 
 [Older post](https://n9e.io/blog/prometheus-high-availability.md)
 

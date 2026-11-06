@@ -2,7 +2,7 @@
 
 76 ready-to-use Linux alert rules in PromQL, each with severity, duration and runbook steps. Metrics from node\_exporter, Categraf, Telegraf. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-11-02
+Last reviewed 2026-11-06
 
 Host-level alert rules for Linux servers and Kubernetes nodes: memory exhaustion and pressure, disks and inodes running out (including "will fill up within 24 hours" predictions), disk latency, network errors, packet loss and saturation, CPU load and steal, OOM kills, conntrack and file-handle exhaustion, clock skew, crashed system services, missing processes, and failed PING, port and HTTP probes. The node\_exporter group uses standard `node_*` metric names; the Categraf and Telegraf groups cover the same ground for hosts collected by those agents.
 

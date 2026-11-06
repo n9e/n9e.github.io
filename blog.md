@@ -4,7 +4,38 @@ BLOG
 
 Notes on alerting, Prometheus and Kubernetes monitoring from the Nightingale maintainers: data from our rule library, migration guides and design write-ups.
 
-[Alerting](https://n9e.io/blog/tags/alerting.md)[Prometheus](https://n9e.io/blog/tags/prometheus.md)[Data](https://n9e.io/blog/tags/data.md)[Kubernetes](https://n9e.io/blog/tags/kubernetes.md)[AI and MCP](https://n9e.io/blog/tags/ai.md)[High availability](https://n9e.io/blog/tags/high-availability.md)[Migration](https://n9e.io/blog/tags/migration.md)
+[Alerting](https://n9e.io/blog/tags/alerting.md)[Prometheus](https://n9e.io/blog/tags/prometheus.md)[Grafana](https://n9e.io/blog/tags/grafana.md)[SQL](https://n9e.io/blog/tags/sql.md)[Data](https://n9e.io/blog/tags/data.md)[Kubernetes](https://n9e.io/blog/tags/kubernetes.md)[AI and MCP](https://n9e.io/blog/tags/ai.md)[High availability](https://n9e.io/blog/tags/high-availability.md)[Migration](https://n9e.io/blog/tags/migration.md)
+
+[![](https://n9e.io/img/blog/grafana-alerting-vs-alertmanager.webp)](https://n9e.io/blog/grafana-alerting-vs-alertmanager.md)
+
+## [Grafana Alerting vs Alertmanager: rules, routing and coexistence](https://n9e.io/blog/grafana-alerting-vs-alertmanager.md)
+
+Compare Grafana Alerting with Prometheus and Alertmanager: rule ownership, data sources, notification routing, coexistence and a practical way to choose.
+
+Nov 5, 2026·7
+
+<!-- -->
+
+min read
+
+* [Prometheus](https://n9e.io/blog/tags/prometheus.md)
+* [Alerting](https://n9e.io/blog/tags/alerting.md)
+* [Grafana](https://n9e.io/blog/tags/grafana.md)
+
+[![](https://n9e.io/img/blog/sql-query-alerting-mysql.webp)](https://n9e.io/blog/sql-query-alerting-mysql.md)
+
+## [SQL query alerting: monitor failed orders in MySQL](https://n9e.io/blog/sql-query-alerting-mysql.md)
+
+Build a MySQL query alert for failed orders with Nightingale: a bounded SQL window, numeric result fields, stable labels, recovery behavior and query-cost checks.
+
+Nov 5, 2026·8
+
+<!-- -->
+
+min read
+
+* [SQL](https://n9e.io/blog/tags/sql.md)
+* [Alerting](https://n9e.io/blog/tags/alerting.md)
 
 [![](https://n9e.io/img/blog/alert-for-duration.webp)](https://n9e.io/blog/prometheus-alert-for-duration.md)
 
@@ -24,11 +55,11 @@ min read
 
 [![](https://n9e.io/img/blog/kubernetes-metrics-sources.webp)](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
 
-## [kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+## [kube-state-metrics vs metrics-server: which should you use?](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
 
-What kube-state-metrics, metrics-server, cAdvisor and node\_exporter each measure, which one to alert on, and the metric renames that silently break copied queries.
+Compare kube-state-metrics and metrics-server, then see where cAdvisor and node\_exporter fit for autoscaling, resource monitoring and Kubernetes alerts.
 
-Nov 1, 2026·7
+Nov 1, 2026·9
 
 <!-- -->
 

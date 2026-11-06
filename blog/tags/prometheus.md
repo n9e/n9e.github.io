@@ -1,8 +1,32 @@
-# 5 posts tagged with "Prometheus"
+# 6 posts tagged with "Prometheus"
 
 Prometheus metrics, rules and operations.
 
 [View all tags](https://n9e.io/blog/tags.md)
+
+## [Grafana Alerting vs Alertmanager: rules, routing and coexistence](https://n9e.io/blog/grafana-alerting-vs-alertmanager.md)
+
+November 5, 2026 ·
+
+<!-- -->
+
+7 min read
+
+Eric Qin
+
+![Two alerting paths: Prometheus rules and Grafana-managed rules can both send alerts to an external Alertmanager](https://n9e.io/assets/images/grafana-alerting-vs-alertmanager-41493bc27d0f814667ae50923227c1ad.webp)
+
+**Choose Prometheus with Alertmanager when your rules belong with your metrics and are maintained as code. Choose Grafana-managed alerting when you need Grafana to evaluate queries across supported data sources and manage conditions through its UI or provisioning tools.** You can also keep Prometheus rules, add Grafana-managed rules for other data, and use the same external Alertmanager for notification delivery.
+
+The important decision is where a rule runs and who owns its notifications. Here is how to make those choices without evaluating the same condition twice.
+
+**Tags:**
+
+* [Prometheus](https://n9e.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [Alerting](https://n9e.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+* [Grafana](https://n9e.io/blog/tags/grafana.md "Grafana Alerting, data sources and notification workflows.")
+
+[**Read more**](https://n9e.io/blog/grafana-alerting-vs-alertmanager.md)
 
 ## [How long should a Prometheus alert wait? Data from 692 rules](https://n9e.io/blog/prometheus-alert-for-duration.md)
 
@@ -28,21 +52,21 @@ We wanted to know how often that happens, so we counted. Nightingale ships alert
 
 [**Read more**](https://n9e.io/blog/prometheus-alert-for-duration.md)
 
-## [kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+## [kube-state-metrics vs metrics-server: which should you use?](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
 
 November 1, 2026 ·
 
 <!-- -->
 
-7 min read
+9 min read
 
 Eric Qin
 
 ![Four Kubernetes metric sources: kube-state-metrics, cAdvisor, node\_exporter and metrics-server](https://n9e.io/assets/images/kubernetes-metrics-sources-29962af59a23c3f84206f81323ffa542.webp)
 
-Kubernetes metrics come from four places, and their names look alike. `kube_pod_container_resource_limits`, `container_memory_working_set_bytes`, `node_memory_MemAvailable_bytes` and the numbers in `kubectl top` all sound like they describe the same thing. They are made by different components and they answer different questions. Only three of the four are meant for monitoring.
+**kube-state-metrics exposes Kubernetes object state for monitoring; metrics-server supplies recent CPU and memory usage through the Metrics API for autoscaling and `kubectl top`.** A Deployment's missing replicas and a Pod's current CPU usage are different questions. A cluster that needs both autoscaling and object-state alerts will commonly use both components.
 
-This post explains what each component measures and how to tell which one a metric came from. It also covers the renames that make a query copied from a 2019 blog post return nothing.
+For a full monitoring setup, add the other two sources: cAdvisor for container resource usage and node\_exporter for the host underneath. This post explains which component answers each question, where to scrape it, and the metric renames that can break an otherwise valid alert query.
 
 **Tags:**
 

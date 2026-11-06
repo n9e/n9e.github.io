@@ -24,9 +24,19 @@
   <!-- -->
   [ - ](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
   <!-- -->
-  [kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+  [kube-state-metrics vs metrics-server: which should you use?](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
 * [November 1](https://n9e.io/blog/prometheus-alert-for-duration.md)
   <!-- -->
   [ - ](https://n9e.io/blog/prometheus-alert-for-duration.md)
   <!-- -->
   [How long should a Prometheus alert wait? Data from 692 rules](https://n9e.io/blog/prometheus-alert-for-duration.md)
+* [November 5](https://n9e.io/blog/sql-query-alerting-mysql.md)
+  <!-- -->
+  [ - ](https://n9e.io/blog/sql-query-alerting-mysql.md)
+  <!-- -->
+  [SQL query alerting: monitor failed orders in MySQL](https://n9e.io/blog/sql-query-alerting-mysql.md)
+* [November 5](https://n9e.io/blog/grafana-alerting-vs-alertmanager.md)
+  <!-- -->
+  [ - ](https://n9e.io/blog/grafana-alerting-vs-alertmanager.md)
+  <!-- -->
+  [Grafana Alerting vs Alertmanager: rules, routing and coexistence](https://n9e.io/blog/grafana-alerting-vs-alertmanager.md)

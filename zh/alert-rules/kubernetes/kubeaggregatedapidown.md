@@ -2,7 +2,7 @@
 
 Prometheus 告警 KubeAggregatedAPIDown 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-02
+最后校对于 2026-11-06
 
 某个聚合 API（由 Kubernetes API Server 代理转发到其它服务的 APIService）在过去 10 分钟里可用时间低于 85%。最常见的是 metrics-server 提供的 `v1beta1.metrics.k8s.io`，其它的来自 prometheus-adapter、自定义指标适配器和各类 Operator。
 

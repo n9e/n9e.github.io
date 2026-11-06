@@ -6,13 +6,13 @@
     <description>开源监控告警引擎：版本发布与文档更新。</description>
     <language>zh-CN</language>
     <atom:link href="https://n9e.io/zh/index.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Fri, 30 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 03 Nov 2026 00:00:00 GMT</lastBuildDate>
     <item>
-      <title>Categraf v0.5.21 发布</title>
-      <link>https://github.com/flashcatcloud/categraf/releases/tag/v0.5.21</link>
-      <guid isPermaLink="false">https://github.com/flashcatcloud/categraf/releases/tag/v0.5.21#2026-10-30</guid>
-      <pubDate>Fri, 30 Oct 2026 00:00:00 GMT</pubDate>
-      <description>https://github.com/flashcatcloud/categraf/releases/tag/v0.5.21</description>
+      <title>Categraf v0.5.22 发布</title>
+      <link>https://github.com/flashcatcloud/categraf/releases/tag/v0.5.22</link>
+      <guid isPermaLink="false">https://github.com/flashcatcloud/categraf/releases/tag/v0.5.22#2026-11-03</guid>
+      <pubDate>Tue, 03 Nov 2026 00:00:00 GMT</pubDate>
+      <description>https://github.com/flashcatcloud/categraf/releases/tag/v0.5.22</description>
     </item>
     <item>
       <title>Nightingale v9.3.0 发布</title>

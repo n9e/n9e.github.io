@@ -20,11 +20,17 @@ Archive
 
 - [Authors](https://n9e.io/blog/authors.md)
 
+### grafana-alerting-vs-alertmanager
+
+Compare Grafana Alerting with Prometheus and Alertmanager: rule ownership, data sources, notification routing, coexistence and a practical way to choose.
+
+- [Grafana Alerting vs Alertmanager: rules, routing and coexistence](https://n9e.io/blog/grafana-alerting-vs-alertmanager.md): Compare Grafana Alerting with Prometheus and Alertmanager: rule ownership, data sources, notification routing, coexistence and a practical way to choose.
+
 ### kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter
 
-What kube-state-metrics, metrics-server, cAdvisor and node_exporter each measure, which one to alert on, and the metric renames that silently break copied queries.
+Compare kube-state-metrics and metrics-server, then see where cAdvisor and node_exporter fit for autoscaling, resource monitoring and Kubernetes alerts.
 
-- [kube-state-metrics vs metrics-server vs cAdvisor vs node_exporter](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md): What kube-state-metrics, metrics-server, cAdvisor and node_exporter each measure, which one to alert on, and the metric renames that silently break copied queries.
+- [kube-state-metrics vs metrics-server: which should you use?](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md): Compare kube-state-metrics and metrics-server, then see where cAdvisor and node_exporter fit for autoscaling, resource monitoring and Kubernetes alerts.
 
 ### mcp-server-for-alerting
 
@@ -50,6 +56,12 @@ Running two Prometheus replicas solves half of high availability. How Alertmanag
 
 - [Prometheus high availability: storage vs alerting](https://n9e.io/blog/prometheus-high-availability.md): Running two Prometheus replicas solves half of high availability. How Alertmanager clustering, replica labels and Thanos, Mimir or VictoriaMetrics deduplication fit together.
 
+### sql-query-alerting-mysql
+
+Build a MySQL query alert for failed orders with Nightingale: a bounded SQL window, numeric result fields, stable labels, recovery behavior and query-cost checks.
+
+- [SQL query alerting: monitor failed orders in MySQL](https://n9e.io/blog/sql-query-alerting-mysql.md): Build a MySQL query alert for failed orders with Nightingale: a bounded SQL window, numeric result fields, stable labels, recovery behavior and query-cost checks.
+
 ### symptom-based-alerting
 
 Symptom-based vs cause-based alerting with real Prometheus rules: error ratio, latency and probe alerts that page, and where CPU, disk and certificate alerts still belong.
@@ -60,12 +72,14 @@ Symptom-based vs cause-based alerting with real Prometheus rules: error ratio, l
 
 - [Tags](https://n9e.io/blog/tags.md)
 - [One post tagged with "AI and MCP"](https://n9e.io/blog/tags/ai.md): AI assistants, MCP servers and how they touch production systems.
-- [6 posts tagged with "Alerting"](https://n9e.io/blog/tags/alerting.md): Designing alert rules that page for the right reasons.
+- [8 posts tagged with "Alerting"](https://n9e.io/blog/tags/alerting.md): Designing alert rules that page for the right reasons.
 - [One post tagged with "Data"](https://n9e.io/blog/tags/data.md): Posts built on numbers from Nightingale's own templates and rule library.
+- [One post tagged with "Grafana"](https://n9e.io/blog/tags/grafana.md): Grafana Alerting, data sources and notification workflows.
 - [One post tagged with "High availability"](https://n9e.io/blog/tags/high-availability.md): Keeping monitoring and alerting up when parts of it fail.
 - [One post tagged with "Kubernetes"](https://n9e.io/blog/tags/kubernetes.md): Monitoring and alerting on Kubernetes clusters.
 - [One post tagged with "Migration"](https://n9e.io/blog/tags/migration.md): Moving between monitoring and alerting systems.
-- [5 posts tagged with "Prometheus"](https://n9e.io/blog/tags/prometheus.md): Prometheus metrics, rules and operations.
+- [6 posts tagged with "Prometheus"](https://n9e.io/blog/tags/prometheus.md): Prometheus metrics, rules and operations.
+- [One post tagged with "SQL"](https://n9e.io/blog/tags/sql.md): Alerting on business data with SQL queries.
 
 ## categraf
 

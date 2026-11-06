@@ -3,13 +3,19 @@
 ## A[​](#A "Direct link to A")
 
 * [AI and MCP1](https://n9e.io/blog/tags/ai.md "AI assistants, MCP servers and how they touch production systems.")
-* [Alerting6](https://n9e.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
+* [Alerting8](https://n9e.io/blog/tags/alerting.md "Designing alert rules that page for the right reasons.")
 
 ***
 
 ## D[​](#D "Direct link to D")
 
 * [Data1](https://n9e.io/blog/tags/data.md "Posts built on numbers from Nightingale's own templates and rule library.")
+
+***
+
+## G[​](#G "Direct link to G")
+
+* [Grafana1](https://n9e.io/blog/tags/grafana.md "Grafana Alerting, data sources and notification workflows.")
 
 ***
 
@@ -33,6 +39,12 @@
 
 ## P[​](#P "Direct link to P")
 
-* [Prometheus5](https://n9e.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+* [Prometheus6](https://n9e.io/blog/tags/prometheus.md "Prometheus metrics, rules and operations.")
+
+***
+
+## S[​](#S "Direct link to S")
+
+* [SQL1](https://n9e.io/blog/tags/sql.md "Alerting on business data with SQL queries.")
 
 ***

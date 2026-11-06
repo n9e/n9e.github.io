@@ -151,6 +151,10 @@ Every rule in the [alert rule library](https://n9e.io/alert-rules.md) shows its 
 
 [Edit this page](https://github.com/n9e/n9e.github.io/edit/main/blog/2026-11-01-alert-for-duration/index.md)[Report a problem](https://github.com/n9e/n9e.github.io/issues/new?title=Docs%20feedback%3A%20%2Fblog%2Fprometheus-alert-for-duration\&body=Page%3A%20https%3A%2F%2Fn9e.io%2Fblog%2Fprometheus-alert-for-duration%0A%0A)
 
+[Newer post](https://n9e.io/blog/sql-query-alerting-mysql.md)
+
+[SQL query alerting: monitor failed orders in MySQL](https://n9e.io/blog/sql-query-alerting-mysql.md)
+
 [Older post](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
 
-[kube-state-metrics vs metrics-server vs cAdvisor vs node\_exporter](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)
+[kube-state-metrics vs metrics-server: which should you use?](https://n9e.io/blog/kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter.md)

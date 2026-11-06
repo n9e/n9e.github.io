@@ -2,7 +2,7 @@
 
 Prometheus 告警 KubeStatefulSetReplicasMismatch 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-02
+最后校对于 2026-11-06
 
 一个 StatefulSet 的就绪副本数已经 15 分钟与实际副本数不一致，并且当前没有在更新。有状态服务往往依赖多数派（etcd、ZooKeeper、Kafka、数据库），少一个副本可能意味着冗余下降，少两个就可能直接不可用。
 

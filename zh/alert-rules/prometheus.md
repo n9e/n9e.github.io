@@ -2,7 +2,7 @@
 
 30 条开箱可用的 Prometheus 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 Prometheus's own /metrics, Prometheus Operator。可下载为 Prometheus 规则文件，或导入夜莺。
 
-最后校对于 2026-11-02
+最后校对于 2026-11-06
 
 盯 Prometheus 自身的规则：配置重载失败、规则评估失败或漏评、通知队列积压、连不上 Alertmanager、Remote Write 落后、TSDB 压缩或重载失败、触及采集与标签上限，以及 Prometheus Operator 调和失败。这类告警一响，你依赖的其它告警可能已经悄悄失效，所以应该发给维护监控系统的人，而不是业务团队。
 

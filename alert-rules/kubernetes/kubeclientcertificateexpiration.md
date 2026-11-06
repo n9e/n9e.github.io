@@ -2,7 +2,7 @@
 
 What the KubeClientCertificateExpiration Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-02
+Last reviewed 2026-11-06
 
 Of the client certificates presented to the API server over the last 5 minutes, at least 1% expire within 7 days (warning) or within 24 hours (critical). The rules take the 1st percentile of their remaining lifetime. When they expire, those clients get `401 Unauthorized`. If they belong to a kubelet, a controller or the scheduler, nodes go NotReady or the control plane stops reconciling.
 

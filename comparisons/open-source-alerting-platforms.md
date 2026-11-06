@@ -25,7 +25,11 @@ Most people who search for an Alertmanager UI want one of two things, and they h
 
 ## Is the data in one place or several?[​](#is-the-data-in-one-place-or-several "Direct link to Is the data in one place or several?")
 
+For the evaluation and delivery choices within the Prometheus ecosystem, see [Grafana Alerting vs Alertmanager](https://n9e.io/blog/grafana-alerting-vs-alertmanager.md), including a setup where both evaluators share an external Alertmanager.
+
 Alertmanager only handles alerts evaluated by Prometheus (Loki alerts go through its own ruler). Grafana Alerting spans any data source it supports alerting on. Nightingale registers Prometheus, VictoriaMetrics, Elasticsearch, Loki, ClickHouse, MySQL and others, <!-- -->10+<!-- --> types, so metric, log and SQL rules all live in one place. Keep and Alerta do not query data; they only receive alerts.
+
+For a concrete business-database example, [SQL query alerting with MySQL](https://n9e.io/blog/sql-query-alerting-mysql.md) covers counting failed orders, preserving zero values and checking recovery.
 
 ## What cuts the noise: grouping, inhibition, mutes, subscriptions[​](#what-cuts-the-noise-grouping-inhibition-mutes-subscriptions "Direct link to What cuts the noise: grouping, inhibition, mutes, subscriptions")
 
