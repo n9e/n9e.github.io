@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <filter id="paper"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="11"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".035"/></feComponentTransfer><feBlend in="SourceGraphic" mode="multiply"/></filter>
+    <filter id="shadow" x="-15%" y="-15%" width="140%" height="145%"><feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#785a32" flood-opacity=".12"/></filter>
+    <filter id="wash" x="-10%" y="-15%" width="120%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="8" result="grain"/><feDisplacementMap in="SourceGraphic" in2="grain" scale="7"/></filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto"><path d="M2 2 L9 6 L2 10" fill="none" stroke="#8a7f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <style>.hand{font-family:Caveat,cursive;font-weight:600;fill:#2f2a25}.body{font-family:Inter,sans-serif;fill:#2f2a25}.muted{fill:#8a7f73}.card{fill:#fffdf9;stroke:#e4d8c7;stroke-width:1.5;filter:url(#shadow)}.line{fill:none;stroke:#8a7f73;stroke-width:2.7;stroke-linecap:round;marker-end:url(#arrow)}</style>
+  </defs>
+  <rect width="1200" height="630" fill="#fbf4ea" filter="url(#paper)"/>
+  <text class="hand" x="600" y="88" font-size="54" text-anchor="middle">Grafana Alerting &amp; Alertmanager</text>
+  <text class="hand muted" x="600" y="130" font-size="30" text-anchor="middle">choose who evaluates, then who delivers</text>
+  <g transform="rotate(-1 210 265)">
+    <rect class="card" x="65" y="205" width="290" height="125" rx="14"/>
+    <rect x="82" y="222" width="256" height="42" rx="8" fill="#f5d6bd" filter="url(#wash)"/>
+    <text class="hand" x="103" y="252" font-size="31">Prometheus rules</text>
+    <text class="body" x="89" y="291" font-size="16">PromQL + pending state</text>
+    <text class="body muted" x="89" y="314" font-size="14">Owned with the metrics</text>
+  </g>
+  <g transform="rotate(1 210 442)">
+    <rect class="card" x="65" y="380" width="290" height="125" rx="14"/>
+    <rect x="82" y="397" width="256" height="42" rx="8" fill="#e6dcee" filter="url(#wash)"/>
+    <text class="hand" x="103" y="427" font-size="31">Grafana rules</text>
+    <text class="body" x="89" y="466" font-size="16">Queries + expressions</text>
+    <text class="body muted" x="89" y="489" font-size="14">Owned by Grafana</text>
+  </g>
+  <path class="line" d="M370 264 C440 263 452 318 512 325"/>
+  <path class="line" d="M370 441 C440 442 453 387 512 381"/>
+  <text class="hand muted" x="443" y="215" font-size="26" text-anchor="middle">firing alerts</text>
+  <rect class="card" x="530" y="273" width="295" height="174" rx="15"/>
+  <rect x="548" y="292" width="259" height="48" rx="8" fill="#dce8f3" filter="url(#wash)"/>
+  <text class="hand" x="678" y="326" text-anchor="middle" font-size="34">External Alertmanager</text>
+  <text class="body" x="554" y="375" font-size="16">Group · route · deduplicate</text>
+  <path d="M553 394 Q677 390 800 394" fill="none" stroke="#e4d8c7" stroke-width="1.5"/>
+  <text class="body muted" x="554" y="421" font-size="15">Silences + inhibition</text>
+  <path class="line" d="M841 361 Q886 354 931 361"/>
+  <rect class="card" x="950" y="300" width="190" height="119" rx="14"/>
+  <circle cx="978" cy="327" r="6" fill="#5f9f62"/>
+  <text class="hand" x="1045" y="360" font-size="32" text-anchor="middle">Receivers</text>
+  <text class="body muted" x="1045" y="390" font-size="15" text-anchor="middle">The team gets notified</text>
+  <text class="hand" x="600" y="565" font-size="29" text-anchor="middle">One condition, one evaluation owner, one intended delivery path.</text>
+</svg>

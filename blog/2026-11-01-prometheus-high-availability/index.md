@@ -81,6 +81,8 @@ Federation, functional sharding (one Prometheus per team or per cluster) and `ha
 
 ## Where a separate alerting engine changes the picture
 
+The [Grafana Alerting vs Alertmanager guide](/blog/grafana-alerting-vs-alertmanager) explains rule ownership and how the two can share an external notification path.
+
 Everything above assumes Prometheus evaluates the rules. Some setups move evaluation out of Prometheus: Grafana Alerting, vmalert, Thanos Ruler, or [Nightingale](/docs/install/high-availability). Then storage HA and alerting HA become two different systems.
 
 Nightingale takes a different approach from a Prometheus pair, with a different trade-off:

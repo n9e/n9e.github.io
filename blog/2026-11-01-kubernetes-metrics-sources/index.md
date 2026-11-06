@@ -1,7 +1,7 @@
 ---
 slug: kube-state-metrics-vs-metrics-server-vs-cadvisor-vs-node-exporter
-title: "kube-state-metrics vs metrics-server vs cAdvisor vs node_exporter"
-description: "What kube-state-metrics, metrics-server, cAdvisor and node_exporter each measure, which one to alert on, and the metric renames that silently break copied queries."
+title: "kube-state-metrics vs metrics-server: which should you use?"
+description: "Compare kube-state-metrics and metrics-server, then see where cAdvisor and node_exporter fit for autoscaling, resource monitoring and Kubernetes alerts."
 authors: [eric-qin]
 tags: [kubernetes, prometheus, alerting]
 image: /img/blog/kubernetes-metrics-sources.jpg
@@ -9,9 +9,9 @@ image: /img/blog/kubernetes-metrics-sources.jpg
 
 ![Four Kubernetes metric sources: kube-state-metrics, cAdvisor, node_exporter and metrics-server](/img/blog/kubernetes-metrics-sources.webp)
 
-Kubernetes metrics come from four places, and their names look alike. `kube_pod_container_resource_limits`, `container_memory_working_set_bytes`, `node_memory_MemAvailable_bytes` and the numbers in `kubectl top` all sound like they describe the same thing. They are made by different components and they answer different questions. Only three of the four are meant for monitoring.
+**kube-state-metrics exposes Kubernetes object state for monitoring; metrics-server supplies recent CPU and memory usage through the Metrics API for autoscaling and `kubectl top`.** A Deployment's missing replicas and a Pod's current CPU usage are different questions. A cluster that needs both autoscaling and object-state alerts will commonly use both components.
 
-This post explains what each component measures and how to tell which one a metric came from. It also covers the renames that make a query copied from a 2019 blog post return nothing.
+For a full monitoring setup, add the other two sources: cAdvisor for container resource usage and node_exporter for the host underneath. This post explains which component answers each question, where to scrape it, and the metric renames that can break an otherwise valid alert query.
 
 <!-- truncate -->
 
@@ -25,6 +25,17 @@ This post explains what each component measures and how to tell which one a metr
 | **metrics-server** | A CPU and memory snapshot for each pod and node | Scrapes the kubelet's `/metrics/resource` | none; it serves the Metrics API (`metrics.k8s.io`) | `kubectl top`, the Horizontal and Vertical Pod Autoscalers |
 
 You will also meet two more sources. The kubelet's own `/metrics` endpoint provides things like `kubelet_volume_stats_available_bytes`, which tells you how full a PersistentVolume is. The API server exposes `apiserver_*` metrics about itself. Neither belongs to the four above, and alert rules use both.
+
+## Do you need kube-state-metrics, metrics-server or both?
+
+Choose by the consumer of the data:
+
+- **HPA based on Pod CPU or memory, or `kubectl top`:** metrics-server provides the Resource Metrics API for this path. kube-state-metrics does not replace it. An HPA based on custom or external metrics can use a different adapter.
+- **Alerts about desired state:** use kube-state-metrics for unavailable Deployment replicas, failed Jobs, restart counts and Pod waiting reasons. Scrape its `/metrics` endpoint into Prometheus or a compatible store.
+- **Container CPU and memory dashboards or alerts:** scrape the kubelet's container resource metrics, commonly `/metrics/cadvisor`, into the monitoring store. kube-state-metrics supplies requests and limits to compare the usage with.
+- **Host disk, network and operating-system checks:** use node_exporter on each node.
+
+In a cluster that uses CPU-based autoscaling and Prometheus alerting, these are complementary data paths. You do not have to route metrics-server through Prometheus, or install kube-state-metrics just to make `kubectl top` work. The [kube-state-metrics README](https://github.com/kubernetes/kube-state-metrics/blob/main/README.md) and [Kubernetes resource metrics pipeline](https://kubernetes.io/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/) explain the distinction.
 
 ## kube-state-metrics: what the API server believes
 
@@ -56,38 +67,52 @@ A query that uses the old name does not fail. It returns an empty result, and an
 cAdvisor is compiled into the kubelet, so there is nothing extra to deploy. Prometheus scrapes it from each node at `/metrics/cadvisor`. These are the metrics you reach for when a pod is slow or keeps getting killed:
 
 - `container_cpu_usage_seconds_total`: CPU time consumed. Take a `rate()` to get cores in use.
-- `container_memory_working_set_bytes`: memory the kernel cannot easily reclaim. The kubelet uses the working set for eviction decisions, and `kubectl top` shows the same number.
+- `container_memory_working_set_bytes`: the container's working-set estimate. It is not the same as RSS or a definitive measurement of unreclaimable memory; active file cache can contribute to it. Use the termination reason as well when diagnosing an OOM kill.
 - `container_cpu_cfs_throttled_periods_total` and `container_cpu_cfs_periods_total`: how often the container hit its CPU limit and was paused. The [CPUThrottlingHigh](/alert-rules/kubernetes#cputhrottlinghigh) rule is the ratio of the two.
 
 Two things trip people up:
 
 1. **Extra series.** cAdvisor also reports cgroups that are not your application container: a pod-level series with `container=""` and, on older Docker-based nodes, the pause container as `container="POD"`. Summing without a filter counts the same memory twice. Add `container!=""` (and `container!="POD"` on old nodes) when you aggregate.
-2. **Label names changed.** Before Kubernetes 1.16, cAdvisor labelled series `pod_name` and `container_name`. They are now `pod` and `container`. A rule that groups `by (pod_name)` returns nothing on a current cluster.
+2. **Label names changed.** Older Kubernetes examples use `pod_name` and `container_name`. Current kubelet metrics use `pod` and `container`. Grouping by a missing `pod_name` label loses the intended Pod identity; joins that expect the old labels can return no matches or combine the wrong series. Check the labels on the data you actually scrape.
 
 Usage becomes useful when you compare it with a limit, and the limit lives in kube-state-metrics. Both sides share the `namespace`, `pod` and `container` labels, so the join is direct:
 
 ```promql
-sum by (namespace, pod, container) (container_memory_working_set_bytes{container!=""})
+max by (cluster, namespace, pod, container) (
+  container_memory_working_set_bytes{container!="", container!="POD"}
+)
 /
-sum by (namespace, pod, container) (kube_pod_container_resource_limits{resource="memory"})
+(
+  max by (cluster, namespace, pod, container) (
+    kube_pod_container_resource_limits{resource="memory", unit="byte"}
+  ) > 0
+)
 > 0.9
 ```
 
+Both sides must identify the same container. Preserve a common `cluster` label when querying multiple clusters; adapt the grouping labels to your setup. The positive-limit filter excludes containers without a positive memory limit, and `max` avoids adding identical duplicate scrape series together. This is a threshold against configured limits, not proof that the workload is about to be OOM-killed. The [cAdvisor metric reference](https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md) describes the usage metrics.
+
 ## node_exporter: the machine underneath
 
-node_exporter runs as a DaemonSet with access to the host's `/proc` and `/sys`. It knows nothing about pods. It reports the operating system: `node_cpu_seconds_total` by mode, `node_memory_MemAvailable_bytes`, `node_filesystem_avail_bytes`, disk I/O and network errors.
+On Kubernetes, node_exporter commonly runs as a DaemonSet with access to the host's `/proc` and `/sys`. It knows nothing about pods. It reports the operating system: `node_cpu_seconds_total` by mode, `node_memory_MemAvailable_bytes`, `node_filesystem_avail_bytes`, disk I/O and network errors.
 
 Use it for the questions Kubernetes does not answer. Is the node's root filesystem filling up? Is the clock drifting? Is a NIC dropping packets? Is the kernel OOM killer firing (`node_vmstat_oom_kill`)? Node-level memory includes page cache and every process on the host, so it will not add up to the sum of your containers. That is expected.
 
 The [Linux rule set](/alert-rules/linux) covers the common host checks, including disk-fill prediction with `predict_linear`.
 
-## metrics-server: for autoscaling, not alerting
+## metrics-server: the autoscaling data path
 
 metrics-server collects CPU and memory every 15 seconds from each kubelet's `/metrics/resource` endpoint and serves them through the Metrics API. The Horizontal Pod Autoscaler reads it, the Vertical Pod Autoscaler reads it, and `kubectl top` reads it.
 
-It keeps only the latest value, in memory. There is no history to query and no Prometheus endpoint to scrape. The project's README says it plainly: metrics-server is meant for autoscaling, and you should not use it to forward metrics to monitoring solutions. If you want those numbers in your monitoring system, scrape the kubelet's `/metrics/resource` endpoint directly.
+It keeps recent resource values in memory rather than a queryable monitoring history. Its own `/metrics` endpoint exposes self-monitoring, not a replacement Prometheus feed for every Pod's CPU and memory. The [project's README](https://github.com/kubernetes-sigs/metrics-server/blob/master/README.md) says metrics-server is intended for autoscaling rather than forwarding metrics to monitoring solutions. If you want resource data in a monitoring store, scrape the appropriate kubelet endpoints directly.
 
-So when `kubectl top` and your dashboard disagree by a few percent, neither is wrong. They read different endpoints at different moments.
+So when `kubectl top` and a dashboard disagree, check the sampling window, aggregation, endpoint and metric definition before assuming either value is wrong. For the endpoint layout, see the [Kubernetes system metrics guide](https://kubernetes.io/docs/concepts/cluster-administration/system-metrics/).
+
+## Can metrics-server replace Prometheus?
+
+metrics-server serves the resource API used by autoscaling and `kubectl top`. Prometheus scrapes and stores time series for historical queries and rule evaluation. Installing one does not provide the other one's consumer APIs or operating model.
+
+If you are choosing where the alert rules themselves should run, [Grafana Alerting vs Alertmanager](/blog/grafana-alerting-vs-alertmanager) compares evaluation and notification ownership. The metric sources in this article can remain the same whichever evaluation path you choose.
 
 ## Which component answers your question
 

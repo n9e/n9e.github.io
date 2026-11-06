@@ -7,6 +7,14 @@ prometheus:
   label: Prometheus
   permalink: /prometheus
   description: Prometheus metrics, rules and operations.
+grafana:
+  label: Grafana
+  permalink: /grafana
+  description: Grafana Alerting, data sources and notification workflows.
+sql:
+  label: SQL
+  permalink: /sql
+  description: Alerting on business data with SQL queries.
 alerting:
   label: Alerting
   permalink: /alerting

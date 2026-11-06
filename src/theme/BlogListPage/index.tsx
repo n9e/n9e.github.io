@@ -73,7 +73,7 @@ function PostCard({item}: {item: Item}) {
   );
 }
 
-export default function BlogListPage(props: Props): JSX.Element {
+export default function BlogListPage(props: Props): React.ReactElement {
   const {metadata, items} = props;
   const {siteConfig} = useDocusaurusContext();
   const {blogTitle, blogDescription, permalink, page} = metadata;

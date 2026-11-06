@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <filter id="paper"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="11"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".035"/></feComponentTransfer><feBlend in="SourceGraphic" mode="multiply"/></filter>
+    <filter id="shadow" x="-15%" y="-15%" width="140%" height="145%"><feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#785a32" flood-opacity=".12"/></filter>
+    <filter id="wash" x="-10%" y="-15%" width="120%" height="130%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="8" result="grain"/><feDisplacementMap in="SourceGraphic" in2="grain" scale="7"/></filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto"><path d="M2 2 L9 6 L2 10" fill="none" stroke="#8a7f73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <style>.hand{font-family:Caveat,cursive;font-weight:600;fill:#2f2a25}.body{font-family:Inter,sans-serif;fill:#2f2a25}.mono{font-family:"JetBrains Mono",monospace;fill:#2f2a25}.muted{fill:#8a7f73}.card{fill:#fffdf9;stroke:#e4d8c7;stroke-width:1.5;filter:url(#shadow)}.line{fill:none;stroke:#8a7f73;stroke-width:2.7;stroke-linecap:round;marker-end:url(#arrow)}</style>
+  </defs>
+  <rect width="1200" height="630" fill="#fbf4ea" filter="url(#paper)"/>
+  <text class="hand" x="600" y="88" font-size="58" text-anchor="middle">SQL query alerting</text>
+  <text class="hand muted" x="600" y="133" font-size="30" text-anchor="middle">from order outcomes to a useful notification</text>
+  <g transform="rotate(-1 207 337)">
+    <rect class="card" x="65" y="225" width="290" height="230" rx="14"/>
+    <rect x="82" y="242" width="256" height="44" rx="8" fill="#dce8f3" filter="url(#wash)"/>
+    <text class="hand" x="105" y="275" font-size="33">MySQL outcomes</text>
+    <text class="body muted" x="89" y="318" font-size="14">status</text><text class="body muted" x="222" y="318" font-size="14">completed_at</text>
+    <path d="M86 332 L334 332 M86 369 L334 369 M86 406 L334 406" stroke="#e4d8c7" stroke-width="1.2"/>
+    <circle cx="94" cy="351" r="4" fill="#d9533b"/><text class="body" x="109" y="357" font-size="15">failed</text><text class="body muted" x="237" y="357" font-size="14">1 min ago</text>
+    <circle cx="94" cy="388" r="4" fill="#d9533b"/><text class="body" x="109" y="394" font-size="15">failed</text><text class="body muted" x="237" y="394" font-size="14">3 min ago</text>
+    <circle cx="94" cy="425" r="4" fill="#5f9f62"/><text class="body" x="109" y="431" font-size="15">paid</text><text class="body muted" x="237" y="431" font-size="14">4 min ago</text>
+  </g>
+  <path class="line" d="M372 344 Q408 338 444 344"/>
+  <rect class="card" x="465" y="205" width="290" height="270" rx="14"/>
+  <rect x="483" y="225" width="254" height="45" rx="8" fill="#e7ecd6" filter="url(#wash)"/>
+  <text class="hand" x="506" y="258" font-size="33">A bounded query</text>
+  <text class="mono" x="489" y="312" font-size="17">COUNT(*)</text>
+  <text class="mono" x="489" y="342" font-size="17">AS failed_orders</text>
+  <text class="body muted" x="489" y="387" font-size="16">Only failed outcomes</text>
+  <text class="body muted" x="489" y="417" font-size="16">In the last 5 minutes</text>
+  <text class="hand" x="610" y="454" font-size="27" text-anchor="middle">Zero is a value.</text>
+  <path class="line" d="M772 344 Q808 338 844 344"/>
+  <g transform="rotate(1 1000 337)">
+    <rect class="card" x="865" y="237" width="270" height="206" rx="14"/>
+    <rect x="882" y="254" width="236" height="44" rx="8" fill="#f5d6bd" filter="url(#wash)"/>
+    <text class="hand" x="904" y="287" font-size="33">Check, then notify</text>
+    <text class="mono" x="889" y="340" font-size="16">failed_orders &gt;= 5</text>
+    <text class="body muted" x="889" y="380" font-size="15">Evaluate every 60 seconds</text>
+    <text class="body muted" x="889" y="411" font-size="15">Hold for 120 seconds</text>
+  </g>
+  <text class="hand" x="600" y="558" font-size="30" text-anchor="middle">Count the right event. Preserve zero. Check recovery.</text>
+</svg>
