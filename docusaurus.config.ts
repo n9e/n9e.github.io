@@ -15,6 +15,40 @@ const FONT_FACE_CSS = readFileSync(new URL('./src/css/fonts.css', import.meta.ur
 const SITE_URL = 'https://n9e.io';
 const BASE_URL = '/';
 
+// Flashcat RUM 接入参数只来自构建环境变量（部署时由仓库 Secrets 注入）。
+// 本仓库公开，禁止把 applicationId / clientToken 写进代码或提交历史。
+// 两个变量缺任一时整段 RUM 不渲染，本地与 PR 预览构建不受影响。
+const RUM_APPLICATION_ID = process.env.FC_RUM_APPLICATION_ID;
+const RUM_CLIENT_TOKEN = process.env.FC_RUM_CLIENT_TOKEN;
+if (!RUM_APPLICATION_ID || !RUM_CLIENT_TOKEN) {
+  // 部署时忘记建 Secrets 会走到这里：构建照常成功，但在日志里留下明确痕迹，避免静默无数据
+  console.warn('[rum] FC_RUM_APPLICATION_ID / FC_RUM_CLIENT_TOKEN 未配置，本次构建不接入 RUM');
+}
+const RUM_INIT_CONFIG =
+  RUM_APPLICATION_ID && RUM_CLIENT_TOKEN
+    ? {
+        applicationId: RUM_APPLICATION_ID,
+        clientToken: RUM_CLIENT_TOKEN,
+        service: 'n9e-site',
+        env: 'prod',
+        version: '1.0.0',
+        sessionSampleRate: 100,
+        sessionReplaySampleRate: 0,
+        trackAnonymousUser: true,
+      }
+    : undefined;
+// 异步队列加载，不阻塞首屏；init 在 SDK 就绪后由 onReady 回调执行
+const RUM_HEAD_TAGS = RUM_INIT_CONFIG
+  ? [
+      {
+        tagName: 'script',
+        attributes: {},
+        // 钉在 v0.5.0：首个带 active 专属通道（日活设备/用户上报）的 CDN 版本
+        innerHTML: `(function(h,o,u,n,d){h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}};d=o.createElement(u);d.async=1;d.src=n;n=o.getElementsByTagName(u)[0];n.parentNode.insertBefore(d,n)})(window,document,'script','https://static.flashcat.cloud/browser-sdk/v0.5.0/flashcat-rum.js','FC_RUM');window.FC_RUM.onReady(function(){window.FC_RUM.init(${JSON.stringify(RUM_INIT_CONFIG)});});`,
+      },
+    ]
+  : [];
+
 // 产品前端用 iframe 抽屉嵌入文档：地址后面带 `/?onlyContent&theme=dark|light`。
 // 1) trailingSlash 为 false，除了两个语言根路径，没有合法页面以 / 结尾；前端拼出的 `/xxx/` 在静态托管上
 //    是 404，这里换成不带斜杠的地址重新加载。
@@ -124,6 +158,7 @@ const config: Config = {
       innerHTML:
         'var _hmt = _hmt || [];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?9d7cc507a7aae60b28b5e04bb995492a";hm.async=true;var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s);})();',
     },
+    ...RUM_HEAD_TAGS,
   ],
 
   clientModules: [
