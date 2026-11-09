@@ -42,6 +42,7 @@ jobs:
           # Flashcat RUM 接入参数：只经 Secrets 注入构建，禁止写入代码
           FC_RUM_APPLICATION_ID: ${{ secrets.FC_RUM_APPLICATION_ID }}
           FC_RUM_CLIENT_TOKEN: ${{ secrets.FC_RUM_CLIENT_TOKEN }}
+          FC_RUM_ENV: prod
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4

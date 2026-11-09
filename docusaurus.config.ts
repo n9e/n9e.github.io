@@ -24,13 +24,16 @@ if (!RUM_APPLICATION_ID || !RUM_CLIENT_TOKEN) {
   // 部署时忘记建 Secrets 会走到这里：构建照常成功，但在日志里留下明确痕迹，避免静默无数据
   console.warn('[rum] FC_RUM_APPLICATION_ID / FC_RUM_CLIENT_TOKEN 未配置，本次构建不接入 RUM');
 }
+// 上报的 env 按真实环境取：可用 FC_RUM_ENV 显式指定（生产部署在 workflow 里写 prod），
+// 否则 dev server 为 dev、正式构建为 prod，避免本地调试数据落进 prod。
+const RUM_ENV = process.env.FC_RUM_ENV ?? (process.env.NODE_ENV === 'development' ? 'dev' : 'prod');
 const RUM_INIT_CONFIG =
   RUM_APPLICATION_ID && RUM_CLIENT_TOKEN
     ? {
         applicationId: RUM_APPLICATION_ID,
         clientToken: RUM_CLIENT_TOKEN,
         service: 'n9e-site',
-        env: 'prod',
+        env: RUM_ENV,
         version: '1.0.0',
         sessionSampleRate: 100,
         sessionReplaySampleRate: 0,
