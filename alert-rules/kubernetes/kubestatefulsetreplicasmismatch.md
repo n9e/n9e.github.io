@@ -2,7 +2,7 @@
 
 What the KubeStatefulSetReplicasMismatch Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-06
+Last reviewed 2026-11-09
 
 A StatefulSet has had a different number of ready replicas than it runs, for 15 minutes, with no update in progress. Stateful services are often quorum-based (etcd, ZooKeeper, Kafka, databases), so one missing replica can mean reduced redundancy, and two can mean an outage.
 

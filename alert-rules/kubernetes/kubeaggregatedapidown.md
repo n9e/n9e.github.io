@@ -2,7 +2,7 @@
 
 What the KubeAggregatedAPIDown Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-06
+Last reviewed 2026-11-09
 
 An aggregated API, an APIService that the Kubernetes API server proxies to another service, has been available less than 85% of the time over the last 10 minutes. The most common one is `v1beta1.metrics.k8s.io` from metrics-server; others come from prometheus-adapter, custom metrics adapters and various operators.
 

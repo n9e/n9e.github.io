@@ -2,7 +2,7 @@
 
 What the KubePodNotReady Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-06
+Last reviewed 2026-11-09
 
 A Pod that is not owned by a Job has been in the `Pending`, `Unknown` or `Failed` phase for 15 minutes. A Pending Pod has not started all its containers (often it has not even been scheduled), an Unknown Pod usually sits on a node that has stopped reporting, and a Failed Pod has terminated for good. Either way the Pod is not serving, and the workload is running with fewer replicas than it asked for.
 

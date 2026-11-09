@@ -2,7 +2,7 @@
 
 30 ready-to-use Prometheus alert rules in PromQL, each with severity, duration and runbook steps. Metrics from Prometheus's own /metrics, Prometheus Operator. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-11-06
+Last reviewed 2026-11-09
 
 Rules that watch Prometheus itself: a bad configuration reload, failing or missed rule evaluations, a notification queue backing up, no connection to Alertmanager, remote write falling behind, TSDB compactions or reloads failing, scrape and label limits being hit, and the Prometheus Operator failing to reconcile. When these fire, every other alert you rely on may be silently missing, so they are worth routing to the people who own the monitoring stack rather than to application teams.
 

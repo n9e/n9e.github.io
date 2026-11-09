@@ -165,7 +165,7 @@ Show all 83 templates
 
 ↓
 
-[Browse every template on GitHub<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-11-06
+[Browse every template on GitHub<!-- --> →](https://github.com/ccfos/nightingale/tree/main/integrations)2026-11-09
 
 COLLECTORS
 

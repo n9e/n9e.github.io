@@ -2,7 +2,7 @@
 
 Enable Ceph's prometheus mgr module and scrape port 9283; templates cover cluster health, OSDs, PGs, pool capacity and IOPS.
 
-Last reviewed 2026-11-06
+Last reviewed 2026-11-09
 
 Ceph's mgr ships a prometheus module: after `ceph mgr module enable prometheus`, `/metrics` is served on port 9283 and the Categraf `prometheus` input scrapes it without any dedicated plugin.
 

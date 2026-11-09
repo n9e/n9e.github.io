@@ -2,7 +2,7 @@
 
 Prometheus 告警 KubePersistentVolumeFillingUp 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-06
+最后校对于 2026-11-09
 
 一个 PersistentVolume 剩余空间不足 3%，数据来自挂载它的节点上的 kubelet。数据库、队列等有状态服务在卷写满后通常会拒绝写入或直接崩溃，所以这条是紧急级别。
 

@@ -2,7 +2,7 @@
 
 238 Prometheus alert rules for 8 services, including Kubernetes, Linux, MySQL and Redis. Every rule has a PromQL condition, a severity, a duration and runbook steps. Free to download as Prometheus rules files.
 
-Last reviewed 2026-11-06
+Last reviewed 2026-11-09
 
 An alert rule is only half the job: when it fires at 3 a.m., someone needs to know what to check first. This library collects 238 PromQL alert rules from Nightingale's integration templates, and every one of them comes with runbook steps written for the person on call. The rules use standard exporter metric names (node\_exporter, kube-state-metrics, mysqld\_exporter and so on), so they work with plain Prometheus as well as with Nightingale.
 
