@@ -46,8 +46,8 @@ const RUM_HEAD_TAGS = RUM_INIT_CONFIG
       {
         tagName: 'script',
         attributes: {},
-        // 钉在 v0.5.0：首个带 active 专属通道（日活设备/用户上报）的 CDN 版本
-        innerHTML: `(function(h,o,u,n,d){h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}};d=o.createElement(u);d.async=1;d.src=n;n=o.getElementsByTagName(u)[0];n.parentNode.insertBefore(d,n)})(window,document,'script','https://static.flashcat.cloud/browser-sdk/v0.5.0/flashcat-rum.js','FC_RUM');window.FC_RUM.onReady(function(){window.FC_RUM.init(${JSON.stringify(RUM_INIT_CONFIG)});});`,
+        // latest 始终指向最高正式版，站点随 SDK 发版自动升级
+        innerHTML: `(function(h,o,u,n,d){h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}};d=o.createElement(u);d.async=1;d.src=n;n=o.getElementsByTagName(u)[0];n.parentNode.insertBefore(d,n)})(window,document,'script','https://static.flashcat.cloud/browser-sdk/latest/flashcat-rum.js','FC_RUM');window.FC_RUM.onReady(function(){window.FC_RUM.init(${JSON.stringify(RUM_INIT_CONFIG)});});`,
       },
     ]
   : [];
