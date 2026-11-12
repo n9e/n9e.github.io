@@ -2,7 +2,7 @@
 
 What the KubeDeploymentReplicasMismatch Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-09
+Last reviewed 2026-11-12
 
 A Deployment has had fewer available replicas than it asks for, for 15 minutes, while no rollout is in progress: the number of updated replicas has not changed in the last 10 minutes. Some replicas are missing or unready, so the service runs below its planned capacity.
 

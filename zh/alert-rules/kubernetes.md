@@ -2,7 +2,7 @@
 
 77 条开箱可用的 Kubernetes 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 kube-state-metrics, cAdvisor (kubelet), apiserver。可下载为 Prometheus 规则文件，或导入夜莺。
 
-最后校对于 2026-11-09
+最后校对于 2026-11-12
 
 基于每个集群都已经暴露的指标做的 Kubernetes 告警规则：kube-state-metrics 提供对象状态，kubelet 内置的 cAdvisor 提供容器资源用量，apiserver、kubelet、scheduler、controller-manager 的指标端点覆盖控制面。覆盖 Pod 反复重启与未就绪、发布卡住、副本数不一致、Job 失败、资源超卖、配额吃紧、证书过期和控制面宕机。大部分规则沿用 kubernetes-mixin / kube-prometheus 的告警名（KubePodCrashLooping、KubeNodeNotReady、KubeAPIErrorBudgetBurn 等），和你在 Alertmanager 里见到的名字一致。
 

@@ -2,7 +2,7 @@
 
 Prometheus 告警 KubeHpaMaxedOut 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-09
+最后校对于 2026-11-12
 
 一个 HorizontalPodAutoscaler 已经在 `maxReplicas` 上运行了 15 分钟。它不能再加副本，如果负载继续上涨，压力会摊到每个副本身上，延迟和错误率随之上升。
 

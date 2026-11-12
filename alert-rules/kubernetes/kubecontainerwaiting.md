@@ -2,7 +2,7 @@
 
 What the KubeContainerWaiting Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-09
+Last reviewed 2026-11-12
 
 A container has been in the `Waiting` state for more than an hour: it is neither running nor terminated. The waiting reason tells you which step it is stuck on, from pulling the image to mounting volumes to the back-off between crash restarts.
 

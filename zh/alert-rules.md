@@ -2,7 +2,7 @@
 
 8 个服务的 238 条 Prometheus 告警规则，涵盖 Kubernetes、Linux、MySQL、Redis 等。每条都有 PromQL 触发条件、级别、持续时间和处置步骤，可免费下载为 Prometheus 规则文件。
 
-最后校对于 2026-11-09
+最后校对于 2026-11-12
 
 告警规则只做了一半的事：凌晨三点响起来的时候，值班的人还得知道先查什么。这个规则库收录了夜莺集成模板里的 238 条 PromQL 告警规则，每一条都附有写给值班人的处置步骤。规则使用标准 exporter 的指标名（node\_exporter、kube-state-metrics、mysqld\_exporter 等），所以既能用在夜莺里，也能直接给 Prometheus 使用。
 

@@ -2,7 +2,7 @@
 
 11 ready-to-use MySQL alert rules in PromQL, each with severity, duration and runbook steps. Metrics from mysqld\_exporter, Categraf. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-11-09
+Last reviewed 2026-11-12
 
 MySQL alert rules for the failures that page people in practice: an instance that is down or has just restarted, slow queries piling up, connections approaching max\_connections, too many running threads, InnoDB log waits, open files nearing the limit, and replication problems (IO or SQL thread stopped, replica lag). The exporter group uses mysqld\_exporter metric names (`mysql_global_status_*`, `mysql_slave_status_*`); each rule comes with the first commands to run, such as SHOW FULL PROCESSLIST and pt-query-digest, when it fires.
 

@@ -2,7 +2,7 @@
 
 11 条开箱可用的 Elasticsearch 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 elasticsearch\_exporter, Categraf。可下载为 Prometheus 规则文件，或导入夜莺。
 
-最后校对于 2026-11-09
+最后校对于 2026-11-12
 
 Elasticsearch 告警规则：集群健康变黄或变红、JVM 堆内存用量过高、磁盘空间不足或耗尽、未分配 / 初始化中 / 迁移中的分片、积压的集群任务，以及索引长时间没有新文档写入。exporter 一组使用 prometheus-community/elasticsearch\_exporter 的指标名；Categraf 一组对 Categraf 采集的指标做同样的检查。
 

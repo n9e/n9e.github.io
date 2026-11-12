@@ -2,7 +2,7 @@
 
 What the KubeletDown Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-09
+Last reviewed 2026-11-12
 
 Prometheus has no kubelet target reporting `up == 1`. Because the rule wraps the whole selector in `absent()`, it only fires when every kubelet is missing or failing to scrape. One broken node does not trigger it. When it fires you lose kubelet and cAdvisor metrics (container CPU and memory, volume usage) for the whole cluster, and any rule built on them goes quiet.
 

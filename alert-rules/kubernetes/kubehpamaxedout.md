@@ -2,7 +2,7 @@
 
 What the KubeHpaMaxedOut Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-09
+Last reviewed 2026-11-12
 
 A HorizontalPodAutoscaler has been running at `maxReplicas` for 15 minutes. It cannot add more replicas, so if load keeps rising, each replica takes more of it and latency or error rates follow.
 

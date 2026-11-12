@@ -2,7 +2,7 @@
 
 Prometheus 告警 KubeDeploymentRolloutStuck 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-09
+最后校对于 2026-11-12
 
 Deployment 的 `Progressing` 状态为 `False`。发布在 `progressDeadlineSeconds`（默认 600 秒）内没有进展时，Kubernetes 会把它置为 False，原因是 `ProgressDeadlineExceeded`。Kubernetes 不会自动回滚：新旧 ReplicaSet 保持原样，在有人处理之前，线上可能是新旧版本混跑。
 

@@ -2,7 +2,7 @@
 
 11 条开箱可用的 MySQL 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 mysqld\_exporter, Categraf。可下载为 Prometheus 规则文件，或导入夜莺。
 
-最后校对于 2026-11-09
+最后校对于 2026-11-12
 
 MySQL 告警规则，覆盖实际最常把人叫起来的几类问题：实例宕机或刚重启、慢查询堆积、连接数逼近 max\_connections、运行线程过多、InnoDB 日志等待、打开文件数逼近上限，以及复制异常（IO / SQL 线程停止、主从延迟）。exporter 一组使用 mysqld\_exporter 的指标名（`mysql_global_status_*`、`mysql_slave_status_*`）；每条规则都附了告警后第一时间该执行的命令，比如 SHOW FULL PROCESSLIST、pt-query-digest。
 

@@ -2,7 +2,7 @@
 
 8 ready-to-use MongoDB alert rules in PromQL, each with severity, duration and runbook steps. Metrics from mongodb\_exporter. Download as a Prometheus rules file or import into Nightingale.
 
-Last reviewed 2026-11-09
+Last reviewed 2026-11-12
 
 MongoDB alert rules for an instance that has crashed or just restarted, connections approaching the limit, high average operation latency, assertion errors, cursor timeouts, page faults and replica-set lag. They use mongodb\_exporter metric names.
 

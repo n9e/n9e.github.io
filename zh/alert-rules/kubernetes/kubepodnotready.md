@@ -2,7 +2,7 @@
 
 Prometheus 告警 KubePodNotReady 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-09
+最后校对于 2026-11-12
 
 一个不属于 Job 的 Pod 已经处于 `Pending`、`Unknown` 或 `Failed` 阶段 15 分钟。Pending 表示容器还没全部启动（常常是还没调度上）；Unknown 通常是所在节点失联；Failed 表示 Pod 已经终止、不会再起来。无论哪种，这个 Pod 都没在提供服务，负载的实际副本数低于期望值。
 

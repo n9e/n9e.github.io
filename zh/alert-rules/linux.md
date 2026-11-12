@@ -2,7 +2,7 @@
 
 76 条开箱可用的 Linux 告警规则（PromQL），每条附级别、持续时间和处置步骤。指标来自 node\_exporter, Categraf, Telegraf。可下载为 Prometheus 规则文件，或导入夜莺。
 
-最后校对于 2026-11-09
+最后校对于 2026-11-12
 
 Linux 服务器与 Kubernetes 节点的主机级告警规则：内存耗尽与内存压力、磁盘和 inode 将满（含「24 小时内将写满」的预测）、磁盘延迟、网络错误、丢包与带宽打满、CPU 负载与被宿主机抢占、OOM Kill、conntrack 表与文件句柄耗尽、时钟偏移、系统服务崩溃、进程消失，以及 PING、端口、HTTP 探测失败。node\_exporter 一组用的是标准 `node_*` 指标名；Categraf 和 Telegraf 两组针对用这两种 agent 采集的主机，覆盖同样的问题。
 

@@ -2,7 +2,7 @@
 
 Prometheus 告警 KubeNodeNotReady 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-09
+最后校对于 2026-11-12
 
 节点的 `Ready` 状态已经 15 分钟不是 `True`：要么是 `False`（kubelet 报告了问题），要么是 `Unknown`（kubelet 不再上报）。新的 Pod 不会再调度上来；节点上已有的 Pod，在 not-ready 或 unreachable 污点持续时间超过它的容忍时间（默认 300 秒）后会被驱逐。
 

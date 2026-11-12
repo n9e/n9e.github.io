@@ -2,7 +2,7 @@
 
 What the KubeletTooManyPods Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-09
+Last reviewed 2026-11-12
 
 A node is running more than 95% of the Pods it can hold, as set by the kubelet's `maxPods` (110 by default). When it reaches the limit, new Pods that would land there stay Pending, and a crowded node is more likely to show kubelet slowness.
 

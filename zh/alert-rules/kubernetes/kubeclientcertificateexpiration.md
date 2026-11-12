@@ -2,7 +2,7 @@
 
 Prometheus 告警 KubeClientCertificateExpiration 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-09
+最后校对于 2026-11-12
 
 过去 5 分钟里客户端向 API Server 出示的证书中，至少有 1% 会在 7 天内（警告）或 24 小时内（紧急）过期。规则取的是剩余有效期的第 1 百分位。过期后这些客户端会收到 `401 Unauthorized`。如果它们属于 kubelet、控制器或调度器，节点会变成 NotReady，或者控制面停止调和。
 

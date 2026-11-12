@@ -2,7 +2,7 @@
 
 What the KubePersistentVolumeFillingUp Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-09
+Last reviewed 2026-11-12
 
 A PersistentVolume has less than 3% of its space left, as reported by the kubelet on the node that mounts it. Databases, queues and other stateful services usually stop accepting writes or crash once the volume is full, so this one is critical.
 
