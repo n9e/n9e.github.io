@@ -2,7 +2,7 @@
 
 Prometheus 告警 KubePodCrashLooping 是什么意思、常见原因有哪些、PromQL 规则怎么写、响了怎么处置，附可直接使用的规则 YAML。
 
-最后校对于 2026-11-12
+最后校对于 2026-11-17
 
 容器反复退出，kubelet 以逐渐拉长的退避间隔（从 10 秒到最长 5 分钟）重启它，等待原因显示为 `CrashLoopBackOff`。规则的条件是：最近 5 分钟内 kube-state-metrics 报告过这个原因，并且持续 15 分钟。循环期间这个容器不提供服务；如果所有副本都在循环，这个负载就等于挂了。
 
@@ -32,6 +32,34 @@ max_over_time(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff"
 2. kubectl describe pod 看退出码与 Events：137 通常是 OOM 或被 kill，1/2 多为应用自身启动失败；
 3. 配置或依赖问题（连不上数据库、ConfigMap/Secret 缺失）先修依赖再拉起；
 4. OOM 的对照 resources.limits.memory 与实际用量调整，或修复应用内存泄漏。
+
+## 定位出错的容器[​](#定位出错的容器 "定位出错的容器的直接链接")
+
+按告警标签填写命名空间、Pod 和容器名。以下命令只读取目标 Pod：
+
+```
+ns=default
+
+pod=checkout-7b9c4d6f8-example
+
+container=checkout
+
+kubectl get pod "$pod" -n "$ns" -o wide
+
+kubectl logs "$pod" -n "$ns" -c "$container" --previous --tail=100
+
+kubectl describe pod "$pod" -n "$ns"
+```
+
+从上一次日志查启动错误，从容器上次终止原因和 Events 查 OOM 或探针失败。退出码 137 本身不能证明 OOM，还要看是否为 `OOMKilled`。上一次实例的日志不可用时，查询集中日志系统。多容器 Pod 应把 `-c` 设为告警中指出的容器。
+
+修复工作负载配置中的原因后，若 Pod 已重建，先把变量更新为新 Pod 名再观察：
+
+```
+kubectl get pod "$pod" -n "$ns" -w
+```
+
+预期结果：目标容器就绪，重启次数不再增加。最近五分钟仍包含 `CrashLoopBackOff` 样本时，告警可能暂未恢复；先确认没有新的重启，再观察告警消退。参考 [Kubernetes Pod 排障](https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/)。
 
 ## 补充说明[​](#补充说明 "补充说明的直接链接")
 

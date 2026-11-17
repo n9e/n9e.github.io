@@ -2,7 +2,7 @@
 
 What the KubePodCrashLooping Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-12
+Last reviewed 2026-11-17
 
 A container keeps exiting and the kubelet is restarting it with a growing back-off delay (from 10 seconds up to 5 minutes), so its waiting reason reads `CrashLoopBackOff`. The rule fires when kube-state-metrics has reported that reason at any point in the last 5 minutes, for 15 minutes in a row. While the loop lasts the container serves nothing; if every replica is looping, the workload is down.
 
@@ -32,6 +32,34 @@ Alert message: `Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.contai
 2. Run kubectl describe pod for the exit code and Events: 137 usually means OOM or killed, 1/2 usually means the application failed to start;
 3. For config or dependency problems (unreachable database, missing ConfigMap/Secret), fix the dependency first;
 4. For OOM, compare resources.limits.memory against actual usage, or fix the application's memory leak.
+
+## Diagnose the failing container[​](#diagnose-the-failing-container "Direct link to Diagnose the failing container")
+
+Set these values from the alert labels. The commands only read the affected Pod:
+
+```
+ns=default
+
+pod=checkout-7b9c4d6f8-example
+
+container=checkout
+
+kubectl get pod "$pod" -n "$ns" -o wide
+
+kubectl logs "$pod" -n "$ns" -c "$container" --previous --tail=100
+
+kubectl describe pod "$pod" -n "$ns"
+```
+
+Check the previous log for startup errors and the container's last termination reason and Events for OOM or probe failures. Exit code 137 alone does not prove an OOM; check for `OOMKilled`. If the previous instance is unavailable, use your centralized logs. With multiple containers, keep `-c` set to the container named in the alert.
+
+After fixing the cause in the workload configuration, check the replacement Pod if its name changed:
+
+```
+kubectl get pod "$pod" -n "$ns" -w
+```
+
+Expected result: the affected container becomes ready and its restart count stops increasing. The alert can remain active while the five-minute lookback still contains `CrashLoopBackOff`; confirm that new restarts have stopped before expecting recovery. See [Kubernetes Pod debugging](https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/).
 
 ## Notes[​](#notes "Direct link to Notes")
 

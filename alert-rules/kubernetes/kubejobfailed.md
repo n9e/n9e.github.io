@@ -2,7 +2,7 @@
 
 What the KubeJobFailed Prometheus alert means, its common causes, the PromQL rule and the runbook steps to fix it, with a ready-to-use rule in YAML.
 
-Last reviewed 2026-11-12
+Last reviewed 2026-11-17
 
 A Job has been marked `Failed` (`kube_job_failed > 0`): it used up its `backoffLimit` (6 retries by default) or ran past `activeDeadlineSeconds`, and the batch work it was meant to do (a backup, a report, a data sync) did not happen.
 
@@ -32,9 +32,33 @@ Alert message: `Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to com
 3. After fixing the root cause, kubectl delete job and resubmit, or let the CronJob run again on schedule;
 4. Confirm whether the failure has downstream impact (missing output, skipped cleanup) and redo it manually if needed.
 
+## Check which Job failed[​](#check-which-job-failed "Direct link to Check which Job failed")
+
+Copy the namespace and `job_name` from the alert. Replace these example values before running:
+
+```
+ns=default
+
+job=nightly-report-example
+
+kubectl get job "$job" -n "$ns" -o yaml
+
+kubectl describe job "$job" -n "$ns"
+
+kubectl get pods -n "$ns" -l "batch.kubernetes.io/job-name=$job"
+```
+
+Expected result: the Job's conditions explain the terminal failure, while its Pods identify the failed attempt. Choose a failed Pod from the list and read its logs with `kubectl logs POD_NAME -n "$ns" --all-containers=true --tail=100`. A Job can have multiple attempts; logs from one Pod do not cover all attempts. If the selector returns no Pods, inspect the Job's `.spec.selector` and check whether its Pods were already cleaned up.
+
+## Verify recovery without hiding a failed run[​](#verify-recovery-without-hiding-a-failed-run "Direct link to Verify recovery without hiding a failed run")
+
+For a CronJob, a later successful Job does not remove the old failed Job. Check each Job's owner, completion state and output before deciding whether a rerun is needed. A rerun may repeat writes or payments, so confirm the task's retry behavior first.
+
+Expected result: the replacement run has condition `Complete=True` and its expected output exists. Preserve failure logs before any approved cleanup; deleting the failed Job also deletes its Pods. After cleanup and the next scrape/evaluation, the old Job's alert should disappear. Do not delete it just to silence an unexplained failure. See [Kubernetes Job termination and cleanup](https://kubernetes.io/docs/concepts/workloads/controllers/job/#job-termination-and-cleanup).
+
 ## Notes[​](#notes "Direct link to Notes")
 
-* The alert keeps firing for as long as the failed Job object exists, even after a later run succeeds. Delete the Job once you have looked at it. For CronJobs, `failedJobsHistoryLimit` (1 by default) controls how many failed Jobs are kept.
+* The alert keeps firing for as long as the failed Job object exists, even after a later run succeeds. Preserve its logs and verify the replacement run before cleanup. For CronJobs, `failedJobsHistoryLimit` (1 by default) controls how many failed Jobs are kept.
 * The expression selects `job="kube-state-metrics"`. If your scrape job or namespace is named differently, change these matchers or the rule never matches.
 
 ## Metrics it uses[​](#metrics-it-uses "Direct link to Metrics it uses")

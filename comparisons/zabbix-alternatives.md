@@ -1,6 +1,18 @@
 # Open-source Zabbix alternatives: pick by scenario, not by ranking
 
-Searching for "Zabbix alternatives" returns ten-item lists with two sentences per tool. This page goes the other way: first why you want to leave, then where your data and objects would go, then one honest paragraph per candidate, including where it does not fit. Nightingale (n9e, 夜莺) is our own project; it appears only in the rows where it genuinely belongs.
+Searching for "Zabbix alternatives" returns ten-item lists with two sentences per tool. This page goes the other way: start with the scenario that fits your stack, then check why you want to leave, where your data and objects would go, and where each candidate does not fit. Nightingale (n9e, 夜莺) is our own project; it appears only in the rows where it genuinely belongs.
+
+## Choose by scenario[​](#choose-by-scenario "Direct link to Choose by scenario")
+
+| Your situation                                                                      | Better fit                                     | Why                                                           |
+| ----------------------------------------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------- |
+| Mostly network gear, SNMP, IPMI                                                     | Stay on Zabbix; LibreNMS for pure network      | Discovery and device template libraries are their home ground |
+| Metrics already in Prometheus / VictoriaMetrics, lots of Kubernetes                 | Nightingale, or Prometheus + Alertmanager      | Alert on the stores you have; no second collection stack      |
+| The team already lives in Grafana, modest alert volume                              | Grafana Alerting                               | One system fewer                                              |
+| Product teams configure rules in a UI, permissions by business group, phone and SMS | Nightingale                                    | Those are the things it is built around                       |
+| Unified APM with traces, metrics and logs                                           | SigNoz                                         | OpenTelemetry-native                                          |
+| A few dozen hosts, want charts right after install                                  | Netdata; or Nightingale with its embedded TSDB | Zero-config start                                             |
+| Traditional IT, just want a nicer interface                                         | Checkmk Raw                                    | Same model family as Zabbix, lowest concept migration cost    |
 
 ## Why people leave Zabbix[​](#why-people-leave-zabbix "Direct link to Why people leave Zabbix")
 
@@ -17,18 +29,6 @@ The counter-example: **if the estate is mostly network gear, SNMP and IPMI, the 
 1. **Where is the data now?** If metrics are already in Prometheus or VictoriaMetrics and logs in Elasticsearch or Loki, the replacement should read those stores rather than collect again. If the data exists only inside Zabbix, the replacement needs its own collection.
 2. **What are you monitoring?** Switches, routers and out-of-band IPMI are one world; Kubernetes, cloud databases and microservices are another. The first is about discovery and device templates, the second about query languages and multiple data sources.
 3. **Who maintains the alert rules?** SREs only: config files plus GitOps are enough. Product teams: a UI and a permission boundary are hard requirements.
-
-## Choose by scenario[​](#choose-by-scenario "Direct link to Choose by scenario")
-
-| Your situation                                                                      | Better fit                                     | Why                                                           |
-| ----------------------------------------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------- |
-| Mostly network gear, SNMP, IPMI                                                     | Stay on Zabbix; LibreNMS for pure network      | Discovery and device template libraries are their home ground |
-| Metrics already in Prometheus / VictoriaMetrics, lots of Kubernetes                 | Nightingale, or Prometheus + Alertmanager      | Alert on the stores you have; no second collection stack      |
-| The team already lives in Grafana, modest alert volume                              | Grafana Alerting                               | One system fewer                                              |
-| Product teams configure rules in a UI, permissions by business group, phone and SMS | Nightingale                                    | Those are the things it is built around                       |
-| Unified APM with traces, metrics and logs                                           | SigNoz                                         | OpenTelemetry-native                                          |
-| A few dozen hosts, want charts right after install                                  | Netdata; or Nightingale with its embedded TSDB | Zero-config start                                             |
-| Traditional IT, just want a nicer interface                                         | Checkmk Raw                                    | Same model family as Zabbix, lowest concept migration cost    |
 
 ## The seven candidates, one at a time[​](#the-seven-candidates-one-at-a-time "Direct link to The seven candidates, one at a time")
 
@@ -88,11 +88,11 @@ Based on each project's public documentation and open-source edition as of Octob
 
 On this page
 
+* [Choose by scenario](#choose-by-scenario)
+
 * [Why people leave Zabbix](#why-people-leave-zabbix)
 
 * [Three questions before switching](#three-questions-before-switching)
-
-* [Choose by scenario](#choose-by-scenario)
 
 * [The seven candidates, one at a time](#the-seven-candidates-one-at-a-time)
 
