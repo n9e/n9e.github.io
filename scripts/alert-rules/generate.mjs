@@ -513,6 +513,7 @@ function renderAlert(lang, s, group, position, fetchedAt, findRule) {
   out.push(`## ${t.aCauses}`, '', ...c.causes.map((x) => `- ${x}`), '');
   const act = pick(lang, r.action, r.action_en);
   if (act) out.push(`## ${t.aRunbook}`, '', steps(act), '');
+  if (c.diagnostics) out.push(c.diagnostics, '');
 
   const notes = [...(c.notes ?? [])];
   const sel = fixedSelectors(exprs);

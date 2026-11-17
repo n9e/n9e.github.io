@@ -39,6 +39,29 @@ Alert message: `Pod {{ $labels.namespace }}/{{ $labels.pod }} ({{ $labels.contai
 1. For config or dependency problems (unreachable database, missing ConfigMap/Secret), fix the dependency first;
 1. For OOM, compare resources.limits.memory against actual usage, or fix the application's memory leak.
 
+## Diagnose the failing container
+
+Set these values from the alert labels. The commands only read the affected Pod:
+
+```bash
+ns=default
+pod=checkout-7b9c4d6f8-example
+container=checkout
+kubectl get pod "$pod" -n "$ns" -o wide
+kubectl logs "$pod" -n "$ns" -c "$container" --previous --tail=100
+kubectl describe pod "$pod" -n "$ns"
+```
+
+Check the previous log for startup errors and the container's last termination reason and Events for OOM or probe failures. Exit code 137 alone does not prove an OOM; check for `OOMKilled`. If the previous instance is unavailable, use your centralized logs. With multiple containers, keep `-c` set to the container named in the alert.
+
+After fixing the cause in the workload configuration, check the replacement Pod if its name changed:
+
+```bash
+kubectl get pod "$pod" -n "$ns" -w
+```
+
+Expected result: the affected container becomes ready and its restart count stops increasing. The alert can remain active while the five-minute lookback still contains `CrashLoopBackOff`; confirm that new restarts have stopped before expecting recovery. See [Kubernetes Pod debugging](https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/).
+
 ## Notes
 
 - The quickest way to see why the last run ended is `kubectl get pod <pod> -n <ns> -o jsonpath='{.status.containerStatuses[*].lastState.terminated}'`, which prints the reason, exit code and timestamps.

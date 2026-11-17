@@ -39,6 +39,29 @@ max_over_time(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff"
 1. 配置或依赖问题（连不上数据库、ConfigMap/Secret 缺失）先修依赖再拉起；
 1. OOM 的对照 resources.limits.memory 与实际用量调整，或修复应用内存泄漏。
 
+## 定位出错的容器
+
+按告警标签填写命名空间、Pod 和容器名。以下命令只读取目标 Pod：
+
+```bash
+ns=default
+pod=checkout-7b9c4d6f8-example
+container=checkout
+kubectl get pod "$pod" -n "$ns" -o wide
+kubectl logs "$pod" -n "$ns" -c "$container" --previous --tail=100
+kubectl describe pod "$pod" -n "$ns"
+```
+
+从上一次日志查启动错误，从容器上次终止原因和 Events 查 OOM 或探针失败。退出码 137 本身不能证明 OOM，还要看是否为 `OOMKilled`。上一次实例的日志不可用时，查询集中日志系统。多容器 Pod 应把 `-c` 设为告警中指出的容器。
+
+修复工作负载配置中的原因后，若 Pod 已重建，先把变量更新为新 Pod 名再观察：
+
+```bash
+kubectl get pod "$pod" -n "$ns" -w
+```
+
+预期结果：目标容器就绪，重启次数不再增加。最近五分钟仍包含 `CrashLoopBackOff` 样本时，告警可能暂未恢复；先确认没有新的重启，再观察告警消退。参考 [Kubernetes Pod 排障](https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/)。
+
 ## 补充说明
 
 - 想最快看到上一次为什么退出，执行 `kubectl get pod <pod> -n <ns> -o jsonpath='{.status.containerStatuses[*].lastState.terminated}'`，会打印退出原因、退出码和时间。

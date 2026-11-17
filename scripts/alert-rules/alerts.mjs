@@ -25,6 +25,28 @@ export const ALERTS = {
         'A liveness probe that is too strict, or that starts before the application is ready, keeps killing a healthy container.',
         'The image runs the wrong command or entrypoint, or is built for a different CPU architecture.',
       ],
+      diagnostics: `## Diagnose the failing container
+
+Set these values from the alert labels. The commands only read the affected Pod:
+
+\`\`\`bash
+ns=default
+pod=checkout-7b9c4d6f8-example
+container=checkout
+kubectl get pod "$pod" -n "$ns" -o wide
+kubectl logs "$pod" -n "$ns" -c "$container" --previous --tail=100
+kubectl describe pod "$pod" -n "$ns"
+\`\`\`
+
+Check the previous log for startup errors and the container's last termination reason and Events for OOM or probe failures. Exit code 137 alone does not prove an OOM; check for \`OOMKilled\`. If the previous instance is unavailable, use your centralized logs. With multiple containers, keep \`-c\` set to the container named in the alert.
+
+After fixing the cause in the workload configuration, check the replacement Pod if its name changed:
+
+\`\`\`bash
+kubectl get pod "$pod" -n "$ns" -w
+\`\`\`
+
+Expected result: the affected container becomes ready and its restart count stops increasing. The alert can remain active while the five-minute lookback still contains \`CrashLoopBackOff\`; confirm that new restarts have stopped before expecting recovery. See [Kubernetes Pod debugging](https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/).`,
       notes: [
         'The quickest way to see why the last run ended is `kubectl get pod <pod> -n <ns> -o jsonpath=\'{.status.containerStatuses[*].lastState.terminated}\'`, which prints the reason, exit code and timestamps.',
       ],
@@ -39,6 +61,28 @@ export const ALERTS = {
         '存活探针（liveness probe）太严，或者在应用就绪前就开始检测，把正常的容器反复杀掉。',
         '镜像的启动命令或 entrypoint 写错，或者镜像的 CPU 架构不对。',
       ],
+      diagnostics: `## 定位出错的容器
+
+按告警标签填写命名空间、Pod 和容器名。以下命令只读取目标 Pod：
+
+\`\`\`bash
+ns=default
+pod=checkout-7b9c4d6f8-example
+container=checkout
+kubectl get pod "$pod" -n "$ns" -o wide
+kubectl logs "$pod" -n "$ns" -c "$container" --previous --tail=100
+kubectl describe pod "$pod" -n "$ns"
+\`\`\`
+
+从上一次日志查启动错误，从容器上次终止原因和 Events 查 OOM 或探针失败。退出码 137 本身不能证明 OOM，还要看是否为 \`OOMKilled\`。上一次实例的日志不可用时，查询集中日志系统。多容器 Pod 应把 \`-c\` 设为告警中指出的容器。
+
+修复工作负载配置中的原因后，若 Pod 已重建，先把变量更新为新 Pod 名再观察：
+
+\`\`\`bash
+kubectl get pod "$pod" -n "$ns" -w
+\`\`\`
+
+预期结果：目标容器就绪，重启次数不再增加。最近五分钟仍包含 \`CrashLoopBackOff\` 样本时，告警可能暂未恢复；先确认没有新的重启，再观察告警消退。参考 [Kubernetes Pod 排障](https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/)。`,
       notes: [
         '想最快看到上一次为什么退出，执行 `kubectl get pod <pod> -n <ns> -o jsonpath=\'{.status.containerStatuses[*].lastState.terminated}\'`，会打印退出原因、退出码和时间。',
       ],
@@ -317,8 +361,27 @@ export const ALERTS = {
         'The Job ran longer than `activeDeadlineSeconds`.',
         'The container image or command changed and no longer works with the Job arguments.',
       ],
+      diagnostics: `## Check which Job failed
+
+Copy the namespace and \`job_name\` from the alert. Replace these example values before running:
+
+\`\`\`bash
+ns=default
+job=nightly-report-example
+kubectl get job "$job" -n "$ns" -o yaml
+kubectl describe job "$job" -n "$ns"
+kubectl get pods -n "$ns" -l "batch.kubernetes.io/job-name=$job"
+\`\`\`
+
+Expected result: the Job's conditions explain the terminal failure, while its Pods identify the failed attempt. Choose a failed Pod from the list and read its logs with \`kubectl logs POD_NAME -n "$ns" --all-containers=true --tail=100\`. A Job can have multiple attempts; logs from one Pod do not cover all attempts. If the selector returns no Pods, inspect the Job's \`.spec.selector\` and check whether its Pods were already cleaned up.
+
+## Verify recovery without hiding a failed run
+
+For a CronJob, a later successful Job does not remove the old failed Job. Check each Job's owner, completion state and output before deciding whether a rerun is needed. A rerun may repeat writes or payments, so confirm the task's retry behavior first.
+
+Expected result: the replacement run has condition \`Complete=True\` and its expected output exists. Preserve failure logs before any approved cleanup; deleting the failed Job also deletes its Pods. After cleanup and the next scrape/evaluation, the old Job's alert should disappear. Do not delete it just to silence an unexplained failure. See [Kubernetes Job termination and cleanup](https://kubernetes.io/docs/concepts/workloads/controllers/job/#job-termination-and-cleanup).`,
       notes: [
-        'The alert keeps firing for as long as the failed Job object exists, even after a later run succeeds. Delete the Job once you have looked at it. For CronJobs, `failedJobsHistoryLimit` (1 by default) controls how many failed Jobs are kept.',
+        'The alert keeps firing for as long as the failed Job object exists, even after a later run succeeds. Preserve its logs and verify the replacement run before cleanup. For CronJobs, `failedJobsHistoryLimit` (1 by default) controls how many failed Jobs are kept.',
       ],
     },
     zh: {
@@ -330,8 +393,27 @@ export const ALERTS = {
         'Job 运行时间超过 `activeDeadlineSeconds`。',
         '容器镜像或命令改了，和 Job 的参数对不上了。',
       ],
+      diagnostics: `## 确认是哪一个 Job 失败
+
+从告警中复制命名空间和 \`job_name\`，替换以下示例值后执行：
+
+\`\`\`bash
+ns=default
+job=nightly-report-example
+kubectl get job "$job" -n "$ns" -o yaml
+kubectl describe job "$job" -n "$ns"
+kubectl get pods -n "$ns" -l "batch.kubernetes.io/job-name=$job"
+\`\`\`
+
+预期结果：Job 的 conditions 说明最终失败原因，Pod 列表指出失败的执行实例。选取失败 Pod 后，用 \`kubectl logs POD_NAME -n "$ns" --all-containers=true --tail=100\` 查看日志。一个 Job 可能尝试多次，一个 Pod 的日志不代表全部尝试。若选择器没有返回 Pod，检查 Job 的 \`.spec.selector\`，并确认 Pod 是否已清理。
+
+## 验证恢复，不掩盖失败的执行
+
+CronJob 后续生成的 Job 成功，不会移除旧的失败 Job。先核对各 Job 的所属 CronJob、完成状态和产出，再决定是否补跑。补跑可能重复写数据或执行支付，应先确认任务的重试行为。
+
+预期结果：新执行的 Job 为 \`Complete=True\`，业务产出也符合预期。清理前先保留失败日志，并按既有流程确认；删除失败 Job 也会删除其 Pod。清理后等待下一次采集和规则评估，旧 Job 的告警应消失。不要仅为静音而删除尚未查清的失败任务。参考 [Kubernetes Job 终止与清理](https://kubernetes.io/docs/concepts/workloads/controllers/job/#job-termination-and-cleanup)。`,
       notes: [
-        '只要失败的 Job 对象还在，这条告警就会一直响，哪怕后来的执行已经成功。排查完把这个 Job 删掉。CronJob 保留多少个失败 Job 由 `failedJobsHistoryLimit` 控制（默认 1）。',
+        '只要失败的 Job 对象还在，这条告警就会一直响，哪怕后来的执行已经成功。清理前先保留日志，并验证新执行的结果。CronJob 保留多少个失败 Job 由 `failedJobsHistoryLimit` 控制（默认 1）。',
       ],
     },
   },
